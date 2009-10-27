@@ -30,13 +30,13 @@ class XiPTViewApplications extends JView
 		
 		// Set the titlebar text
 		
-		JToolBarHelper::title( JText::_( 'Edit Applications' ), 'applications' );
+		JToolBarHelper::title( JText::_( 'EDIT APPLICATIONS' ), 'applications' );
 
 		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=Applications');
+		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
 		JToolBarHelper::divider();
-		JToolBarHelper::save('save','Save');
-		JToolBarHelper::cancel( 'cancel', 'Close' );
+		JToolBarHelper::save('save',JText::_('SAVE'));
+		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 		parent::display($tpl);
 	}
 	
@@ -44,7 +44,7 @@ class XiPTViewApplications extends JView
 	{
 
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Applications' ), 'Applications' );
+		JToolBarHelper::title( JText::_( 'APPLICATIONS' ), 'applications' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');

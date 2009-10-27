@@ -7,7 +7,7 @@ $aModel			= XiFactory::getModel( 'applications' );
 
 	
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo JText::_('Assign application as per profile types for your site.');?>
+	<?php echo JText::_('ASSIGN APPLICATION AS PER PROFILE TYPES FOR YOUR SITE.');?>
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
@@ -15,7 +15,7 @@ $aModel			= XiFactory::getModel( 'applications' );
 <table cellspacing="0" class="admintable" border="0" width="100%">
 	<tbody>
 		<tr>
-			<td class="key"><?php echo JText::_('Name');?></td>
+			<td class="key"><?php echo JText::_('NAME');?></td>
 			<td>:</td>
 			<td>
 				<?php echo $aModel->getPluginNamefromId($this->applicationId);?>
@@ -24,7 +24,7 @@ $aModel			= XiFactory::getModel( 'applications' );
 		<br>
 		<br>
 		<tr>
-			<td class="key"><?php echo JText::_('For ProfileTypes');?></td>
+			<td class="key"><?php echo JText::_('FOR PROFILETYPES');?></td>
 			<td>:</td>
 			<td colspan="4"> <?php echo XiPTHelperApplications::buildProfileTypesforApplication($this->applicationId);?></td>			
 		</tr>

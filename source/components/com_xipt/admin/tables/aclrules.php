@@ -18,7 +18,7 @@ class XiPTTableAclRules extends JTable
 	var $id					= null;
 	var $rulename			= null;
 	var $pid				= null;
-	var $otherpid				= null;
+	var $otherpid			= null;
 	var $feature			= null;
 	var $taskcount 			= null;
 /*TODO : Will include this feature in next releases.
@@ -30,7 +30,7 @@ class XiPTTableAclRules extends JTable
 	var $published			= null;
 	function __construct(&$db)
 	{
-		parent::__construct('#__xipt_AclRules','id', $db);
+		parent::__construct('#__xipt_aclrules','id', $db);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ class XiPTTableAclRules extends JTable
 			$this->feature			= '';
 			$this->taskcount		= '0';
 			$this->redirecturl		= 'index.php?option=com_community';
-			$this->message			= '';
+			$this->message			= JText::_('YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE');
 			$this->published		= true;
 		}
 		else

@@ -26,7 +26,7 @@ $aModel	= XiFactory::getModel( 'applications' );
 </script>
 
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo JText::_('Create new Rule for your site.');?>
+	<?php echo JText::_('CREATE NEW RULE FOR YOUR SITE.');?>
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
@@ -34,24 +34,24 @@ $aModel	= XiFactory::getModel( 'applications' );
 <table cellspacing="0" class="admintable" border="0" width="100%">
 	<tbody>
 		<tr>
-			<td class="key"><?php echo JText::_('Rule Name');?></td>
+			<td class="key"><?php echo JText::_('RULE NAME');?></td>
 			<td>:</td>
 			<td>
 				<input type="text" size="50" value="<?php echo $this->row->rulename;?>" name="rulename" />
 			</td>
-			<td class="key"><?php echo JText::_('Published');?></td>
+			<td class="key"><?php echo JText::_('PUBLISHED');?></td>
 			<td>:</td>
 			<td>
 				<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->row->published);?></span>
 			</td>
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('Self Profiletype');?></td>
+			<td class="key"><?php echo JText::_('SELF PROFILETYPE');?></td>
 			<td>:</td>
 			<td>
 				<span><?php echo XiPTHelperAclRules::_buildTypesforaclrules($this->row->pid, 'profiletype');?></span>
 			</td>
-			<td class="key"><?php echo JText::_('Other Profiletype');?></td>
+			<td class="key"><?php echo JText::_('OTHER PROFILETYPE');?></td>
 			<td>:</td>
 			<td>
 				<span><?php echo XiPTHelperAclRules::_buildTypesforaclrules($this->row->otherpid, 'otherprofiletype');?></span>
@@ -59,13 +59,13 @@ $aModel	= XiFactory::getModel( 'applications' );
 			
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('Control the feature');?></td>
+			<td class="key"><?php echo JText::_('CONTROL THE FEATURE');?></td>
 			<td>:</td>
 			<td>
 				<?php echo XiPTHelperAclRules::_buildTypesforaclrules($this->row->feature, 'feature');?>
 			</td >
 			
-			<td class="key"><?php echo JText::_('Feature Limit');?></td>
+			<td class="key"><?php echo JText::_('FEATURE LIMIT');?></td>
 			<td>:</td>
 			<td>
 				<input type="text" value="<?php echo $this->row->taskcount;?>" name="taskcount" />
@@ -73,14 +73,14 @@ $aModel	= XiFactory::getModel( 'applications' );
 			
 		</tr>
 		<tr>
-			<td class="key" ><?php echo JText::_('Message to display when user violates this rule');?></td>
+			<td class="key" ><?php echo JText::_('MESSAGE TO DISPLAY WHEN USER VIOLATES THIS RULE');?></td>
 			<td>:</td>
 			<td colspan=4>
 				<input type="text" size="100" value="<?php echo $this->row->message;?>" name="message" />
 			</td>
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('Redirect URL when user violates this rule');?></td>
+			<td class="key"><?php echo JText::_('REDIRECT URL WHEN USER VIOLATES THIS RULE');?></td>
 			<td>:</td>
 			<td colspan="4">
 			<input type="text" size="100" value="<?php echo $this->row->redirecturl;?>" name="redirecturl" />

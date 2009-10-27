@@ -11,7 +11,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'remove':
-			if( !confirm( '<?php echo JText::_('Are you sure you want to delete this profile type?'); ?>' ) )
+			if( !confirm( '<?php echo JText::_('ARE YOU SURE YOU WANT TO DELETE THIS PROFILE TYPE?'); ?>' ) )
 			{
 				break;
 			}
@@ -28,40 +28,40 @@ function submitbutton( action )
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<?php echo JText::_( 'Num' ); ?>
+				<?php echo JText::_( 'NUM' ); ?>
 			</th>
 			<th width="1%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
 			</th>
 			<th>
-				<?php echo JText::_( 'Name' ); ?>
+				<?php echo JText::_( 'NAME' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'Group' ); ?>
+				<?php echo JText::_( 'GROUP' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'Privacy' ); ?>
+				<?php echo JText::_( 'PRIVACY' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'Template' ); ?>
+				<?php echo JText::_( 'TEMPLATE' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'Joomla User Type' ); ?>
+				<?php echo JText::_( 'JOOMLA USER TYPE' ); ?>
 			</th>
 			<th width="20%">
-				<?php echo JText::_( 'Avatar' ); ?>
+				<?php echo JText::_( 'AVATAR' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'Require Approval' ); ?>
+				<?php echo JText::_( 'REQUIRE APPROVAL' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'Allow Template' ); ?>
+				<?php echo JText::_( 'ALLOW TEMPLATE' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'Published' ); ?>
+				<?php echo JText::_( 'PUBLISHED' ); ?>
 			</th>
 			<th width="5%" align="center">
-				<?php echo JText::_( 'Ordering' ); ?>
+				<?php echo JText::_( 'ORDERING' ); ?>
 			</th>
 		</tr>		
 	</thead>

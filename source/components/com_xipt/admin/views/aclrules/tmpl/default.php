@@ -13,7 +13,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'remove':
-			if( !confirm( '<?php echo JText::_('Are you sure you want to remove this rule?'); ?>' ) )
+			if( !confirm( '<?php echo JText::_('ARE YOU SURE YOU WANT TO REMOVE THIS RULE?'); ?>' ) )
 			{
 				break;
 			}
@@ -30,34 +30,34 @@ function submitbutton( action )
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<?php echo JText::_( 'Num' ); ?>
+				<?php echo JText::_( 'NUM' ); ?>
 			</th>
 			<th width="1%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
 			</th>
 			<th>
-				<?php echo JText::_( 'Rule Name' ); ?>
+				<?php echo JText::_( 'RULE NAME' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'Profiletype' ); ?>
+				<?php echo JText::_( 'PROFILETYPE' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'Other Profiletype' ); ?>
+				<?php echo JText::_( 'OTHER PROFILETYPE' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'Feature to Control' ); ?>
+				<?php echo JText::_( 'FEATURE TO CONTROL' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'Task Limit' ); ?>
+				<?php echo JText::_( 'TASK LIMIT' ); ?>
 			</th>
 			<th width="20%">
-				<?php echo JText::_( 'Redirect URL' ); ?>
+				<?php echo JText::_( 'REDIRECT URL' ); ?>
 			</th>
 			<th width="20%">
-				<?php echo JText::_( 'Message' ); ?>
+				<?php echo JText::_( 'MESSAGE' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'Published' ); ?>
+				<?php echo JText::_( 'PUBLISHED' ); ?>
 			</th>
 		</tr>		
 	</thead>

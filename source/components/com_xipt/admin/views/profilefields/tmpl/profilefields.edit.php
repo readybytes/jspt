@@ -18,7 +18,7 @@ require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.
 <table class="adminlist" cellspacing="1">
 		<tr>
 			<td width="30%">
-				<?php echo JText::_( 'Field Name' ); ?> :
+				<?php echo JText::_( 'FIELD NAME' ); ?> :
 			</td>
 			<td width="50%">
 					<?php echo XiPTHelperProfileFields::get_fieldname_from_fieldid($this->fieldid); ?>
@@ -26,7 +26,7 @@ require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.
 		</tr>
 		<tr>
 			<td class="key">
-				<?php echo JText::_('For ProfileTypes');?> :
+				<?php echo JText::_('FOR PROFILETYPES');?> :
 			</td>
 			<td colspan="4"> 
 				<?php echo XiPTHelperProfileFields::buildProfileTypes($this->fieldid);?>

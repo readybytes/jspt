@@ -8,13 +8,13 @@ require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.
 	<thead>
 		<tr>
 			<th width="1%">
-				<?php echo JText::_( 'Num' ); ?>
+				<?php echo JText::_( 'NUM' ); ?>
 			</th>
 			<th width="29%" class="title">
-					<?php echo JText::_( 'Field Name' ); ?>
+					<?php echo JText::_( 'FIELD NAME' ); ?>
 			</th>
 			<th width="15%" class="title">
-					<?php echo JText::_( 'Profiletypes' ); ?>
+					<?php echo JText::_( 'PROFILETYPES' ); ?>
 			</th>
 			<th width="40%" class="title">
 					<?php echo ""; ?>

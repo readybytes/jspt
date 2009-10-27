@@ -3,7 +3,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-//require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
+require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
  
 class XiPTControllerAclRules extends JController {
     /**
@@ -74,7 +74,7 @@ class XiPTControllerAclRules extends JController {
 		if( $isValid )
 		{
 			$id = $row->store();
-			$msg = "Rule Saved";
+			$msg = JText::_('RULE SAVED');
 		}
 
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
@@ -103,7 +103,7 @@ function remove()
 				if(!$row->delete( $id ))
 				{
 					// If there are any error when deleting, we just stop and redirect user with error.
-					$message	= JText::_('Error in removing Rule');
+					$message	= JText::_('ERROR IN REMOVING RULE');
 					$mainframe->redirect( 'index.php?option=com_xipt&view=aclrules' , $message);
 					exit;
 				}
@@ -113,7 +113,7 @@ function remove()
 				
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
-		$message	= $count.' '.JText::_('Rule Removed');		
+		$message	= $count.' '.JText::_('RULE REMOVED');		
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $message);
 	}
@@ -137,7 +137,7 @@ function remove()
 		{
 			$jaclModel->updatePublish($id,1);
 		}
-		$msg = JText::sprintf( $count.' Items published' );
+		$msg = JText::sprintf( $count.' ITEMS PUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
 	}
@@ -160,7 +160,7 @@ function remove()
 		{
 			$jaclModel->updatePublish($id,0);
 		}
-		$msg = JText::sprintf( $count.' Items unpublished' );
+		$msg = JText::sprintf( $count.' ITEMS UNPUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
 	}

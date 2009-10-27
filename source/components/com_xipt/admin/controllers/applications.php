@@ -3,8 +3,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
-//require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'applications.php' );
+require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
+require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'applications.php' );
  
 class XiPTControllerApplications extends JController {
     /**
@@ -77,7 +77,7 @@ class XiPTControllerApplications extends JController {
 					{
 						  // print_r("pid = ".$data['profileTypes'.$i]);
 						  XiPTHelperApplications::addApplicationProfileType($post['id'], $type);
-						  $msg = "Application Saved";
+						  $msg = JText::_('APPLICATION SAVED');
 					}
 				}
 			}

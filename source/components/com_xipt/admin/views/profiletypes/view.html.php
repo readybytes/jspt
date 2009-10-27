@@ -36,13 +36,13 @@ class XiPTViewProfiletypes extends JView
 		
 		$this->assign( 'row' , $row );
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Edit Profiletype' ), 'profiletypes' );
+		JToolBarHelper::title( JText::_( 'EDIT PROFILETYPE' ), 'profiletypes' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profiletypes');
 		JToolBarHelper::divider();
-		JToolBarHelper::save('save','Save');
-		JToolBarHelper::cancel( 'cancel', 'Close' );
+		JToolBarHelper::save('save',JText::_('SAVE'));
+		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 		parent::display($tpl);
 	}
 	
@@ -57,16 +57,16 @@ class XiPTViewProfiletypes extends JView
 	{
 
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Profiletypes' ), 'profiletypes' );
+		JToolBarHelper::title( JText::_( 'PROFILETYPES' ), 'profiletypes' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::divider();
-		JToolBarHelper::publishList('publish', JText::_( 'Publish' ));
-		JToolBarHelper::unpublishList('unpublish', JText::_( 'Unpublish' ));
+		JToolBarHelper::publishList('publish', JText::_( 'PUBLISH' ));
+		JToolBarHelper::unpublishList('unpublish', JText::_( 'UNPUBLISH' ));
 		JToolBarHelper::divider();
-		JToolBarHelper::trash('remove', JText::_( 'Delete' ));
-		JToolBarHelper::addNew('edit', JText::_( 'Add List' ));
+		JToolBarHelper::trash('remove', JText::_( 'DELETE' ));
+		JToolBarHelper::addNew('edit', JText::_( 'ADD LIST' ));
 		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	

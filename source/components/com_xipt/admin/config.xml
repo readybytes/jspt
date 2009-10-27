@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<params addpath="/administrator/components/com_xiprofiletypes/elements">
+	<params addpath="/administrator/components/com_xipt/elements">
 	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="Restrict Registration" description="" />
 		<param name="jspt_during_reg" type="radio" default="1" label="Allow User to Select Profile Type DURING Registration" description="If enabled we will show, choose your account during registration. If you disable it, a default usertype will be marked for user">
 			<option value="0">No</option>

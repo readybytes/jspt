@@ -22,14 +22,13 @@ class XiPTViewProfileFields extends JView
 	{
 		$this->assign('fieldid', $fieldId);
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Edit Field' ), 'profilefields' );
+		JToolBarHelper::title( JText::_( 'EDIT FIELD' ), 'profilefields' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profilefields');
 		JToolBarHelper::divider();
-		//JToolBarHelper::trash('save', JText::_( 'Save' ));
-		JToolBarHelper::save('save','Save');
-		JToolBarHelper::cancel( 'cancel', 'Close' );
+		JToolBarHelper::save('save',JText::_('SAVE'));
+		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 		parent::display($tpl);
 	}
 	
@@ -44,7 +43,7 @@ class XiPTViewProfileFields extends JView
 	{
 
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Profile Fields' ), 'profilefields' );
+		JToolBarHelper::title( JText::_( 'PROFILE FIELDS' ), 'profilefields' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');

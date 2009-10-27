@@ -2,8 +2,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profiletypes.php' );
-//require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
+require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profiletypes.php' );
+require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
  
 class XiPTControllerProfiletypes extends JController {
     /**
@@ -91,7 +91,7 @@ class XiPTControllerProfiletypes extends JController {
 				if($post['resetAll'])
 					XiPTHelperProfiletypes::addAllExistingUserToProperGroups($id,$row->group,$oldGroupId);
 					
-				$msg = JText::_('Profiletype Saved');
+				$msg = JText::_('PROFILETYPE SAVED');
 			}
 		}
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -119,7 +119,7 @@ class XiPTControllerProfiletypes extends JController {
 				if(!$row->delete( $id ))
 				{
 					// If there are any error when deleting, we just stop and redirect user with error.
-					$message	= JText::_('Error in removing list');
+					$message	= JText::_('ERROR IN REMOVING PROFILETYPE');
 					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
 					exit;
 				}
@@ -129,7 +129,7 @@ class XiPTControllerProfiletypes extends JController {
 				
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
-		$message	= $count.' '.JText::_('Profiletype Removed');		
+		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $message);
 	}
@@ -153,7 +153,7 @@ class XiPTControllerProfiletypes extends JController {
 		{
 			$pModel->updatePublish($id,1);
 		}
-		$msg = JText::sprintf( $count.' Items published' );
+		$msg = JText::sprintf( $count.' ITEMS PUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);	}
 	
@@ -175,7 +175,7 @@ class XiPTControllerProfiletypes extends JController {
 		{
 			$pModel->updatePublish($id,0);
 		}
-		$msg = JText::sprintf( $count.' Items unpublished' );
+		$msg = JText::sprintf( $count.' ITEMS UNPUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);
 	}

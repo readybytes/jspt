@@ -15,13 +15,13 @@ require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
 			</th>
 			<th>
-				<?php echo JText::_( 'JomSocial Application Name' ); ?>
+				<?php echo JText::_( 'JOMSOCIAL APPLICATION NAME' ); ?>
 			</th>
 			<th width="20%">
-				<?php echo JText::_( 'Available to Profile Types' ); ?>
+				<?php echo JText::_( 'AVAILABLE TO PROFILE TYPES' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'Application Id' ); ?>
+				<?php echo JText::_( 'APPLICATION ID' ); ?>
 			</th>
 		</tr>		
 	</thead>

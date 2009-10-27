@@ -12,7 +12,6 @@ jimport( 'joomla.application.component.controller' );
 jimport('joomla.application.component.model');
 JModel::addIncludePath(JPATH_BASE.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'models');
 JTable::addIncludePath( JPATH_BASE.DS.'administrator'.DS.'components'.DS.'com_xipt' . DS . 'tables' );
-jimport('joomla.application.component.helper');
 
 JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 

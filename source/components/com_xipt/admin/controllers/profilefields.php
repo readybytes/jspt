@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php' );
+require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php' );
 
 class XiPTControllerProfileFields extends JController {
     /**
@@ -60,7 +60,7 @@ class XiPTControllerProfileFields extends JController {
 			$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
 			
 			if(!empty($allTypes))
-				XiPTHelperProfile::remFieldsProfileType($post['id']);
+				XiPTHelperProfileFields::remFieldsProfileType($post['id']);
 				
 			$allTypes[] = 0;
 			$profileTypesCount = $post['profileTypesCount'];
@@ -68,9 +68,9 @@ class XiPTControllerProfileFields extends JController {
 			foreach($allTypes as $type)
 			{
 				if(array_key_exists('profileTypes'.$type,$post))
-					XiPTHelperProfile::addFieldsProfileType($post['id'], $post['profileTypes'.$type]);
+					XiPTHelperProfileFields::addFieldsProfileType($post['id'], $post['profileTypes'.$type]);
 			}
-			$msg = "Fields Saved";
+			$msg = JText::_('FIELDS SAVED');
 		}
 		$link = JRoute::_('index.php?option=com_xipt&view=profilefields', false);
 		$mainframe->redirect($link, $msg);

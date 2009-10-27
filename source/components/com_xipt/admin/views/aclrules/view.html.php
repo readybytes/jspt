@@ -33,13 +33,13 @@ class XiPTViewAclRules extends JView
 		
 		// Set the titlebar text
 		
-		JToolBarHelper::title( JText::_( 'Edit Jspt Rules' ), 'XiPTs' );
+		JToolBarHelper::title( JText::_( 'EDIT ACL RULES' ), 'aclrules' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=AclRules');
 		JToolBarHelper::divider();
-		JToolBarHelper::save('save','Save');
-		JToolBarHelper::cancel( 'cancel', 'close' );
+		JToolBarHelper::save('save',JText::_('SAVE'));
+		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 		//JToolBarHelper::
 		
 		parent::display($tpl);
@@ -47,35 +47,20 @@ class XiPTViewAclRules extends JView
 	}
 	
 	
-function _buildRadio($status, $fieldname, $values){
-		$html	= '<span>';
-		
-		if($status || $status == '1'){
-			$html	.= '<input type="radio" name="' . $fieldname . '" value="1" checked="checked" />' . $values[0];
-			$html	.= '<input type="radio" name="' . $fieldname . '" value="0" />' . $values[1];
-		} else {
-			$html	.= '<input type="radio" name="' . $fieldname . '" value="1" />' . $values[0];
-			$html	.= '<input type="radio" name="' . $fieldname . '" value="0" checked="checked" />' . $values[1];	
-		}
-		$html	.= '</span>';
-		
-		return $html;
-	}
-	
 	function setToolBar()
 	{
 
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Jspt Acl' ), 'AclRules' );
+		JToolBarHelper::title( JText::_( 'ACL RULES' ), 'AclRules' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::divider();
-		JToolBarHelper::publishList('publish', JText::_( 'Publish' ));
-		JToolBarHelper::unpublishList('unpublish', JText::_( 'Unpublish' ));
+		JToolBarHelper::publishList('publish', JText::_( 'PUBLISH' ));
+		JToolBarHelper::unpublishList('unpublish', JText::_( 'UNPUBLISH' ));
 		JToolBarHelper::divider();
-		JToolBarHelper::trash('remove', JText::_( 'Delete' ));
-		JToolBarHelper::addNew('edit', JText::_( 'Add Acl Rules' ));
+		JToolBarHelper::trash('remove', JText::_( 'DELETE' ));
+		JToolBarHelper::addNew('edit', JText::_( 'ADD ACL RULES' ));
 	}
 }
 ?>
