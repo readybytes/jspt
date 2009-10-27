@@ -68,6 +68,7 @@ function submitbutton( action )
 <?php
 	$count	= 0;
 	$i		= 0;
+	if(!empty($this->fields))
 	foreach($this->fields as $field)
 	{
 		$input	= JHTML::_('grid.id', $count, $field->id);

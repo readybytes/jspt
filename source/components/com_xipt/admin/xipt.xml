@@ -7,10 +7,10 @@
 	<authorUrl>http://www.joomlaxi.com</authorUrl>
 	<copyright>All rights reserved</copyright>
 	<license>Commercial and Non-Redistributable</license>
-	<version>2.0.3</version>
+	<version>2.0.4</version>
 	<description>XIPT is a component for JomSocial : Add's profile customization as per user types</description>
-	<installfile>admin/install.xipt.php</installfile>
-	<uninstallfile>admin/uninstall.xipt.php</uninstallfile>
+	<installfile>install.xipt.php</installfile>
+	<uninstallfile>uninstall.xipt.php</uninstallfile>
 	<files folder="site">
 		<filename>index.html</filename>
 		<filename>libraries/profiletypes.php</filename>
