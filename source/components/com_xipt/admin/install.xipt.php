@@ -36,10 +36,10 @@ function com_install()
 
 function setup_database()
 {	
-/*	
+
 	if(create_tables() == false)
 		return false;
-*/	
+	
 	return true;
 }
 
