@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<params addpath="/administrator/components/com_xiprofiletypes/elements">
+	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="Restrict Registration" description="" />
+		<param name="jspt_during_reg" type="radio" default="1" label="Allow User to Select Profile Type DURING Registration" description="If enabled we will show, choose your account during registration. If you disable it, a default usertype will be marked for user">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="jspt_allow_typechange" type="radio" default="1" label="Allow User to Change Profile Type AFTER registration" description="You can disable account type selection/change During Edit Profile Detail">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="profiletypes" type="profiletypes" default="Default Profile Type" label="Default Profiletype" description="All the existing user\'s before install multiple profiletype have no profile type set. Use this profiletype for those users" />
+		<param name="jspt_show_radio" type="radio" default="1" label="During registration Show Choose Account Type as" description="You can disable account type selection/change During Edit Profile Detail">
+			<option value="0">Radio Options</option>
+			<option value="1">Select Box</option>
+		</param>
+		<param name="jspt_allow_templatechange" type="radio" default="1" label="Allow Template Selection" description="You can enable/disable template selection/change During Edit Profile Detail">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="aecmessage" type="radio" default="b" label="Display Message After Plan Selection" description="For those who is using AEC , Select what to display after plan selection">
+			<option value="b">Both , Plan and Profiletype</option>
+			<option value="pl">Only Plan</option>
+			<option value="pt">Only Profiletype</option>
+		</param>
+		<param name="@spacer" type="spacer" default="Restrict Registration" label="Restrict Registration" description="" />
+		<param name="jspt_restrict_reg_check" type="radio" default="0" label="Enable Restrict Registration Check" description="You can enable/disable template selection/change During Edit Profile Detail">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="jspt_prevent_username" type="textarea" default="" label="Prevent these usernames from getting registered" rows="3" cols="30" description="Prevent these usernames from getting registered. Separate each one by ; character. Use * as wildcard. For example, you might want to deny usernames like webmaster; admin; info etc. You can use an asterisk (*) as a wildcard, so *webmaster* would block webmaster as well as thewebmaster, webmasters and so forth" />
+		<param name="jspt_allowed_email" type="textarea" default="" label="Allow only these email addresses to get registered" rows="3" cols="30" description="Allow only these email addresses to get registered. Separate each one by ; character. Use * as wildcard. You can limit which email addresses that can be registered. For example, a company can set up a site where only its own employees can register by specifying *@mycompany.com; *@joomlaxi.com " />
+		<param name="@spacer" type="spacer" default="Registration Configuration" label="Registration Configuration" description="" />
+		<param name="jspt_reg_page2" type="radio" default="0" label="Hide Profile Editing (Second Page) During Registration" description="If enabled, the second page will not be shown to user during registration.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="jspt_reg_avatar" type="radio" default="0" label="Hide Avatar-Selection-Page During Registration" description="If enabled, then Avatar Selection Page will not be shown to user during registration.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+</config>

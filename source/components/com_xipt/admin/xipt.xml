@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+	<name>XI PT</name>
+	<creationDate>2009-08-01</creationDate>
+	<author>Meenal Devpura</author>
+	<authorEmail>shyam@joomlaxi.com</authorEmail>
+	<authorUrl>http://www.joomlaxi.com</authorUrl>
+	<copyright>All rights reserved</copyright>
+	<license>Commercial and Non-Redistributable</license>
+	<version>1.0.5</version>
+	<description>XIPT is a component for JomSocial : Add's profile customization as per user types</description>
+	<installfile>install.xipt.php</installfile>
+	<uninstallfile>uninstall.xipt.php</uninstallfile>
+	<files>
+		<filename>index.html</filename>
+		<filename>libraries/profiletypes.php</filename>
+		<filename>libraries/index.html</filename>
+	</files>
+	<administration>
+		<menu link="option=com_xipt" >JomSocial Profile Types</menu>
+		<submenu>
+			<menu view="profiletypes" >Profile Types</menu>
+			<menu view="aclrules" >Acl Rules</menu>
+			<menu view="applications" >Applications</menu>
+			<menu view="profilefields" >Profile Fields</menu>
+		</submenu>
+		<files>
+			<filename>index.html</filename>
+			<filename>admin.xipt.php</filename>
+			<filename>config.xml</filename>
+			
+			<filename>controllers/index.html</filename>
+			<filename>controllers/profiletypes.php</filename>
+			<filename>controllers/profilefields.php</filename>
+			<filename>controllers/aclrules.php</filename>
+			<filename>controllers/applications.php</filename>
+
+			<filename>models/index.html</filename>
+			<filename>models/profiletypes.php</filename>
+			<filename>models/aclrules.php</filename>
+			<filename>models/applications.php</filename>
+			
+			<filename>helpers/index.html</filename>
+			<filename>helpers/profiletypes.php</filename>
+			<filename>helpers/profilefields.php</filename>
+			<filename>helpers/aclrules.php</filename>
+			<filename>helpers/applications.php</filename>
+			<filename>helpers/xiptcore.php</filename>
+			
+			<filename>elements/index.html</filename>
+			<filename>elements/profiletypes.php</filename>
+			
+			<filename>views/index.html</filename>
+			
+			<filename>views/profiletypes/index.html</filename>
+			<filename>views/profiletypes/view.html.php</filename>
+			<filename>views/profiletypes/tmpl/index.html</filename>
+			<filename>views/profiletypes/tmpl/default.php</filename>
+			<filename>views/profiletypes/tmpl/profiletypes.edit.php</filename>
+			
+			<filename>views/profilefields/index.html</filename>
+			<filename>views/profilefields/view.html.php</filename>
+			<filename>views/profilefields/tmpl/index.html</filename>
+			<filename>views/profilefields/tmpl/default.php</filename>
+			<filename>views/profilefields/tmpl/profilefields.edit.php</filename>
+			
+			<filename>views/aclrules/index.html</filename>
+			<filename>views/aclrules/view.html.php</filename>
+			<filename>views/aclrules/tmpl/index.html</filename>
+			<filename>views/aclrules/tmpl/default.php</filename>
+			<filename>views/aclrules/tmpl/aclrules.edit.php</filename>
+			
+			<filename>views/applications/index.html</filename>
+			<filename>views/applications/view.html.php</filename>
+			<filename>views/applications/tmpl/index.html</filename>
+			<filename>views/applications/tmpl/default.php</filename>
+			<filename>views/applications/tmpl/applications.edit.php</filename>
+
+			<filename>tables/index.html</filename>
+			<filename>tables/profiletypes.php</filename>
+			<filename>tables/profilefields.php</filename>
+			<filename>tables/aclrules.php</filename>
+			<filename>tables/applications.php</filename>
+			
+		</files>
+	</administration>
+</install>
