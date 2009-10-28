@@ -64,4 +64,35 @@
 	<target name="svn_lastrevision" depends="config">
 		<svnlastrevision workingcopy="${dir.local}" propertyname="svn.lastrevision" />
 	</target>
+
+	<target name="install_joomla">
+	<!-- decide folder name : custom  + user_name + cur_date + svn_ver-->
+	
+	<!-- Copy Joomla Folder to ROOT // FOLDERNAME  -->
+		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
+		<copy todir="${joomla.rootpath}/${joomla.folder}">
+			<fileset dir="${joomla.bakpath}">
+				<include name="*" />
+			</fileset>
+		</copy>
+
+		<!-- replace configuration-->
+		<reflexive>
+			<fileset dir="${joomla.rootpath}/${joomla.folder}">
+			    <include name="configuration.php">
+			</fileset>
+			 <filterchain>
+				<replacetokens>
+				    <token key="##SITENAME##" 		value="${joomla.sitename}/"/>
+				    <token key="##DBUSER##"   		value="${joomla.dbuser}"/>
+				    <token key="##DBPASSWORD##"   	value="${joomla.dbpassword}"/>
+				    <token key="##DBNAME##"   		value="${joomla.dbname}"/>
+				    <token key="##DBPREFIX##"   	value="${joomla.dbprefix}"/>
+				    <token key="##JOOMLAFOLDER##"   	value="${joomla.rootpath}/${joomla.folder}"/>
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+	<!-- fill data base -->
+
+	</target> 
 </project>
