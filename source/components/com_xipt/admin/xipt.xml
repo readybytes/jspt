@@ -7,14 +7,27 @@
 	<authorUrl>http://www.joomlaxi.com</authorUrl>
 	<copyright>All rights reserved</copyright>
 	<license>Commercial and Non-Redistributable</license>
-	<version>2.0.5</version>
+	<version>2.0.6</version>
 	<description>XIPT is a component for JomSocial : Add's profile customization as per user types</description>
 	<installfile>install.xipt.php</installfile>
 	<uninstallfile>uninstall.xipt.php</uninstallfile>
 	<files folder="site">
 		<filename>index.html</filename>
+		<filename>xipt.php</filename>
+		
 		<filename>libraries/profiletypes.php</filename>
+		<filename>libraries/pluginhandler.php</filename>
 		<filename>libraries/index.html</filename>
+		
+		<filename>controllers/registration.php</filename>
+		<filename>controllers/index.html</filename>
+		
+		<filename>views/index.html</filename>
+		<filename>views/registration/view.html.php</filename>
+		<filename>views/registration/index.html</filename>
+		<filename>views/registration/tmpl/default.php</filename>
+		<filename>views/registration/tmpl/index.html</filename>
+		
 	</files>
 	<administration>
 		<menu link="option=com_xipt" >JomSocial Profile Types</menu>

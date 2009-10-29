@@ -10,17 +10,6 @@ defined('_JEXEC') or die('Restricted access');
 require_once (JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php');
 require_once (JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 
-/*Langauge file will be independent now */
-$lang =& JFactory::getLanguage();
-if($lang)
-	$lang->load( 'com_community_jspt' );
-	
-/* Also attach style sheet now  */
-$document =& JFactory::getDocument();
-$css	= JURI::base() . 'components/com_community/templates/default/css/jspt.css';
-if($document)
-	$document->addStyleSheet($css);
-		
 
 class XiPTLibraryProfiletypes
 {

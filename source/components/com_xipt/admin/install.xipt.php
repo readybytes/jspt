@@ -68,6 +68,10 @@ function create_tables()
 					`privacy` varchar(20) NOT NULL default \'friends\',
 					`template` varchar(50) NOT NULL default \'default\', 
 					`jusertype` varchar(50) NOT NULL default \'Registered\', 
+					`avatar` varchar(250) NOT NULL default \'components/com_community/assets/default.jpg\',
+					`approve` tinyint(1) NOT NULL default \'0\',
+					`allowt` tinyint(1) NOT NULL default \'0\',
+					`group` int(11) NOT NULL default \'0\',
 					PRIMARY KEY  (`id`) 
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
 	$db->setQuery( $query );
