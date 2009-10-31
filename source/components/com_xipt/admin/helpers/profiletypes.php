@@ -2,6 +2,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+define('XIPT_NONE','XIPT_NONE');
 
 require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
 
@@ -143,12 +144,13 @@ function getProfileTypeData($id,$what='name')
 	
 function getProfileTypeName($id)
 {
+			
 		if($id==0 || empty($id))
-			return "ALL";
+			return JText::_("All");
 
 		$db			=& JFactory::getDBO();
 		$query		= 'SELECT '.$db->nameQuote('name')
-					. ' FROM ' . $db->nameQuote( '#__XiPT_profiletypes' ) 
+					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
 					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id);
 		$db->setQuery( $query );
 		return $db->loadResult();
@@ -157,16 +159,20 @@ function getProfileTypeName($id)
 
 
 
-function getProfileTypeArray()
+function getProfileTypeArray($all = '')
 {
 	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('id').' FROM ' . $db->nameQuote( '#__XiPT_profiletypes' ) ;
+	$query		= 'SELECT '.$db->nameQuote('id').' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
 	$db->setQuery( $query );
 	$results = $db->loadObjectList();
 	$retVal	= array();
 	if($results)
 		foreach ($results as $result)
 			$retVal[]=$result->id;
+	
+	//add all value also
+	if($all == 'ALL')
+		$retVal[] = 0;
 		
 	return $retVal;
 }	

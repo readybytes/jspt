@@ -14,8 +14,9 @@ class XiPTViewRegistration extends JView
 {
     function display($tpl = null){
   		
-    	$profileTypeHtml = XiPTLibraryProfiletypes::getProfiletypeFieldHTML(0);
-    	$this->assign( 'profileTypeHtml' , $profileTypeHtml );
+    	$seletedPTypeID = JRequest::getVar('ptypeid','');
+    	$profileTypes = XiPTLibraryProfiletypes::getSelectedProfileTypesArray($seletedPTypeID);
+    	$this->assign( 'profileTypes' , $profileTypes );
 		parent::display( $tpl );
     }
 }

@@ -2,6 +2,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+define('XIPT_NONE','XIPT_NONE');
 
 require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profiletypes.php' );
 JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
@@ -51,69 +52,83 @@ function get_fieldname_from_fieldid($fieldId)
 		return $result[0]->fieldcode;;
 }
 
-// return row from row id of fields values table
-function getProfileTypeNamesForFieldId($fid)
-{
-	if(empty($fid))
-		return "NONE";
-		
-	//Load all profiletypes for the field
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('pid')
-				. ' FROM ' . $db->nameQuote( '#__XiPT_profilefields' ) 
-				. ' WHERE '.$db->nameQuote('fid').'='.$db->Quote($fid);
-	$db->setQuery( $query );
-	$results = $db->loadObjectList();
-	
-	if(!$results)
-		return "NONE";
-	
-	$retVal = '';
-	$i=0;
-	foreach($results as $result)
+	// return row from row id of fields values table
+	function getProfileTypeNamesForFieldId($fid)
 	{
-		if($i)
-			$retVal .=',';
+		assert($fid);
+
+		$selected = array();
+		$selected = XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid);
 		
-		$retVal .= XiPTHelperProfiletypes::getProfileTypeName($result->pid);
-		$i++;
-	}
-	return $retVal;
-}
-function getProfileTypeArrayForFieldId($fid)
-{
-	$retVal	= array();
-	if(empty($fid))
-	{
-		$retVal[] = -1;
+		//if selected is empty means field is invisible, then return none
+		if(empty($selected))
+			return JText::_("NONE");
+		
+		//if 0 exist in selected ptype means , field is available to all
+		if(in_array('0',$selected))
+			return XiPTHelperProfiletypes::getProfileTypeName(0);
+			
+		$retVal = '';
+		
+		foreach($selected as $pid) {
+		   //echo $pid;
+	     		if(in_array($pid,$selected)) {
+			        $retVal .= XiPTHelperProfiletypes::getProfileTypeName($pid);
+			        $retVal .=','; 
+			    }
+		}
+		       
 		return $retVal;
 	}
+
+function getProfileTypeArrayForFieldId($fid)
+{
+	assert($fid);
 		
 	//Load all profiletypes for the field
 	$db			=& JFactory::getDBO();
 	$query		= 'SELECT '.$db->nameQuote('pid')
-				. ' FROM ' . $db->nameQuote( '#__XiPT_profilefields' ) 
+				. ' FROM ' . $db->nameQuote( '#__xipt_profilefields' ) 
 				. ' WHERE '.$db->nameQuote('fid').'='.$db->Quote($fid);
 	$db->setQuery( $query );
 	$results = $db->loadObjectList();
 	
+	$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
+	
+	$notselected = array();
+	$selected = array();
+	//means there is no bound ptype , so we will retrun all ptypes
+	//we store ptype that is not required for that field
+	//so empty results means field is applicable to all.
+	if(empty($results)) {
+		$selected[] = 0;
+		return $selected;
+		//return $allTypes;
+	}
+		
+	
+	//if none exist in result then return empty array
+	if(in_array('XIPT_NONE',$notselected))
+		return $selected;
 	
 	if($results)
 		foreach ($results as $result)
-		{
-			//print_r($result);
-			$retVal[]=$result->pid;
-		}
-	return $retVal;
+			$notselected[]=$result->pid;
+
+	foreach($allTypes as $pid) {
+		   //echo $pid;
+	     		if(!in_array($pid,$notselected)) 
+			        $selected[] = $pid;
+	}
+	
+	return $selected;
 }
 
 
 function buildProfileTypes( $fid )
 	{
 		$selectedTypes 	= XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid);		
-		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
-		// Add ALL also
-		$allTypes[] = 0;
+		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray('ALL');
 		
 		$html	= '';
 		

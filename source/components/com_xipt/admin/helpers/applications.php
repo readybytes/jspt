@@ -19,7 +19,7 @@ function getProfileTypeNameforApplication($id)
 
 		$db			=& JFactory::getDBO();
 		$query		= 'SELECT '.$db->nameQuote('name')
-					. ' FROM ' . $db->nameQuote( '#__XiPT_profiletypes' ) 
+					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
 					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id);
 		$db->setQuery( $query );
 		return $db->loadResult();
@@ -27,140 +27,107 @@ function getProfileTypeNameforApplication($id)
 
 function getProfileTypeNamesForApplicationId($aid)
 {
-	if(empty($aid))
-		return "ALL";
+	
+	assert($aid);
+
+		$selected = array();
+		$selected = XiPTHelperApplications::getProfileTypeArrayForApplicationId($aid);
 		
-	//Load all profiletypes for the field
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('profiletype')
-				. ' FROM ' . $db->nameQuote( '#__XiPT_Applications' ) 
-				. ' WHERE '.$db->nameQuote('applicationid').'='.$db->Quote($aid);
-	$db->setQuery( $query );
-	$results = $db->loadObjectList();
-	
-	//print_r("result = ".$results);
-	
-	if(!$results)
-		return "ALL";
-	
-  $notselected = array();
-	//create array of result profile type
-	foreach($results as $result)
-	{
-      $notselected[] = $result->profiletype;
-  }
-	
-	$retVal = '';
-	$i=0;
-	$allTypes		= XiPTHelperApplications::getProfileTypeArrayforApplication();
-	// Add ALL also
-	$allTypes[] = 0;
-	$profileTypeCount = count($allTypes)-1;
-	foreach($allTypes as $pid)
-	{
-	   //echo $pid;
-     		if(!in_array($pid,$notselected) && $pid != 0)
-		    {
-		        $retVal .= XiPTHelperApplications::getProfileTypeNameforApplication($pid);
-		        $retVal .=','; 
-		        $i++;
-		    }
-	}
-	
-	if($retVal == '')
-	       $retVal .= XiPTHelperApplications::getProfileTypeNameforApplication(0);
-	       
-	return $retVal;
+		//if selected is empty means field is invisible, then return none
+		if(empty($selected))
+			return JText::_("NONE");
+		
+		//if 0 exist in selected ptype means , field is available to all
+		if(in_array('0',$selected))
+			return XiPTHelperApplications::getProfileTypeNameforApplication(0);
+			
+		$retVal = '';
+		
+		foreach($selected as $pid) {
+		   //echo $pid;
+	     		if(in_array($pid,$selected)) {
+			        $retVal .= XiPTHelperApplications::getProfileTypeNameforApplication($pid);
+			        $retVal .=','; 
+			    }
+		}
+		       
+		return $retVal;
 }   
 
 
 function getProfileTypeArrayForApplicationId($aid)
 {
-	$retVal	= array();
-	if(empty($aid))
-	{
-		$retVal[] = -1;
-		return $retVal;
-	}
+	
+	assert($aid);
 		
 	//Load all profiletypes for the field
 	$db			=& JFactory::getDBO();
 	$query		= 'SELECT '.$db->nameQuote('profiletype')
-				. ' FROM ' . $db->nameQuote( '#__XiPT_Applications' ) 
+				. ' FROM ' . $db->nameQuote( '#__xipt_applications' ) 
 				. ' WHERE '.$db->nameQuote('applicationid').'='.$db->Quote($aid);
 	$db->setQuery( $query );
 	$results = $db->loadObjectList();
-	/*
-	$allProfiletypeId = getProfileTypeArrayforApplication();
-	if(empty($allProfiletypeId))
-	{
-      $retVal[] = 0;
-      return $retVal;
-  }
-  */
+	
+	$allTypes		= XiPTHelperApplications::getProfileTypeArrayforApplication();
+	
+	$notselected = array();
+	$selected = array();
+	//means there is no bound ptype , so we will retrun all ptypes
+	//we store ptype that is not required for that application
+	//so empty results means field is applicable to all.
+	if(empty($results)) {
+		$selected[] = 0;
+		return $selected;
+		//return $allTypes;
+	}
+		
+	
 	if($results)
-	{
 		foreach ($results as $result)
-		{
-			//print_r($result);
-			$retVal[]=$result->profiletype;
-		}
+			$notselected[]=$result->profiletype;
+
+	foreach($allTypes as $pid) {
+		   //echo $pid;
+	     		if(!in_array($pid,$notselected)) 
+			        $selected[] = $pid;
 	}
 	
-	return $retVal;
+	return $selected;
 }
 
 
-function getProfileTypeArrayforApplication()
+function getProfileTypeArrayforApplication($all = '')
 {
 	$db			=& JFactory::getDBO();
 	$query		= 'SELECT '.$db->nameQuote('id')
-				. ' FROM ' . $db->nameQuote( '#__XiPT_profiletypes' ) ;
+				. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
 	$db->setQuery( $query );
 	$results = $db->loadObjectList();
 	$retVal	= array();
 	if($results)
 		foreach ($results as $result)
 			$retVal[]=$result->id;
+			
+	if($all == 'ALL')
+		$retVal[] = 0;
 		
 	return $retVal;
 }	
 
 function buildProfileTypesforApplication( $aid )
 	{
-		$notselectedTypes 	= XiPTHelperApplications::getProfileTypeArrayForApplicationId($aid);		
-		$allTypes		= XiPTHelperApplications::getProfileTypeArrayforApplication();
-		// Add ALL also
-		$allTypes[] = 0;
-		
-		$selectedTypes = array();
+		$selectedTypes 	= XiPTHelperApplications::getProfileTypeArrayForApplicationId($aid);		
+		$allTypes		= XiPTHelperApplications::getProfileTypeArrayforApplication('ALL');
 		
 		$html	= '';
 		
-		if(empty($notselectedTypes))
-		    $selectedTypes[] = 0;
-		else
-		{
-		    foreach($allTypes as $pid)
-		    {
-		      if(!in_array($pid,$notselectedTypes))
-		      {
-		          //print_r("pid = ".$pid);
-		          if($pid != 0)
-		              $selectedTypes[] = $pid;
-		      }
-		    }
-		}
-		
 		$html	.= '<span>';
-		$count = count($allTypes)-1;
 		$html .= '<input type="hidden" name="profileTypesCount" value="'.$count.'" />';
 		foreach( $allTypes as $option )
 		{
 		  $selected	= in_array($option , $selectedTypes ) ? ' checked="checked"' : '';
 			$html .= '<lable><input type="checkbox" name="profileTypes'.$option. '" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
 			$html .= XiPTHelperApplications::getProfileTypeNameforApplication($option).'</lable>';
-			$count--;
 		}
 		$html	.= '</span>';		
 		

@@ -2,33 +2,44 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
+
 class XiPTControllerRegistration extends JController {
-    /**
-     * Constructor
-     * @access private
-     * @subpackage profilestatus
-     */
+    
+	var $mySess;
+	
 	function __construct($config = array())
 	{
+		$this->mySess 	=& JFactory::getSession();
 		parent::__construct($config);
 	}
 	
     function display() 
 	{
-		if($_POST['save'])
-		{
+		global $mainframe;
+		//@TODO : do some validation for visibility and publish of ptype
+		if(JRequest::getVar('save', '', 'POST') == 'save'){
+			
+			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 'XIPT_NOT_DEFINED' , 'POST' );
 			//set value in session and redirect to destination url
-			$mySess 	=& JFactory::getSession();
-			$mySess->set('XI_PROFILETYPES',$_POST['profiletypes'], 'XIPT');
-			global $mainframe;
-			$mainframe->enqueueMessage("profieltype ".$_POST['profiletypes']." saved");
-			$retURL = $mySess->get('RETURL', '', 'XIPT');
-			if(!empty($retURL))
-			{
-				$retURL	= $retURL ? base64_decode($retURL) : 'index.php';
-				$mainframe->redirect($retURL);
+			
+			if($selectedProfiletypeID != 'XIPT_NOT_DEFINED') {
+				
+				$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
+				$retURL = $this->mySess->get('RETURL', 'XIPT_NOT_DEFINED', 'XIPT');
+				if($retURL != 'XIPT_NOT_DEFINED')
+				{
+					$retURL	= $retURL ? base64_decode($retURL) : 'index.php';
+					$mainframe->redirect($retURL);
+				}
+				
+				$selectedpTypeName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($selectedProfiletypeID);
+				
+				$msg = JTEXT::_("PROFILETYPE ".$selectedpTypeName." SAVED");
+				$mainframe->enqueueMessage($msg);
 			}
 		}
+
 		$viewName	= JRequest::getCmd( 'view' , 'registration' );
 		
 		// Get the document object
@@ -41,11 +52,8 @@ class XiPTControllerRegistration extends JController {
 		
 		$params = JComponentHelper::getParams('com_xipt');
 		
-		if(  $params->get('jspt_during_reg')==false || $params->get('jspt_show_radio')==false) 
-			$profileTypeHtml="";
-		$view->assign('error', $this->getError());
+		//$view->assign('error', $this->getError());
 		$view->display();
 		
-		//parent::display();
     }
 }

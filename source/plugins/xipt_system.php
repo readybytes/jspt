@@ -23,6 +23,46 @@ class plgSystemxipt_system extends JPlugin
 		parent::__construct( $subject, $params );
 	}
 	
+	
+	/**
+	 * Example store user method
+	 *
+	 * Method is called after user data is stored in the database
+	 *
+	 * @param 	array		holds the new user data
+	 * @param 	boolean		true if a new user is stored
+	 * @param	boolean		true if user was succesfully stored in the database
+	 * @param	string		message
+	 */
+	function onAfterStoreUser($user, $isnew, $success, $msg)
+	{
+		global $mainframe;
+
+		// convert the user parameters passed to the event
+		// to a format the external application
+
+		$args = array();
+		$args['username']	= $user['username'];
+		$args['email'] 		= $user['email'];
+		$args['fullname']	= $user['name'];
+		$args['password']	= $user['password'];
+
+		if ($isnew)
+		{
+			$mySess = & JFactory::getSession();
+			$profiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID','0', 'XIPT');
+			XiPTLibraryProfiletypes::setProfileDataForUserID($user['id'],$profiletypeID,'ALL');
+			// Call a function in the external app to create the user
+			// ThirdPartyApp::createUser($user['id'], $args);
+		}
+		else
+		{
+			// Call a function in the external app to update the user
+			// ThirdPartyApp::updateUser($user['id'], $args);
+		}
+	}
+	
+	
 	function onAfterRoute()
 	{
  		global $mainframe;	
@@ -32,17 +72,14 @@ class plgSystemxipt_system extends JPlugin
 			return; 
 		
 		$option = JRequest::getCmd('option','','GET');
-		$view = JRequest::getCmd('view','','GET');
-		$task = JRequest::getCmd('task','','GET');
+		$view = JRequest::getCmd('view','BLANK','GET');
+		$task = JRequest::getCmd('task','BLANK','GET');
 		
 		require_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'pluginhandler.php' );
 		
 		$pluginHandler = new XiPTLibraryPluginHandler();
 		
-		if(!empty($task))
-			$eventName = $this->_eventPreText.strtolower($option).'_'.strtolower($view).'_'.strtolower($task);
-		else
-			$eventName = $this->_eventPreText.strtolower($option).'_'.strtolower($view);
+		$eventName = $this->_eventPreText.strtolower($option).'_'.strtolower($view).'_'.strtolower($task);
 		
 		//call defined event to handle work
 		$exist = method_exists($pluginHandler,$eventName);

@@ -2,6 +2,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+define('XIPT_NONE','XIPT_NONE');
+
 require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php' );
 
 class XiPTControllerProfileFields extends JController {
@@ -38,6 +40,12 @@ class XiPTControllerProfileFields extends JController {
 		
 	}
 	
+	//@TODO @DONE : save fields which is not accsible , means in opposite form
+	// like field1 is visible to ptype 1 not to ptype 2 and 3 , then store 2 and 3
+	//by default all fields are visible to all ptype
+	//if all is selected then store nothing
+	//remove old fields
+	
 	function save()
 	{
 		global $mainframe;
@@ -53,27 +61,31 @@ class XiPTControllerProfileFields extends JController {
 			return;
 		}
 		
-		$isValid = true;
-		
-		if( $isValid )
-		{
-			$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
 			
-			if(!empty($allTypes))
-				XiPTHelperProfileFields::remFieldsProfileType($post['id']);
-				
-			$allTypes[] = 0;
-			$profileTypesCount = $post['profileTypesCount'];
-	
-			foreach($allTypes as $type)
-			{
-				if(array_key_exists('profileTypes'.$type,$post))
-					XiPTHelperProfileFields::addFieldsProfileType($post['id'], $post['profileTypes'.$type]);
+		//remove all rows related to specific field id 
+		// cleaning all data for storing new profiletype with fields
+		XiPTHelperProfileFields::remFieldsProfileType($post['id']);
+		
+		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
+
+		$count = 0;
+		if(!array_key_exists('profileTypes0',$post)) {
+			foreach($allTypes as $type) {
+				if($type) {
+					if(!array_key_exists('profileTypes'.$type,$post)) {
+						  XiPTHelperProfileFields::addFieldsProfileType($post['id'], $type);
+						  $msg = JText::_('FIELDS SAVED');
+						  $count++;
+					}
+				}
 			}
-			$msg = JText::_('FIELDS SAVED');
-		}
+			if($count == 0) {
+				 XiPTHelperProfileFields::addFieldsProfileType($post['id'], 'XIPT_NONE');
+				 $msg = JText::_('FIELDS SAVED');
+			}
+		}	
+		$msg = JText::_('FIELDS SAVED');	
 		$link = JRoute::_('index.php?option=com_xipt&view=profilefields', false);
 		$mainframe->redirect($link, $msg);
 	}
-
 }

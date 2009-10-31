@@ -2,7 +2,7 @@
 <config>
 	<params addpath="/administrator/components/com_xipt/elements">
 	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="Restrict Registration" description="" />
-		<param name="jspt_during_reg" type="radio" default="1" label="Allow User to Select Profile Type DURING Registration" description="If enabled we will show, choose your account during registration. If you disable it, a default usertype will be marked for user">
+		<param name="show_ptype_during_reg" type="radio" default="1" label="Allow User to Select Profile Type DURING Registration" description="If enabled we will show, choose your account during registration. If you disable it, a default usertype will be marked for user">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
@@ -10,7 +10,7 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="profiletypes" type="profiletypes" default="Default Profile Type" label="Default Profiletype" description="All the existing user\'s before install multiple profiletype have no profile type set. Use this profiletype for those users" />
+		<param name="defaultProfiletypeID" type="profiletypes" default="Default Profile Type" label="Default Profiletype" description="All the existing user\'s before install multiple profiletype have no profile type set. Use this profiletype for those users" />
 		<param name="jspt_show_radio" type="radio" default="1" label="During registration Show Choose Account Type as" description="You can disable account type selection/change During Edit Profile Detail">
 			<option value="0">Radio Options</option>
 			<option value="1">Select Box</option>

@@ -62,10 +62,6 @@ class XiPTControllerApplications extends JController {
 		XiPTHelperApplications::remMyApplicationProfileType($post['id']);
 		
 		$allTypes		= XiPTHelperApplications::getProfileTypeArrayforApplication();
-		// Add ALL also
-		$allTypes[] = 0;
-		$profileTypeCount = count($allTypes)-1;
-		//print_r("profileTypesCount = ".$profileTypesCount);
 		
 		if(!array_key_exists('profileTypes0',$post))
 		{
@@ -82,6 +78,7 @@ class XiPTControllerApplications extends JController {
 				}
 			}
 		}
+		$msg = JText::_('APPLICATION SAVED');
 		$link = JRoute::_('index.php?option=com_xipt&view=Applications', false);
 		$mainframe->redirect($link, $msg);
 	}

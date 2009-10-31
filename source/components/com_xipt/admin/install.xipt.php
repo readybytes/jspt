@@ -49,17 +49,13 @@ function create_tables()
 	//create table of aclrules
 	//$query = 'CREATE TABLE IF NOT EXISTS `#__xipt_aclrules` (`id` int(31) NOT NULL auto_increment,`pid` int(31) NOT NULL,`rulename` varchar(250) NOT NULL,`feature` varchar(128) NOT NULL,`taskcount` int(31) NOT NULL,`redirecturl` varchar(250) NOT NULL default "index.php?option=com_community",`message` varchar(250) NOT NULL default "You are not allowed to access this resource",`published` tinyint(1) NOT NULL,`otherpid` int(11) NOT NULL default \'0\', PRIMARY KEY  (`id`)) ENGINE=MyISAM  DEFAULT CHARSET=utf8' ;
 	
-	$db		=& JFactory::getDBO();
-	$query	=	'CREATE TABLE IF NOT EXISTS `#__xipt_profilefields` (
+	$allQueries[0]	=	'CREATE TABLE IF NOT EXISTS `#__xipt_profilefields` (
 					`id` int(10) NOT NULL auto_increment,  
 					`fid` int(10) NOT NULL default \'0\',
 					`pid` int(10) NOT NULL default \'0\', 
 					PRIMARY KEY  (`id`) ) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-					
-	$db->setQuery( $query );
-	$db->query();
 	
-	$query	= 'CREATE TABLE IF NOT EXISTS `#__xipt_profiletypes` (
+	$allQueries[1]	= 'CREATE TABLE IF NOT EXISTS `#__xipt_profiletypes` (
 					`id` int(10) unsigned NOT NULL auto_increment, 
 					`name` varchar(255) NOT NULL, 
 					`ordering` int(10) default NULL, 
@@ -74,19 +70,15 @@ function create_tables()
 					`group` int(11) NOT NULL default \'0\',
 					PRIMARY KEY  (`id`) 
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-	$db->setQuery( $query );
-	$db->query();
 	
-	$query	= 'CREATE TABLE IF NOT EXISTS `#__xipt_applications` (  
+	$allQueries[2]	= 'CREATE TABLE IF NOT EXISTS `#__xipt_applications` (  
 					`id` int(10) NOT NULL AUTO_INCREMENT,
 					`applicationid` int(10) NOT NULL DEFAULT 0, 
 					`profiletype` int(10) NOT NULL DEFAULT 0, 
 					PRIMARY KEY (`id`)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-	$db->setQuery( $query );
-	$db->query();
 	
-	$query	= 'CREATE TABLE IF NOT EXISTS `#__xipt_aclrules` (
+	$allQueries[3]	= 'CREATE TABLE IF NOT EXISTS `#__xipt_aclrules` (
 					`id` int(31) NOT NULL auto_increment,
 					`pid` int(31) NOT NULL,
 					`rulename` varchar(250) NOT NULL,
@@ -97,17 +89,27 @@ function create_tables()
 					`published` tinyint(1) NOT NULL,
 					PRIMARY KEY  (`id`)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-	$db->setQuery( $query );
-	$db->query();
 	
-	$query = 'CREATE TABLE IF NOT EXISTS `#__xipt_aec` (
+	$allQueries[4] = 'CREATE TABLE IF NOT EXISTS `jos_xipt_users` (
+ 			 `userid` int(11) NOT NULL,
+  			 `profiletype` int(10) NOT NULL default \'0\',
+  			 `template` varchar(80) NOT NULL default \'NOT_DEFINED\',
+  			  PRIMARY KEY  (`userid`),
+  			  KEY `userid` (`userid`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8';
+	
+	$allQueries[5] = 'CREATE TABLE IF NOT EXISTS `#__xipt_aec` (
 			  `id` int(11) NOT NULL auto_increment,
 			  `planid` int(11) NOT NULL,
 			  `profiletype` int(11) NOT NULL,
 			  PRIMARY KEY  (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-	$db->setQuery( $query );
-	$db->query();
+	
+	foreach($allQueries as $query) {
+		$db->setQuery( $query );
+		$db->query();
+	}
+	
 	return true;
 }
 
