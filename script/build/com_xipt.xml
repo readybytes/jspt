@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!-- $Id: build.xml shyam $	 
+	1. data is there in dir.tmp// proj.locations
+	2. just build the part and put at right location
+	
+ -->
+<project name="XIPT Component" basedir="." default="build" description="Phing build script for JSPT component.">
+
+	<target name="config" description="Load configuration file">
+		<property file="com_xipt.properties"  override="true" />
+	</target>
+
+	<target name="build" description="Build Installable XiPT Component " depends="config">
+		<echo msg="Building the XiPT component...." />
+
+		<move 	file="${dir.tmp}/admin/${dir.projectname}.xml" 
+			tofile="${dir.tmp}/${dir.projectname}.xml"
+			overwrite="true"/>
+		<move 	file="${dir.tmp}/admin/install.${dir.projectname}.php" 
+			tofile="${dir.tmp}/install.${dir.projectname}.php" 
+			overwrite="true"/>
+		<move 	file="${dir.tmp}/admin/uninstall.${dir.projectname}.php" 
+			tofile="${dir.tmp}/uninstall.${dir.projectname}.php" 
+			overwrite="true"/>
+
+		<tar 	destfile="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
+			basedir="${dir.tmp}" 
+			compression="${file.compression}" />
+	</target>
+</project>
