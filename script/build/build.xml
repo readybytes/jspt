@@ -16,7 +16,7 @@
 		<phing phingfile="com_xipt.xml" inheritAll="true" target="build" />
 		<phing phingfile="plg_xipt_system.xml" inheritAll="true" target="build" />
 
-		<!--delete dir="${global.dir.tmp}" includeemptydirs="true" / -->
+		<delete dir="${global.dir.tmp}" includeemptydirs="true" />
 	</target>
 
 
