@@ -7,7 +7,7 @@
 	</target>
 
 	
-	<target name="build" description="build installable package only" depends="config">
+	<target name="build" description="build installable package only" depends="config,svn_lastrevision">
 		<mkdir dir="${global.dir.packages}" />
 		<mkdir dir="${global.dir.tmp}" />
 
@@ -16,7 +16,7 @@
 		<phing phingfile="com_xipt.xml" inheritAll="true" target="build" />
 		<phing phingfile="plg_xipt_system.xml" inheritAll="true" target="build" />
 
-		<delete dir="${global.dir.tmp}" includeemptydirs="true" />
+		<!--delete dir="${global.dir.tmp}" includeemptydirs="true" / -->
 	</target>
 
 
@@ -27,6 +27,10 @@
 				<include name="**" />
 			</fileset>
 		</copy>
+	</target>
+
+	<target name="svn_lastrevision" depends="config">
+		<svnlastrevision workingcopy="${global.dir.local}" propertyname="svn.lastrevision" />
 	</target>
 	
 </project>
