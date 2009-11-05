@@ -13,6 +13,19 @@
 	<target name="build" description="Build Installable XiPT System Plugin " depends="config">
 		<echo msg="Building the XiPT system plugin...." />
 
+
+		<phpcodesniffer
+			standard="Zend"
+			format="summary"
+			showSniffs="true"
+			file="${dir.tmp}"
+			sniffs="Zend_Sniffs_Files_ClosingTagSniff 
+					Generic_Sniffs_PHP_DisallowShortOpenTagSniff
+				   "
+			allowedFileExtensions="php" />
+
+		<delete file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" />
+
 		<tar 	destfile="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
 			basedir="${dir.tmp}" 
 			compression="${file.compression}" />

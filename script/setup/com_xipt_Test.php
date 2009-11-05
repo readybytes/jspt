@@ -19,7 +19,7 @@ class Com_XiPT extends PHPUnit_Extensions_SeleniumTestCase
     $this->type("modlgn_passwd", '@joomla.password@');
     $this->click("link=Login");
 
-    $this->waitForPageToLoad("30000");
+    $this->waitForPageToLoad("50000");
 
     $this->click("link=Install/Uninstall");
 
