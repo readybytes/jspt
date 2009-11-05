@@ -106,7 +106,7 @@ function create_tables()
 			  PRIMARY KEY  (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
 	
-	$db	=&	JFactory::getDBO();
+	$db=& JFactory::getDBO();
 	foreach($allQueries as $query) {
 		$db->setQuery( $query );
 		$db->query();
