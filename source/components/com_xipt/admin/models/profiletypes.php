@@ -1,10 +1,4 @@
 <?php
-/**
- * @package		JomSocial
- * @copyright (C) 2008 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license http://www.azrul.com Copyrighted Commercial Software
- */
-
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
@@ -12,12 +6,8 @@ jimport( 'joomla.application.component.model' );
 
 class XiPTModelProfiletypes extends JModel
 {
-	/**
-	 * Configuration data
-	 * 
-	 * @var object	JPagination object
-	 **/	 	 	 
 	var $_pagination;
+
 	/**
 	 * Constructor
 	 */
@@ -90,26 +80,27 @@ class XiPTModelProfiletypes extends JModel
 		// Get the pagination object
 		$this->_pagination	= new JPagination( $total , $limitstart , $limit );
 
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
-				. 'ORDER BY ' . $db->nameQuote( 'ordering' );
+		$query	= ' SELECT * FROM ' 
+				. $db->nameQuote('#__xipt_profiletypes')
+				. ' ORDER BY '. $db->nameQuote('ordering');
 
 		$db->setQuery( $query , $this->_pagination->limitstart , $this->_pagination->limit );		
-		
 		$fields	= $db->loadObjectList();
 		
 		return $fields;
 	}
 	
 	
-function updatePublish($id,$value)
+	function updatePublish($id,$value)
 	{
 		global $mainframe;
-		$db =& JFactory::getDBO();
-		$query = 'UPDATE #__xipt_profiletypes'
-		. ' SET `published` ='.$db->Quote($value).''
-		. ' WHERE `id`='. $db->Quote($id);
 		
+		$db 	=& JFactory::getDBO();
+		$query 	= 'UPDATE #__xipt_profiletypes'
+				. ' SET `published` ='.$db->Quote($value).''
+				. ' WHERE `id`='. $db->Quote($id);
 		$db->setQuery( $query );
+		
 		if (!$db->query()) {
 			return JError::raiseWarning( 500, $db->getError() );
 		}

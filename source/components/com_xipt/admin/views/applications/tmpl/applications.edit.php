@@ -1,7 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php');
-require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'applications.php');
+
 $aModel			= XiFactory::getModel( 'applications' );
 ?>
 

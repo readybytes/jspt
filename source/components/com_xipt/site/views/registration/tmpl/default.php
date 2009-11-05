@@ -1,7 +1,6 @@
 <?php
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
 ?>
 
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=registration" method="post" name="ptypeForm">

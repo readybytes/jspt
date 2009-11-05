@@ -1,7 +1,6 @@
 <?php
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
-require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'aclrules.php');
 
 ?>
 <script type="text/javascript" language="javascript">

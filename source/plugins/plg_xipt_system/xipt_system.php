@@ -46,20 +46,25 @@ class plgSystemxipt_system extends JPlugin
 		$args['email'] 		= $user['email'];
 		$args['fullname']	= $user['name'];
 		$args['password']	= $user['password'];
-
+		/*
 		if ($isnew)
 		{
 			$mySess = & JFactory::getSession();
 			$profiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID','0', 'XIPT');
+			$params = JComponentHelper::getParams('com_xipt');
+			if(!$profiletypeID)
+				$profiletypeID = $params->get('defaultProfiletypeID','0');
+			assert($profiletypeID);
 			XiPTLibraryProfiletypes::setProfileDataForUserID($user['id'],$profiletypeID,'ALL');
 			// Call a function in the external app to create the user
 			// ThirdPartyApp::createUser($user['id'], $args);
 		}
 		else
 		{
-			// Call a function in the external app to update the user
-			// ThirdPartyApp::updateUser($user['id'], $args);
+	
 		}
+		
+		*/
 	}
 	
 	

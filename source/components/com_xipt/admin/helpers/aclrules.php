@@ -25,7 +25,7 @@ function _buildTypesforAclRules($value, $what)
 			case 'profiletype' :
 			case 'otherprofiletype' :
 				$db			=& JFactory::getDBO();
-				$query		= 'SELECT id FROM ' . $db->nameQuote( '#__XiPT_profiletypes' ) ;
+				$query		= 'SELECT id FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
 				$db->setQuery( $query );
 				$results = $db->loadObjectList();
 				if($results)
@@ -75,7 +75,7 @@ function _buildTypesforAclRules($value, $what)
 			return "NONE";
 
 		$db			=& JFactory::getDBO();
-		$query		= 'SELECT name FROM ' . $db->nameQuote( '#__XiPT_profiletypes' ) . ' WHERE id='.$id;
+		$query		= 'SELECT name FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' WHERE id='.$id;
 		$db->setQuery( $query );
 		return $db->loadResult();
 	}

@@ -1,17 +1,16 @@
 <?php
-/**
- *
- */
-
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-jimport( 'joomla.application.component.controller' );
 
-if(JRequest::getCmd('view') == '') {
-            JRequest::setVar('view', 'registration');
-        }
+jimport('joomla.application.component.controller');
 
-$controller	= JRequest::getCmd( 'view');
+require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+
+	if(JRequest::getCmd('view') == '') {
+	            JRequest::setVar('view', 'registration');
+	}
+
+	$controller	= JRequest::getCmd( 'view');
 
 	if( !empty( $controller ) )
 	{
@@ -20,27 +19,18 @@ $controller	= JRequest::getCmd( 'view');
 	
 		// Test if the controller really exists
 		if( file_exists( $path ) )
-		{
 			require_once( $path );
-		}
 		else
-		{
 			JError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );
-		}
 	}
 	
 	$class	= 'XiPTController'. JString::ucfirst( $controller ) ;
 	
 	// Test if the object really exists in the current context
-	if( class_exists( $class ) )
-	{
+	if(class_exists($class))
 		$controller	= new $class();
-	}
 	else
-	{
-		// Throw some errors if the system is unable to locate the object's existance
-		JError::raiseError( 500 , 'Invalid Controller Object. Class definition does not exists in this context.' );
-	}
+		JError::raiseError( 500 , JText::_('Invalid Controller Object.Class definition does not exists in this context') );
 	
 	// Perform the Request task
 	$task = JRequest::getCmd('task');
@@ -56,5 +46,4 @@ $controller	= JRequest::getCmd( 'view');
 	
 	// Redirect if set by the controller
 	//$controller->redirect();
-
 ?>

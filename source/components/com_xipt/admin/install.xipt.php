@@ -81,6 +81,7 @@ function create_tables()
 	$allQueries[3]	= 'CREATE TABLE IF NOT EXISTS `#__xipt_aclrules` (
 					`id` int(31) NOT NULL auto_increment,
 					`pid` int(31) NOT NULL,
+					`otherpid` int(31) NOT NULL default -1,
 					`rulename` varchar(250) NOT NULL,
 					`feature` varchar(128) NOT NULL,
 					`taskcount` int(31) NOT NULL,
@@ -90,7 +91,7 @@ function create_tables()
 					PRIMARY KEY  (`id`)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
 	
-	$allQueries[4] = 'CREATE TABLE IF NOT EXISTS `jos_xipt_users` (
+	$allQueries[4] = 'CREATE TABLE IF NOT EXISTS `#__xipt_users` (
  			 `userid` int(11) NOT NULL,
   			 `profiletype` int(10) NOT NULL default \'0\',
   			 `template` varchar(80) NOT NULL default \'NOT_DEFINED\',
@@ -105,6 +106,7 @@ function create_tables()
 			  PRIMARY KEY  (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
 	
+	$db	=&	JFactory::getDBO();
 	foreach($allQueries as $query) {
 		$db->setQuery( $query );
 		$db->query();

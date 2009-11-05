@@ -2,14 +2,10 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-define('XIPT_NONE','XIPT_NONE');
 
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
-
-class XiPTHelperProfiletypes {
-
-	
-function buildTypes($value, $what)
+class XiPTHelperProfiletypes 
+{
+	function buildTypes($value, $what)
 	{
 		$allValues	= array();
 		switch($what)
@@ -20,17 +16,17 @@ function buildTypes($value, $what)
 				$allValues[] = 'public';
 				break;
 					
-		case 'template' :
-				$allValues = XiPTHelperProfiletypes::getBackendTemplatesList();
-				break;
-		case 'jusertype' :
-				$allValues = XiPTHelperProfiletypes::getJUserTypes();
-				break;
-		case 'group' :
-				$allValues = XiPTHelperProfiletypes::getGroups();
-				break;
-		default:
-			assert(0);
+			case 'template' :
+					$allValues = XiPTHelperProfiletypes::getBackendTemplatesList();
+					break;
+			case 'jusertype' :
+					$allValues = XiPTHelperProfiletypes::getJUserTypes();
+					break;
+			case 'group' :
+					$allValues = XiPTHelperProfiletypes::getGroups();
+					break;
+			default:
+				assert(0);
 		}
 	
 		$html	= '<span>';
@@ -49,12 +45,14 @@ function buildTypes($value, $what)
 	
 	
 	
-function getGroups($id='')
+	function getGroups($id='')
 	{
 		$db			=& JFactory::getDBO();
 		
 		if(!empty($id))
-			$extraSql = ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id).' ' ;
+			$extraSql 	= ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id).' ' ;
+		else
+			$extraSql	= '';
 			
 		$query		= 'SELECT '.$db->nameQuote('id').' , '.$db->nameQuote('name')
 					.' FROM ' . $db->nameQuote( '#__community_groups' )
@@ -65,12 +63,13 @@ function getGroups($id='')
 		else
 			$rows = $db->loadObject();	
 		
+		/* TODO : what if group list is empty */
 		return $rows;
 	}
 	
 	
 
-function getBackendTemplatesList()
+	function getBackendTemplatesList()
 	{
 		$path	= dirname(JPATH_BASE) . DS . 'components' . DS . 'com_community' . DS . 'templates';
 	
@@ -135,7 +134,7 @@ function getProfileTypeData($id,$what='name')
 		return $defaultValue;
 		
 	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '. $db->nameQuote($searchFor) .' FROM ' . $db->nameQuote( '#__XiPT_profiletypes' ) 
+	$query		= 'SELECT '. $db->nameQuote($searchFor) .' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
 				. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id) ;
 	$db->setQuery( $query );
 	$val = $db->loadResult();
@@ -291,7 +290,7 @@ function getProfiletypeFieldHTML($value)
 		$config = CFactory::getConfig();
 	
 		$cnt = 0;
-		$html	.= '<select id="params[profiletypes]" name="params[profiletypes]" class="hasTip select'.$class.'" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
+		$html	.= '<select id="params[defaultProfiletypeID]" name="params[defaultProfiletypeID]" class="hasTip select'.$class.'" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
 		for( $i = 0; $i < count( $options ); $i++ )
 		{
 		    $option		= $options[ $i ]->name;

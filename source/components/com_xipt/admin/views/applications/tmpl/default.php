@@ -1,7 +1,6 @@
 <?php
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
-require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'applications.php');
 ?>
 
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">

@@ -5,7 +5,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
+
 class XiPTViewAclRules extends JView 
 {
 	function display($tpl = null){
@@ -23,9 +23,8 @@ class XiPTViewAclRules extends JView
 		parent::display( $tpl );
     }
 	
-	function edit($id)
+	function edit($id, $tpl = null)
 	{
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		$row	=& JTable::getInstance( 'AclRules' , 'XiPTTable' );
 		$row->load( $id );	
 		

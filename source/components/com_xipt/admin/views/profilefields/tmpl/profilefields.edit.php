@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php' );
 ?>
 
 <script language="javascript" type="text/javascript">

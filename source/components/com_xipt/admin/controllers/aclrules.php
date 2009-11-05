@@ -3,8 +3,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
- 
 class XiPTControllerAclRules extends JController {
     /**
      * Constructor
@@ -45,7 +43,6 @@ class XiPTControllerAclRules extends JController {
 		JRequest::checkToken() or jexit( 'Invalid Token' );
 
 		$post	= JRequest::get('post');
-		
 		$user	=& JFactory::getUser();
 
 		if ( $user->get('guest')) {
@@ -54,17 +51,16 @@ class XiPTControllerAclRules extends JController {
 		}
 		
 		$data = array();
-		$data['rulename'] = $post['rulename'];
-		$data['profiletype'] = $post['profiletype'];
-		$data['otherprofiletype']= $post['otherprofiletype'];
-		$data['feature'] = $post['feature'];
-		$data['taskcount']	= $post['taskcount'];
-		$data['redirecturl']	= $post['redirecturl'];
-		$data['message']	= $post['message'];
-		$data['published']		= $post['published'];
+		$data['rulename'] 			= $post['rulename'];
+		$data['profiletype'] 		= $post['profiletype'];
+		$data['otherprofiletype']	= $post['otherprofiletype'];
+		$data['feature'] 			= $post['feature'];
+		$data['taskcount']			= $post['taskcount'];
+		$data['redirecturl']		= $post['redirecturl'];
+		$data['message']			= $post['message'];
+		$data['published']			= $post['published'];
 		
 		// Load the JTable Object.
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		$row	=& JTable::getInstance( 'aclrules' , 'XiPTTable' );
 		$row->load( $post['id'] );	
 		$isValid	= true;

@@ -5,13 +5,12 @@
  */
 
 // no direct access
-
 defined('_JEXEC') or die('Restricted access');
 
-define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
+// include files, as we are here from plugin
+// so files might not be included for non-component eventss
+require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
-
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
 //@TODO: Write language file
 //@TODO : Write debug mode messages
 //@TODO : Remove ptypeid from session when registersuccess
@@ -19,61 +18,94 @@ require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profil
 class XiPTLibraryPluginHandler
 {
 	var $mySess ;
+	var $params;
+	var $mainframe;
 
 	
 	function __construct()
 	{
+		global $mainframe;
+		$this->mainframe =& $mainframe;
+		 
 		$this->mySess = & JFactory::getSession();
+		$this->params = JComponentHelper::getParams('com_xipt');
 	}
 	
-	//@TODO : Break fn checkPTypeinSession into 
-	//1. check isValueExistinSession
-	//2. setValueinSession
-	function checkPTypeinSession() {
-		global $mainframe;
-		//1. check ptype value in session
-		// if exist then enqueuemessage to chane ptype
-		
+	//if value exist in session then return ptype else return false 
+	function isPTypeExistInSession() {
 		if($this->mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
 			&& (($selectedProfiletypeID = $this->mySess->get('SELECTED_PROFILETYPE_ID','XIPT_NOT_DEFINED', 'XIPT'))
 				 != 'XIPT_NOT_DEFINED'))
-		{
+				 	return $selectedProfiletypeID;
+		else
+			return 0;
+	}
+	
+	
+	function setDataInSession($what,$value) {
+		$this->mySess->set($what,$value, 'XIPT');
+	}
+	
+	function getPType() {
+		$selectedProfiletypeID = $this->isPTypeExistInSession();
+		if($selectedProfiletypeID)
+			return $selectedProfiletypeID;
+		else {
+			//get default value from params
+			$defaultProfiletypeID = $this->params->get('defaultProfiletypeID','0');
+			assert($defaultProfiletypeID);
+			return $defaultProfiletypeID;
+		}
+	}
+	
+
+	//BLANK means task should be empty
+	function event_com_community_register_blank() {
+		
+		
+		$show_ptype_during_reg = $this->params->get('show_ptype_during_reg','0');
+		
+		$selectedProfiletypeID = $this->isPTypeExistInSession();
+		
+		if($selectedProfiletypeID && $show_ptype_during_reg) {
 			$url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID,false);
 			$link = '<a href='.$url.'>'. JTEXT::_("CLICK HERE").'</a>';
 			
 			//get profiletype name from ptype id
 			$selectedpTypeName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($selectedProfiletypeID);
-			$mainframe->enqueueMessage(sprintf(JTEXT::_("YOUR CURRENT PROFILETYPE IS %s , TO CHANGE PROFILETYPE CLICK HERE %s"),$selectedpTypeName,$link));
+			$this->mainframe->enqueueMessage(sprintf(JTEXT::_("YOUR CURRENT PROFILETYPE IS %s , TO CHANGE PROFILETYPE CLICK HERE %s"),$selectedpTypeName,$link));
 			return;	
 		}
-		
-		//2. if not exist redirect to ptype selection display page.
-		// check ptype selection is visible during registration or not
-		//if not then set default ptype in session
-		
-		
-		$params = JComponentHelper::getParams('com_xipt');
-		$show_ptype_during_reg = $params->get('show_ptype_during_reg','0');
-
-		if($show_ptype_during_reg)
-			$mainframe->redirect(JROUTE::_("index.php?option=com_xipt&view=registration",false));
-		else
-		{
-			//get default value from params
-			//@TODO : change defaultpype name and jspt_during_rec in config.xml
-			$defaultProfiletypeID = $params->get('defaultProfiletypeID','XIPT_NOT_DEFINED');
-			$this->mySess->set('SELECTED_PROFILETYPE_ID',$defaultProfiletypeID, 'XIPT');
+		else if($show_ptype_during_reg)
+			$this->mainframe->redirect(JROUTE::_("index.php?option=com_xipt&view=registration",false));
+		else if(!$selectedProfiletypeID) {	
+			$pType = $this->getPType();
+			$this->setDataInSession('SELECTED_PROFILETYPE_ID',$pType);
 		}
+			
 	}
 	
-	//@TODO : make deceision here only
-	//BLANK means task should be empty
-	function event_com_community_register_blank() {
-		$this->checkPTypeinSession();
+	
+	function event_com_community_register_registeravatar() {
+			$profiletypeID = $this->getPType();
+			assert($profiletypeID);
+			$user   = $this->mySess->get('tmpUser','','JOMSOCIAL');
+			XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
+			$this->setDataInSession('USER_TABLE_ENTRY_DONE',true);
 	}
+	
 	
 	//clear session data when user registered successfully
 	function event_com_community_register_registersucess() {
+		$entryDone = $this->mySess->get('USER_TABLE_ENTRY_DONE','0', 'XIPT');
+		if(!$entryDone) {
+			$profiletypeID = $this->getPType();
+			assert($profiletypeID);
+			$user   = $this->mySess->get('tmpUser','','JOMSOCIAL');
+			XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
+		}
+			
 		 $this->mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
+		 $this->mySess->clear('USER_TABLE_ENTRY_DONE','XIPT');
 	}
 }

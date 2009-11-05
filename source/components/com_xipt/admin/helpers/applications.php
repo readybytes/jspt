@@ -122,10 +122,11 @@ function buildProfileTypesforApplication( $aid )
 		$html	= '';
 		
 		$html	.= '<span>';
+		$count=count($allTypes);
 		$html .= '<input type="hidden" name="profileTypesCount" value="'.$count.'" />';
 		foreach( $allTypes as $option )
 		{
-		  $selected	= in_array($option , $selectedTypes ) ? ' checked="checked"' : '';
+		  	$selected	= in_array($option , $selectedTypes ) ? ' checked="checked"' : '';
 			$html .= '<lable><input type="checkbox" name="profileTypes'.$option. '" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
 			$html .= XiPTHelperApplications::getProfileTypeNameforApplication($option).'</lable>';
 		}

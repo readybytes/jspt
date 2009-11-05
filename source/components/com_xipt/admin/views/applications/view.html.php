@@ -5,7 +5,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
+
 class XiPTViewApplications extends JView 
 {
 	function display($tpl = null){
@@ -24,7 +24,7 @@ class XiPTViewApplications extends JView
 		parent::display( $tpl );
     }
 	
-	function edit($id)
+	function edit($id,$tpl = null)
 	{
 		$this->assign( 'applicationId' , $id );
 		

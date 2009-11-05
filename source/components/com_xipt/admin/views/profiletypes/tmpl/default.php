@@ -84,7 +84,7 @@ function submitbutton( action )
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
 					<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$field->id, false); ?>
-						<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
+						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
 				</span>
 			</td>
 			<td align="center" id="group<?php echo $field->id;?>">

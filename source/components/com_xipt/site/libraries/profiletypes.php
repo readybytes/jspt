@@ -7,21 +7,15 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
-define('XIPT_NONE','XIPT_NONE');
-
-require_once (JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php');
-require_once (JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-
-
 class XiPTLibraryProfiletypes
 {
 	
 	//return ptype name from id
-	function getProfileTypeNameFromID( $id = 'XIPT_NOT_DEFINED' ) {
+	function getProfileTypeNameFromID( $id = 0)
+	{
 		
-		if($id=='XIPT_NOT_DEFINED')
-			return 'XIPT_NOT_DEFINED';
+		if($id==0)
+			return XIPT_NOT_DEFINED;
 			
 		$db			=& JFactory::getDBO();
 		$query		= 'SELECT '.$db->nameQuote('name').' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
@@ -32,16 +26,17 @@ class XiPTLibraryProfiletypes
 	}
 
 	//return array of all published profile type id
-	function getProfileTypesArray() {
+	function getProfileTypesArray()
+	{
 		$db			=& JFactory::getDBO();
-		$query		= ' SELECT '.$db->nameQuote('id')
+		$query		= ' SELECT *'
 					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
 					. ' WHERE '.$db->nameQuote('published').'='.$db->Quote('1')
 					. ' ORDER BY '.$db->nameQuote('ordering');
 		$db->setQuery( $query );
 		
-		$profiletypesID = $db->loadObjectList();
-		return $profiletypesID;
+		$profiletypes = $db->loadObjectList();
+		return $profiletypes;
 	}
 	
 	
@@ -67,13 +62,102 @@ class XiPTLibraryProfiletypes
 	}
 	
 	
+	function saveFieldForUser($userId,$value,$what)
+	{
+		$db		=& JFactory::getDBO();
+		switch($what)
+		{
+			case PROFILETYPE_FIELD_NAME:
+				$extraSql = ' SET '.$db->nameQuote(PROFILETYPE_FIELD_IN_USER_TABLE)
+				 . '=' . $db->Quote($value);
+				break;
+			
+			case TEMPLATE_FIELD_NAME:
+				$extraSql = ' SET '.$db->nameQuote(TEMPLATE_FIELD_IN_USER_TABLE) 
+				. '=' . $db->Quote($value);
+				break;
+			default:
+				return;
+		}
+			
+			$strSQL	= 'UPDATE ' . $db->nameQuote('#__xipt_users')
+					 	. $extraSql
+						. ' WHERE ' . $db->nameQuote('userid') . '=' . $db->Quote($userId);
+			$db->setQuery( $strSQL );
+			$db->query();
+	}
+	
+	function getFieldInfofromFieldId($fieldid)
+	{
+		$db		=& JFactory::getDBO();
+		$query	= 'SELECT * FROM '
+				. $db->nameQuote( '#__community_fields' ) . ' '
+				. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $fieldid );
+		
+		$db->setQuery( $query );
+		
+		$result	= $db->loadObject();
+		
+		return $result; 
+	}
+	
+	
+	
+	//function will call when value will be updated in community_fields_values table
+	function updateProfileFieldsValueEvent($userId,$isNew,$fieldID,$value)
+	{
+		$fieldInfo = XiPTLibraryProfiletypes::getFieldInfofromFieldId($fieldID);
+		if($fieldInfo->type == PROFILETYPE_FIELD_NAME)
+			XiPTLibraryProfiletypes::setProfileDataForUserID($userId,$value,'ALL');	
+		else if($fieldInfo->type == TEMPLATE_FIELD_NAME)
+			XiPTLibraryProfiletypes::saveFieldForUser($userId,$value,TEMPLATE_FIELD_NAME);
+		
+		return;
+	}
+	
+	
+	function getProfiletypeFieldsinEditMode(&$fields,$selectedProfiletypeID) 
+	{
+		if(!empty($selectedProfiletypeID)) {
+			$notSelectedFields = XiPTLibraryProfiletypes::getNotSelectedFieldForProfiletype($selectedProfiletypeID);
+			//unset($ar[2]);
+			$requiredUnset = false;
+			foreach( $fields as $field ) {
+				if($field['type'] == 'group') {
+					$requiredUnset = false;
+					if(in_array($field['id'],$notSelectedFields)) {
+						unset($fields[$field['id']]);
+						//assuming all fields are member of this group
+						//and unset all field till next group
+						$requiredUnset = true;
+					}
+				}
+				else if($requiredUnset || in_array($field['id'],$notSelectedFields)) {
+					unset($fields[$field['id']]);
+					continue;
+				}
+			}
+		}
+		$fields = array_values($fields);
+	}
+	
+	
+	
+	function getFieldsInEditMode($userid,&$fields)
+	{
+		$pTypeID = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($userid);
+		assert($pTypeID);
+		XiPTLibraryProfiletypes::getProfiletypeFieldsinEditMode($fields,$pTypeID);
+	}
+	
+	
 	//show fields according to profiletype during registration
 	function getFieldsDuringRegistration(&$fields) {
 		//get profieltype value from session 
 		$mySess = & JFactory::getSession();
 		if($mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
-			&& (($selectedProfiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID','XIPT_NOT_DEFINED', 'XIPT'))
-				 != 'XIPT_NOT_DEFINED')) {
+			&& (($selectedProfiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID',0, 'XIPT'))
+				 != 0)) {
 						XiPTLibraryProfiletypes::getProfiletypeFields($fields,$selectedProfiletypeID);
 		}
 	}
@@ -112,8 +196,7 @@ class XiPTLibraryProfiletypes
 		//Load all fields for profiletype
 		$db			=& JFactory::getDBO();
 		$query		= 'SELECT * FROM ' . $db->nameQuote( '#__xipt_profilefields' ) 
-					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId)
-					. ' OR '.$db->nameQuote('pid').'='.$db->Quote('XIPT_NONE');
+					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId);
 		$db->setQuery( $query );
 		$results = $db->loadObjectList();
 		
@@ -128,140 +211,229 @@ class XiPTLibraryProfiletypes
 
 	
 	
-	function saveUser($userid,$profiletype,$template) {
+	function saveUser($userid,$profiletype,$template) 
+	{
 		
-		$db		=& JFactory::getDBO();
-		$query	= "SELECT COUNT(*) FROM ".$db->nameQuote('#__xipt_users')
-				  . " WHERE ".$db->nameQuote('userid').'='.$db->nameQuote('$userid');
-					
-		$db->setQuery( $query );
-
-		$isNew	= ($db->loadResult() <= 0) ? true : false;
+		assert($userid);
+		assert($profiletype);
+		if($template != 'default')
+			assert($template);
 		
-		$extraSql = '';
-		if(!empty($profiletype))
-			$extraSql1 = $db->nameQuote('profiletype') . '=' . $db->Quote($profiletype);
-			
-		if(!empty($template))
-			$extraSql2 .= $db->nameQuote('template') . '=' . $db->Quote($template);
-
-		$query	= "INSERT INTO " . $db->nameQuote('#__xipt_users')
-				. ' SET ' . $db->nameQuote('userid') . '=' . $db->Quote($userid) . ', '
-				. $db->nameQuote('profiletype') . '=' . $db->Quote($profiletype)
-				. ', ' . $db->nameQuote('template') . '=' . $db->Quote($template);
-
-		if(!$isNew){
-			$query	= 'UPDATE ' . $db->nameQuote('#__xipt_users') . ' SET '
-					. $db->nameQuote('profiletype') . '=' . $db->Quote($profiletype)
-					. ' WHERE ' . $db->nameQuote('userid') . '=' . $db->Quote($userId);
-		}
-			//echo $strSQL;
-			$db->setQuery( $query );
-			$db->query();
-
+		require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php');
+		$data = new stdClass();
+		$data->userid = $userid;
+		$data->profiletype = $profiletype;
+		$data->template = $template;
+		XiPTModelUser::setUserData($data);
 	}
 	
 	
-	
-	
-	// ALL means you are from register
-	function setProfileDataForUserID($id, $type, $what='ALL') 
+	function saveUserTypeinUser($userid,$profiletypeId)
 	{
-		// set profile type
-		$db			=& JFactory::getDBO();
-		$extraSql 	= '';
-		$config	=& CFactory::getConfig();
-			
-
-		// change profiletype jspt_allow_typechange
-		if($what == 'profiletype' || $what=='ALL')
-		{
-			
-			// change profile type
-			//$extraSql 	.=  $db->nameQuote('profiletype' ) . '=' . $db->Quote( $type ) . ' ';
-			
-			// change the joomla user type
-			if(XiPTLibraryProfiletypes::isAdmin($id)==false 
-				&& XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($id,'usertype',$what)) 
-			{
-				$user 			= clone(JFactory::getUser($id));		
+		
+		if(XiPTLibraryProfiletypes::isAdmin($userid)==false) {
+				
+				$user 			= clone(JFactory::getUser($userid));		
 				$authorize		=& JFactory::getACL();
 				
-				$newUsertype = XiPTLibraryProfiletypes::getProfileTypeData($type,'jusertype');
+				$newUsertype = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'jusertype');
 				$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
 				if ( !$user->save() )
 				{
 					JError::raiseWarning('', JText::_( $user->getError()));
 					return false;
 				}
-			}
+		}
 			
-			// also change the user's type in profiletype field.
-			XiPTLibraryProfiletypes::setUserProfileTypeCustomField($id,$type);
-			
-			// assign the default group  
-			XiPTLibraryProfiletypes::assignUserToGroup($id,$type);
-		}
-
-		// Do we need to change avatar
-		if($what == 'avatar'  || $what=='ALL' 
-				|| XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($id,'avatar',$what))
-		{			
-			$myavatar 	= XiPTLibraryProfiletypes::getProfileTypeData($type,'avatar');
-			$thumb_avatar =  XiPTLibraryProfiletypes::getThumbAvatarFromFull($myavatar);
-			if($extraSql !='')
-				$extraSql 	.= ',';
-				
-			$extraSql 	.=  $db->nameQuote('avatar' ) . '=' . $db->Quote( $myavatar ) . ' ';
-			$extraSql 	.= ',' . $db->nameQuote('thumb' ) . '=' . $db->Quote( $thumb_avatar ) . ' ';
-		}
+	}
+	
+	//get required user info from community_users table
+	function getUserDataFromCommunity($userid,$what)
+	{
+		assert($what);
+		$db			=& JFactory::getDBO();
+		$query	= 'SELECT '.$db->nameQuote($what).' FROM '
+				. $db->nameQuote( '#__community_users' ) . ' '
+				. 'WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $userid );
 		
-		// are we allowed to change, or we should reset ???
-		if($what == 'template' || $what=='ALL' 
-			|| XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($id,'template',$what))
-		{
-			// do we need to set default template as per profile type
-			if($what=='ALL' || XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($id,'template')) 
-				$template = XiPTLibraryProfiletypes::getProfileTypeData($type,'template');
-			else
-				$template = $type;
-				
-			//$extraSql 	.= $db->nameQuote('template' ) . '=' . $db->Quote( $template ) . ' ';
-		}
+		$db->setQuery( $query );
 		
-		// do we need to reset privacy
-		if($what == 'ALL' 
-				|| XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($id,'privacy',$what))
-			XiPTLibraryProfiletypes::setPrivacyDataForUserID($id,$type);
+		$result	= $db->loadResult();
 		
-
-		// it cannot be null, might be due to configuration
-		if($extraSql=='')
-		{
+		return $result; 
+	}
+	
+	
+	function updateAvatarinCommunityUser($userid,$profiletypeID) 
+	{
+		
+		$db			=& JFactory::getDBO();
+		
+		$userAvatar = XiPTLibraryProfiletypes::getUserDataFromCommunity($userid);
+		
+		if(!XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($userAvatar))
 			return;
-		}
+		
+		$pTypeAvatar 	= XiPTLibraryProfiletypes::getProfileTypeData($profiletypeID,'avatar');	
+		$thumb_avatar =  XiPTLibraryProfiletypes::getThumbAvatarFromFull($pTypeAvatar);
+		
+		$extraSql 	=  $db->nameQuote('avatar' ) . '=' . $db->Quote( $pTypeAvatar ) . ' ';
+		$extraSql 	.= ',' . $db->nameQuote('thumb' ) . '=' . $db->Quote( $thumb_avatar );
 		
 		// perform the operation
-		$query	= 'UPDATE ' . $db->nameQuote( '#__community_users' ) . ' '
-	    		. 'SET ' 
+		$query	= 'UPDATE ' . $db->nameQuote( '#__community_users' )
+	    		. ' SET ' 
 				. $extraSql
-	    		. 'WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $id );
+	    		. ' WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $userid );
 	    
 		$db->setQuery( $query );
-	    $db->query( $query );
+	    $db->query();
 		if($db->getErrorNum())
 			JError::raiseError( 500, $db->stderr());
+		
+	}
+	
+	
+	function getPTPrivacyValue($privacy) {
+			$value=PRIVACY_PUBLIC;
+			switch($privacy)
+			{
+				case "friends":
+					$value = PRIVACY_FRIENDS;
+					break;
+				case "members":
+					$value = PRIVACY_MEMBERS;
+					break;
+				case "public":
+					$value = PRIVACY_PUBLIC;
+					break;
+				default:
+					assert(0);
+			}
+		return $value;
+	}
+	
+	
+	/*This function set privacy for user as per his profiletype*/
+	function updatePrivacyforCommunityUser($userid,$profiletypeId) {
+		
+		$privacy 	= XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'privacy');
+		$myprivacy	= XiPTLibraryProfiletypes::getPTPrivacyValue($privacy);
+		
+		// get params
+		$db 	=& JFactory::getDBO();
+ 		$sql 	= " SELECT ".$db->nameQuote('params')." FROM #__community_users"
+ 				. " WHERE ".$db->nameQuote('userid')."=".$db->Quote($userid);
+		$db->setQuery($sql);
+		$myresult = $db->loadResult();
+		
+		// if error occurs 
+ 		if($db->getErrorNum())
+ 			JError::raiseError( 500, $db->stderr());
+	
+		$myparams = new JParameter($myresult);		
+		$myparams->set('privacyProfileView',$myprivacy);
+		
+		//SET params
+ 		$sql = "UPDATE #__community_users"
+ 			." SET ".$db->nameQuote('params')."=".$db->Quote($myparams->toString())
+ 			." WHERE ".$db->nameQuote('userid')."=".$db->Quote($userid);
+ 		
+ 		$db->setQuery($sql);
+ 		$db->query($sql);
+
+ 		// if error occurs 
+ 		if($db->getErrorNum())
+ 			JError::raiseError( 500, $db->stderr());
+	
+	}
+	
+	
+	
+	function setCustomField($userId, $value,$what=TEMPLATE_FIELD_NAME) {
+		// find the profiletype or template fields (all)
+		$db		=& JFactory::getDBO();
+		$query 	= 'SELECT * FROM `#__community_fields`'
+				 .' WHERE '.$db->nameQuote('type').'='.$db->Quote($what);
+		$db->setQuery( $query );
+		$results = $db->loadObjectList();		
+				
+		//$value = XiPTLibraryProfiletypes::getProfileTypeData($value,'name');
+		// change the type
+		foreach($results as $res)
+		{	
+			$id	= $res->id;
+			$strSQL	= 'UPDATE ' . $db->nameQuote('#__community_fields_values') 
+						. ' SET '. $db->nameQuote('value') . '=' . $db->Quote($value)
+						. ' WHERE ' . $db->nameQuote('user_id') . '=' . $db->Quote($userId)
+						. ' AND ' . $db->nameQuote('field_id') . '=' . $db->Quote($id);
+			$db->setQuery( $strSQL );
+			//print_r($strSQL);
+			$db->query();
+		}
+		return;
+	}
+	
+	
+	
+	function isDefaultAvatarOfProfileType($path)
+	{
+		$searchFor 		= 'avatar';
+		
+		$db			=& JFactory::getDBO();
+		$query		= 'SELECT '.$db->nameQuote($searchFor) 
+					.' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
+		$db->setQuery( $query );
+		$all = $db->loadObjectList();
+		
+		if($all)
+		foreach ($all as $one)
+		{
+			if(Jstring::stristr($one->avatar ,$path))
+				return true;
+			if(Jstring::stristr($path, XiPTLibraryProfiletypes::getThumbAvatarFromFull($one->avatar)))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	
+	
+	// ALL means you are from register
+	function setProfileDataForUserID($userid, $ptype, $what='ALL') {
+		//during registration
+		if($what == 'ALL') {
+			//1.set profiletype and template for user in #__xipt_users table
+			$template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
+			XiPTLibraryProfiletypes::saveUser($userid,$ptype,$template);
+			
+			//2.set usertype acc to profiletype in #__user table
+			XiPTLibraryProfiletypes::saveUserTypeinUser($userid,$ptype);
+			
+			//3.set user avatar in #__community_users table
+			XiPTLibraryProfiletypes::updateAvatarinCommunityUser($userid,$ptype);
+			
+			//4.set profiletype and template field in #__community_fields_values table
+			// also change the user's type in profiletype field.
+			XiPTLibraryProfiletypes::setCustomField($userid,$ptype,PROFILETYPE_FIELD_NAME);
+			//set template
+			XiPTLibraryProfiletypes::setCustomField($userid,$template,TEMPLATE_FIELD_NAME);
+			
+			// assign the default group  
+			XiPTLibraryProfiletypes::assignUserToGroup($userid,$ptype);
 			
 			
-		XiPTLibraryProfiletypes::saveUser($id,$type,$template);
-		// everything fine
+			//5.set privacy data
+			XiPTLibraryProfiletypes::updatePrivacyforCommunityUser($userid,$ptype);
+		}
 	}
 	
 	
 	function getUserProfiletypeFromUserID($userid) {
 		assert($userid);
 		$db		=& JFactory::getDBO();
-		$getMe	= 'profiletype';
+		$getMe	= PROFILETYPE_FIELD_IN_USER_TABLE;
 		$query	= 'SELECT ' . $db->nameQuote($getMe) . ' FROM '
 				. $db->nameQuote( '#__xipt_users') . ' WHERE '
 				. $db->nameQuote( 'userid') . '=' . $db->Quote( $userid );
@@ -378,25 +550,7 @@ class XiPTLibraryProfiletypes
 	
 	
 	
-	function getPTPrivacyValue($privacy)
-	{
-			$value=PRIVACY_PUBLIC;
-			switch($privacy)
-			{
-				case "friends":
-					$value = PRIVACY_FRIENDS;
-					break;
-				case "members":
-					$value = PRIVACY_MEMBERS;
-					break;
-				case "public":
-					$value = PRIVACY_PUBLIC;
-					break;
-				default:
-					assert(0);
-			}
-		return $value;
-	}
+	
 	
 	function getChildProfileTypes($id = 0)
 	{
@@ -818,65 +972,9 @@ function checkExistanceOfMI( $mi )
 		return $thumb;
 	}
 	
-	function setUserProfileTypeCustomField($userId, $value)
-	{
-		// find the profiletype fields (all)
-		$db		=& JFactory::getDBO();
-		$query 	= 'SELECT * FROM `#__community_fields` WHERE '.$db->nameQuote('type').'='.$db->Quote('profiletypes');
-		$db->setQuery( $query );
-		$results = $db->loadObjectList();		
-				
-		$value = XiPTLibraryProfiletypes::getProfileTypeData($value,'name');
-		// change the type
-		foreach($results as $res)
-		{	
-			$id	= $res->id;
-			$strSQL	= 'UPDATE ' . $db->nameQuote('#__community_fields_values') 
-						. ' SET '. $db->nameQuote('value') . '=' . $db->Quote($value)
-						. ' WHERE ' . $db->nameQuote('user_id') . '=' . $db->Quote($userId)
-						. ' AND ' . $db->nameQuote('field_id') . '=' . $db->Quote($id);
-			$db->setQuery( $strSQL );
-			//print_r($strSQL);
-			$db->query();
-		}
-		return;
-	}
 	
-	/*This function set privacy for user as per his type*/
-	function setPrivacyDataForUserID($id,$type)
-	{
-		
-		$privacy 	= XiPTLibraryProfiletypes::getProfileTypeData($type,'privacy');
-		$myprivacy	= XiPTLibraryProfiletypes::getPTPrivacyValue($privacy);
-		
-		// get params
-		$db 	=& JFactory::getDBO();
- 		$sql 	= " SELECT ".$db->nameQuote('params')." FROM #__community_users"
- 				. " WHERE ".$db->nameQuote('userid')."=".$db->Quote($id);
-		$db->setQuery($sql);
-		$myresult = $db->loadResult();
-		
-		// if error occurs 
- 		if($db->getErrorNum())
- 			JError::raiseError( 500, $db->stderr());
 	
-		$myparams = new JParameter($myresult);		
-		$myparams->set('privacyProfileView',$myprivacy);
 		
-		//SET params
- 		$sql = "UPDATE #__community_users"
- 			." SET ".$db->nameQuote('params')."=".$db->Quote($myparams->toString())
- 			." WHERE ".$db->nameQuote('userid')."=".$db->Quote($id);
- 		
- 		$db->setQuery($sql);
- 		$db->query($sql);
-
- 		// if error occurs 
- 		if($db->getErrorNum())
- 			JError::raiseError( 500, $db->stderr());
-	
-	}
-	
 	function isProfileTypeDataResetRequired($id, $check, $what='ALL')
 	{
 		$config	=& CFactory::getConfig();
@@ -966,7 +1064,7 @@ function getProfileTypeData($id,$what='name')
 					
 		case 'template' :
 				$searchFor 		= 'template';
-				$defaultValue	= 'NOT_DEFINED';
+				$defaultValue	= 'dafault';
 				break;
 		case 'jusertype' :
 				$searchFor 		= 'jusertype';
@@ -1005,26 +1103,7 @@ function getProfileTypeData($id,$what='name')
 	return $val;
 }	
 
-	function isAvatarOfProfileType($path)
-	{
-		$searchFor 		= 'avatar';
-		
-		$db			=& JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote($searchFor) .' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
-		$db->setQuery( $query );
-		$all = $db->loadObjectList();
-		
-		if($all)
-		foreach ($all as $one)
-		{
-			if(Jstring::stristr($one->avatar ,$path))
-				return true;
-			if(Jstring::stristr($path, XiPTLibraryProfiletypes::getThumbAvatarFromFull($one->avatar)))
-				return true;
-		}
-		
-		return false;
-	}
+	
 	
 function assignUserToGroup($userId,$profileTypeId)
 {
@@ -1120,44 +1199,6 @@ function remove_user_from_group($userId , $groupId)
 			$checkaccess = $myapplicationModel->checkAccessofApplication(
 								$appsModel->getPluginId( $appname ),$user->_userid);
 			return $checkaccess;
-	}
-	//MEENAL HACK DONE
-	
-	function getRecaptcha()
-	{
-		$config	=& CFactory::getConfig();
-		$recaptchaEnable = $config->get('jspt_captcha_during_reg');
-		if(!$recaptchaEnable)
-			return "";
-		
-		$publickey 		= $config->get('jspt_recaptcha_public_key');
-		$privatekey  	= $config->get('jspt_recaptcha_private_key');
-		$theme  		= $config->get('theme');
-		
-		require_once(JPATH_ROOT. DS . 'components' . DS . 'com_community' . DS . 'libraries'.DS.'recaptchalib.php');
-		return recaptcha_get_html($publickey, $theme);
-	}
-	
-	function verifyRecaptcha()
-	{
-		$config	=& CFactory::getConfig();
-		$recaptchaEnable = $config->get('jspt_captcha_during_reg');
-		if(!$recaptchaEnable)
-			return true;
-				
-		$privatekey = $config->get('jspt_recaptcha_private_key');
-		$publickey  = $config->get('jspt_recaptcha_public_key');
-		
-		require_once(JPATH_ROOT. DS . 'components' . DS . 'com_community' . DS . 'libraries'.DS.'recaptchalib.php');		 
-		$resp = recaptcha_check_answer ($privatekey,
-                              $_SERVER["REMOTE_ADDR"],
-                              $_POST["recaptcha_challenge_field"],
-                              $_POST["recaptcha_response_field"]);
-      
-		if($resp->is_valid) 
-			return true;
-		else
-			return false;
 	}
 	
 	
@@ -1521,54 +1562,5 @@ function remove_user_from_group($userId , $groupId)
 	}
 	/*================== ACL RELATED FUNCTIONS  ====================*/
 	
-	function saveUserData($userId,$fieldid,$value)
-	{
-		$fieldInfo = XiPTLibraryProfiletypes::getFieldInfofromFieldId($fieldid);
-		if($field->type == 'profiletypes')
-		{
-			XiPTLibraryProfiletypes::saveFieldForUser($userId,$value,'profiletypes');	
-		}
-		else if($field->type == 'templates')
-			XiPTLibraryProfiletypes::saveFieldForUser($userId,$value,'templates');
-		
-		return;
-	}
 	
-	
-	function saveFieldForUser($userId,$value,$what)
-	{
-		$db		=& JFactory::getDBO();
-		switch($what)
-		{
-			case 'profiletypes':
-				$extraSql = ' SET '.$db->nameQuote('profiletype') . '=' . $db->Quote($value);
-				break;
-			
-			case 'templates':
-				$extraSql = ' SET '.$db->nameQuote('template') . '=' . $db->Quote($value);
-				break;
-			default:
-				break;
-		}
-			
-			$strSQL	= 'UPDATE ' . $db->nameQuote('#__community_users')
-					 	. $extraSql
-						. ' WHERE ' . $db->nameQuote('user_id') . '=' . $db->Quote($userId);
-			$db->setQuery( $strSQL );
-			$db->query();
-	}
-	
-	function getFieldInfofromFieldId($fieldid)
-	{
-		$db		=& JFactory::getDBO();
-		$query	= 'SELECT * FROM '
-				. $db->nameQuote( '#__community_fields' ) . ' '
-				. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $fieldid );
-		
-		$db->setQuery( $query );
-		
-		$result	= $db->loadObject();
-		
-		return $result; 
-	}
 }

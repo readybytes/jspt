@@ -1,16 +1,7 @@
 <?php
-/**
- * @package		JomSocial
- * @copyright (C) 2008 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license http://www.azrul.com Copyrighted Commercial Software
- */
-
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-/**
- * Jom Social Table Model
- */
 class XiPTTableApplications extends JTable
 {
 
@@ -35,16 +26,13 @@ class XiPTTableApplications extends JTable
 	 **/
 	function load( $id , $isGroup = false )
 	{
-		if( $id == 0 )
-		{
-			$this->id			= 0;
-			$this->applicationid			= '';
-			$this->profiletype			= '';
-		}
-		else
-		{
+		if( $id ){
 			return parent::load( $id );
 		}
+		
+		$this->id				= 0;
+		$this->applicationid	= '';
+		$this->profiletype		= '';
 	}
 
 	function delete()
@@ -61,23 +49,20 @@ class XiPTTableApplications extends JTable
 	function store( )
 	{
 		$db		=& $this->getDBO();		
-		
-		//For new records need to update the ordering.
- 		/*
-     if( $this->id == 0 )
- 		{
- 		*/
- 			// Set the ordering
- 			$query	= 'SELECT COUNT(' . $db->nameQuote('id') . ') FROM ' . $db->nameQuote('#__xipt_applications')
-					. ' WHERE '.$db->nameQuote('applicationid').'='.$db->Quote($this->applicationid)
-					. ' AND '.$db->nameQuote('profiletype').'='.$db->Quote($this->profiletype);	
+		// TODOTEST for $id=0
+				
+		// Set the ordering
+ 		$query	= 'SELECT COUNT('.$db->nameQuote('id').') FROM ' 
+ 				. $db->nameQuote('#__xipt_applications')
+				. ' WHERE '.$db->nameQuote('applicationid').'='.$db->Quote($this->applicationid)
+				. ' AND '.$db->nameQuote('profiletype').'='.$db->Quote($this->profiletype);	
 			
- 			$db->setQuery( $query );
-		  $count	= $db->loadResult();
-		  if($count)
-			     return;
+		$db->setQuery( $query );
+		$count	= $db->loadResult();
+		if($count)
+			return;
  		  
-       return parent::store();
+       	return 	parent::store();
 	}
 
 	/**

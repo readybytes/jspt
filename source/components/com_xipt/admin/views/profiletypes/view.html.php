@@ -8,7 +8,6 @@ defined('_JEXEC') or die('Restricted access');
 
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
 class XiPTViewProfiletypes extends JView 
 {
     function display($tpl = null){
@@ -27,10 +26,8 @@ class XiPTViewProfiletypes extends JView
 		parent::display( $tpl );
     }
 	
-	function edit($id)
-	{		
-		
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
+	function edit($id,$tpl = null )
+	{
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		$row->load( $id );	
 		
@@ -70,7 +67,7 @@ class XiPTViewProfiletypes extends JView
 		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	
-function getGroup( $id )
+	function getGroup( $id )
 	{	
 		if($id==0)
 			return "NONE";

@@ -1,9 +1,6 @@
 <?php
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profiletypes.php' );
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php' );
  
 class XiPTControllerProfiletypes extends JController {
     /**

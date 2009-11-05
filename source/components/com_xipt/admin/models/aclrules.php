@@ -1,10 +1,4 @@
 <?php
-/**
- * @package		JomSocial
- * @copyright (C) 2008 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license http://www.azrul.com Copyrighted Commercial Software
- */
-
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
@@ -80,36 +74,32 @@ class XiPTModelAclRules extends JModel
 		$limitstart	= ($limit != 0) ? ($limitstart / $limit ) * $limit : 0;
 
 		// Get the total number of records for pagination
-		$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__XiPT_AclRules' );
+		$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__xipt_aclrules' );
 		$db->setQuery( $query );
 		$total	= $db->loadResult();
-
 
 		jimport('joomla.html.pagination');
 		
 		// Get the pagination object
 		$this->_pagination	= new JPagination( $total , $limitstart , $limit );
 
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__XiPT_AclRules' );
-
+		$query	= 'SELECT * FROM ' 
+				. $db->nameQuote( '#__xipt_aclrules' );
 		$db->setQuery( $query , $this->_pagination->limitstart , $this->_pagination->limit );		
-		
 		$fields	= $db->loadObjectList();
 		
 		return $fields;
 	}
 	
-function updatePublish($id,$value)
+	function updatePublish($id,$value)
 	{
 		global $mainframe;
-		$db =& JFactory::getDBO();
-		$query = 'UPDATE #__XiPT_AclRules'
-		. ' SET `published` ='.$db->Quote($value).''
-		. ' WHERE `id`='. $db->Quote($id);
-		
+		$db 	=& JFactory::getDBO();
+		$query 	= 'UPDATE #__xipt_aclrules'
+				. ' SET `published` ='.$db->Quote($value).''
+				. ' WHERE `id`='. $db->Quote($id);
 		$db->setQuery( $query );
-		if (!$db->query()) {
+		if (!$db->query())
 			return JError::raiseWarning( 500, $db->getError() );
-		}
 	}
 }

@@ -5,7 +5,6 @@ defined('_JEXEC') or die('Restricted access');
 
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php' );
 class XiPTViewProfileFields extends JView 
 {
     function display($tpl = null){
@@ -13,12 +12,13 @@ class XiPTViewProfileFields extends JView
 		
 		// Load tooltips
 		JHTML::_('behavior.tooltip', '.hasTip');
+		$this->setToolbar();
 		
 		$this->assign('fields', $fields);
 		return parent::display($tpl);
     }
 	
-	function edit($fieldId)
+	function edit($fieldId, $tpl = null)
 	{
 		$this->assign('fieldid', $fieldId);
 		// Set the titlebar text

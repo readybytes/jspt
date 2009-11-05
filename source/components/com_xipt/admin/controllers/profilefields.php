@@ -2,10 +2,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('XIPT_NONE','XIPT_NONE');
-
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php' );
-
 class XiPTControllerProfileFields extends JController {
     /**
      * Constructor

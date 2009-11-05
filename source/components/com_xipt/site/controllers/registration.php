@@ -2,8 +2,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
-
 class XiPTControllerRegistration extends JController {
     
 	var $mySess;

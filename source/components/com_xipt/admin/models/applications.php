@@ -1,10 +1,4 @@
 <?php
-/**
- * @package		JomSocial
- * @copyright (C) 2008 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license http://www.azrul.com Copyrighted Commercial Software
- */
-
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
@@ -12,12 +6,8 @@ jimport( 'joomla.application.component.model' );
 
 class XiPTModelApplications extends JModel
 {
-	/**
-	 * Configuration data
-	 * 
-	 * @var object	JPagination object
-	 **/	 	 	 
 	var $_pagination;
+
 	/**
 	 * Constructor
 	 */
@@ -104,25 +94,21 @@ class XiPTModelApplications extends JModel
 	
 	function getPluginNamefromId($pluginId)
 	{
-	     $db		=& JFactory::getDBO();
-    	 
-       $query = 'SELECT * FROM #__plugins'
-					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($pluginId);
-       $db->setQuery( $query );
-		   $result	= $db->loadObject();
-       //print_r("query = ".$query);
-		   if($db->getErrorNum())
-		  {
-			     JError::raiseError( 500, $db->stderr());
-			     return;
-		  }
-      
-      if(!empty($result))
-		      return $result->name;
-		  else
-		      return 0;
-	} 
-  
+		$db		=& JFactory::getDBO();
+		$query 	= 'SELECT * FROM #__plugins'
+				. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($pluginId);
+       	$db->setQuery( $query );
+		$result	= $db->loadObject();
 
-  
+		//print_r("query = ".$query);
+		if($db->getErrorNum()){
+		     JError::raiseError( 500, $db->stderr());
+		     return;
+		}
+      
+		if(!empty($result))
+			return $result->name;
+		else
+			return 0;
+	}
 }

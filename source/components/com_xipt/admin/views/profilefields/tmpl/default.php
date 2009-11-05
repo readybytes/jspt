@@ -1,6 +1,5 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php' );
 ?>
 
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
