@@ -147,7 +147,7 @@ function getProfileTypeName($id)
 		if($id==0 || empty($id))
 			return JText::_("All");
 
-		$db			=& JFactory::getDBO();
+		$db		=& JFactory::getDBO();
 		$query		= 'SELECT '.$db->nameQuote('name')
 					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
 					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id);
@@ -277,7 +277,7 @@ function addAllExistingUserToProperGroups($pid,$gid, $oldgid)
 	}
 }
 
-function getProfiletypeFieldHTML($value)
+	function getProfiletypeFieldHTML($value)
 	{	
 		$required			='1';
 		$html				= '';
