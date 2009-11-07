@@ -52,4 +52,3 @@ class XiFactory
 		return $html;
 	}
 }
-?>

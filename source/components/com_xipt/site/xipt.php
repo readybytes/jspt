@@ -46,4 +46,3 @@ require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 	
 	// Redirect if set by the controller
 	//$controller->redirect();
-?>

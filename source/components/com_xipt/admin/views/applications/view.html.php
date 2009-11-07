@@ -50,4 +50,3 @@ class XiPTViewApplications extends JView
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 	}
 }
-?>

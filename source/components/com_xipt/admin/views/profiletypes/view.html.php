@@ -80,4 +80,3 @@ class XiPTViewProfiletypes extends JView
 		return $val;
 	}
 }
-?>

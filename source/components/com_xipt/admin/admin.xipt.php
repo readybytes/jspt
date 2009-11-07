@@ -56,5 +56,3 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'inc
 
 
 //$controller->redirect();
-
-?>

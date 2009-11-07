@@ -306,4 +306,3 @@ function addAllExistingUserToProperGroups($pid,$gid, $oldgid)
 	}
 
 }
-?>

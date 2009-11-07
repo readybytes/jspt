@@ -17,4 +17,3 @@ function drop_database()
 	
 	return true;
 }
-?>

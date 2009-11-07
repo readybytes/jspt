@@ -38,8 +38,6 @@ function show_instruction()
 }
 
 
-
-
 function com_install()
 {
 	if(check_jomsocial_existance() == false)
@@ -48,23 +46,33 @@ function com_install()
 	if(setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 
+	copy_files();
 	show_instruction();
 	return true;
 }
 
-function setup_database()
-{	
 
+function setup_database()
+{
+	// check it before creating tables.
+	$migrationRequired = isMigrationRequired();
+
+	// now create tables
 	if(create_tables() == false)
 		return false;
-	
-	//if(migrate_data() == false)
-	//	return false;
+
+	// do migrate if we need to migrate
+	if($migrationRequired && migrate_data() == false)
+		return false;
+
+	// everything fine
 	return true;
 }
 
+
 function create_tables()
 {
+
 	$allQueries  	= array();
 	
 	$allQueries[]	='CREATE TABLE IF NOT EXISTS `#__xipt_profilefields` (
@@ -186,6 +194,38 @@ function copy_files()
 		// now copy files
 		assert(JFile::move($sourceFile, $targetFile)) || JError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
 	}
+	return true;
+}
+
+function isMigrationRequired()
+{
+	$db	=& JFactory::getDBO();
+	$query 	= " SHOW TABLES LIKE '#__xipt_users'";
+	$db->setQuery( $query );
+	$newTables = $db->loadObjectList();
+
+	if($db->getErrorNum()){
+		JError::raiseError( 500, $db->stderr());		
+	}
+
+	$query 	= " SHOW TABLES LIKE '#__community_profiletypes' ";
+	$db->setQuery( $query );
+	$oldTables = $db->loadObjectList();
+
+	if($db->getErrorNum()){
+		JError::raiseError( 500, $db->stderr());		
+	}
+
+
+	// if [ old-tables-exist AND new-tables-does-not-exist ]
+	// we should migrate
+	if( ($newTables==NULL || $newTables[0] == NULL) && ($oldTables && $oldTables[0])){
+		return true;
+	}
+
+	// either newTable exist OR oldTables does not exist
+	// no need of migration.
+	return false;
 }
 
 // we will migrate the old tables information to new tables
@@ -193,7 +233,7 @@ function copy_files()
 function migrate_tables()
 {
 /*
-	User should do it first--
+	User have done it first--
 	1. Upgrade JomSocial to 1.5.248
 	2. Upgrade JSPT to 1.4.233
 
@@ -208,13 +248,8 @@ function migrate_tables()
 	#7. community_fields		==> remove reg_show
 	#8. community_register		==> remove profiletypes
 */
-//create table t2 like t1; 
-//CREATE TABLE student2 SELECT * FROM student
 
 	$allQueries	= array();
-
-//CREATE TABLE recipes_new LIKE production.recipes;
-//INSERT recipes_new SELECT * FROM production.recipes;
 
 	#1
 	$allQueries[]	= ' INSERT `#__xipt_profiletypes` ' 
@@ -233,15 +268,63 @@ function migrate_tables()
 			. ' SELECT `userid`, `profiletype` as `profiletypes`, `template` FROM #__community_users ' ;
 
 	$db	=& JFactory::getDBO();
+	foreach ( $allQueries as $query){
+
+		$db->setQuery($query);
+		$db->query();
+
+		if($db->getErrorNum()){
+			JError::raiseError( 500, $db->stderr());
+			return false;
+		}
+	}
+
 	#5 requires little more works.
+	//5.1 find all profile types
+	$query		= ' SELECT `id` FROM `#__xipt_profiletypes ';
+	$db->setQuery($query);
+	$ptypes		= $db->loadResultArray();
+
+	//5.2 find all fields
+	$query		= ' SELECT `id` FROM `#__community_fields`';
+	$db->setQuery($query);
+	$allFields	= $db->loadResultArray();
 	
+	//5.3 find all field and pid relations from old tables
 	
+	//5.4 now migrate data, we need to add all missing ptypes only.
+	if($ptypes && $allFields){
+	  foreach($allFields as $field){
+
+		$query		= ' SELECT `pid` FROM `#__community_profiletypefields` WHERE `fid`='.$field;
+		$db->setQuery($query);
+		$allPIDs	= $db->loadResultArray();
+
+	    	foreach($ptypes as $ptype){
+		   // if we do not have an entry in previous table for the ptype
+		   // then we should add that fid v/s pid, as we now store the reverse
+		  if(in_array($ptype,$allPIDs)==false){
+			// add to our list
+			$query	= ' INSERT INTO `#__xipt_profilefields` '
+				. " (`fid`,`pid`) VALUES ('".$field."' , '".$ptype."' )";
+		  }
+	    	}			
+	  }
+	}
+
+	#7,8
+	remove_column('community_fields','reg_show');
+	remove_column('community_register','profiletypes');
+	remove_table('#__community_profiletypes');
+	remove_table('#__community_myapplications');
+	remove_table('#__community_jspt_aec');
+	remove_table('#__community_jsptacl');
 }
 
 function check_column_exist($tableName, $columnName)
 {
-	assert($tableName);
-	assert($columnName);
+	assert($tableName  != '');
+	assert($columnName != '');
 
 	$db	=& JFactory::getDBO();
 	$query	=  'SHOW COLUMNS FROM ' 
@@ -262,10 +345,39 @@ function check_column_exist($tableName, $columnName)
 	return true;
 }
 
+function remove_table($tableName)
+{
+	assert($tableName != '' ) ;
+
+	$db	=& JFactory::getDBO();
+	$query 	= ' SHOW TABLE LIKE '. $db->nameQuote($tableName); 
+	$db->setQuery( $query );
+	$tables = $db->loadObjectList();
+
+	if($db->getErrorNum()){
+		JError::raiseError( 500, $db->stderr());
+		return false;
+	}
+
+	if($tables==NULL || $tables[0] == NULL){
+		return false;
+	}
+
+	//remove table
+	$query 	= ' DROP TABLE '. $db->nameQuote($tableName);
+	$db->setQuery( $query );
+	$db->query();
+
+	if($db->getErrorNum()){
+		JError::raiseError( 500, $db->stderr());
+		return false;
+	}
+}
+
 function remove_column($tableName, $columnName)
 {
-	assert(check_column_exist($tableName,$columnName)) 
-		|| JError::raiseError('INSTERR' , "Column ".$tableName." does not exist in table".$columnName);
+	if(check_column_exist($tableName,$columnName)==false)
+		return false;
 
 	$db	=& JFactory::getDBO();
 	$query 	= ' ALTER TABLE '. $db->nameQuote($tableName) 

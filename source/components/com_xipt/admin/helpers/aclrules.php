@@ -104,4 +104,3 @@ function _getDisplayNameofAclFeature($feature ="")
 		assert(0);	
 	}
 }
-?>

@@ -20,4 +20,3 @@ class XiPTViewRegistration extends JView
 		parent::display( $tpl );
     }
 }
-?>

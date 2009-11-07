@@ -94,7 +94,15 @@
 			<filename>tables/profilefields.php</filename>
 			<filename>tables/aclrules.php</filename>
 			<filename>tables/applications.php</filename>
-			
+
+			<filename>hacks/front_libraries_core.php</filename>
+			<filename>hacks/front_libraries_fields_customfields.xml</filename>
+			<filename>hacks/front_libraries_fields_templates.php</filename>
+			<filename>hacks/front_models_profile.php </filename>
+			<filename>hacks/front_libraries_fields_profiletypes.php</filename>
+			<filename>hacks/front_community.php</filename>
+
+			<filename>jspt_functions.php</filename>
 		</files>
 	</administration>
 </install>

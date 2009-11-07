@@ -62,4 +62,3 @@ class XiPTViewAclRules extends JView
 		JToolBarHelper::addNew('edit', JText::_( 'ADD ACL RULES' ));
 	}
 }
-?>
