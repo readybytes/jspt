@@ -40,13 +40,14 @@ function getJSPTFileList()
 
 	// Front End Files
 	$filestoreplace['front_community.php']		= $CMP_PATH_FRNTEND.DS.'community.php';
-	$filestoreplace['front_libraries_core.php']	= $CMP_PATH_FRNTEND.DS.'libraries'.DS.'core.php';
+	$filestoreplace['front_libraries_apps.php']	= $CMP_PATH_FRNTEND.DS.'libraries'.DS.'apps.php';
 
 	$filestoreplace['front_libraries_fields_customfields.xml']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
 	$filestoreplace['front_libraries_fields_profiletypes.php']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'profiletypes.php';
 	$filestoreplace['front_libraries_fields_templates.php']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'templates.php';
 
 	$filestoreplace['front_models_profile.php']=$CMP_PATH_FRNTEND.DS.'models'.DS.'profile.php';
+	$filestoreplace['front_models_apps.php']=$CMP_PATH_FRNTEND.DS.'models'.DS.'apps.php';
 	
 	//AEC microintegration install, if AEC exist
 	$AEC_MI_PATH = dirname( JPATH_BASE ) . DS. 'components' . DS . 'com_acctexp' . DS . 'micro_integration';

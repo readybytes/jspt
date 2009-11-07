@@ -17,6 +17,9 @@
 		
 		<filename>libraries/profiletypes.php</filename>
 		<filename>libraries/pluginhandler.php</filename>
+		<filename>libraries/core.php</filename>
+		<filename>libraries/acl.php</filename>
+		<filename>libraries/api.php</filename>
 		<filename>libraries/index.html</filename>
 		
 		<filename>controllers/registration.php</filename>
@@ -95,11 +98,12 @@
 			<filename>tables/aclrules.php</filename>
 			<filename>tables/applications.php</filename>
 
-			<filename>hacks/front_libraries_core.php</filename>
+			<filename>hacks/front_libraries_apps.php</filename>
 			<filename>hacks/front_libraries_fields_customfields.xml</filename>
+			<filename>hacks/front_libraries_fields_profiletypes.php</filename>
 			<filename>hacks/front_libraries_fields_templates.php</filename>
 			<filename>hacks/front_models_profile.php </filename>
-			<filename>hacks/front_libraries_fields_profiletypes.php</filename>
+			<filename>hacks/front_models_apps.php </filename>
 			<filename>hacks/front_community.php</filename>
 
 			<filename>jspt_functions.php</filename>
