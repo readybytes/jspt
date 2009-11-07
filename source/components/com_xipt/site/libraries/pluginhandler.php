@@ -1,7 +1,5 @@
 <?php
 /**
- * @copyright (C) 2008 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license Copyrighted Commercial Software
  */
 
 // no direct access
@@ -13,7 +11,6 @@ require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
 //@TODO: Write language file
 //@TODO : Write debug mode messages
-//@TODO : Remove ptypeid from session when registersuccess
 //@TODO : check ptypeid in session in registerProfile fn also
 class XiPTLibraryPluginHandler
 {
@@ -34,8 +31,8 @@ class XiPTLibraryPluginHandler
 	//if value exist in session then return ptype else return false 
 	function isPTypeExistInSession() {
 		if($this->mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
-			&& (($selectedProfiletypeID = $this->mySess->get('SELECTED_PROFILETYPE_ID','XIPT_NOT_DEFINED', 'XIPT'))
-				 != 'XIPT_NOT_DEFINED'))
+			&& (($selectedProfiletypeID = $this->mySess->get('SELECTED_PROFILETYPE_ID',0, 'XIPT'))
+				 != 0))
 				 	return $selectedProfiletypeID;
 		else
 			return 0;
@@ -54,6 +51,9 @@ class XiPTLibraryPluginHandler
 			//get default value from params
 			$defaultProfiletypeID = $this->params->get('defaultProfiletypeID','0');
 			assert($defaultProfiletypeID);
+			if(!$defaultProfiletypeID)
+				$this->mainframe->enqueueMessage(JText::_("PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY"));
+			
 			return $defaultProfiletypeID;
 		}
 	}
@@ -86,11 +86,15 @@ class XiPTLibraryPluginHandler
 	}
 	
 	
-	function event_com_community_register_registeravatar() {
+	function event_com_community_register_registeravatar()
+	{
 			$profiletypeID = $this->getPType();
 			assert($profiletypeID);
 			$user   = $this->mySess->get('tmpUser','','JOMSOCIAL');
-			XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
+			assert($user->id);
+			if(!XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($user->id)) 
+				XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
+			
 			$this->setDataInSession('USER_TABLE_ENTRY_DONE',true);
 	}
 	
@@ -102,7 +106,9 @@ class XiPTLibraryPluginHandler
 			$profiletypeID = $this->getPType();
 			assert($profiletypeID);
 			$user   = $this->mySess->get('tmpUser','','JOMSOCIAL');
-			XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
+			assert($user->id);
+			if(!XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($user->id)) 
+				XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
 		}
 			
 		 $this->mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');

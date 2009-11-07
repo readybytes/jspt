@@ -10,6 +10,9 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+
+require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+
 jimport( 'joomla.plugin.plugin' );
 jimport('joomla.filesystem.file');
 
@@ -22,6 +25,24 @@ class plgSystemxipt_system extends JPlugin
 	{
 		parent::__construct( $subject, $params );
 	}
+	
+	
+	//function require to protect deletion of default avatar of profiletype
+	//because JS delete non-default avatar when user change his avatar
+	//so in that case if that user has any ptype default avatar 
+	//then our ptype avatar will be deleted.
+	function onProfileAvatarUpdate( &$userid, &$old_avatar_path, &$new_avatar_path)
+	{
+		//check if avatar is ptype default avatar
+		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path)){
+			$thumb = strstr('_thumb',$old_avatar_path);
+			if ($thumb)
+				$old_avatar_path = 'components/com_community/assets/default_thumb.jpg';
+			else
+				$old_avatar_path = 'components/com_community/assets/default.jpg';
+		}
+	}
+	
 	
 	
 	/**
@@ -80,7 +101,8 @@ class plgSystemxipt_system extends JPlugin
 		$view = JRequest::getCmd('view','BLANK','GET');
 		$task = JRequest::getCmd('task','BLANK','GET');
 		
-		require_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'pluginhandler.php' );
+		if(trim($option) == 'com_community')
+			XiPTLibraryAcl::performACLCheck(0,0,0);
 		
 		$pluginHandler = new XiPTLibraryPluginHandler();
 		

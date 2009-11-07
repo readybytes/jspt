@@ -11,54 +11,55 @@ require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 class CFieldsProfiletypes
 {
 	/* Value must be numeric */
+	var $_mainframe;
+	var $_mySess;
+	var $_task;
+	var $_view;
+	
+	function __construct()
+	{
+		global $mainframe;
+		$this->_mainframe =& $mainframe;
+		$this->_mySess =& JFactory::getSession();
+		$this->_task = JRequest::getVar('task',0,'GET');
+		$this->_view = JRequest::getVar('view',0,'GET');		
+	}
+	
 	function getFieldData( $value )
 	{
-		//echo "value is ".$value;
-		$task = JRequest::getVar('task',0,'GET');
-		$view = JRequest::getVar('view',0,'GET');
-		if($task == 'registerUpdateProfile' &&  $view =='register'){
-			$disabled = 'disabled=disabled';
-			$mySess =& JFactory::getSession();	
-			if($mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
-			&& (($selectedProfiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID',0, 'XIPT'))
-				 != 0))
-				 $pID = $selectedProfiletypeID;
-			if($pID)
-				return $pID;
-			else
-				assert(0);
-		}
-		
 		if($value)
-			return $value;
+			$pID = $value;
 		else
 		{
-			$params = JComponentHelper::getParams('com_xipt');
-			$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
-			$pID = $defaultProfiletypeID;
-			return $pID;
+			//get value from profiletype field from xipt_users table
+			$user = CFactory::getUser();
+			if($user->id)
+				$pID = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($user->id);
+			
+			if(!$pID) {
+				$pID = XiPTLibraryProfiletypes::getDefaultPTypeId();
+				assert($pID) || JError::raiseError('PTYERR','PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY');
+			}
 		}
+		$pName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($pID);
+		return $pName;
 	}
 	
 	function getFieldHTML( $field , $required )
 	{
 		$html	= '';
 		$pID	= $field->value;
-		$class	= ($field->required == 1) ? ' required' : '';
-		$task = JRequest::getVar('task',0,'GET');
-		$view = JRequest::getVar('view',0,'GET');
-		
+		$class	= ($field->required == 1) ? ' required' : '';		
 		$disabled = '';
 		
-		if($task == 'registerProfile' &&  $view =='register') {
-			//$disabled = 'disabled=disabled';
-			$mySess =& JFactory::getSession();	
-			if($mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
-			&& (($selectedProfiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID','XIPT_NOT_DEFINED', 'XIPT'))
-				 != 'XIPT_NOT_DEFINED'))
+		if($this->_task == 'registerProfile' &&  $this->_view =='register') {
+			//$disabled = 'disabled=disabled';	
+			if($this->_mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
+			&& (($selectedProfiletypeID = $this->_mySess->get('SELECTED_PROFILETYPE_ID','', 'XIPT'))
+				 != ''))
 				 $pID = $selectedProfiletypeID;
 			
-			assert($pID);
+			assert($pID) || JError::raiseError('REGERR',JText::_('PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY'));
 				 
 			$html = '<input type="hidden" id="field'.$field->id.'" name="field' . $field->id  . '" value="'.$pID.'" >';
 			
@@ -71,13 +72,20 @@ class CFieldsProfiletypes
 			
 			$user	=& JFactory::getUser();
 			
-			$params = JComponentHelper::getParams('com_xipt');
-			$allow_User_to_change_ptype_after_reg = $params->get('allow_User_to_change_ptype_after_reg',0);
+			$allow_User_to_change_ptype_after_reg = $this->_params->get('allow_User_to_change_ptype_after_reg',0);
 			
 			//if not allowed then show disabled view of ptype
 			if(!$allow_User_to_change_ptype_after_reg
 				 && !XiPTLibraryProfiletypes::isAdmin($user->id)) {
-				 
+				
+				if(!(int)$pID) {
+					$pID = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($user->id); 
+				
+					if(!$pID)
+						$pID = XiPTLibraryProfiletypes::getDefaultPTypeId();
+					
+					assert($pID) || JError::raiseError('PTYERR','PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY');
+				} 	
 				$pName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($pID);
 				return $pName;
 			}
@@ -85,14 +93,13 @@ class CFieldsProfiletypes
 		
 		$pTypes = XiPTLibraryProfiletypes::getProfileTypesArray();
 		
-		$selectedValue = CFieldsProfiletypes::getFieldData($pID);
 		$html	= '<select id="field'.$field->id.'" name="field' . $field->id  . '" '.$disabled.' class="hasTip select'.$class.' inputbox" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
 		if(!empty($pTypes))
 		{
 			$selectedElement	= 0;
 			foreach($pTypes as $pType)
 			{
-				$selected	= ( $pType->id == $selectedValue ) ? ' selected="selected"' : '';
+				$selected	= ( $pType->id == $pID ) ? ' selected="selected"' : '';
 				if( !empty( $selected ) )
 					$selectedElement++;
 				
@@ -119,4 +126,15 @@ HTML;
 		
 		return $html;
 	}
+	
+	
+	function isValid($value,$required)
+	{
+		//TODO : is it a valid profile type, check from table
+		if(!$value)
+			return false;
+		
+		return true;
+	}
+	
 }

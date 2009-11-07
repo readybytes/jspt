@@ -6,35 +6,49 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-require_once (JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'profiletypes.php');
+require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
 class CFieldsTemplates
 {
-	/* Value must be numeric */
+	var $_mainframe;
+	var $_mySess;
+	var $_task;
+	var $_view;
+	var $_params;
+	
+	function __construct()
+	{
+		global $mainframe;
+		$this->_mainframe =& $mainframe;
+		$this->_mySess =& JFactory::getSession();
+		$this->_task = JRequest::getVar('task',0,'GET');
+		$this->_view = JRequest::getVar('view',0,'GET');
+		$this->_params = JComponentHelper::getParams('com_xipt');
+		
+	}
+	
 	function getFieldData( $value )
 	{
 		//echo "value is ".$value;
 		$user = CFactory::getUser();
-		$task = JRequest::getVar('task',0,'GET');
-		$view = JRequest::getVar('view',0,'GET');
 		if($value)
 			return $value;
 		else
 		{
-			if($task != 'registerProfile' &&  $view !='register')
-				$tName = CProfiletypeLibrary::getTemplateOfuser($user->_userid);
+			if($this->_task != 'registerProfile' &&  $this->_view !='register')
+				$tName = XiPTLibraryProfiletypes::getTemplateOfuser($user->_userid);
 			else
 			{
-				$regmodel	= CFactory::getModel('register');
-				$mySess =& JFactory::getSession();	
-				$token		= $mySess->get('JS_REG_TOKEN','','JOMSOCIAL');
-				$tmpUser = $regmodel->getTempUser($token);
+				//from registration
+				if($this->_mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
+					&& (($selectedProfiletypeID 
+					= $this->_mySess->get('SELECTED_PROFILETYPE_ID',0, 'XIPT'))
+				 	!= 0))
+				 $pID = $selectedProfiletypeID;
+			
+				assert($pID) || JError::raiseError('REGERR',JText::_('PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY'));
 				
-				$pID =($mySess->has('JSPT') &&  $mySess->has('JSPT_REG_PTYPE','JSPT') ) ? 
-							$mySess->get('JSPT_REG_PTYPE',$tmpUser->profiletypes,'JSPT') 
-								: $tmpUser->profiletypes ; 
-				
-				$tName = CProfiletypeLibrary::getProfileTypeData($pID,'template');
+				$tName = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
 			}
 			
 			if(empty($tName))
@@ -49,10 +63,19 @@ class CFieldsTemplates
 	function getFieldHTML( $field , $required )
 	{
 		$tName	= $field->value;
-		$templates = CProfiletypeLibrary::getTemplatesList();
+		$templates = XiPTLibraryProfiletypes::getTemplatesList();
 		$class	= ($field->required == 1) ? ' required' : '';
 		
 		$selectedValue = CFieldsTemplates::getFieldData($tName);
+		
+		$allow_templatechange = $this->_params->get('allow_templatechange',0);
+		
+		if(!$allow_templatechange) {
+			$html = '<input type="hidden" id="field'.$field->id.'" 
+				name="field' . $field->id  . '" value="'.$selectedValue.'" >'; 
+			$html .= $selectedValue;
+			return $html;
+		}
 		$html	= '<select id="field'.$field->id.'" name="field' . $field->id . '" class="hasTip select'.$class.' inputbox" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
 		if(!empty($templates))
 		{

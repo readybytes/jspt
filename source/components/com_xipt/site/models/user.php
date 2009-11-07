@@ -36,7 +36,7 @@ class XiPTModelUser extends JModel
 	
 	function setUserData( $data )
 	{   
-		
+		global $mainframe;
 		$validated = true;
 		$emptyFields ='';
 		if( empty( $data->userid ) ){
@@ -57,7 +57,7 @@ class XiPTModelUser extends JModel
 			
 		if($validated == false)
 		{
-			$mainframe->enqueueMessage( $emptyFields. JText::_('CAN NOT BE EMPTY'), 'error');
+			$mainframe->enqueueMessage(sprintf(JText::_('FIELDS CAN NOT BE EMPTY'),$emptyFields), 'error');
 			return false;
 		}
 	   

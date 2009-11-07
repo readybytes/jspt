@@ -18,7 +18,7 @@
 			<option value="0">Radio Options</option>
 			<option value="1">Select Box</option>
 		</param>
-		<param name="jspt_allow_templatechange" type="radio" default="1" label="ALLOW TEMPLATE SELECTION" description="ALLOW TEMPLATE SELECTION.DESC">
+		<param name="allow_templatechange" type="radio" default="1" label="ALLOW TEMPLATE SELECTION" description="ALLOW TEMPLATE SELECTION.DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
