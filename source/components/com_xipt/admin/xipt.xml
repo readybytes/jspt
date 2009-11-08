@@ -11,10 +11,17 @@
 	<description>XIPT is a component for JomSocial : Add's profile customization as per user types</description>
 	<installfile>install.xipt.php</installfile>
 	<uninstallfile>uninstall.xipt.php</uninstallfile>
+
+	<languages folder="site">
+		<language tag="en-GB">en-GB.com_xipt.ini</language>
+	</languages>
 	<files folder="site">
 		<filename>index.html</filename>
 		<filename>xipt.php</filename>
-		
+		<filename>includes.xipt.php</filename>
+		<filename>api.xipt.php</filename>
+		<filename>defines.xipt.php</filename>
+
 		<filename>libraries/profiletypes.php</filename>
 		<filename>libraries/pluginhandler.php</filename>
 		<filename>libraries/core.php</filename>
@@ -40,10 +47,16 @@
 			<menu view="applications" >Applications</menu>
 			<menu view="profilefields" >Profile Fields</menu>
 		</submenu>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_xipt.ini</language>
+		</languages>
+	
 		<files folder="admin">
 			<filename>index.html</filename>
 			<filename>admin.xipt.php</filename>
 			<filename>config.xml</filename>
+			<filename>jspt_functions.php</filename>
+			<filename>includes.xipt.php</filename>
 			
 			<filename>controllers/index.html</filename>
 			<filename>controllers/profiletypes.php</filename>
@@ -106,7 +119,7 @@
 			<filename>hacks/front_models_apps.php </filename>
 			<filename>hacks/front_community.php</filename>
 
-			<filename>jspt_functions.php</filename>
+			
 		</files>
 	</administration>
 </install>
