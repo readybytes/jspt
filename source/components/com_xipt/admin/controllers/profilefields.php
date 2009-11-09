@@ -2,18 +2,16 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTControllerProfileFields extends JController {
-    /**
-     * Constructor
-     * @access private
-     * @subpackage profilestatus
-     */
+class XiPTControllerProfileFields extends JController 
+{
+    
 	function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 	
-	function display() {
+	function display() 
+	{
 		parent::display();
     }
 	
@@ -36,7 +34,7 @@ class XiPTControllerProfileFields extends JController {
 		
 	}
 	
-	//@TODO @DONE : save fields which is not accsible , means in opposite form
+	//save fields which is not accsible , means in opposite form
 	// like field1 is visible to ptype 1 not to ptype 2 and 3 , then store 2 and 3
 	//by default all fields are visible to all ptype
 	//if all is selected then store nothing

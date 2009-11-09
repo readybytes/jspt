@@ -42,8 +42,9 @@
 	<administration>
 		<menu link="option=com_xipt" >JomSocial Profile Types</menu>
 		<submenu>
+			<menu view="cpanel" >Control Panel</menu>
 			<menu view="profiletypes" >Profile Types</menu>
-			<menu view="aclrules" >Acl Rules</menu>
+			<menu view="aclrules" >Access Control</menu>
 			<menu view="applications" >Applications</menu>
 			<menu view="profilefields" >Profile Fields</menu>
 		</submenu>
@@ -59,6 +60,7 @@
 			<filename>includes.xipt.php</filename>
 			
 			<filename>controllers/index.html</filename>
+			<filename>controllers/cpanel.php</filename>
 			<filename>controllers/profiletypes.php</filename>
 			<filename>controllers/profilefields.php</filename>
 			<filename>controllers/aclrules.php</filename>
@@ -80,6 +82,11 @@
 			<filename>elements/profiletypes.php</filename>
 			
 			<filename>views/index.html</filename>
+			
+			<filename>views/cpanel/index.html</filename>
+			<filename>views/cpanel/view.html.php</filename>
+			<filename>views/cpanel/tmpl/index.html</filename>
+			<filename>views/cpanel/tmpl/default.php</filename>
 			
 			<filename>views/profiletypes/index.html</filename>
 			<filename>views/profiletypes/view.html.php</filename>
@@ -118,6 +125,12 @@
 			<filename>hacks/front_models_profile.php </filename>
 			<filename>hacks/front_models_apps.php </filename>
 			<filename>hacks/front_community.php</filename>
+			
+			<filename>images/index.html</filename>
+			<filename>images/profiletypes.gif</filename>
+			<filename>images/profilefields.gif</filename>
+			<filename>images/aclrules.gif</filename>
+			<filename>images/applications.gif</filename>
 
 			
 		</files>

@@ -34,7 +34,7 @@ class plgSystemxipt_system extends JPlugin
 	function onProfileAvatarUpdate( &$userid, &$old_avatar_path, &$new_avatar_path)
 	{
 		//check if avatar is ptype default avatar
-		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path)){
+		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
 			$thumb = strstr('_thumb',$old_avatar_path);
 			if ($thumb)
 				$old_avatar_path = 'components/com_community/assets/default_thumb.jpg';

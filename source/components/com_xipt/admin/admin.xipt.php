@@ -15,7 +15,7 @@ jimport('joomla.application.component.model');
 require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 
 	if(JRequest::getCmd('view') == '') {
-	            JRequest::setVar('view', 'profiletypes');
+	            JRequest::setVar('view', 'cpanel');
 	}
 
 	$controller	= JRequest::getCmd( 'view');

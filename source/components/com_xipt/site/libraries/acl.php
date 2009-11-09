@@ -29,7 +29,7 @@ class XiPTLibraryAcl
 		//global $mainframe;
 		//$mainframe->enqueueMessage("view user id = ".$viewuserid." task = ".$task);
 		
-		if(XiPTLibraryProfiletypes::isAdmin($userId))
+		if(XiPTLibraryCore::isAdmin($userId))
 			return false;
 		
 		if(($feature && ($task || $viewuserid) && $userId)== false)

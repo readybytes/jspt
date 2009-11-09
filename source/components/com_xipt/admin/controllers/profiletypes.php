@@ -2,18 +2,16 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerProfiletypes extends JController {
-    /**
-     * Constructor
-     * @access private
-     * @subpackage profilestatus
-     */
+class XiPTControllerProfiletypes extends JController 
+{
+    
 	function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 	
-    function display() {
+    function display() 
+	{
 		parent::display();
     }
 	

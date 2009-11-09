@@ -95,7 +95,7 @@ class CommunityModelProfile extends JCCModel
 		
 		//to display fields related to profiletype unset unused fields.
 		//call xipt library fn for this
-		XiPTLibraryProfiletypes::getFieldsDuringRegistration($this->_allField);
+		XiPTLibraryCore::getFieldsDuringRegistration($this->_allField);
 
 		return $this->_allField;
 	}	
@@ -199,7 +199,7 @@ class CommunityModelProfile extends JCCModel
 
 		$result	= $db->loadAssocList();
 		//call event to get fields acc to profiletype
-		XiPTLibraryProfiletypes::getFieldsInEditMode($userId,$result);
+		XiPTLibraryCore::getFieldsInEditMode($userId,$result);
 
 		if($db->getErrorNum()){
 			JError::raiseError( 500, $db->stderr());
@@ -293,7 +293,7 @@ class CommunityModelProfile extends JCCModel
 		$result	= $db->loadAssocList();
 		
 		//call event to get fields acc to profiletype
-		XiPTLibraryProfiletypes::getFieldsInEditMode($userId,$result);
+		XiPTLibraryCore::getFieldsInEditMode($userId,$result);
 		
 
 		if($db->getErrorNum())
@@ -388,7 +388,7 @@ class CommunityModelProfile extends JCCModel
 			$db->query();
 			
 			//call updateFieldEvents Trigger to handover the task.
-			XiPTLibraryProfiletypes::updateProfileFieldsValueEvent($userId,$isNew,$id,$value);
+			XiPTLibraryCore::updateProfileFieldsValueEvent($userId,$isNew,$id,$value);
 
 		}
 		

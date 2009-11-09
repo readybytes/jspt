@@ -3,17 +3,16 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerAclRules extends JController {
-    /**
-     * Constructor
-     * @access private
-     */
+class XiPTControllerAclRules extends JController 
+{
+    
 	function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 	
-    function display() {
+    function display() 
+	{
 		parent::display();
     }
 	

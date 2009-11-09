@@ -29,7 +29,8 @@ class XiPTLibraryPluginHandler
 	}
 	
 	//if value exist in session then return ptype else return false 
-	function isPTypeExistInSession() {
+	function isPTypeExistInSession() 
+	{
 		if($this->mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
 			&& (($selectedProfiletypeID = $this->mySess->get('SELECTED_PROFILETYPE_ID',0, 'XIPT'))
 				 != 0))
@@ -39,30 +40,29 @@ class XiPTLibraryPluginHandler
 	}
 	
 	
-	function setDataInSession($what,$value) {
+	function setDataInSession($what,$value) 
+	{
 		$this->mySess->set($what,$value, 'XIPT');
 	}
 	
-	function getPType() {
+	function getPType() 
+	{
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 		if($selectedProfiletypeID)
 			return $selectedProfiletypeID;
 		else {
+			//this fn call during registration so ptype should exist
 			//get default value from params
 			$defaultProfiletypeID = $this->params->get('defaultProfiletypeID','0');
-			assert($defaultProfiletypeID);
-			if(!$defaultProfiletypeID)
-				$this->mainframe->enqueueMessage(JText::_("PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY"));
-			
+			assert($defaultProfiletypeID);			
 			return $defaultProfiletypeID;
 		}
 	}
 	
 
 	//BLANK means task should be empty
-	function event_com_community_register_blank() {
-		
-		
+	function event_com_community_register_blank() 
+	{
 		$show_ptype_during_reg = $this->params->get('show_ptype_during_reg','0');
 		
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
@@ -73,7 +73,7 @@ class XiPTLibraryPluginHandler
 			
 			//get profiletype name from ptype id
 			$selectedpTypeName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($selectedProfiletypeID);
-			$this->mainframe->enqueueMessage(sprintf(JTEXT::_("YOUR CURRENT PROFILETYPE IS %s , TO CHANGE PROFILETYPE CLICK HERE %s"),$selectedpTypeName,$link));
+			$this->mainframe->enqueueMessage(sprintf(JTEXT::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName,$link));
 			return;	
 		}
 		else if($show_ptype_during_reg)
@@ -89,26 +89,28 @@ class XiPTLibraryPluginHandler
 	function event_com_community_register_registeravatar()
 	{
 			$profiletypeID = $this->getPType();
-			assert($profiletypeID);
+			assert($profiletypeID) || JError::raiseError('REGPTYERR',JText::_('PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY')) ;
+			
 			$user   = $this->mySess->get('tmpUser','','JOMSOCIAL');
-			assert($user->id);
+			assert($user->id) || JError::raiseError('NOUSERSES',JText_('SESSION EXPIRED NO USER EXIST'));
 			if(!XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($user->id)) 
-				XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
+				XiPTLibraryCore::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
 			
 			$this->setDataInSession('USER_TABLE_ENTRY_DONE',true);
 	}
 	
 	
 	//clear session data when user registered successfully
-	function event_com_community_register_registersucess() {
+	function event_com_community_register_registersucess() 
+	{
 		$entryDone = $this->mySess->get('USER_TABLE_ENTRY_DONE','0', 'XIPT');
 		if(!$entryDone) {
 			$profiletypeID = $this->getPType();
-			assert($profiletypeID);
+			assert($profiletypeID) || JError::raiseError('REGPTYERR',JText::_('PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY')) ;
 			$user   = $this->mySess->get('tmpUser','','JOMSOCIAL');
 			assert($user->id);
 			if(!XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($user->id)) 
-				XiPTLibraryProfiletypes::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
+				XiPTLibraryCore::setProfileDataForUserID($user->id,$profiletypeID,'ALL');
 		}
 			
 		 $this->mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');

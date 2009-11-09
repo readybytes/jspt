@@ -1,7 +1,5 @@
 <?php
 /**
- * @copyright (C) 2008 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license http://www.azrul.com Copyrighted Commercial Software
  */
 
 // no direct access
@@ -38,7 +36,7 @@ class CFieldsProfiletypes
 			
 			if(!$pID) {
 				$pID = XiPTLibraryProfiletypes::getDefaultPTypeId();
-				assert($pID) || JError::raiseError('PTYERR','PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY');
+				assert($pID) || JError::raiseError('PTYERR',JText::_('PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY'));
 			}
 		}
 		$pName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($pID);
@@ -130,7 +128,10 @@ HTML;
 	
 	function isValid($value,$required)
 	{
-		//TODO : is it a valid profile type, check from table
+		//TODO : ( DONE )is it a valid profile type, check from table
+		if(!XiPTLibraryProfiletypes::validateProfiletypeId($value))
+			return false;
+			
 		if(!$value)
 			return false;
 		

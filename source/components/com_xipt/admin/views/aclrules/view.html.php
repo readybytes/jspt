@@ -50,7 +50,7 @@ class XiPTViewAclRules extends JView
 	{
 
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'ACL RULES' ), 'AclRules' );
+		JToolBarHelper::title( JText::_( 'ACCESS CONTROL' ), 'AclRules' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');

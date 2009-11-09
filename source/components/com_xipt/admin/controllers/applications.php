@@ -3,18 +3,16 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerApplications extends JController {
-    /**
-     * Constructor
-     * @access private
-     * @subpackage profilestatus
-     */
+class XiPTControllerApplications extends JController 
+{
+    
 	function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 	
-    function display() {
+    function display() 
+	{
 		parent::display();
     }
 	
@@ -68,7 +66,6 @@ class XiPTControllerApplications extends JController {
 				{
 					if(!array_key_exists('profileTypes'.$type,$post))
 					{
-						  // print_r("pid = ".$data['profileTypes'.$i]);
 						  XiPTHelperApplications::addApplicationProfileType($post['id'], $type);
 						  $msg = JText::_('APPLICATION SAVED');
 					}
