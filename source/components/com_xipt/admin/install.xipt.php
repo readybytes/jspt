@@ -69,10 +69,8 @@ function setup_database()
 	return true;
 }
 
-
 function create_tables()
 {
-
 	$allQueries  	= array();
 	
 	$allQueries[]	='CREATE TABLE IF NOT EXISTS `#__xipt_profilefields` (
@@ -117,7 +115,7 @@ function create_tables()
 				`otherpid` int(31) NOT NULL default -1,
 				PRIMARY KEY  (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-	
+
 	$allQueries[] = 'CREATE TABLE IF NOT EXISTS `#__xipt_users` (
 	 			 `userid` int(11) NOT NULL,
   				 `profiletype` int(10) NOT NULL default \'0\',
