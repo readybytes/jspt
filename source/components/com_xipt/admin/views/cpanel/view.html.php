@@ -40,6 +40,7 @@ class XiPTViewCPanel extends JView
 
 		// Set the titlebar text
 		JToolBarHelper::title( JText::_( 'CONTROL PANEL' ), 'XiPT' );
+		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	
 	function addIcon( $image , $url , $text , $newWindow = false )

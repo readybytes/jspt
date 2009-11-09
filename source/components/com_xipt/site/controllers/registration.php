@@ -18,24 +18,30 @@ class XiPTControllerRegistration extends JController {
 		//@TODO : do some validation for visibility and publish of ptype
 		if(JRequest::getVar('save', '', 'POST') == 'save'){
 			
-			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 'XIPT_NOT_DEFINED' , 'POST' );
+			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
 			//set value in session and redirect to destination url
-			
-			if($selectedProfiletypeID != 'XIPT_NOT_DEFINED') {
-				
-				$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
-				$retURL = $this->mySess->get('RETURL', 'XIPT_NOT_DEFINED', 'XIPT');
-				if($retURL != 'XIPT_NOT_DEFINED')
-				{
-					$retURL	= $retURL ? base64_decode($retURL) : 'index.php';
-					$mainframe->redirect($retURL);
-				}
-				
-				$selectedpTypeName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($selectedProfiletypeID);
-				
-				$msg = JTEXT::_("PROFILETYPE ".$selectedpTypeName." SAVED");
-				$mainframe->enqueueMessage($msg);
+			 
+			if(!XiPTLibraryProfiletypes::validateProfiletypeId($selectedProfiletypeID)) {
+				$url = XiPTLibraryCore::getCurrentURL();
+				$redirectUrl = base64_decode($url);
+				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
+				$mainframe->redirect($redirectUrl,$msg);
+				return;
 			}
+				
+			$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
+			$retURL = $this->mySess->get('RETURL', 'XIPT_NOT_DEFINED', 'XIPT');
+			if($retURL != 'XIPT_NOT_DEFINED')
+			{
+				$retURL	= $retURL ? base64_decode($retURL) : 'index.php';
+				$mainframe->redirect($retURL);
+			}
+			
+			$selectedpTypeName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($selectedProfiletypeID);
+			
+			$msg = sprintf(JText::_("PROFILETYPE SAVED"),$selectedpTypeName);
+			$mainframe->enqueueMessage($msg);
+			
 		}
 
 		$viewName	= JRequest::getCmd( 'view' , 'registration' );

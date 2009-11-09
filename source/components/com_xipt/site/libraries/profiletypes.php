@@ -27,11 +27,13 @@ class XiPTLibraryProfiletypes
 		
 		if(empty($allProfileTypes))
 			return false;
-			
-		if(!in_array($profileTypeID,$allProfileTypes->id))
-			return false;
-			
-		return true;
+
+		foreach($allProfileTypes as $pType) {
+			if($profileTypeID == $pType->id)
+				return true;
+		}
+		
+		return false;
 	}
 	
 	//return ptype name from id
@@ -69,15 +71,19 @@ class XiPTLibraryProfiletypes
 		
 		$ptypewithSelected = array();
 		
-		if(!empty($allProfileTypesId)){
-			foreach($allProfileTypesId as $ptype){
-				if(empty($seletedProfileTypeID))
-					$seletedProfileTypeID = $ptype->id;
-				if($ptype->id == $seletedProfileTypeID)
-					$ptypewithSelected[$ptype->id] = 1;
-				else
-					$ptypewithSelected[$ptype->id] = 0;
-			}
+		if(empty($allProfileTypesId))
+			return $ptypewithSelected;
+		
+		foreach($allProfileTypesId as $ptype){
+			//if not selected any ptype then bydefault seletct default ptype
+			if(empty($seletedProfileTypeID))
+				$seletedProfileTypeID = XiPTLibraryProfiletypes::getDefaultPTypeId();
+			if(empty($seletedProfileTypeID))	
+				$seletedProfileTypeID = $ptype->id;
+			if($ptype->id == $seletedProfileTypeID)
+				$ptypewithSelected[$ptype->id] = 1;
+			else
+				$ptypewithSelected[$ptype->id] = 0;
 		}
 		
 		return $ptypewithSelected;

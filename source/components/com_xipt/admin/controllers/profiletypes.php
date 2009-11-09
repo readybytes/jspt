@@ -8,6 +8,11 @@ class XiPTControllerProfiletypes extends JController
 	function __construct($config = array())
 	{
 		parent::__construct($config);
+		
+		//registering some extra in all task list which we want to call
+		$this->registerTask( 'orderup' , 'saveOrder' );
+		$this->registerTask( 'orderdown' , 'saveOrder' );
+		
 	}
 	
     function display() 
@@ -148,9 +153,10 @@ class XiPTControllerProfiletypes extends JController
 		{
 			$pModel->updatePublish($id,1);
 		}
-		$msg = JText::sprintf( $count.' ITEMS PUBLISHED' );
+		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);	}
+		$mainframe->redirect($link, $msg);	
+	}
 	
 	function unpublish()
 	{
@@ -170,9 +176,45 @@ class XiPTControllerProfiletypes extends JController
 		{
 			$pModel->updatePublish($id,0);
 		}
-		$msg = JText::sprintf( $count.' ITEMS UNPUBLISHED' );
+		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);
+	}
+	
+	
+	
+/**	
+	 * Save the ordering of the entire records.
+	 *	 	
+	 * @access public
+	 *
+	 **/	 
+	function saveOrder()
+	{
+		global $mainframe;
+	
+		// Determine whether to order it up or down
+		$direction	= ( JRequest::getWord( 'task' , '' ) == 'orderup' ) ? -1 : 1;
+
+		// Get the ID in the correct location
+ 		$id			= JRequest::getVar( 'cid', array(), 'post', 'array' );
+		$db			=& JFactory::getDBO();
+
+		if( isset( $id[0] ) )
+		{
+			$id		= (int) $id[0];
+
+			// Load the JTable Object.
+			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+			
+			$table->load( $id );
+			$table->move( $direction );
+
+			$cache	=& JFactory::getCache( 'com_content');
+			$cache->clean();
+			
+			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
+		}
 	}
 	
 }

@@ -64,7 +64,6 @@ class XiPTViewProfiletypes extends JView
 		JToolBarHelper::divider();
 		JToolBarHelper::trash('remove', JText::_( 'DELETE' ));
 		JToolBarHelper::addNew('edit', JText::_( 'ADD PROFILETYPES' ));
-		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	
 	function getGroup( $id )

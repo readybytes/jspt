@@ -8,6 +8,14 @@ defined('_JEXEC') or die('Restricted access');
 class XiPTLibraryCore
 {
 	
+	function getCurrentURL()
+	{
+		// TO DO : Get url
+		$url = JFactory::getURI()->toString( array('scheme', 'user', 'pass', 'host', 'port', 'path', 'query', 'fragment'));
+		return base64_encode($url);
+	}
+	
+	
 	function isAdmin($id, $refID=0)
 	{
 		$acl  		= & JFactory::getACL();
