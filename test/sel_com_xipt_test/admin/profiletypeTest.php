@@ -2,22 +2,26 @@
 
 require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
+// it will be repalced by set script
+require_once '@JOOMLA.ROOT.PATH@'.'@JOOMLA.FOLDER@'.'/test/selConfig.php';
+require_once '@JOOMLA.ROOT.PATH@'.'@JOOMLA.FOLDER@'.'/test/selJAdmin.php';
+
 class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
 {
   function setUp()
   {
     $this->setBrowser("*chrome");
-    $this->setBrowserUrl('http://localhost/@joomla.folder@'."/administrator/index.php?option=com_login");
+    $this->setBrowserUrl( JOOMLA_LOCATION."/administrator/index.php?option=com_login");
   }
 
 
   function adminLogin()
   {
-    $this->open('http://localhost/@joomla.folder@'."/administrator/index.php?option=com_login");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_login");
     $this->waitForPageToLoad("30000");
 
-    $this->type("modlgn_username", '@joomla.admin@');
-    $this->type("modlgn_passwd", '@joomla.password@');
+    $this->type("modlgn_username", JOOMLA_ADMIN_USERNAME);
+    $this->type("modlgn_passwd", JOOMLA_ADMIN_PASSWORD);
     $this->click("link=Login");
 
     $this->waitForPageToLoad("30000");
@@ -85,20 +89,44 @@ class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
 	
 	// try to order profiletypes
 	function testOrderProfileTypes()
-	{}
+	{
+		// mv 2 to 3 (down)
+		$this->click("//tr[@id='rowid4']/td[12]/span[1]/a/img");
+		$this->waitForPageToLoad("30000");
+		$this->assertTrue($this->isTextPresent("3 		PROFILETYPE-TWO"));
+		
+		// mv 4 to 2 (up)
+		$this->click("//tr[@id='rowid5']/td[12]/span[1]/a/img");
+		$this->waitForPageToLoad("30000");
+		$this->assertTrue($this->isTextPresent("4 		PROFILETYPE-TWO"));
+	}
 
-	//publish profiletypes
-	function testPublishProfileTypes()
-	{}
 
 	// unpublish fed profiletypes
-	function testPublishProfileTypes()
-	{}
+	function testPublishUnpublishProfileTypes()
+	{
+		// publish
+		$this->click("//td[@id='published3']/a/img");
+		$this->waitForPageToLoad("30000");
+		$this->assertTrue($this->isTextPresent("1 Items unpublished."));
+		
+		// same link now refers to unpublish
+		$this->click("//td[@id='published3']/a/img");
+		$this->waitForPageToLoad("30000");
+		$this->assertTrue($this->isTextPresent("1 Items published."));
+
+	}
 
 	// try to delete all
-	function deleteProfileTypes()
-	{}
-
+	function testDeleteProfileTypes()
+	{
+		// delete profiletype 3		
+		$this->click("cb3");
+		$this->click("//td[@id='toolbar-trash']/a/span");
+		// proivde yes to popup box.
+		$this->waitForPageToLoad("30000");
+		$this->assertTrue($this->isTextPresent("1 Profiletype removed"));
+	}
 
 }
 ?>
