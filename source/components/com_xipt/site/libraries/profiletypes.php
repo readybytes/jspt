@@ -50,8 +50,9 @@ class XiPTLibraryProfiletypes
 	}
 
 	//return array of all published profile type id
-	function getProfileTypesArray()
+	function getProfileTypesArray($visible=false)
 	{
+		//TODO : we need to add $visible pTypes as per request.
 		$db			=& JFactory::getDBO();
 		$query		= ' SELECT *'
 					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
@@ -65,6 +66,7 @@ class XiPTLibraryProfiletypes
 	
 	
 	//return profiletypeid array with selected ptype as true
+	// TODO CODREV : It should return only the ID of selected profiletype ?
 	function getSelectedProfileTypesArray($seletedProfileTypeID = '')
 	{
 		$allProfileTypesId = XiPTLibraryProfiletypes::getProfileTypesArray();
@@ -75,11 +77,14 @@ class XiPTLibraryProfiletypes
 			return $ptypewithSelected;
 		
 		foreach($allProfileTypesId as $ptype){
+			
 			//if not selected any ptype then bydefault seletct default ptype
 			if(empty($seletedProfileTypeID))
 				$seletedProfileTypeID = XiPTLibraryProfiletypes::getDefaultPTypeId();
+				
 			if(empty($seletedProfileTypeID))	
 				$seletedProfileTypeID = $ptype->id;
+				
 			if($ptype->id == $seletedProfileTypeID)
 				$ptypewithSelected[$ptype->id] = 1;
 			else
@@ -104,6 +109,7 @@ class XiPTLibraryProfiletypes
 				$extraSql = ' SET '.$db->nameQuote(TEMPLATE_FIELD_IN_USER_TABLE) 
 				. '=' . $db->Quote($value);
 				break;
+				
 			default:
 				return;
 		}

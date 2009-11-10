@@ -6,6 +6,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 
 class CAppPlugins extends JObject {
 	var $name;

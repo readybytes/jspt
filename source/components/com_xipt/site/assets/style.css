@@ -1,0 +1,60 @@
+div.registerProfileType
+{
+	border-style:solid; 
+	border-width:1px; 
+	border-color: #DFDC8B;
+	background-color:#FDFCE5; 
+	padding: 6px 0 6px 6px;
+	padding-left:20px;
+	padding-bottom:10px;
+}
+
+
+.registerProfileType h3#Title
+{
+	font-size: 14px; 
+	color: #000000;
+	line-height: 16px;
+	height: 16px;						
+	font-weight: bold;
+	padding-top:10px;
+}
+
+registerProfileType.singlePT
+{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+
+.registerProfileType #Name
+{
+	font-size: 12px;
+	font-weight:bold;
+	color: #000000;
+	line-height: 12px;
+	height: 14px;
+}
+
+.registerProfileType #Details
+{
+	padding-top:10px;
+	padding-left:25px;
+}
+
+.registerProfileType #Avatar
+{
+	float:left;
+	padding-right:5px;
+}
+
+.registerProfileType #Description
+{
+	float:left;
+	width:600px;
+	margin-left: 5px;
+	font-size: 10px; 
+	font-style:italic;
+	color: #000000;
+	line-height: 10px;
+}

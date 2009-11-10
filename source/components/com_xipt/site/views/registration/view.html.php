@@ -1,22 +1,26 @@
 <?php
-/**
- *
- */
-
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
 
-class XiPTViewRegistration extends JView 
+class XiPTViewRegistration extends JView
 {
-    function display($tpl = null){
-  		
-    	$seletedPTypeID = JRequest::getVar('ptypeid','');
-    	$profileTypes = XiPTLibraryProfiletypes::getSelectedProfileTypesArray($seletedPTypeID);
-    	$this->assign( 'profileTypes' , $profileTypes );
+	function display($tpl = null){
+
+		//refine it, if empty will add default pType
+		$seletedPTypeID 	= JRequest::getVar('ptypeid','');
+		$seletedPTypeID		= XiPTLibraryProfiletypes::getSelectedProfileTypesArray($seletedPTypeID);
+		
+		$allProfileTypes 	= XiPTLibraryProfiletypes::getProfileTypesArray();
+		
+		//TODO : trigger an API Event to add something to templates, or modify $profiletypes array
+		// e.g. : I want to patch description. with some extra information
+		
+		$this->assign( 'allProfileTypes' , $allProfileTypes );
+		$this->assign( 'selectedProfileTypeID' , $seletedPTypeID );
+		
 		parent::display( $tpl );
-    }
+	}
 }

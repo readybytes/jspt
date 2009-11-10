@@ -19,7 +19,7 @@ require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'acl.php';
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php';
-require_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'pluginhandler.php' );
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'pluginhandler.php';
 
 /*Load Langauge file*/
 $lang =& JFactory::getLanguage();

@@ -18,6 +18,7 @@ require_once JPATH_SITE.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'co
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
 
 //// define our include paths to joomla
+jimport( 'joomla.application.component.model' );
 JModel::addIncludePath(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'models');
 JTable::addIncludePath( JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' . DS . 'tables' );
 
