@@ -6,7 +6,6 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 
 class CAppPlugins extends JObject {
 	var $name;
@@ -129,9 +128,14 @@ class CAppPlugins extends JObject {
 
 			
 		} else {
+
+			// we need to edit dispatcher here 
 			$dispatcher->trigger( $event , $arrayParams );
 		}
 
+		// TODO : CODREV, will it stop other application to trigger
+		// This should be removed when API comes in
+		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 		XiPTLibraryProfiletypes::getAllowedApps($content,'name');
 		return $content;
 	}

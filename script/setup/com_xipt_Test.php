@@ -4,6 +4,11 @@ require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
 class Com_XiPT extends PHPUnit_Extensions_SeleniumTestCase
 {
+
+    protected $captureScreenshotOnFailure = TRUE;
+    protected $screenshotPath = '/var/www/@joomla.folder@/screenshots';
+    protected $screenshotUrl = 'http://localhost/@joomla.folder@screenshots';
+
   function setUp()
   {
     $this->setBrowser("*chrome");

@@ -13,14 +13,15 @@ class CFieldsProfiletypes
 	var $_mySess;
 	var $_task;
 	var $_view;
-	
+	var $_params;
 	function __construct()
 	{
 		global $mainframe;
 		$this->_mainframe =& $mainframe;
 		$this->_mySess =& JFactory::getSession();
 		$this->_task = JRequest::getVar('task',0,'GET');
-		$this->_view = JRequest::getVar('view',0,'GET');		
+		$this->_view = JRequest::getVar('view',0,'GET');
+		$this->_params = JComponentHelper::getParams('com_xipt');
 	}
 	
 	function getFieldData( $value )

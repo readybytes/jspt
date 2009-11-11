@@ -84,7 +84,40 @@ class XiPTLibraryCore
 		}
 	}
 	
+	/*
+	 * TODO : CODREV , Lots of Testing Required here
+	 * */
+	function updateProfileFieldsEvent($userId, $fields)
+	{
+		if(!$fields || $userId <= 0)
+			return;
+			
+		$profileType	= 0;
+		$template		= '';
+		
+		// collect template and profiletype specified
+		foreach($fields as $id => $value){
+			$fieldInfo = XiPTLibraryProfiletypes::getFieldInfofromFieldId($id);
+			if($fieldInfo->type == PROFILETYPE_FIELD_NAME)
+				$profileType = $value;
+		
+			if($fieldInfo->type == TEMPLATE_FIELD_NAME)
+				$template 	= $value;
+		}
+		// if profiletype is different then set profiletype
+		$oldPTypeId = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($userId);
+		if($profileType && $oldPTypeId != $profileType)
+				XiPTLibraryCore::setProfileDataForUserID($userId,$value,'ALL');
+				
+		// set template as per his choice
+		$oldTemplate = XiPTLibraryProfiletypes::getTemplateOfuser($userId);
+		if($template && $template != $oldTemplate)
+			XiPTLibraryProfiletypes::saveFieldForUser($userId,$template,TEMPLATE_FIELD_NAME);
 
+		return true;
+	}
+	
+/*
 	//TODO ( DONE ) : When user don't change his ptype then don't change his other settings.
 	//function will call when value will be updated in community_fields_values table
 	function updateProfileFieldsValueEvent($userId,$isNew,$fieldID,$value)
@@ -104,6 +137,7 @@ class XiPTLibraryCore
 		
 		return;
 	}
+*/
 	
 	
 	function saveUser($userid,$profiletype,$template) 

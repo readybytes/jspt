@@ -386,11 +386,11 @@ class CommunityModelProfile extends JCCModel
 			//echo $strSQL;
 			$db->setQuery( $strSQL );
 			$db->query();
-			
-			//call updateFieldEvents Trigger to handover the task.
-			XiPTLibraryCore::updateProfileFieldsValueEvent($userId,$isNew,$id,$value);
-
 		}
+		//TODO : Codereview
+		// should be removed once JS API Comes.
+		//call updateFieldEvents Trigger to handover the task.
+		XiPTLibraryCore::updateProfileFieldsEvent($userId,$isNew,$id,$value);
 		
 	}
 	

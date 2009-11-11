@@ -1,45 +1,53 @@
 <?php
-/**
- * Prepares a minimalist framework for unit testing.
- *
- * Joomla is assumed to include the /unittest/ directory.
- * eg, /path/to/joomla/unittest/
- *
- */
-
-// Load the custom initialisation file if it exists.
-if (file_exists('config.php')) {
-	include 'config.php';
-}
 
 // Define expected Joomla constants.
+define('JOOMLA_HTTP_LOCATION',	'@joomla.http.location@');
+define('JOOMLA_FTP_LOCATION', 	'@joomla.ftp.location@');
 
-define('DS',			DIRECTORY_SEPARATOR);
-define('_JEXEC',		1);
-if (!defined('JPATH_BASE'))
-{
-	// JPATH_BASE can be defined in init.php
-	// This gets around problems with soft linking the unittest folder into a Joomla tree,
-	// or using the unittest framework from a central location.
-	define('JPATH_BASE',	dirname(dirname(__FILE__)));
-}
+define('TIMEOUT_SEC',30000);
+define('JOOMLA_ADMIN_USERNAME', '@joomla.admin@');
+define('JOOMLA_ADMIN_PASSWORD',	'@joomla.password@')
 
 // Fix magic quotes.
-
 @set_magic_quotes_runtime(0);
 
 // Maximise error reporting.
-
 @ini_set('zend.ze1_compatibility_mode', '0');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include relative constants, JLoader and the jimport and jexit functions.
+// now setup basic utils
+require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
-require_once JPATH_BASE.DS.'includes'.DS.'defines.php';
-require_once JPATH_LIBRARIES.DS.'joomla'.DS.'import.php';
-require_once JPATH_BASE .DS.'includes'.DS.'framework.php';
+class selJUtils extends PHPUnit_Extensions_SeleniumTestCase
+{
+
+	function adminLogin()
+	{
+	    $this->open(JOOMLA_HTTP_LOCATION."/administrator/index.php?option=com_login");
+	    $this->waitForPageToLoad(TIMEOUT_SEC);
+
+	    $this->type("modlgn_username", JOOMLA_ADMIN_USERNAME);
+	    $this->type("modlgn_passwd", JOOMLA_ADMIN_PASSWORD);
+	    $this->click("link=Login");
+
+	    $this->waitForPageToLoad(TIMEOUT_SEC);
+	    $this->assertTrue($this->isTextPresent("Logout"));
+  	}
+
+	function siteLoginAsAdmin()
+	{
+	    $this->open(JOOMLA_HTTP_LOCATION."/administrator/index.php?option=com_login");
+	    $this->waitForPageToLoad(TIMEOUT_SEC);
+
+	    $this->type("modlgn_username", JOOMLA_ADMIN_USERNAME);
+	    $this->type("modlgn_passwd", JOOMLA_ADMIN_PASSWORD);
+	    $this->click("link=Login");
+
+	    $this->waitForPageToLoad(TIMEOUT_SEC);
+	    $this->assertTrue($this->isTextPresent("Logout"));
+  	}
 
 
-$mainframe =& JFactory::getApplication('site');
-$mainframe->initialise();
+
+}
