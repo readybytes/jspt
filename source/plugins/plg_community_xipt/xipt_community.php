@@ -17,11 +17,11 @@ jimport( 'joomla.plugin.plugin' );
 require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
 
-class plgCommunityxipt_system extends CApplications
+class plgCommunityxipt_community extends CApplications
 {
 	private $_pluginHandler;
 	
-	function plgCommunityxipt_system( &$subject, $params )
+	function plgCommunityxipt_community( &$subject, $params )
 	{
 		parent::__construct( $subject, $params );
 		$this->_pluginHandler = XiPTFactory::getLibraryPluginHandler();
