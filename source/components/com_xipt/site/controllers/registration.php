@@ -12,7 +12,7 @@ class XiPTControllerRegistration extends JController {
 		parent::__construct($config);
 	}
 	
-    function display() 
+    function display()
 	{
 		global $mainframe;
 
@@ -39,8 +39,8 @@ class XiPTControllerRegistration extends JController {
 			
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
 
-			// validate values			 
-			if(!XiPTLibraryProfiletypes::validateProfiletypeId($selectedProfiletypeID)) {
+			// validate values
+			if(!XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID)) {
 				$url = XiPTLibraryCore::getCurrentURL();
 				$redirectUrl = base64_decode($url);
 				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
@@ -68,7 +68,7 @@ class XiPTControllerRegistration extends JController {
 		$document	=& JFactory::getDocument();
 		$document->addStyleSheet($css);
 
-		// Get the view 
+		// Get the view
 		$viewName	= JRequest::getCmd( 'view' , 'registration' );
 		$viewType	= $document->getType();
 		$view		=& $this->getView( $viewName , $viewType );

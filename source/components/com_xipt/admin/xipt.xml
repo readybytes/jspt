@@ -26,11 +26,15 @@
 		<filename>libraries/pluginhandler.php</filename>
 		<filename>libraries/core.php</filename>
 		<filename>libraries/acl.php</filename>
-		<filename>libraries/api.php</filename>
+		<filename>libraries/utils.php</filename>
+		<filename>libraries/apps.php</filename>
+		<filename>libraries/aec.php</filename>
 		<filename>libraries/index.html</filename>
 		
 		<filename>controllers/registration.php</filename>
 		<filename>controllers/index.html</filename>
+
+		<filename>assets/style.css</filename>
 		
 		<filename>views/index.html</filename>
 		<filename>views/registration/view.html.php</filename>
@@ -118,21 +122,17 @@
 			<filename>tables/aclrules.php</filename>
 			<filename>tables/applications.php</filename>
 
-			<filename>hacks/front_libraries_apps.php</filename>
 			<filename>hacks/front_libraries_fields_customfields.xml</filename>
 			<filename>hacks/front_libraries_fields_profiletypes.php</filename>
 			<filename>hacks/front_libraries_fields_templates.php</filename>
 			<filename>hacks/front_models_profile.php </filename>
 			<filename>hacks/front_models_apps.php </filename>
-			<filename>hacks/front_community.php</filename>
 			
 			<filename>images/index.html</filename>
 			<filename>images/profiletypes.gif</filename>
 			<filename>images/profilefields.gif</filename>
 			<filename>images/aclrules.gif</filename>
-			<filename>images/applications.gif</filename>
-
-			
+			<filename>images/applications.gif</filename>			
 		</files>
 	</administration>
 </install>

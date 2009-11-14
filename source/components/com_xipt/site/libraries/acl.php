@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Restricted access');
 class XiPTLibraryAcl
 {
 	
-	function performACLCheck($ajax=0, $callArray, $args)
+	function performACLCheck($ajax=false, $callArray, $args)
 	{
 		$feature ='';
 		$task	 ='';
@@ -29,7 +29,7 @@ class XiPTLibraryAcl
 		//global $mainframe;
 		//$mainframe->enqueueMessage("view user id = ".$viewuserid." task = ".$task);
 		
-		if(XiPTLibraryCore::isAdmin($userId))
+		if(XiPTLibraryUtils::isAdmin($userId))
 			return false;
 		
 		if(($feature && ($task || $viewuserid) && $userId)== false)
@@ -48,7 +48,7 @@ class XiPTLibraryAcl
 			$aclViolatingRule 	=	XiPTLibraryAcl::aclMicroCheck($userId,$aclFeature,$viewuserid);
 			
 		// if not violating any rule, just return else redirect/ajaxBlock and show message.
-		if($aclViolatingRule == false) 
+		if($aclViolatingRule == false)
 			return false;
 		
 			
@@ -119,7 +119,7 @@ class XiPTLibraryAcl
 				return "aclFeatureEditProfileDetail";
 		}
 			
-		return false;		
+		return false;
 	}
 	
 	function aclCheckFailedBlockUser($ajax, $aclViolatingRule, $task)
@@ -158,7 +158,7 @@ class XiPTLibraryAcl
 						echo "nextupload: '" . $nextUpload . "'\n";
 						echo "}";
 				exit;
-			} 
+			}
 			global $mainframe;
 			$mainframe->enqueueMessage($message);
 			$mainframe->redirect($redirect);
@@ -172,10 +172,10 @@ class XiPTLibraryAcl
 		$uri			= CFactory::getLastURI();
 		$uri			= base64_encode($uri);
 
-		$html 	= $msg; 
+		$html 	= $msg;
 
 		$objResponse->addAssign('cwin_logo', 'innerHTML', JText::_('CC JSPTACL YOU ARE NOT ALLOWED TO PERFORM THIS ACTION'));
-		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);	
+		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);
 		$objResponse->addScriptCall('cWindowResize', 80);
 		return $objResponse->sendResponse();
 	}
@@ -186,14 +186,14 @@ class XiPTLibraryAcl
 		// get profiletype
 		assert($feature && $userID);
 		
-		$myPID	 = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($userID);
+		$myPID	 = XiPTLibraryProfiletypes::getUserData($userID,'PROFILETYPE');
 		$db		 = JFactory::getDBO();
 		
 		if($viewuserid)
-			$otherpid	= XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($viewuserid);
+			$otherpid	= XiPTLibraryProfiletypes::getUserData($viewuserid,'PROFILETYPE');
 		
 		// get all rules specific to user or his profiletype
-		//TODO : sort as per ascending task count.  
+		//TODO : sort as per ascending task count.
 		$extraSql	= '';
 		if($feature == 'aclFeatureCantVisitOtherProfile')
 			$extraSql = ' AND otherpid='. $db->Quote($otherpid);
@@ -207,14 +207,14 @@ class XiPTLibraryAcl
 		$db->setQuery( $query );
 		$results = $db->loadObjectList();
 		
-		// If no rule exist for the feature then allow the user 
+		// If no rule exist for the feature then allow the user
 		if(!$results)
 			return false;
 		
 		// get the user's count for this feature
 		$owns		= XiPTLibraryAcl::aclGetUsersFeatureCounts($userID, $feature);
 		
-		// check for all possible given rules, 
+		// check for all possible given rules,
 		// if any rule is violating, return the rules ID
 		foreach($results as $row)
 		{
@@ -235,7 +235,7 @@ class XiPTLibraryAcl
 		$inboxModel		=& CFactory::getModel('inbox');
 		switch($feature)
 		{
-			case 'aclFeatureJoinGroup' : 
+			case 'aclFeatureJoinGroup' :
 				return $groupsModel->getGroupsCount($userid);
 				
 			case 'aclFeatureCreateGroup' :
@@ -248,8 +248,8 @@ class XiPTLibraryAcl
 			case 'aclFeatureChangeAvatar' 			:
 			case 'aclFeatureEditProfile'  			:
 			case 'aclFeatureEditProfileDetail' 		:
-			case 'aclFeatureChangePrivacy'			: 
-			case 'aclFeatureCantVisitOtherProfile'	: 
+			case 'aclFeatureChangePrivacy'			:
+			case 'aclFeatureCantVisitOtherProfile'	:
 				return 100000;
 				
 			case 'aclFeatureAddAlbum' :

@@ -27,75 +27,13 @@ class plgSystemxipt_system extends JPlugin
 	}
 	
 	
-	//function require to protect deletion of default avatar of profiletype
-	//because JS delete non-default avatar when user change his avatar
-	//so in that case if that user has any ptype default avatar 
-	//then our ptype avatar will be deleted.
-	function onProfileAvatarUpdate( &$userid, &$old_avatar_path, &$new_avatar_path)
-	{
-		//check if avatar is ptype default avatar
-		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
-			$thumb = strstr('_thumb',$old_avatar_path);
-			if ($thumb)
-				$old_avatar_path = 'components/com_community/assets/default_thumb.jpg';
-			else
-				$old_avatar_path = 'components/com_community/assets/default.jpg';
-		}
-	}
-	
-	
-	
-	/**
-	 * Example store user method
-	 *
-	 * Method is called after user data is stored in the database
-	 *
-	 * @param 	array		holds the new user data
-	 * @param 	boolean		true if a new user is stored
-	 * @param	boolean		true if user was succesfully stored in the database
-	 * @param	string		message
-	 */
-	function onAfterStoreUser($user, $isnew, $success, $msg)
-	{
-		global $mainframe;
-
-		// convert the user parameters passed to the event
-		// to a format the external application
-
-		$args = array();
-		$args['username']	= $user['username'];
-		$args['email'] 		= $user['email'];
-		$args['fullname']	= $user['name'];
-		$args['password']	= $user['password'];
-		/*
-		if ($isnew)
-		{
-			$mySess = & JFactory::getSession();
-			$profiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID','0', 'XIPT');
-			$params = JComponentHelper::getParams('com_xipt');
-			if(!$profiletypeID)
-				$profiletypeID = $params->get('defaultProfiletypeID','0');
-			assert($profiletypeID);
-			XiPTLibraryProfiletypes::setProfileDataForUserID($user['id'],$profiletypeID,'ALL');
-			// Call a function in the external app to create the user
-			// ThirdPartyApp::createUser($user['id'], $args);
-		}
-		else
-		{
-	
-		}
-		
-		*/
-	}
-	
-	
 	function onAfterRoute()
 	{
- 		global $mainframe;	
+ 		global $mainframe;
 		
 		// Dont run in admin
 		if ($mainframe->isAdmin())
-			return; 
+			return;
 		
 		$option = JRequest::getCmd('option','','GET');
 		$view = JRequest::getCmd('view','BLANK','GET');
@@ -104,7 +42,8 @@ class plgSystemxipt_system extends JPlugin
 		if(trim($option) == 'com_community')
 			XiPTLibraryAcl::performACLCheck(0,0,0);
 		
-		$pluginHandler = new XiPTLibraryPluginHandler();
+		// use factory to get any object
+		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
 		
 		$eventName = $this->_eventPreText.strtolower($option).'_'.strtolower($view).'_'.strtolower($task);
 		
@@ -115,13 +54,13 @@ class plgSystemxipt_system extends JPlugin
 			//store current url into session
 			$mySess =& JFactory::getSession();
 			$mySess->set('RETURL', $this->_getCurrentURL(),'XIPT');
-			//call function 
+			//call function
 			$pluginHandler->$eventName();
 		}
 			
 		
 		//$eventName .= '()';
-		//$pluginHandler->$eventName();	
+		//$pluginHandler->$eventName();
 		return;
 		//JPlugin::loadLanguage( 'plg_xipt_redirector', JPATH_ADMINISTRATOR );
 	}

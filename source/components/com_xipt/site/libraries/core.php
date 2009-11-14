@@ -5,66 +5,106 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+class XiPTFactory
+{
+    /* This classes required a object to be created first.*/
+    function getLibraryPluginHandler()
+    {
+        static $instance =null;
+        
+        if($instance==null)
+            $instance = new XiPTLibraryPluginHandler();
+        
+        return $instance;
+    }
+    
+    function getLibraryAEC()
+    {
+        static $instance =null;
+        
+        if($instance==null)
+            $instance = new XiPTLibraryAEC();
+        
+        return $instance;
+    }
+}
+
+
+/*
+ * This class contains all logic for XIPT & JomSocial & Joomla Table Communication
+ * */
 class XiPTLibraryCore
 {
-	
-	function getCurrentURL()
+	/*
+	 * Create a fields object
+	 * */
+    function getFieldObject($fieldid)
 	{
-		// TO DO : Get url
-		$url = JFactory::getURI()->toString( array('scheme', 'user', 'pass', 'host', 'port', 'path', 'query', 'fragment'));
-		return base64_encode($url);
+		$db		=& JFactory::getDBO();
+		$query	= 'SELECT * FROM '
+				. $db->nameQuote( '#__community_fields' ) . ' '
+				. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $fieldid );
+		
+		$db->setQuery( $query );
+		$result	= $db->loadObject();
+		
+		return $result;
 	}
 	
-	
-	function isAdmin($id, $refID=0)
+    //    get required user info from community_users table
+	function getUserDataFromCommunity($userid,$what)
 	{
-		$acl  		= & JFactory::getACL();
-		$objectID   = $acl->get_object_id( 'users', $id, 'ARO' );
+		assert(!empty($what));
+		$db			=& JFactory::getDBO();
+		$query	= 'SELECT '.$db->nameQuote($what).' FROM '
+				. $db->nameQuote( '#__community_users' ) . ' '
+				. 'WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $userid );
 		
-		if(!$objectID)
-			return false;
-			
-		$groups     = $acl->get_object_groups( $objectID, 'ARO' );
+		$db->setQuery( $query );
 		
-		if(!$groups)
-			return false;
-			
-		$this_group = strtolower( $acl->get_group_name( $groups[0], 'ARO' ) );
-		//print_r("mygroup".$this_group. " my id ".$id);
-		if($this_group == 'super administrator')
-		{
-			if($refID)
-				return true;
-			else
-				return XiPTLibraryCore::isAdmin($refID) ? false : true;
-				
-		}
-		return false;	
+		$result	= $db->loadResult();
+		
+		return $result;
 	}
 	
-	function checkEditAccessRight($myId, $calleId)
+/*
+     * Save user's joomla-user-type
+     * */
+    function updateJoomlaUserType($userid,$profiletypeId)
 	{
-		// Always I can edit my own profile
-		if($myId ==  $calleId)
-			return true;
-			
-		// are u superadmin or admin, 
-		if(XiPTLibraryCore::isAdmin($myId, $calleId))
-			return true;
-    
+	    //do not change usertypes for admins
+		if(XiPTLibraryUtils::isAdmin($userid)==true || (0 == $userid ))
+		    return false;
+
+		$user 			= clone(JFactory::getUser($userid));
+		$authorize		=& JFactory::getACL();
+		
+		$newUsertype = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'jusertype');
+		$user->set('usertype',$newUsertype);
+		$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
+		
+		if($user->save())
+		    return true;
+
+		// Error
+		JError::raiseWarning('', JText::_( $user->getError()));
 		return false;
 	}
 	
-	
-	
-	//update configuration before loading
-	function changeConfiguration(&$instance)
+
+	/**
+	 * @param  $instance
+	 * @return CConfig
+	 */
+	function updateCommunityConfig(&$instance)
 	{
 		$loggedInUser 		= JFactory::getUser();
+		
 		//means guest is looking user profile ,
 		// so we will show them default template
 		if(!$loggedInUser->id)
-			return;
+			return true;
+			
 		$visitingUser	= JRequest::getVar('userid','NOT','GET');
 		//$visitingUser = 0 means loggen-in-user is looking their own profile
 		//so we set $visitingUser as logged-in-user
@@ -75,209 +115,171 @@ class XiPTLibraryCore
 		//so we will show them profile in user template
 		//so update the template in configuration
 		if($visitingUser > 0) {
-			$template = XiPTLibraryProfiletypes::getTemplateOfuser($visitingUser);
+			$template = XiPTLibraryProfiletypes::getUserData($visitingUser,'TEMPLATE');
 			//now update template @template
 			if($template) {
 				$instance->set('template',$template);
 			}
-				
 		}
-	}
-	
-	/*
-	 * TODO : CODREV , Lots of Testing Required here
-	 * */
-	function updateProfileFieldsEvent($userId, $fields)
-	{
-		if(!$fields || $userId <= 0)
-			return;
-			
-		$profileType	= 0;
-		$template		= '';
 		
-		// collect template and profiletype specified
-		foreach($fields as $id => $value){
-			$fieldInfo = XiPTLibraryProfiletypes::getFieldInfofromFieldId($id);
-			if($fieldInfo->type == PROFILETYPE_FIELD_NAME)
-				$profileType = $value;
-		
-			if($fieldInfo->type == TEMPLATE_FIELD_NAME)
-				$template 	= $value;
-		}
-		// if profiletype is different then set profiletype
-		$oldPTypeId = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($userId);
-		if($profileType && $oldPTypeId != $profileType)
-				XiPTLibraryCore::setProfileDataForUserID($userId,$value,'ALL');
-				
-		// set template as per his choice
-		$oldTemplate = XiPTLibraryProfiletypes::getTemplateOfuser($userId);
-		if($template && $template != $oldTemplate)
-			XiPTLibraryProfiletypes::saveFieldForUser($userId,$template,TEMPLATE_FIELD_NAME);
-
 		return true;
 	}
 	
-/*
-	//TODO ( DONE ) : When user don't change his ptype then don't change his other settings.
-	//function will call when value will be updated in community_fields_values table
-	function updateProfileFieldsValueEvent($userId,$isNew,$fieldID,$value)
+	function updateCommunityCustomField($userId, $value,$what='')
 	{
-		$fieldInfo = XiPTLibraryProfiletypes::getFieldInfofromFieldId($fieldID);
-		if($fieldInfo->type == PROFILETYPE_FIELD_NAME) {
-			//check that profiletype id is new or old one
-			//if it's new then call reset functions else don't reset users all info
-			$ptypeId = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($userId);
-			if($ptypeId == $value)
-				return ;
+	    //ensure we are calling it for correct field
+	    assert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
 
-			XiPTLibraryCore::setProfileDataForUserID($userId,$value,'ALL');
-		}	
-		else if($fieldInfo->type == TEMPLATE_FIELD_NAME)
-			XiPTLibraryProfiletypes::saveFieldForUser($userId,$value,TEMPLATE_FIELD_NAME);
+	    // find the profiletype or template field
+	    //TODO : user $user->setInfo, once it comes or some other way,
+	    // dont patch up the database.
+		$db		=& JFactory::getDBO();
+		$query 	= 'SELECT * FROM `#__community_fields`'
+				 .' WHERE '.$db->nameQuote('fieldcode').'='.$db->Quote($what);
+		$db->setQuery( $query );
+		$res = $db->loadObject();
+				
+		// change the type
+		$id	= $res->id;
+		$strSQL	= ' UPDATE '.$db->nameQuote('#__community_fields_values')
+				. ' SET '   .$db->nameQuote('value').   '='.$db->Quote($value)
+				. ' WHERE ' .$db->nameQuote('user_id'). '='.$db->Quote($userId)
+				. ' AND '   .$db->nameQuote('field_id').'='.$db->Quote($id);
+		$db->setQuery( $strSQL );
+		$db->query();
+		
+		return true;
+	}
+	
+	function updateCommunityUserAvatar($userid,$profiletypeID)
+	{
+		//TODO : CODREV: We must enforce this as we never want
+		// to overwrite a custom avatar
+		if(!XiPTLibraryProfiletypes::isDataResetRequired($userid,'avatar','profiletype'))
+			return false;
+
+		// we can safely update avatar
+		$pTypeAvatar 	  = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeID,'avatar');
+		$pTypeThumbAvatar = XiPTLibraryProfiletypes::getThumbAvatarFromFull($pTypeAvatar);
+
+		// perform the operation
+		$user    =&  CFactory::getUser($userid);
+		$user->set('_avatar',$pTypeAvatar);
+		$user->set('_thumb', $pTypeThumbAvatar);
+		
+		if(!$user->save())
+		    return false;
+		
+		//enforce JomSocial to clean cached user
+        $user    =     array();
+		$user    =&  CFactory::getUser($userid);
+		return true;
+	}
+
+	/*This function set privacy for user as per his profiletype*/
+	function updateCommunityUserPrivacy($userid,$profiletypeId)
+	{
+		
+		$privacy 	= XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'privacy');
+		$myprivacy	= XiPTLibraryProfiletypes::getPTPrivacyValue($privacy);
+		
+		// get params
+		$cuser    =&  CFactory::getUser($userid);
+		$myparams = $cuser->getParams();
+		$myparams->set('privacyProfileView',$myprivacy);
+		
+        if(!$cuser->save())
+            return false;
+        
+        //enforce JomSocial to clean cached user
+        $user    =     array();
+		$user    =&  CFactory::getUser($userid);
+ 		return true;
+	}
+	
+	function updateCommunityUserGroup($userId,$profileTypeId, $oldProfileTypeId )
+	{
+		$oldGroup = XiPTLibraryProfiletypes::getProfileTypeData($oldProfileTypeId,'group');
+        $newGroup = XiPTLibraryProfiletypes::getProfileTypeData($profileTypeId,'group');
+        
+        if($oldGroup == $newGroup)
+            return;
+            
+		// if user is changing profiletype then remove it from other group
+		if($oldProfileTypeId != $profileTypeId)
+			XiPTLibraryCore::_removeUserFromGroup($userId,$oldGroup);
+		
+		// add to new group
+		XiPTLibraryCore::_addUserToGroup($userId,$newGroup);
+	}
+	
+	
+	function _addUserToGroup( $userId , $groupId)
+	{
+		$groupModel	=& CFactory::getModel( 'groups' );
+		$userModel	=& CFactory::getModel( 'user' );
+	
+		if(!$groupId)
+			return false;
+	
+		if( $groupModel->isMember( $userId , $groupId ) )
+			return false;
+		else
+		{
+			$group		=& JTable::getInstance( 'Group' , 'CTable' );
+			$member		=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+			$group->load( $groupId );
+			
+			// Set the properties for the members table
+			$member->groupid	= $group->id;
+			$member->memberid	= $userId;
+	
+			// @rule: If approvals is required, set the approved status accordingly.
+			$member->approved	= 1; // SHOULD BE always 1  by SHYAM//( $group->approvals ) ? '0' : 1;
+	
+			//@todo: need to set the privileges
+			$member->permissions	= '0';
+			$store	= $member->store();
+	
+			// Add assertion if storing fails
+			CError::assert( $store , true , 'eq' , __FILE__ , __LINE__ );
+	
+			if($member->approved)
+				$groupModel->addMembersCount($groupId);
+			return true;
+		}
+		return false;
+	}
+	    
+	function _removeUserFromGroup($userId , $groupId)
+	{
+		$model		= & CFactory::getModel( 'groups' );
+		$group		=& JTable::getInstance( 'Group' , 'CTable' );
+		
+		if(!$groupId)
+			return;
+		
+		$group->load( $groupId );
+		
+		// do not remove owner
+		if($group->ownerid == $userId)
+			return;
+			
+		// is not already a member
+		if(!$model->isMember($userId , $groupId))
+			return;
+			
+		// remove
+		$groupMember	=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+		$groupMember->load( $userId , $groupId );
+	
+		$data		= new stdClass();
+		$data->groupid	= $groupId;
+		$data->memberid	= $userId;
+	
+		$model->removeMember($data);
+		$model->substractMembersCount( $groupId );
 		
 		return;
 	}
-*/
-	
-	
-	function saveUser($userid,$profiletype,$template) 
-	{
-		
-		//validate profiletype value
-		if(!XiPTLibraryProfiletypes::validateProfiletypeId($profiletype))
-			assert(1) || JError::raiseWarning('NOVALIDPTYPE',JText::_("INVALID PROFILETYPE"));
-			
-		assert($userid);
-		assert($profiletype);
-		assert(!empty($template));
-		
-		require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php');
-		$data = new stdClass();
-		$data->userid = $userid;
-		$data->profiletype = $profiletype;
-		$data->template = $template;
-		XiPTModelUser::setUserData($data);
-	}
-	
-	
-	function saveUserTypeinUser($userid,$profiletypeId)
-	{
-		
-		if(XiPTLibraryCore::isAdmin($userid)==false) {
-				
-				$user 			= clone(JFactory::getUser($userid));		
-				$authorize		=& JFactory::getACL();
-				
-				$newUsertype = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'jusertype');
-				$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
-				if ( !$user->save() )
-				{
-					JError::raiseWarning('', JText::_( $user->getError()));
-					return false;
-				}
-		}
-			
-	}
-	
-	
-	
-	// ALL means you are from register
-	function setProfileDataForUserID($userid, $ptype, $what='ALL') 
-	{
-		//during registration
-		if($what == 'ALL') {
-			//1.set profiletype and template for user in #__xipt_users table
-			$template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
-			XiPTLibraryCore::saveUser($userid,$ptype,$template);
-			
-			//2.set usertype acc to profiletype in #__user table
-			XiPTLibraryCore::saveUserTypeinUser($userid,$ptype);
-			
-			//3.set user avatar in #__community_users table
-			XiPTLibraryProfiletypes::updateAvatarinCommunityUser($userid,$ptype);
-			
-			//4.set profiletype and template field in #__community_fields_values table
-			// also change the user's type in profiletype field.
-			XiPTLibraryProfiletypes::setCustomField($userid,$ptype,PROFILETYPE_FIELD_NAME);
-			//set template
-			XiPTLibraryProfiletypes::setCustomField($userid,$template,TEMPLATE_FIELD_NAME);
-			
-			// assign the default group  
-			XiPTLibraryProfiletypes::assignUserToGroup($userid,$ptype);
-			
-			//5.set privacy data
-			XiPTLibraryProfiletypes::updatePrivacyforCommunityUser($userid,$ptype);
-	
-			//Reseting user already loaded information , 
-			//bcoz JS collects all data in static array when system load
-			//so it don't load profile data again , just load previous loaded data
-			//so our effect will not reflect ( avatar , privacy etc. )
-			//so for showing it's effect we have clear the user ( user is refrence )
-			//so by clearing we have cleared loaded data
-			//after again initializinng we have again loaded our data		
-			$user	=& CFactory::getUser($userid);
-			$user	= array();
-			$user	=& CFactory::getUser($userid);
-		}
-	}
-	
-	//call fn to get fields related to ptype in getviewable and geteditable profile fn
-	function getFieldsInEditMode($userid,&$fields)
-	{
-		$pTypeID = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($userid);
-		assert($pTypeID) || JError::raiseError('PTYWAR',(JText::_("NO PROFILETYPE SET")));
-		XiPTLibraryProfiletypes::getProfiletypeFieldsinEditMode($fields,$pTypeID);
-	}
-	
-	
-	
-	//show fields according to profiletype during registration
-	function getFieldsDuringRegistration(&$fields)
-	{
-		//get profieltype value from session 
-		$mySess = & JFactory::getSession();
-		$selectedProfiletypeID = 0;
-		if($mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') 
-			&& (($selectedProfiletypeID = $mySess->get('SELECTED_PROFILETYPE_ID',0, 'XIPT'))
-				 != 0)) {
-						XiPTLibraryProfiletypes::getProfiletypeFields($fields,$selectedProfiletypeID);
-		}
-		assert($selectedProfiletypeID)|| JError::raiseError('PTYERR',JText::_('PLEASE ASK ADMIN TO SET DEFAULT PROFILETYPE THROUGH ADMIN PANEL OTHERWISE THING WILL NOT WORK PROPERLY'));
-	}
-	
-	
-
-	function canEditMe($myId, $calleId)
-	{
-		return XiPTLibraryCore::checkEditAccessRight($myId, $calleId);
-	}
-	
-	 
-	
-	
-	
-	
-	function getEditInfo()
-	{
-     $editor =& JFactory::getUser();
-       
-	   $editDataOf = JRequest::getVar('editDataOf', 0 , 'GET');
-	   
-	   if($editDataOf == '')
-	       $editDataOf = $editor->id;
-	   
-		
-		$editInfo = new stdClass();
-		 
-		 // setting object with actual values
-	     $editInfo->editDataOf = $editDataOf;  
-	     $editInfo->editDataOfName = JFactory::getUser($editDataOf)->name; 
-	     $editInfo->editorName = JFactory::getUser($editor->id)->name;    
-	     $editInfo->profiletypeId = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($editDataOf);
-	     $editInfo->editorId = $editor->id;
-	     $editInfo->canEdit = XiPTLibraryCore::checkEditAccessRight($editor->id , $editDataOf );   
-      
-      return $editInfo;
-  }
-  
 }

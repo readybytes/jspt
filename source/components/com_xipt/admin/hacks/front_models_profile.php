@@ -9,7 +9,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 require_once( JPATH_ROOT . DS . 'components' . DS . 'com_community' . DS . 'models' . DS . 'models.php' );
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
 
 class CommunityModelProfile extends JCCModel
 {
@@ -47,7 +46,7 @@ class CommunityModelProfile extends JCCModel
 			if(! empty($filter)){
 				foreach($filter as $column => $value)
 				{
-					$wheres[] = "`$column` = " . $db->Quote($value); 	
+					$wheres[] = "`$column` = " . $db->Quote($value);
 				}
 			}//end if
 			
@@ -60,6 +59,12 @@ class CommunityModelProfile extends JCCModel
 			$db->setQuery($sql);
 			$fields = $db->loadObjectList();
 			
+			/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
+    		require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+    	    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+    	    $pluginHandler->onProfileLoad(0, $fields, __FUNCTION__);
+    	    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
+	    
 			$this->_allField = array();
 			$group = 'ungrouped';
 			for($i = 0; $i < count($fields); $i++){
@@ -89,27 +94,22 @@ class CommunityModelProfile extends JCCModel
 	
 	/**
 	 * Return the complete (but empty) profile structure
-	 */	 	
+	 */
 	function &getAllFields($filter = array()){
 		$this->_loadAllFields($filter);
-		
-		//to display fields related to profiletype unset unused fields.
-		//call xipt library fn for this
-		XiPTLibraryCore::getFieldsDuringRegistration($this->_allField);
-
 		return $this->_allField;
-	}	
+	}
 	
 	function _bind($data){
 	}
 	
 	/**
 	 * Returns an object of user's data
-	 * 	 	
+	 *
 	 * @access	public
 	 * @param	none
-	 * @returns object  An object that is related to user's data	 
-	 */	 
+	 * @returns object  An object that is related to user's data
+	 */
 	function &getData()
 	{
 		$db	= &$this->getDBO();
@@ -153,7 +153,7 @@ class CommunityModelProfile extends JCCModel
 	
 	/**
 	 * Wrapper method
-	 */	 	
+	 */
 	function getProfile( $userId = null )
 	{
 		return $this->getViewableProfile( $userId );
@@ -161,11 +161,11 @@ class CommunityModelProfile extends JCCModel
 	
 	/**
 	 * Returns an array of custom profiles which are created from the back end.
-	 * 	 	
+	 *
 	 * @access	public
 	 * @param	string 	User's id.
-	 * @returns array  An objects of custom fields.	 
-	 */	 		
+	 * @returns array  An objects of custom fields.
+	 */
 	function getViewableProfile($userId	= null){
 		$db			=& $this->getDBO();
 		$data		= array();
@@ -185,7 +185,7 @@ class CommunityModelProfile extends JCCModel
 		$data['name']	= $user->name;
 		$data['email']	= $user->email;
 
-		// Attach custom fields into the user object		
+		// Attach custom fields into the user object
 		$strSQL	= 'SELECT field.*, value.value '
 				. 'FROM ' . $db->nameQuote('#__community_fields') . ' AS field '
 				. 'LEFT JOIN ' . $db->nameQuote('#__community_fields_values') . ' AS value '
@@ -198,17 +198,21 @@ class CommunityModelProfile extends JCCModel
 		$db->setQuery( $strSQL );
 
 		$result	= $db->loadAssocList();
-		//call event to get fields acc to profiletype
-		XiPTLibraryCore::getFieldsInEditMode($userId,$result);
 
 		if($db->getErrorNum()){
 			JError::raiseError( 500, $db->stderr());
 		}
 
+		/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
+		require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+	    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+	    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
+	    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
+	    
 		$data['fields']	= array();
 		for($i = 0; $i < count($result); $i++){
 
-			// We know that the groups will definitely be correct in ordering.			
+			// We know that the groups will definitely be correct in ordering.
 			if($result[$i]['type'] == 'group'){
 				$group	= $result[$i]['name'];
 				
@@ -219,7 +223,7 @@ class CommunityModelProfile extends JCCModel
 // 					$group	= 'ungrouped';
 // 				}
 
-				// Group them up			
+				// Group them up
 				if(!isset($data['fields'][$group])){
 					// Initialize the groups.
 					$data['fields'][$group]	= array();
@@ -248,18 +252,16 @@ class CommunityModelProfile extends JCCModel
 			}
 		}
 		//$this->_dump($data);
-		
-		
 		return $data;
 	}
 
 	/**
 	 * Returns an array of custom profiles which are created from the back end.
-	 * 	 	
+	 *
 	 * @access	public
 	 * @param	string 	User's id.
-	 * @returns array  An objects of custom fields.	 
-	 */	 		
+	 * @returns array  An objects of custom fields.
+	 */
 	function getEditableProfile($userId	= null)
 	{
 		$db			=& $this->getDBO();
@@ -280,7 +282,7 @@ class CommunityModelProfile extends JCCModel
 		$data['name']	= $user->name;
 		$data['email']	= $user->email;
 
-		// Attach custom fields into the user object		
+		// Attach custom fields into the user object
 		$strSQL	= 'SELECT field.*, value.value '
 				. 'FROM ' . $db->nameQuote('#__community_fields') . ' AS field '
 				. 'LEFT JOIN ' . $db->nameQuote('#__community_fields_values') . ' AS value '
@@ -289,28 +291,29 @@ class CommunityModelProfile extends JCCModel
  				. 'ORDER BY field.ordering';
 
 		$db->setQuery( $strSQL );
-		
+
 		$result	= $db->loadAssocList();
-		
-		//call event to get fields acc to profiletype
-		XiPTLibraryCore::getFieldsInEditMode($userId,$result);
-		
 
 		if($db->getErrorNum())
 		{
 			JError::raiseError( 500, $db->stderr());
 		}
 
+		/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
+		require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+	    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+	    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
+	    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
 		$data['fields']	= array();
 		for($i = 0; $i < count($result); $i++)
 		{
 
-			// We know that the groups will definitely be correct in ordering.			
+			// We know that the groups will definitely be correct in ordering.
 			if($result[$i]['type'] == 'group')
 			{
 				$group	= $result[$i]['name'];
 
-				// Group them up			
+				// Group them up
 				if(!isset($data['fields'][$group]))
 				{
 					// Initialize the groups.
@@ -340,16 +343,15 @@ class CommunityModelProfile extends JCCModel
 			}
 		}
 		//$this->_dump($data);
-		
 		return $data;
 	}
 	
 	/**
 	 * Returns an array of custom profiles which are created from the back end.
-	 * 	 	
+	 *
 	 * @access	public
 	 * @param	string 	User's id.
-	 */	 
+	 */
 	function _dump(& $data){
 		echo '<pre>';
 		print_r($data);
@@ -386,11 +388,8 @@ class CommunityModelProfile extends JCCModel
 			//echo $strSQL;
 			$db->setQuery( $strSQL );
 			$db->query();
+
 		}
-		//TODO : Codereview
-		// should be removed once JS API Comes.
-		//call updateFieldEvents Trigger to handover the task.
-		XiPTLibraryCore::updateProfileFieldsEvent($userId,$isNew,$id,$value);
 		
 	}
 	
@@ -401,10 +400,10 @@ class CommunityModelProfile extends JCCModel
 	
 	/**
 	 * Method to test if a specific field for a user exists
-	 * 
+	 *
 	 * @param	String	$fieldCode	Field Code
 	 * @param	String	$userId		Userid
-	 * 
+	 *
 	 *	return boolean	True if exists and false otherwise.
 	 **/
 	function _fieldValueExists( $fieldCode , $userId )
@@ -428,7 +427,7 @@ class CommunityModelProfile extends JCCModel
 	 * Method to retrieve a field's id with a given field code
 	 *
 	 * @param	String	$fieldCode	Field code for the specific field.
-	 **/	 
+	 **/
 	function getFieldId( $fieldCode )
 	{
 		$db		=& JFactory::getDBO();
@@ -440,7 +439,26 @@ class CommunityModelProfile extends JCCModel
 		
 		$result	= $db->loadResult();
 		
-		return $result; 
+		return $result;
+	}
+	
+	/**
+	 * Method to retrieve a field's id with a given field code
+	 *
+	 * @param	String	$fieldCode	Field code for the specific field.
+	 **/
+	function getFieldCode( $fieldId )
+	{
+		$db		=& JFactory::getDBO();
+		$query	= 'SELECT ' . $db->nameQuote( 'fieldcode' ) . ' FROM '
+				. $db->nameQuote( '#__community_fields' ) . ' '
+				. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $fieldId );
+		
+		$db->setQuery( $query );
+		
+		$result	= $db->loadResult();
+		
+		return $result;
 	}
 	
 	function updateUserData( $fieldCode , $userId , $value )
@@ -475,28 +493,33 @@ class CommunityModelProfile extends JCCModel
 		}
 	}
 	
-	function formatDate($value, $format='%d/%m/%Y')
+	function formatDate($value, $format='')
 	{
 		$db		=& $this->getDBO();
+		$config	= CFactory::getConfig();
+		$format	= $config->get( 'profileDateFormat' );
 		
 		$query	= 'SELECT DATE_FORMAT('.$db->Quote($value).', '.$db->Quote($format).') AS FORMATED_DATE';
 		$db->setQuery($query);
 		$result	= $db->loadResult();
 		
-		return $result; 
+		return $result;
 	}
 	
 	function getAdminEmails()
 	{
 		$emails		= '';
 		$db			=& $this->getDBO();
+
 		$query		= 'SELECT ' . $db->nameQuote('email')
 					. ' FROM ' . $db->nameQuote('#__users')
-					. ' WHERE ' . $db->nameQuote('gid') . '>=' . $db->quote(24) // gid=25 for superadmin
-					;
+					. ' WHERE ' . $db->nameQuote('gid') . '=' . $db->quote(24)
+					. ' OR ' . $db->nameQuote( 'gid' ) . '=' . $db->Quote( 25 );
+					
 		$db->setQuery($query);
 		$emails		= $db->loadResultArray();
 		
-		return $emails; 	
-	}	
+		return $emails;
+	}
 }
+

@@ -1,4 +1,4 @@
-<?php 
+<?php
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -20,6 +20,8 @@ require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profile
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'acl.php';
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'pluginhandler.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'utils.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'apps.php';
 
 /*Load Langauge file*/
 $lang =& JFactory::getLanguage();

@@ -11,9 +11,7 @@ class XiPTViewRegistration extends JView
 
 		//refine it, if empty will add default pType
 		$seletedPTypeID 	= JRequest::getVar('ptypeid','');
-		$seletedPTypeID		= XiPTLibraryProfiletypes::getSelectedProfileTypesArray($seletedPTypeID);
-		
-		$allProfileTypes 	= XiPTLibraryProfiletypes::getProfileTypesArray();
+		$allProfileTypes 	= XiPTLibraryProfiletypes::getProfiletypeArray();
 		
 		//TODO : trigger an API Event to add something to templates, or modify $profiletypes array
 		// e.g. : I want to patch description. with some extra information

@@ -1,11 +1,5 @@
 <?php
-/**
- * @category	Model
- * @package		JomSocial
- * @subpackage	Groups 
- * @copyright (C) 2008 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license http://www.azrul.com Copyrighted Commercial Software
- */
+
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.model');
 
@@ -21,8 +15,8 @@ class XiPTModelUser extends JModel
 		assert($what);
 		assert($value);
 		$query		= ' UPDATE '. $db->nameQuote('#__xipt_users')
-               		 . ' SET '.$db->nameQuote($what).'='. $db->Quote($value)
-					      . ' WHERE userid=' . $db->Quote($userid) . ' ';
+               		 	. ' SET '.$db->nameQuote($what).'='. $db->Quote($value)
+				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
 		
 		$db->setQuery( $query );
 		$db->query();
@@ -35,7 +29,7 @@ class XiPTModelUser extends JModel
 	
 	
 	function setUserData( $data )
-	{   
+	{
 		global $mainframe;
 		$validated = true;
 		$emptyFields ='';
@@ -63,14 +57,14 @@ class XiPTModelUser extends JModel
 	   
 		$db		=& JFactory::getDBO();
 
-		$query		= 'SELECT * FROM '. $db->nameQuote('#__xipt_users') 
-					. ' WHERE userid=' . $db->Quote($data->userid);
+		$query		= 'SELECT * FROM '. $db->nameQuote('#__xipt_users')
+				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($data->userid);
 
 		$db->setQuery( $query );
 		$result	= $db->loadObject();
 		
 		
-		if($result == '')
+		if(!$result)
 		{
 			// New record, insert it.
 			$db->insertObject( '#__xipt_users' , $data,'userid' );
@@ -98,7 +92,7 @@ class XiPTTableUser extends JTable
 
 	/**
 	 * Constructor
-	 */	 	
+	 */
 	function __construct( &$db )
 	{
 		//userid is ker of xipt_users table
