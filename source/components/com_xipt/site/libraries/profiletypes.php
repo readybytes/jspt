@@ -18,15 +18,7 @@ class XiPTLibraryProfiletypes
 	 */
 	function saveXiPTUser($userid,$profiletype,$template)
 	{
-		
-		//validate profiletype value
-		if(!XiPTLibraryProfiletypes::validateProfiletypeId($profiletype))
-			JError::raiseWarning('NOVALIDPTYPE',JText::_("INVALID PROFILETYPE"));
-			
 		assert($userid);
-		assert($profiletype);
-		assert(!empty($template));
-		
 		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
 		
 		$data             = new stdClass();
@@ -100,31 +92,33 @@ class XiPTLibraryProfiletypes
     
 	
     //         ALL means you are from register
-	function updateUserProfiletypeData($userid, $ptype, $what='ALL')
+	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
 		//during registration
 		if($what == 'ALL')
 		{
+		    $prevProfiletype = XiPTLibraryProfiletypes::getUserData($ptype,'PROFILETYPE');
 			//1.set profiletype and template for user in #__xipt_users table
-			$template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
+			if(!$template)
+			    $template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
 			XiPTLibraryProfiletypes::saveXiPTUser($userid,$ptype,$template);
 			
 			//2.set usertype acc to profiletype in #__user table
 			XiPTLibraryCore::updateJoomlaUserType($userid,$ptype);
 			
 			//3.set user avatar in #__community_users table
-			XiPTLibraryProfiletypes::updateAvatarinCommunityUser($userid,$ptype);
+			XiPTLibraryCore::updateCommunityUserAvatar($userid,$ptype);
 			
 			//4.set profiletype and template field in #__community_fields_values table
 			// also change the user's type in profiletype field.
-			XiPTLibraryProfiletypes::setCustomField($userid,$ptype,TEMPLATE_CUSTOM_FIELD_CODE);
-			XiPTLibraryProfiletypes::setCustomField($userid,$template,PROFILETYPE_CUSTOM_FIELD_CODE);
+			XiPTLibraryCore::updateCommunityCustomField($userid,$template,TEMPLATE_CUSTOM_FIELD_CODE);
+			XiPTLibraryCore::updateCommunityCustomField($userid,$ptype,PROFILETYPE_CUSTOM_FIELD_CODE);
 			
 			// assign the default group
-			XiPTLibraryCore::assignUserToGroup($userid,$ptype);
+			XiPTLibraryCore::updateCommunityUserGroup($userid,$ptype,$prevProfiletype);
 			
 			//5.set privacy data
-			XiPTLibraryCore::updatePrivacyforCommunityUser($userid,$ptype);
+			XiPTLibraryCore::updateCommunityUserPrivacy($userid,$ptype);
 	
 			//Reseting user already loaded information ,
 			//bcoz JS collects all data in static array when system load
@@ -212,11 +206,11 @@ class XiPTLibraryProfiletypes
                 
 	        case 'TEMPLATE':
                 $getMe	= TEMPLATE_FIELD_IN_USER_TABLE;
-		        
                 $allTemplates = XiPTLibraryUtils::getTemplatesList();
-        		$pID          = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
-        		$defaultValue = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
-        		
+       		    $pID          = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+       		    $defaultValue = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
+
+        		//else get system template
         		if(in_array($defaultValue,$allTemplates)==false)
 			        $defaultValue   =  XiPTLibraryProfiletypes::getDefaultTemplate();
 
@@ -239,7 +233,7 @@ class XiPTLibraryProfiletypes
 		}
 		
 		// not a valid result OR value not set
-		if($result == 0 || empty($result)){
+		if(!$result){
 		    //TODO: set ProfileType is nothing exist
 		    $result = $defaultValue;
 		}
@@ -404,7 +398,7 @@ class XiPTLibraryProfiletypes
 	    // we can not discard user uploaded avatar
 	    if($check == 'avatar')
 	    {
-	        $oldAvatar  = XiPTLibraryProfileTypes::getUserDataFromCommunity($userid, 'avatar');
+	        $oldAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
 			$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($oldAvatar,true);
 			
 			return $isDefault;
@@ -440,7 +434,7 @@ class XiPTLibraryProfiletypes
 		
 		if(empty($allProfileTypes))
 			return false;
-
+			
 		foreach($allProfileTypes as $pType) {
 			if($profileTypeID == $pType->id)
 				return true;

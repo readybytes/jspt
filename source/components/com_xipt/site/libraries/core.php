@@ -27,6 +27,23 @@ class XiPTFactory
         
         return $instance;
     }
+    /*
+    function getXiPTUser($userid)
+    {
+        static $instance = array();
+        
+        if(!$userid)
+            return null;
+        
+        if($instance[$userid])
+            return $instance[$userid];
+        
+        require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
+        
+        $instance   = new XiPTModelUser($userid);
+            
+            
+    }*/
 }
 
 
@@ -155,12 +172,12 @@ class XiPTLibraryCore
 	{
 		//TODO : CODREV: We must enforce this as we never want
 		// to overwrite a custom avatar
-		if(!XiPTLibraryProfiletypes::isDataResetRequired($userid,'avatar','profiletype'))
+		if(!XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($userid,'avatar','profiletype'))
 			return false;
 
 		// we can safely update avatar
 		$pTypeAvatar 	  = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeID,'avatar');
-		$pTypeThumbAvatar = XiPTLibraryProfiletypes::getThumbAvatarFromFull($pTypeAvatar);
+		$pTypeThumbAvatar = XiPTLibraryUtils::getThumbAvatarFromFull($pTypeAvatar);
 
 		// perform the operation
 		$user    =&  CFactory::getUser($userid);
@@ -181,7 +198,7 @@ class XiPTLibraryCore
 	{
 		
 		$privacy 	= XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'privacy');
-		$myprivacy	= XiPTLibraryProfiletypes::getPTPrivacyValue($privacy);
+		$myprivacy	= XiPTLibraryUtils::getPTPrivacyValue($privacy);
 		
 		// get params
 		$cuser    =&  CFactory::getUser($userid);

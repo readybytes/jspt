@@ -6,7 +6,7 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="allow_User_to_change_ptype_after_reg" type="radio" default="1" label="ALLOW USER TO CHANGE PROFILE TYPE AFTER REGISTRATION" description="ALLOW USER TO CHANGE PROFILE TYPE AFTER REGISTRATION.DESC">
+		<param name="allow_user_to_change_ptype_after_reg" type="radio" default="1" label="ALLOW USER TO CHANGE PROFILE TYPE AFTER REGISTRATION" description="ALLOW USER TO CHANGE PROFILE TYPE AFTER REGISTRATION.DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>

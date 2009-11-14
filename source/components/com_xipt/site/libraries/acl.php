@@ -134,8 +134,6 @@ class XiPTLibraryAcl
 		$result	= $db->loadObject();
 		
 		assert($result);
-		$message	= "";
-		$redirect	= "";
 		
 		//foreach($results as $result)
 		//{

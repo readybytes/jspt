@@ -82,7 +82,7 @@ class XiPTLibraryPluginHandler
 		$callArray	= explode(',', $func);
 		
 		//perform Access checks
-		XiPTLibraryAcl::performACLCheck(true, $callArray, $args);
+		$this->performACLCheck(true, $callArray, $args);
 		
 		// If we come here means ACL Check was passed
 		$controller	=	$callArray[0];
@@ -133,25 +133,35 @@ class XiPTLibraryPluginHandler
 	 * @param $fieldValueCodes
 	 * @return true
 	 */
-	function onBeforeProfileUpdate($userId, &$fieldValueCodes)
+	function onBeforeProfileUpdate($userid, &$fieldValueCodes)
 	{
 		// TODO : Check for both fields exist in array or not
 		$profileTypeValue =& $fieldValueCodes[PROFILETYPE_CUSTOM_FIELD_CODE];
 		$templateValue    =& $fieldValueCodes[TEMPLATE_CUSTOM_FIELD_CODE];
 
 		// user is allowed or not.
-        $allowToChangePType    = $this->params->get('allow_User_to_change_ptype_after_reg',0);
+        $allowToChangePType    = $this->params->get('allow_user_to_change_ptype_after_reg',0);
         $allowToChangeTemplate = $this->params->get('allow_templatechange','0');
         
         // not changing anything get data from table and set it
-		if(0 == $allowToChangeTemplate){
-		    $userid = JRequest::getVar('userid',0,'GET');
+		if(0 == $allowToChangeTemplate || $templateValue==''){
+		    //show err msg
+		    if(0 == $allowToChangeTemplate){
+		        global $mainframe;
+		        $mainframe->enqueueMessage(JText::_('YOU ARE NOT ALLOWED TO CHANGE TEMPLATE'),'notice');
+		    }
+		    
 			$templateValue = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
 		}
 
 		// not allowed to change profiletype, get data from table and set it
-		if(0 == $allowToChangePType){
-		    $userid = JRequest::getVar('userid',0,'GET');
+		if(0 == $allowToChangePType || $profileTypeValue==0){
+		    //show err msg
+		    if(0 == $allowToChangePType){
+		        global $mainframe;
+		        $mainframe->enqueueMessage(JText::_('YOU ARE NOT ALLOWED TO CHANGE PROFILETYPE'),'notice');
+		    }
+		    
 			$profileTypeValue = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 
@@ -169,14 +179,14 @@ class XiPTLibraryPluginHandler
 	{
 	    //TODO : The event is missing from backend ????
 	    // data was not saved, do nothing
-	    if(!$saveSuccess)
+	    if(false == $saveSuccess)
 	        return true;
 
 	    $cuser        = CFactory::getUser($userid);
 	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
 	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
-
-	    XiPTLibraryProfiletypes::saveXiPTUser($userid,$profiletype,$template);
+	    
+	    XiPTLibraryProfiletypes::updateUserProfiletypeData($userid,$profiletype,$template,'ALL');
 	    return true;
 	}
 	
@@ -204,8 +214,29 @@ class XiPTLibraryPluginHandler
 	}
 	
 	
+	/**
+	 * This function removes not allowed community apps form dispatcher
+	 * as per user's profiletype
+	 * @return true
+	 */
 	function onAfterAppsLoad()
 	{
+		$dispatcher =& JDispatcher::getInstance();
+		/* TODO : when A is viewing B's profile then
+		 * we restrict all A's app on B's profile too.
+		 * so currently we are restricting all apps for currently logged in user
+		 * $userid    = JRequest::getVar('userid',0);
+		 * do nothing for guest
+		 * 
+		 */
+		$userid    = JFactory::getUser()->id;
+		
+		// restrict apps for logged in user only
+		if(!$userid)
+		    return true;
+		
+		$profiletype = XiPTLibraryProfiletypes::getUserData($userid, 'PROFILETYPE');
+		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $profiletype);
 	    return true;
 	}
 	
@@ -264,6 +295,11 @@ class XiPTLibraryPluginHandler
 	{
 	    XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
+	}
+	
+	function performACLCheck(&$ajax, &$callArray, &$args)
+	{
+	    return XiPTLibraryAcl::performACLCheck($ajax, $callArray, $args);
 	}
 	
 }

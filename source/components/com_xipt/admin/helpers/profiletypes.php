@@ -285,7 +285,7 @@ function addAllExistingUserToProperGroups($pid,$gid, $oldgid)
 		$class				= ($required == 1) ? ' required' : '';
 		$elementSelected	= 0;
 		$elementCnt	        = 0;
-		$options			= XiPTLibraryProfiletypes::getProfileTypesArray();
+		$options			= XiPTLibraryProfiletypes::getProfiletypeArray();
 		
 		$config = CFactory::getConfig();
 	

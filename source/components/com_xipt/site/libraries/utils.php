@@ -119,11 +119,11 @@ class XiPTLibraryUtils
 	
     function isAdmin($id, $refID=0)
 	{
-		//TODO get it from community
-		return false;
+	    require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'owner.php';
+		return isCommunityAdmin($id);
 	}
 	
-	function checkEditAccessRight($myId, $calleId)
+	/*function checkEditAccessRight($myId, $calleId)
 	{
 		// Always I can edit my own profile
 		if($myId ==  $calleId)
@@ -139,7 +139,7 @@ class XiPTLibraryUtils
 	function canEditMe($myId, $calleId)
 	{
 		return XiPTLibraryUtils::checkEditAccessRight($myId, $calleId);
-	}
+	}*/
 	
 	
 	function getPTPrivacyValue($privacy)
@@ -164,9 +164,8 @@ class XiPTLibraryUtils
 	
     function getTemplatesList()
 	{
-		jimport( 'joomla.filesystem.folder' );
-		jimport('joomla.filesystem.file');
-		
+	    jimport( 'joomla.filesystem.folder' );
+		jimport('joomla.filesystem.file');		
 		$path	= JPATH_ROOT. DS . 'components' . DS . 'com_community' . DS . 'templates';
 		
 		if( $handle = @opendir($path) )

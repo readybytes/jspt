@@ -107,7 +107,7 @@ class CFieldsProfiletypes
 		}
 		
 		// user can change profiletype, add information
-		$pTypes = XiPTLibraryProfiletypes::getProfiletypesArray();
+		$pTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
 		
 		$html	= '<select id="field'.$field->id.'" name="field' . $field->id  . '" '.$disabled.' class="hasTip select'.$class.' inputbox" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
 		

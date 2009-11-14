@@ -2,55 +2,60 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+//TODO: we should store
 class XiPTLibraryApps
 {
-	function getAllowedApps(&$applications,$appname)
-	{
-		if(!empty($applications)) {
-			$i = 0;
-			$user = & CFactory::getUser();
-			if($user->_userid) {
-				$userProfiletypeId = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($user->_userid);
-				foreach($applications as $app) {
-					if(!XiPTLibraryProfiletypes::getcheckaccess($app->$appname,$userProfiletypeId))
-						unset($applications[$i]);
-					$i++;
-				}
-				$applications = array_values($applications);
-			}
-		}
-	}
-
-	function getcheckaccess($appname,$userProfiletypeId)
-	{
-			$appsModel = CFactory::getModel('apps');
-			$checkaccess = XiPTLibraryProfiletypes::checkAccessofApplication(
-			$appsModel->getPluginId( $appname ),$userProfiletypeId);
-			return $checkaccess;
-	}
-	
-	
-	function checkAccessofApplication($applicationId,$userProfiletypeId)
-	{
-		$db		=& JFactory::getDBO();
-		$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' '
+    function filterCommunityApps(&$apps, $profiletype)
+    {
+        // $apps is array of objects
+        $notAllowedApps =XiPTLibraryApps::getNotAllowedCommunityAppsArray($profiletype);
+        for($i=0 ; $i < count($apps) ; $i++ )
+        {
+            $app   =& $apps[$i];
+            
+            //legacy plugins come as array, we dont work on them
+            if(is_object($app)==false)
+                continue;
+            
+            // we want to restrict only community apps
+            if($app->_type != 'community')
+                continue;
+            $appId    = XiPTLibraryApps::getPluginId($app->_name);
+           // is it not allowed
+           if(in_array($appId,$notAllowedApps))
+               unset($apps[$i]);
+        }
+        
+        $apps =& array_values($apps);
+        return true;
+    }
+    
+    function getNotAllowedCommunityAppsArray($profiletype)
+    {
+        $db		=& JFactory::getDBO();
+		$query	= 'SELECT ' . $db->nameQuote( 'applicationid' ) . ' '
 				. 'FROM ' . $db->nameQuote( '#__xipt_applications' ) . ' '
-				. 'WHERE ' . $db->nameQuote( 'applicationid' ) . '=' . $db->Quote( $applicationId ) . ' '
-				. 'AND ' . $db->nameQuote( 'profiletype' ) . '=' . $db->Quote( $userProfiletypeId );
+				. 'WHERE '. $db->nameQuote( 'profiletype' ).'='.$db->Quote( $profiletype );
 
 		$db->setQuery( $query );
+		$results = $db->loadResultArray();
+		
+		return $results;
+    }
+    
+	function getPluginId( $element )
+	{
+		$db		=& JFactory::getDBO();
+		$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' ' 
+				. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
+				. 'WHERE ' . $db->nameQuote( 'element' ) . '=' . $db->Quote( $element );
 
+		$db->setQuery( $query );
 		$result = $db->loadResult();
 		
 		if($db->getErrorNum())
-		{
 			JError::raiseError( 500, $db->stderr());
-		}
 		
-		if(empty($result))
-			return 1;
-		else
-			return 0;
-	
+		return $result;
 	}
 }

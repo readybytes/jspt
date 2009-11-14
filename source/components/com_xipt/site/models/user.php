@@ -5,8 +5,6 @@ jimport('joomla.application.component.model');
 
 class XiPTModelUser extends JModel
 {
-
-	
 	function updateIndividualData( $userid,$what,$value )
 	{
 		
@@ -16,7 +14,7 @@ class XiPTModelUser extends JModel
 		assert($value);
 		$query		= ' UPDATE '. $db->nameQuote('#__xipt_users')
                		 	. ' SET '.$db->nameQuote($what).'='. $db->Quote($value)
-				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
+               		 	. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
 		
 		$db->setQuery( $query );
 		$db->query();
@@ -30,58 +28,25 @@ class XiPTModelUser extends JModel
 	
 	function setUserData( $data )
 	{
-		global $mainframe;
-		$validated = true;
-		$emptyFields ='';
-		if( empty( $data->userid ) ){
-				$validated = false;
-				$emptyFields .= JText::_('USERID');
-		}
-		
-		if( empty( $data->profiletype ) ){
-				$validated = false;
-				$emptyFields .= JText::_('PROFILETYPE');
-		}
-		
-		if( empty( $data->template ) ){
-				$validated = false;
-				$emptyFields .= JText::_('TEMPLATE');
-		}
-				
-			
-		if($validated == false)
-		{
-			$mainframe->enqueueMessage(sprintf(JText::_('FIELDS CAN NOT BE EMPTY'),$emptyFields), 'error');
-			return false;
-		}
-	   
 		$db		=& JFactory::getDBO();
-
-		$query		= 'SELECT * FROM '. $db->nameQuote('#__xipt_users')
+		$query	= 'SELECT * FROM '. $db->nameQuote('#__xipt_users')
 				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($data->userid);
 
 		$db->setQuery( $query );
 		$result	= $db->loadObject();
 		
 		
-		if(!$result)
-		{
-			// New record, insert it.
-			$db->insertObject( '#__xipt_users' , $data,'userid' );
-
-			if($db->getErrorNum())
-				JError::raiseError( 500, $db->stderr());
-		}
+		if($result)
+		    $db->updateObject( '#__xipt_users', $data, 'userid');
 		else
-		{
-			// Old record, update it.
-			$db->updateObject( '#__xipt_users' , $data , 'userid');
-		}
-  }
-	
-
-
-
+		    $db->insertObject( '#__xipt_users', $data, 'userid' );
+		
+		if(!$db->getErrorNum())
+		    return true;
+		
+		JError::raiseError( 500, $db->stderr());
+		return false;
+	}
 }
 
 class XiPTTableUser extends JTable
