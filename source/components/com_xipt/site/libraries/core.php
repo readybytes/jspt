@@ -27,7 +27,7 @@ class XiPTFactory
         
         return $instance;
     }
-    /*
+    
     function getXiPTUser($userid)
     {
         static $instance = array();
@@ -43,7 +43,7 @@ class XiPTFactory
         $instance   = new XiPTModelUser($userid);
             
             
-    }*/
+    }
 }
 
 

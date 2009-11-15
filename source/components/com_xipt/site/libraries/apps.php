@@ -20,6 +20,11 @@ class XiPTLibraryApps
             // we want to restrict only community apps
             if($app->_type != 'community')
                 continue;
+            
+            // do not restrict our component, user may do mistakes :-)
+            if($app->_name == 'xipt_community')
+                continue;
+                
             $appId    = XiPTLibraryApps::getPluginId($app->_name);
            // is it not allowed
            if(in_array($appId,$notAllowedApps))
@@ -32,6 +37,7 @@ class XiPTLibraryApps
     
     function getNotAllowedCommunityAppsArray($profiletype)
     {
+        // cache the results in static $instance
         $db		=& JFactory::getDBO();
 		$query	= 'SELECT ' . $db->nameQuote( 'applicationid' ) . ' '
 				. 'FROM ' . $db->nameQuote( '#__xipt_applications' ) . ' '
@@ -58,4 +64,28 @@ class XiPTLibraryApps
 		
 		return $result;
 	}
+	
+	
+	function filterAjaxAddApps(&$appName,&$profiletype, &$objResponse)
+	{
+	    $appId = XiPTLibraryApps::getPluginId($appName);
+	    $notAllowedApps =XiPTLibraryApps::getNotAllowedCommunityAppsArray($profiletype);
+	    
+	    // do not restrict if allowed
+	    if(!in_array($appId,$notAllowedApps))
+	        return true;
+	    
+	    //restrict the user.
+	    $objResponse->addAssign('cwin_logo', 'innerHTML', JText::_('CC ADD APPLICATION TITLE'));
+
+		$action		= '<form name="cancelRequest" action="" method="POST">';
+		$action		.= '<input type="button" class="button" onclick="cWindowHide();return false;" name="cancel" value="'.JText::_('CC BUTTON CLOSE').'" />';
+		$action		.= '</form>';
+		
+		$objResponse->addAssign('cWindowContent', 'innerHTML', '<div class="ajax-notice-apps-added">'.JText::_( 'APPLICATION ACCESS DENIED' ).'</div>');
+		
+		$objResponse->addScriptCall('cWindowActions', $action);
+		return false;
+		
+	} 
 }

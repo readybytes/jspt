@@ -82,7 +82,8 @@ class XiPTLibraryPluginHandler
 		$callArray	= explode(',', $func);
 		
 		//perform Access checks
-		$this->performACLCheck(true, $callArray, $args);
+		$ajax = true;
+		$this->performACLCheck($ajax, $callArray, $args);
 		
 		// If we come here means ACL Check was passed
 		$controller	=	$callArray[0];
@@ -95,6 +96,18 @@ class XiPTLibraryPluginHandler
 				case 'ajaxCheckUserName' :
 					return XiPTLibraryUtils::$function($args,$response);
 			}
+		}
+		
+		if($controller=='apps' && $function=='ajaxAdd')
+		{
+		    $my				=& JFactory::getUser();
+
+		    //no filtering for guests
+		    if(0 == $my->id)
+		        return true;
+		        
+		    $profiletype = XiPTLibraryProfiletypes::getUserData($my->id,'PROFILETYPE');
+		    return XiPTLibraryApps::filterAjaxAddApps($args[0],$profiletype,$response);
 		}
 		
 		// we do not want to interfere, go ahead JomSocial
