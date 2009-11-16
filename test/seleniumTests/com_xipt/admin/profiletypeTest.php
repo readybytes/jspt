@@ -2,12 +2,24 @@
 
 require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
-// it will be repalced by set script
-require_once '@JOOMLA.ROOT.PATH@'.'@JOOMLA.FOLDER@'.'/test/selConfig.php';
-require_once '@JOOMLA.ROOT.PATH@'.'@JOOMLA.FOLDER@'.'/test/selJAdmin.php';
+define('JOOMLA_LOCATION',	'http://localhost/root4181/');
+define('JOOMLA_FTP_LOCATION', 	'/var/www/root4181');
 
-class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
+define('TIMEOUT_SEC',30000);
+define('JOOMLA_ADMIN_USERNAME', 'admin');
+define('JOOMLA_ADMIN_PASSWORD',	'ssv445');
+
+
+class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase 
 {
+
+  var  $_DBO;
+
+  function getSqlPath()
+  {
+      return dirname(__FILE__);
+  }
+  
   function setUp()
   {
     $this->setBrowser("*chrome");
@@ -26,69 +38,34 @@ class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
 
     $this->waitForPageToLoad("30000");
     $this->assertTrue($this->isTextPresent("Logout"));
+    
   }
 
 
   function testAddProfileType()
   {
-	$this->adminLogin();
-
+     $this->adminLogin();
+    //ensure tables xipt_profiletypes are clean
 	// profiletype page does exist
-	$this->open("/root5687/administrator/index.php?option=com_xipt&view=profiletypes");
-	$this->click("link=JomSocial Profile Types");
+	$this->open("/root4181/administrator/index.php?option=com_xipt&view=profiletypes");
 	$this->waitForPageToLoad("30000");
-	$this->click("link=Profiletypes");
-	$this->waitForPageToLoad("30000");
-	$this->assertTrue($this->isTextPresent("Profiletypes"));
 
 	// add profiletype-one
-    $this->click("link=Add profiletypes");
+    $this->click("//td[@id='toolbar-new']/a");
     $this->waitForPageToLoad("30000");
     $this->type("name", "PROFILETYPE-ONE");
     $this->type("tip", "PROFILETYPE-TIP-ONE");
-    $this->click("link=Save");
+    $this->click("//td[@id='toolbar-save']/a");
     $this->waitForPageToLoad("30000");
     $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
-	// check for save string, do not assert only verify
-     try {
-        $this->assertTrue($this->isTextPresent("Profiletype saved"));
-    } catch (PHPUnit_Framework_AssertionFailedError $e) {
-        array_push($this->verificationErrors, $e->toString());
-    }
 
-	// add profiletype-two
-    $this->click("link=Add profiletypes");
-    $this->waitForPageToLoad("30000");
-    $this->type("name", "PROFILETYPE-TWO");
-    $this->type("tip", "PROFILETYPE-TIP-TWO");
-    $this->click("link=Save");
-    $this->waitForPageToLoad("30000");
-    $this->assertTrue($this->isTextPresent("PROFILETYPE-TWO"));
-
-	// add profiletype-one
-    $this->click("link=Add profiletypes");
-    $this->waitForPageToLoad("30000");
-    $this->type("name", "PROFILETYPE-THREE");
-    $this->type("tip", "PROFILETYPE-TIP-THREE");
-    $this->click("link=Save");
-    $this->waitForPageToLoad("30000");
-    $this->assertTrue($this->isTextPresent("PROFILETYPE-THREE"));
-
-	// add profiletype-one
-    $this->click("link=Add profiletypes");
-    $this->waitForPageToLoad("30000");
-    $this->type("name", "PROFILETYPE-FOUR");
-    $this->type("tip", "PROFILETYPE-TIP-FOUR");
-    $this->click("link=Save");
-    $this->waitForPageToLoad("30000");
-	// check for message also
-    $this->assertTrue($this->isTextPresent("Profiletype saved"));
-    $this->assertTrue($this->isTextPresent("PROFILETYPE-FOUR"));
-
+    $this->_DBO->addTable('#__xipt_profiletypes');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','id');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    $this->assertTrue($this->_DBO->verify());
   }
 	
-	// try to order profiletypes
-	function testOrderProfileTypes()
+/*	function testOrderProfileTypes()
 	{
 		// mv 2 to 3 (down)
 		$this->click("//tr[@id='rowid4']/td[12]/span[1]/a/img");
@@ -127,6 +104,6 @@ class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
 		$this->waitForPageToLoad("30000");
 		$this->assertTrue($this->isTextPresent("1 Profiletype removed"));
 	}
-
+*/
 }
 ?>

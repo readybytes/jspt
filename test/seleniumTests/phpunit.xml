@@ -1,18 +1,15 @@
-<phpunit
-	bootstrap="bootstrap.php"
-	colors="true"
-	testdox="true"
-	verbose="true"
-	backupStaticAttributes="false"
-	backupGlobals="false"
-	processIsolation="true"
-	syntaxCheck="false"
-    testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
+<phpunit 
+		backupGlobals="false" 
+		backupStaticAttributes="true" 
+		colors="true" syntaxCheck="false">
+
+	<testsuite name="Test suite name">
+		<directory>component</directory>
+	</testsuite>
+	
+	<listeners>
+		<listener class="XiTestListener" file="./system/XiTestListener.php" />
+	</listeners>	
 </phpunit>
 
-<testsuites>
-  <testsuite name="My Test Suite">
-    <directory>.\test</directory>
-    <file>.\tests\sampletTest.php</file>
-  </testsuite>
-</testsuites>
+
