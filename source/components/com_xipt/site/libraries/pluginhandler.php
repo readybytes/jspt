@@ -126,10 +126,10 @@ class XiPTLibraryPluginHandler
 		$userid	= $cuser->_userid;
 		
 		// find pType of user
-		$profiletypeID = XiPTPluginHandler::getRegistrationPType();
+		$profiletypeID = XiPTLibraryPluginHandler::getRegistrationPType();
 
 		// need to set everything
-		XiPTLibraryCore::setProfileDataForUserID($userid, $profiletypeID, 'ALL');
+		XiPTLibraryProfiletypes::updateUserProfiletypeData($userid, $profiletypeID,'', 'ALL');
 		
 		//clean the session
 		XiPTPluginHandler::cleanRegistrationSession();
@@ -234,6 +234,10 @@ class XiPTLibraryPluginHandler
 	 */
 	function onAfterAppsLoad()
 	{
+		// skip these calls from backend
+		global $mainframe;
+		if($mainframe->isAdmin())
+			return;
 		$dispatcher =& JDispatcher::getInstance();
 		/* TODO : when A is viewing B's profile then
 		 * we restrict all A's app on B's profile too.

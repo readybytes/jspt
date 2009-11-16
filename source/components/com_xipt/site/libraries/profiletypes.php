@@ -143,8 +143,7 @@ class XiPTLibraryProfiletypes
 	{
 		$params = JComponentHelper::getParams('com_xipt');
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
-
-		if(!$defaultProfiletypeID)
+		if(!$defaultProfiletypeID )
 		    JError::raiseError('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 		    
 		return  $defaultProfiletypeID;

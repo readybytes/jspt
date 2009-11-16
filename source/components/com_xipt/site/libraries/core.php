@@ -115,6 +115,10 @@ class XiPTLibraryCore
 	 */
 	function updateCommunityConfig(&$instance)
 	{
+		// skip these calls from backend
+		global $mainframe;
+		if($mainframe->isAdmin())
+			return;
 		$loggedInUser 		= JFactory::getUser();
 		
 		//means guest is looking user profile ,
@@ -155,7 +159,10 @@ class XiPTLibraryCore
 				 .' WHERE '.$db->nameQuote('fieldcode').'='.$db->Quote($what);
 		$db->setQuery( $query );
 		$res = $db->loadObject();
-				
+
+		// skip these calls from backend
+		assert($res) || JError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
+		
 		// change the type
 		$id	= $res->id;
 		$strSQL	= ' UPDATE '.$db->nameQuote('#__community_fields_values')

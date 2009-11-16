@@ -3,17 +3,11 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-/**
- * profilestatus Helper
- *
- * @package Joomla
- * @subpackage profilestatus
- * @since 1.5
- */
-class XiPTHelperAclRules {
+class XiPTHelperAclRules 
+{
 
 
-function _buildTypesforAclRules($value, $what)
+	function _buildTypesforAclRules($value, $what)
 	{
 		$allValues	= array();
 		switch($what)

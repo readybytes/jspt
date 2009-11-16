@@ -3,14 +3,9 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-/**
- * profilestatus Helper
- *
- * @package Joomla
- * @subpackage profilestatus
- * @since 1.5
- */
-class XiPTHelperProfileFields {
+
+class XiPTHelperProfileFields 
+{
 
 //return all fields available in jomsocial
 function get_jomsocial_profile_fields()

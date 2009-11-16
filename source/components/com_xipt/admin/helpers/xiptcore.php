@@ -3,13 +3,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-/**
- * profilestatus Helper
- *
- * @package Joomla
- * @subpackage profilestatus
- * @since 1.5
- */
 class XiFactory
 {
 	function &getModel( $name = '', $config = array() )
