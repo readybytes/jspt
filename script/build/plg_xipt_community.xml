@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!-- $Id: build.xml shyam $	 
+	1. data is there in dir.tmp// proj.locations
+	2. just build the part and put at right location
+	
+ -->
+<project name="XIPT Community Plugin" basedir="." default="build" description="Phing build script for JSPT community plugin.">
+
+	<target name="config" description="Load configuration file">
+		<property file="plg_xipt_community.properties"  override="true" />
+	</target>
+
+	<target name="build" description="Build Installable XiPT Community Plugin " depends="config">
+		<echo msg="Building the XiPT community plugin...." />
+
+
+		<phpcodesniffer
+			standard="Zend"
+			format="summary"
+			showSniffs="true"
+			file="${dir.tmp}"
+			sniffs="Zend_Sniffs_Files_ClosingTagSniff 
+					Generic_Sniffs_PHP_DisallowShortOpenTagSniff
+				   "
+			allowedFileExtensions="php" />
+
+		<delete file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" />
+
+		<tar 	destfile="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
+			basedir="${dir.tmp}" 
+			compression="${file.compression}" />
+	</target>
+</project>
