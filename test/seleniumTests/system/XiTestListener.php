@@ -1,17 +1,7 @@
 <?php
 
 require_once 'PHPUnit/Framework.php';
-
-// include joomla framework
 require_once dirname(__FILE__). '/joomlaFramework.php';
-
-//This class helps us in testing
-// we need to have a fixed DB PREFIX = XI_LOG
-// log.sql
-// LOG PREFIX : #__
-// AU PREFIX  : #__TABLENAME_AU_
-
-
 
 class XiDBCheck
 {
@@ -92,7 +82,7 @@ class XiDBCheck
             }
             
         }
-        echo " \n ==  Table ".$tableName. " Matched == \n ";
+        //echo " \n ==  Table ".$tableName. " Matched == \n ";
         return true;        
     }
     
@@ -147,25 +137,25 @@ class XiDBCheck
         $query=file_get_contents($file);
         $allQuery=explode(';',$query);
         
-        $result=true;
         foreach($allQuery as $q){
             //echo "\n Query is : ".$q . "\n";
             // we might have empty queries
+            $q = trim($q);
             if(empty($q))
                 continue;
+
             $this->db->setQuery($q);
             if(!$this->db->query())
             {
                 $error = "Joomla DB Error Number : ".$this->db->getErrorNum();
                 $this->errorLog[]=$error;
-                echo $error;
-                $result=false;
+                    
+                echo "\n Some error during Sql Loading.\n";
+                echo $q."\n";
                 break;
             }
         }
         
-        if($result)
-            echo "\n Sql Loading done.";   
         return true;
     }
 }
@@ -184,7 +174,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
   {
       
     $testName      = $test->getName();    
-    echo "\n Starting Test : ".$testName;
+    //echo "\n Starting Test : ".$testName;
     // this two variables must be defined by test
     if(!method_exists($test,'getSqlPath'))
         return;
@@ -192,7 +182,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     $sqlPath       = $test->getSqlPath(); 
     $test->_DBO    =& new XiDBCheck();
     $dbDump        =  $sqlPath.'/'.$testName.'.start.sql';
-    echo "\n Loading SQL : ".$dbDump;
+    //echo "\n Loading SQL : ".$dbDump;
     $test->_DBO->loadSql($dbDump);
   }
  
@@ -200,7 +190,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
   {
     
     $testName = $test->getName();    
-    echo "\n Ending test : ".$testName;
+    //echo "\n Ending test : ".$testName;
     // this two variables must be defined by test
     if(!$test->_DBO)
         return;

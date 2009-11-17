@@ -1,7 +1,9 @@
 <phpunit 
 		backupGlobals="false" 
 		backupStaticAttributes="true" 
-		colors="true" syntaxCheck="false">
+		colors="true" 
+		syntaxCheck="false"
+		bootstrap="bootstrap.php">
 
 	<testsuite name="Test suite name">
 		<directory>component</directory>
