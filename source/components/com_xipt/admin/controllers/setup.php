@@ -21,16 +21,17 @@ class XiPTControllerSetup extends JController
     	global $mainframe;
     	$pFieldCreated = true;
     	$tFieldCreated = true;
-   		if(!XiPTHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE))
-				$pFieldCreated = XiPTHelperSetup::createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
 		 
 		if(!XiPTHelperSetup::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE))
 				$tFieldCreated = XiPTHelperSetup::createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
 				
+		if(!XiPTHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE))
+				$pFieldCreated = XiPTHelperSetup::createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
+				
 		if($pFieldCreated && $tFieldCreated)
-			$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup",false));
+			$mainframe->enqueueMessage(JText::_("CUSTOM FIELD CREATED SUCCESSFULLY"));
 			
-		return;
+		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
     
     
@@ -40,201 +41,126 @@ class XiPTControllerSetup extends JController
     	$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false));
     }
     
-	function edit()
-	{
-		$id = JRequest::getVar('editId', 0 , 'GET');
-		
-		$viewName	= JRequest::getCmd( 'view' , 'profiletypes' );
-		
-		// Get the document object
-		$document	=& JFactory::getDocument();
-
-		// Get the view type
-		$viewType	= $document->getType();
-		
-		$view		=& $this->getView( $viewName , $viewType );
-		$layout		= JRequest::getCmd( 'layout' , 'profiletypes.edit' );
-		$view->setLayout( $layout );
-		echo $view->edit($id);
-		
-	}
-	
-	function save()
-	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-
-		$post	= JRequest::get('post');
-		$cid	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		
-		
-		$user	=& JFactory::getUser();
-
-		if ( $user->get('guest')) {
-			JError::raiseError( 403, JText::_('Access Forbidden') );
-			return;
-		}
-
-		// Load the JTable Object.
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-		$row->load( $cid[0] );	
-		$isValid	= true;
-		
-		$data = array();
-		$data['name'] = $post['name'];
-		$data['tip'] = $post['tip'];
-		$data['published'] = $post['published']; 
-		$data['template'] = $post['template'];
-		$data['jusertype'] = $post['jusertype'];
-		$data['privacy'] = $post['privacy'];
-		$data['avatar'] = $post['avatar'];
-		$data['approve'] = $post['approve'];
-		$data['allowt'] = $post['allowt'];
-		
-		$row->bindAjaxPost($data);
-		
-		if( $isValid )
-		{
-			$parent			= '';
-			$oldGroupId		=0;	
-			// store old group first
-			$oldGroupId = XiPTHelperProfiletypes::getProfileTypeData($id,'group');
-			$id = $row->store();
-			// Get the view
-			$view		=& $this->getView( 'profiletypes' , 'html' );
-	
-			if($id != 0)
-			{
-				/* Fix existing user's group */
-				if($post['resetAll'])
-					XiPTHelperProfiletypes::addAllExistingUserToProperGroups($id,$row->group,$oldGroupId);
-					
-				$msg = JText::_('PROFILETYPE SAVED');
-			}
-		}
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);
-	}
-	
-	function remove()
-	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		
-		$ids	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-	
-		//$post['id'] = (int) $cid[0];
-		$count	= count($ids);
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-		$i = 1;
-		if(!empty($ids))
-		{
-			foreach( $ids as $id )
-			{
-				$row->load( $id );
-				if(!$row->delete( $id ))
-				{
-					// If there are any error when deleting, we just stop and redirect user with error.
-					$message	= JText::_('ERROR IN REMOVING PROFILETYPE');
-					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
-					exit;
-				}
-				$i++;
-			}
-		}
+    function installplugin()
+    {
+    	global $mainframe;
+    	$mainframe->redirect(JRoute::_("index.php?option=com_installer",false));
+    }
+    
+    
+	function enableplugin()
+    {
+    	global $mainframe;
+    	$sEnabled = true;
+    	$cEnabled = true;
+		 
+		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_system','system')
+			&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_system','system',true))
+				$sEnabled = XiPTHelperSetup::enablePlugin('xipt_system');
 				
-		$cache = & JFactory::getCache('com_content');
-		$cache->clean();
-		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $message);
-	}
-	
-	
-	function publish()
-	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		// Initialize variables
-		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$count			= count( $ids );
-
-		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
-		}
-		
-		$pModel	= XiFactory::getModel( 'profiletypes' );
-		foreach($ids as $id)
-		{
-			$pModel->updatePublish($id,1);
-		}
-		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);	
-	}
-	
-	function unpublish()
-	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		// Initialize variables
-		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$count			= count( $ids );
-
-		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
-		}
-		
-		$pModel	= XiFactory::getModel( 'profiletypes' );
-		foreach($ids as $id)
-		{
-			$pModel->updatePublish($id,0);
-		}
-		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);
-	}
-	
-	
-	
-/**	
-	 * Save the ordering of the entire records.
-	 *	 	
-	 * @access public
-	 *
-	 **/	 
-	function saveOrder()
-	{
-		global $mainframe;
-	
-		// Determine whether to order it up or down
-		$direction	= ( JRequest::getWord( 'task' , '' ) == 'orderup' ) ? -1 : 1;
-
-		// Get the ID in the correct location
- 		$id			= JRequest::getVar( 'cid', array(), 'post', 'array' );
-		$db			=& JFactory::getDBO();
-
-		if( isset( $id[0] ) )
-		{
-			$id		= (int) $id[0];
-
-			// Load the JTable Object.
-			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_community','community')
+			&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_community','community',true))
+				$cEnabled = XiPTHelperSetup::enablePlugin('xipt_community');
+				
+		if($sEnabled && $cEnabled)
+			$mainframe->enqueueMessage(JText::_("PLUGIN ENABLED SUCCESSFULLY"));
 			
-			$table->load( $id );
-			$table->move( $direction );
+		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+    }
+    	
+    
+    function patchfile()
+    {
+    	global $mainframe;
+    	$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
+    	
+    	if(!XiPTHelperSetup::checkFilePatchRequired())
+    		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
 
-			$cache	=& JFactory::getCache( 'com_content');
-			$cache->clean();
-			
-			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
-		}
-	}
-	
+    	if(XiPTHelperSetup::isModelFilePatchRequired()){
+	    	//1. Replace _ fields calling in _loadAllFields function
+	    	$funcName = 'function _loadAllFields';
+	    	
+	    	$searchString = '$fields = $db->loadObjectList();';
+	    	ob_start();
+	    	?>$fields = $db->loadObjectList();
+	    	
+	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
+	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+	    	$pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+	    	$userId = 0;
+	    	$pluginHandler->onProfileLoad($userId, $fields, __FUNCTION__);
+	    	/*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
+	        <?php 
+	        
+	        $replaceString = ob_get_contents();
+	        ob_end_clean();
+	        
+	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+	        
+	        //2. Replace data in getViewableProfile fn
+	        $funcName =  'function getViewableProfile';
+	        $searchString = '$result	= $db->loadAssocList();';
+	    	ob_start();
+	    	?>$result	= $db->loadAssocList();
+	    	
+	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
+			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
+		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
+	        <?php 
+	        
+	        $replaceString = ob_get_contents();
+	        ob_end_clean();
+	        
+	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+	        
+	        
+	        //3. Replace data in getEditablePRofile function
+	        $funcName =  'function getEditableProfile';
+	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+	        
+    	}
+        
+        //now check library field exist
+        if(XiPTHelperSetup::isCustomLibraryFieldRequired()){
+        	//copy library field files into community // libraries // fields folder
+        	XiPTHelperSetup::copyLibraryfiles();
+        }
+        
+        
+        //now check XML File patch required
+        if(XiPTHelperSetup::isXMLFilePatchRequired()) {
+        	//give patch data fn file to patch
+        	$filename	= dirname( JPATH_BASE ) . DS. 'components' . DS . 'com_community'
+        					.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
+        	if (file_exists($filename)) {
+		
+				if(!is_readable($filename)) 
+					JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				
+				$file = file_get_contents($filename);				
+			    $searchString = '</fields>';
+		    	ob_start();
+		    	?><field>
+		    	<type>profiletypes</type>
+		    	<name>Profiletypes</name>
+		    	</field>
+				<field>
+					<type>templates</type>
+					<name>Templates</name>
+				</field>
+				</fields><?php 
+		        
+		        $replaceString = ob_get_contents();
+		        $file = str_replace($searchString,$replaceString,$file);
+		        file_put_contents($filename,$file);
+	        	 	
+        	}
+        }
+        $msg = JText::_('FILES PATCHED SUCCESSFULLY');
+        $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+    	
+    }
 }

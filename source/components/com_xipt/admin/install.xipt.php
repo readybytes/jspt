@@ -46,7 +46,7 @@ function com_install()
 	if(setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 
-	copy_files();
+	//copy_files();
 	show_instruction();
 	return true;
 }

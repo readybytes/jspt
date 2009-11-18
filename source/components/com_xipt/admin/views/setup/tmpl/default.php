@@ -4,24 +4,20 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
-<table class="adminlist" cellspacing="1">
-<tr>
+<div>
+	<div style="float:left;"> 
 	<?php 
-		//@TODO : check whether custom field exitst or not
-		//Default ptype exist or not
-		//profiletypes exist or not
-		//patch file 
 		if($this->requiredSetup) {
 			$counter = 1; 
 			?>
 			<table>
 			<?php 
 			$complete = '<img src="images/tick.png" alt="done" />';
-			$notcomplete = '<img src="images/cancel_f2.png" alt="not complete" />';
+			$notcomplete = '<img src="images/publish_x.png" alt="not complete" />';
 			foreach($this->requiredSetup as $util) {
 				?>
 				<tr>
-				 <td><?php  echo $counter;?></td>
+				 <td><?php  echo $counter.". ";?></td>
 				 <td><?php  echo $util['message'];?></td>
 				 <td><?php  if($util['done'])
 				 				echo $complete;
@@ -33,10 +29,36 @@ defined('_JEXEC') or die('Restricted access');
 				 <?php 
 				 $counter++;
 			}
+			?></table><?php 
 		}
 	?>
-</table>
-<div class="clr"></div>
+	</div>
+	<div style="float:inherit; margin-left:50%;">
+			<?php
+				echo $this->pane->startPane( 'stat-pane' );
+				echo $this->pane->startPanel( JText::_('WHAT MEANS SETUP') , 'setupmean' );
+			?>
+			<div style="font-weight:700;">
+							<?php echo "1. ".JText::_('WHAT IS PROFILETYPE VALIDATION');?>
+			</div>
+			<p>
+				It check is their any profiletype exist in your system ,
+				for properly working of JSPT profiletype should exist in system. 
+			</p>
+			
+			<div style="font-weight:700;">
+							<?php echo "2. ".JText::_('HOW TO SET DEFAULT PROFILETYPE');?>
+			</div>
+			<p>
+				 Link will be visible if no default profiletype is set.
+				 To set default profiletype click that link and make a selection.
+			</p>
+			<?php
+				echo $this->pane->endPanel();
+				echo $this->pane->endPane();
+			?>
+	</div>
+	</div>
 <input type="hidden" name="view" value="setup" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="option" value="com_xipt" />
