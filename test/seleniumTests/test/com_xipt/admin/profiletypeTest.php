@@ -2,7 +2,7 @@
 
 require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 
-class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase 
+class ProfileTypeTest extends XiSelTestCase 
 {
 
   var  $_DBO;
@@ -25,25 +25,6 @@ class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
     $this->assertEquals($this->_DBO->getErrorLog(),'');
     $this->_DBO->addTable('#__xipt_profiletypes');
     $this->_DBO->filterColumn('#__xipt_profiletypes','id');
-  }
-
-  function tearDown()
-  {
-     // no verify results
-     $this->assertTrue($this->_DBO->verify());
-  }
-  
-  function adminLogin()
-  {
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_login");
-    $this->waitForPageToLoad("30000");
-
-    $this->type("modlgn_username", JOOMLA_ADMIN_USERNAME);
-    $this->type("modlgn_passwd", JOOMLA_ADMIN_PASSWORD);
-    $this->click("link=Login");
-
-    $this->waitForPageToLoad("30000");
-    $this->assertTrue($this->isTextPresent("Logout"));
   }
 
 
@@ -70,9 +51,9 @@ class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
 	function testOrderProfileType()
 	{
 	    //setup default location 
-    $this->adminLogin();
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
-    $this->waitForPageToLoad("30000");
+	    $this->adminLogin();
+        $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
+        $this->waitForPageToLoad("30000");
 	    // in sql load, we will have 5 profiletypes installed
 	    // we will move 1 2 3 4 5
 	    // we want to order these as 2 1 4 5 3
@@ -139,6 +120,5 @@ class ProfileTypeTest extends PHPUnit_Extensions_SeleniumTestCase
     	  // we can check for ordering also
     	  $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
 	}
-
 }
 ?>

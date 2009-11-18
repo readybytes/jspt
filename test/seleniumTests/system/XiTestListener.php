@@ -181,7 +181,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
         
     $sqlPath       = $test->getSqlPath(); 
     $test->_DBO    =& new XiDBCheck();
-    $dbDump        =  $sqlPath.'/'.$testName.'.start.sql';
+    $dbDump        =  $sqlPath.'/sql/'.$testName.'.start.sql';
     //echo "\n Loading SQL : ".$dbDump;
     $test->_DBO->loadSql($dbDump);
   }
