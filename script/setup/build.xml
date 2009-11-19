@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!-- $Id: build.xml shyam $ -->
-<project name="JSPT Component" basedir="." default="setup" description="Phing build script for JSPT package.">
+<project name="JSPT Component" basedir="." default="setup" description="Phing setup script for JSPT package.">
 
 	<target name="config" description="Load configuration file">
 		<property file="../build/build.properties"  override="true" />		
@@ -63,13 +63,34 @@
 			</filterchain>
 		</reflexive>
 
+		
+		<property file="../build/plg_xipt_community.properties"  override="true" />
+		<copy file="plg_xipt_community_Test.php" tofile="${joomla.rootpath}/${joomla.folder}/plg_xipt_community_Test.php" />
+		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
+				tofile="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" />
+
+		<reflexive>
+			<fileset dir="${joomla.rootpath}/${joomla.folder}">
+			     <include name="plg_xipt_community_Test.php"/>
+			</fileset>
+			 <filterchain>
+				<replacetokens>
+				    <token key="joomla.admin" 		value="${joomla.admin}"  />
+				    <token key="joomla.password"   	value="${joomla.password}" />
+				    <token key="joomla.folder"   	value="${joomla.folder}" />					
+				    <token key="PKG.PATH"	value="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" />
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+
 
 		<phpunit haltonfailure="true" haltonerror="true">
 			<formatter type="plain" usefile="false"/>
 			  <batchtest>
 			    <fileset dir="${joomla.rootpath}/${joomla.folder}">
-		  		    <include name="plg_xipt_system_Test.php"/>
-			          <include name="com_xipt_Test.php" />
+				<include name="com_xipt_Test.php" />
+		  		<include name="plg_xipt_system_Test.php"/>
+				<include name="plg_xipt_community_Test.php"/>
 			    </fileset>
 			  </batchtest>
 		</phpunit>

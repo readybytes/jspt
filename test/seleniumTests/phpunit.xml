@@ -6,7 +6,7 @@
 		bootstrap="bootstrap.php">
 
 	<testsuite name="Test suite name">
-		<directory>component</directory>
+		<directory>test</directory>
 	</testsuite>
 	
 	<listeners>

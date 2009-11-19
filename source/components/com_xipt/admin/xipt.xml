@@ -86,6 +86,7 @@
 			<filename>helpers/aclrules.php</filename>
 			<filename>helpers/applications.php</filename>
 			<filename>helpers/xiptcore.php</filename>
+			<filename>helpers/setup.php</filename>
 			
 			<filename>elements/index.html</filename>
 			<filename>elements/profiletypes.php</filename>
