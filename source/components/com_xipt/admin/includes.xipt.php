@@ -9,7 +9,19 @@ define('DEFINE_ADMIN_INCLUDES','DEFINE_ADMIN_INCLUDES');
 
 //	This is file for BACKEND only, should be included in starting file only.
 
+jimport( 'joomla.filesystem.file' );
+jimport( 'joomla.filesystem.folder' );
+
 // include JomSocial files
+if(!JFolder::exists(JPATH_SITE.DS.'components'.DS.'com_community'))
+{
+	global $mainframe;
+	$option=JRequest::getVar('option','','GET');
+	if($option=='com_xipt'){
+		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
+	}
+	return;
+}
 require_once JPATH_SITE.DS.'components'.DS.'com_community'.DS.'defines.community.php';
 require_once JPATH_SITE.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php';
 

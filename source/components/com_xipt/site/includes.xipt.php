@@ -8,6 +8,20 @@ if(defined('DEFINE_FRONT_INCLUDES'))
 define('DEFINE_FRONT_INCLUDES','DEFINE_FRONT_INCLUDES');
 
 // include JomSocial files
+jimport( 'joomla.filesystem.file' );
+jimport( 'joomla.filesystem.folder' );
+
+// include JomSocial files
+if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
+{
+	global $mainframe;
+	$option=JRequest::getVar('option','','GET');
+	if($option=='com_xipt'){
+		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
+	}
+	return;
+}
+
 require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php';
 
