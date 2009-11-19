@@ -23,7 +23,7 @@ JModel::addIncludePath(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xip
 JTable::addIncludePath( JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' . DS . 'tables' );
 
 //front end files required
-//require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
+require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
 
 //bakcend files required
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profiletypes.php';

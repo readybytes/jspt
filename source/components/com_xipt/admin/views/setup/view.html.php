@@ -23,7 +23,7 @@ class XiPTViewSetup extends JView
 		$ptypes = XiPTHelperProfiletypes::getProfileTypeArray();
 		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
 		if(!$ptypes) {
-			$requiredSetup['profiletypes']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE PRFOILETYPES").'</a>';
+			$requiredSetup['profiletypes']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE PROFILETYPES").'</a>';
 			$requiredSetup['profiletypes']['done']  = false;
 		}
 		else {
@@ -36,7 +36,7 @@ class XiPTViewSetup extends JView
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		$link = JRoute::_("index.php?option=com_config&controller=component&component=com_xipt",false);
 		if(!$defaultProfiletypeID) {
-			$requiredSetup['defaultprofiletype']['message'] = '<a  class="modal"  href="'.$link.'" rel="{handler: \'iframe\', size: {x: 600, y: 400}}">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PRFOILETYPE").'</a>';
+			$requiredSetup['defaultprofiletype']['message'] = '<a  class="modal"  href="'.$link.'" rel="{handler: \'iframe\', size: {x: 600, y: 400}}">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';
 			$requiredSetup['defaultprofiletype']['done']  = false;
 		}
 		else {
@@ -116,6 +116,7 @@ class XiPTViewSetup extends JView
 
 		// Set the titlebar text
 		JToolBarHelper::title( JText::_( 'Setup' ), 'setup' );
+		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	
 	
