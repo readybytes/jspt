@@ -173,5 +173,3 @@ class jomsocialjspt_restriction extends JTable {
 		return $db->loadResult();
 	}
 }
-
-?>
