@@ -3,18 +3,19 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiPTControllerRegistration extends JController {
-    
+
 	var $mySess;
-	
+
 	function __construct($config = array())
 	{
 		$this->mySess 	=& JFactory::getSession();
 		parent::__construct($config);
 	}
-	
+
     function display()
 	{
 		global $mainframe;
+
 
 		// 	check for session, if does not exist redirect user to community page
 		if(!$this->mySess){
@@ -23,20 +24,26 @@ class XiPTControllerRegistration extends JController {
 			$msg = JText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
 			$mainframe->redirect($redirectUrl,$msg);
 		}
-			
+
 		//TODO CODREV: If not allowed to select PT for user then return
 		$params = JComponentHelper::getParams('com_xipt');
 		if($params->get('show_ptype_during_reg',0)==0){
-			// not allowed
-			$redirectUrl	= JRoute::_('index.php?option=com_community&view=register',false);
+
+		    // we need to set default things
+			$selectedProfiletypeID= XiPTLibraryProfiletypes::getDefaultProfiletype();
+			$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
+
+			// redirect to correct page
+			$redirectUrl = XiPTLibraryUtils::getReturnURL();
 			$msg = JText::_('USERS ARE NOT ALLOWED TO SELECT PROFILETYPES');
 			$mainframe->redirect($redirectUrl,$msg);
 		}
-			
-		
+
+
+
 		//@TODO : do some validation for visibility and publish of ptype
 		if(JRequest::getVar('save', '', 'POST') != ''){
-			
+
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
 
 			// validate values
@@ -47,24 +54,15 @@ class XiPTControllerRegistration extends JController {
 				$mainframe->redirect($redirectUrl,$msg);
 				return;
 			}
-			 
+
 			//set value in session and redirect to destination url
 			$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
-			$retURL = $this->mySess->get('RETURL', 'XIPT_NOT_DEFINED', 'XIPT');
-			if($retURL != 'XIPT_NOT_DEFINED'){
-				$retURL	= $retURL ? base64_decode($retURL) : 'index.php';
-				$mainframe->redirect($retURL);
-			}
-			
-			$selectedpTypeName = XiPTLibraryProfiletypes::getProfileTypeNameFromID($selectedProfiletypeID);
-			
-			$msg = sprintf(JText::_("PROFILETYPE SAVED"),$selectedpTypeName);
-			$mainframe->enqueueMessage($msg);
-			
+			$retURL  = XiPTLibraryUtils::getReturnURL();
+			$mainframe->redirect($retURL);
 		}
 
 		$css		= JURI::base() . 'components/com_xipt/assets/style.css';
-		
+
 		$document	=& JFactory::getDocument();
 		$document->addStyleSheet($css);
 
@@ -72,8 +70,6 @@ class XiPTControllerRegistration extends JController {
 		$viewName	= JRequest::getCmd( 'view' , 'registration' );
 		$viewType	= $document->getType();
 		$view		=& $this->getView( $viewName , $viewType );
-		
-		//$view->assign('error', $this->getError());
 		$view->display();
     }
 }

@@ -19,25 +19,25 @@ class XiPTLibraryPluginHandler
 	private $params;
 	private $mainframe;
 
-	
+
 	function __construct()
 	{
 		global $mainframe;
 		$this->mainframe =& $mainframe;
-		 
+
 		$this->mySess = & JFactory::getSession();
 		$this->params = JComponentHelper::getParams('com_xipt');
 	}
-	
+
 	//if value exist in session then return ptype else return false
 	function isPTypeExistInSession()
 	{
 		if($this->mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') == false)
 		    return 0;
-			
+
 		return $this->mySess->get('SELECTED_PROFILETYPE_ID', 0, 'XIPT');
 	}
-	
+
 	/**
 	 * Collect profileType from session,
 	 * is session does not have profiletype, return default one
@@ -48,43 +48,43 @@ class XiPTLibraryPluginHandler
 	{
 		//get ptype from session
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
-		
+
 		// pType exist in session
 		if($selectedProfiletypeID)
 			return $selectedProfiletypeID;
-		
+
 		//no pType in session, return default value
 		$defaultProfiletypeID = XiPTLibraryProfiletypes::getDefaultProfiletype();
-			
+
 		return $defaultProfiletypeID;
 	}
-	
-	
+
+
 	function setDataInSession($what,$value)
 	{
 		$this->mySess->set($what,$value, 'XIPT');
 	}
-	
+
 	function cleanRegistrationSession()
 	{
 	    $this->mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
 	}
-	
+
 	//============================ Community Events=========================
-	
+
 	function onAfterConfigCreate(&$config)
 	{
 	    return XiPTLibraryCore::updateCommunityConfig($config);
 	}
-	
+
 	function onAjaxCall(&$func, &$args , &$response)
 	{
 		$callArray	= explode(',', $func);
-		
+
 		//perform Access checks
 		$ajax = true;
 		$this->performACLCheck($ajax, $callArray, $args);
-		
+
 		// If we come here means ACL Check was passed
 		$controller	=	$callArray[0];
 		$function	=	$callArray[1];
@@ -97,7 +97,7 @@ class XiPTLibraryPluginHandler
 					return XiPTLibraryUtils::$function($args,$response);
 			}
 		}
-		
+
 		if($controller=='apps' && $function=='ajaxAdd')
 		{
 		    $my				=& JFactory::getUser();
@@ -105,16 +105,16 @@ class XiPTLibraryPluginHandler
 		    //no filtering for guests
 		    if(0 == $my->id)
 		        return true;
-		        
+
 		    $profiletype = XiPTLibraryProfiletypes::getUserData($my->id,'PROFILETYPE');
 		    return XiPTLibraryApps::filterAjaxAddApps($args[0],$profiletype,$response);
 		}
-		
+
 		// we do not want to interfere, go ahead JomSocial
 		return true;
 	}
-	
-	
+
+
 	/**
 	 * This function will store user's registration information
 	 * in the tables, when Community User object is created
@@ -124,20 +124,20 @@ class XiPTLibraryPluginHandler
 	function onProfileCreate($cuser)
 	{
 		$userid	= $cuser->_userid;
-		
+
 		// find pType of user
-		$profiletypeID = XiPTLibraryPluginHandler::getRegistrationPType();
+		$profiletypeID = self::getRegistrationPType();
 
 		// need to set everything
 		XiPTLibraryProfiletypes::updateUserProfiletypeData($userid, $profiletypeID,'', 'ALL');
-		
+
 		//clean the session
-		XiPTPluginHandler::cleanRegistrationSession();
+		self::cleanRegistrationSession();
 
 		return true;
 	}
-	
-	
+
+
 	/**
 	 * This function will ensure that who is not allowed to change template
 	 * or profiletype the data should not be saved.
@@ -148,14 +148,14 @@ class XiPTLibraryPluginHandler
 	 */
 	function onBeforeProfileUpdate($userid, &$fieldValueCodes)
 	{
-		// TODO : Check for both fields exist in array or not
+		// TODO : array_key_exists Check for both fields exist in array or not
 		$profileTypeValue =& $fieldValueCodes[PROFILETYPE_CUSTOM_FIELD_CODE];
 		$templateValue    =& $fieldValueCodes[TEMPLATE_CUSTOM_FIELD_CODE];
 
 		// user is allowed or not.
         $allowToChangePType    = $this->params->get('allow_user_to_change_ptype_after_reg',0);
         $allowToChangeTemplate = $this->params->get('allow_templatechange','0');
-        
+
         // not changing anything get data from table and set it
 		if(0 == $allowToChangeTemplate || $templateValue==''){
 		    //show err msg
@@ -163,7 +163,7 @@ class XiPTLibraryPluginHandler
 		        global $mainframe;
 		        $mainframe->enqueueMessage(JText::_('YOU ARE NOT ALLOWED TO CHANGE TEMPLATE'),'notice');
 		    }
-		    
+
 			$templateValue = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
 		}
 
@@ -174,13 +174,13 @@ class XiPTLibraryPluginHandler
 		        global $mainframe;
 		        $mainframe->enqueueMessage(JText::_('YOU ARE NOT ALLOWED TO CHANGE PROFILETYPE'),'notice');
 		    }
-		    
+
 			$profileTypeValue = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 
 		return true;
 	}
-	
+
 	/**
 	 * The user data have been saved.
 	 * We will save user's data (profiletype and template) into XiPT tables
@@ -198,11 +198,11 @@ class XiPTLibraryPluginHandler
 	    $cuser        = CFactory::getUser($userid);
 	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
 	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
-	    
+
 	    XiPTLibraryProfiletypes::updateUserProfiletypeData($userid,$profiletype,$template,'ALL');
 	    return true;
 	}
-	
+
 	/*
 	 * This function require to protect deletion of
 	 * default avatar of profiletype because JS
@@ -213,7 +213,7 @@ class XiPTLibraryPluginHandler
 	function onProfileAvatarUpdate($userid, &$old_avatar_path, $new_avatar_path)
 	{
 	    //TODO: check for a valid $userid
-		
+
 		//check if avatar is ptype default avatar
 		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
 			$thumb = strstr('_thumb',$old_avatar_path);
@@ -225,8 +225,8 @@ class XiPTLibraryPluginHandler
 
 		return true;
 	}
-	
-	
+
+
 	/**
 	 * This function removes not allowed community apps form dispatcher
 	 * as per user's profiletype
@@ -238,26 +238,27 @@ class XiPTLibraryPluginHandler
 		global $mainframe;
 		if($mainframe->isAdmin())
 			return;
+
 		$dispatcher =& JDispatcher::getInstance();
 		/* TODO : when A is viewing B's profile then
 		 * we restrict all A's app on B's profile too.
 		 * so currently we are restricting all apps for currently logged in user
 		 * $userid    = JRequest::getVar('userid',0);
 		 * do nothing for guest
-		 * 
+		 *
 		 */
 		$userid    = JFactory::getUser()->id;
-		
+
 		// restrict apps for logged in user only
 		if(!$userid)
 		    return true;
-		
+
 		$profiletype = XiPTLibraryProfiletypes::getUserData($userid, 'PROFILETYPE');
 		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $profiletype);
 	    return true;
 	}
-	
-	
+
+
 	//==================== Joomla Events=======================
 	/*
 	 * This function intercept registration call to jomSocial
@@ -269,27 +270,44 @@ class XiPTLibraryPluginHandler
 	//BLANK means task should be empty
 	function event_com_community_register_blank()
 	{
+		
+	    //set up return url to com_community
+	    XiPTLibraryUtils::setReturnURL();
+	    $aecData = XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
+
 		$show_ptype_during_reg = $this->params->get('show_ptype_during_reg', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
-		
+
 		if($show_ptype_during_reg){
-			
+
 			// pType not selected : send to select profiletype
 			if(!$selectedProfiletypeID){
 				$this->mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=registration",false));
 				return;
 			}
-			
+
+
+			$aecExists = XiPTLibraryAEC::_checkAECExistance();
+			$integrateAEC   = $this->params->get('aec_integrate',0);
+
 			// pType already selected
-			$url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID,false);
+			if($integrateAEC && $aecExists)
+			{
+			    $url = JRoute::_('index.php?option=com_acctexp&task=subscribe',false);
+			    $msg = XiPTLibraryAEC::getAecMessage();
+			}
+			else
+			{
+			    $url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID,false);
+			    $selectedpTypeName = XiPTLibraryProfiletypes::getProfiletypeName($selectedProfiletypeID);
+			    $msg = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
+			}
+
 			$link = '<a href='.$url.'>'. JText::_("CLICK HERE").'</a>';
-			
-			//get profiletype name from ptype id
-			$selectedpTypeName = XiPTLibraryProfiletypes::getProfiletypeName($selectedProfiletypeID);
-			$this->mainframe->enqueueMessage(sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName,$link));
+			$this->mainframe->enqueueMessage($msg.' '.$link);
 			return;
 		}
-		
+
 		// if pType is not set, collect default pType
 		// set it in session
 		if(!$selectedProfiletypeID) {
@@ -297,11 +315,39 @@ class XiPTLibraryPluginHandler
 			$this->setDataInSession('SELECTED_PROFILETYPE_ID',$pType);
 			return;
 		}
-		
+
 		return;
 	}
-	
-	
+
+	// we are on xipt registration page
+	function event_com_xipt_registration_blank()
+	{
+	    global $mainframe;
+	    $integrateAEC   = $this->params->get('aec_integrate',0);
+	    $forcePtypePage = $this->params->get('aec_force_ptype_page',0);
+
+	    // if we do not want to integrate AEC then simply return
+	    if(!$integrateAEC)
+	        return;
+
+	    // aec not installed.
+	    $aecExists = XiPTLibraryAEC::_checkAECExistance();
+	    if(!$aecExists)
+	        return;
+
+	    // find selected profiletype from AEC
+	    $aecData = XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
+
+	    // as user want to integrate the AEC so a plan must be selected
+        // send user to profiletype selection page
+	    if($aecData['planSelected']==false)
+	        $mainframe->redirect(JRoute::_('index.php?option=com_acctexp&task=subscribe',false),JText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
+
+	    // set selected profiletype in session
+	    $this->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
+	    $mainframe->redirect(XiPTLibraryUtils::getReturnURL());
+	}
+
 	/**
 	 * Filter the fields, which are allowed to user.
 	 * @param $userid
@@ -313,10 +359,10 @@ class XiPTLibraryPluginHandler
 	    XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
 	}
-	
+
 	function performACLCheck(&$ajax, &$callArray, &$args)
 	{
 	    return XiPTLibraryAcl::performACLCheck($ajax, $callArray, $args);
 	}
-	
+
 }

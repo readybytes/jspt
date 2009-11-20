@@ -8,7 +8,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 
 	<div class="registerProfileType">
 	<h3 id="Title"><?php
-	echo JText::_ ( 'CC CHOOSE PROFILE TYPE' );
+	echo JText::_ ('CHOOSE PROFILE TYPE' );
 	?></h3>
 	
 	<?php

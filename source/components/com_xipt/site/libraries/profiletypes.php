@@ -143,7 +143,8 @@ class XiPTLibraryProfiletypes
 	{
 		$params = JComponentHelper::getParams('com_xipt');
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
-		if(!$defaultProfiletypeID )
+
+		if(!$defaultProfiletypeID)
 		    JError::raiseError('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 		    
 		return  $defaultProfiletypeID;
@@ -355,6 +356,8 @@ class XiPTLibraryProfiletypes
 	//call fn to get fields related to ptype in getviewable and geteditable profile fn
 	function filterCommunityFields($userid, &$fields, $from)
 	{
+	    //durin loadAllfields no user id avaialble
+	    // so we pick the pType from registration 
 	    if($userid == 0 )
 	        $pTypeID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
 	    else

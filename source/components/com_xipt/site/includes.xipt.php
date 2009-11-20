@@ -36,6 +36,7 @@ require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.ph
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'pluginhandler.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'utils.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'apps.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aec.php';
 
 /*Load Langauge file*/
 $lang =& JFactory::getLanguage();

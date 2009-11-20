@@ -173,7 +173,7 @@ class XiPTLibraryUtils
 			while( false !== ( $file = readdir( $handle ) ) )
 			{
 				// Do not get '.' or '..' or '.svn' since we only want folders.
-				if( $file != '.' && $file != '..' && $file != '.svn' )
+				if( $file != '.' && $file != '..' && $file != '.svn' && $file != 'index.html')
 					$templates[]	= $file;
 			}
 		}
@@ -196,9 +196,37 @@ class XiPTLibraryUtils
 	{
 		// TO DO : Get url
 		$url = JFactory::getURI()->toString( array('scheme', 'user', 'pass', 'host', 'port', 'path', 'query', 'fragment'));
-		return base64_encode($url);
+		return $url;
+	}
+
+	//CODREV TODOXI : use it everywhere. 
+	function getReturnURL()
+	{
+	    $mySess    = JFactory::getSession();
+	    $retURL     = $mySess->get('RETURL', 'XIPT_NOT_DEFINED', 'XIPT');
+	    $defaultURL	= JRoute::_('index.php?option=com_community&view=register',false);
+	    
+		if($retURL == 'XIPT_NOT_DEFINED')
+		    $redirectURL = $defaultURL;
+		else
+			$redirectURL = base64_decode($retURL);
+
+		if($redirectURL == self::getCurrentURL())
+		    assert(0);
+		    
+		return $redirectURL;
 	}
 	
+	function setReturnURL()
+	{
+	    
+	    $mySess    = JFactory::getSession();
+	    if($mySess->get('RETURL',false ,'XIPT'))
+	        return;
+	    
+	    $mySess->set('RETURL', base64_encode(self::getCurrentURL()), 'XIPT');
+	    return;
+	}
 /* =====   Currently Not Required  ====
  *
  * function getEditInfo()

@@ -35,11 +35,14 @@ class mi_jomsocialjspt
 	function detect_application()
 	{
 		global $mosConfig_absolute_path;
-		if(is_dir( $mosConfig_absolute_path . '/components/com_community' ) 
-			&& is_dir( $mosConfig_absolute_path . '/components/com_jsprofiletype' ))
-				return 1;
-		else
-				return 0;
+
+		if(!is_dir( $mosConfig_absolute_path . '/components/com_community' ))
+			return false;
+		if(!is_dir( $mosConfig_absolute_path . '/components/com_xipt' ))
+			return false;
+
+		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		return true;
 	}
 
 	function Settings()
@@ -47,41 +50,37 @@ class mi_jomsocialjspt
 		global $database;
 		$database	=& JFactory::getDBO();
         $settings = array();
-		//$settings['set_profiletype']			= array( 'list_yesno' );
 		$settings['profiletype']				= array( 'list' );
-		//$settings['set_profiletype_after_exp']	= array( 'list_yesno' );
 		$settings['profiletype_after_exp'] 		= array( 'list' );
-		
-		$query = ' SELECT `id`, `name` '
-			 	. ' FROM #__community_profiletypes';
-	 	$database->setQuery( $query );
-	 	$profiletypes = $database->loadObjectList();
-		
+
+		//CODREV : visible should be true;
+	 	$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray(true);
+
 		$spt = array();
 		$spte = array();
 
 		$ptype = array();
-		foreach( $profiletypes as $profiletype ) {
+		foreach($profiletypes as $profiletype ) {
 			$ptype[] = mosHTML::makeOption( $profiletype->id, $profiletype->name );
-			if ( !empty( $this->settings['profiletype'] ) ) {
+			if ( !empty( $this->settings['profiletype'] ) ){
 				if ( in_array( $profiletype->id, $this->settings['profiletype'] ) ) {
 					$spt[] = mosHTML::makeOption( $profiletype->id, $profiletype->name );
 				}
 			}
-			
+
 			if ( !empty( $this->settings['profiletype_after_exp'] ) ) {
 				if ( in_array( $profiletype->id, $this->settings['profiletype_after_exp'] ) ) {
 					$spte[] = mosHTML::makeOption( $profiletype->id, $profiletype->name );
 				}
 			}
 		}
-		
+
 		$settings['lists']['profiletype']			= mosHTML::selectList( $ptype, 'profiletype[]', 'size="4"' , 'value', 'text', $spt );
 		$settings['lists']['profiletype_after_exp'] 	= mosHTML::selectList( $ptype, 'profiletype_after_exp[]', 'size="4"', 'value', 'text', $spte );
-		
+
 		return $settings;
 	}
-	
+
 	function action( $request )
 	{
 		if ( !empty( $this->settings['profiletype'] ) ) {
@@ -90,7 +89,7 @@ class mi_jomsocialjspt
 
 		return true;
 	}
-	
+
 	function expiration_action( $request )
 	{
 		if ( !empty( $this->settings['profiletype_after_exp'] ) ) {
@@ -99,53 +98,37 @@ class mi_jomsocialjspt
 
 		return true;
 	}
-	
-	
+
+
 	function setUserProfiletype($userId,$pId)
 	{
-		global $database;
-		static $instances = array();
-		$database	=&	JFactory::getDBO();
-		$query 		= 'SELECT * FROM #__community_users'.' '
-						. 'WHERE `id`='.$userId;
-		
-		$database->setQuery( $query );
-		$result = $database->loadObjectlist();
-		if(!empty($result))
-		{
-			require_once ( JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'profiletypes.php');
-			CProfiletypeLibrary::setProfileDataForUserID($userId,$pId, 'ALL');
-		}
-		else
-		{
-			require_once ( JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-			$instances[$id] = new CUser($userId);
-			$instances[$id]->init();
-			$instances[$id]->getThumbAvatar();
-			require_once ( JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'profiletypes.php');
-			CProfiletypeLibrary::setProfileDataForUserID($userId,$pId, 'ALL');
-		}
+		$cuser  =& CFactory::getUser($userId);
+		XiPTLibraryProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
 	}
-	
+
 	function saveparams( $request )
 	{
-		//save all data in community_jspt_aec table
-		$database = &JFactory::getDBO();
+		//save all data in xipt_aec table
+
+		$db =& JFactory::getDBO();
+
 		$planid = $this->id;
-		$mi_jspthandler = new jomsocialjspt_restriction( $database );
+		$mi_jspthandler = new jomsocialjspt_restriction( $db );
+
 		$id = $mi_jspthandler->getIDbyPlanId( $planid );
+
 		$mi_id = $id ? $id : 0;
 		$mi_jspthandler->load( $mi_id );
 
 		$mi_jspthandler->planid = $planid;
 		$mi_jspthandler->profiletype = $request['profiletype'][0];
-		
+
 		$mi_jspthandler->check();
 		$mi_jspthandler->store();
 
 		return $request;
 	}
-	
+
 }
 
 
@@ -159,17 +142,19 @@ class jomsocialjspt_restriction extends JTable {
 	/** @var int */
 
 	function jomsocialjspt_restriction( &$db ) {
-		parent::__construct( '#__community_jspt_aec', 'id', $db );
+		parent::__construct( '#__xipt_aec', 'id', $db );
 	}
-	
+
 	function getIDbyPlanId( $planid ) {
 		$db = &JFactory::getDBO();
 
 		$query = 'SELECT '.$db->nameQuote('id')
-			. ' FROM '.$db->nameQuote('#__community_jspt_aec')
+			. ' FROM '.$db->nameQuote('#__xipt_aec')
 			. ' WHERE '.$db->nameQuote('planid').'=' .$db->Quote($planid);
-		
+
 		$db->setQuery( $query );
 		return $db->loadResult();
 	}
 }
+
+?>

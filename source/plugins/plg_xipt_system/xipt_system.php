@@ -9,10 +9,6 @@
 
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
-
-
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-
 jimport( 'joomla.plugin.plugin' );
 jimport('joomla.filesystem.file');
 
@@ -24,6 +20,7 @@ class plgSystemxipt_system extends JPlugin
 	function plgSystemxipt_system( &$subject, $params )
 	{
 		parent::__construct( $subject, $params );
+		require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 	}
 	
 	
@@ -38,39 +35,43 @@ class plgSystemxipt_system extends JPlugin
 		$option = JRequest::getCmd('option','','GET');
 		$view = JRequest::getCmd('view','BLANK','GET');
 		$task = JRequest::getCmd('task','BLANK','GET');
+		if($task=='BLANK')
+			$task = JRequest::getCmd('task','BLANK','POST');
 		
-		if(trim($option) == 'com_community')
-			XiPTLibraryAcl::performACLCheck(0,0,0);
+		switch(trim($option))
+		{		 
+		    case 'com_community':
+		    case 'com_xipt':
+		        break;
+		        
+		    default:
+		           return;
+		}
 		
 		// use factory to get any object
 		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
-		
+
+		if($option == 'com_community')
+		{
+			$nothing    = false;
+			$pluginHandler->performACLCheck($nothing,$nothing,$nothing);
+		}
+
+		//do routine works
 		$eventName = $this->_eventPreText.strtolower($option).'_'.strtolower($view).'_'.strtolower($task);
 		
 		//call defined event to handle work
 		$exist = method_exists($pluginHandler,$eventName);
 		if($exist)
 		{
-			//store current url into session
-			$mySess =& JFactory::getSession();
-			$mySess->set('RETURL', $this->_getCurrentURL(),'XIPT');
-			//call function
+/*
+ * We will store only where we need
+ * 			//store current url into session
+			XiPTLibraryUtils::setReturnURL();
+*/			//call function
 			$pluginHandler->$eventName();
 		}
 			
-		
-		//$eventName .= '()';
-		//$pluginHandler->$eventName();
 		return;
-		//JPlugin::loadLanguage( 'plg_xipt_redirector', JPATH_ADMINISTRATOR );
-	}
-	
-	
-	// decode the return URL, so that we can return to proper address.
-	function _getCurrentURL()
-	{
-		// TO DO : Get url
-		$url = JFactory::getURI()->toString( array('scheme', 'user', 'pass', 'host', 'port', 'path', 'query', 'fragment'));
-		return base64_encode($url);
 	}
 }
