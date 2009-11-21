@@ -210,10 +210,27 @@ class XiPTLibraryPluginHandler
 	 * so in that case if that user has any ptype default avatar
 	 * then our ptype avatar will be deleted.
 	 */
-	function onProfileAvatarUpdate($userid, &$old_avatar_path, $new_avatar_path)
+	function onProfileAvatarUpdate($userid, &$old_avatar_path, &$new_avatar_path)
 	{
 	    //TODO: check for a valid $userid
 
+		// When admin is removing a user's avatar
+		// we need to apply default avatar of profiletype
+		$isAdmin = XiPTLibraryUtils::isAdmin(JFactory::getUser()->id);
+		$view = JRequest::getVar('view','','GET');
+		$task = JRequest::getVar('task','','GET');
+		if($isAdmin && $view == 'profile' && $task == 'removepicture')
+		{
+			//setup $new_avatat
+			$ptype = XiPTLibraryProfiletypes::getUserData($userid, 'PROFILETYPE');
+			$avatar = XiPTLibraryProfiletypes::getProfiletypeData($ptype, 'avatar');
+			$thumb = strstr('_thumb',$new_avatar_path);
+			if($thumb)
+				$new_avatar_path = XiPTLibraryUtils::getThumbAvatarFromFull($avatar);
+			else
+				$new_avatar_path = $avatar;
+		}
+		
 		//check if avatar is ptype default avatar
 		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
 			$thumb = strstr('_thumb',$old_avatar_path);
