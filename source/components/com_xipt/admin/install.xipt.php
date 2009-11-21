@@ -39,7 +39,7 @@ function show_instruction()
 
 
 function com_install()
-{	
+{		
 	if(setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 
@@ -59,7 +59,7 @@ function setup_database()
 		return false;
 
 	// do migrate if we need to migrate
-	if($migrationRequired && migrate_data() == false)
+	if($migrationRequired && migrate_tables() == false)
 		return false;
 
 	// everything fine
@@ -195,7 +195,7 @@ function copy_files()
 function isMigrationRequired()
 {
 	$db	=& JFactory::getDBO();
-	$query 	= " SHOW TABLES LIKE '#__xipt_users'";
+	$query 	= " SHOW TABLES LIKE '%xipt_users%'";
 	$db->setQuery( $query );
 	$newTables = $db->loadObjectList();
 
@@ -203,7 +203,7 @@ function isMigrationRequired()
 		JError::raiseError( 500, $db->stderr());		
 	}
 
-	$query 	= " SHOW TABLES LIKE '#__community_profiletypes' ";
+	$query 	= " SHOW TABLES LIKE '%community_profiletypes%' ";
 	$db->setQuery( $query );
 	$oldTables = $db->loadObjectList();
 
@@ -251,7 +251,7 @@ function migrate_tables()
 			. ' SELECT * FROM #__community_profiletypes ' ;
 	#2
 	$allQueries[]	= ' INSERT `#__xipt_applications` ' 
-			. ' SELECT * FROM #__community_myapplications ' ;
+			. ' SELECT * FROM #__community_myapplication ' ;
 	#4
 	$allQueries[]	= ' INSERT `#__xipt_aec` ' 
 			. ' SELECT * FROM #__community_jspt_aec ' ;
@@ -260,7 +260,7 @@ function migrate_tables()
 			. ' SELECT * FROM #__community_jsptacl ' ;
 	#6
 	$allQueries[]	= ' INSERT `#__xipt_users` ' 
-			. ' SELECT `userid`, `profiletype` as `profiletypes`, `template` FROM #__community_users ' ;
+			. ' SELECT `userid`, `profiletype`, `template` FROM #__community_users ' ;
 
 	$db	=& JFactory::getDBO();
 	foreach ( $allQueries as $query){
@@ -298,22 +298,37 @@ function migrate_tables()
 	    	foreach($ptypes as $ptype){
 		   // if we do not have an entry in previous table for the ptype
 		   // then we should add that fid v/s pid, as we now store the reverse
-		  if(in_array($ptype,$allPIDs)==false){
+		  if(in_array($ptype,$allPIDs)==false && !in_array(0,$allPIDs)){
 			// add to our list
 			$query	= ' INSERT INTO `#__xipt_profilefields` '
 				. " (`fid`,`pid`) VALUES ('".$field."' , '".$ptype."' )";
+			$db->setQuery($query);
+			$db->Query();
 		  }
 	    	}			
 	  }
 	}
 
 	#7,8
-	remove_column('community_fields','reg_show');
-	remove_column('community_register','profiletypes');
+	//backup tabels before drop
+	backup_table('#__community_users','#__xiptbak_community_users');
+	backup_table('#__community_fields','#__xiptbak_community_fields');
+	backup_table('#__community_register','#__xiptbak_community_register');
+	backup_table('#__community_profiletypes','#__xiptbak_community_profiletypes');
+	backup_table('#__community_myapplication','#__xiptbak_community_myapplication');
+	backup_table('#__community_jspt_aec','#__xiptbak_community_jspt_aec');
+	backup_table('#__community_jsptacl','#__xiptbak_community_jsptacl');
+	
+	
+	remove_column('#__community_users','profiletype');
+	remove_column('#__community_users','template');
+	remove_column('#__community_fields','reg_show');
+	remove_column('#__community_register','profiletypes');
 	remove_table('#__community_profiletypes');
-	remove_table('#__community_myapplications');
+	remove_table('#__community_myapplication');
 	remove_table('#__community_jspt_aec');
 	remove_table('#__community_jsptacl');
+	return true;
 }
 
 function check_column_exist($tableName, $columnName)
@@ -343,23 +358,9 @@ function check_column_exist($tableName, $columnName)
 function remove_table($tableName)
 {
 	assert($tableName != '' ) ;
-
 	$db	=& JFactory::getDBO();
-	$query 	= ' SHOW TABLE LIKE '. $db->nameQuote($tableName); 
-	$db->setQuery( $query );
-	$tables = $db->loadObjectList();
-
-	if($db->getErrorNum()){
-		JError::raiseError( 500, $db->stderr());
-		return false;
-	}
-
-	if($tables==NULL || $tables[0] == NULL){
-		return false;
-	}
-
 	//remove table
-	$query 	= ' DROP TABLE '. $db->nameQuote($tableName);
+	$query 	= ' DROP TABLE IF EXISTS '. $db->nameQuote($tableName);
 	$db->setQuery( $query );
 	$db->query();
 
@@ -377,6 +378,18 @@ function remove_column($tableName, $columnName)
 	$db	=& JFactory::getDBO();
 	$query 	= ' ALTER TABLE '. $db->nameQuote($tableName) 
 		. ' DROP COLUMN '. $db->nameQuote($columnName);
+
+	$db->setQuery( $query );
+	$db->query();
+
+	return true;
+}
+
+function backup_table($oldtableName,$newtableName)
+{
+	$db	=& JFactory::getDBO();
+	$query 	= 'CREATE TABLE IF NOT EXISTS '. $db->nameQuote($newtableName) 
+		. ' SELECT * FROM '. $db->nameQuote($oldtableName);
 
 	$db->setQuery( $query );
 	$db->query();
