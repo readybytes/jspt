@@ -155,7 +155,16 @@ class XiPTControllerSetup extends JController
 		        
 		        $replaceString = ob_get_contents();
 		        $file = str_replace($searchString,$replaceString,$file);
-		        file_put_contents($filename,$file);
+		        
+	        	//	CODREV : create a backup file first
+	    	    if(!JFile::copy($filename, $filename.'.jxibak'))
+	    	    {
+	    	    	global $mainframe;
+	    	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
+	    	    	return false;
+	    	    }
+	    	    
+	    	    file_put_contents($filename,$file);
 	        	 	
         	}
         }

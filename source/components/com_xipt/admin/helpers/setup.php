@@ -239,6 +239,7 @@ class XiPTHelperSetup
 	//$funcName name contain in which fn we want to replace datas
 	function patchData($searchString,$replaceString,$filename,$funcName)
 	{
+		
 		if (file_exists($filename)) {
 		
 			if(!is_readable($filename)) 
@@ -255,6 +256,13 @@ class XiPTHelperSetup
 	    	    $fileParts[1]=$beforeStr . $replaceString . $afterStr;
 	    	    $file = $fileParts[0].$funcName.$fileParts[1];
 	    	    
+	    	    //CODREV : create a backup file first
+	    	    if(!JFile::copy($filename, $filename.'.jxibak'))
+	    	    {
+	    	    	global $mainframe;
+	    	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
+	    	    	return false;
+	    	    }
 	    	    file_put_contents($filename,$file);
 	    	    return true;
 	    	}
