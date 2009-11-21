@@ -39,10 +39,7 @@ function show_instruction()
 
 
 function com_install()
-{
-	if(check_jomsocial_existance() == false)
-		JError::raiseError('INSTERR', "JomSocial does not exist, JomSocial is required for JSPT");
-		
+{	
 	if(setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 
