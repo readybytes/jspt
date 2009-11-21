@@ -12,7 +12,6 @@ class XiPTControllerProfiletypes extends JController
 		//registering some extra in all task list which we want to call
 		$this->registerTask( 'orderup' , 'saveOrder' );
 		$this->registerTask( 'orderdown' , 'saveOrder' );
-		
 	}
 	
     function display() 
@@ -48,7 +47,6 @@ class XiPTControllerProfiletypes extends JController
 		$post	= JRequest::get('post');
 		$cid	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		
-		
 		$user	=& JFactory::getUser();
 
 		if ( $user->get('guest')) {
@@ -63,33 +61,30 @@ class XiPTControllerProfiletypes extends JController
 		$isValid	= true;
 		
 		$data = array();
-		$data['name'] = $post['name'];
-		$data['tip'] = $post['tip'];
-		$data['published'] = $post['published']; 
-		$data['template'] = $post['template'];
-		$data['jusertype'] = $post['jusertype'];
-		$data['privacy'] = $post['privacy'];
-		$data['avatar'] = $post['avatar'];
-		$data['approve'] = $post['approve'];
-		$data['allowt'] = $post['allowt'];
+		$data['name'] 		= $post['name'];
+		$data['tip'] 		= $post['tip'];
+		$data['published'] 	= $post['published']; 
+		$data['template'] 	= $post['template'];
+		$data['jusertype'] 	= $post['jusertype'];
+		$data['privacy'] 	= $post['privacy'];
+		$data['avatar'] 	= $post['avatar'];
+		$data['approve'] 	= $post['approve'];
+		$data['allowt'] 	= $post['allowt'];
 		
 		$row->bindAjaxPost($data);
 		
 		if( $isValid )
 		{
 			$parent			= '';
-			$oldGroupId		=0;	
-			// store old group first
-			$oldGroupId = XiPTHelperProfiletypes::getProfileTypeData($id,'group');
 			$id = $row->store();
 			// Get the view
 			$view		=& $this->getView( 'profiletypes' , 'html' );
 	
 			if($id != 0)
 			{
-				/* Fix existing user's group */
+				/* Reset existing user's */
 				if($post['resetAll'])
-					XiPTHelperProfiletypes::addAllExistingUserToProperGroups($id,$row->group,$oldGroupId);
+					XiPTHelperProfiletypes::resetAllUsers($row->id);
 					
 				$msg = JText::_('PROFILETYPE SAVED');
 			}

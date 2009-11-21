@@ -94,6 +94,7 @@ class XiPTLibraryProfiletypes
     //         ALL means you are from register
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
+		assert($userid) || JError::raiseError('XIPT SYSTEM ERROR','No User ID in '.__FUNCTION__);
 		//store prev profiletype
 		//CODREV : must be first line, as we want to store prev profiletype
 		$prevProfiletype = XiPTLibraryProfiletypes::getUserData($ptype,'PROFILETYPE');
@@ -309,6 +310,31 @@ class XiPTLibraryProfiletypes
 		return $val;
 	}
 	
+	// returns all user of profiletype
+	function getAllUsers($pid)
+	{
+		$db	=& JFactory::getDBO();
+		
+		$defaultPtype = self::getDefaultProfiletype();
+		if($defaultPtype == $pid)
+			$defaultPtypeCheck = ' OR `profiletype`='.$db->Quote(0);
+		else
+			$defaultPtypeCheck = ' ';
+			
+		$query = ' SELECT `userid` FROM `#__xipt_users`'
+				.' WHERE `profiletype`='.$db->Quote($pid)
+				. $defaultPtypeCheck;
+				
+		$db->setQuery($query);
+		$result = $db->loadResultArray();
+		
+		if($db->getErrorNum()){
+					JError::raiseError( 500, $db->stderr());
+		}
+		
+		return $result;
+	}
+	
     //    assuming that by default all fields are available to all profiletype
 	//if any info is stored in table means that field is not available to that profiletype
 	//we store info in opposite form
@@ -392,7 +418,7 @@ class XiPTLibraryProfiletypes
 		{
 			if(Jstring::stristr($one->avatar ,$path))
 				return true;
-			if(Jstring::stristr($path, XiPTLibraryProfiletypes::getThumbAvatarFromFull($one->avatar)))
+			if(Jstring::stristr($path, XiPTLibraryUtils::getThumbAvatarFromFull($one->avatar)))
 				return true;
 			if($isDefaultCheckRequired && ( Jstring::stristr('components/com_community/assets/default.jpg' ,$path)
 				|| Jstring::stristr('components/com_community/assets/default_thumb.jpg' ,$path)))

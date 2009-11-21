@@ -91,13 +91,6 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('Tip for User During Signup');?></td>
-			<td>:</td>
-			<td colspan="4">
-			<textarea rows="3" cols="50" name="tip"><?php echo $this->row->tip;?></textarea>
-			</td>			
-		</tr>
-		<tr>
 			<td class="key"><?php echo JText::_('Path of default avatar');?></td>
 			<td>:</td>
 			<td colspan="4">
@@ -106,6 +99,18 @@ defined('_JEXEC') or die('Restricted access');
 			<br /> full_avatar_name_thumb.jpg. Default value is : components/com_community/assets/default.jpg
 			</td>			
 		</tr>
+		<tr>
+			<td class="key"><?php echo JText::_('Tip for User During Signup');?></td>
+			<td>:</td>
+			<td colspan="10">
+			<?php 
+				$editor =& JFactory::getEditor();
+				echo $editor->display( 'tip',  htmlspecialchars($this->row->tip, ENT_QUOTES),
+				'850', '200', '60', '20', array('pagebreak', 'readmore') ) ;
+			?>
+			</td>			
+		</tr>
+		
 		<tr>
 			<td class="key" colspan="4"><?php echo JText::_('On saving, do you want to reset properties of all existing users');?>
 				</td>

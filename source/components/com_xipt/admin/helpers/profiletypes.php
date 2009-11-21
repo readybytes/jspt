@@ -236,45 +236,15 @@ function addProfileTypeInfroForAll($fID)
 		}
 }
 
-
-function addAllExistingUserToProperGroups($pid,$gid, $oldgid)
+function resetAllUsers($pid)
 {
-	$db 	=& JFactory::getDBO();
-	$sql 	= "SELECT ".$db->nameQuote('params')." FROM #__community_config"
-			. " WHERE ".$db->nameQuote('name')."=".$db->Quote('config');
-	$db->setQuery($sql);
-	$myresult = $db->loadResult();
-		
-	// if error occurs 
-	if($db->getErrorNum())
-		JError::raiseError( 500, $db->stderr());
-
-	$myparams = new JParameter($myresult);		
-	$default = $myparams->get('profiletypes');
+	$allUsers = XiPTLibraryProfiletypes::getAllUsers($pid);
 	
-	// read community_user table
-	$extraSql = '';
-	if((int)$default == (int)$pid)
-		$extraSql = ' OR '.$db->nameQuote('profiletype').'='.$db->Quote('0');
-
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('userid')
-				. ' FROM ' . $db->nameQuote( '#__community_users' ) 
-				. ' WHERE  '.$db->nameQuote('profiletype').'='.$db->Quote($pid) . $extraSql;
-	$db->setQuery( $query );
-	$results = $db->loadObjectList();
-	
-	if(!$results)
+	if(!$allUsers)
 		return;
 	
-	foreach ($results as $user)
-	{
-		XiPTLibraryProfiletypes::remove_user_from_group($user->userid,$oldgid);
-		XiPTLibraryProfiletypes::add_user_to_group($user->userid,$gid);
-		
-		// this will reset his all properties
-		XiPTLibraryProfiletypes::setProfileDataForUserID($user->userid,$pid,'ALL');
-	}
+	foreach ($allUsers as $user)
+		XiPTLibraryProfiletypes::updateUserProfiletypeData($user, $pid, 0, 'ALL');
 }
 
 	function getProfiletypeFieldHTML($value)
