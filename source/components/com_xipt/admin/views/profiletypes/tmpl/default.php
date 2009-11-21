@@ -28,10 +28,13 @@ function submitbutton( action )
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<?php echo JText::_( 'NUM' ); ?>
+				<?php echo JText::_( '#' ); ?>
 			</th>
 			<th width="1%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
+			</th>
+			<th width="1%">
+				<?php echo JText::_( 'PROFILETYPE-ID' ); ?>
 			</th>
 			<th>
 				<?php echo JText::_( 'NAME' ); ?>
@@ -81,6 +84,7 @@ function submitbutton( action )
 			<td>
 				<?php echo $input; ?>
 			</td>
+			<td><?php echo $field->id;?></td>
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
 					<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$field->id, false); ?>
