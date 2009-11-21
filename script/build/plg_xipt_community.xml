@@ -13,6 +13,17 @@
 	<target name="build" description="Build Installable XiPT Community Plugin " depends="config">
 		<echo msg="Building the XiPT community plugin...." />
 
+		<reflexive>
+			<fileset dir="${dir.tmp}">
+			     <include name="**/*.*" />
+			</fileset>
+			 <filterchain>
+				<replacetokens>
+				    <token key="global.version" 		value="${global.version}" />
+				    <token key="svn.lastrevision"   		value="${svn.lastrevision}" />
+				</replacetokens>
+			</filterchain>
+		</reflexive>
 
 		<phpcodesniffer
 			standard="Zend"
@@ -25,7 +36,8 @@
 			allowedFileExtensions="php" />
 
 		<delete file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" />
-
+	
+		
 		<tar 	destfile="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
 			basedir="${dir.tmp}" 
 			compression="${file.compression}" />

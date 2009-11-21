@@ -22,6 +22,20 @@
 		<move 	file="${dir.tmp}/admin/uninstall.${dir.projectname}.php" 
 			tofile="${dir.tmp}/uninstall.${dir.projectname}.php" 
 			overwrite="true"/>
+
+		<reflexive>
+			<fileset dir="${dir.tmp}">
+			     <include name="**/*.*" />
+			</fileset>
+			 <filterchain>
+				<replacetokens>
+				    <token key="global.version" 		value="${global.version}" />
+				    <token key="svn.lastrevision"   		value="${svn.lastrevision}" />
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+		
+
 <!-- 
 Zend_Sniffs_Files_LineLengthSniff
 Zend_Sniffs_Debug_CodeAnalyzerSniff
