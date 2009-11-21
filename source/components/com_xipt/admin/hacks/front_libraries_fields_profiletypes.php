@@ -37,7 +37,6 @@ class CFieldsProfiletypes
 			$userid = JRequest::getVar('userid',0,'GET');
 			$pID = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
-		
 		return $pID;
 	}
 	/*
@@ -55,7 +54,12 @@ class CFieldsProfiletypes
 		}
 		
 		$pName = XiPTLibraryProfiletypes::getProfiletypeName($pID);
-		return $pName;
+		// add search link
+	 	$searchLink = CRoute::_('index.php?option=com_community&view=search&task=field&'.
+ 				PROFILETYPE_CUSTOM_FIELD_CODE.'='.urlencode( $pID ) );
+		$data = '<a href="'.$searchLink.'">'.$pName.'</a>';
+		
+		return $data; //$pName;
 	}
 	
 	/*

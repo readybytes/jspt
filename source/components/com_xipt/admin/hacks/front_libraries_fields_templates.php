@@ -34,17 +34,23 @@ class CFieldsTemplates
 		$userid = JRequest::getVar('userid',0);
 		
 		if($value)
-            return $value;
-        
-        //a valid or default value
-        $tName = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
-        
-        // during registration
-        if($this->_task == 'registerProfile' &&  $this->_view =='register'){
-            $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
-		    $tName = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
+            $tName=$value;
+        else
+        {
+	        //a valid or default value
+	        $tName = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
+	        
+	        // during registration
+	        if($this->_task == 'registerProfile' &&  $this->_view =='register'){
+	            $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
+			    $tName = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
+	        }
         }
-		return $tName;
+        // add search link
+	 	$searchLink = CRoute::_('index.php?option=com_community&view=search&task=field&'.
+ 				TEMPLATE_CUSTOM_FIELD_CODE.'='.urlencode( $tName ) );
+		$data = '<a href="'.$searchLink.'">'.$tName.'</a>';
+		return $data;//$tName;
 	}
 	
 	function getFieldHTML($field, $required )
