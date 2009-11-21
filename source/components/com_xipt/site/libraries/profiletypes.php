@@ -94,43 +94,50 @@ class XiPTLibraryProfiletypes
     //         ALL means you are from register
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
-		//during registration
-		if($what == 'ALL')
+		//store prev profiletype
+		//CODREV : must be first line, as we want to store prev profiletype
+		$prevProfiletype = XiPTLibraryProfiletypes::getUserData($ptype,'PROFILETYPE');
+		
+		if($what == 'profiletype' || $what == 'ALL')
 		{
-		    $prevProfiletype = XiPTLibraryProfiletypes::getUserData($ptype,'PROFILETYPE');
 			//1.set profiletype and template for user in #__xipt_users table
 			if(!$template)
 			    $template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
 			XiPTLibraryProfiletypes::saveXiPTUser($userid,$ptype,$template);
+
+			//4.set profiletype and template field in #__community_fields_values table
+			// also change the user's type in profiletype field.
+			XiPTLibraryCore::updateCommunityCustomField($userid,$template,TEMPLATE_CUSTOM_FIELD_CODE);
+			XiPTLibraryCore::updateCommunityCustomField($userid,$ptype,PROFILETYPE_CUSTOM_FIELD_CODE);
 			
+		}
+		
+		if($what == 'ALL')
+		{
 			//2.set usertype acc to profiletype in #__user table
 			XiPTLibraryCore::updateJoomlaUserType($userid,$ptype);
 			
 			//3.set user avatar in #__community_users table
 			XiPTLibraryCore::updateCommunityUserAvatar($userid,$ptype);
 			
-			//4.set profiletype and template field in #__community_fields_values table
-			// also change the user's type in profiletype field.
-			XiPTLibraryCore::updateCommunityCustomField($userid,$template,TEMPLATE_CUSTOM_FIELD_CODE);
-			XiPTLibraryCore::updateCommunityCustomField($userid,$ptype,PROFILETYPE_CUSTOM_FIELD_CODE);
-			
 			// assign the default group
 			XiPTLibraryCore::updateCommunityUserGroup($userid,$ptype,$prevProfiletype);
 			
 			//5.set privacy data
 			XiPTLibraryCore::updateCommunityUserPrivacy($userid,$ptype);
-	
-			//Reseting user already loaded information ,
-			//bcoz JS collects all data in static array when system load
-			//so it don't load profile data again , just load previous loaded data
-			//so our effect will not reflect ( avatar , privacy etc. )
-			//so for showing it's effect we have clear the user ( user is refrence )
-			//so by clearing we have cleared loaded data
-			//after again initializinng we have again loaded our data
-			$user	=& CFactory::getUser($userid);
-			$user	= array();
-			$user	=& CFactory::getUser($userid);
 		}
+		
+		//Reseting user already loaded information ,
+		//bcoz JS collects all data in static array when system load
+		//so it don't load profile data again , just load previous loaded data
+		//so our effect will not reflect ( avatar , privacy etc. )
+		//so for showing it's effect we have clear the user ( user is refrence )
+		//so by clearing we have cleared loaded data
+		//after again initializinng we have again loaded our data
+		
+		$user	=& CFactory::getUser($userid);
+		$user	= array();
+		$user	=& CFactory::getUser($userid);
 	}
 	
 
@@ -263,7 +270,7 @@ class XiPTLibraryProfiletypes
 						
 			case 'template' :
 					$searchFor 		= 'template';
-					$defaultValue	= 'dafault';
+					$defaultValue	= 'default';
 					break;
 			case 'jusertype' :
 					$searchFor 		= 'jusertype';

@@ -91,8 +91,31 @@ class XiPTViewSetup extends JView
 			$requiredSetup['pluginenabled']['message'] = JText::_("PLUGINS ARE ENABLED");
 			$requiredSetup['pluginenabled']['done'] = true;
 		}
+
 		
+			$link = JRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
+			if(XiPTHelperSetup::syncUpUserPTRequired()) {
+				$requiredSetup['syncUpUserPT']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SYNC UP USERS PROFILETYPES").'</a>';
+				$requiredSetup['syncUpUserPT']['done'] = false;
+			}
+			else {
+				$requiredSetup['syncUpUserPT']['message'] = JText::_("USERS PROFILETYPES ALREADY IN SYNC");
+				$requiredSetup['syncUpUserPT']['done'] = true;
+			}
 		
+		/*Display only if user have AEC installed*/
+		if(XiPTLibraryAEC::_checkAECExistance()){
+			
+			$link = JRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
+			if(XiPTHelperSetup::isAECMIRequired()) {
+				$requiredSetup['patchAECfile']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO INSTALL JSPT MI INTO AEC").'</a>';
+				$requiredSetup['patchAECfile']['done'] = false;
+			}
+			else {
+				$requiredSetup['patchAECfile']['message'] = JText::_("AEC MI ALREADY THERE");
+				$requiredSetup['patchAECfile']['done'] = true;
+			}
+		}
 		jimport('joomla.html.pane');
 		$pane	=& JPane::getInstance('sliders');
 		

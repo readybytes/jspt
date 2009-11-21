@@ -36,7 +36,7 @@ JTable::addIncludePath( JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xi
 
 //front end files required
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
-
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aec.php';
 //bakcend files required
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profiletypes.php';
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'xiptcore.php';

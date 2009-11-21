@@ -163,4 +163,33 @@ class XiPTControllerSetup extends JController
         $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     	
     }
+    
+	function patchAECfile()
+    {
+    	global $mainframe;    	   	
+        //now check library field exist
+        if(XiPTHelperSetup::isAECMIRequired()){
+        	if(XiPTHelperSetup::copyAECfiles())
+        		$msg = JText::_('AEC MI COPIED SUCCESSFULLY');
+        	else
+        		$msg = JText::_('AEC MI COPY FAILED');
+        }
+        else
+        	$msg = JText::_('AEC MI ALREADY EXIST');
+        
+        $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+    }
+    
+	function syncUpUserPT()
+    {
+    	global $mainframe;    	   	
+        //now check library field exist
+      	if(XiPTHelperSetup::syncUpUserPT())
+        	$msg = JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZED SUCCESSFULLY');
+        else
+        	$msg = JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZATION FAILED');
+        	        
+        $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+    }
+    
 }

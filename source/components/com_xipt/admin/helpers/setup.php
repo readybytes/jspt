@@ -299,4 +299,129 @@ class XiPTHelperSetup
 		JFile::copy($sourceFile, $targetFile) || JError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
 		return;
 	}
+	
+	function isAECMIRequired(){
+		if(!XiPTLibraryAEC::_checkAECExistance())
+			return false;
+		
+		$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';
+		if(JFile::exists($miFilename))
+			return false;
+		else
+			return true;
+	}
+
+	function copyAECfiles(){
+		$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';
+		$sourceMIFilename = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'mi_jomsocialjspt.php';
+
+		if(JFile::exists($miFilename))
+			return true;
+		else 
+			return JFile::copy($sourceMIFilename , $miFilename);
+	}
+	
+	
+	function syncUpUserPTRequired()
+	{
+		//for every user
+		$db 	=& JFactory::getDBO();
+		$query	= ' SELECT `id` FROM `#__community_fields` '
+				. ' WHERE `fieldcode`=\''.PROFILETYPE_CUSTOM_FIELD_CODE.'\' ';
+		$db->setQuery($query);
+		$PTFieldId=$db->loadResult();
+		
+		$query	= ' SELECT `id` FROM `#__community_fields` '
+				. ' WHERE `fieldcode`=\''.TEMPLATE_CUSTOM_FIELD_CODE.'\' ';
+		$db->setQuery($query);
+		$TMFieldId=$db->loadResult();
+		
+		// we need first these fields to be exist
+		if(!($PTFieldId && $TMFieldId))
+			return true;
+			
+		$query 	= ' SELECT u.`userid` as id, vPT.`value` AS vptype, vTM.`value` AS vtemp, xUser.* '
+				.' FROM `#__community_users` AS u '
+				.' LEFT JOIN `#__community_fields_values` AS vPT'
+        		.' ON ( vPT.`user_id` = u.`userid` AND  vPT.`field_id`='.$db->Quote($PTFieldId).')'
+				.' LEFT JOIN `#__community_fields_values` AS vTM'
+        		.' ON ( vTM.`user_id` = u.`userid` AND  vTM.`field_id`='.$db->Quote($TMFieldId).')'
+				.' LEFT JOIN `#__xipt_users` AS '.'xUser'
+        		.' ON ( xUser.`userid` = u.`userid` )';
+        			
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+
+		if(empty($result))
+		{
+			assert(0);
+			return false;
+		}
+		
+		foreach ($result as $r){
+			if(!($r->vptype && $r->profiletype && $r->vtemp && $r->template))
+				return true;
+				
+			if($r->vptype != $r->profiletype)
+				return true;
+			if($r->vtemp != $r->template)
+				return true;
+		}
+		
+		return false;
+	}
+	
+	function syncUpUserPT()
+	{
+		
+		//	for every user
+		$db 	=& JFactory::getDBO();
+		$query	= ' SELECT `id` FROM `#__community_fields` '
+				. ' WHERE `fieldcode`=\''.PROFILETYPE_CUSTOM_FIELD_CODE.'\' ';
+		$db->setQuery($query);
+		$PTFieldId=$db->loadResult();
+		
+		$query	= ' SELECT `id` FROM `#__community_fields` '
+				. ' WHERE `fieldcode`=\''.TEMPLATE_CUSTOM_FIELD_CODE.'\' ';
+		$db->setQuery($query);
+		$TMFieldId=$db->loadResult();
+		
+		// we need first these fields to be exist
+		if(!($PTFieldId && $TMFieldId))
+			return false;
+			
+		$query 	= ' SELECT u.`userid` as id, vPT.`value` AS vptype, vTM.`value` AS vtemp, xUser.* '
+				.' FROM `#__community_users` AS u '
+				.' LEFT JOIN `#__community_fields_values` AS vPT'
+        		.' ON ( vPT.`user_id` = u.`userid` AND  vPT.`field_id`='.$db->Quote($PTFieldId).')'
+				.' LEFT JOIN `#__community_fields_values` AS vTM'
+        		.' ON ( vTM.`user_id` = u.`userid` AND  vTM.`field_id`='.$db->Quote($TMFieldId).')'
+				.' LEFT JOIN `#__xipt_users` AS '.'xUser'
+        		.' ON ( xUser.`userid` = u.`userid` )';
+        			
+		$db->setQuery($query);
+		$result = $db->loadObjectList();
+		
+		$i = 0;
+		foreach ($result as $r){
+			
+			//skip correct users
+			if($r->vptype && $r->profiletype && $r->vtemp && $r->template)
+			{
+				if(($r->vptype == $r->profiletype) && ($r->vtemp == $r->template))
+					continue;
+			}
+			
+			//It ensure that system will pickup correct data
+			$profiletype = XiPTLibraryProfiletypes::getUserData($r->id,'PROFILETYPE');
+			$template	 = XiPTLibraryProfiletypes::getUserData($r->id,'TEMPLATE');
+			XiPTLibraryProfiletypes::updateUserProfiletypeData($r->id, $profiletype, $template, 'profiletype');
+			$i++;
+		}
+
+		$msg = 'Total '. $i . ' users '.JText::_('synchornized');
+		global $mainframe;
+		$mainframe->enqueueMessage($msg);
+		return true;
+	}
 }

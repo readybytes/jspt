@@ -12,6 +12,8 @@
 			<option value="1">Yes</option>
 		</param>
 
+
+
 		<!-- whenver change name of default ptype , change name in element as well as in library/profiletypes.php fn get field html also -->
 		<param name="defaultProfiletypeID" type="profiletypes" default="0" label="DEFAULT PROFILETYPE ID" description="DEFAULT PROFILETYPE ID.DESC" />
 		

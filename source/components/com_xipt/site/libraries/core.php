@@ -159,18 +159,44 @@ class XiPTLibraryCore
 				 .' WHERE '.$db->nameQuote('fieldcode').'='.$db->Quote($what);
 		$db->setQuery( $query );
 		$res = $db->loadObject();
-
+		
+		$field_id = $res->id;
 		// skip these calls from backend
 		assert($res) || JError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
 		
+		//if row does not exist
+		$db		=& JFactory::getDBO();
+		$query 	= ' SELECT * FROM '.$db->nameQuote('#__community_fields_values')
+				 .' WHERE ' .$db->nameQuote('user_id'). '='.$db->Quote($userId)
+				 .' AND '   .$db->nameQuote('field_id').'='.$db->Quote($field_id);
+		$db->setQuery( $query );
+		$res = $db->loadObject();
+
+		//CODREV : record does not exist, insert it
+		if(!$res)
+		{
+			$res= new stdClass();
+			$res->user_id = $userId;
+			$res->field_id = $field_id;
+			$res->value = $value;
+			$db->insertObject('#__community_fields_values',$res,'id');
+			
+			if($db->getErrorNum()){
+					JError::raiseError( 500, $db->stderr());
+			}
+			
+			return true;
+		}
+		
 		// change the type
-		$id	= $res->id;
-		$strSQL	= ' UPDATE '.$db->nameQuote('#__community_fields_values')
-				. ' SET '   .$db->nameQuote('value').   '='.$db->Quote($value)
-				. ' WHERE ' .$db->nameQuote('user_id'). '='.$db->Quote($userId)
-				. ' AND '   .$db->nameQuote('field_id').'='.$db->Quote($id);
-		$db->setQuery( $strSQL );
-		$db->query();
+		$res->user_id = $userId;
+		$res->field_id = $field_id;
+		$res->value = $value;
+		$db->updateObject( '#__community_fields_values', $res, 'id');
+		
+		if($db->getErrorNum()){
+				JError::raiseError( 500, $db->stderr());
+		}
 		
 		return true;
 	}
