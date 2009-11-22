@@ -21,6 +21,7 @@
 		<filename>includes.xipt.php</filename>
 		<filename>api.xipt.php</filename>
 		<filename>defines.xipt.php</filename>
+		<filename>license.txt</filename>
 
 		<filename>libraries/profiletypes.php</filename>
 		<filename>libraries/pluginhandler.php</filename>
@@ -66,7 +67,6 @@
 			<filename>config.xml</filename>
 			<filename>jspt_functions.php</filename>
 			<filename>includes.xipt.php</filename>
-			<filename>licesnse.txt</filename>
 			
 			<filename>controllers/index.html</filename>
 			<filename>controllers/cpanel.php</filename>
