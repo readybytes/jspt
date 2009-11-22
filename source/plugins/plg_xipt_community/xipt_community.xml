@@ -7,7 +7,7 @@
   <authorEmail>shyam@joomlaxi.com</authorEmail>
   <authorUrl>http://www.joomlaxi.com/</authorUrl>
   <copyright>@Joomlaxi</copyright>
-  <license>This extension is released under the commercial License</license>
+  <license>GNU GPL v2.0</license>
   <description>JSPT Community Plugin</description>
   <files>  	
 	<filename plugin="xipt_community">xipt_community.php</filename>

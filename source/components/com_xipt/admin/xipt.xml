@@ -2,13 +2,13 @@
 <install type="component" version="1.5.0">
 	<name>XI PT</name>
 	<creationDate>2009-08-01</creationDate>
-	<author>Meenal Devpura</author>
+	<author>Team JoomlaXi</author>
 	<authorEmail>shyam@joomlaxi.com</authorEmail>
 	<authorUrl>http://www.joomlaxi.com</authorUrl>
 	<copyright>All rights reserved</copyright>
-	<license>Commercial and Non-Redistributable</license>
+	<license>GNU GPL v2.0</license>
 	<version>@global.version@.@svn.lastrevision@</version>
-	<description>XIPT is a component for JomSocial : Add's profile customization as per user types</description>
+	<description>JSPT is a component for JomSocial : Add's profile customization as per user types</description>
 	<installfile>install.xipt.php</installfile>
 	<uninstallfile>uninstall.xipt.php</uninstallfile>
 

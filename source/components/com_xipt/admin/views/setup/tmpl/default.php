@@ -36,25 +36,7 @@ defined('_JEXEC') or die('Restricted access');
 	<div style="float:inherit; margin-left:50%;">
 			<?php
 				echo $this->pane->startPane( 'stat-pane' );
-				echo $this->pane->startPanel( JText::_('WHAT MEANS SETUP') , 'setupmean' );
-			?>
-			<div style="font-weight:700;">
-							<?php echo "1. ".JText::_('WHAT IS PROFILETYPE VALIDATION');?>
-			</div>
-			<p>
-				It check is their any profiletype exist in your system ,
-				for properly working of JSPT profiletype should exist in system. 
-			</p>
-			
-			<div style="font-weight:700;">
-							<?php echo "2. ".JText::_('HOW TO SET DEFAULT PROFILETYPE');?>
-			</div>
-			<p>
-				 Link will be visible if no default profiletype is set.
-				 To set default profiletype click that link and make a selection.
-			</p>
-			<?php
-				echo $this->pane->endPanel();
+				require_once 'helpPanel.php';
 				echo $this->pane->endPane();
 			?>
 	</div>
