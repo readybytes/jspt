@@ -2,7 +2,7 @@
 <config>
 	<params addpath="/administrator/components/com_xipt/elements">
 	<param name="@spacer" type="spacer" default="" label="" description="" />
-	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="RESTRICT REGISTRATION" description="" />
+	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="" description="" />
 		<param name="show_ptype_during_reg" type="radio" default="1" label="ALLOW USER TO SELECT PROFILE TYPE DURING REGISTRATION" description="ALLOW USER TO SELECT PROFILE TYPE DURING REGISTRATION.DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
@@ -11,8 +11,6 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-
-
 
 		<!-- whenver change name of default ptype , change name in element as well as in library/profiletypes.php fn get field html also -->
 		<param name="defaultProfiletypeID" type="profiletypes" default="0" label="DEFAULT PROFILETYPE ID" description="DEFAULT PROFILETYPE ID.DESC" />
@@ -33,11 +31,12 @@
 				<option value="0">No</option>
 			</param>
 			
-			<param name="aec_force_ptype_page" type="radio" default="0" label="FORCE PROFILETYPE PAGE" description="FORCE PROFILETYPE PAGE.DESC">
+			<!--<param name="aec_force_ptype_page" type="radio" default="0" label="FORCE PROFILETYPE PAGE" description="FORCE PROFILETYPE PAGE.DESC">
 				<option value="1">Yes</option>
 				<option value="0">No</option>
 			</param>
 			
+			-->
 			<param name="aec_message" type="radio" default="b" label="DISPLAY MESSAGE AFTER PLAN SELECTION" description="DISPLAY MESSAGE AFTER PLAN SELECTION.DESC">
 				<option value="b">Both, Plan and Profiletype</option>
 				<option value="pl">Only Plan</option>
@@ -54,7 +53,7 @@
 			<param name="jspt_prevent_username" type="textarea" default="" label="PREVENT THESE USERNAMES FROM GETTING REGISTERED" rows="3" cols="30" description="PREVENT THESE USERNAMES FROM GETTING REGISTERED.DESC" />
 			
 			<param name="jspt_allowed_email" type="textarea" default="" label="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
-		
+	<!--
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="@spacer" type="spacer" default="Registration Configuration" label="Registration Configuration" description="" />
 			<param name="jspt_reg_page2" type="radio" default="0" label="HIDE PROFILE EDITING (SECOND PAGE) DURING REGISTRATION" description="HIDE PROFILE EDITING (SECOND PAGE) DURING REGISTRATION.DESC">
@@ -65,5 +64,6 @@
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 			</param>
+	-->
 	</params>
 </config>

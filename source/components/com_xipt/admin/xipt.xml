@@ -66,6 +66,7 @@
 			<filename>config.xml</filename>
 			<filename>jspt_functions.php</filename>
 			<filename>includes.xipt.php</filename>
+			<filename>licesnse.txt</filename>
 			
 			<filename>controllers/index.html</filename>
 			<filename>controllers/cpanel.php</filename>
@@ -97,6 +98,9 @@
 			<filename>views/cpanel/view.html.php</filename>
 			<filename>views/cpanel/tmpl/index.html</filename>
 			<filename>views/cpanel/tmpl/default.php</filename>
+			<filename>views/cpanel/tmpl/news.php</filename>
+			<filename>views/cpanel/tmpl/updates.php</filename>
+			<filename>views/cpanel/tmpl/welcome.php</filename>
 			
 			<filename>views/setup/index.html</filename>
 			<filename>views/setup/view.html.php</filename>
