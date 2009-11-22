@@ -106,6 +106,7 @@
 			<filename>views/setup/view.html.php</filename>
 			<filename>views/setup/tmpl/index.html</filename>
 			<filename>views/setup/tmpl/default.php</filename>
+			<filename>views/setup/tmpl/helpPanel.php</filename>
 			
 			<filename>views/profiletypes/index.html</filename>
 			<filename>views/profiletypes/view.html.php</filename>
