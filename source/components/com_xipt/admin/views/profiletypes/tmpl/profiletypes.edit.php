@@ -13,12 +13,6 @@ defined('_JEXEC') or die('Restricted access');
 				alert( "<?php echo JText::_( 'You must provide a Profiletype name.', true ); ?>" );
 				break;
 			}
-			if( form.tip.value == '' )
-			{
-				alert( "<?php echo JText::_( 'You must provide a tip name.', true ); ?>" );
-				//jQuery( '#name-message-error' ).html( "please provide name" ).css( 'color' , 'red' );
-				break;
-			}
 		case 'publish':
 		case 'unpublish':
 		case 'cancel':

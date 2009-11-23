@@ -3,46 +3,74 @@
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
 ?>
 
-<form
-	action="<?php echo JRoute::_( 'index.php?option=com_xipt&view=registration',false ); ?>" method="post" name="ptypeForm">
+<form action="<?php echo JRoute::_( 'index.php?option=com_xipt&view=registration',false ); ?>" method="post" name="ptypeForm">
 
 	<div class="registerProfileType">
 	<h3 id="Title"><?php
-	echo JText::_ ('CHOOSE PROFILE TYPE' );
+	echo JText::_ ( 'CHOOSE PROFILE TYPE' );
 	?></h3>
-	
+	<?php 
+
+	//start select tag
+	if(!$this->showAsRadio){
+	?>	
+		<select id="profiletypes" name="profiletypes" 
+				class="select required" >
 	<?php
-	if (! empty ( $this->allProfileTypes )) {
+	}
+	
+	if (!empty ( $this->allProfileTypes )) {
 		
 		foreach ( $this->allProfileTypes as $pType ) {
 
+			$selected = '';
 			// check if selected
 			if ($this->selectedProfileTypeID == $pType->id)
 				$selected = 'checked="true"';
-			else
-				$selected = '';
-			?>
+
+			if($this->showAsRadio)
+			{
+			?>		
+				<div class="singlePT">
 		
-		<div class="singlePT">
-
-			<div id="Name">
-					<input type="radio" id="profiletypes<?php echo $pType->id?>" name="profiletypes" 
-							value="<?php echo $pType->id;?>" <?php echo $selected; ?> />
-					<?php echo $pType->name; ?>
-			</div>
-
-			<div id="Details">
-				<div id="Avatar">
-					<img src="<?php echo $pType->avatar; ?>" height="60px" width="60px"/>
+					<div id="Name">
+							<input type="radio" id="profiletypes<?php echo $pType->id?>" name="profiletypes" 
+									value="<?php echo $pType->id;?>" <?php echo $selected; ?> />
+							<?php echo $pType->name; ?>
+					</div>
+		
+					<div id="Details">
+						<div id="Avatar">
+							<img src="<?php echo $pType->avatar; ?>" height="60px" width="60px"/>
+						</div>
+						
+						<p id="Description"> <?php echo $pType->tip; ?> </p>
+					</div>
 				</div>
 				
-				<p id="Description"> <?php echo $pType->tip; ?> </p>
-			</div>
-		</div>
-		
-		<div class="clr">&nbsp;</div>
-	<?php
+				<div class="clr">&nbsp;</div>
+			<?php
+			}
+			else
+			{
+				// show as selectbox	
+			    $option		= $pType->name;
+				$id			= $pType->id;
+			    
+			    $selected	= ( JString::trim($id) == $this->selectedProfileTypeID ) ? ' selected="true"' : '';
+				echo '<option value="' . $id . '"' 
+							. $selected . '>' 
+							. $option . '</option>';
+			}
 		}
+		
+		//start select tag
+		if(!$this->showAsRadio){
+		?>	
+			</select>
+		<?php
+		}
+	
 	}
 	?>
 	</div>

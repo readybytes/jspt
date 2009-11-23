@@ -16,7 +16,9 @@ class XiPTViewRegistration extends JView
 		// e.g. : I want to patch description. with some extra information
 		$this->assign( 'allProfileTypes' , $allProfileTypes );
 		$this->assign( 'selectedProfileTypeID' , $seletedPTypeID );
-
+		$params = JComponentHelper::getParams('com_xipt');
+		$this->assign( 'showAsRadio' , $params->get('jspt_show_radio',true));
+		
 		parent::display( $tpl );
 	}
 }
