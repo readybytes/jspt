@@ -72,12 +72,20 @@ class XiPTControllerSetup extends JController
     function patchfile()
     {
     	global $mainframe;
-    	$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
     	
     	if(!XiPTHelperSetup::checkFilePatchRequired())
     		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
 
     	if(XiPTHelperSetup::isModelFilePatchRequired()){
+    		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
+    		
+	    	//	CODREV : create a backup file first
+    	    if(!JFile::copy($filename, $filename.'.jxibak')){
+    	    	global $mainframe;
+    	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
+    	    	return false;
+    	    }
+    		
 	    	//1. Replace _ fields calling in _loadAllFields function
 	    	$funcName = 'function _loadAllFields';
 	    	
@@ -122,6 +130,38 @@ class XiPTControllerSetup extends JController
 	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
 	        
     	}
+    	
+    	if(XiPTHelperSetup::isUserControllerPatchRequired()){
+    		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'controllers'.DS.'users.php';
+    		
+    		//	CODREV : create a backup file first
+    	    if(!JFile::copy($filename, $filename.'.jxibak')){
+    	    	global $mainframe;
+    	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
+    	    	return false;
+    	    }
+    		
+	    	$funcName = 'function save()';
+	    	
+	    	$searchString = '$model->saveProfile($userId , $values);';
+	    	ob_start();
+	    	?>$model->saveProfile($userId , $values);
+	    	
+	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
+	    	$appsLib	=& CAppPlugins::getInstance();
+	    	$appsLib->loadApplications();
+	    	$args 	= array();
+	    	$args[]	= $userId;
+	    	$args[]	= true;
+	    	$result = $appsLib->triggerEvent( "onAfterProfileUpdate" , $args );
+	    	/*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
+	        <?php 
+	        
+	        $replaceString = ob_get_contents();
+	        ob_end_clean();
+	        
+	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+    	}
         
         //now check library field exist
         if(XiPTHelperSetup::isCustomLibraryFieldRequired()){
@@ -157,8 +197,7 @@ class XiPTControllerSetup extends JController
 		        $file = str_replace($searchString,$replaceString,$file);
 		        
 	        	//	CODREV : create a backup file first
-	    	    if(!JFile::copy($filename, $filename.'.jxibak'))
-	    	    {
+	    	    if(!JFile::copy($filename, $filename.'.jxibak')){
 	    	    	global $mainframe;
 	    	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
 	    	    	return false;

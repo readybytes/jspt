@@ -136,9 +136,6 @@ class CFieldsProfiletypes
 	// Just an validation
 	function isValid($value,$required)
 	{
-	    if(!$required)
-	        JError::raiseError('PTFIELD_REQ','ASK ADMIN TO MAKE PROFILETYPE FIELD REQUIRED');
-	    
 	    if(!$value)
 			return false;
 			

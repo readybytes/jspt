@@ -16,9 +16,6 @@ jimport('joomla.filesystem.folder');
 if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
 	return;
 
-if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
-	require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-
 class plgSystemxipt_system extends JPlugin
 {
 	var $_debugMode = 1;
@@ -37,6 +34,10 @@ class plgSystemxipt_system extends JPlugin
 		// Dont run in admin
 		if ($mainframe->isAdmin())
 			return;
+		
+		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+
 		
 		$option = JRequest::getCmd('option','','GET');
 		$view = JRequest::getCmd('view','BLANK','GET');

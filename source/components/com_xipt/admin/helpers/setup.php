@@ -111,13 +111,35 @@ class XiPTHelperSetup
 	}
 	
 	
+	function isUserControllerPatchRequired()
+	{
+		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'controllers'.DS.'users.php';
+		if (file_exists($filename)) {
+			
+			if(!is_readable($filename)) 
+				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+			
+			$file = file_get_contents($filename);
+			
+			$searchString = '$appsLib->triggerEvent( "onAfterProfileUpdate" , $args );';
+			$count = substr_count($file,$searchString);
+			if($count >= 1)
+				return false;
+				
+			return true;
+		}	
+		return false;
+	}
+	
 	function checkFilePatchRequired()
 	{
 		$modelPatch = self::isModelFilePatchRequired();
+		$userPatch = self::isUserControllerPatchRequired();
 		$xmlPatch = self::isXMLFilePatchRequired();
 		$libraryField = self::isCustomLibraryFieldRequired();
 		
-		if(!$modelPatch && !$xmlPatch && !$libraryField)
+		if(!$modelPatch && !$userPatch
+				&& !$xmlPatch && !$libraryField)
 			return false;
 			
 		return true;
@@ -255,14 +277,6 @@ class XiPTHelperSetup
 	    	    $afterStr = substr($fileParts[1],$firstPos+strlen($searchString));
 	    	    $fileParts[1]=$beforeStr . $replaceString . $afterStr;
 	    	    $file = $fileParts[0].$funcName.$fileParts[1];
-	    	    
-	    	    //CODREV : create a backup file first
-	    	    if(!JFile::copy($filename, $filename.'.jxibak'))
-	    	    {
-	    	    	global $mainframe;
-	    	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
-	    	    	return false;
-	    	    }
 	    	    file_put_contents($filename,$file);
 	    	    return true;
 	    	}
