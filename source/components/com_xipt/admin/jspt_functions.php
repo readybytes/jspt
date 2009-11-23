@@ -20,12 +20,6 @@ function get_js_version()
 	return $version;
 }
 
-function get_jspt_version()
-{	
-	// this version will be added from phing script.
-	return "@XIPT_VERSION@";
-}
-
 	
 function getJSPTFileList()
 {
@@ -34,16 +28,14 @@ function getJSPTFileList()
 
 	$CMP_PATH_FRNTEND = dirname( JPATH_BASE ) .DS. 'components' . DS . 'com_community';
 	$CMP_PATH_ADMIN	  = dirname( JPATH_BASE ) .DS. 'administrator' .DS.'components' . DS . 'com_community';
-
 	
 	$filestoreplace = array();
 
 	$filestoreplace['front_libraries_fields_customfields.xml']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
-	$filestoreplace['front_libraries_fields_profiletypes.php']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'profiletypes.php';
-	$filestoreplace['front_libraries_fields_templates.php']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'templates.php';
-
 	$filestoreplace['front_models_profile.php']=$CMP_PATH_FRNTEND.DS.'models'.DS.'profile.php';
+	$filestoreplace['admin_controller_user.php']=$CMP_PATH_ADMIN.DS.'controllers'.DS.'users.php';
 	
+	//Codrev : disable plugins and fields too
 	//AEC microintegration install, if AEC exist
 	$AEC_MI_PATH = dirname( JPATH_BASE ) . DS. 'components' . DS . 'com_acctexp' . DS . 'micro_integration';
 	if(JFolder::exists($AEC_MI_PATH))

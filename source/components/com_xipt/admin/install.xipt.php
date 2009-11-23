@@ -3,26 +3,6 @@ defined('_JEXEC') or die('Restricted access');
 
 require_once dirname(JPATH_BASE).DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';
 
-function check_version()
-{
-	$SUPPORTED =  array ();
-	// $SUPPORTED[0] = it should contain the latest supported release
-	$SUPPORTED[]='1.5.248';
-	
-	$version = get_js_version();
-	if(in_array($version,$SUPPORTED)==false)
-	{
-	?>
-		<div> ERROR : The JomSocial Version [<?php echo $version; ?>] used by you is not supported for ProfileTypes. The JSPT 2.0.xxx will only supports newer version of JomSocial since JomSocial 1.5.248. If you wish to use older version of JomSocial, then you need to use JSPT 1.4.xx. If it is a newer version then JomSocial <?php echo $SUPPORTED[0] ; ?>, then please goto support forum and ask us for compatibility. 
-			<div> Forum : <a href="http://www.joomlaxi.com/support/forum.html" target="_blank"> JoomlaXi Official Support Forum</a> <br />
-			</div>
-		</div>	
-	<?php
-		return false;
-	}
-	return true;
-}
-
 function show_instruction()
 {
 	$siteURL  = JURI::base();
@@ -43,7 +23,6 @@ function com_install()
 	if(setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 
-	//copy_files();
 	show_instruction();
 	return true;
 }
