@@ -48,14 +48,14 @@
 		
 	</files>
 	<administration>
-		<menu link="option=com_xipt" >JomSocial Profile Types</menu>
+		<menu link="option=com_xipt" img="components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
 		<submenu>
-			<menu view="cpanel" >Control Panel</menu>
-			<menu view="setup" >Setup</menu>
-			<menu view="profiletypes" >Profile Types</menu>
-			<menu view="aclrules" >Access Control</menu>
-			<menu view="applications" >Applications</menu>
-			<menu view="profilefields" >Profile Fields</menu>
+			<menu view="cpanel" img="components/com_xipt/images/icon-cpanel.png">Control Panel</menu>
+			<menu view="setup" img="components/com_xipt/images/icon-setup.gif">Setup</menu>
+			<menu view="profiletypes" img="components/com_xipt/images/icon-profiletypes.gif">Profile Types</menu>
+			<menu view="aclrules" img="components/com_xipt/images/icon-aclrules.gif">Access Control</menu>
+			<menu view="applications" img="components/com_xipt/images/icon-applications.gif">Applications</menu>
+			<menu view="profilefields" img="components/com_xipt/images/icon-profilefields.gif">Profile Fields</menu>
 		</submenu>
 		<languages folder="admin">
 			<language tag="en-GB">en-GB.com_xipt.ini</language>
@@ -156,6 +156,12 @@
 			<filename>images/gnugpl.png</filename>
 			<filename>images/twitter.jpg</filename>
 			
+			<filename>images/icon-setup.gif</filename>
+			<filename>images/icon-profiletypes.gif</filename>
+			<filename>images/icon-profilefields.gif</filename>
+			<filename>images/icon-aclrules.gif</filename>
+			<filename>images/icon-applications.gif</filename>
+			<filename>images/icon-cpanel.png</filename>
 		</files>
 	</administration>
 </install>
