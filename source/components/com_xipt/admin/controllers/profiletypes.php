@@ -62,7 +62,7 @@ class XiPTControllerProfiletypes extends JController
 		
 		$data = array();
 		$data['name'] 		= $post['name'];
-		$data['tip'] 		= $post['tip'];
+		$data['tip'] 		= JRequest::getVar( 'tip', '', 'post', 'string', JREQUEST_ALLOWRAW );
 		$data['published'] 	= $post['published']; 
 		$data['template'] 	= $post['template'];
 		$data['jusertype'] 	= $post['jusertype'];

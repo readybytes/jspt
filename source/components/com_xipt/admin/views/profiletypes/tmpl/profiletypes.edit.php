@@ -13,6 +13,11 @@ defined('_JEXEC') or die('Restricted access');
 				alert( "<?php echo JText::_( 'You must provide a Profiletype name.', true ); ?>" );
 				break;
 			}
+			<?php
+	                $editor =& JFactory::getEditor();
+	                echo $editor->save( 'tip' );
+	        ?>
+				
 		case 'publish':
 		case 'unpublish':
 		case 'cancel':
@@ -98,7 +103,6 @@ defined('_JEXEC') or die('Restricted access');
 			<td>:</td>
 			<td colspan="10">
 			<?php 
-				$editor =& JFactory::getEditor();
 				echo $editor->display( 'tip',  htmlspecialchars($this->row->tip, ENT_QUOTES),
 				'850', '200', '60', '20', array('pagebreak', 'readmore') ) ;
 			?>
