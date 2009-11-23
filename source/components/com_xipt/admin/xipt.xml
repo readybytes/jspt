@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5.0">
-	<name>XI PT</name>
+	<name>XIPT</name>
 	<creationDate>2009-08-01</creationDate>
 	<author>Team JoomlaXi</author>
 	<authorEmail>shyam@joomlaxi.com</authorEmail>
@@ -145,10 +145,17 @@
 			<filename>hacks/front_models_apps.php </filename>
 			
 			<filename>images/index.html</filename>
+			<filename>images/setup.png</filename>
 			<filename>images/profiletypes.gif</filename>
 			<filename>images/profilefields.gif</filename>
 			<filename>images/aclrules.gif</filename>
-			<filename>images/applications.gif</filename>			
+			<filename>images/applications.gif</filename>
+			<filename>images/download.png</filename>
+			<filename>images/documentation.png</filename>
+			<filename>images/support.png</filename>
+			<filename>images/gnugpl.png</filename>
+			<filename>images/twitter.jpg</filename>
+			
 		</files>
 	</administration>
 </install>
