@@ -11,10 +11,6 @@
 					Support : <a href="http://www.joomlaxi.com/support/forum.html" target="_blank">
 					http://www.joomlaxi.com/support/forum.html
 					</a>
-					
-				</p>
-				<p>
-					If you found any bugs, just drop us an email at bugs@joomlaxi.com
 				</p>
 			</td>
 		</tr>

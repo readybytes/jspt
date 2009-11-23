@@ -11,6 +11,13 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.plugin.plugin' );
 jimport('joomla.filesystem.file');
+jimport('joomla.filesystem.folder');
+
+if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
+	return;
+
+if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+	require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
 class plgSystemxipt_system extends JPlugin
 {
@@ -20,7 +27,6 @@ class plgSystemxipt_system extends JPlugin
 	function plgSystemxipt_system( &$subject, $params )
 	{
 		parent::__construct( $subject, $params );
-		require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 	}
 	
 	
