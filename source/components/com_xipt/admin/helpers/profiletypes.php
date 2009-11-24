@@ -11,19 +11,31 @@ class XiPTHelperProfiletypes
 		switch($what)
 		{
 			case 'privacy':
-				$allValues[] = 'friends';
-				$allValues[] = 'members';
-				$allValues[] = 'public';
+				$allValues['friends'] = 'friends';
+				$allValues['members'] = 'members';
+				$allValues['public'] = 'public';
 				break;
 					
 			case 'template' :
-					$allValues = XiPTHelperProfiletypes::getBackendTemplatesList();
+					$templates = XiPTHelperProfiletypes::getBackendTemplatesList();
+					if($templates)
+						foreach ($templates as $t)
+							$allValues[$t]=$t;
 					break;
 			case 'jusertype' :
-					$allValues = XiPTHelperProfiletypes::getJUserTypes();
+					$usertypes= XiPTHelperProfiletypes::getJUserTypes();
+					if ($usertypes) 
+						foreach ($usertypes as $u)
+							$allValues[$u]=$u;
+					
 					break;
 			case 'group' :
-					$allValues = XiPTHelperProfiletypes::getGroups();
+					$groups = XiPTHelperProfiletypes::getGroups();
+					if ($groups)
+						foreach ($groups as $g)
+							$allValues[$g->id]=$g->name;
+					//CODREV : We should add none also.
+					$allValues['0']='None';
 					break;
 			default:
 				assert(0);
@@ -33,10 +45,11 @@ class XiPTHelperProfiletypes
 		
 		$html	.= '<select  name="'.$what.'"  id="type">';
 		
-		foreach($allValues as $vals)
+		// we need to check here key=>value
+		foreach($allValues as $key=>$val)
 		{		
-			$selected	= ( trim($value) == $vals ) ? 'selected="true"' : '';
-			$html		.= '<option value="' . $vals . '"' . $selected . '>' . ucfirst($vals) . '</option>';
+			$selected	= ( trim($value) == $key ) ? 'selected="true"' : '';
+			$html		.= '<option value="' . $key . '"' . $selected . '>' . ucfirst($val) . '</option>';
 		}
 		
 		$html	.= '</span>';		

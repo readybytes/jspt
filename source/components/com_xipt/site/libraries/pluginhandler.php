@@ -98,6 +98,7 @@ class XiPTLibraryPluginHandler
 			}
 		}
 
+		// Checks to stop Apps addition not allowed
 		if($controller=='apps' && $function=='ajaxAdd')
 		{
 		    $my				=& JFactory::getUser();

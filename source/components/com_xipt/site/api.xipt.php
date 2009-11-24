@@ -60,4 +60,25 @@ class XiptAPI
 	    return null;  
 	}
 	
+	/*
+	 * Returns default profiletype 
+	 */
+	function getDefaultProfiletype()
+	{
+		return XiPTLibraryProfiletypes::getDefaultProfiletype();
+	}
+	
+
+	/**
+	 * Use this function to update user's profiletype
+	 * @param $userId			: Which user's profiletype should be updated
+	 * @param $profiletypeId	: New Profiletype ID
+	 * @param $reset			: Which attributes should be reset, default is ALL
+	 * XITODO 					or you can use (profiletype, avatar, group, privacy etc.)
+	 * @return unknown_type
+	 */
+	function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')
+	{
+		return XiPTLibraryProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $what);
+	}
 }
