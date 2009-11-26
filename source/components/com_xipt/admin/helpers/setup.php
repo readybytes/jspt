@@ -113,6 +113,7 @@ class XiPTHelperSetup
 	
 	function isUserControllerPatchRequired()
 	{
+		return false;
 		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'controllers'.DS.'users.php';
 		if (file_exists($filename)) {
 			

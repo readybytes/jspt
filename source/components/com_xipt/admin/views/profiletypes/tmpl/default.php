@@ -51,7 +51,7 @@ function submitbutton( action )
 			<th width="10%">
 				<?php echo JText::_( 'JOOMLA USER TYPE' ); ?>
 			</th>
-			<th width="20%">
+			<th width="10%">
 				<?php echo JText::_( 'AVATAR' ); ?>
 			</th>
 			<th width="5%">
@@ -104,7 +104,7 @@ function submitbutton( action )
 				<?php echo $field->jusertype; ?>
 			</td>
 			<td align="center" id="avatar<?php echo $field->id;?>">
-				<?php echo $field->avatar; ?>
+				<img src="<?php echo JURI::root().$field->avatar;?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
 			<td align="center" id="approve<?php echo $field->id;?>">
 				<?php 

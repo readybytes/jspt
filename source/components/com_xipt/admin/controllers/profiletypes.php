@@ -43,6 +43,9 @@ class XiPTControllerProfiletypes extends JController
 		global $mainframe;
 		// Check for request forgeries
 		JRequest::checkToken() or jexit( 'Invalid Token' );
+		
+		jimport('joomla.filesystem.file');
+		jimport('joomla.utilities.utility');
 
 		$post	= JRequest::get('post');
 		$cid	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
@@ -53,7 +56,7 @@ class XiPTControllerProfiletypes extends JController
 			JError::raiseError( 403, JText::_('Access Forbidden') );
 			return;
 		}
-
+				
 		// Load the JTable Object.
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
@@ -70,6 +73,7 @@ class XiPTControllerProfiletypes extends JController
 		$data['avatar'] 	= $post['avatar'];
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
+		$data['group'] 		= $post['group'];
 		
 		$row->bindAjaxPost($data);
 		
@@ -82,6 +86,13 @@ class XiPTControllerProfiletypes extends JController
 	
 			if($id != 0)
 			{
+				//CODREV : call uploadImage function if post(image) data is set
+				$file		= JRequest::getVar( 'Filedata' , '' , 'FILES' , 'array' );
+		
+				if( isset( $file['tmp_name'] ) && !empty( $file['tmp_name'] ) ) 
+					XiPTHelperProfiletypes::uploadAndSetImage($file,$row->id,$post['name']);
+				
+				
 				/* Reset existing user's */
 				if($post['resetAll'])
 					XiPTHelperProfiletypes::resetAllUsers($row->id);

@@ -288,4 +288,83 @@ function resetAllUsers($pid)
 		return $html;
 	}
 
+	
+	function uploadAndSetImage($file,$id,$ptypeName)
+	{
+		global $mainframe;
+		CFactory::load( 'helpers' , 'image' );
+		$config			= CFactory::getConfig();
+		$uploadLimit	= (double) $config->get('maxuploadsize');
+		$uploadLimit	= ( $uploadLimit * 1024 * 1024 );
+
+		// @rule: Limit image size based on the maximum upload allowed.
+		if( filesize( $file['tmp_name'] ) > $uploadLimit )
+		{
+			$mainframe->enqueueMessage( JText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
+			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
+		}
+		
+		if( !cValidImage($file['tmp_name'] ) )
+		{
+			$mainframe->enqueueMessage(JText::_('IMAGE FILE NOT SUPPORTED'), 'error');
+		}
+		else
+		{
+			$imageSize		= cImageGetSize( $file['tmp_name'] );
+
+			// @todo: configurable width?
+			$imageMaxWidth	= 160;
+				
+			// Get a hash for the file name.
+			//$fileName		= JUtility::getHash( $file['tmp_name'] . time() );
+			//$hashFileName	= JString::substr( $fileName , 0 , 24 );
+
+			//@todo: configurable path for avatar storage?
+			$storage			= JPATH_ROOT . DS . 'images' . DS . 'avatar';
+			$storageImage		= $storage . DS .'profiletype_'. $id . cImageTypeToExt( $file['type'] );
+			$storageThumbnail	= $storage . DS . 'profiletype_' . $id.'_thumb' . cImageTypeToExt( $file['type'] );
+			$image				= 'images/avatar/'.'profiletype_' . $id . cImageTypeToExt( $file['type'] );
+			$thumbnail			= 'images/avatar/' . 'profiletype_' . $id.'_thumb' . cImageTypeToExt( $file['type'] );
+			
+			//$userModel			=& CFactory::getModel( 'user' );
+
+
+			// Only resize when the width exceeds the max.
+			if( !cImageResizePropotional( $file['tmp_name'] , $storageImage , $file['type'] , $imageMaxWidth ) )
+			{
+				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
+			}
+
+			// Generate thumbnail
+			if(!cImageCreateThumb( $file['tmp_name'] , $storageThumbnail , $file['type'] ))
+			{
+				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
+			}			
+
+			$oldFile = XiPTLibraryProfiletypes::getProfiletypeData($id,'avatar');
+
+			// If old file is default_thumb or default, we should not remove it.
+			// Need proper way to test it
+			if(!Jstring::stristr( $oldFile , 'components/com_community/assets/default.jpg' ) 
+				&& !Jstring::stristr( $oldFile , 'components/com_community/assets/default_thumb.jpg' ) 
+					&& $oldFile != $image){
+				// File exists, try to remove old files first.
+				$oldFile	= JString::str_ireplace( '/' , DS , $oldFile );			
+				JFile::delete($oldFile);	
+			}
+			
+			$db =& JFactory::getDBO();
+			//CODREV : now update profiletype with new avatar
+			$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
+	    			. 'SET ' . $db->nameQuote( 'avatar' ) . '=' . $db->Quote( $image ) . ' '
+	    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $id );
+	    	$db->setQuery( $query );
+	    	$db->query( $query );
+
+			if($db->getErrorNum())
+			{
+				JError::raiseError( 500, $db->stderr());
+		    }
+		}
+	}
 }

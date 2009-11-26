@@ -7,7 +7,7 @@ defined('_JEXEC') or die('Restricted access');
 		var form = document.adminForm;
 		switch(action)
 		{
-		case 'save':
+		case 'save':			
 			if( form.name.value == '' )
 			{
 				alert( "<?php echo JText::_( 'You must provide a Profiletype name.', true ); ?>" );
@@ -17,7 +17,6 @@ defined('_JEXEC') or die('Restricted access');
 	                $editor =& JFactory::getEditor();
 	                echo $editor->save( 'tip' );
 	        ?>
-				
 		case 'publish':
 		case 'unpublish':
 		case 'cancel':
@@ -33,7 +32,7 @@ defined('_JEXEC') or die('Restricted access');
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
-<form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm" id="adminForm">
+<form enctype="multipart/form-data" action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm" id="adminForm">
 <table cellspacing="0" class="admintable" border="0" width="100%">
 	<tbody>
 		<tr>
@@ -90,12 +89,18 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('Path of default avatar');?></td>
+			<td class="key"><?php echo JText::_('Default avatar');?></td>
 			<td>:</td>
 			<td colspan="4">
-			<input type="text" size="50" value="<?php echo $this->row->avatar;?>" name="avatar" />
-			<br /> Give us path of avatar, thumbnail should be stored in the same directory with filename as 
-			<br /> full_avatar_name_thumb.jpg. Default value is : components/com_community/assets/default.jpg
+			<div>
+				<div>
+			    	<img src="<?php echo JURI::root().$this->row->avatar;?>" width="64" height="64" border="0" alt="<?php echo $this->row->avatar; ?>" />
+			    </div>
+			    <br />
+				<div>
+			    	<input class="inputbox button" type="file" id="file-upload" name="Filedata" style="color: #666;" />
+			    </div>
+			</div>
 			</td>			
 		</tr>
 		<tr>
