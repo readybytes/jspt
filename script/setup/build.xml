@@ -19,7 +19,7 @@
 		<phingcall target="copy_plg_xipt_community" />
 		<phingcall target="copy_testcase" />
 		<!-- Copy latest JomSocial -->
-		<copy 	file="/home/shyam/Dropbox/Joomla/com_community.zip" 
+		<copy 	file="${user.home}/Dropbox/Joomla/com_community.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
 
 	</target>
@@ -40,12 +40,10 @@
 			</fileset>
 			 <filterchain>
 				<replacetokens>
-				    <token key="joomla.folder"   		value="${joomla.folder}"/>
+				    <token key="joomla.folder" 	value="${joomla.folder}"/>
 				</replacetokens>
 			</filterchain>
 		</reflexive>
-
-
 	</target>
 
 	<target name="copy_plg_xipt_community">
