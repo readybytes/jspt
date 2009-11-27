@@ -14,86 +14,64 @@
 
 	<target name="setup" description="build installable package only" depends="config">
 		<phing phingfile="joomla.xml" inheritAll="true" target="setup" />
-		<phingcall target="install_xipt" />
+		<phingcall target="copy_com_xipt" />
+		<phingcall target="copy_plg_xipt_system" />
+		<phingcall target="copy_plg_xipt_community" />
+		<phingcall target="copy_testcase" />
+		<!-- Copy latest JomSocial -->
+		<copy 	file="~/Dropbox/Joomla/com_community.zip" 
+				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
+
 	</target>
 
-	<target name="install_xipt">
-
+	<target name="copy_testcase">
 		<property file="../build/build.properties"  override="true" />
-		
-		<property file="../build/com_xipt.properties"  override="true" />	
-		<!-- copy files in temp directory -->
-		<copy file="com_xipt_Test.php" tofile="${joomla.rootpath}/${joomla.folder}/com_xipt_Test.php" />
-		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
-				tofile="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" 
-		/>
-		
+		<!-- Copy testcases -->
+		<copy todir="${joomla.rootpath}/${joomla.folder}/test">
+			<fileset dir="${global.dir.root}/test">
+			     <include name="**/*.*" />
+			</fileset>
+		</copy>
+		<exec command="sudo chmod -R  test" dir="${joomla.rootpath}/${joomla.folder}" />
+		<!-- replace configuration-->
 		<reflexive>
-			<fileset dir="${joomla.rootpath}/${joomla.folder}">
-			     <include name="com_xipt_Test.php" />
+			<fileset dir="${joomla.rootpath}/${joomla.folder}/test">
+			    <include name="system/jdefines.php" />
 			</fileset>
 			 <filterchain>
 				<replacetokens>
-				    <token key="joomla.admin" 		value="${joomla.admin}" />
-				    <token key="joomla.password"   		value="${joomla.password}" />
-				    <token key="joomla.folder"   		value="${joomla.folder}" />					
-				    <token key="PKG.PATH"	value="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" />
+				    <token key="joomla.folder"   		value="${joomla.folder}"/>
 				</replacetokens>
 			</filterchain>
 		</reflexive>
-		
 
+
+	</target>
+
+	<target name="copy_plg_xipt_community">
+		<property file="../build/build.properties"  override="true" />
+		<property file="../build/plg_xipt_community.properties"  override="true" />
+		<echo msg="Copying ${dir.packages}/${file.package}${svn.lastrevision}${file.extension} " />
+		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
+				tofile="${joomla.rootpath}/${joomla.folder}/${project.name}${file.extension}" />
+	</target>
+
+	<target name="copy_com_xipt">
+		<property file="../build/build.properties"  override="true" />
+
+		<property file="../build/com_xipt.properties"  override="true" />	
+		<echo msg="Copying ${dir.packages}/${file.package}${svn.lastrevision}${file.extension} " />
+		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
+				tofile="${joomla.rootpath}/${joomla.folder}/${project.name}${file.extension}" />
+		
+	</target>
+
+	<target name="copy_plg_xipt_system">
+		<property file="../build/build.properties"  override="true" />
 
 		<property file="../build/plg_xipt_system.properties"  override="true" />
-		<copy file="plg_xipt_system_Test.php" tofile="${joomla.rootpath}/${joomla.folder}/plg_xipt_system_Test.php" />
+		<echo msg="Copying ${dir.packages}/${file.package}${svn.lastrevision}${file.extension} " />
 		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
-				tofile="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" />
-
-		<reflexive>
-			<fileset dir="${joomla.rootpath}/${joomla.folder}">
-			     <include name="plg_xipt_system_Test.php"/>
-			</fileset>
-			 <filterchain>
-				<replacetokens>
-				    <token key="joomla.admin" 		value="${joomla.admin}"  />
-				    <token key="joomla.password"   	value="${joomla.password}" />
-				    <token key="joomla.folder"   	value="${joomla.folder}" />					
-				    <token key="PKG.PATH"	value="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" />
-				</replacetokens>
-			</filterchain>
-		</reflexive>
-
-		
-		<property file="../build/plg_xipt_community.properties"  override="true" />
-		<copy file="plg_xipt_community_Test.php" tofile="${joomla.rootpath}/${joomla.folder}/plg_xipt_community_Test.php" />
-		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
-				tofile="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" />
-
-		<reflexive>
-			<fileset dir="${joomla.rootpath}/${joomla.folder}">
-			     <include name="plg_xipt_community_Test.php"/>
-			</fileset>
-			 <filterchain>
-				<replacetokens>
-				    <token key="joomla.admin" 		value="${joomla.admin}"  />
-				    <token key="joomla.password"   	value="${joomla.password}" />
-				    <token key="joomla.folder"   	value="${joomla.folder}" />					
-				    <token key="PKG.PATH"	value="${joomla.rootpath}/${joomla.folder}/${file.package}${svn.lastrevision}${file.extension}" />
-				</replacetokens>
-			</filterchain>
-		</reflexive>
-
-
-		<phpunit haltonfailure="true" haltonerror="true">
-			<formatter type="plain" usefile="false"/>
-			  <batchtest>
-			    <fileset dir="${joomla.rootpath}/${joomla.folder}">
-				<include name="com_xipt_Test.php" />
-		  		<include name="plg_xipt_system_Test.php"/>
-				<include name="plg_xipt_community_Test.php"/>
-			    </fileset>
-			  </batchtest>
-		</phpunit>
-
+				tofile="${joomla.rootpath}/${joomla.folder}/${project.name}${file.extension}" />
 	</target>
 </project>

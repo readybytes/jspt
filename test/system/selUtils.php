@@ -9,7 +9,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   protected $screenshotUrl  = JOOMLA_LOCATION;
   
   function assertPreConditions()
-  {
+ {
     // this will be a assert for every test
     if(method_exists(self,'getSqlPath'))
         $this->assertEquals($this->_DBO->getErrorLog(),'');
@@ -29,7 +29,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
 
     $this->type("modlgn_username", JOOMLA_ADMIN_USERNAME);
     $this->type("modlgn_passwd", JOOMLA_ADMIN_PASSWORD);
-    $this->click("link=Login");
+    $this->click("//form[@id='form-login']/div[1]/div/div/a");
 
     $this->waitForPageToLoad();
     $this->assertTrue($this->isTextPresent("Logout"));

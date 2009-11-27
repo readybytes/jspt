@@ -1,16 +1,9 @@
 <?php
 
-require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
-
 class ProfileTypeTest extends XiSelTestCase 
 {
 
-  var  $_DBO;
-  protected $captureScreenshotOnFailure = TRUE;
-  protected $screenshotPath = JOOMLA_FTP_LOCATION;
-  protected $screenshotUrl  = JOOMLA_LOCATION;
-
-  
+  //define this function if you require DB setup
   function getSqlPath()
   {
       return dirname(__FILE__);
@@ -21,8 +14,6 @@ class ProfileTypeTest extends XiSelTestCase
     $this->setBrowser("*chrome");
     $this->setBrowserUrl( JOOMLA_LOCATION."/administrator/index.php?option=com_login");
     
-    //verify tables setup
-    $this->assertEquals($this->_DBO->getErrorLog(),'');
     $this->_DBO->addTable('#__xipt_profiletypes');
     $this->_DBO->filterColumn('#__xipt_profiletypes','id');
   }
@@ -33,15 +24,15 @@ class ProfileTypeTest extends XiSelTestCase
       //    setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
-    $this->waitForPageToLoad("30000");
+    $this->waitPageLoad();
       
 	// add profiletype-one
     $this->click("//td[@id='toolbar-new']/a");
-    $this->waitForPageToLoad("30000");
+    $this->waitPageLoad();
     $this->type("name", "PROFILETYPE-ONE");
     $this->type("tip", "PROFILETYPE-ONE-TIP");
     $this->click("//td[@id='toolbar-save']/a");
-    $this->waitForPageToLoad("30000");
+    $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
 
     // setup custom filters
@@ -53,7 +44,7 @@ class ProfileTypeTest extends XiSelTestCase
 	    //setup default location 
 	    $this->adminLogin();
         $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
-        $this->waitForPageToLoad("30000");
+        $this->waitForPageToLoad();
 	    // in sql load, we will have 5 profiletypes installed
 	    // we will move 1 2 3 4 5
 	    // we want to order these as 2 1 4 5 3
@@ -61,13 +52,13 @@ class ProfileTypeTest extends XiSelTestCase
     	    
 		// 1-> down //id('rowid1')/td[12]/span[2]/a/img
 		$this->click("//tr[@id='rowid1']/td[12]/span[2]/a");
-		$this->waitForPageToLoad("30000");
+		$this->waitForPageToLoad();
 		//3 -> down  id('rowid3')/td[12]/span[2]/a/img
 		$this->click("//tr[@id='rowid3']/td[12]/span[2]/a");
-		$this->waitForPageToLoad("30000");
+		$this->waitForPageToLoad();
 		//5-> up
 		$this->click("//tr[@id='rowid5']/td[12]/span[1]/a");
-		$this->waitForPageToLoad("30000");
+		$this->waitForPageToLoad();
 		
 		$this->_DBO->filterOrder('#__xipt_profiletypes','ordering');
 	}
@@ -77,48 +68,48 @@ class ProfileTypeTest extends XiSelTestCase
 	function testPublishProfileType()
 	{	
 	    //setup default location 
-    $this->adminLogin();
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
-    $this->waitForPageToLoad("30000");
+	    $this->adminLogin();
+        $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
+        $this->waitPageLoad();
     
 	    // p -> u
 		$this->click("//td[@id='published1']/a/"); // 1 st row
-		$this->waitForPageToLoad("30000");
+		$this->waitPageLoad();
 		
 		// u -> p
 		$this->click("//input[@id='cb1']"); // its 2 row
 		$this->click("//td[@id='toolbar-publish']/a"); 
-		$this->waitForPageToLoad("30000");
+		$this->waitPageLoad();
 		
 		//p ->u 
     	$this->click("//input[@id='cb2']"); // its 3 row
 		$this->click("//td[@id='toolbar-unpublish']/a"); 
-		$this->waitForPageToLoad("30000");
+		$this->waitPageLoad();
 		
 		// u -> p
     	//5th one is unpublished mark it publisj
 		$this->click("//td[@id='published4']/a/");
-		$this->waitForPageToLoad("30000");
+		$this->waitPageLoad();
 	}
 
 	
 	function testDeleteProfileType()
 	{
 	    //setup default location 
-    $this->adminLogin();
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
-    $this->waitForPageToLoad("30000");
+        $this->adminLogin();
+        $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
+        $this->waitPageLoad();
         
-    	  $this->click("//input[@id='cb0']");
-    	  $this->click("//input[@id='cb2']");
-    	  $this->click("//input[@id='cb4']");
-    	  $this->click("//td[@id='toolbar-trash']/a");
-    	  $this->assertTrue((bool)$this->getConfirmation());
-    	  //proivde yes to popup box.
-    	  $this->waitForPageToLoad("30000");
+    	$this->click("//input[@id='cb0']");
+    	$this->click("//input[@id='cb2']");
+    	$this->click("//input[@id='cb4']");
+    	$this->click("//td[@id='toolbar-trash']/a");
+    	$this->assertTrue((bool)$this->getConfirmation());
+    	//proivde yes to popup box.
+    	$this->waitPageLoad();
     	  
     	  // we can check for ordering also
-    	  $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    	$this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
 	}
 }
 ?>

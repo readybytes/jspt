@@ -37,8 +37,7 @@
 
 		<delete file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" />
 
-		<tar 	destfile="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
-			basedir="${dir.tmp}" 
-			compression="${file.compression}" />
+		<zip	destfile="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
+			basedir="${dir.tmp}"  />
 	</target>
 </project>

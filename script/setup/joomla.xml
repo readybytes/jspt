@@ -14,12 +14,8 @@
 	<target name="install_joomla" depends="jconfig">
 		<echo msg="Installing Joomla Files..." />
 
-		<!-- decide folder name : custom  + user_name + cur_date + svn_ver-->
-		<echo msg="Folder name generated as  : ${joomla.folder}" />
 
 		<!-- Copy Joomla Folder to ROOT // FOLDERNAME  -->
-		<echo msg="Copying folder TO: ${joomla.rootpath}/${joomla.folder}" />
-
 		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
 
 		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
