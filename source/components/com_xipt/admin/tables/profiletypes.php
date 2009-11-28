@@ -18,6 +18,7 @@ class XiPTTableProfiletypes extends JTable
 	var $template	= null;
 	var $jusertype	= null;
 	var $avatar		= null;
+	var $watermark	= null;
 	var $approve	= null;
 	var $allowt		= null;
 	var $group = null;
@@ -51,6 +52,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->jusertype	= "Registered";
 			$this->allowt		= false;
 			$this->avatar		= "components/com_community/assets/default.jpg";
+			$this->watermark	= "components/com_community/assets/default.jpg";
 			$this->approve		= false;
 			$this->group = 0;
 			/*
@@ -148,9 +150,10 @@ class XiPTTableProfiletypes extends JTable
 			$this->template		= $data['template'];
 			$this->jusertype	= $data['jusertype'];
 			$this->privacy		= $data['privacy'];
-			$this->avatar		= $data['avatar'];
+			//$this->avatar		= $data['avatar'];
+			//$this->watermark	= $data['watermark'];
 			$this->approve		= $data['approve'];
 			$this->allowt		= $data['allowt'];
-			$this->group = $data['group'];
+			$this->group 		= $data['group'];
 	}
 }

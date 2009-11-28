@@ -281,6 +281,10 @@ class XiPTLibraryProfiletypes
 					$searchFor 		= 'avatar';
 					$defaultValue	= 'components/com_community/assets/default.jpg';
 					break;
+			case  'watermark':
+					$searchFor 		= 'watermark';
+					$defaultValue	= '';
+					break;
 			case  'approve':
 					$searchFor 		= 'approve';
 					$defaultValue	= true;

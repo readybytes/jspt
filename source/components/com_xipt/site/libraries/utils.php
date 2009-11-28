@@ -192,6 +192,48 @@ class XiPTLibraryUtils
 	}
 	
 	
+	function addWatermarkOnAvatar($userid,&$avatar,$waterMark,$what)
+	{
+		// Load image helper library as it is needed.
+		CFactory::load( 'helpers' , 'image' );
+		
+		if($what == 'thumb') {
+			$waterMarkExtension			= explode('.',$waterMark); //JString::substr( $avatar , JString::strrpos( $avatar , '.' ) );
+			$waterMark = $waterMarkExtension[0].'_thumb.'.$waterMarkExtension[1];
+		} 
+		
+		$extension			= JString::substr( $avatar , JString::strrpos( $avatar , '.' ) );
+		
+		$type				= 'image/jpg';
+			
+		if( $extension == '.png' )
+		{
+			$type			= 'image/png';
+		}
+		
+		if( $extension == '.gif' )
+		{
+			$type	= 'image/gif';
+		}
+
+		if($what == 'avatar'){
+			$watermarkWidth = WATERMARK_HEIGHT;
+			$watermarkHeight = WATERMARK_WIDTH;
+		}
+		
+		if($what == 'thumb'){
+			$watermarkWidth = WATERMARK_HEIGHT_THUMB;
+			$watermarkHeight = WATERMARK_WIDTH_THUMB;
+		}
+		//list( $watermarkWidth , $watermarkHeight ) = getimagesize( $waterMark );
+		list( $imageWidth , $imageHeight ) = getimagesize( $avatar );
+		list( $thumbWidth , $thumbHeight ) = getimagesize( $avatar );
+		
+		cImageAddWaterMark( $avatar , $avatar , $type , $waterMark , ( $imageWidth - $watermarkWidth ), ( $imageHeight - $watermarkHeight) );
+		
+		//cImageAddWaterMark( $storageThumbnail , $storageThumbnail , $type , FACEBOOK_FAVICON , ( $thumbWidth - $watermarkWidth ), ( $thumbHeight - $watermarkHeight) );
+	}
+	
 	function getCurrentURL()
 	{
 		// TO DO : Get url

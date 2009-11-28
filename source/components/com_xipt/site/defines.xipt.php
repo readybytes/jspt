@@ -17,3 +17,9 @@ define('TEMPLATE_FIELD_IN_USER_TABLE','template');
 // we will refer our custom fields this way. this will be unique
 define('TEMPLATE_CUSTOM_FIELD_CODE','XIPT_TEMPLATE');
 define('PROFILETYPE_CUSTOM_FIELD_CODE','XIPT_PROFILETYPE');
+
+//define watermark and thumb size
+define('WATERMARK_HEIGHT',40);
+define('WATERMARK_WIDTH',40);
+define('WATERMARK_HEIGHT_THUMB',16);
+define('WATERMARK_WIDTH_THUMB',16);

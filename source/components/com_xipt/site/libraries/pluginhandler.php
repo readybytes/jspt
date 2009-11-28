@@ -240,6 +240,26 @@ class XiPTLibraryPluginHandler
 			else
 				$old_avatar_path = 'components/com_community/assets/default.jpg';
 		}
+		
+		//CODREV : check if watermark add is enable
+		//check what should be the watermark , watermark image , default ptype avatar
+		//or ptype name
+		//check what is new avatar , if thumb or original
+		//it comes here 2 times , while updating avatar or thumb
+		//add watemark on new_avatar
+		
+		if(strstr($new_avatar_path,'thumb'))
+			$what = 'thumb';
+		else
+			$what = 'avatar';
+		
+		//check if uploadable avatar is not default ptype avatar
+		//for that we don't require to add watermark
+		$ptype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+		$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'watermark');
+		if(!$watermarkInfo)
+			$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
+		XiPTLibraryUtils::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
 
 		return true;
 	}

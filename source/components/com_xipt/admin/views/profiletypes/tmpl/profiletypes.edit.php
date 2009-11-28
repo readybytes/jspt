@@ -98,7 +98,22 @@ defined('_JEXEC') or die('Restricted access');
 			    </div>
 			    <br />
 				<div>
-			    	<input class="inputbox button" type="file" id="file-upload" name="Filedata" style="color: #666;" />
+			    	<input class="inputbox button" type="file" id="file-upload" name="FileAvatar" style="color: #666;" />
+			    </div>
+			</div>
+			</td>			
+		</tr>
+		<tr>
+			<td class="key"><?php echo JText::_('Watermark');?></td>
+			<td>:</td>
+			<td colspan="4">
+			<div>
+				<div>
+			    	<img src="<?php echo JURI::root().$this->row->watermark;?>" width="64" height="64" border="0" alt="<?php echo $this->row->watermark; ?>" />
+			    </div>
+			    <br />
+				<div>
+			    	<input class="inputbox button" type="file" id="file-upload" name="FileWatermark" style="color: #666;" />
 			    </div>
 			</div>
 			</td>			

@@ -40,6 +40,12 @@ function submitbutton( action )
 				<?php echo JText::_( 'NAME' ); ?>
 			</th>
 			<th width="10%">
+				<?php echo JText::_( 'AVATAR' ); ?>
+			</th>
+			<th width="10%">
+				<?php echo JText::_( 'WATERMARK' ); ?>
+			</th>
+			<th width="10%">
 				<?php echo JText::_( 'GROUP' ); ?>
 			</th>
 			<th width="10%">
@@ -50,9 +56,6 @@ function submitbutton( action )
 			</th>
 			<th width="10%">
 				<?php echo JText::_( 'JOOMLA USER TYPE' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'AVATAR' ); ?>
 			</th>
 			<th width="5%">
 				<?php echo JText::_( 'REQUIRE APPROVAL' ); ?>
@@ -91,6 +94,12 @@ function submitbutton( action )
 						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
 				</span>
 			</td>
+			<td align="center" id="avatar<?php echo $field->id;?>">
+				<img src="<?php echo JURI::root().$field->avatar;?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
+			</td>
+			<td align="center" id="watermark<?php echo $field->id;?>">
+				<img src="<?php echo JURI::root().$field->watermark;?>" width="64" height="64" border="0" alt="<?php echo $field->watermark; ?>" />	
+			</td>
 			<td align="center" id="group<?php echo $field->id;?>">
 				<?php echo $this->getGroup($field->group); ?>
 			</td>
@@ -102,9 +111,6 @@ function submitbutton( action )
 			</td>
 			<td align="center" id="jusertype<?php echo $field->id;?>">
 				<?php echo $field->jusertype; ?>
-			</td>
-			<td align="center" id="avatar<?php echo $field->id;?>">
-				<img src="<?php echo JURI::root().$field->avatar;?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
 			<td align="center" id="approve<?php echo $field->id;?>">
 				<?php 

@@ -127,6 +127,10 @@ function getProfileTypeData($id,$what='name')
 				$searchFor 		= 'avatar';
 				$defaultValue	= 'components/com_community/assets/default.jpg';
 				break;
+		case  'watermark':
+				$searchFor 		= 'watermark';
+				$defaultValue	= 'components/com_community/assets/default.jpg';
+				break;
 		case  'approve':
 				$searchFor 		= 'approve';
 				$defaultValue	= true;
@@ -289,7 +293,7 @@ function resetAllUsers($pid)
 	}
 
 	
-	function uploadAndSetImage($file,$id,$ptypeName)
+	function uploadAndSetImage($file,$id,$what)
 	{
 		global $mainframe;
 		CFactory::load( 'helpers' , 'image' );
@@ -313,21 +317,28 @@ function resetAllUsers($pid)
 			$imageSize		= cImageGetSize( $file['tmp_name'] );
 
 			// @todo: configurable width?
-			$imageMaxWidth	= 160;
-				
-			// Get a hash for the file name.
-			//$fileName		= JUtility::getHash( $file['tmp_name'] . time() );
-			//$hashFileName	= JString::substr( $fileName , 0 , 24 );
-
-			//@todo: configurable path for avatar storage?
-			$storage			= JPATH_ROOT . DS . 'images' . DS . 'avatar';
-			$storageImage		= $storage . DS .'profiletype_'. $id . cImageTypeToExt( $file['type'] );
-			$storageThumbnail	= $storage . DS . 'profiletype_' . $id.'_thumb' . cImageTypeToExt( $file['type'] );
-			$image				= 'images/avatar/'.'profiletype_' . $id . cImageTypeToExt( $file['type'] );
-			$thumbnail			= 'images/avatar/' . 'profiletype_' . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 			
-			//$userModel			=& CFactory::getModel( 'user' );
-
+			switch($what) {
+				case 'avatar':
+					$imageMaxWidth	= 160;
+					$thumbWidth = 64;
+					$thumbHeight = 64;
+					$imgPrefix = 'avatar_';
+					break;
+				case 'watermark':
+					$imageMaxWidth	= WATERMARK_WIDTH;
+					$thumbWidth = WATERMARK_WIDTH_THUMB;
+					$thumbHeight = WATERMARK_HEIGHT_THUMB;
+					$imgPrefix = 'watermark_';
+					break;
+			}
+			
+			//@todo: configurable path for avatar storage?
+			$storage			= JPATH_ROOT . DS . 'images' . DS . 'profiletype';
+			$storageImage		= $storage . DS .$imgPrefix. $id . cImageTypeToExt( $file['type'] );
+			$storageThumbnail	= $storage . DS . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
+			$image				= 'images/profiletype/'.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
+			$thumbnail			= 'images/profiletype/' . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 
 			// Only resize when the width exceeds the max.
 			if( !cImageResizePropotional( $file['tmp_name'] , $storageImage , $file['type'] , $imageMaxWidth ) )
@@ -336,12 +347,12 @@ function resetAllUsers($pid)
 			}
 
 			// Generate thumbnail
-			if(!cImageCreateThumb( $file['tmp_name'] , $storageThumbnail , $file['type'] ))
+			if(!cImageCreateThumb( $file['tmp_name'] , $storageThumbnail , $file['type'],$thumbWidth,$thumbHeight ))
 			{
 				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
 			}			
 
-			$oldFile = XiPTLibraryProfiletypes::getProfiletypeData($id,'avatar');
+			$oldFile = XiPTLibraryProfiletypes::getProfiletypeData($id,$what);
 
 			// If old file is default_thumb or default, we should not remove it.
 			// Need proper way to test it
@@ -356,7 +367,7 @@ function resetAllUsers($pid)
 			$db =& JFactory::getDBO();
 			//CODREV : now update profiletype with new avatar
 			$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
-	    			. 'SET ' . $db->nameQuote( 'avatar' ) . '=' . $db->Quote( $image ) . ' '
+	    			. 'SET ' . $db->nameQuote( $what ) . '=' . $db->Quote( $image ) . ' '
 	    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $id );
 	    	$db->setQuery( $query );
 	    	$db->query( $query );

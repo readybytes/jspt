@@ -70,7 +70,8 @@ class XiPTControllerProfiletypes extends JController
 		$data['template'] 	= $post['template'];
 		$data['jusertype'] 	= $post['jusertype'];
 		$data['privacy'] 	= $post['privacy'];
-		$data['avatar'] 	= $post['avatar'];
+		//$data['avatar'] 	= $post['avatar'];
+		//$data['watermark'] 	= $post['watermark'];
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
 		$data['group'] 		= $post['group'];
@@ -87,12 +88,17 @@ class XiPTControllerProfiletypes extends JController
 			if($id != 0)
 			{
 				//CODREV : call uploadImage function if post(image) data is set
-				$file		= JRequest::getVar( 'Filedata' , '' , 'FILES' , 'array' );
+				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
 		
-				if( isset( $file['tmp_name'] ) && !empty( $file['tmp_name'] ) ) 
-					XiPTHelperProfiletypes::uploadAndSetImage($file,$row->id,$post['name']);
+				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) ) 
+					XiPTHelperProfiletypes::uploadAndSetImage($fileAvatar,$row->id,'avatar');
 				
-				
+
+				$fileWatermark		= JRequest::getVar( 'FileWatermark' , '' , 'FILES' , 'array' );
+		
+				if( isset( $fileWatermark['tmp_name'] ) && !empty( $fileWatermark['tmp_name'] ) ) 
+					XiPTHelperProfiletypes::uploadAndSetImage($fileWatermark,$row->id,'watermark');
+		
 				/* Reset existing user's */
 				if($post['resetAll'])
 					XiPTHelperProfiletypes::resetAllUsers($row->id);
