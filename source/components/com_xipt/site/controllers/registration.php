@@ -48,8 +48,7 @@ class XiPTControllerRegistration extends JController {
 
 			// validate values
 			if(!XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID)) {
-				$url = XiPTLibraryCore::getCurrentURL();
-				$redirectUrl = base64_decode($url);
+				$redirectUrl = XiPTLibraryUtils::getReturnURL();
 				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
 				$mainframe->redirect($redirectUrl,$msg);
 				return;

@@ -129,7 +129,7 @@ function getProfileTypeData($id,$what='name')
 				break;
 		case  'watermark':
 				$searchFor 		= 'watermark';
-				$defaultValue	= 'components/com_community/assets/default.jpg';
+				$defaultValue	= '';
 				break;
 		case  'approve':
 				$searchFor 		= 'approve';

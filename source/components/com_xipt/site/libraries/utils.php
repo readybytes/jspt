@@ -197,10 +197,8 @@ class XiPTLibraryUtils
 		// Load image helper library as it is needed.
 		CFactory::load( 'helpers' , 'image' );
 		
-		if($what == 'thumb') {
-			$waterMarkExtension			= explode('.',$waterMark); //JString::substr( $avatar , JString::strrpos( $avatar , '.' ) );
-			$waterMark = $waterMarkExtension[0].'_thumb.'.$waterMarkExtension[1];
-		} 
+		if($what == 'thumb') 
+			$waterMark = self::getThumbAvatarFromFull($waterMark);
 		
 		$extension			= JString::substr( $avatar , JString::strrpos( $avatar , '.' ) );
 		
