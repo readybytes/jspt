@@ -16,7 +16,7 @@ class RegisterTest extends XiSelTestCase
   }
 
   //cross check page exists and comes
-  function avtestRegisterPage()
+  function testRegisterPage()
   {
   	//Prerequiste = clean session + No AEC + Our system plugin is working
   	//1. session cleaned via SQL
@@ -90,16 +90,11 @@ class RegisterTest extends XiSelTestCase
     
     // fill some random values in register page
     $this->type("jsname", $randomStr);
-    sleep(1);
     $this->type("jsusername", $randomStr);
-    sleep(1);
     $this->type("jsemail", $randomStr.'@gmail.com');
-    sleep(1);
     $this->type("jspassword", $randomStr);
-    sleep(1);
     $this->type("jspassword2", $randomStr);
     // wait for some time for ajax checks
-    sleep(1);
     $this->click("btnSubmit");
     sleep(1);
     $this->click("btnSubmit");
