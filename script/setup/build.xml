@@ -21,6 +21,8 @@
 		<!-- Copy latest JomSocial -->
 		<copy 	file="${user.home}/Dropbox/Joomla/com_community.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
+		<copy 	file="${global.dir.root}/script/others/revbuild.xml" 
+				tofile="${joomla.rootpath}/${joomla.folder}/build.xml" />
 
 	</target>
 
