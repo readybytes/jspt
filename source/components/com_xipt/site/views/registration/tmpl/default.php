@@ -75,7 +75,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 	?>
 	</div>
 <div class="clr" title="Next"></div>
-<input type="submit" name="save" value="Next"/> 
+<input type="submit" id="ptypesavebtn" name="save" value="Next"/> 
 <input type="hidden" name="view" value="registration" /> 
 <input type="hidden" name="task" value="" /> 
 <input type="hidden" name="option" value="com_xipt" /> 

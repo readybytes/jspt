@@ -374,7 +374,8 @@ class XiPTLibraryProfiletypes
 		$notSelectedFields = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID);
 
 		$i=0;
-		for($i=0 ; $i < count($fields); $i++){
+		$fieldCount=count($fields);
+		for($i=0 ; $i < $fieldCount ; $i++){
 		    $field =& $fields[$i];
 		    
 		    if(is_object($field))
@@ -383,7 +384,9 @@ class XiPTLibraryProfiletypes
 		        $fieldId   = $field['id'];
 		        
 			if(in_array($fieldId, $notSelectedFields))
+			{
 			    unset($fields[$i]);
+			}
 		}
 		$fields = array_values($fields);
 		return true;
