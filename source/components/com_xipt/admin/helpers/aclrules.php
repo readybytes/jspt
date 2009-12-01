@@ -72,12 +72,10 @@ class XiPTHelperAclRules
 		if($id==0 || empty($id))
 			return "NONE";
 
-		if($id == -1)
+		if($id == ALL)
 			return "ALL";
-		$db			=& JFactory::getDBO();
-		$query		= 'SELECT name FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' WHERE id='.$id;
-		$db->setQuery( $query );
-		return $db->loadResult();
+		
+		return XiPTHelperProfiletypes::getProfileTypeName($id);
 	}
 
 function _getDisplayNameofAclFeature($feature ="")
