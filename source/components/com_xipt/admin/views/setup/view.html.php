@@ -48,7 +48,7 @@ class XiPTViewSetup extends JView
 		//validate custom field
 		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
 		if(XiPTHelperSetup::checkCustomfieldRequired()) {
-			$requiredSetup['customfields']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE CUSTOM FIELDS").'</a>';
+			$requiredSetup['customfields']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE AND ENABLE CUSTOM FIELDS").'</a>';
 			$requiredSetup['customfields']['done'] = false;
 		}
 		else {
