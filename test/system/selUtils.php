@@ -35,6 +35,18 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
     $this->assertTrue($this->isTextPresent("Logout"));
   }
   
+  function frontLogin($username=JOOMLA_ADMIN_USERNAME, $password= JOOMLA_ADMIN_PASSWORD)
+  {
+    $this->open(JOOMLA_LOCATION."/index.php");
+    $this->waitForPageToLoad("30000");
+
+    $this->type("modlgn_username", $username);
+    $this->type("modlgn_passwd", $password);
+    $this->click("//form[@id='form-login']/fieldset/input");
+    $this->waitForPageToLoad();
+    $this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
+  }
+  
   function waitPageLoad($time=TIMEOUT_SEC)
   {
       $this->waitForPageToLoad($time);

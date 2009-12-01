@@ -93,18 +93,21 @@ class XiPTLibraryCore
 		if(XiPTLibraryUtils::isAdmin($userid)==true || (0 == $userid ))
 		    return false;
 
-		$user 			= clone(JFactory::getUser($userid));
+		$user 			=& CFactory::getUser($userid);
 		$authorize		=& JFactory::getACL();
 		
 		$newUsertype = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'jusertype');
 		$user->set('usertype',$newUsertype);
 		$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
 		
-		if($user->save())
+		if($user->save()){
+			// The issue with JomSocial, enforce clean reload of user object
+			//enforce JomSocial to clean cached user
+        	self::reloadCUser($userid);	
 		    return true;
-
+		}
 		// Error
-		JError::raiseWarning('', JText::_( $user->getError()));
+		JError::raiseWarning('XIPT SYSEM ERROR', JText::_( $user->getError()));
 		return false;
 	}
 	
@@ -213,6 +216,7 @@ class XiPTLibraryCore
 		$pTypeThumbAvatar = XiPTLibraryUtils::getThumbAvatarFromFull($pTypeAvatar);
 
 		// perform the operation
+		self::reloadCUser($userid);
 		$user    =&  CFactory::getUser($userid);
 		$user->set('_avatar',$pTypeAvatar);
 		$user->set('_thumb', $pTypeThumbAvatar);
@@ -221,8 +225,7 @@ class XiPTLibraryCore
 		    return false;
 		
 		//enforce JomSocial to clean cached user
-        $user    =     array();
-		$user    =&  CFactory::getUser($userid);
+        self::reloadCUser($userid);
 		return true;
 	}
 
@@ -234,6 +237,7 @@ class XiPTLibraryCore
 		$myprivacy	= XiPTLibraryUtils::getPTPrivacyValue($privacy);
 		
 		// get params
+		self::reloadCUser($userid);
 		$cuser    =&  CFactory::getUser($userid);
 		$myparams = $cuser->getParams();
 		$myparams->set('privacyProfileView',$myprivacy);
@@ -242,8 +246,7 @@ class XiPTLibraryCore
             return false;
         
         //enforce JomSocial to clean cached user
-        $user    =     array();
-		$user    =&  CFactory::getUser($userid);
+        self::reloadCUser($userid);
  		return true;
 	}
 	
@@ -331,5 +334,16 @@ class XiPTLibraryCore
 		$model->substractMembersCount( $groupId );
 		
 		return;
+	}
+	
+	function reloadCUser($userid)
+	{
+		if(!$userid)
+			return;
+		
+		$cuser =& CFactory::getUser($userid);
+		$cuser = array();
+		$cuser =& CFactory::getUser($userid);
+		return;	
 	}
 }

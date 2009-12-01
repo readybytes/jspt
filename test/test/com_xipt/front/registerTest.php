@@ -63,15 +63,13 @@ class RegisterTest extends XiSelTestCase
     $this->waitPageLoad();
     
     // now fille reg + field information
-    $this->assertTrue($this->isTextPresent("Register new user"));
+    
     $username =  $this->fillDataPT($ptype);
-    $this->click("btnSubmit");
-    $this->waitPageLoad();
     
     //avatar page
     $this->assertTrue($this->isTextPresent("Change profile picture"));
     // verify user's attributes in Joomla User and JomSocial User tables 
-    // verify default avatar
+    $this->assertTrue($this->verifyAvatar($ptype));
     $this->click("link=[Skip]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("User Registered."));
@@ -83,7 +81,7 @@ class RegisterTest extends XiSelTestCase
   
   function fillDataPT($ptype)
   {
-  	
+  	$this->assertTrue($this->isTextPresent("Register new user"));
   	
   	$randomNo  = rand(1234567,9234567);
     $randomStr = "regtest".$randomNo;
@@ -121,15 +119,82 @@ class RegisterTest extends XiSelTestCase
     foreach ($notAvail[$ptype] as $p)
     	$this->assertFalse($this->isElementPresent("field".$p));
     
+   	$this->click("btnSubmit");
+    $this->waitPageLoad();
     	//return username
     return $randomStr;
   }
   
+  function verifyAvatar($ptype)
+  {
+  	return true;
+  	if($ptype == 2)
+  	{
+  			
+  		$this->assertTrue($this->isElementPresent("//div[@id='community-wrap']/img[1][contains(@src,'".JOOMLA_LOCATION."/components/com_community/assets/group.jpg')]"));
+  		$this->assertTrue($this->isElementPresent("//div[@id='community-wrap']/img[2][contains(@src,'".JOOMLA_LOCATION."/components/com_community/assets/group_thumb.jpg')]"));
+  	}
+  	else
+  	{
+ 	    $this->assertTrue($this->isElementPresent("//div[@id='community-wrap']/img[1][contains(@src,'".JOOMLA_LOCATION."/components/com_community/assets/default.jpg')]"));
+ 	    $this->assertTrue($this->isElementPresent("//div[@id='community-wrap']/img[2][contains(@src,'".JOOMLA_LOCATION."/components/com_community/assets/default_thumb.jpg')]"));
+  	}
+	  	
+  }
+  
   function verifyUser($username, $ptype)
   {
-  	// find userid 
-  	// check Joomla table for correct user type
-  	// check JomSocual table for correct avatar + privacy + group + approval 
+  	$db	=& JFactory::getDBO();
+  	$query	= " SELECT `id` FROM #__users "
+  			." WHERE `username`='". $username ."' LIMIT 1";
+  	$db->setQuery($query);
+  	$userid = $db->loadResult();
+  	
+  	$jUser = JFactory::getUser($userid);
+  	$jUser->block=0;
+  	$jUser->save();
+  	$jUser = JFactory::getUser($userid);
+  	
+  	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );
+  	require_once (JPATH_BASE . '/components/com_xipt/defines.xipt.php' );
+  	
+  	$cUser = CFactory::getUser($userid);
+  	$privacy= $cUser->getParams()->get('privacyProfileView');
+  	$profiletype  = $cUser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
+    $template     = $cUser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
+  	switch ($ptype)
+  	{
+  		case '1':
+  			$this->assertEquals($jUser->usertype,"Registered");
+  			$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
+  			$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+  			$this->assertEquals($privacy,PRIVACY_PUBLIC);
+  			$this->assertEquals($template,"default");
+  			$this->assertEquals($profiletype,1);
+  			break;
+  		case '2':
+  			$this->assertEquals($jUser->usertype,"Editor");
+  			$this->assertEquals($cUser->_avatar,"components/com_community/assets/group.jpg");
+  			$this->assertEquals($cUser->_thumb,"components/com_community/assets/group_thumb.jpg");
+  			$this->assertEquals($privacy,PRIVACY_FRIENDS);
+  			$this->assertEquals($template,"blueface");
+  			$this->assertEquals($profiletype,2);
+  			break;
+  			
+  		case '3':
+	  		$this->assertEquals($jUser->usertype,"Publisher");
+	  		$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
+  			$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+  			$this->assertEquals($privacy,PRIVACY_MEMBERS);
+  			$this->assertEquals($template,"blackout");
+  			$this->assertEquals($profiletype,3);
+  			break;
+	  		
+  		default:
+  			break;	
+  	} 
+  	
+  	 
   	return true;
   }
 }
