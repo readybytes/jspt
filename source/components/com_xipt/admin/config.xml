@@ -16,10 +16,14 @@
 		<param name="defaultProfiletypeID" type="profiletypes" default="0" label="DEFAULT PROFILETYPE ID" description="DEFAULT PROFILETYPE ID.DESC" />
 		
 		<param name="jspt_show_radio" type="radio" default="1" label="DURING REGISTRATION SHOW CHOOSE ACCOUNT TYPE AS" description="DURING REGISTRATION SHOW CHOOSE ACCOUNT TYPE AS.DESC">
-			<option value="0">Radio Options</option>
-			<option value="1">Select Box</option>
+			<option value="0">Select Box</option>
+			<option value="1">Radio Options</option>
 		</param>
 		<param name="allow_templatechange" type="radio" default="1" label="ALLOW TEMPLATE SELECTION" description="ALLOW TEMPLATE SELECTION.DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="show_watermark" type="radio" default="1" label="ENABLE WATERMARK" description="DISPLAY WATERMARK ON AVATAR.DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>

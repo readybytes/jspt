@@ -27,7 +27,11 @@ class XiPTHelperAclRules
 					foreach ($results as $result)
 						$allValues[]=$result->id;
 				}
+				//None support
 				$allValues[] = 0;
+				//All support
+				//CODREV : Define all
+				$allValues[] = -1;
 				break;
 			default:
 				assert(0);
@@ -68,6 +72,8 @@ class XiPTHelperAclRules
 		if($id==0 || empty($id))
 			return "NONE";
 
+		if($id == -1)
+			return "ALL";
 		$db			=& JFactory::getDBO();
 		$query		= 'SELECT name FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' WHERE id='.$id;
 		$db->setQuery( $query );

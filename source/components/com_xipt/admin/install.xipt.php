@@ -113,6 +113,9 @@ function create_tables()
 		$db->query();
 	}
 	
+	add_column('watermark' , 'varchar(250) NOT NULL', '#__xipt_profiletypes');
+	add_column('params' , 'text NOT NULL', '#__xipt_profiletypes');
+	
 	return true;
 }
 
@@ -224,7 +227,7 @@ function migrate_tables()
 */
 
 	$allQueries	= array();
-
+	
 	#1
 	$allQueries[]	= ' INSERT `#__xipt_profiletypes` ' 
 			. ' SELECT * FROM #__community_profiletypes ' ;
@@ -240,7 +243,7 @@ function migrate_tables()
 	#6
 	$allQueries[]	= ' INSERT `#__xipt_users` ' 
 			. ' SELECT `userid`, `profiletype`, `template` FROM #__community_users ' ;
-
+			
 	$db	=& JFactory::getDBO();
 	foreach ( $allQueries as $query){
 
@@ -290,13 +293,14 @@ function migrate_tables()
 
 	#7,8
 	//backup tabels before drop
-	backup_table('#__community_users','#__xiptbak_community_users');
-	backup_table('#__community_fields','#__xiptbak_community_fields');
-	backup_table('#__community_register','#__xiptbak_community_register');
-	backup_table('#__community_profiletypes','#__xiptbak_community_profiletypes');
-	backup_table('#__community_myapplication','#__xiptbak_community_myapplication');
-	backup_table('#__community_jspt_aec','#__xiptbak_community_jspt_aec');
-	backup_table('#__community_jsptacl','#__xiptbak_community_jsptacl');
+	backup_table('#__community_users','#__xiptbak_users');
+	backup_table('#__community_fields','#__xiptbak_fields');
+	backup_table('#__community_register','#__xiptbak_register');
+	backup_table('#__community_profiletypes','#__xiptbak_profiletypes');
+	backup_table('#__community_profiletypefields','#__xiptbak_profiletypefields');
+	backup_table('#__community_myapplication','#__xiptbak_myapplication');
+	backup_table('#__community_jspt_aec','#__xiptbak_jspt_aec');
+	backup_table('#__community_jsptacl','#__xiptbak_jsptacl');
 	
 	
 	remove_column('#__community_users','profiletype');
@@ -304,6 +308,7 @@ function migrate_tables()
 	remove_column('#__community_fields','reg_show');
 	remove_column('#__community_register','profiletypes');
 	remove_table('#__community_profiletypes');
+	remove_table('#__community_profiletypefields');
 	remove_table('#__community_myapplication');
 	remove_table('#__community_jspt_aec');
 	remove_table('#__community_jsptacl');
@@ -374,4 +379,52 @@ function backup_table($oldtableName,$newtableName)
 	$db->query();
 
 	return true;
+}
+
+
+function add_column($name, $specstr, $tname)
+{
+	$db		=& JFactory::getDBO();
+	$query	= 	'SHOW COLUMNS FROM ' 
+				. $db->nameQuote($tname)
+				. ' LIKE \'%'.$name.'%\' ';
+	$db->setQuery( $query );
+	$columns	= $db->loadObjectList();
+	if($db->getErrorNum())
+	{
+		JError::raiseError( 500, $db->stderr());
+		return false;
+	}
+
+	if($columns==NULL || $columns[0] == NULL)
+	{
+		$query =' ALTER TABLE '. $db->nameQuote($tname) 
+				. ' ADD COLUMN ' . $db->nameQuote($name)
+				. ' ' . $specstr;
+		$db->setQuery( $query );
+		$db->query();
+		return true;
+	}
+	return false;
+}
+
+
+
+function isTableExist($tableName)
+{
+	$db	=& JFactory::getDBO();
+	$query 	= " SHOW TABLES LIKE '%".$tableName."%'";
+	$db->setQuery( $query );
+	$tables = $db->loadObjectList();
+
+	if($db->getErrorNum()){
+		JError::raiseError( 500, $db->stderr());		
+	}
+
+	if($oldTables && $oldTables[0])
+		return true;
+
+	// either newTable exist OR oldTables does not exist
+	// no need of migration.
+	return false;
 }

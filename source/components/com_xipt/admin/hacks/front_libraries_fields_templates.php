@@ -32,38 +32,34 @@ class CFieldsTemplates
 	function getFieldData( $value )
 	{
 		$userid = JRequest::getVar('userid',0);
+		$tName = self::getTemplateValue($value,$userid);
 		
-		if($value)
-            $tName=$value;
-        else
-        {
-	        //a valid or default value
-	        $tName = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
-	        
-	        // during registration
-	        if($this->_task == 'registerProfile' &&  $this->_view =='register'){
-	            $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
-			    $tName = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
-	        }
-        }
-        // add search link
+		/*
+		 // add search link
+        
 	 	$searchLink = CRoute::_('index.php?option=com_community&view=search&task=field&'.
  				TEMPLATE_CUSTOM_FIELD_CODE.'='.urlencode( $tName ) );
 		$data = '<a href="'.$searchLink.'">'.$tName.'</a>';
 		return $data;//$tName;
+		*/
+		return $tName;
 	}
 	
 	function getFieldHTML($field, $required )
 	{
+		// it might be some other user (in case of admin is editing profile)
+		$user    =& JFactory::getUser();
+		
 		$tName	= $field->value;
 		$templates = XiPTLibraryUtils::getTemplatesList();
 		$class	= ($field->required == 1) ? ' required' : '';
 		
-		$selectedValue = CFieldsTemplates::getFieldData($tName);
+		$selectedValue = CFieldsTemplates::getTemplateValue($tName,$user->id);
 		
-		$allow_templatechange = $this->_params->get('allow_templatechange',0);
+		$allowToChangeTemplate = $this->_params->get('allow_templatechange',0);
+		$allowToChangeTemplate = $allowToChangeTemplate || XiPTLibraryUtils::isAdmin($user->id);
 		
-		if(!$allow_templatechange) {
+		if(!$allowToChangeTemplate) {
 			$html = '<input type="hidden" id="field'.$field->id.'"
 				name="field' . $field->id  . '" value="'.$selectedValue.'" />';
 			$html .= $selectedValue;
@@ -87,5 +83,25 @@ class CFieldsTemplates
 		$html   .= '<span id="errfield'.$field->id.'msg" style="display:none;">&nbsp;</span>';
 		
 		return $html;
+	}
+	
+	
+	function getTemplateValue($value,$userid)
+	{
+		// during registration
+        if($this->_view =='register'){
+            $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
+		    $tName = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
+		    return $tName;
+        }
+		
+        if($value)
+            $tName=$value;
+        else
+        {
+	        //a valid or default value
+	        $tName = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
+        }
+        return $tName;
 	}
 }

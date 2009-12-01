@@ -158,7 +158,8 @@ class XiPTLibraryPluginHandler
         $allowToChangeTemplate = $this->params->get('allow_templatechange','0');
 
         // not changing anything get data from table and set it
-		if(0 == $allowToChangeTemplate || $templateValue==''){
+		if(!XiPTLibraryUtils::isAdmin($userid)
+			&& (0 == $allowToChangeTemplate || $templateValue=='')){
 		    //show err msg
 		    if(0 == $allowToChangeTemplate){
 		        global $mainframe;
@@ -169,7 +170,8 @@ class XiPTLibraryPluginHandler
 		}
 
 		// not allowed to change profiletype, get data from table and set it
-		if(0 == $allowToChangePType || $profileTypeValue==0){
+		if(!XiPTLibraryUtils::isAdmin($userid)
+			&& (0 == $allowToChangePType || $profileTypeValue==0)){
 		    //show err msg
 		    if(0 == $allowToChangePType){
 		        global $mainframe;
@@ -222,7 +224,7 @@ class XiPTLibraryPluginHandler
 		$task = JRequest::getVar('task','','GET');
 		if($isAdmin && $view == 'profile' && $task == 'removepicture')
 		{
-			//setup $new_avatat
+			//setup $new_avatar
 			$ptype = XiPTLibraryProfiletypes::getUserData($userid, 'PROFILETYPE');
 			$avatar = XiPTLibraryProfiletypes::getProfiletypeData($ptype, 'avatar');
 			$thumb = strstr('_thumb',$new_avatar_path);
@@ -255,12 +257,12 @@ class XiPTLibraryPluginHandler
 		
 		//check if uploadable avatar is not default ptype avatar
 		//for that we don't require to add watermark
-		$ptype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
-		$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'watermark');
-		if(!$watermarkInfo)
-			$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
-		XiPTLibraryUtils::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
-
+		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')) {
+			
+			$watermarkInfo = XiPTLibraryUtils::getWatermark($userid);
+			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
+		}
+		
 		return true;
 	}
 

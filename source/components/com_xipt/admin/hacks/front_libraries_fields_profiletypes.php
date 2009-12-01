@@ -49,17 +49,24 @@ class CFieldsProfiletypes
 		
 		if(!$pID){
 			//get value from profiletype field from xipt_users table
+			//not required to get data from getUser() fn b'coz we call this fn in 
+			//getViewableprofile only.
 			$userid = JRequest::getVar('userid',0,'GET');
+			assert($userid);
 			$pID = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		
 		$pName = XiPTLibraryProfiletypes::getProfiletypeName($pID);
+		
+		/*
 		// add search link
 	 	$searchLink = CRoute::_('index.php?option=com_community&view=search&task=field&'.
  				PROFILETYPE_CUSTOM_FIELD_CODE.'='.urlencode( $pID ) );
 		$data = '<a href="'.$searchLink.'">'.$pName.'</a>';
-		
+
 		return $data; //$pName;
+		*/
+		return $pName;
 	}
 	
 	/*
@@ -72,7 +79,7 @@ class CFieldsProfiletypes
 		$class	    = ($field->required == 1) ? ' required' : '';
 		$disabled   = '';
 		
-		if($this->_task == 'registerProfile' &&  $this->_view =='register') {
+		if($this->_view =='register') {
     
 		    // get pType from registration session OR defaultPType
 		    $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
@@ -89,10 +96,10 @@ class CFieldsProfiletypes
 		}
 		    
 		// it might be some other user (in case of admin is editing profile)
-		$userid    =& JRequest::getVar('userid',0);
+		$user    =& JFactory::getUser();
 		
 		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
-		$allowToChangePType = $allowToChangePType || XiPTLibraryUtils::isAdmin($userid);
+		$allowToChangePType = $allowToChangePType || XiPTLibraryUtils::isAdmin($user->id);
 		
 		//if not allowed then show disabled view of ptype
 		if($allowToChangePType == false){

@@ -14,6 +14,7 @@ function com_uninstall()
 	disable_plugin('xipt_plugin');
 	
 	//CODREV:TODO disable custom fields
+	disable_custom_fields();
 }
 
 function disable_plugin($pluginname)
@@ -28,6 +29,22 @@ function disable_plugin($pluginname)
 		return false;
 	return true;
 } 
+
+
+function disable_custom_fields()
+{
+	$db			=& JFactory::getDBO();		
+	$query	= 'UPDATE ' . $db->nameQuote( '#__community_fields' )
+			. ' SET '.$db->nameQuote('published').'='.$db->Quote('0')
+          	.' WHERE '.$db->nameQuote('type').'='.$db->Quote('profiletypes')
+          	.' OR '.$db->nameQuote('type').'='.$db->Quote('templates');
+
+	$db->setQuery($query);		
+	if(!$db->query())
+		return false;
+	return true;
+} 
+
 
 function uncopyHackedFiles()
 {

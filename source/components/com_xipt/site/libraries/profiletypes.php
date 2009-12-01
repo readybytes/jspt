@@ -97,7 +97,7 @@ class XiPTLibraryProfiletypes
 		assert($userid) || JError::raiseError('XIPT SYSTEM ERROR','No User ID in '.__FUNCTION__);
 		//store prev profiletype
 		//CODREV : must be first line, as we want to store prev profiletype
-		$prevProfiletype = XiPTLibraryProfiletypes::getUserData($ptype,'PROFILETYPE');
+		$prevProfiletype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		
 		if($what == 'profiletype' || $what == 'ALL')
 		{
@@ -442,6 +442,14 @@ class XiPTLibraryProfiletypes
 	    {
 	        $oldAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
 			$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($oldAvatar,true);
+			
+			//CODREV : Check if watermark is enable if true then return true
+			//now check here watermark required feature also
+			//if avatar is user also then we have to add watermark for new profiletype ,
+			//for which we have to update new watermark with user image
+			if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')
+				&& !$isDefault)
+				return true;
 			
 			return $isDefault;
 	    }

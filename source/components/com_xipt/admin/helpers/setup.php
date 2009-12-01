@@ -7,13 +7,18 @@ class XiPTHelperSetup
 {
 
 
-	//check existance of custome fields profiletype and template
-	function checkExistanceOfCustomFields($what)
+	//check existance of custom fields profiletype and template
+	function checkExistanceOfCustomFields($what,$checkenable=false)
 	{
 		$db		=& JFactory::getDBO();
 		
+		$extraChk = '';
+		if($checkenable)
+			$extraChk = ' AND '.$db->nameQuote('published').'='.$db->Quote(1);
+			
 		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__community_fields' ) . ' '
-				. 'WHERE '.$db->nameQuote('fieldcode').'='. $db->Quote($what);
+				. 'WHERE '.$db->nameQuote('fieldcode').'='. $db->Quote($what)
+				. $extraChk;
 				
 		$db->setQuery( $query );
 		
@@ -65,10 +70,32 @@ class XiPTHelperSetup
 		
 	}
 	
+	//CODREV : call fn don't write update query here
+	function enableField($fieldcode)
+	{
+		$db			=& JFactory::getDBO();
+			
+		$query	= 'UPDATE ' . $db->nameQuote( '#__community_fields' )
+				. ' SET '.$db->nameQuote('published').'='.$db->Quote('1')
+	          	.' WHERE '.$db->nameQuote('fieldcode').'='.$db->Quote($fieldcode);
+
+		$db->setQuery($query);		
+		if(!$db->query())
+			return false;
+			
+		return true;
+	}
+	
+	
 	function checkCustomfieldRequired()
 	{
 		if(!self::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE)
 			|| !self::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE))
+			return true;
+
+		//check field enable required
+		if(!self::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE,true)
+			|| !self::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE,true))
 			return true;
 			
 		return false;
@@ -218,7 +245,7 @@ class XiPTHelperSetup
 		return false;
 	}
 	
-	//retrun true if plugin is installed
+	//retrun true if plugin is installed or enabled
 	//type means plugin type eg :- community , system etc.
 	function isPluginInstalledAndEnabled($pluginname,$type,$checkenable = false)
 	{
@@ -447,4 +474,5 @@ class XiPTHelperSetup
 		$mainframe->enqueueMessage($msg);
 		return true;
 	}
+	
 }

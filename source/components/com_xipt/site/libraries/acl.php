@@ -193,12 +193,19 @@ class XiPTLibraryAcl
 		// get all rules specific to user or his profiletype
 		//TODO : sort as per ascending task count.
 		$extraSql	= '';
-		if($feature == 'aclFeatureCantVisitOtherProfile')
-			$extraSql = ' AND otherpid='. $db->Quote($otherpid);
+		if($feature == 'aclFeatureCantVisitOtherProfile'){
+			//support for All Feature through ( -1 )
+			//We add -1 for all in admin
+			$extraSql = ' AND ( otherpid='. $db->Quote($otherpid)
+						.' OR otherpid='.$db->Quote(-1).')';
+		}
 			
+		//
 		$query	 = 'SELECT * FROM #__xipt_aclrules '
 					. ' WHERE '
-					. ' pid='. $db->Quote($myPID).$extraSql
+					. ' ( pid='. $db->Quote($myPID)
+					. ' OR pid='.$db->Quote(-1).' )'
+					.$extraSql
 					. ' AND feature='. $db->Quote($feature)
 					. ' AND published='.$db->Quote(1);
 		

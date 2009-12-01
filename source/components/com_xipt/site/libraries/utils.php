@@ -192,12 +192,29 @@ class XiPTLibraryUtils
 	}
 	
 	
+	function getWatermark($userid)
+	{
+		$ptype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+		//CODREV : find what should be default watermark
+		//ptypename , watermark image or avatar
+		//generate image with name if name is enable
+		$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'watermark');
+		if(!$watermarkInfo)
+			$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
+		
+		return $watermarkInfo;
+	}
+	
+	
 	function addWatermarkOnAvatar($userid,&$avatar,$waterMark,$what)
 	{
 		// Load image helper library as it is needed.
 		CFactory::load( 'helpers' , 'image' );
 		
-		if($what == 'thumb') 
+		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($avatar,true))
+			return;
+		
+		if($what == 'thumb')
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
 		
 		$extension			= JString::substr( $avatar , JString::strrpos( $avatar , '.' ) );
@@ -231,6 +248,16 @@ class XiPTLibraryUtils
 		
 		//cImageAddWaterMark( $storageThumbnail , $storageThumbnail , $type , FACEBOOK_FAVICON , ( $thumbWidth - $watermarkWidth ), ( $thumbHeight - $watermarkHeight) );
 	}
+	
+	
+	//get params data from xipt component or any
+	function getParams($paramName,$comName)
+	{
+		$params = JComponentHelper::getParams($comName);
+		$result = $params->get($paramName);
+		return $result;
+	}
+	
 	
 	function getCurrentURL()
 	{

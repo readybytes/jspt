@@ -211,9 +211,25 @@ class XiPTLibraryCore
 		if(!XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($userid,'avatar','profiletype'))
 			return false;
 
-		// we can safely update avatar
-		$pTypeAvatar 	  = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeID,'avatar');
-		$pTypeThumbAvatar = XiPTLibraryUtils::getThumbAvatarFromFull($pTypeAvatar);
+		//check if watermark is enable
+		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')) {
+			//update watermark on user
+			$pTypeAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
+			$pTypeThumbAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'thumb');
+			
+			$watermarkInfo = XiPTLibraryUtils::getWatermark($userid);
+			//add watermark on user avatar image
+			if($pTypeAvatar)
+				XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermarkInfo,'avatar');
+			//add watermark on thumb image
+			if($pTypeThumbAvatar)
+				XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermarkInfo,'thumb');
+		}
+		else {
+			// we can safely update avatar
+			$pTypeAvatar 	  = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeID,'avatar');
+			$pTypeThumbAvatar = XiPTLibraryUtils::getThumbAvatarFromFull($pTypeAvatar);
+		}
 
 		// perform the operation
 		self::reloadCUser($userid);

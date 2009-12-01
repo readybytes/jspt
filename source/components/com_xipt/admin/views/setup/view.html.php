@@ -60,14 +60,13 @@ class XiPTViewSetup extends JView
 		//check file patch up required or not
 		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
 		if(XiPTHelperSetup::checkFilePatchRequired()) {
-			$requiredSetup['profilefilepatch']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO PATCH FILES").'</a>';
-			$requiredSetup['profilefilepatch']['done'] = false;
+			$requiredSetup['filepatch']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO PATCH FILES").'</a>';
+			$requiredSetup['filepatch']['done'] = false;
 		}
 		else {
-			$requiredSetup['profilefilepatch']['message'] = JText::_("FILES ARE PATCHED");
-			$requiredSetup['profilefilepatch']['done'] = true;
+			$requiredSetup['filepatch']['message'] = JText::_("FILES ARE PATCHED");
+			$requiredSetup['filepatch']['done'] = true;
 		}
-		
 		
 		//check plugins( community and system ) are installed
 		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);

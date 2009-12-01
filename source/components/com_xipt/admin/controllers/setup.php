@@ -27,9 +27,17 @@ class XiPTControllerSetup extends JController
 				
 		if(!XiPTHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE))
 				$pFieldCreated = XiPTHelperSetup::createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
+
+		//now check field enable required then enable field
+		if(!XiPTHelperSetup::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE,true))
+				$tFieldEnabled = XiPTHelperSetup::enableField(TEMPLATE_CUSTOM_FIELD_CODE);
 				
-		if($pFieldCreated && $tFieldCreated)
-			$mainframe->enqueueMessage(JText::_("CUSTOM FIELD CREATED SUCCESSFULLY"));
+		if(!XiPTHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE,true))
+				$pFieldEnabled = XiPTHelperSetup::enableField(PROFILETYPE_CUSTOM_FIELD_CODE);
+				
+		if($pFieldCreated && $tFieldCreated
+			&& $pFieldEnabled && $tFieldEnabled)
+			$mainframe->enqueueMessage(JText::_("CUSTOM FIELD CREATED AND ENABLED SUCCESSFULLY"));
 			
 		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
