@@ -31,7 +31,7 @@ class XiPTHelperAclRules
 				$allValues[] = 0;
 				//All support
 				//CODREV : Define all
-				$allValues[] = -1;
+				$allValues[] = ALL;
 				break;
 			default:
 				assert(0);

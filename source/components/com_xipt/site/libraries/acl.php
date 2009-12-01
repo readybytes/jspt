@@ -197,14 +197,14 @@ class XiPTLibraryAcl
 			//support for All Feature through ( -1 )
 			//We add -1 for all in admin
 			$extraSql = ' AND ( otherpid='. $db->Quote($otherpid)
-						.' OR otherpid='.$db->Quote(-1).')';
+						.' OR otherpid='.$db->Quote(ALL).')';
 		}
 			
 		//
 		$query	 = 'SELECT * FROM #__xipt_aclrules '
 					. ' WHERE '
 					. ' ( pid='. $db->Quote($myPID)
-					. ' OR pid='.$db->Quote(-1).' )'
+					. ' OR pid='.$db->Quote(ALL).' )'
 					.$extraSql
 					. ' AND feature='. $db->Quote($feature)
 					. ' AND published='.$db->Quote(1);
