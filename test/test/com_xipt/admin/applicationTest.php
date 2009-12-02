@@ -1,30 +1,17 @@
 <?php
 
-require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
-
 class ApplicationTest extends XiSelTestCase 
 {
-
-  var  $_DBO;
-  protected $captureScreenshotOnFailure = TRUE;
-  protected $screenshotPath = JOOMLA_FTP_LOCATION;
-  protected $screenshotUrl  = JOOMLA_LOCATION;
-
   
   function getSqlPath()
   {
-      return dirname(__FILE__);
+      return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
   function setUp()
   {
     $this->setBrowser("*chrome");
     $this->setBrowserUrl( JOOMLA_LOCATION."/administrator/index.php?option=com_login");
-    
-    //verify tables setup
-    $this->assertEquals($this->_DBO->getErrorLog(),'');
-    $this->_DBO->addTable('#__xipt_application');
-    $this->_DBO->filterColumn('#__xipt_application','id');
   }
 
 

@@ -5,8 +5,10 @@
 		syntaxCheck="false"
 		bootstrap="bootstrap.php">
 
-	<testsuite name="Test suite name">
-		<directory>test</directory>
+	<testsuite name="AllTest">
+		<file>install/installTest.php</file>
+		<dir>test/com_xipt/admin</dir>
+		<dir>test/com_xipt/front</dir>
 	</testsuite>
 	
 	<listeners>

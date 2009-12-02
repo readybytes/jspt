@@ -11,14 +11,14 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   function assertPreConditions()
  {
     // this will be a assert for every test
-    if(method_exists(self,'getSqlPath'))
+    if(method_exists($this,'getSqlPath'))
         $this->assertEquals($this->_DBO->getErrorLog(),'');
   }
 
   function assertPostConditions()
   {
      // if we need DB based setup then do this
-     if(method_exists(self,'getSqlPath'))
+     if(method_exists($this,'getSqlPath'))
          $this->assertTrue($this->_DBO->verify());
   }
   
@@ -53,7 +53,6 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
       // now we just want to verify that 
       // page does not have any type of error
       // XIPT SYSTEM ERROR
-      $this->assertFalse($this->isTextPresent("XI-SYSTEM-ERROR"));
       // a call stack ping due to assert/notice etc.
       $this->assertFalse($this->isTextPresent("<span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span>"));
   }

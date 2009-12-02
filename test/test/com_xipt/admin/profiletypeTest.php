@@ -1,12 +1,12 @@
 <?php
 
-class ProfileTypeTest extends XiSelTestCase 
+class ProfiletypeTest extends XiSelTestCase 
 {
 
   //define this function if you require DB setup
   function getSqlPath()
   {
-      return dirname(__FILE__);
+      return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
   function setUp()

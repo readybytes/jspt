@@ -16,15 +16,22 @@ defined('_JEXEC') or die('Restricted access');
 			$notcomplete = '<img src="images/publish_x.png" alt="not complete" />';
 			foreach($this->requiredSetup as $util) {
 				?>
-				<tr>
-				 <td><?php  echo $counter.". ";?></td>
-				 <td><?php  echo $util['message'];?></td>
-				 <td><?php  if($util['done'])
+				<tr id="setup<?php echo $counter; ?>" >
+				 <td>
+				 		<?php  echo $counter.". ";?>
+				 </td>
+				 
+				 <td id="setupMessage<?php echo $counter; ?>">
+				 	<?php  echo $util['message'];?>
+				 </td>
+				 
+				 <td id="setupImage<?php echo $counter; ?>">
+				 	<?php  if($util['done'])
 				 				echo $complete;
 				 			else 
-				 				echo $notcomplete;
-				 				?>
+				 				echo $notcomplete;?>
 				 </td>
+				 
 				 </tr>
 				 <?php 
 				 $counter++;

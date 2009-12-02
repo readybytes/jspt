@@ -4,7 +4,7 @@ class ProfileFieldsTest extends XiSelTestCase
 {  
   function getSqlPath()
   {
-      return dirname(__FILE__);
+      return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
   function setUp()

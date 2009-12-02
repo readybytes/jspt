@@ -8,13 +8,15 @@ class XiDBCheck
     static private $db;
     private $testTables;
     private $excludeC;
-    private $exludeR;
+    private $excludeR;
     private $orderBy;
     private $errorLog;
     function __construct()
     {
         if(!$this->db)
             $this->db=& JFactory::getDBO();
+        $this->excludeC = array();
+        $this->excludeR = array();
     }
     
     /*
@@ -90,8 +92,8 @@ class XiDBCheck
     {
         //if(!in_array($testTables,$tableName))
         $this->testTables[] = $tableName;
-        $this->excludeC[$tableName]='';
-        $this->orderBy[$tableName]='';
+        $this->excludeC[$tableName]=array();
+        $this->orderBy[$tableName]=array();
     }
     
     function filterColumn($table, $column)
@@ -115,10 +117,12 @@ class XiDBCheck
     
     function verify()
     {
-        foreach($this->testTables as $t){
-            if($this->compareTable($t)==false)
-                return false;
-        }
+    	if($this->testTables){
+        	foreach($this->testTables as $t){
+            	if($this->compareTable($t)==false)
+                	return false;
+        	}
+    	}
         return true;
     }
     
@@ -135,16 +139,23 @@ class XiDBCheck
             return false;
         }
         $query=file_get_contents($file);
-        $allQuery=explode(';',$query);
+        $this->execSql($query);
+        return true;
+    }
+    
+    function execSql($query)
+    {
+    	$allQuery=explode(';',$query);
         
-        foreach($allQuery as $q){
-            //echo "\n Query is : ".$q . "\n";
+        foreach($allQuery as $q)
+        {
             // we might have empty queries
             $q = trim($q);
             if(empty($q))
                 continue;
 
             $this->db->setQuery($q);
+            
             if(!$this->db->query())
             {
                 $error = "Joomla DB Error Number : ".$this->db->getErrorNum();
@@ -154,9 +165,7 @@ class XiDBCheck
                 echo $q."\n";
                 break;
             }
-        }
-        
-        return true;
+        }	
     }
 }
 
@@ -174,26 +183,37 @@ class XiTestListener implements PHPUnit_Framework_TestListener
   {
       
     $testName      = $test->getName();    
-    //echo "\n Starting Test : ".$testName;
+
     // this two variables must be defined by test
     if(!method_exists($test,'getSqlPath'))
         return;
         
     $sqlPath       = $test->getSqlPath(); 
     $test->_DBO    =& new XiDBCheck();
-    $dbDump        =  $sqlPath.'/sql/'.$testName.'.start.sql';
-    //echo "\n Loading SQL : ".$dbDump;
-    $test->_DBO->loadSql($dbDump);
+    //load end sql
+    $dbDump        =  $sqlPath.'/'.$testName.'.start.sql';
+    if(file_exists($dbDump))
+    	$test->_DBO->loadSql($dbDump);
+    else
+    	echo "\n File does not exist for ". $dbDump . "\n";
+    	
   }
  
   public function endTest(PHPUnit_Framework_Test $test, $time)
   {
     
     $testName = $test->getName();    
-    //echo "\n Ending test : ".$testName;
+
     // this two variables must be defined by test
     if(!$test->_DBO)
         return;
+    
+    //load end sql
+    $sqlPath       = $test->getSqlPath(); 
+    $dbDump        =  $sqlPath.'/'.$testName.'.end.sql';
+    if(file_exists($dbDump))
+    	$test->_DBO->loadSql($dbDump);
+    
     $errors = $test->_DBO->getErrorLog();
     if($errors){
          $sqlPath       = $test->getSqlPath();    
