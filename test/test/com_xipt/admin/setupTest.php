@@ -17,7 +17,7 @@ class SetupTest extends XiSelTestCase
   }
 
 
-  function testCreateProfiletype()
+  function xtestCreateProfiletype()
   {
     // setup default location 
     $this->adminLogin();
@@ -54,6 +54,7 @@ class SetupTest extends XiSelTestCase
   {
   	// setup default location 
     $this->adminLogin();
+    
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
     $this->waitPageLoad();
     
@@ -76,7 +77,7 @@ class SetupTest extends XiSelTestCase
 				jspt_restrict_reg_check=0 
 				jspt_prevent_username= 
 				jspt_allowed_email= '
-			WHERE `option` ='com_xipt' LIMIT 1 ;
+			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
 			";
     $this->_DBO->execSql($sql);
     
@@ -89,7 +90,7 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage2']/img[contains(@src,'images/tick.png')]"));
   }
   
-  function testCreateCustomFields()
+  function xtestCreateCustomFields()
   {
 	$this->_DBO->addTable('#__community_fields');
 	// setup default location 
@@ -111,11 +112,25 @@ class SetupTest extends XiSelTestCase
   
   function xtestPatchFiles()
   {
-		
+	// setup default location 
+    $this->adminLogin();
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
+    $this->waitPageLoad();
+    
+    //link is present //image is correct
+    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage4']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/publish_x.png')]"));
+    
+	$this->click("//td[@id='setupMessage4']/a");
+    $this->waitPageLoad(); // will be back at same page
+    
+    //link should not be present     //image is correct
+    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage4']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/tick.png')]"));
   }
   
   
-  function testEnablePlugin()
+  function xtestEnablePlugin()
   {
   	// setup default location 
     $this->adminLogin();
@@ -137,7 +152,7 @@ class SetupTest extends XiSelTestCase
   /**
    * @depends testCreateCustomFields
    */
-  function testSyncUpUserPT()
+  function xtestSyncUpUserPT()
   {
   	//A silly assumption, in joomla test we always have uuser 62
   	// so we will drop all fields of user 62 
