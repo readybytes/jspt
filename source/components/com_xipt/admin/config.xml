@@ -29,7 +29,7 @@
 		</param>
 		
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="@spacer" type="spacer" default="AEC Integrtion Settings" label="" description="" />
+		<param name="@spacer" type="spacer" default="AEC Integration Settings" label="" description="" />
 			<param name="aec_integrate" type="radio" default="0" label="INTEGRATE AEC" description="INTEGRATE AEC.DESC">
 				<option value="1">Yes</option>
 				<option value="0">No</option>

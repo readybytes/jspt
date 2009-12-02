@@ -41,6 +41,19 @@ function setup_database()
 	if($migrationRequired && migrate_tables() == false)
 		return false;
 
+	//update global configuration data
+	if(isTableExist('xipt_temp_globalconfiguration')){
+		//insert data in #__component table
+		$db = JFactory::getDBO();
+		$query = 'SELECT `params` FROM `#__xipt_temp_globalconfiguration`';
+		$db->setQuery($query);
+		$params = $db->loadResult();
+		$query = 'UPDATE '.$db->nameQuote('#__components')
+				.' SET '.$db->nameQuote('params').'='.$db->Quote($params)
+				.' WHERE  '.$db->nameQuote('link').'='.$db->Quote('option=com_xipt');
+		$db->setQuery($query);
+		$db->query();
+	}
 	// everything fine
 	return true;
 }
@@ -421,7 +434,7 @@ function isTableExist($tableName)
 		JError::raiseError( 500, $db->stderr());		
 	}
 
-	if($oldTables && $oldTables[0])
+	if($tables && $tables[0])
 		return true;
 
 	// either newTable exist OR oldTables does not exist

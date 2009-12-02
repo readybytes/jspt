@@ -5,6 +5,8 @@ defined('_JEXEC') or die();
 jimport( 'joomla.filesystem.folder' );
 jimport('joomla.filesystem.file');
 
+require_once dirname(JPATH_BASE).DS.'includes'.DS.'application.php';
+
 require_once dirname(JPATH_BASE).DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'jspt_functions.php';
 function com_uninstall()
 {
@@ -15,6 +17,9 @@ function com_uninstall()
 	
 	//CODREV:TODO disable custom fields
 	disable_custom_fields();
+	//CODREV : insert configuration data into new table
+	//to preserve user global configuration settings
+	store_globalconfiguration();
 }
 
 function disable_plugin($pluginname)
@@ -62,4 +67,43 @@ function uncopyHackedFiles()
 			JFile::move($targetFileBackup,$targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup') ;
 		}		
 	}
+}
+
+
+function store_globalconfiguration()
+{
+	$db = JFactory::getDBO();
+	//create global configuration table
+	$query = 'CREATE TABLE IF NOT EXISTS `#__xipt_temp_globalconfiguration` (
+				`params` text NOT NULL  
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
+	
+	$db->setQuery($query);
+	if(!$db->query())
+		JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to create global configuration table') ;
+		
+	$query = 'TRUNCATE TABLE `#__xipt_temp_globalconfiguration`';
+	$db->setQuery($query);
+	if(!$db->query())
+		JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to truncate table') ;
+	
+	//insert data in table
+	$jsite = new JSite();
+	$params			=& $jsite->getParams('com_xipt');
+	//$db->insertObject('#__xipt_temp_globalconfiguration',$data);
+	$query = 'INSERT INTO '.$db->nameQuote('#__xipt_temp_globalconfiguration')
+			.'('
+			. $db->nameQuote('params').' '
+			.') '
+			.'VALUES('
+			.$db->Quote($params->_raw)
+			.') ';
+	
+	$db->setQuery( $query );
+	$db->query();
+			
+	if($db->getErrorNum())
+		JError::raiseError( 500, $db->stderr());
+	
+	return true;
 }
