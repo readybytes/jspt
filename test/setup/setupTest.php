@@ -17,7 +17,7 @@ class SetupTest extends XiSelTestCase
   }
 
 
-  function xtestCreateProfiletype()
+  function testCreateProfiletype()
   {
     // setup default location 
     $this->adminLogin();
@@ -90,7 +90,7 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage2']/img[contains(@src,'images/tick.png')]"));
   }
   
-  function xtestCreateCustomFields()
+  function testCreateCustomFields()
   {
 	$this->_DBO->addTable('#__community_fields');
 	// setup default location 
@@ -110,7 +110,7 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage3']/img[contains(@src,'images/tick.png')]"));
   }
   
-  function xtestPatchFiles()
+  function testPatchFiles()
   {
 	// setup default location 
     $this->adminLogin();
@@ -130,7 +130,7 @@ class SetupTest extends XiSelTestCase
   }
   
   
-  function xtestEnablePlugin()
+  function testEnablePlugin()
   {
   	// setup default location 
     $this->adminLogin();
@@ -152,7 +152,7 @@ class SetupTest extends XiSelTestCase
   /**
    * @depends testCreateCustomFields
    */
-  function xtestSyncUpUserPT()
+  function testSyncUpUserPT()
   {
   	//A silly assumption, in joomla test we always have uuser 62
   	// so we will drop all fields of user 62 

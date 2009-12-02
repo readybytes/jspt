@@ -6,7 +6,8 @@
 		bootstrap="bootstrap.php">
 
 	<testsuite name="AllTest">
-		<file>install/installTest.php</file>
+		<dir>install</dir>
+		<dir>setup</dir>
 		<dir>test/com_xipt/admin</dir>
 		<dir>test/com_xipt/front</dir>
 	</testsuite>
