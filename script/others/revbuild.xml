@@ -14,19 +14,61 @@
                         tofile="${source}/administrator/components/com_xipt/en-GB.com_xipt.ini" 
                          />
 
-				                
-                <copy  file="${source}/components/com_community/libraries/fields/profiletypes.php" 
-                        tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_profiletypes.php" 
-                         />
-                
-                <copy  file="${source}/components/com_community/libraries/fields/templates.php" 
-                        tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_templates.php" 
-                        />
 
+		<php function="file_exists" returnProperty="fileExist">
+		  <param value="${source}/components/com_community/libraries/fields/profiletypes.php"/>
+		</php>
+
+		<if>
+		 <equals arg1="${fileExist}" arg2="1" />
+		  <then>
+		 	 <copy  file="${source}/components/com_community/libraries/fields/profiletypes.php" 
+                        	tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_profiletypes.php" 
+	                  />
+		 </then>
+		 <else>	<echo msg="File not exist(${fileExist})  : ${source}/components/com_community/libraries/fields/profiletypes.php " />
+
+		 </else>
+		</if>
+
+			
+
+	                
+                <php function="file_exists" returnProperty="fileExist">
+		  <param value="${source}/components/com_community/libraries/fields/templates.php"/>
+		</php>
+
+		<if>
+		 <equals arg1="${fileExist}" arg2="1" />
+		  <then>               
+        	        <copy  file="${source}/components/com_community/libraries/fields/templates.php" 
+                	        tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_templates.php" 
+                        	/>
+		 </then>
+		 <else>
+			<echo msg="File not exist (${fileExist})  : ${source}/components/com_community/libraries/fields/templates.php " />
+		 </else>
+		</if>
+
+
+
+                <php function="file_exists" returnProperty="1">
+		  <param value="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php"/>
+		</php>
+
+		<if>
+		 <equals arg1="${fileExist}" arg2="true" />
+		  <then>     
                 <copy   file="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" 
                         tofile="${source}/administrator/components/com_xipt/hacks/mi_jomsocialjspt.php" 
                          />
-                
+                	 </then>
+		 <else>
+			<echo msg="File not exist (${fileExist}) : ${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" />
+	
+		 </else>
+		</if>
+
                 
 				<copy todir="${target}/components/com_xipt/admin">
 					<fileset dir="${source}/administrator/components/com_xipt">
@@ -51,6 +93,18 @@
 						<include name="xipt*" />
 					</fileset>
                  </copy>
+
+		<copy todir="${target}/../test">
+					<fileset dir="${source}/test/">
+						<include name="**/*.*" />
+					</fileset>
+                 </copy>
+
+		  <copy   file="${source}/build.xml" 
+                        tofile="${target}/../script/others/revbuild.xml" 
+                         />
+
+
 
         </target>
 </project>

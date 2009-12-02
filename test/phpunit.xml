@@ -6,10 +6,10 @@
 		bootstrap="bootstrap.php">
 
 	<testsuite name="AllTest">
-		<dir>install</dir>
-		<dir>setup</dir>
-		<dir>test/com_xipt/admin</dir>
-		<dir>test/com_xipt/front</dir>
+		<file>install/installTest.php</file>
+		<file>setup/setupTest.php</file>
+		<file>test/com_xipt/admin/profiletypeTest.php</file>
+		<file>test/com_xipt/front/registerTest.php</file>
 	</testsuite>
 	
 	<listeners>
