@@ -44,18 +44,6 @@ class XiPTViewSetup extends JView
 			$requiredSetup['defaultprofiletype']['done']  = true;
 		}
 		
-			
-		//validate custom field
-		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
-		if(XiPTHelperSetup::checkCustomfieldRequired()) {
-			$requiredSetup['customfields']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE AND ENABLE CUSTOM FIELDS").'</a>';
-			$requiredSetup['customfields']['done'] = false;
-		}
-		else {
-			$requiredSetup['customfields']['message'] = JText::_("CUSTOM FIELDS EXIST");
-			$requiredSetup['customfields']['done'] = true;
-		}
-		
 		
 		//check file patch up required or not
 		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
@@ -66,6 +54,18 @@ class XiPTViewSetup extends JView
 		else {
 			$requiredSetup['filepatch']['message'] = JText::_("FILES ARE PATCHED");
 			$requiredSetup['filepatch']['done'] = true;
+		}
+		
+			
+		//validate custom field
+		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
+		if(XiPTHelperSetup::checkCustomfieldRequired()) {
+			$requiredSetup['customfields']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE AND ENABLE CUSTOM FIELDS").'</a>';
+			$requiredSetup['customfields']['done'] = false;
+		}
+		else {
+			$requiredSetup['customfields']['message'] = JText::_("CUSTOM FIELDS EXIST");
+			$requiredSetup['customfields']['done'] = true;
 		}
 		
 		//check plugins( community and system ) are installed

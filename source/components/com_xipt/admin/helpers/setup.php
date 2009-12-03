@@ -404,7 +404,10 @@ class XiPTHelperSetup
 
 		if(empty($result))
 		{
-			assert(0);
+			//not required assert b'coz from backend fisrt time admin will not have entry in community table
+			//and that time it will assert
+			//when admin login from front-end commuity create entry for admin in community_users table
+			//assert(0);
 			return false;
 		}
 		
