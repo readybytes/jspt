@@ -266,14 +266,18 @@ class XiPTLibraryCore
  		return true;
 	}
 	
-	function updateCommunityUserGroup($userId,$profileTypeId, $oldProfileTypeId )
+	function updateCommunityUserGroup($userId,$profileTypeId, $oldProfileTypeId=0 )
 	{
 		$oldGroup = XiPTLibraryProfiletypes::getProfileTypeData($oldProfileTypeId,'group');
         $newGroup = XiPTLibraryProfiletypes::getProfileTypeData($profileTypeId,'group');
         
-        if($oldGroup == $newGroup)
-            return;
-            
+        /* CODREV : Cross check if user is member of newGroup then return
+         * 	if($oldGroup == $newGroup)
+         * 		return;
+         */
+        if(self::_isMemberOfGroup($userId,$newGroup))
+        	return;
+        	    
 		// if user is changing profiletype then remove it from other group
 		if($oldProfileTypeId != $profileTypeId)
 			XiPTLibraryCore::_removeUserFromGroup($userId,$oldGroup);
@@ -282,6 +286,15 @@ class XiPTLibraryCore
 		XiPTLibraryCore::_addUserToGroup($userId,$newGroup);
 	}
 	
+	function _isMemberOfGroup($userid, $groupid)
+	{
+		$db		=& JFactory::getDBO();
+		$query	= " SELECT `memberid` FROM `#__community_groups_members` "
+  				. " WHERE `memberid`='".$userid."'   AND `groupid`='".$groupid."'" 
+  				. " LIMIT 1";
+  		$db->setQuery($query);
+  		return $db->loadResult() ? true : false ;
+	}
 	
 	function _addUserToGroup( $userId , $groupId)
 	{

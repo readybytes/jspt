@@ -7,9 +7,12 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   protected $captureScreenshotOnFailure = TRUE;
   protected $screenshotPath = JOOMLA_FTP_LOCATION;
   protected $screenshotUrl  = JOOMLA_LOCATION;
-  
+/*  
+  protected $collectCodeCoverageInformation = TRUE;
+  protected $coverageScriptUrl = 'http://localhost/phpunit_coverage.php';
+ */ 
   function assertPreConditions()
- {
+  {
     // this will be a assert for every test
     if(method_exists($this,'getSqlPath'))
         $this->assertEquals($this->_DBO->getErrorLog(),'');
@@ -45,6 +48,16 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
     $this->click("//form[@id='form-login']/fieldset/input");
     $this->waitForPageToLoad();
     $this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
+  }
+  
+  function frontLogout()
+  {
+  	$this->open(JOOMLA_LOCATION."/index.php");
+    $this->waitForPageToLoad("30000");
+    $this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
+    $this->click("//form[@id='form-login']/div[2]/input");
+    $this->waitForPageToLoad("30000");
+    $this->assertTrue($this->isElementPresent("modlgn_username"));
   }
   
   function waitPageLoad($time=TIMEOUT_SEC)

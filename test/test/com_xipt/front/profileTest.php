@@ -14,110 +14,169 @@ class ProfileTest extends XiSelTestCase
     $this->setBrowser("*chrome");
     $this->setBrowserUrl( JOOMLA_LOCATION."/index.php?option=com_community");
   }
-
+  
   //cross check page exists and comes
-  function testViewableProfilesAsAdmin()
+  function testViewableProfiles()
   {
-  	//login as pType 1 user
+  	//login as admin user
     $this->frontLogin();
-    $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=register");
+	$this->viewProfile(82,1);
+	$this->viewProfile(83,2);
+	$this->viewProfile(84,3);   
     
   }
   
-  //cross check fields exists
-  function testRegisterProfileFieldPage()
+  function viewProfile($userid,$ptype)
   {
-		$this->userRegistrationForPT(1);
-		$this->userRegistrationForPT(2);
-		$this->userRegistrationForPT(3);
+  	  // open user's profile
+	  $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=".$userid);
+	  $this->waitPageLoad();
+	  
+	  //check fields
+	    $Avail[1] 	 = array(3,4,5,8,9); // 7 is not visible due to no infor
+	    $notAvail[1] = array(2,6);
+	    
+	    $Avail[2] 	 = array(2,4,5,8,9);//6 is not visible
+	    $notAvail[2] = array(3,7,6);
+	    
+	    $Avail[3] 	 = array(5,9);
+	    $notAvail[3] = array(2,3,4,6,7,8);
+	  
+	    foreach ($Avail[$ptype] as $p)
+	    {
+	    	$this->assertTrue($this->isTextPresent("Hometown".$p));
+	    }
+	    
+	    foreach ($notAvail[$ptype] as $p)
+	    	$this->assertFalse($this->isTextPresent("Hometown".$p));
+	  
+	    //check others template
+	    $template[1] = "/components/com_community/templates/default/css/style.css";
+	    $template[2] = "/components/com_community/templates/blueface/css/style.css";
+	    $template[3] = "/components/com_community/templates/blackout/css/style.css";	    
+	    $this->assertTrue($this->isTextPresent($template[$p]));
+	    
   }
   
-  function userRegistrationForPT($ptype)
+  //cross check page exists and comes
+  function testEditableProfiles()
   {
-  	//Prerequiste = clean session + No AEC + Our system plugin is working
-  	//1. session cleaned via SQL
-    // go to register location 
-    $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=register");
-    $this->waitPageLoad();
-    $this->click("profiletypes".$ptype);
-    $this->click("ptypesavebtn");
-    
-    $this->waitPageLoad();
-    
-    // now fille reg + field information
-    
-    $username =  $this->fillDataPT($ptype);
-    
-    //avatar page
-    $this->assertTrue($this->isTextPresent("Change profile picture"));
-    // verify user's attributes in Joomla User and JomSocial User tables 
-    $this->assertTrue($this->verifyAvatar($ptype));
-    $this->click("link=[Skip]");
-    $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("User Registered."));
-    
-    //verify users
-    $this->assertTrue($this->verifyUser($username, $ptype));
-  	
+  	  //login as self
+  	  $user = JFactory::getUser(82);
+  	  $this->frontLogin($user->username,$user->username);
+	  $this->editProfile(82,1);
+	  $this->frontLogout();
+	  
+	  $user = JFactory::getUser(83);
+  	  $this->frontLogin($user->username,$user->username);
+	  $this->editProfile(83,2);
+	  $this->frontLogout();
+	  
+	  $user = JFactory::getUser(84);
+  	  $this->frontLogin($user->username,$user->username);
+  	  $this->editProfile(84,3);
+  	  $this->frontLogout();
   }
   
-  function fillDataPT($ptype)
+  function editProfile($userid,$ptype)
   {
-  	$this->assertTrue($this->isTextPresent("Register new user"));
-  	
-  	$randomNo  = rand(1234567,9234567);
-    $randomStr = "regtest".$randomNo;
-    
-    // fill some random values in register page
-    $this->type("jsname", $randomStr);
-    $this->type("jsusername", $randomStr);
-    $this->type("jsemail", $randomStr.'@gmail.com');
-    $this->type("jspassword", $randomStr);
-    $this->type("jspassword2", $randomStr);
-    // wait for some time for ajax checks
-    $this->click("btnSubmit");
-    sleep(1);
-    $this->click("btnSubmit");
-    $this->waitPageLoad();
-    
-    $this->assertTrue($this->isTextPresent("Basic Information"));
-    
-    $Avail[1] 	 = array(3,4,5,8,9);// 7 is not visible during reg
-    $notAvail[1] = array(2,6);
-    
-    $Avail[2] 	 = array(2,4,5,6,8,9);
-    $notAvail[2] = array(3,7);
-    
-    $Avail[3] 	 = array(5,9);
-    $notAvail[3] = array(2,3,4,6,7,8);
-    
-    //verify and fill fields
-    foreach ($Avail[$ptype] as $p)
-    {
-    	$this->assertTrue($this->isElementPresent("field".$p));
-    	$this->type("field".$p, $randomStr);
-    }
-    
-    foreach ($notAvail[$ptype] as $p)
-    	$this->assertFalse($this->isElementPresent("field".$p));
-    
-   	$this->click("btnSubmit");
-    $this->waitPageLoad();
-    	//return username
-    return $randomStr;
+      // open user's profile
+	  $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=edit");
+	  $this->waitPageLoad();
+	  $this->assertTrue($this->isTextPresent("Edit profile"));
+	  //check fields
+	  $Avail[1] 	 = array(3,4,5,7,8,9); // 7 MUST be visible
+	  $notAvail[1] = array(2,6);
+	   
+	  $Avail[2] 	 = array(2,4,5,6,8,9);//6 MUST be visible
+	  $notAvail[2] = array(3,7);
+	    
+	  $Avail[3] 	 = array(5,9);
+	  $notAvail[3] = array(2,3,4,6,7,8);
+	  
+	  foreach ($Avail[$ptype] as $p)
+	  	$this->assertTrue($this->isElementPresent("field".$p));
+	    
+	  foreach ($notAvail[$ptype] as $p)
+	  	$this->assertFalse($this->isElementPresent("field".$p));
   }
   
-  function verifyAvatar($ptype)
+  function testEditableProfiletype()
   {
-  	
-  	return true;
+  	// now we change the configuration and see that 
+  	// template and profiletype fields are editable or not
+    	$user = JFactory::getUser(82);
+  	  	$this->frontLogin($user->username,$user->username);
+  	  	
+  		//profiletype and template change allowed
+  		$sql = "UPDATE `#__components` 
+				SET `params`= 
+				'show_ptype_during_reg=1 
+				allow_user_to_change_ptype_after_reg=1 
+				defaultProfiletypeID=1 
+				jspt_show_radio=1 
+				allow_templatechange=1 
+				aec_integrate=0 aec_message=b 
+				jspt_restrict_reg_check=0 
+				jspt_prevent_username= 
+				jspt_allowed_email= '
+			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
+			";
+    	$this->_DBO->execSql($sql);
+        
+
+    	//profiletype and template change not allowed
+    	// profiletype not allowed and template change not allowed
+    	$this->verifyEditablePTFields(true,true);
+    	$sql = "UPDATE `#__components` 
+				SET `params`= 
+				'show_ptype_during_reg=1 
+				allow_user_to_change_ptype_after_reg=1 
+				defaultProfiletypeID=1 
+				jspt_show_radio=1 
+				allow_templatechange=0
+				aec_integrate=0 aec_message=b 
+				jspt_restrict_reg_check=0 
+				jspt_prevent_username= 
+				jspt_allowed_email= '
+			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
+			";
+    	$this->_DBO->execSql($sql);
+    	$this->verifyEditablePTFields(true,false);
+    	
+    	$sql = "UPDATE `#__components` 
+				SET `params`= 
+				'show_ptype_during_reg=1 
+				allow_user_to_change_ptype_after_reg=0 
+				defaultProfiletypeID=1 
+				jspt_show_radio=1 
+				allow_templatechange=0
+				aec_integrate=0 aec_message=b 
+				jspt_restrict_reg_check=0 
+				jspt_prevent_username= 
+				jspt_allowed_email= '
+			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
+			";
+    	$this->_DBO->execSql($sql);
+    	$this->verifyEditablePTFields(false,false);    
   }
   
-  function verifyUser($username, $ptype)
+  
+  
+  function verifyEditablePTFields($profiletype,$template)
   {
-  	// find userid 
-  	// check Joomla table for correct user type
-  	// check JomSocual table for correct avatar + privacy + group + approval 
-  	return true;
+  	//go to profile edit page	  	
+  	  	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=edit");
+	  	$this->waitPageLoad();
+	  	$this->assertTrue($this->isTextPresent("Edit profile"));
+	  	
+	  	$this->assertTrue($this->isElementPresent("field16"));
+	  	$this->assertTrue($this->isElementPresent("field17"));
+	  	
+	  	// both
+	  	if(!$template)
+	  		$this->assertTrue($this->isElementPresent("//input[@id='field16'][contains(@type,'hidden')]"));
+	  	if(!$profiletype)
+	  		$this->assertTrue($this->isElementPresent("//input[@id='field17'][contains(@type,'hidden')]"));
   }
 }

@@ -16,7 +16,7 @@ class RegisterTest extends XiSelTestCase
   }
 
   //cross check page exists and comes
-  function testRegisterPage()
+  function xtestRegisterPage()
   {
   	//Prerequiste = clean session + No AEC + Our system plugin is working
   	//1. session cleaned via SQL
@@ -47,7 +47,7 @@ class RegisterTest extends XiSelTestCase
   {
 		$this->userRegistrationForPT(1);
 		$this->userRegistrationForPT(2);
-		$this->userRegistrationForPT(3);
+		$this->userRegistrationForPT(3);		
   }
   
   function userRegistrationForPT($ptype)
@@ -162,6 +162,13 @@ class RegisterTest extends XiSelTestCase
   	$privacy= $cUser->getParams()->get('privacyProfileView');
   	$profiletype  = $cUser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
     $template     = $cUser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
+
+    // find groups of user
+    $query	= " SELECT `groupid` FROM #__community_groups_members "
+  			." WHERE `memberid`='". $userid ."' LIMIT 1";
+  	$db->setQuery($query);
+  	$groups = $db->loadResultArray();
+  	//echo $groups;
   	switch ($ptype)
   	{
   		case '1':
@@ -171,6 +178,7 @@ class RegisterTest extends XiSelTestCase
   			$this->assertEquals($privacy,PRIVACY_PUBLIC);
   			$this->assertEquals($template,"default");
   			$this->assertEquals($profiletype,1);
+  			$this->assertTrue(in_array(1,$groups));
   			break;
   		case '2':
   			$this->assertEquals($jUser->usertype,"Editor");
@@ -179,6 +187,8 @@ class RegisterTest extends XiSelTestCase
   			$this->assertEquals($privacy,PRIVACY_FRIENDS);
   			$this->assertEquals($template,"blueface");
   			$this->assertEquals($profiletype,2);
+  			// not in any group
+  			$this->assertTrue(empty($groups));
   			break;
   			
   		case '3':
@@ -188,6 +198,7 @@ class RegisterTest extends XiSelTestCase
   			$this->assertEquals($privacy,PRIVACY_MEMBERS);
   			$this->assertEquals($template,"blackout");
   			$this->assertEquals($profiletype,3);
+  			$this->assertTrue(in_array(4,$groups));
   			break;
 	  		
   		default:
