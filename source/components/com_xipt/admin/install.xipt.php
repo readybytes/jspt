@@ -425,19 +425,12 @@ function add_column($name, $specstr, $tname)
 
 function isTableExist($tableName)
 {
-	$db	=& JFactory::getDBO();
-	$query 	= " SHOW TABLES LIKE '%".$tableName."%'";
-	$db->setQuery( $query );
-	$tables = $db->loadObjectList();
+	global $mainframe;
 
-	if($db->getErrorNum()){
-		JError::raiseError( 500, $db->stderr());		
-	}
+	$tables	= array();
+	
+	$database = &JFactory::getDBO();
+	$tables	= $database->getTableList();
 
-	if($tables && $tables[0])
-		return true;
-
-	// either newTable exist OR oldTables does not exist
-	// no need of migration.
-	return false;
+	return in_array( $mainframe->getCfg( 'dbprefix' ) . $tableName, $tables );
 }

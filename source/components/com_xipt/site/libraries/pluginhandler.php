@@ -16,7 +16,6 @@ require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 class XiPTLibraryPluginHandler
 {
 	private $mySess ;
-	private $params;
 	private $mainframe;
 
 
@@ -26,7 +25,6 @@ class XiPTLibraryPluginHandler
 		$this->mainframe =& $mainframe;
 
 		$this->mySess = & JFactory::getSession();
-		$this->params = JComponentHelper::getParams('com_xipt');
 	}
 
 	//if value exist in session then return ptype else return false
@@ -154,8 +152,8 @@ class XiPTLibraryPluginHandler
 		$templateValue    =& $fieldValueCodes[TEMPLATE_CUSTOM_FIELD_CODE];
 
 		// user is allowed or not.
-        $allowToChangePType    = $this->params->get('allow_user_to_change_ptype_after_reg',0);
-        $allowToChangeTemplate = $this->params->get('allow_templatechange','0');
+        $allowToChangePType    = XiPTLibraryUtils::getParams('allow_user_to_change_ptype_after_reg','com_xipt',0);
+        $allowToChangeTemplate = XiPTLibraryUtils::getParams('allow_templatechange','com_xipt',0);
 
         // not changing anything get data from table and set it
 		if(!XiPTLibraryUtils::isAdmin($userid)
@@ -315,7 +313,7 @@ class XiPTLibraryPluginHandler
 	    XiPTLibraryUtils::setReturnURL();
 	    $aecData = XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
 
-		$show_ptype_during_reg = $this->params->get('show_ptype_during_reg', 0);
+		$show_ptype_during_reg = XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 
 		if($show_ptype_during_reg){
@@ -328,7 +326,7 @@ class XiPTLibraryPluginHandler
 
 
 			$aecExists = XiPTLibraryAEC::_checkAECExistance();
-			$integrateAEC   = $this->params->get('aec_integrate',0);
+			$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
 
 			// pType already selected
 			if($integrateAEC && $aecExists)
@@ -363,8 +361,8 @@ class XiPTLibraryPluginHandler
 	function event_com_xipt_registration_blank()
 	{
 	    global $mainframe;
-	    $integrateAEC   = $this->params->get('aec_integrate',0);
-	    $forcePtypePage = $this->params->get('aec_force_ptype_page',0);
+	    $integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt');
+	    $forcePtypePage = XiPTLibraryUtils::getParams('aec_force_ptype_page','com_xipt');
 
 	    // if we do not want to integrate AEC then simply return
 	    if(!$integrateAEC)

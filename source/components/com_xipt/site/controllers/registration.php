@@ -26,8 +26,7 @@ class XiPTControllerRegistration extends JController {
 		}
 
 		//TODO CODREV: If not allowed to select PT for user then return
-		$params = JComponentHelper::getParams('com_xipt');
-		if($params->get('show_ptype_during_reg',0)==0){
+		if(XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt')==0){
 
 		    // we need to set default things
 			$selectedProfiletypeID= XiPTLibraryProfiletypes::getDefaultProfiletype();

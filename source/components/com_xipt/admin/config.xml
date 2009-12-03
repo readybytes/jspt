@@ -23,7 +23,7 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="show_watermark" type="radio" default="1" label="ENABLE WATERMARK" description="DISPLAY WATERMARK ON AVATAR.DESC">
+		<param name="show_watermark" type="radio" default="0" label="ENABLE WATERMARK" description="DISPLAY WATERMARK ON AVATAR.DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>

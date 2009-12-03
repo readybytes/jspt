@@ -149,9 +149,8 @@ class XiPTLibraryProfiletypes
 	// get default profiletype from config
 	function getDefaultProfiletype()
 	{
-		$params = JComponentHelper::getParams('com_xipt');
-		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
-
+		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt');
+		
 		if(!$defaultProfiletypeID)
 		    JError::raiseError('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 		    

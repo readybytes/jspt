@@ -88,8 +88,8 @@ function store_globalconfiguration()
 		JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to truncate table') ;
 	
 	//insert data in table
-	$jsite = new JSite();
-	$params			=& $jsite->getParams('com_xipt');
+	//$jsite = new JSite();
+	$params			= JComponentHelper::getParams('com_xipt');
 	//$db->insertObject('#__xipt_temp_globalconfiguration',$data);
 	$query = 'INSERT INTO '.$db->nameQuote('#__xipt_temp_globalconfiguration')
 			.'('

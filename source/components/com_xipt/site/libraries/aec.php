@@ -136,8 +136,7 @@ class XiPTLibraryAEC
 	function getAecMessage()
 	{
 	    $data   = XiPTLibraryAEC::getProfiletypeInfoFromAEC();
-	    $params = JComponentHelper::getParams('com_xipt');
-	    $msgOption = $params->get('aec_message','b');
+	    $msgOption = XiPTLibraryUtils::getParams('aec_message','com_xipt','b');
 	    
     	switch($msgOption)
     	{
