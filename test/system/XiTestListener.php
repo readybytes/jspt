@@ -11,6 +11,7 @@ class XiDBCheck
     private $excludeR;
     private $orderBy;
     private $errorLog;
+    private $log;
     function __construct()
     {
         if(!$this->db)
@@ -25,13 +26,14 @@ class XiDBCheck
      * */
     function compareTable($tableName)
     {
-        //echo "\n --> Comparing table ".$tableName;
+        $this->log[]= "\n --> Comparing table ".$tableName;
         
         $tmpCol = $this->db->getTableFields($tableName, false);
         $allcol = array_keys ($tmpCol[$tableName]);
         $fields = array_diff($allcol, $this->excludeC[$tableName]);
-        //echo "\n ALLCOL:"; print_r($allcol);
-        //echo "\n To be filtered :"; print_r($this->excludeC[$tableName]);
+        
+        $this->log[]= "\n ALLCOL:"; print_r($allcol);
+        $this->log[]= "\n To be filtered :"; print_r($this->excludeC[$tableName]);
         
         
         $select = ' * ';
@@ -42,13 +44,13 @@ class XiDBCheck
             $select .= '`';
          }
         
-        //echo "\n comparing fields : "; print_r($fields); echo "\n Select is: "; print_r($select);
+        $this->log[]=  "\n comparing fields : "; print_r($fields); echo "\n Select is: "; print_r($select);
         
         $query    = ' SELECT '.$select.' FROM '. $tableName 
                     . $this->excludeR[$tableName]
                     . $this->orderBy[$tableName];
         $this->db->setQuery($query);
-        //echo "\n Query for logTable : ".$query;
+        $this->log[]= "\n Query for logTable : ".$query;
         $logTable = $this->db->loadAssocList();
 
         $query    = ' SELECT '.$select.' FROM '. ' au_'.$tableName 
@@ -56,7 +58,7 @@ class XiDBCheck
                     . $this->orderBy[$tableName];
         $this->db->setQuery($query);
         
-        //echo "\n Query for auTable : ".$query;
+        $this->log[]="\n Query for auTable : ".$query;
         $auTable = $this->db->loadAssocList();
 
         //echo "\n auTable :";print_r($auTable);
@@ -75,16 +77,16 @@ class XiDBCheck
                         ."\n Log " . var_export($logTable[$i],true)
                         ;
                 $this->errorLog[]=$error;
-
+				$this->log[]= $error;
                 return false;
             }
             else
             {
-                //echo "\n Table ".$tableName. " Record : ".$i . " Matched";
+                $this->log[]= "\n Table ".$tableName. " Record : ".$i . " Matched";
             }
             
         }
-        //echo " \n ==  Table ".$tableName. " Matched == \n ";
+        $this->log[]= " \n ==  Table ".$tableName. " Matched == \n ";
         return true;        
     }
     
@@ -131,11 +133,17 @@ class XiDBCheck
        return $this->errorLog;
     }
     
+	function getLog()
+    {
+       return $this->log;
+    }
+    
     function loadSql($file)
     {
         if(!file_exists($file))
         {
             $this->errorLog[]="File does not exist : ".$file;
+            $this->log[]= "File does not exist : ".$file;
             return false;
         }
         $query=file_get_contents($file);
@@ -216,9 +224,15 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     
     $errors = $test->_DBO->getErrorLog();
     if($errors){
-         $sqlPath       = $test->getSqlPath();    
-         $logfile       =  $sqlPath.'/'.$testName.'.log';
+         $sqlPath       = $test->getSqlPath();   
+         $logfile       =  $sqlPath.'/'.$testName.'.errlog';
          file_put_contents($logfile,$errors);
+    }
+  	$logs = $test->_DBO->getLog();
+    if($logs){
+         $sqlPath       = $test->getSqlPath();   
+         $logfile       =  $sqlPath.'/'.$testName.'.log';
+         file_put_contents($logfile,$logs);
     }
   } 
   
