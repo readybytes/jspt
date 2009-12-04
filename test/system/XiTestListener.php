@@ -194,8 +194,8 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     $dbDump        =  $sqlPath.'/'.$testName.'.start.sql';
     if(file_exists($dbDump))
     	$test->_DBO->loadSql($dbDump);
-    else
-    	echo "\n File does not exist for ". $dbDump . "\n";
+    //else
+    //	echo "\n File does not exist for ". $dbDump . "\n";
     	
   }
  

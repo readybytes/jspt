@@ -10,11 +10,12 @@
 		<file>setup/setupTest.php</file>
 		<file>test/com_xipt/admin/profiletypeTest.php</file>
 		<file>test/com_xipt/front/registerTest.php</file>
+		<file>test/com_xipt/front/profileTest.php</file>
 	</testsuite>
 	
 	<listeners>
 		<listener class="XiTestListener" file="./system/XiTestListener.php" />
-	</listeners>	
+	</listeners>
 </phpunit>
 
 
