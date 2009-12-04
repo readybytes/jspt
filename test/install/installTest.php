@@ -4,7 +4,7 @@ class InstallTest extends XiSelTestCase
 { 
   function getSqlPath()
   {
-      return dirname(__FILE__).'';
+      return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
   function setUp()
@@ -79,6 +79,18 @@ class InstallTest extends XiSelTestCase
     $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Component Success"));
+    
+    //check migration tables
+    $this->_DBO->addTable('#__community_fields');
+    $this->_DBO->addTable('#__community_register');
+    $this->_DBO->addTable('#__community_users');
+    $this->_DBO->addTable('#__xipt_aclrules');
+    $this->_DBO->addTable('#__xipt_aec');
+    $this->_DBO->addTable('#__xipt_applications');
+    $this->_DBO->addTable('#__xipt_profilefields');
+    $this->_DBO->addTable('#__xipt_profiletypes'); 
+    $this->_DBO->addTable('#__xipt_users');
+    $this->_DBO->addTable('#__xipt_users'); 
   }
   
   /**
