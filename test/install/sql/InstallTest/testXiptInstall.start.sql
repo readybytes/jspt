@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `#__community_jsptacl` (
   `published` tinyint(1) NOT NULL,
   `otherpid` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 TRUNCATE TABLE `#__community_jsptacl`;
 INSERT INTO `#__community_jsptacl` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `#__community_jspt_aec` (
   `planid` int(11) NOT NULL,
   `profiletype` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 TRUNCATE TABLE `#__community_jspt_aec`;
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `#__community_profiletypefields` (
   `fid` int(10) NOT NULL default '0',
   `pid` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 TRUNCATE TABLE `#__community_profiletypefields`;
 INSERT INTO `#__community_profiletypefields` (`id`, `fid`, `pid`) VALUES
@@ -86,15 +86,16 @@ CREATE TABLE IF NOT EXISTS `#__community_profiletypes` (
   `allowt` tinyint(1) NOT NULL default '0',
   `group` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
-
+TRUNCATE TABLE `#__community_profiletypes`;
 INSERT INTO `#__community_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`) VALUES
 (1, 'PT1', 0, 1, 'PT1', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0),
 (2, 'PT2', 1, 1, 'PT2', 'members', 'blackout', 'Editor', 'components/com_community/assets/group.jpg', 0, 0, 0),
 (3, 'PT3', 2, 0, 'PT3', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 1, 1, 0);
 
-DROP TABLE `#__community_register`;
+
+DROP TABLE IF EXISTS `#__community_register`;
 CREATE TABLE IF NOT EXISTS `#__community_register` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `token` varchar(200) NOT NULL,
@@ -106,10 +107,10 @@ CREATE TABLE IF NOT EXISTS `#__community_register` (
   `ip` varchar(25) NOT NULL,
   `profiletypes` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
-DROP TABLE `#__community_users`;
+DROP TABLE IF EXISTS `#__community_users`;
 CREATE TABLE IF NOT EXISTS `#__community_users` (
   `userid` int(11) NOT NULL,
   `status` text NOT NULL,
@@ -154,9 +155,9 @@ CREATE TABLE IF NOT EXISTS `au_#__community_fields` (
   `fieldcode` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fieldcode` (`fieldcode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
-
+TRUNCATE TABLE  `au_#__community_fields` ;
 INSERT INTO `au_#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES
 (1, 'group', 1, 1, 10, 100, 'Basic Information', 'Basic information for user', 1, 1, 1, 1, '', ''),
 (2, 'select', 2, 1, 10, 100, 'Gender', 'Select gender', 1, 1, 1, 1, 'Male\nFemale', 'FIELD_GENDER'),
@@ -186,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `au_#__community_register` (
   `created` datetime default NULL,
   `ip` varchar(25) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE IF NOT EXISTS `au_#__community_users` (
   `userid` int(11) NOT NULL,
@@ -202,6 +203,7 @@ CREATE TABLE IF NOT EXISTS `au_#__community_users` (
   PRIMARY KEY  (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+TRUNCATE TABLE  `au_#__community_users` ;
 INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
 (62, '', 0, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=0\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n', 0, 0),
 (63, '', 0, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=0\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n', 1, 0),
@@ -220,8 +222,9 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_aclrules` (
   `published` tinyint(1) NOT NULL,
   `otherpid` int(31) NOT NULL default '-1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
+TRUNCATE TABLE  `au_#__xipt_aclrules`;
 INSERT INTO `au_#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
 (1, 2, 'PT1 ', 'aclFeatureAddPhotos', 35, 'index.php?option=com_community', 'DO NOT ADD PHOTOS', 1, 0),
 (2, 2, 'PT2', 'aclFeatureWriteMessages', 10, 'index.php?option=com_community', 'DO NOT MORE MESSAGE', 1, 0);
@@ -231,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_aec` (
   `planid` int(11) NOT NULL,
   `profiletype` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8  ;
 
 
 CREATE TABLE IF NOT EXISTS `au_#__xipt_applications` (
@@ -239,8 +242,9 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_applications` (
   `applicationid` int(10) NOT NULL default '0',
   `profiletype` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
+TRUNCATE TABLE  `au_#__xipt_applications`;
 INSERT INTO `au_#__xipt_applications` (`id`, `applicationid`, `profiletype`) VALUES
 (1, 36, 1);
 
@@ -249,8 +253,8 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_profilefields` (
   `fid` int(10) NOT NULL default '0',
   `pid` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+TRUNCATE TABLE  `au_#__xipt_profilefields`;
 INSERT INTO `au_#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
 (1, 2, 2),
 (2, 2, 3),
@@ -277,9 +281,9 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_profiletypes` (
   `watermark` varchar(250) NOT NULL,
   `params` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
-
+ TRUNCATE TABLE  `au_#__xipt_profiletypes` ;
 INSERT INTO `au_#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`) VALUES
 (1, 'PT1', 0, 1, 'PT1', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', ''),
 (2, 'PT2', 1, 1, 'PT2', 'members', 'blackout', 'Editor', 'components/com_community/assets/group.jpg', 0, 0, 0, '', ''),
@@ -293,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_users` (
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
+TRUNCATE TABLE `au_#__xipt_users` ;
 INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (62, 0, 'NOT_DEFINED'),
 (63, 0, 'NOT_DEFINED'),
