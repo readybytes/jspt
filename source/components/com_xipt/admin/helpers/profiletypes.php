@@ -316,20 +316,18 @@ function resetAllUsers($pid)
 		{
 			$imageSize		= cImageGetSize( $file['tmp_name'] );
 
-			// @todo: configurable width?
-			
 			switch($what) {
 				case 'avatar':
-					$imageMaxWidth	= 160;
-					$thumbWidth = 64;
-					$thumbHeight = 64;
-					$imgPrefix = 'avatar_';
+					$imageMaxWidth	= AVATAR_WIDTH;
+					$thumbWidth 	= AVATAR_WIDTH_THUMB;
+					$thumbHeight 	= AVATAR_HEIGHT_THUMB;
+					$imgPrefix 		= 'avatar_';
 					break;
 				case 'watermark':
 					$imageMaxWidth	= WATERMARK_WIDTH;
-					$thumbWidth = WATERMARK_WIDTH_THUMB;
-					$thumbHeight = WATERMARK_HEIGHT_THUMB;
-					$imgPrefix = 'watermark_';
+					$thumbWidth 	= WATERMARK_WIDTH_THUMB;
+					$thumbHeight 	= WATERMARK_HEIGHT_THUMB;
+					$imgPrefix 		= 'watermark_';
 					break;
 			}
 			

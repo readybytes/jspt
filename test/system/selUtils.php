@@ -66,8 +66,11 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
       // now we just want to verify that 
       // page does not have any type of error
       // XIPT SYSTEM ERROR
-      
+        try {
+        	$this->assertFalse($this->isTextPresent("<span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span>"));
+    	} catch (PHPUnit_Framework_AssertionFailedError $e){
+        	array_push($this->verificationErrors, $e->toString());
+    	}        
       // a call stack ping due to assert/notice etc.
-      $this->assertFalse($this->isTextPresent("<span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span>"));
   }
 }
