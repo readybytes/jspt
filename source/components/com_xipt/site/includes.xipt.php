@@ -10,6 +10,7 @@ define('DEFINE_FRONT_INCLUDES','DEFINE_FRONT_INCLUDES');
 // include JomSocial files
 jimport( 'joomla.filesystem.file' );
 jimport( 'joomla.filesystem.folder' );
+jimport( 'joomla.application.component.helper' );
 
 // include JomSocial files
 if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
@@ -42,11 +43,3 @@ require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aec.php
 $lang =& JFactory::getLanguage();
 if($lang)
 	$lang->load( 'com_xipt' );
-	
-/* Also attach style sheet now  */
-/*
-$document =& JFactory::getDocument();
-$css	= JURI::base() . 'components/com_community/templates/default/css/jspt.css';
-if($document)
-	$document->addStyleSheet($css);
-*/

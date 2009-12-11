@@ -16,7 +16,7 @@ class RegisterTest extends XiSelTestCase
   }
 
   //cross check page exists and comes
-  function xtestRegisterPage()
+  function testRegisterPage()
   {
   	//Prerequiste = clean session + No AEC + Our system plugin is working
   	//1. session cleaned via SQL

@@ -61,8 +61,25 @@ class XiPTLibraryPluginHandler
 	function setDataInSession($what,$value)
 	{
 		$this->mySess->set($what,$value, 'XIPT');
+		return true;
 	}
 
+	function getDataInSession($what,$defaultValue)
+	{
+		if($this->mySess->has($what,'XIPT'))
+			return $this->mySess->get($what,$defaultValue, 'XIPT');
+		else
+			return null;
+	}
+	
+	function resetDataInSession($what)
+	{
+		$this->mySess->clear($what,'XIPT');
+		return true;
+	}
+	
+	
+	
 	function cleanRegistrationSession()
 	{
 	    $this->mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
@@ -147,17 +164,29 @@ class XiPTLibraryPluginHandler
 	 */
 	function onBeforeProfileUpdate($userid, &$fieldValueCodes)
 	{
+		// We NEVER send false from here. If profiletype should not be changed then 
+		// we simply store previous values. so correct values are always there during the 
+		// after event
+		
 		// TODO : array_key_exists Check for both fields exist in array or not
 		$profileTypeValue =& $fieldValueCodes[PROFILETYPE_CUSTOM_FIELD_CODE];
 		$templateValue    =& $fieldValueCodes[TEMPLATE_CUSTOM_FIELD_CODE];
+		
+		global $mainframe;
+		//  CODREV : While editing in backend do not check for verification Dont run in admin
+		if ($mainframe->isAdmin())
+			return true;
+			
+		// the use is admin, might be editing from frontend return true
+		if(XiPTLibraryUtils::isAdmin($userid))
+			return true;
 
 		// user is allowed or not.
         $allowToChangePType    = XiPTLibraryUtils::getParams('allow_user_to_change_ptype_after_reg','com_xipt',0);
         $allowToChangeTemplate = XiPTLibraryUtils::getParams('allow_templatechange','com_xipt',0);
 
         // not changing anything get data from table and set it
-		if(!XiPTLibraryUtils::isAdmin($userid)
-			&& (0 == $allowToChangeTemplate || $templateValue=='')){
+		if(0 == $allowToChangeTemplate || $templateValue==''){
 		    //show err msg
 		    if(0 == $allowToChangeTemplate){
 		        global $mainframe;
@@ -168,14 +197,12 @@ class XiPTLibraryPluginHandler
 		}
 
 		// not allowed to change profiletype, get data from table and set it
-		if(!XiPTLibraryUtils::isAdmin($userid)
-			&& (0 == $allowToChangePType || $profileTypeValue==0)){
+		if(0 == $allowToChangePType || $profileTypeValue==0){
 		    //show err msg
 		    if(0 == $allowToChangePType){
 		        global $mainframe;
 		        $mainframe->enqueueMessage(JText::_('YOU ARE NOT ALLOWED TO CHANGE PROFILETYPE'),'notice');
 		    }
-
 			$profileTypeValue = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 
@@ -191,11 +218,12 @@ class XiPTLibraryPluginHandler
 	 */
 	function onAfterProfileUpdate($userid, $saveSuccess)
 	{
-	    //TODO : The event is missing from backend ????
 	    // data was not saved, do nothing
 	    if(false == $saveSuccess)
 	        return true;
 
+	    // the JomSocial already store values in field tables
+	    // now we need to apply that information to our tables
 	    $cuser        = CFactory::getUser($userid);
 	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
 	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);

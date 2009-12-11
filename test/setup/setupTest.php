@@ -4,6 +4,7 @@
 class SetupTest extends XiSelTestCase 
 {
 
+  
   //define this function if you require DB setup
   function getSqlPath()
   {
@@ -93,6 +94,9 @@ class SetupTest extends XiSelTestCase
   function testCreateCustomFields()
   {
 	$this->_DBO->addTable('#__community_fields');
+	$this->_DBO->filterColumn("#__community_fields",'ordering');
+    $this->_DBO->filterOrder("#__community_fields","id");
+	
 	// setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");

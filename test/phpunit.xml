@@ -3,14 +3,16 @@
 		backupStaticAttributes="true" 
 		colors="true" 
 		syntaxCheck="false"
-		bootstrap="bootstrap.php">
+		bootstrap="bootstrap.php"
+		stopOnFailure="true" >
 
 	<testsuite name="AllTest">
 		<file>install/installTest.php</file>
 		<file>setup/setupTest.php</file>
 		<file>test/com_xipt/admin/profiletypeTest.php</file>
+		<file>test/com_xipt/admin/editUserTest.php</file>
 		<file>test/com_xipt/front/registerTest.php</file>
-		<file>test/com_xipt/front/profileTest.php</file>
+		<file>test/com_xipt/front/profileTest.php</file>		
 	</testsuite>
 	
 	<listeners>

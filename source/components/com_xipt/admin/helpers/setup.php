@@ -138,10 +138,11 @@ class XiPTHelperSetup
 	}
 	
 	
-	function isUserControllerPatchRequired()
+	function isAdminUserModelPatchRequired()
 	{
-		return false;
-		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'controllers'.DS.'users.php';
+		// return false;
+		// we need to patch User Model
+		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
 		if (file_exists($filename)) {
 			
 			if(!is_readable($filename)) 
@@ -149,7 +150,7 @@ class XiPTHelperSetup
 			
 			$file = file_get_contents($filename);
 			
-			$searchString = '$appsLib->triggerEvent( "onAfterProfileUpdate" , $args );';
+			$searchString = '$pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);';
 			$count = substr_count($file,$searchString);
 			if($count >= 1)
 				return false;
@@ -162,8 +163,8 @@ class XiPTHelperSetup
 	function checkFilePatchRequired()
 	{
 		$modelPatch = self::isModelFilePatchRequired();
-		$userPatch = self::isUserControllerPatchRequired();
-		$xmlPatch = self::isXMLFilePatchRequired();
+		$userPatch  = self::isAdminUserModelPatchRequired();
+		$xmlPatch   = self::isXMLFilePatchRequired();
 		$libraryField = self::isCustomLibraryFieldRequired();
 		
 		if(!$modelPatch && !$userPatch

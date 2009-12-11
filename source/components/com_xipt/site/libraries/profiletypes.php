@@ -152,7 +152,10 @@ class XiPTLibraryProfiletypes
 		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt');
 		
 		if(!$defaultProfiletypeID)
-		    JError::raiseError('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
+		{
+			echo XiPTLibraryUtils::getParams()->render();
+		    JError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
+		}
 		    
 		return  $defaultProfiletypeID;
 	}
@@ -163,7 +166,6 @@ class XiPTLibraryProfiletypes
 	    $defaultValue   =  $config->get('template');
 	    return $defaultValue;
 	}
-	
 	
 	//return ptype name from id
 	function getProfiletypeName( $id = 0)

@@ -79,6 +79,12 @@ class XiptAPI
 	 */
 	function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')
 	{
-		return XiPTLibraryProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $what);
+		return XiPTLibraryProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $reset);
+	}
+	
+	
+	function getUserInfo($userid, $what='PROFILETYPE')
+	{
+		return XiPTLibraryProfiletypes::getUserData($userid,$what);
 	}
 }

@@ -16,6 +16,37 @@ class InstallTest extends XiSelTestCase
     $this->assertEquals($this->_DBO->getErrorLog(),'');
   }
 
+   /**
+   */
+  function testXiptInstall()
+  {
+    // setup default location 
+    $this->adminLogin();
+    
+    // go to installation
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+    $this->waitPageLoad("30000");
+      
+	// add profiletype-one
+    $this->type("install_package", COM_XIPT_PKG);
+    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Install Component Success"));
+    
+    //check migration tables
+   /* $this->_DBO->addTable('#__community_fields');
+    $this->_DBO->addTable('#__community_register');
+    $this->_DBO->addTable('#__community_users');
+    $this->_DBO->addTable('#__xipt_aclrules');
+    $this->_DBO->addTable('#__xipt_aec');
+    $this->_DBO->addTable('#__xipt_applications');
+    $this->_DBO->addTable('#__xipt_profilefields');
+    $this->_DBO->addTable('#__xipt_profiletypes'); 
+    $this->_DBO->addTable('#__xipt_users');
+    $this->_DBO->addTable('#__xipt_users'); */
+  }
+  
+  
   /**
    * We will upgrade JomSocial from existing 1.5.248 + JSPT installation
    * @return unknown_type
@@ -63,36 +94,7 @@ class InstallTest extends XiSelTestCase
 
   }
   
-  /**
-   */
-  function testXiptInstall()
-  {
-    // setup default location 
-    $this->adminLogin();
-    
-    // go to installation
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
-    $this->waitPageLoad("30000");
-      
-	// add profiletype-one
-    $this->type("install_package", COM_XIPT_PKG);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
-    $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("Install Component Success"));
-    
-    //check migration tables
-    $this->_DBO->addTable('#__community_fields');
-    $this->_DBO->addTable('#__community_register');
-    $this->_DBO->addTable('#__community_users');
-    $this->_DBO->addTable('#__xipt_aclrules');
-    $this->_DBO->addTable('#__xipt_aec');
-    $this->_DBO->addTable('#__xipt_applications');
-    $this->_DBO->addTable('#__xipt_profilefields');
-    $this->_DBO->addTable('#__xipt_profiletypes'); 
-    $this->_DBO->addTable('#__xipt_users');
-    $this->_DBO->addTable('#__xipt_users'); 
-  }
-  
+ 
   /**
    */
   function testXiptSystemPluginInstall()

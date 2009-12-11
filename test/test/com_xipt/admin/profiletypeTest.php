@@ -30,12 +30,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->click("//td[@id='toolbar-new']/a");
     $this->waitPageLoad();
     $this->type("name", "PROFILETYPE-ONE");
-    $this->type("tip", "PROFILETYPE-ONE-TIP");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
 
     // setup custom filters
+    $this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
   }
 	

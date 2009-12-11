@@ -251,12 +251,20 @@ class XiPTLibraryUtils
 	
 	
 	//get params data from xipt component or any
-	function getParams($paramName,$comName,$defaultValue=0)
+	function getParams($paramName='', $comName='com_xipt', $defaultValue=0)
 	{
 		$params = JComponentHelper::getParams($comName);
+		
+		if(!$params)
+		{
+		    JError::raiseWarning('XIPT_SYS_ERR','JSPT PARAMS ARE NULL');
+		}
+		
 		if(empty($paramName))
 			return $params;
+			
 		$result = $params->get($paramName,$defaultValue);
+		
 		return $result;
 	}
 	

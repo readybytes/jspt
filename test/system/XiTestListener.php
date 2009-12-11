@@ -16,8 +16,6 @@ class XiDBCheck
     {
         if(!$this->db)
             $this->db=& JFactory::getDBO();
-        $this->excludeC = array();
-        $this->excludeR = array();
     }
     
     /*
@@ -30,10 +28,13 @@ class XiDBCheck
         
         $tmpCol = $this->db->getTableFields($tableName, false);
         $allcol = array_keys ($tmpCol[$tableName]);
-        $fields = array_diff($allcol, $this->excludeC[$tableName]);
+        $ec 	= $this->excludeC[$tableName];
+        if(empty($ec))
+        	$ec=array();
+        $fields = array_diff($allcol, $ec);
         
-        $this->log[]= "\n ALLCOL:"; print_r($allcol);
-        $this->log[]= "\n To be filtered :"; print_r($this->excludeC[$tableName]);
+        $this->log[]= "\n ALLCOL:".var_export($allcol,true);
+        $this->log[]= "\n To be filtered :".var_export($this->excludeC[$tableName],true);
         
         
         $select = ' * ';
@@ -44,13 +45,14 @@ class XiDBCheck
             $select .= '`';
          }
         
-        $this->log[]=  "\n comparing fields : "; print_r($fields); echo "\n Select is: "; print_r($select);
+        $this->log[]=  "\n comparing fields : ".var_export($fields,true).
+        		 "\n Select is: ".var_export($select,true);
         
-        $query    = ' SELECT '.$select.' FROM '. $tableName 
+        $query    = ' SELECT '.$select.' FROM '. $tableName
                     . $this->excludeR[$tableName]
                     . $this->orderBy[$tableName];
         $this->db->setQuery($query);
-        $this->log[]= "\n Query for logTable : ".$query;
+        $this->log[]= "\n Query for logTable : ".$query."\n";
         $logTable = $this->db->loadAssocList();
 
         $query    = ' SELECT '.$select.' FROM '. ' au_'.$tableName 
@@ -58,15 +60,21 @@ class XiDBCheck
                     . $this->orderBy[$tableName];
         $this->db->setQuery($query);
         
-        $this->log[]="\n Query for auTable : ".$query;
-        $auTable = $this->db->loadAssocList();
+         $this->log[]= "\n Query for auTable : ".$query."\n";
+         $auTable = $this->db->loadAssocList();
 
-        //echo "\n auTable :";print_r($auTable);
-        //echo "\n logTable :";print_r($logTable);
-        $count=count($auTable);
+         $this->log[]=  "\n auTable :".var_export($auTable,true);
+         $this->log[]=  "\n logTable :".var_export($logTable,true);
+        $count=count($auTable);	
         for($i=0 ; $i<$count;$i++)
-        {        
-            if($diff = array_diff_assoc($auTable[$i],$logTable[$i]))
+        {    
+        	$auArr = $auTable[$i];
+        	$logArr = $logTable[$i];
+        	if(!$auArr)
+        		$auArr=array();
+        	if(!$logArr)
+        		$logArr=array();
+            if($diff = array_diff_assoc($auArr,$logArr))
             {
                 $error = "\n \n \n Table " . $tableName . " mismatched"
                         ."\n for Rows " . $this->excludeR[$tableName]
@@ -94,8 +102,8 @@ class XiDBCheck
     {
         //if(!in_array($testTables,$tableName))
         $this->testTables[] = $tableName;
-        $this->excludeC[$tableName]=array();
-        $this->orderBy[$tableName]=array();
+        $this->excludeC[$tableName]='';
+        $this->orderBy[$tableName]='';
     }
     
     function filterColumn($table, $column)
@@ -169,7 +177,7 @@ class XiDBCheck
                 $error = "Joomla DB Error Number : ".$this->db->getErrorNum();
                 $this->errorLog[]=$error;
                     
-                echo "\n Some error during Sql Loading.\n";
+                echo "\n Some error during Sql Loading : ".$error.".\n";
                 echo $q."\n";
                 break;
             }
@@ -189,7 +197,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
   
   public function startTest(PHPUnit_Framework_Test $test)
   {
-      
+    static $i=1;
     $testName      = $test->getName();    
 
     // this two variables must be defined by test
@@ -204,7 +212,8 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     	$test->_DBO->loadSql($dbDump);
     //else
     //	echo "\n File does not exist for ". $dbDump . "\n";
-    	
+
+    echo "\n Test $i : $testName "; $i++;
   }
  
   public function endTest(PHPUnit_Framework_Test $test, $time)
@@ -226,13 +235,15 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     if($errors){
          $sqlPath       = $test->getSqlPath();   
          $logfile       =  $sqlPath.'/'.$testName.'.errlog';
-         file_put_contents($logfile,$errors);
+         if(!file_put_contents($logfile,$errors))
+         	echo $errors;
     }
   	$logs = $test->_DBO->getLog();
     if($logs){
          $sqlPath       = $test->getSqlPath();   
          $logfile       =  $sqlPath.'/'.$testName.'.log';
-         file_put_contents($logfile,$logs);
+         if(!file_put_contents($logfile,$logs))
+         	echo $logs;
     }
   } 
   
