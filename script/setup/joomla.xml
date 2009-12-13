@@ -19,15 +19,8 @@
 		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
 
 		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
-		<untar file="./data/${pkg.version}.tar.gz" todir="${joomla.rootpath}/${joomla.folder}" />
+		<exec command="tar -xvzf ${user.home}/Dropbox/Joomla/joomla.tar.gz -C ${joomla.rootpath}/${joomla.folder}" />
 		<exec command="mv -f ${joomla.rootpath}/${joomla.folder}/${pkg.version}/* ${joomla.rootpath}/${joomla.folder}" passthru="true" />
-		<!--		
-		<copy toDir="${joomla.rootpath}/${joomla.folder}" overwrite="true">
-			<fileset dir="${joomla.rootpath}/${joomla.folder}/${pkg.version}">
-			    <include name="*" />
-			</fileset>
-		</copy>
-		-->
 
 		<copy file="./data/database_${pkg.version}.sql" tofile="${joomla.rootpath}/${joomla.folder}/database.sql" overwrite="true"/>
 		<copy file="./data/configuration.php" tofile="${joomla.rootpath}/${joomla.folder}/configuration.php" overwrite="true"/>
