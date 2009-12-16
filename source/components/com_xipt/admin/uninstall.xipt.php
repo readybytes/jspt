@@ -15,9 +15,8 @@ function com_uninstall()
 	disable_plugin('xipt_system');
 	disable_plugin('xipt_plugin');
 	
-	//CODREV:TODO disable custom fields
 	disable_custom_fields();
-	//CODREV : insert configuration data into new table
+	//insert configuration data into new table
 	//to preserve user global configuration settings
 	store_globalconfiguration();
 }
@@ -64,11 +63,26 @@ function uncopyHackedFiles()
 		if(JFile::exists($targetFile) && JFile::exists($targetFileBackup))
 		{
 			JFile::delete($targetFile);
-			JFile::move($targetFileBackup,$targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup') ;
+			JFile::move($targetFileBackup,$targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
 		}		
 	}
+	// TODO : also remove previous profiletypes and template library fields files
+
 }
 
+function unCopyXIPTFilesFromJomSocial()
+{
+	$COMMUNITY_PATH_FRNTEND = dirname( JPATH_BASE ) .DS. 'components' . DS . 'com_community';
+	
+	$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'profiletypes.php';
+	if(JFile::exists($targetFile))
+		JFile::delete($targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup:' .__LINE__) ;
+	
+	$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'templates.php';
+	if(JFile::exists($targetFile))
+		JFile::delete($targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
+	return;
+}
 
 function store_globalconfiguration()
 {

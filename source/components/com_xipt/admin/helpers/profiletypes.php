@@ -70,7 +70,7 @@ class XiPTHelperProfiletypes
 	
 		$html	= '<span>';
 		
-		$html	.= '<select  name="'.$what.'"  id="type">';
+		$html	.= '<select  name="'.$what.'"  id="'.$what.'">';
 		
 		// we need to check here key=>value
 		foreach($allValues as $key=>$val)
