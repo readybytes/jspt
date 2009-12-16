@@ -39,9 +39,10 @@ class XiptAPI
 	 * @param $visible
 	 * @return Array of Profiletype Objects
 	 */
-	function getProfiletypeInfo($id=0,$visible=false)
+	function getProfiletypeInfo($id=0,$onlyvisible=false,$onlypublished=1)
 	{
-	    $allPT = XiPTLibraryProfiletypes::getProfiletypeArray($visible);
+		$filter = array('published'=>$onlypublished);
+	    $allPT = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
 
 	    //no profiletype available
 	    if(!$allPT)

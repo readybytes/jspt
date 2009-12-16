@@ -117,6 +117,7 @@ class CFieldsProfiletypes
 			return $html.$pName;
 		}
 		
+		$filter	= array('published'=>1);
 		// user can change profiletype, add information
 		$pTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
 		

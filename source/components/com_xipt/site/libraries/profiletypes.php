@@ -184,19 +184,28 @@ class XiPTLibraryProfiletypes
 	}
 
 	//return array of all published profile type id
-	function getProfiletypeArray($visible=false,$id=0)
+	function getProfiletypeArray($filter='')
 	{
 		//TODO : we need to add $visible pTypes as per request.
 		$db			=& JFactory::getDBO();
+		$where = '';
 		
-		$sigleRowQuery = '';
-		if($id != 0)
-			$sigleRowQuery = ' AND '.$db->nameQuote('id').'='.$db->Quote($id);
+		if($filter){
+			$i=0;
+			foreach($filter as $key => $val){
+				if($i)
+					$where .= ' AND ';
+				else
+					$where  = ' WHERE ';
+				
+				$where .=  " ".$db->nameQuote($key)."=".$db->Quote($val) . " ";
+				$i++;
+			}
+		}
 		
 		$query		= ' SELECT *'
 					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' )
-					. ' WHERE '.$db->nameQuote('published').'='.$db->Quote('1')
-					. $sigleRowQuery
+					. $where
 					. ' ORDER BY '.$db->nameQuote('ordering');
 		$db->setQuery( $query );
 		
@@ -493,7 +502,7 @@ class XiPTLibraryProfiletypes
 		if(empty($profileTypeID))
 			return false;
 		
-		$allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		$allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray(array('published'=>1));
 		
 		if(empty($allProfileTypes))
 			return false;
@@ -536,15 +545,8 @@ class XiPTLibraryProfiletypes
 	
 	function getChilds($id=0)
 	{
-		$db			=& JFactory::getDBO();
-		$query		= ' SELECT *'
-					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' )
-					. ' WHERE '.$db->nameQuote('published').'='.$db->Quote('1')
-					. ' AND '.$db->nameQuote('parent').'='.$db->Quote($id)
-					. ' ORDER BY '.$db->nameQuote('ordering');
-		$db->setQuery( $query );
-		
-		$profiletypes = $db->loadObjectList();
+		$filter = array('parent'=>$id);
+		$profiletypes=self::getProfiletypeArray($filter);
 		return $profiletypes;
 	}
 	
@@ -559,7 +561,7 @@ class XiPTLibraryProfiletypes
 		if($level == $depth)
 			return $parentArray;
 		
-		$selfInfo = self::getProfiletypeArray(false,$childId);
+		$selfInfo = self::getProfiletypeArray(array('id'=>$childId));
 		
 		if(empty($selfInfo))
 			return $parentArray;
@@ -567,7 +569,7 @@ class XiPTLibraryProfiletypes
 		if(0 == $selfInfo[0]->parent)
 			return $parentArray;
 
-		$parentInfo = self::getProfiletypeArray(false,$selfInfo[0]->parent);
+		$parentInfo = self::getProfiletypeArray(array('id'=>$selfInfo[0]->parent));
 		if(!empty($parentInfo))
 			$parentArray[] = $parentInfo[0];
 		$parentArray = array_merge($parentArray
@@ -583,7 +585,8 @@ class XiPTLibraryProfiletypes
 	function getSiblings($profiletypeId)
 	{
 		assert($profiletypeId);
-		$ptypeInfo = self::getProfiletypeArray(false,$profiletypeId);
+		$filter= array('id'=> $profiletypeId);
+		$ptypeInfo = self::getProfiletypeArray($filter);
 		$siblings = array();
 		$siblings = self::getChilds($ptypeInfo[0]->parent);
 		return $siblings;

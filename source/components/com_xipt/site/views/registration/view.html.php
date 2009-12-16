@@ -31,7 +31,8 @@ class XiPTViewRegistration extends JView
 		//then after click on any ptype display next level ptypes , if exist for selected ptype
 		//TODO : trigger an API Event to add something to templates, or modify $profiletypes array
 		// e.g. : I want to patch description. with some extra information
-	    $allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		$filter = array('published'=>1);
+	    $allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
 	    
 	    //CODREV : get value from param if parent should be seletectable or not
 	    $disableParent = true;
