@@ -33,7 +33,7 @@ function getJSPTFileList()
 
 	$filestoreplace['front_libraries_fields_customfields.xml']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
 	$filestoreplace['front_models_profile.php']=$CMP_PATH_FRNTEND.DS.'models'.DS.'profile.php';
-	$filestoreplace['admin_controller_user.php']=$CMP_PATH_ADMIN.DS.'controllers'.DS.'users.php';
+	$filestoreplace['admin_models_user.php']=$CMP_PATH_ADMIN.DS.'models'.DS.'users.php';
 	
 	//Codrev : disable plugins and fields too
 	//AEC microintegration install, if AEC exist
