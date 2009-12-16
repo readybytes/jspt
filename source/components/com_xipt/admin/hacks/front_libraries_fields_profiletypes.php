@@ -114,7 +114,7 @@ class CFieldsProfiletypes
 							id="field'.$field->id.'"
 							name="field' . $field->id.'"
 							value="'.$pID.'" />';
-			return $html.$pName;
+			return $pName;
 		}
 		
 		// user can change profiletype, add information

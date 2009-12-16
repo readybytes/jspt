@@ -21,7 +21,8 @@ class XiPTTableProfiletypes extends JTable
 	var $watermark	= null;
 	var $approve	= null;
 	var $allowt		= null;
-	var $group = null;
+	var $group 		= null;
+	var $parent		= null;
 	
 	function __construct(&$db)
 	{
@@ -52,9 +53,10 @@ class XiPTTableProfiletypes extends JTable
 			$this->jusertype	= "Registered";
 			$this->allowt		= false;
 			$this->avatar		= "components/com_community/assets/default.jpg";
-			$this->watermark	= "components/com_community/assets/default.jpg";
+			$this->watermark	= "";
 			$this->approve		= false;
-			$this->group = 0;
+			$this->group 		= 0;
+			$this->parent		= 0;
 			/*
 			  Registered
 			  Author
@@ -99,22 +101,22 @@ class XiPTTableProfiletypes extends JTable
 	 **/
 	function store( )
 	{
-		$db		=& $this->getDBO();		
-		
+		$db		=& $this->getDBO();
+		//CODREV : we have to store all childs after parent in order
 		//For new records need to update the ordering.
  		if( $this->id == 0 )
  		{
- 			// Set the ordering
  			$query	= 'SELECT COUNT(' . $db->nameQuote('ordering') . ') FROM ' . $db->nameQuote('#__xipt_profiletypes');
-			
+				
  			$db->setQuery( $query );
- 			$this->ordering	= $db->loadResult();
+ 			$this->ordering	= $db->loadResult() + 1;
 			//print_r("ordering is ".$this->ordering);
  		}
 		else
 		{
 			//print_r("updating record ". $this->id);		
 		}
+		
  		return parent::store();
 	}
 
@@ -155,5 +157,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->approve		= $data['approve'];
 			$this->allowt		= $data['allowt'];
 			$this->group 		= $data['group'];
+			$this->parent		= $data['parent'];
+			//$this->ordering		= $data['ordering'];
 	}
 }

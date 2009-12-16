@@ -45,10 +45,23 @@ class XiPTControllerRegistration extends JController {
 
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
 
-			// validate values
+			// validate values or check if child exist then show child ptypes
 			if(!XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID)) {
 				$redirectUrl = XiPTLibraryUtils::getReturnURL();
 				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
+				$mainframe->redirect($redirectUrl,$msg);
+				return;
+			}
+			
+			$childArray = array();
+			$childArray = XiPTLibraryProfiletypes::getChildArray($selectedProfiletypeID,0,1);
+			
+			//CODREV : check if parent is selectable or not
+			$disableParent = true;
+			if(!empty($childArray) && $disableParent) {
+				//$redirectUrl = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID,false);
+				$redirectUrl = JRoute::_('index.php?option=com_xipt&view=registration',false);
+				$msg = JText::_('PLEASE SELECT NEXT LEVEL PROFILETYPE');
 				$mainframe->redirect($redirectUrl,$msg);
 				return;
 			}

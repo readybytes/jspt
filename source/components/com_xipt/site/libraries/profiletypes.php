@@ -152,10 +152,7 @@ class XiPTLibraryProfiletypes
 		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt');
 		
 		if(!$defaultProfiletypeID)
-		{
-			echo XiPTLibraryUtils::getParams()->render();
-		    JError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
-		}
+		    JError::raiseError('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 		    
 		return  $defaultProfiletypeID;
 	}
@@ -166,6 +163,7 @@ class XiPTLibraryProfiletypes
 	    $defaultValue   =  $config->get('template');
 	    return $defaultValue;
 	}
+	
 	
 	//return ptype name from id
 	function getProfiletypeName( $id = 0)
@@ -183,17 +181,24 @@ class XiPTLibraryProfiletypes
 	}
 
 	//return array of all published profile type id
-	function getProfiletypeArray($visible=false)
+	function getProfiletypeArray($visible=false,$id=0)
 	{
 		//TODO : we need to add $visible pTypes as per request.
 		$db			=& JFactory::getDBO();
+		
+		$sigleRowQuery = '';
+		if($id != 0)
+			$sigleRowQuery = ' AND '.$db->nameQuote('id').'='.$db->Quote($id);
+		
 		$query		= ' SELECT *'
 					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' )
 					. ' WHERE '.$db->nameQuote('published').'='.$db->Quote('1')
+					. $sigleRowQuery
 					. ' ORDER BY '.$db->nameQuote('ordering');
 		$db->setQuery( $query );
 		
 		$profiletypes = $db->loadObjectList();
+		
 		return $profiletypes;
 	}
 	
@@ -297,6 +302,10 @@ class XiPTLibraryProfiletypes
 			case	'group':
 					$searchFor 		= 'group';
 					$defaultValue	= false;
+					break;
+			case	'parent':
+					$searchFor 		= 'parent';
+					$defaultValue	= 0;
 					break;
 			default	:
 					JError::raiseError('XIPT_ERR','XIPT System Error');
@@ -493,4 +502,97 @@ class XiPTLibraryProfiletypes
 		
 		return false;
 	}
+	
+	/*@param $parentId = take profiletype id for which we want to get child list
+	return array of childs and child of child
+	for getting all level childs send -1 in depth
+	if $allInfo is true then return all information for profiletype array 
+	*/
+	function getChildArray($parentId,$level=0,$depth=-1,$allInfo=true)
+	{
+		$childArray = array();
+		if($level == $depth)
+			return $childArray;
+		$childLists = self::getChilds($parentId);
+		if(empty($childLists))
+			return $childArray;
+
+		if(!empty($childLists))
+			foreach($childLists as $child) {
+				if(true == $allInfo)
+					$childArray[] = $child;
+				else
+					$childArray[] = $child->id;
+				$childArray = array_merge($childArray
+										,self::getChildArray($child->id,$level+1,$depth,$allInfo));
+			}
+		
+		return $childArray;
+	}
+	
+	
+	function getChilds($id=0)
+	{
+		$db			=& JFactory::getDBO();
+		$query		= ' SELECT *'
+					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' )
+					. ' WHERE '.$db->nameQuote('published').'='.$db->Quote('1')
+					. ' AND '.$db->nameQuote('parent').'='.$db->Quote($id)
+					. ' ORDER BY '.$db->nameQuote('ordering');
+		$db->setQuery( $query );
+		
+		$profiletypes = $db->loadObjectList();
+		return $profiletypes;
+	}
+	
+	
+	function getParentArray($childId=0,$level=0,$depth=-1)
+	{
+		$parentArray = array();
+		
+		if(0 == $childId)
+			return $parentArray;	
+		
+		if($level == $depth)
+			return $parentArray;
+		
+		$selfInfo = self::getProfiletypeArray(false,$childId);
+		
+		if(empty($selfInfo))
+			return $parentArray;
+		
+		if(0 == $selfInfo[0]->parent)
+			return $parentArray;
+
+		$parentInfo = self::getProfiletypeArray(false,$selfInfo[0]->parent);
+		if(!empty($parentInfo))
+			$parentArray[] = $parentInfo[0];
+		$parentArray = array_merge($parentArray
+										,self::getParentArray($selfInfo[0]->parent,$level+1,$depth));
+		
+		return $parentArray;
+	}
+	
+	
+	
+	/*//function get profiletype id for which we want to calulate siblings
+	//return sibling array*/
+	function getSiblings($profiletypeId)
+	{
+		assert($profiletypeId);
+		$ptypeInfo = self::getProfiletypeArray(false,$profiletypeId);
+		$siblings = array();
+		$siblings = self::getChilds($ptypeInfo[0]->parent);
+		return $siblings;
+	}
+	
+
+	function getDepth($profiletypeId)
+	{
+		assert($profiletypeId);
+		$parentHirerchy = array();
+		$parentHirerchy = self::getParentArray($profiletypeId,0,-1);
+		return count($parentHirerchy);
+	}
+	
 }

@@ -187,6 +187,8 @@ class XiPTLibraryAcl
 		$myPID	 = XiPTLibraryProfiletypes::getUserData($userID,'PROFILETYPE');
 		$db		 = JFactory::getDBO();
 		
+		//CODREV : is this require to check if viewuserid and userid is same
+		//then user can visit their own profile or not
 		if($viewuserid)
 			$otherpid	= XiPTLibraryProfiletypes::getUserData($viewuserid,'PROFILETYPE');
 		
@@ -196,18 +198,34 @@ class XiPTLibraryAcl
 		if($feature == 'aclFeatureCantVisitOtherProfile'){
 			//support for All Feature through ( -1 )
 			//We add -1 for all in admin
-			$extraSql = ' AND ( otherpid='. $db->Quote($otherpid)
-						.' OR otherpid='.$db->Quote(ALL).')';
+			//CODREV : we have to block child also for visiting
+			$childArray = XiPTLibraryProfiletypes::getChildArray($otherpid);
+			$childQuery = '';
+			if(!empty($childArray)) {
+				foreach($childArray as $child)
+					$childQuery = ' OR '.$db->nameQuote('otherpid').'='.$db->Quote($child->id);
+			}
+			$extraSql = ' AND ( '.$db->nameQuote('otherpid').'='. $db->Quote($otherpid)
+						. $childQuery
+						.' OR '.$db->nameQuote('otherpid').'='.$db->Quote(ALL).' )';
 		}
 			
-		//
+		//CODREV : In case of child we have to apply his parents rule also
+		$parentQuery = '';
+		$parentArray = XiPTLibraryProfiletypes::getParentArray($myPID);
+		if(!empty($parentArray)) {
+			foreach($parentArray as $parent){
+				$parentQuery .= ' OR '.$db->nameQuote('pid').'='. $db->Quote($parent->id);
+			}
+		}
 		$query	 = 'SELECT * FROM #__xipt_aclrules '
 					. ' WHERE '
-					. ' ( pid='. $db->Quote($myPID)
-					. ' OR pid='.$db->Quote(ALL).' )'
+					. ' ( '.$db->nameQuote('pid').'='. $db->Quote($myPID)
+					. $parentQuery
+					. ' OR '.$db->nameQuote('pid').'='.$db->Quote(ALL). ' )'
 					.$extraSql
-					. ' AND feature='. $db->Quote($feature)
-					. ' AND published='.$db->Quote(1);
+					. ' AND '.$db->nameQuote('feature').'='. $db->Quote($feature)
+					. ' AND '.$db->nameQuote('published').'='.$db->Quote(1);
 		
 		$db->setQuery( $query );
 		$results = $db->loadObjectList();

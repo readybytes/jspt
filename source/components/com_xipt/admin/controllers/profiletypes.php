@@ -75,7 +75,8 @@ class XiPTControllerProfiletypes extends JController
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
 		$data['group'] 		= $post['group'];
-		
+		$data['parent']		= $post['parent'];
+		//$data['ordering']	= 0;
 		$row->bindAjaxPost($data);
 		
 		if( $isValid )
@@ -87,6 +88,9 @@ class XiPTControllerProfiletypes extends JController
 	
 			if($id != 0)
 			{
+				//CODREV : re-arrange ordering
+				XiPTHelperProfiletypes::mapOrderInDatabase($row->id,0);
+				
 				//CODREV : call uploadImage function if post(image) data is set
 				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
 		
@@ -123,11 +127,22 @@ class XiPTControllerProfiletypes extends JController
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		$i = 1;
+		$childArray  = array();
 		if(!empty($ids))
 		{
 			foreach( $ids as $id )
 			{
 				$row->load( $id );
+				//id should not be 0 , b'coz it 
+				//reflects error in getChilds( we send all root if parentId = 0 )
+				assert($id);
+				$childArray = XiPTLibraryProfiletypes::getChildArray($id,0,-1,false);
+				
+				if(!empty($childArray)) {
+					$message	= sprintf(JText::_('CANNOT REMOVE PARENT PROFILETYPE'),$row->name);
+					continue;
+				}
+				
 				if(!$row->delete( $id ))
 				{
 					// If there are any error when deleting, we just stop and redirect user with error.
@@ -138,7 +153,9 @@ class XiPTControllerProfiletypes extends JController
 				$i++;
 			}
 		}
-				
+
+		$count = $i - 1;
+		
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
 		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
@@ -216,12 +233,14 @@ class XiPTControllerProfiletypes extends JController
 		{
 			$id		= (int) $id[0];
 
-			// Load the JTable Object.
-			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+			XiPTHelperProfiletypes::mapOrderInDatabase($id,$direction);
 			
+			/*// Load the JTable Object.
+			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		
 			$table->load( $id );
 			$table->move( $direction );
-
+			*/
 			$cache	=& JFactory::getCache( 'com_content');
 			$cache->clean();
 			
