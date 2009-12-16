@@ -41,11 +41,11 @@ defined('_JEXEC') or die('Restricted access');
 			<td>
 				<input type="text" value="<?php echo $this->row->name;?>" name="name" />
 			</td>
-			<td class="key"><?php echo JText::_('Published');?></td>
+			<td class="key"><?php echo JText::_('Parent');?></td>
 			<td>:</td>
 			<td>
-				<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->row->published);?></span>
-			</td>
+				<?php echo XiPTHelperProfiletypes::buildTypes($this->row->parent, 'parent',$this->row->id);?>
+			</td >
 		</tr>
 		<tr>
 			<td class="key"><?php echo JText::_('Default Privacy Settings for Profile');?></td>
@@ -54,12 +54,12 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo XiPTHelperProfiletypes::buildTypes($this->row->privacy, 'privacy');?>
 			</td >
 			
-			<td class="key"><?php echo JText::_('Require Approval');?></td>
+			<td class="key"><?php echo JText::_('Published');?></td>
 			<td>:</td>
 			<td>
-				<span><?php echo JHTML::_('select.booleanlist',  'approve', '', $this->row->approve );?></span>
-			</td>
-			
+				<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->row->published);?></span>
+			</td>	
+					
 		</tr>
 		<tr>
 			<td class="key"><?php echo JText::_('Default Template Settings for Profile');?></td>
@@ -68,10 +68,10 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo XiPTHelperProfiletypes::buildTypes($this->row->template, 'template');?>
 			</td>
 			
-			<td class="key"><?php echo JText::_('Allow Template');?></td>
+			<td class="key"><?php echo JText::_('Require Approval');?></td>
 			<td>:</td>
 			<td>
-				<span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->row->allowt );?></span>
+				<span><?php echo JHTML::_('select.booleanlist',  'approve', '', $this->row->approve );?></span>
 			</td>
 			
 		</tr>
@@ -82,16 +82,17 @@ defined('_JEXEC') or die('Restricted access');
 			<td>
 				<?php echo XiPTHelperProfiletypes::buildTypes($this->row->jusertype,'jusertype');?>
 			</td>
-			<td class="key"><?php echo JText::_('Select default group to assign');?></td>
+			
+			<td class="key"><?php echo JText::_('Allow Template');?></td>
 			<td>:</td>
 			<td>
-				<span><?php echo XiPTHelperProfiletypes::buildTypes($this->row->group,'group');?><span>
+				<span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->row->allowt );?></span>
 			</td>
 		</tr>
 		<tr>
 			<td class="key"><?php echo JText::_('Default avatar');?></td>
 			<td>:</td>
-			<td colspan="4">
+			<td>
 			<div>
 				<div>
 			    	<img src="<?php echo JURI::root().$this->row->avatar;?>" width="64" height="64" border="0" alt="<?php echo $this->row->avatar; ?>" />
@@ -101,12 +102,17 @@ defined('_JEXEC') or die('Restricted access');
 			    	<input class="inputbox button" type="file" id="file-upload" name="FileAvatar" style="color: #666;" />
 			    </div>
 			</div>
+			</td>
+			<td class="key"><?php echo JText::_('Select default group to assign');?></td>
+			<td>:</td>
+			<td>
+				<span><?php echo XiPTHelperProfiletypes::buildTypes($this->row->group,'group');?><span>
 			</td>			
 		</tr>
 		<tr>
 			<td class="key"><?php echo JText::_('Watermark');?></td>
 			<td>:</td>
-			<td colspan="4">
+			<td>
 			<div>
 				<div>
 			    	<img src="<?php echo JURI::root().$this->row->watermark;?>" width="64" height="64" border="0" alt="<?php echo $this->row->watermark; ?>" />
