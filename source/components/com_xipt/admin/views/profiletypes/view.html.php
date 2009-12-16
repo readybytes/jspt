@@ -10,16 +10,20 @@ defined('_JEXEC') or die('Restricted access');
 jimport( 'joomla.application.component.view');
 class XiPTViewProfiletypes extends JView 
 {
-    function display($tpl = null){
+    function display($tpl = null)
+    {
     	$profiletype	=XiFactory::getModel( 'Profiletypes' );
 		
 		$fields		=& $profiletype->getFields();
 		$pagination	=& $profiletype->getPagination();
 		$profiletypes = array();
+		$depth		  = array();
 		$allTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
 		if ($allTypes)
-				foreach ($allTypes as $ptype)
-					$profiletypes[$ptype->id]=$ptype->name;
+				foreach ($allTypes as $ptype){
+					$profiletypes[$ptype->id]	= $ptype->name;
+					$depth[$ptype->id]			= XiPTLibraryProfiletypes::getDepth($ptype->id);
+				}
 		//CODREV : We should add none also.
 		$profiletypes['0']='None';
 		// Load tooltips
@@ -30,6 +34,7 @@ class XiPTViewProfiletypes extends JView
 		$this->assignRef( 'fields' 		, $fields );
 		$this->assignRef( 'pagination'	, $pagination );
 		$this->assignRef( 'profiletypes'	, $profiletypes );
+		$this->assignRef( 'depth'	, $depth );
 		parent::display( $tpl );
     }
 	
