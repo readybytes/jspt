@@ -139,7 +139,8 @@ class XiPTControllerProfiletypes extends JController
 				$childArray = XiPTLibraryProfiletypes::getChildArray($id,0,-1,false);
 				
 				if(!empty($childArray)) {
-					$message	= sprintf(JText::_('CANNOT REMOVE PARENT PROFILETYPE'),$row->name);
+					$msg	= sprintf(JText::_('CANNOT REMOVE PARENT PROFILETYPE'),$row->name);
+					$mainframe->enqueueMessage($msg);
 					continue;
 				}
 				
