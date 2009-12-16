@@ -343,20 +343,18 @@ function resetAllUsers($pid)
 		{
 			$imageSize		= cImageGetSize( $file['tmp_name'] );
 
-			// @todo: configurable width?
-			
 			switch($what) {
 				case 'avatar':
-					$imageMaxWidth	= 160;
-					$thumbWidth = 64;
-					$thumbHeight = 64;
-					$imgPrefix = 'avatar_';
+					$imageMaxWidth	= AVATAR_WIDTH;
+					$thumbWidth 	= AVATAR_WIDTH_THUMB;
+					$thumbHeight 	= AVATAR_HEIGHT_THUMB;
+					$imgPrefix 		= 'avatar_';
 					break;
 				case 'watermark':
 					$imageMaxWidth	= WATERMARK_WIDTH;
-					$thumbWidth = WATERMARK_WIDTH_THUMB;
-					$thumbHeight = WATERMARK_HEIGHT_THUMB;
-					$imgPrefix = 'watermark_';
+					$thumbWidth 	= WATERMARK_WIDTH_THUMB;
+					$thumbHeight 	= WATERMARK_HEIGHT_THUMB;
+					$imgPrefix 		= 'watermark_';
 					break;
 			}
 			
@@ -404,162 +402,5 @@ function resetAllUsers($pid)
 				JError::raiseError( 500, $db->stderr());
 		    }
 		}
-	}
-	
-	
-/*
-	manage profiletype id verses order
-	from root to child according to order
-	now from this array we can apply ordering and then set in database*/ 
-	function manageOrdering($parentId=0)
-	{
-		$orderArray = array();
-		$childArray = array();
-		$childArray = XiPTLibraryProfiletypes::getChildArray($parentId,0,1,true);
-		if(empty($childArray))
-			return $orderArray;
-
-		$counter = 1;
-		foreach($childArray as $child) {
-			/*$orderArray[$child->id]['ordering'] = $counter;
-			$orderArray[$child->id]['childs'] = self::manageOrdering($child->id);*/
-			$orderArray[$child->id] = $counter;
-			$nextLevelChilds = self::manageOrdering($child->id);
-			if(!empty($nextLevelChilds)) {
-				foreach($nextLevelChilds as $key => $value) 
-					$orderArray[$key] = $value;
-			}
-			$counter++;
-		}
-		
-		//print_r($orderArray);
-		return $orderArray;
-	}
-	
-	
-	/*provide 1 in order for applying down operation
-	else -1 for up operation*/
-	function applyOrder($profiletypeId,$order=0)
-	{
-		$orderArray = array();
-		//proviing 0 in parentid b'coz we want info from root level
-		$orderArray = self::manageOrdering(0);
-		
-		//$order == 0 means we don't want to apply any ordering profiletype
-		if(0 == $order)
-			return $orderArray;
-
-		$siblings = array();
-		//get siblings array ( list from root )
-		//now gone through list and apply req ordering
-		$siblings = XiPTLibraryProfiletypes::getSiblings($profiletypeId);
-		if(empty($siblings) || count($siblings) <= 1) //no need for applying operation
-			return $orderArray;
-		
-		//order == -1 means apply up ordering for $profiletypeId
-		if(-1 == $order) {
-			$lastId = 0;
-			if($orderArray[$profiletypeId] > 1) {
-				$orderArray[$profiletypeId] = $orderArray[$profiletypeId] - 1;
-				$start = false;
-				foreach($siblings as $sibling){
-					if($sibling->id == $profiletypeId){
-						 $start = true;
-					}
-					
-					if($start){
-						$orderArray[$lastId] = $orderArray[$lastId] + 1;
-						$start = false;
-						break;
-					}
-					$lastId = $sibling->id;
-					
-				}
-			}
-		}
-		
-		//order == 1 means apply down ordering for $profiletypeId
-		if(1 == $order) {
-			if($orderArray[$profiletypeId] < count($siblings)) {
-					$orderArray[$profiletypeId] = $orderArray[$profiletypeId] + 1;
-					
-					$start = false;
-					foreach($siblings as $sibling){
-						if($sibling->id == $profiletypeId){
-							 $start = true;
-							 continue;
-						}
-						if($start){
-							$orderArray[$sibling->id] = $orderArray[$sibling->id] - 1;
-							break;
-						}
-					}
-			}
-		}
-		
-		return $orderArray;
-	}
-	
-	
-	function mapOrderInDatabase($profiletypeId,$order)
-	{
-		$orderArray = array();
-		$orderArray = self::applyOrder($profiletypeId,$order);
-		
-		if(empty($orderArray))
-			return;
-			
-		//$newOrderArray = self::arrangeOrdering($orderArray);
-		self::arrangeOrdering($orderArray);
-		// Load the JTable Object.
-		$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-
-		$counter = 1;
-		foreach($orderArray as $key => $value) {
-			//$childArray = self::getChildArray($key,0,1,false);
-			$table->load( $key );
-			//b'coz we want to store original counting means 1,2,3,4 acc to root to leaf
-			//not in root ( 1 => child( 1,2) , 2 ,3 etc...)
-			$table->set('ordering',$value);
-			$table->store();
-			$counter++;
-		}
-	}
-	
-	
-	function arrangeOrdering(&$orderArray,$profiletypeId=0)
-	{
-		//$order = sort($orderArray);
-		static $counter=1;
-		$childArray = array();
-		$childArray = XiPTLibraryProfiletypes::getChildArray($profiletypeId,0,1,true);
-		$newChildArray = array();
-		
-		if(empty($childArray))
-			return;
-		
-		//re-arrange( sort ) array according to ordering in $orderArray
-		for($i=0 ; $i < count($childArray) ; $i++){
-			for($j=$i+1 ; $j <= (count($childArray)-1) ; $j++){
-				if($orderArray[$childArray[$j]->id] < $orderArray[$childArray[$i]->id]){
-					$temp = $childArray[$i];
-					$childArray[$i] = $childArray[$j];
-					$childArray[$j] = $temp;
-				}
-			}
-		}
-		
-		foreach($childArray as $child){
-			if(key_exists($child->id,$orderArray)){
-				$val = $orderArray[$child->parent]+$orderArray[$child->id];
-				//no need to change according to parent b'coz no parent exist
-				if($child->parent == 0 || $val < $counter)
-					$orderArray[$child->id] = $counter;					
-				else
-					$orderArray[$child->id] = $val;
-			}
-			$counter++;
-			self::arrangeOrdering($orderArray,$child->id);
-		}	
 	}
 }

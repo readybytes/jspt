@@ -138,9 +138,10 @@ class XiPTControllerSetup extends JController
 	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
 	        
     	}
-    	
-    	if(XiPTHelperSetup::isUserControllerPatchRequired()){
-    		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'controllers'.DS.'users.php';
+
+    	// we need to patch Model:User in backend also for editing
+    	if(XiPTHelperSetup::isAdminUserModelPatchRequired()){
+    		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
     		
     		//	CODREV : create a backup file first
     	    if(!JFile::copy($filename, $filename.'.jxibak')){
@@ -149,20 +150,17 @@ class XiPTControllerSetup extends JController
     	    	return false;
     	    }
     		
-	    	$funcName = 'function save()';
+	    	$funcName = 'function getEditableProfile($userId	= null)';
 	    	
-	    	$searchString = '$model->saveProfile($userId , $values);';
+	    	$searchString = '$result	= $db->loadAssocList();';
 	    	ob_start();
-	    	?>$model->saveProfile($userId , $values);
+	    	?>$result	= $db->loadAssocList();
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
-	    	$appsLib	=& CAppPlugins::getInstance();
-	    	$appsLib->loadApplications();
-	    	$args 	= array();
-	    	$args[]	= $userId;
-	    	$args[]	= true;
-	    	$result = $appsLib->triggerEvent( "onAfterProfileUpdate" , $args );
-	    	/*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
+			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
+		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
 	        <?php 
 	        
 	        $replaceString = ob_get_contents();

@@ -89,7 +89,7 @@ class XiPTControllerProfiletypes extends JController
 			if($id != 0)
 			{
 				//CODREV : re-arrange ordering
-				XiPTHelperProfiletypes::mapOrderInDatabase($row->id,0);
+				XiPTLibraryProfiletypes::mapOrderInDatabase($row->id,0);
 				
 				//CODREV : call uploadImage function if post(image) data is set
 				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
@@ -139,8 +139,7 @@ class XiPTControllerProfiletypes extends JController
 				$childArray = XiPTLibraryProfiletypes::getChildArray($id,0,-1,false);
 				
 				if(!empty($childArray)) {
-					$msg	= sprintf(JText::_('CANNOT REMOVE PARENT PROFILETYPE'),$row->name);
-					$mainframe->enqueueMessage($msg);
+					$message	= sprintf(JText::_('CANNOT REMOVE PARENT PROFILETYPE'),$row->name);
 					continue;
 				}
 				
@@ -234,7 +233,7 @@ class XiPTControllerProfiletypes extends JController
 		{
 			$id		= (int) $id[0];
 
-			XiPTHelperProfiletypes::mapOrderInDatabase($id,$direction);
+			XiPTLibraryProfiletypes::mapOrderInDatabase($id,$direction);
 			
 			/*// Load the JTable Object.
 			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );

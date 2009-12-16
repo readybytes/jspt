@@ -39,11 +39,20 @@ function submitbutton( action )
 			<th>
 				<?php echo JText::_( 'NAME' ); ?>
 			</th>
+			<th>
+				<?php echo JText::_( 'PARENT' ); ?>
+			</th>
 			<th width="10%">
 				<?php echo JText::_( 'AVATAR' ); ?>
 			</th>
 			<th width="10%">
 				<?php echo JText::_( 'WATERMARK' ); ?>
+			</th>
+			<th width="10%">
+				<?php echo JText::_( 'GROUP' ); ?>
+			</th>
+			<th width="10%">
+				<?php echo JText::_( 'PRIVACY' ); ?>
 			</th>
 			<th width="10%">
 				<?php echo JText::_( 'TEMPLATE' ); ?>
@@ -83,25 +92,25 @@ function submitbutton( action )
 			</td>
 			<td><?php echo $field->id;?></td>
 			<td>
-			<?php if($this->depth[$field->id] > 0){
-					$depth = $this->depth[$field->id];
-					for($counter = 1 ; $counter < $depth ; $counter++){?>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-					<?php }
-					echo "|__";
-				  }
-			?>
-					
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
 					<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$field->id, false); ?>
 						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
 				</span>
+			</td>
+			<td align="center" id="parent<?php echo $field->id;?>">
+				<?php echo $this->profiletypes[$field->parent]; ?>
 			</td>
 			<td align="center" id="avatar<?php echo $field->id;?>">
 				<img src="<?php echo JURI::root().$field->avatar;?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
 			<td align="center" id="watermark<?php echo $field->id;?>">
 				<img src="<?php echo JURI::root().$field->watermark;?>" width="64" height="64" border="0" alt="<?php echo $field->watermark; ?>" />	
+			</td>
+			<td align="center" id="group<?php echo $field->id;?>">
+				<?php echo $this->getGroup($field->group); ?>
+			</td>
+			<td align="center" id="privacy<?php echo $field->id;?>">
+				<?php echo $field->privacy; ?>
 			</td>
 			<td align="center" id="template<?php echo $field->id;?>">
 				<?php echo $field->template; ?>
