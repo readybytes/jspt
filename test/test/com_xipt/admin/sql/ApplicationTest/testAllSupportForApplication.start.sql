@@ -21,5 +21,13 @@ INSERT INTO `au_#__xipt_applications` (`applicationid`, `profiletype`) VALUES
 (39, 5),
 (40, 3),
 (40, 4),
-(40, 5)
+(40, 5),
+(43, 2),
+(43, 3),
+(43, 4),
+(43, 5),
+(44, 1),
+(44, 3),
+(44, 4),
+(44, 5)
 ;

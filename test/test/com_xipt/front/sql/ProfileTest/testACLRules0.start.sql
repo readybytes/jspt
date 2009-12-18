@@ -1,19 +1,18 @@
-TRUNCATE TABLE `#__xipt_applications`;
-INSERT INTO `#__xipt_applications` (`applicationid`, `profiletype`) VALUES
-(38, 2),
-(38, 3),
-(38, 4),
-(39, 1),
-(39, 3),
-(39, 4),
-(40, 3),
-(40, 4),
-(43, 2),
-(43, 3),
-(43, 4),
-(44, 1),
-(44, 3),
-(44, 4);
+TRUNCATE TABLE `#__community_photos_albums`;
+TRUNCATE TABLE `#__xipt_aclrules`;
+INSERT INTO `#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
+(1, 1, 'RULE-1', 'aclFeatureCreateGroup', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(2, 1, 'RULE-2', 'aclFeatureJoinGroup', 0, 'index.php?option=com_community&view=profile', 'You are not allowed to access this resource', 1, 0),
+(3, 1, 'RULE-3', 'aclFeatureAddPhotos', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(4, 1, 'RULE-4', 'aclFeatureAddAlbum', 1, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(5, 1, 'RULE-5', 'aclFeatureAddVideos', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(6, 1, 'RULE-6', 'aclFeatureWriteMessages', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(7, 1, 'RULE-7', 'aclFeatureChangeAvatar', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(8, 1, 'RULE-8', 'aclFeatureChangePrivacy', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(9, 1, 'RULE-9', 'aclFeatureEditProfile', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(10, 1, 'RULE-10', 'aclFeatureEditProfileDetail', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
+(11, 1, 'RULE-11', 'aclFeatureCantVisitOtherProfile', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 2);
+
 
 TRUNCATE TABLE `#__community_fields` ;
 INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES

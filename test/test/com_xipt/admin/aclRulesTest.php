@@ -26,17 +26,17 @@ class AclRulesTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=aclrules");
     $this->waitPageLoad();
       
-	// add profiletype-one
+	// add Rule-1
     $this->click("//td[@id='toolbar-new']/a");
     $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-ONE");
+    $this->type("rulename", "RULE-1");
+    $this->select("profiletype", "value=1");
+    $this->type("taskcount", "5");
+    $this->type("message", "You are not allowed to access this resource ha ha hah");
+    $this->type("redirecturl", "index.php?option=com_community&view=profile");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
-
-    // setup custom filters
-    $this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
-    $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    $this->assertTrue($this->isTextPresent("RULE-1"));
   }
 }
 ?>

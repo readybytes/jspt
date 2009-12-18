@@ -27,12 +27,6 @@ class ApplicationTest extends XiSelTestCase
     $this->_DBO->filterColumn('#__xipt_applications','id');
     
     // now check for showing application
-    //wall-38
-    //feeds-39
-    //groups-40
-    //latestphotos-41
-    //articles -42
-    //for 1
     $this->click("//span[@id='name38']/a");
     $this->waitPageLoad();
     $this->click("profileTypes1");
@@ -64,7 +58,22 @@ class ApplicationTest extends XiSelTestCase
     $this->click("profileTypes2");
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
- 
+    
+    //For core application
+    $this->click("//span[@id='name43']/a");
+    $this->waitPageLoad();
+    $this->click("profileTypes0");
+    $this->click("profileTypes1");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
+    
+    //still ALL should reflect
+    $this->click("//span[@id='name44']/a");
+    $this->waitPageLoad();
+    $this->click("profileTypes0");
+    $this->click("profileTypes2");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
   }
 	
 }
