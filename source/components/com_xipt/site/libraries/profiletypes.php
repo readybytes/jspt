@@ -600,5 +600,24 @@ class XiPTLibraryProfiletypes
 		$parentHirerchy = self::getParentArray($profiletypeId,0,-1);
 		return count($parentHirerchy);
 	}
+
+	function getParams($id)
+	{
+			$config = '';
+			$db			=& JFactory::getDBO();
+			$query		= 'SELECT '. $db->nameQuote('params') .' FROM '
+						. $db->nameQuote( '#__xipt_profiletypes' )
+						. ' WHERE '.$db->nameQuote('id').'='. $db->Quote($id);
+			
+			$db->setQuery( $query );
+			$pTypeConfig = $db->loadResult();
+			if($pTypeConfig)
+				$config	= new JParameter( $pTypeConfig );			
+			
+			// Load default configuration
+			$params	= $config;//new JParameter( $config->_raw );
+		//}
+		return $params;		
+	}
 	
 }

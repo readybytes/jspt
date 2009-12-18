@@ -51,6 +51,7 @@
 		<menu link="option=com_xipt" img="components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
 		<submenu>
 			<menu view="cpanel" img="components/com_xipt/images/icon-cpanel.png">Control Panel</menu>
+			<menu view="configuration" img="components/com_xipt/images/icon-jspt-config.gif">Configuration</menu>
 			<menu view="setup" img="components/com_xipt/images/icon-setup.gif">Setup</menu>
 			<menu view="profiletypes" img="components/com_xipt/images/icon-profiletypes.gif">Profile Types</menu>
 			<menu view="aclrules" img="components/com_xipt/images/icon-aclrules.gif">Access Control</menu>
@@ -75,11 +76,13 @@
 			<filename>controllers/profilefields.php</filename>
 			<filename>controllers/aclrules.php</filename>
 			<filename>controllers/applications.php</filename>
+			<filename>controllers/configuration.php</filename>
 
 			<filename>models/index.html</filename>
 			<filename>models/profiletypes.php</filename>
 			<filename>models/aclrules.php</filename>
 			<filename>models/applications.php</filename>
+			<filename>models/configuration.php</filename>
 			
 			<filename>helpers/index.html</filename>
 			<filename>helpers/profiletypes.php</filename>
@@ -120,6 +123,19 @@
 			<filename>views/profilefields/tmpl/default.php</filename>
 			<filename>views/profilefields/tmpl/profilefields.edit.php</filename>
 			
+			<filename>views/configuration/index.html</filename>
+			<filename>views/configuration/view.html.php</filename>
+			<filename>views/configuration/tmpl/index.html</filename>
+			<filename>views/configuration/tmpl/default.php</filename>
+			<filename>views/configuration/tmpl/groups.php</filename>
+			<filename>views/configuration/tmpl/messaging.php</filename>
+			<filename>views/configuration/tmpl/photos.php</filename>
+			<filename>views/configuration/tmpl/privacy.php</filename>
+			<filename>views/configuration/tmpl/reportings.php</filename>
+			<filename>views/configuration/tmpl/videos.php</filename>
+			<filename>views/configuration/tmpl/walls.php</filename>
+			<filename>views/configuration/tmpl/configuration.edit.php</filename>
+			
 			<filename>views/aclrules/index.html</filename>
 			<filename>views/aclrules/view.html.php</filename>
 			<filename>views/aclrules/tmpl/index.html</filename>
@@ -146,6 +162,7 @@
 			
 			<filename>images/index.html</filename>
 			<filename>images/setup.png</filename>
+			<filename>images/jspt-config.png</filename>
 			<filename>images/profiletypes.gif</filename>
 			<filename>images/profilefields.gif</filename>
 			<filename>images/aclrules.gif</filename>
@@ -158,6 +175,7 @@
 			
 			<filename>images/icon-setup.gif</filename>
 			<filename>images/icon-profiletypes.gif</filename>
+			<filename>images/icon-jspt-config.gif</filename>
 			<filename>images/icon-profilefields.gif</filename>
 			<filename>images/icon-aclrules.gif</filename>
 			<filename>images/icon-applications.gif</filename>

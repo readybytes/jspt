@@ -7,6 +7,7 @@ defined('_JEXEC') or die('Restricted access');
 		<td width="60%" valign="top">
 			<div>
 				<div id="cpanel">
+					<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=profiletypes', JText::_('CONFIGURATION'));?>
 					<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', JText::_('SETUP'));?>
 					<?php echo $this->addIcon('profiletypes.gif','index.php?option=com_xipt&view=profiletypes', JText::_('PROFILETYPES'));?>
 					<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', JText::_('ACCESS CONTROL'));?>

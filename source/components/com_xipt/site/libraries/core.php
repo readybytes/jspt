@@ -120,15 +120,38 @@ class XiPTLibraryCore
 	{
 		// skip these calls from backend
 		global $mainframe;
+		$pID = '';
 		if($mainframe->isAdmin())
 			return;
-		$loggedInUser 		= JFactory::getUser();
+		$loggedInUser = JFactory::getUser();
 		
+		$view = JRequest :: getVar('view');
+		if($view == 'register'){
+			$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+			$pID = $pluginHandler->getRegistrationPType();
+		}
+		else{	
+			if(!$loggedInUser->id)
+				return true;
+				
+			// get params of user.
+			$pID = XiPTLibraryProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
+		}
+		
+		assert($pID);
+		$params = XiPTLibraryProfiletypes::getParams($pID);
+		
+		if($params){		
+			$allParams = $params->_registry['_default']['data']; 
+			//$params->getParams();
+			foreach($allParams as $key => $value){
+				$instance->set($key,$value); 
+			}
+		}
+
 		//means guest is looking user profile ,
 		// so we will show them default template
-		if(!$loggedInUser->id)
-			return true;
-			
+
 		$visitingUser	= JRequest::getVar('userid','NOT','GET');
 		//$visitingUser = 0 means loggen-in-user is looking their own profile
 		//so we set $visitingUser as logged-in-user
@@ -137,7 +160,7 @@ class XiPTLibraryCore
 		
 		//$visitingUser > 0 means a valid-user to visit profile
 		//so we will show them profile in user template
-		//so update the template in configuration
+		//so update the template in configuration				
 		if($visitingUser > 0) {
 			$template = XiPTLibraryProfiletypes::getUserData($visitingUser,'TEMPLATE');
 			//now update template @template

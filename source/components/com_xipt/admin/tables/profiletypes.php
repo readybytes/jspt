@@ -23,6 +23,7 @@ class XiPTTableProfiletypes extends JTable
 	var $allowt		= null;
 	var $group 		= null;
 	var $parent		= null;
+	var $params 		= null;
 	
 	function __construct(&$db)
 	{
@@ -57,6 +58,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->approve		= false;
 			$this->group 		= 0;
 			$this->parent		= 0;
+			$this->params 		= '';
 			/*
 			  Registered
 			  Author
