@@ -31,6 +31,11 @@
 		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/plg_myarticles.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/plg_myarticles.zip" />
 
+		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/testing001.tar.gz" 
+				tofile="${joomla.rootpath}/${joomla.folder}/plg_testing001.tar.gz" />
+		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/testing002.tar.gz" 
+				tofile="${joomla.rootpath}/${joomla.folder}/plg_testing002.tar.gz" />
+
 		<copy 	file="${global.dir.root}/script/others/revbuild.xml" 
 				tofile="${joomla.rootpath}/${joomla.folder}/build.xml" />
 

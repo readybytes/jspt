@@ -11,6 +11,9 @@
 		<file>setup/setupTest.php</file>
 		<file>test/com_xipt/admin/profiletypeTest.php</file>
 		<file>test/com_xipt/admin/editUserTest.php</file>
+		<file>test/com_xipt/admin/applicationTest.php</file>
+		<file>test/com_xipt/admin/aclRulesTest.php</file>
+		<file>test/com_xipt/admin/profilefieldsTest.php</file>
 		<file>test/com_xipt/front/registerTest.php</file>
 		<file>test/com_xipt/front/profileTest.php</file>		
 	</testsuite>

@@ -122,6 +122,17 @@ class InstallTest extends XiSelTestCase
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
     
+    $this->type("install_package", JOMSOCIAL_APPS5);
+    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Install Plugin Success"));
+    
+    $this->type("install_package", JOMSOCIAL_APPS6);
+    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Install Plugin Success"));
+    
+    
     $sql = "UPDATE `#__plugins` SET `published` = '1' WHERE `folder` ='community';";
     $this->_DBO->execSql($sql);
   }

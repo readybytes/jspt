@@ -18,3 +18,5 @@ define('JOMSOCIAL_APPS1',	JOOMLA_FTP_LOCATION.'/plg_feeds.zip');
 define('JOMSOCIAL_APPS2',	JOOMLA_FTP_LOCATION.'/plg_groups.zip');
 define('JOMSOCIAL_APPS3',	JOOMLA_FTP_LOCATION.'/plg_latestphoto.zip');
 define('JOMSOCIAL_APPS4',	JOOMLA_FTP_LOCATION.'/plg_myarticles.zip');
+define('JOMSOCIAL_APPS5',	JOOMLA_FTP_LOCATION.'/plg_testing001.tar.gz');
+define('JOMSOCIAL_APPS6',	JOOMLA_FTP_LOCATION.'/plg_testing002.tar.gz');
