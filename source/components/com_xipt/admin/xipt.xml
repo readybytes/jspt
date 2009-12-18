@@ -157,8 +157,6 @@
 			<filename>hacks/front_libraries_fields_customfields.xml</filename>
 			<filename>hacks/front_libraries_fields_profiletypes.php</filename>
 			<filename>hacks/front_libraries_fields_templates.php</filename>
-			<filename>hacks/front_models_profile.php </filename>
-			<filename>hacks/front_models_apps.php </filename>
 			
 			<filename>images/index.html</filename>
 			<filename>images/setup.png</filename>
