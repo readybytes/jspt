@@ -53,6 +53,46 @@ class InstallTest extends XiSelTestCase
    */
   function testCommunityInstall()
   {
+	    // setup default location 
+	    $this->adminLogin();
+	    
+	    // go to installation
+	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+	    $this->waitPageLoad("30000");
+	      
+		// add profiletype-one
+	    $this->type("install_package", JOMSOCIAL_PKG);
+	    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+	    $this->waitPageLoad();
+
+	  $this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->click("//form[@id='installform']/div/div/input");
+	  $this->waitForPageToLoad("30000");
+	  $this->assertTrue($this->isTextPresent("Jom Social"));
+  }
+  
+  function testCommunityAppsInstall()
+  {
     // setup default location 
     $this->adminLogin();
     
@@ -61,39 +101,31 @@ class InstallTest extends XiSelTestCase
     $this->waitPageLoad("30000");
       
 	// add profiletype-one
-    $this->type("install_package", JOMSOCIAL_PKG);
+    $this->type("install_package", JOMSOCIAL_APPS1);
     $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
-
-  $this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->click("//form[@id='installform']/div/div/input");
-  $this->waitForPageToLoad("30000");
-  $this->assertTrue($this->isTextPresent("Jom Social"));
-
-
-
+    $this->assertTrue($this->isTextPresent("Install Plugin Success"));
+    
+    $this->type("install_package", JOMSOCIAL_APPS2);
+    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Install Plugin Success"));
+    
+    $this->type("install_package", JOMSOCIAL_APPS3);
+    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Install Plugin Success"));
+    
+    
+    $this->type("install_package", JOMSOCIAL_APPS4);
+    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Install Plugin Success"));
+    
+    $sql = "UPDATE `#__plugins` SET `published` = '1' WHERE `folder` ='community';";
+    $this->_DBO->execSql($sql);
   }
-  
+    
  
   /**
    */
@@ -129,6 +161,5 @@ class InstallTest extends XiSelTestCase
     $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
-  }
-  
+  } 
 }

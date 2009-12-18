@@ -179,4 +179,62 @@ class ProfileTest extends XiSelTestCase
 	  	if(!$profiletype)
 	  		$this->assertTrue($this->isElementPresent("//input[@id='field17'][contains(@type,'hidden')]"));
   }
+  
+  function testApplicationProfiles()
+  {
+  	//login as admin user
+      $user = JFactory::getUser(82);
+  	  $this->frontLogin($user->username,$user->username);
+	  $this->verifyApps(82,1);
+	  $this->frontLogout();
+	  
+	  $user = JFactory::getUser(83);
+  	  $this->frontLogin($user->username,$user->username);
+	  $this->verifyApps(83,2);
+	  $this->frontLogout();
+	  
+	  $user = JFactory::getUser(84);
+  	  $this->frontLogin($user->username,$user->username);
+  	  $this->verifyApps(84,3);
+  	  $this->frontLogout();  
+  }
+  
+  function verifyApps($userid, $ptype)
+  {
+  	
+  	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=apps&task=browse&Itemid=53");
+	$this->waitPageLoad();
+  	
+	$allApps=array(38,39,40,41,42);
+  	$allowedApps[1]=array(38,40,41,42);
+  	$allowedApps[2]=array(39,40,41,42);
+  	$allowedApps[3]=array(41,42);
+  	
+  	$appsNames[38]='walls';
+  	$appsNames[39]='feeds';
+  	$appsNames[40]='groups';
+  	$appsNames[41]='latestphoto';
+  	$appsNames[42]='myarticles';
+  	
+  	// now check for every links
+  	foreach($allApps as $a)
+  	{
+  		$this->click("//a[@onclick=\"joms.apps.add('".$appsNames[$a]."')\"]");
+	  	//wait for ajax window
+  		for ($second = 0; ; $second++) {
+	        if ($second >= 60) $this->fail("timeout");
+	        try {
+	            if ($this->isTextPresent("Add Application")) break;
+	        } catch (Exception $e) {}
+	        sleep(1);
+	    }
+    
+  		if(in_array($a,$allowedApps[$ptype])){
+  			$this->assertTrue($this->isTextPresent("Application added!"));
+  		}
+  		else{
+  			$this->assertFalse($this->isTextPresent("Application added!"));
+  		}
+  	}
+  }
 }

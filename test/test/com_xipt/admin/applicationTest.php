@@ -17,19 +17,54 @@ class ApplicationTest extends XiSelTestCase
 
   function testAllSupportForApplication()
   {
-      //    setup default location 
+    //    setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=applications");
-    $this->waitForPageToLoad("30000");
-      
-    //check what happen when we add application for all ptypes
-    $this->open("/root1285/administrator/index.php?option=com_xipt&view=applications");
-    $this->click("rowid38");
-    $this->waitForPageToLoad("30000");
-    $this->click("profileTypes0");
+    $this->waitPageLoad();
+    
+    //db verification settings
+    $this->_DBO->addTable('#__xipt_applications');
+    $this->_DBO->filterColumn('#__xipt_applications','id');
+    
+    // now check for showing application
+    //wall-38
+    //feeds-39
+    //groups-40
+    //latestphotos-41
+    //articles -42
+    //for 1
+    $this->click("//span[@id='name38']/a");
+    $this->waitPageLoad();
+    $this->click("profileTypes1");
     $this->click("profileTypes0");
     $this->click("//td[@id='toolbar-save']/a/span");
-    $this->waitForPageToLoad("30000");
+    $this->waitPageLoad();
+    
+    // for 2
+    $this->click("//span[@id='name39']/a");
+    $this->waitPageLoad();
+    $this->click("profileTypes2");
+    $this->click("profileTypes0");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
+    
+    //for 1,2
+    $this->click("//span[@id='name40']/a");
+    $this->waitPageLoad();
+    $this->click("profileTypes1");
+    $this->click("profileTypes2");
+    $this->click("profileTypes0");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
+    
+    //still ALL should reflect
+    $this->click("//span[@id='name41']/a");
+    $this->waitPageLoad();
+    $this->click("profileTypes1");
+    $this->click("profileTypes2");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
+ 
   }
 	
 }

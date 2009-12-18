@@ -14,3 +14,7 @@ define('PLG_XIPT_SYS_PKG',	JOOMLA_FTP_LOCATION.'/plg_xipt_system.zip');
 define('COM_XIPT_PKG',		JOOMLA_FTP_LOCATION.'/com_xipt.zip');
 define('JOMSOCIAL_PKG',		JOOMLA_FTP_LOCATION.'/com_community.zip');
 
+define('JOMSOCIAL_APPS1',	JOOMLA_FTP_LOCATION.'/plg_feeds.zip');
+define('JOMSOCIAL_APPS2',	JOOMLA_FTP_LOCATION.'/plg_groups.zip');
+define('JOMSOCIAL_APPS3',	JOOMLA_FTP_LOCATION.'/plg_latestphoto.zip');
+define('JOMSOCIAL_APPS4',	JOOMLA_FTP_LOCATION.'/plg_myarticles.zip');
