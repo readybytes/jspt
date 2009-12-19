@@ -453,4 +453,58 @@ class ProfileTest extends XiSelTestCase
 	$this->waitPageLoad();
     $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
   }
+  
+  
+  function testProfiletypeJSParams()
+  {
+  	$sql = " UPDATE `#__xipt_profiletypes` SET `params` = '
+enablegroups=0
+enablevideos=0
+enablephotos=0'
+ WHERE `id`=3 ";
+  	
+  	$db	=& JFactory::getDBO();
+  	$db->setQuery($sql);
+  	$db->query();
+  	
+  	$user = JFactory::getUser(84);
+  	$this->frontLogin($user->username,$user->username);
+  	// go to preofile
+  	$this->open("index.php?option=com_community&view=photos&userid=84&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertTrue($this->isTextPresent("Media has been disabled"));
+	
+	$this->open("index.php?option=com_community&view=groups&userid=84&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertTrue($this->isTextPresent("Groups have been disabled by the site administrator"));
+	
+	$this->open("index.php?option=com_community&view=videos&userid=84&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertTrue($this->isTextPresent("Video has been disabled"));
+
+  	$sql = " UPDATE `#__xipt_profiletypes` SET `params` = '
+enablegroups=1
+enablevideos=1
+enablephotos=1'
+ WHERE `id`=3 ";
+  	$db	=& JFactory::getDBO();
+  	$db->setQuery($sql);
+  	$db->query();
+  	
+  	$this->open("index.php?option=com_community&view=photos&userid=84&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertFalse($this->isTextPresent("Media has been disabled"));
+	
+	$this->open("index.php?option=com_community&view=groups&userid=84&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertFalse($this->isTextPresent("Groups have been disabled by the site administrator"));
+	
+	$this->open("index.php?option=com_community&view=videos&userid=84&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertFalse($this->isTextPresent("Video has been disabled"));
+  	
+	
+	$this->frontLogout();  
+
+  }
 }
