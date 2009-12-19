@@ -17,8 +17,8 @@ class CFieldsProfiletypes
 	{
 		global $mainframe;
 		$this->_mainframe =& $mainframe;
-		$this->_task = JRequest::getVar('task',0,'GET');
-		$this->_view = JRequest::getVar('view',0,'GET');
+		$this->_task = JRequest::getVar('task','','GET');
+		$this->_view = JRequest::getVar('view','','GET');
 		$this->_params = JComponentHelper::getParams('com_xipt');
 	}
 	
@@ -79,7 +79,7 @@ class CFieldsProfiletypes
 		$class	    = ($field->required == 1) ? ' required' : '';
 		$disabled   = '';
 		
-		if($this->_view =='register') {
+		if($this->_view ==='register') {
     
 		    // get pType from registration session OR defaultPType
 		    $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();

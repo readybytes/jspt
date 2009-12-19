@@ -350,6 +350,107 @@ class ProfileTest extends XiSelTestCase
 	$this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
     
+    //11.
+    		// sud not be allowed to access ptype2
+    $this->open("index.php?option=com_community&view=profile&userid=83&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
+		//sud able to access ptype3
+    $this->open("index.php?option=com_community&view=profile&userid=84&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+  }
+  
+  function testACLRules1()
+  {
+  	  //login as admin user
+      $user = JFactory::getUser(82);//regtest8774090
+  	  $this->frontLogin($user->username,$user->username);
+	  $this->verifyACLRules1(82,1);
+	  $this->frontLogout();
+  } 
+  
+  function verifyACLRules1($userid, $ptype) 
+  {
+  	//1.create group
+	$this->open("index.php?option=com_community&view=groups&task=create&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
     
+    //2. join group
+	$this->open("index.php?option=com_community&view=groups&task=viewgroup&groupid=4&Itemid=53");
+	$this->waitPageLoad();
+	$this->click("//a[@onclick=\"javascript:joms.groups.joinWindow('4');\"]");
+	//wait for ajax window
+  		for ($second = 0; ; $second++) {
+	        if ($second >= 30) $this->fail("timeout");
+	        try {
+	            if ($this->isTextPresent("Join Group")) break;
+	        } catch (Exception $e) {}
+	        sleep(1);
+	    }
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+    
+    //3. create album allowed 1
+    $this->open("index.php?option=com_community&view=photos&task=newalbum&userid=".$userid."&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+
+	//4. create photos now
+	$this->open("index.php?option=com_community&view=photos&task=uploader&albumid=2&userid=".$userid."&Itemid=53");
+	$this->waitPageLoad();
+	$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+
+	//5. video
+	$this->open("index.php?option=com_community&view=videos&task=myvideos&userid=".$userid."&Itemid=53");
+	$this->waitPageLoad();
+	$this->click("//a[@onclick=\"joms.videos.addVideo()\"]");
+	for ($second = 0; ; $second++) {
+	        if ($second >= 30) $this->fail("timeout");
+	        try {
+	            if ($this->isTextPresent("Add Video")) break;
+	        } catch (Exception $e) {}
+	        sleep(1);
+	    }
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+    
+	//6.send message
+	$this->open("index.php?option=com_community&view=profile&userid=81&Itemid=53");
+	$this->waitPageLoad();
+	$this->click("//a[@onclick=\"joms.messaging.loadComposeWindow('81')\"]");
+	for ($second = 0; ; $second++) {
+	        if ($second >= 30) $this->fail("timeout");
+	        try {
+	            if ($this->isTextPresent("Compose")) break;
+	        } catch (Exception $e) {}
+	        sleep(1);
+	    }
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+    
+    //7.Change Avatar
+    $this->open("index.php?option=com_community&view=profile&task=uploadAvatar&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+    
+    //8.privacy
+    $this->open("index.php?option=com_community&view=profile&task=privacy&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+    
+    //9. 
+    $this->open("index.php?option=com_community&view=profile&task=edit&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+    
+    //10.
+    $this->open("index.php?option=com_community&view=profile&task=editDetails&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+    
+    //11.
+    		// sud not be allowed to access ptype2
+    $this->open("index.php?option=com_community&view=profile&userid=83&Itemid=53");
+	$this->waitPageLoad();
+    $this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
   }
 }
