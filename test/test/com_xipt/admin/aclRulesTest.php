@@ -13,9 +13,6 @@ class AclRulesTest extends XiSelTestCase
   {
     $this->setBrowser("*chrome");
     $this->setBrowserUrl( JOOMLA_LOCATION."/administrator/index.php?option=com_login");
-    
-    $this->_DBO->addTable('#__xipt_profiletypes');
-    $this->_DBO->filterColumn('#__xipt_profiletypes','id');
   }
 
 
