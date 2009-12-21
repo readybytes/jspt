@@ -34,7 +34,7 @@ class InstallTest extends XiSelTestCase
     $this->assertTrue($this->isTextPresent("Install Component Success"));
     
     //check migration tables
-   /* $this->_DBO->addTable('#__community_fields');
+    $this->_DBO->addTable('#__community_fields');
     $this->_DBO->addTable('#__community_register');
     $this->_DBO->addTable('#__community_users');
     $this->_DBO->addTable('#__xipt_aclrules');
@@ -43,7 +43,7 @@ class InstallTest extends XiSelTestCase
     $this->_DBO->addTable('#__xipt_profilefields');
     $this->_DBO->addTable('#__xipt_profiletypes'); 
     $this->_DBO->addTable('#__xipt_users');
-    $this->_DBO->addTable('#__xipt_users'); */
+    $this->_DBO->addTable('#__xipt_users');
   }
   
   

@@ -15,7 +15,15 @@ INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`,
 (13, 'text', 13, 1, 10, 100, 'Website', 'Website', 1, 1, 1, 1, '', 'FIELD_WEBSITE'),
 (14, 'group', 14, 1, 10, 100, 'Education', 'Educations', 1, 1, 1, 1, '', ''),
 (15, 'text', 15, 1, 10, 200, 'College / University', 'College / University', 1, 1, 1, 1, '', 'FIELD_COLLEGE'),
-(16, 'text', 16, 1, 5, 100, 'Graduation Year', 'Graduation year', 1, 1, 1, 1, '', 'FIELD_GRADUATION');
+(16, 'text', 16, 1, 5, 100, 'Graduation Year', 'Graduation year', 1, 1, 1, 1, '', 'FIELD_GRADUATION'),
+(17, 'profiletypes', 17, 1, 5, 100, 'Profiletype', 'Profiletypes', 1, 1, 1, 1, '', 'FIELD_PT');
+
+CREATE TABLE IF NOT EXISTS `#__community_myapplication` (  
+		`id` int(10) NOT NULL AUTO_INCREMENT,
+		`applicationid` int(10) NOT NULL DEFAULT 0, 
+		`profiletype` int(10) NOT NULL DEFAULT 0, 
+		PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__community_jsptacl` (
   `id` int(31) NOT NULL auto_increment,
@@ -245,8 +253,6 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_applications` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 TRUNCATE TABLE  `au_#__xipt_applications`;
-INSERT INTO `au_#__xipt_applications` (`id`, `applicationid`, `profiletype`) VALUES
-(1, 36, 1);
 
 CREATE TABLE IF NOT EXISTS `au_#__xipt_profilefields` (
   `id` int(10) NOT NULL auto_increment,

@@ -191,27 +191,12 @@ function copy_files()
 
 function isMigrationRequired()
 {
-	$db	=& JFactory::getDBO();
-	$query 	= " SHOW TABLES LIKE '%xipt_users%'";
-	$db->setQuery( $query );
-	$newTables = $db->loadObjectList();
-
-	if($db->getErrorNum()){
-		JError::raiseError( 500, $db->stderr());		
-	}
-
-	$query 	= " SHOW TABLES LIKE '%community_profiletypes%' ";
-	$db->setQuery( $query );
-	$oldTables = $db->loadObjectList();
-
-	if($db->getErrorNum()){
-		JError::raiseError( 500, $db->stderr());		
-	}
-
+	$newTables = isTableExist('xipt_users');
+	$oldTables = isTableExist('community_profiletypes');
 
 	// if [ old-tables-exist AND new-tables-does-not-exist ]
 	// we should migrate
-	if( ($newTables==NULL || $newTables[0] == NULL) && ($oldTables && $oldTables[0])){
+	if( $newTables==NULL  && $oldTables){
 		return true;
 	}
 
@@ -245,19 +230,19 @@ function migrate_tables()
 	
 	#1
 	$allQueries[]	= ' INSERT `#__xipt_profiletypes` ' 
-			. ' SELECT * FROM #__community_profiletypes ' ;
+			. ' SELECT * FROM `#__community_profiletypes` ' ;
 	#2
 	$allQueries[]	= ' INSERT `#__xipt_applications` ' 
-			. ' SELECT * FROM #__community_myapplication ' ;
+			. ' SELECT * FROM `#__community_myapplication` ' ;
 	#4
 	$allQueries[]	= ' INSERT `#__xipt_aec` ' 
-			. ' SELECT * FROM #__community_jspt_aec ' ;
+			. ' SELECT * FROM `#__community_jspt_aec` ' ;
 	#3
 	$allQueries[]	= ' INSERT `#__xipt_aclrules` ' 
-			. ' SELECT * FROM #__community_jsptacl ' ;
+			. ' SELECT * FROM `#__community_jsptacl` ' ;
 	#6
 	$allQueries[]	= ' INSERT `#__xipt_users` ' 
-			. ' SELECT `userid`, `profiletype`, `template` FROM #__community_users ' ;
+			. ' SELECT `userid`, `profiletype`, `template` FROM `#__community_users` ' ;
 			
 	$db	=& JFactory::getDBO();
 	foreach ( $allQueries as $query){
@@ -327,6 +312,14 @@ function migrate_tables()
 	remove_table('#__community_myapplication');
 	remove_table('#__community_jspt_aec');
 	remove_table('#__community_jsptacl');
+
+	// This is required to fix the issue of previous JSPT versions field
+	// also delete the fields fom JomSocial of 'profiletypes'
+	$query	= ' DELETE FROM `#__xipt_profilefields` '
+			. " WHERE `type`='profiletypes' ";
+	$db->setQuery($query);
+	$db->Query();
+			
 	return true;
 }
 
