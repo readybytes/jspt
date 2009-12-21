@@ -364,6 +364,10 @@ function resetAllUsers($pid)
 			$storageThumbnail	= $storage . DS . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 			$image				= 'images/profiletype/'.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
 			$thumbnail			= 'images/profiletype/' . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
+			
+			//here check if folder exist or not ? if not then create it.
+			if(JFolder::exists($storage)==false)
+				JFolder::create($storage);
 
 			// Only resize when the width exceeds the max.
 			if( !cImageResizePropotional( $file['tmp_name'] , $storageImage , $file['type'] , $imageMaxWidth ) )
