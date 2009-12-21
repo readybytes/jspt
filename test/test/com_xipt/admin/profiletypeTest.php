@@ -112,7 +112,7 @@ class ProfiletypeTest extends XiSelTestCase
     	$this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
 	}
 	
-  function testChildProfileType()
+  function xtestChildProfileType()
   {
     //    setup default location 
     $this->adminLogin();
@@ -180,7 +180,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
   }
   
-  function testOrderChildProfileType()
+  function xtestOrderChildProfileType()
   {
   	$this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
@@ -208,7 +208,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
   }
   
-	function testDeleteChildProfileType()
+	function xtestDeleteChildProfileType()
 	{
 	    //setup default location 
         $this->adminLogin();
