@@ -24,7 +24,7 @@ class XiPTLibraryAcl
 		}
 
 		$userId 		= JFactory::getUser()->id;
-		$viewuserid =  JRequest::getVar('userid', 0 , 'GET');
+		$viewuserid 	= JRequest::getVar('userid', 0 , 'GET');
 		
 		//global $mainframe;
 		//$mainframe->enqueueMessage("view user id = ".$viewuserid." task = ".$task);
@@ -198,31 +198,15 @@ class XiPTLibraryAcl
 		if($feature == 'aclFeatureCantVisitOtherProfile'){
 			//support for All Feature through ( -1 )
 			//We add -1 for all in admin
-			//CODREV : we have to block child also for visiting
-			$childArray = XiPTLibraryProfiletypes::getChildArray($otherpid);
-			$childQuery = '';
-			if(!empty($childArray)) {
-				foreach($childArray as $child)
-					$childQuery = ' OR '.$db->nameQuote('otherpid').'='.$db->Quote($child->id);
-			}
 			$extraSql = ' AND ( '.$db->nameQuote('otherpid').'='. $db->Quote($otherpid)
-						. $childQuery
 						.' OR '.$db->nameQuote('otherpid').'='.$db->Quote(ALL).' )';
 		}
 			
-		//CODREV : In case of child we have to apply his parents rule also
-		$parentQuery = '';
-		$parentArray = XiPTLibraryProfiletypes::getParentArray($myPID);
-		if(!empty($parentArray)) {
-			foreach($parentArray as $parent){
-				$parentQuery .= ' OR '.$db->nameQuote('pid').'='. $db->Quote($parent->id);
-			}
-		}
+
 		$query	 = 'SELECT * FROM #__xipt_aclrules '
 					. ' WHERE '
 					. ' ( '.$db->nameQuote('pid').'='. $db->Quote($myPID)
-					. $parentQuery
-					. ' OR '.$db->nameQuote('pid').'='.$db->Quote(ALL). ' )'
+					. ' OR '.$db->nameQuote('pid').'='.$db->Quote(ALL). ' ) '
 					.$extraSql
 					. ' AND '.$db->nameQuote('feature').'='. $db->Quote($feature)
 					. ' AND '.$db->nameQuote('published').'='.$db->Quote(1);

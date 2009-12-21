@@ -75,7 +75,6 @@ class XiPTControllerProfiletypes extends JController
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
 		$data['group'] 		= $post['group'];
-		$data['parent']		= $post['parent'];
 		//$data['ordering']	= 0;
 		$row->bindAjaxPost($data);
 		
@@ -88,9 +87,7 @@ class XiPTControllerProfiletypes extends JController
 	
 			if($id != 0)
 			{
-				//CODREV : re-arrange ordering
-				XiPTHelperProfiletypes::mapOrderInDatabase($row->id,0);
-				
+		
 				//CODREV : call uploadImage function if post(image) data is set
 				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
 		
@@ -127,22 +124,12 @@ class XiPTControllerProfiletypes extends JController
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		$i = 1;
-		$childArray  = array();
+
 		if(!empty($ids))
 		{
 			foreach( $ids as $id )
 			{
 				$row->load( $id );
-				//id should not be 0 , b'coz it 
-				//reflects error in getChilds( we send all root if parentId = 0 )
-				assert($id);
-				$childArray = XiPTLibraryProfiletypes::getChildArray($id,0,-1,false);
-				
-				if(!empty($childArray)) {
-					$msg	= sprintf(JText::_('CANNOT REMOVE PARENT PROFILETYPE'),$row->name);
-					$mainframe->enqueueMessage($msg);
-					continue;
-				}
 				
 				if(!$row->delete( $id ))
 				{
@@ -233,17 +220,13 @@ class XiPTControllerProfiletypes extends JController
 		if( isset( $id[0] ) )
 		{
 			$id		= (int) $id[0];
-
-			XiPTHelperProfiletypes::mapOrderInDatabase($id,$direction);
 			
-			/*// Load the JTable Object.
+			// Load the JTable Object.
 			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		
 			$table->load( $id );
 			$table->move( $direction );
-			*/
-			$cache	=& JFactory::getCache( 'com_content');
-			$cache->clean();
+			
 			
 			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
 		}

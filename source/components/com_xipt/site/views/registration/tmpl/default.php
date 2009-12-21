@@ -1,7 +1,6 @@
 <?php
 // Disallow direct access to this file
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 ?>
 
 <form action="<?php echo JRoute::_( 'index.php?option=com_xipt&view=registration',false ); ?>" method="post" name="ptypeForm">
@@ -25,11 +24,6 @@ require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 		foreach ( $this->allProfileTypes as $pType ) {
 
 			$selected = '';
-			$disabled = '';
-			//disabled all parents , if user don't want to select parent
-			$childs = XiPTLibraryProfiletypes::getChilds($pType->id);
-			if(!empty($childs) && $this->disableParent)
-				$disabled = 'disabled=true';
 			// check if selected
 			if ($this->selectedProfileTypeID == $pType->id)
 				$selected = 'checked="true"';
@@ -41,7 +35,7 @@ require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 		
 					<div id="Name">
 							<input type="radio" id="profiletypes<?php echo $pType->id?>" name="profiletypes" 
-									value="<?php echo $pType->id;?>" <?php echo $selected . ' ' . $disabled; ?> />
+									value="<?php echo $pType->id;?>" <?php echo $selected; ?> />
 							<?php echo $pType->name; ?>
 					</div>
 		
@@ -66,7 +60,7 @@ require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 			    $selected	= ( JString::trim($id) == $this->selectedProfileTypeID ) ? ' selected="true"' : '';
 				echo '<option value="' . $id . '"' 
 							. $selected . ' '
-							. $disabled . '>' 
+							.  '>' 
 							. $option . '</option>';
 			}
 		}

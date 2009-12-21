@@ -22,7 +22,6 @@ class XiPTTableProfiletypes extends JTable
 	var $approve	= null;
 	var $allowt		= null;
 	var $group 		= null;
-	var $parent		= null;
 	var $params 		= null;
 	
 	function __construct(&$db)
@@ -57,7 +56,6 @@ class XiPTTableProfiletypes extends JTable
 			$this->watermark	= "";
 			$this->approve		= false;
 			$this->group 		= 0;
-			$this->parent		= 0;
 			$this->params 		= '';
 			/*
 			  Registered
@@ -104,7 +102,6 @@ class XiPTTableProfiletypes extends JTable
 	function store( )
 	{
 		$db		=& $this->getDBO();
-		//CODREV : we have to store all childs after parent in order
 		//For new records need to update the ordering.
  		if( $this->id == 0 )
  		{
@@ -159,7 +156,6 @@ class XiPTTableProfiletypes extends JTable
 			$this->approve		= $data['approve'];
 			$this->allowt		= $data['allowt'];
 			$this->group 		= $data['group'];
-			$this->parent		= $data['parent'];
 			//$this->ordering		= $data['ordering'];
 	}
 }

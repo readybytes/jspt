@@ -44,7 +44,6 @@ function setup_database()
 	//TO migrate old data we need to add these fields after migration only.
 	add_column('watermark' , 'varchar(250) NOT NULL', '#__xipt_profiletypes');
 	add_column('params' , 'text NOT NULL', '#__xipt_profiletypes');
-	add_column('parent' , 'int(21) NOT NULL default \'0\'', '#__xipt_profiletypes');
 	
 	//update global configuration data
 	if(isTableExist('xipt_temp_globalconfiguration')){

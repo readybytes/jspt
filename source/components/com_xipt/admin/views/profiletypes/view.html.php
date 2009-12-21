@@ -22,7 +22,6 @@ class XiPTViewProfiletypes extends JView
 		if ($allTypes)
 				foreach ($allTypes as $ptype){
 					$profiletypes[$ptype->id]	= $ptype->name;
-					$depth[$ptype->id]			= XiPTLibraryProfiletypes::getDepth($ptype->id);
 				}
 		//CODREV : We should add none also.
 		$profiletypes['0']='None';
@@ -34,7 +33,6 @@ class XiPTViewProfiletypes extends JView
 		$this->assignRef( 'fields' 		, $fields );
 		$this->assignRef( 'pagination'	, $pagination );
 		$this->assignRef( 'profiletypes'	, $profiletypes );
-		$this->assignRef( 'depth'	, $depth );
 		parent::display( $tpl );
     }
 	
