@@ -187,11 +187,11 @@ class XiPTLibraryPluginHandler
 
         // not changing anything get data from table and set it
 		if(0 == $allowToChangeTemplate || $templateValue==''){
-		    //show err msg
+		    /*//show err msg
 		    if(0 == $allowToChangeTemplate){
 		        global $mainframe;
 		        $mainframe->enqueueMessage(JText::_('YOU ARE NOT ALLOWED TO CHANGE TEMPLATE'),'notice');
-		    }
+		    }*/
 
 			$templateValue = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
 		}
@@ -199,10 +199,10 @@ class XiPTLibraryPluginHandler
 		// not allowed to change profiletype, get data from table and set it
 		if(0 == $allowToChangePType || $profileTypeValue==0){
 		    //show err msg
-		    if(0 == $allowToChangePType){
+		    /*if(0 == $allowToChangePType){
 		        global $mainframe;
 		        $mainframe->enqueueMessage(JText::_('YOU ARE NOT ALLOWED TO CHANGE PROFILETYPE'),'notice');
-		    }
+		    }*/
 			$profileTypeValue = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 
