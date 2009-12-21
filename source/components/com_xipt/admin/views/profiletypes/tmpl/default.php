@@ -83,15 +83,6 @@ function submitbutton( action )
 			</td>
 			<td><?php echo $field->id;?></td>
 			<td>
-			<?php if($this->depth[$field->id] > 0){
-					$depth = $this->depth[$field->id];
-					for($counter = 1 ; $counter < $depth ; $counter++){?>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-					<?php }
-					echo "|__";
-				  }
-			?>
-					
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
 					<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$field->id, false); ?>
 						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
