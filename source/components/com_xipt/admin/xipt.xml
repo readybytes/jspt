@@ -157,6 +157,7 @@
 			<filename>hacks/front_libraries_fields_customfields.xml</filename>
 			<filename>hacks/front_libraries_fields_profiletypes.php</filename>
 			<filename>hacks/front_libraries_fields_templates.php</filename>
+			<filename>hacks/mi_jomsocialjspt.php</filename>
 			
 			<filename>images/index.html</filename>
 			<filename>images/setup.png</filename>
