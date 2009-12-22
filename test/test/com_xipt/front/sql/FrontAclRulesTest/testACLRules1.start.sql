@@ -1,4 +1,7 @@
+TRUNCATE TABLE `#__community_msg_recepient`;
+TRUNCATE TABLE `#__community_msg`;
 TRUNCATE TABLE `#__community_photos_albums`;
+
 TRUNCATE TABLE `#__xipt_aclrules`;
 INSERT INTO `#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
 (1, 1, 'RULE-1', 'aclFeatureCreateGroup', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
@@ -6,7 +9,7 @@ INSERT INTO `#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`,
 (3, 1, 'RULE-3', 'aclFeatureAddPhotos', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
 (4, 1, 'RULE-4', 'aclFeatureAddAlbum', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
 (5, 1, 'RULE-5', 'aclFeatureAddVideos', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(6, 1, 'RULE-6', 'aclFeatureWriteMessages', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0);
+(6, 1, 'RULE-6', 'aclFeatureWriteMessages', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, -1);
 
 TRUNCATE TABLE `#__community_fields` ;
 INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES

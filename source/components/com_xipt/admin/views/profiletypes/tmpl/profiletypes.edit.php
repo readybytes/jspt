@@ -41,11 +41,6 @@ defined('_JEXEC') or die('Restricted access');
 			<td>
 				<input type="text" value="<?php echo $this->row->name;?>" name="name" />
 			</td>
-			<td class="key"><?php echo JText::_('Parent');?></td>
-			<td>:</td>
-			<td>
-				<?php echo XiPTHelperProfiletypes::buildTypes($this->row->parent, 'parent',$this->row->id);?>
-			</td >
 		</tr>
 		<tr>
 			<td class="key"><?php echo JText::_('Default Privacy Settings for Profile');?></td>

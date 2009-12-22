@@ -25,10 +25,7 @@ class XiPTLibraryAcl
 
 		$userId 		= JFactory::getUser()->id;
 		$viewuserid 	= JRequest::getVar('userid', 0 , 'GET');
-		
-		//global $mainframe;
-		//$mainframe->enqueueMessage("view user id = ".$viewuserid." task = ".$task);
-		
+			
 		if(XiPTLibraryUtils::isAdmin($userId))
 			return false;
 		
@@ -37,7 +34,7 @@ class XiPTLibraryAcl
 			
 		// resolve feature and task ==> into our aclFeature
 		$aclViolatingRule= false;
-		$aclFeature	= XiPTLibraryAcl::resolvePararmeters($feature, $task, $viewuserid);
+		$aclFeature	= XiPTLibraryAcl::resolvePararmeters($feature, $task, $viewuserid, $args);
 		
 		//$mainframe->enqueueMessage("aclfeature = ".$aclFeature);
 		
@@ -60,7 +57,7 @@ class XiPTLibraryAcl
 		return false;
 	}
 	
-	function resolvePararmeters($feature, $task, $viewuserid = 0)
+	function resolvePararmeters(&$feature, &$task, &$viewuserid = 0, &$args)
 	{
 		$task	= strtolower($task);
 		// take care : compare to smallcaps task only
@@ -97,7 +94,11 @@ class XiPTLibraryAcl
 		if($feature=='inbox')
 		{
 			if($task == 'ajaxcompose' || $task == 'ajaxaddreply' || $task == 'write')
+			{
+				//modify whom we are sending msg
+				$viewuserid = $args[0];
 				return  "aclFeatureWriteMessages";
+			}
 			
 			return false;
 		}
@@ -191,11 +192,13 @@ class XiPTLibraryAcl
 		//then user can visit their own profile or not
 		if($viewuserid)
 			$otherpid	= XiPTLibraryProfiletypes::getUserData($viewuserid,'PROFILETYPE');
+		else
+			$otherpid 	= 0;
 		
 		// get all rules specific to user or his profiletype
 		//TODO : sort as per ascending task count.
 		$extraSql	= '';
-		if($feature == 'aclFeatureCantVisitOtherProfile'){
+		if($feature == 'aclFeatureCantVisitOtherProfile' || $feature == 'aclFeatureWriteMessages'){
 			//support for All Feature through ( -1 )
 			//We add -1 for all in admin
 			$extraSql = ' AND ( '.$db->nameQuote('otherpid').'='. $db->Quote($otherpid)
@@ -219,7 +222,7 @@ class XiPTLibraryAcl
 			return false;
 		
 		// get the user's count for this feature
-		$owns		= XiPTLibraryAcl::aclGetUsersFeatureCounts($userID, $feature);
+		$owns		= XiPTLibraryAcl::aclGetUsersFeatureCounts($userID, $feature,$otherpid);
 		
 		// check for all possible given rules,
 		// if any rule is violating, return the rules ID
@@ -235,7 +238,7 @@ class XiPTLibraryAcl
 	
 	// Below function gives the COUNT's for
 	// feature and associated user
-	function aclGetUsersFeatureCounts($userid,$feature)
+	function aclGetUsersFeatureCounts($userid,$feature,$otherpid=-1)
 	{
 		$groupsModel	=& CFactory::getModel('groups');
 		$photoModel		=& CFactory::getModel('photos');
@@ -280,12 +283,44 @@ class XiPTLibraryAcl
 				return $db->loadResult();
 
 			case 'aclFeatureWriteMessages':
-				return $inboxModel->getTotalMessageSent($userid);
-				return;
+				return self::getTotalMessageSent($userid,$otherpid);
 			
 			default :
 				assert(0);
 		}
+	}
+	
+	function getTotalMessageSent( $userId,$otherpid=-1 )
+	{
+		CFactory::load( 'helpers' , 'time' );
+		$date		= cGetDate();
+		$db			=& JFactory::getDBO();
+		
+		if($otherpid == -1)
+		{
+			$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__community_msg' ) . ' AS a '
+					. 'WHERE a.from=' . $db->Quote( $userId ) . ' '
+					. 'AND a.parent=a.id';
+			
+		}
+		else
+		{
+			/*
+			 *  SELECT * FROM  j214_community_msg_recepient as a 
+			 *  		LEFT JOIN  j214_community_msg as b ON   
+			 *  		LEFT JOIN  j214_xipt_users as c ON a.`to`=c.`userid` 
+			 *  		WHERE a.`msg_from` = '82'   AND c.`profiletype`='1'
+			 */
+			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
+					." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
+					."  LEFT JOIN #__xipt_users as c 	ON a.`to`=c.`userid` "
+					."  WHERE a.`msg_from` = '$userId'  AND c.`profiletype`='$otherpid'"
+					; 
+		}
+
+		$db->setQuery( $query );
+		$count		= $db->loadResult();
+		return $count;
 	}
 	
 }
