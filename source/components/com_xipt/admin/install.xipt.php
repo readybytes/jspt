@@ -314,7 +314,7 @@ function migrate_tables()
 
 	// This is required to fix the issue of previous JSPT versions field
 	// also delete the fields fom JomSocial of 'profiletypes'
-	$query	= ' DELETE FROM `#__xipt_profilefields` '
+	$query	= ' DELETE FROM `#__community_fields` '
 			. " WHERE `type`='profiletypes' ";
 	$db->setQuery($query);
 	$db->Query();
