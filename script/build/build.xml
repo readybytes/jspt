@@ -41,6 +41,12 @@
 				<include name="**" />
 			</fileset>
 		</copy>
+
+		<phplint haltonfailure="true">
+		  <fileset dir="${global.dir.tmp}">
+		    <include name="**/*.php"/>
+		  </fileset>
+		</phplint>
 	</target>
 
 	<target name="svn_lastrevision" depends="config">

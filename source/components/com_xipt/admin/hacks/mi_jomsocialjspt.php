@@ -47,6 +47,7 @@ class mi_jomsocialjspt
 
 	function Settings()
 	{
+		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 		global $database;
 		$database	=& JFactory::getDBO();
         $settings = array();
@@ -54,7 +55,7 @@ class mi_jomsocialjspt
 		$settings['profiletype_after_exp'] 		= array( 'list' );
 
 		//CODREV : visible should be true;
-	 	$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray(true);
+	 	$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray();
 
 		$spt = array();
 		$spte = array();
@@ -102,6 +103,8 @@ class mi_jomsocialjspt
 
 	function setUserProfiletype($userId,$pId)
 	{
+		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		
 		$cuser  =& CFactory::getUser($userId);
 		XiPTLibraryProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
 	}
