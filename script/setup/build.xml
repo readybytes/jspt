@@ -19,21 +19,21 @@
 		<phingcall target="copy_plg_xipt_community" />
 		<phingcall target="copy_testcase" />
 		<!-- Copy latest JomSocial -->
-		<copy 	file="${user.home}/Dropbox/Joomla/com_community.zip" 
+		<copy 	file="${pkg.location}/com_community.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
 
-		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/plg_feeds.zip" 
+		<copy 	file="${pkg.location}/jomsocialApps/plg_feeds.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/plg_feeds.zip" />
-		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/plg_groups.zip" 
+		<copy 	file="${pkg.location}/jomsocialApps/plg_groups.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/plg_groups.zip" />
-		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/plg_latestphoto.zip" 
+		<copy 	file="${pkg.location}/jomsocialApps/plg_latestphoto.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/plg_latestphoto.zip" />
-		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/plg_myarticles.zip" 
+		<copy 	file="${pkg.location}/jomsocialApps/plg_myarticles.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/plg_myarticles.zip" />
 
-		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/testing001.tar.gz" 
+		<copy 	file="${pkg.location}/jomsocialApps/testing001.tar.gz" 
 				tofile="${joomla.rootpath}/${joomla.folder}/plg_testing001.tar.gz" />
-		<copy 	file="${user.home}/Dropbox/Joomla/jomsocialApps/testing002.tar.gz" 
+		<copy 	file="${pkg.location}/jomsocialApps/testing002.tar.gz" 
 				tofile="${joomla.rootpath}/${joomla.folder}/plg_testing002.tar.gz" />
 
 		<copy 	file="${global.dir.root}/script/others/revbuild.xml" 

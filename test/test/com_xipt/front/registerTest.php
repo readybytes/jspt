@@ -18,6 +18,9 @@ class RegisterTest extends XiSelTestCase
   //cross check page exists and comes
   function testRegisterPage()
   {
+  	$filter['aec_integrate']=0;
+	$this->changeJSPTConfig($filter);
+	
   	//Prerequiste = clean session + No AEC + Our system plugin is working
   	//1. session cleaned via SQL
     // go to register location 

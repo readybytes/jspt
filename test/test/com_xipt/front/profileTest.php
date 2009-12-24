@@ -205,16 +205,16 @@ class ProfileTest extends XiSelTestCase
   	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=apps&task=browse&Itemid=53");
 	$this->waitPageLoad();
   	
-	$allApps=array(38,39,40,41,42);
-  	$allowedApps[1]=array(38,40,41,42);
-  	$allowedApps[2]=array(39,40,41,42);
-  	$allowedApps[3]=array(41,42);
+	$allApps=array(42,43,44,45,46);
+  	$allowedApps[1]=array(42,44,45,46);
+  	$allowedApps[2]=array(43,44,45,46);
+  	$allowedApps[3]=array(45,46);
   	
-  	$appsNames[38]='walls';
-  	$appsNames[39]='feeds';
-  	$appsNames[40]='groups';
-  	$appsNames[41]='latestphoto';
-  	$appsNames[42]='myarticles';
+  	$appsNames[42]='walls';
+  	$appsNames[43]='feeds';
+  	$appsNames[44]='groups';
+  	$appsNames[45]='latestphoto';
+  	$appsNames[46]='myarticles';
   	
   	// now check for every links
   	foreach($allApps as $a)

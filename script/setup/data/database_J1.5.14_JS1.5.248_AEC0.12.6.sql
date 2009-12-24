@@ -9,6 +9,523 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
+-- Table structure for table `@joomla.dbprefix@acctexp_cart`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_cart` (
+  `id` int(11) NOT NULL auto_increment,
+  `userid` int(11) NOT NULL default '0',
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `last_updated` datetime default '0000-00-00 00:00:00',
+  `content` text,
+  `history` text,
+  `params` text,
+  `customparams` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_cart`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_config`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_config` (
+  `id` int(11) NOT NULL auto_increment,
+  `settings` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_config`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_config` (`id`, `settings`) VALUES
+(1, 'YTo5Mzp7czoyMDoicmVxdWlyZV9zdWJzY3JpcHRpb24iO3M6MToiMCI7czoxMToiYWRtaW5hY2Nlc3MiO3M6MToiMSI7czoxMToiYWxlcnRsZXZlbDIiO3M6MToiNyI7czoxMToiYWxlcnRsZXZlbDEiO3M6MToiMyI7czoxODoiZXhwaXJhdGlvbl9jdXNoaW9uIjtzOjI6IjEyIjtzOjE1OiJoZWFydGJlYXRfY3ljbGUiO3M6MjoiMjQiO3M6MjM6ImhlYXJ0YmVhdF9jeWNsZV9iYWNrZW5kIjtzOjE6IjEiO3M6MjQ6ImFsbG93X2Zyb250ZW5kX2hlYXJ0YmVhdCI7czoxOiIwIjtzOjI1OiJkaXNhYmxlX3JlZ3VsYXJfaGVhcnRiZWF0IjtzOjE6IjAiO3M6Mjc6ImN1c3RvbV9oZWFydGJlYXRfc2VjdXJlaGFzaCI7czowOiIiO3M6ODoibm9lbWFpbHMiO3M6MToiMCI7czoxNzoibm9qb29tbGFyZWdlbWFpbHMiO3M6MToiMCI7czoxNzoiYnlwYXNzaW50ZWdyYXRpb24iO3M6MDoiIjtzOjExOiJvdmVycmlkZUoxNSI7czoxOiIwIjtzOjEyOiJjdXJsX2RlZmF1bHQiO3M6MToiMSI7czoxMDoic2ltcGxldXJscyI7czoxOiIwIjtzOjI0OiJlcnJvcl9ub3RpZmljYXRpb25fbGV2ZWwiO3M6MjoiMzIiO3M6MjQ6ImVtYWlsX25vdGlmaWNhdGlvbl9sZXZlbCI7czozOiIxMjgiO3M6MTY6ImJyZWFrb25fbWlfZXJyb3IiO3M6MToiMCI7czo5OiJkZWJ1Z21vZGUiO3M6MToiMCI7czoxMToicGxhbnNfZmlyc3QiO3M6MToiMSI7czoyMjoiaW50ZWdyYXRlX3JlZ2lzdHJhdGlvbiI7czoxOiIwIjtzOjE4OiJzaG93X2ZpeGVkZGVjaXNpb24iO3M6MToiMCI7czoxNzoic2tpcF9jb25maXJtYXRpb24iO3M6MToiMCI7czoxMzoidGVtcF9hdXRoX2V4cCI7czoyOiIxNSI7czoxMzoiZGlzcGxheWNjaW5mbyI7czoxOiIxIjtzOjE0OiJlbmFibGVfY291cG9ucyI7czoxOiIxIjtzOjIwOiJjb25maXJtYXRpb25fY291cG9ucyI7czoxOiIwIjtzOjEwOiJyb290X2dyb3VwIjtzOjE6IjEiO3M6MTM6InJvb3RfZ3JvdXBfcnciO3M6MDoiIjtzOjEwOiJlbnRyeV9wbGFuIjtzOjE6IjAiO3M6MTk6ImVuYWJsZV9zaG9wcGluZ2NhcnQiO3M6MToiMCI7czoyNzoiY3VzdG9tbGlua19jb250aW51ZXNob3BwaW5nIjtzOjA6IiI7czoxODoiYWRkaXRlbV9zdGF5b25wYWdlIjtzOjE6IjAiO3M6MzoidG9zIjtzOjA6IiI7czoxMDoidG9zX2lmcmFtZSI7czoxOiIwIjtzOjI5OiJjaGVja291dF9kaXNwbGF5X2Rlc2NyaXB0aW9ucyI7czoxOiIwIjtzOjE2OiJjaGVja291dF9hc19naWZ0IjtzOjE6IjAiO3M6MjM6ImNoZWNrb3V0X2FzX2dpZnRfYWNjZXNzIjtzOjI6IjIzIjtzOjE1OiJjb25maXJtX2FzX2dpZnQiO3M6MToiMCI7czoxMDoic3NsX3NpZ251cCI7czoxOiIwIjtzOjExOiJzc2xfcHJvZmlsZSI7czoxOiIwIjtzOjE1OiJvdmVycmlkZV9yZXFzc2wiO3M6MToiMCI7czo5OiJhbHRzc2x1cmwiO3M6MDoiIjtzOjE0OiJzc2xfdmVyaWZ5cGVlciI7czoxOiIwIjtzOjE0OiJzc2xfdmVyaWZ5aG9zdCI7czowOiIiO3M6MTA6InNzbF9jYWluZm8iO3M6MDoiIjtzOjEwOiJzc2xfY2FwYXRoIjtzOjA6IiI7czoxMToiY3VzdG9taW50cm8iO3M6MDoiIjtzOjE4OiJjdXN0b21pbnRyb191c2VyaWQiO3M6MToiMCI7czoxODoiY3VzdG9taW50cm9fYWx3YXlzIjtzOjE6IjEiO3M6MTI6ImN1c3RvbXRoYW5rcyI7czowOiIiO3M6MTI6ImN1c3RvbWNhbmNlbCI7czowOiIiO3M6MTY6ImN1c3RvbW5vdGFsbG93ZWQiO3M6MDoiIjtzOjk6InVzZV9wcm94eSI7czoxOiIwIjtzOjU6InByb3h5IjtzOjA6IiI7czoxMDoicHJveHlfcG9ydCI7czowOiIiO3M6MTQ6InByb3h5X3VzZXJuYW1lIjtzOjA6IiI7czoxNDoicHJveHlfcGFzc3dvcmQiO3M6MDoiIjtzOjEzOiJnZXRob3N0YnlhZGRyIjtzOjE6IjEiO3M6MTg6InJlbmV3X2J1dHRvbl9uZXZlciI7czoxOiIwIjtzOjMyOiJyZW5ld19idXR0b25fbm9saWZldGltZXJlY3VycmluZyI7czoxOiIxIjtzOjE1OiJjb250aW51ZV9idXR0b24iO3M6MToiMSI7czoyMToiZGlzcGxheV9kYXRlX2Zyb250ZW5kIjtzOjg6IiVkICViICVZIjtzOjIwOiJkaXNwbGF5X2RhdGVfYmFja2VuZCI7czoxODoiJWEsICVkICViICVZICVUICVaIjtzOjIyOiJhbW91bnRfY3VycmVuY3lfc3ltYm9sIjtzOjE6IjAiO3M6Mjc6ImFtb3VudF9jdXJyZW5jeV9zeW1ib2xmaXJzdCI7czoxOiIwIjtzOjE2OiJhbW91bnRfdXNlX2NvbW1hIjtzOjE6IjAiO3M6MTk6Imludm9pY2VudW1fZG9mb3JtYXQiO3M6MToiMCI7czoyMToiaW52b2ljZW51bV9mb3JtYXR0aW5nIjtzOjE3MDoie2FlY2pzb259eyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJkYXRlIiwidmFycyI6WyJZIix7ImNtZCI6InJ3X2NvbnN0YW50IiwidmFycyI6Imludm9pY2VfY3JlYXRlZF9kYXRlIn1dfSwiLSIseyJjbWQiOiJyd19jb25zdGFudCIsInZhcnMiOiJpbnZvaWNlX2lkIn1dfXsvYWVjanNvbn0iO3M6MTM6InVzZV9yZWNhcHRjaGEiO3M6MToiMCI7czoyMDoicmVjYXB0Y2hhX3ByaXZhdGVrZXkiO3M6MDoiIjtzOjE5OiJyZWNhcHRjaGFfcHVibGlja2V5IjtzOjA6IiI7czoxNjoiY3VzdG9tdGV4dF9wbGFucyI7czowOiIiO3M6MzE6ImN1c3RvbXRleHRfY29uZmlybV9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tdGV4dF9jb25maXJtIjtzOjA6IiI7czozMjoiY3VzdG9tdGV4dF9jaGVja291dF9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxOToiY3VzdG9tdGV4dF9jaGVja291dCI7czowOiIiO3M6MzM6ImN1c3RvbXRleHRfZXhjZXB0aW9uX2tlZXBvcmlnaW5hbCI7czoxOiIxIjtzOjIwOiJjdXN0b210ZXh0X2V4Y2VwdGlvbiI7czowOiIiO3M6MzQ6ImN1c3RvbXRleHRfbm90YWxsb3dlZF9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoyMToiY3VzdG9tdGV4dF9ub3RhbGxvd2VkIjtzOjA6IiI7czozMToiY3VzdG9tdGV4dF9wZW5kaW5nX2tlZXBvcmlnaW5hbCI7czoxOiIxIjtzOjE4OiJjdXN0b210ZXh0X3BlbmRpbmciO3M6MDoiIjtzOjI4OiJjdXN0b210ZXh0X2hvbGRfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTU6ImN1c3RvbXRleHRfaG9sZCI7czowOiIiO3M6MzE6ImN1c3RvbXRleHRfZXhwaXJlZF9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tdGV4dF9leHBpcmVkIjtzOjA6IiI7czozMDoiY3VzdG9tdGV4dF90aGFua3Nfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTc6ImN1c3RvbXRleHRfdGhhbmtzIjtzOjA6IiI7czozMDoiY3VzdG9tdGV4dF9jYW5jZWxfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTc6ImN1c3RvbXRleHRfY2FuY2VsIjtzOjA6IiI7czoxMToiYWVjX3ZlcnNpb24iO3M6NjoiMC4xMi42Ijt9');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_config_processors`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_config_processors` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(60) NOT NULL,
+  `active` int(4) NOT NULL default '1',
+  `info` text,
+  `settings` text,
+  `params` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_config_processors`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_coupons`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_coupons` (
+  `id` int(11) NOT NULL auto_increment,
+  `active` int(4) NOT NULL default '1',
+  `ordering` int(11) NOT NULL default '999999',
+  `coupon_code` varchar(255) default NULL,
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `name` varchar(255) default NULL,
+  `desc` text,
+  `discount` text,
+  `restrictions` text,
+  `params` text,
+  `usecount` int(64) NOT NULL default '0',
+  `micro_integrations` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_coupons`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_couponsxuser`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_couponsxuser` (
+  `id` int(11) NOT NULL auto_increment,
+  `coupon_id` int(11) default NULL,
+  `coupon_type` int(2) NOT NULL default '0',
+  `coupon_code` varchar(255) default NULL,
+  `userid` int(11) NOT NULL,
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `last_updated` datetime default '0000-00-00 00:00:00',
+  `params` text,
+  `usecount` int(64) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_couponsxuser`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_coupons_static`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_coupons_static` (
+  `id` int(11) NOT NULL auto_increment,
+  `active` int(4) NOT NULL default '1',
+  `ordering` int(11) NOT NULL default '999999',
+  `coupon_code` varchar(255) default NULL,
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `name` varchar(255) default NULL,
+  `desc` text,
+  `discount` text,
+  `restrictions` text,
+  `params` text,
+  `usecount` int(64) NOT NULL default '0',
+  `micro_integrations` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_coupons_static`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_displaypipeline`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_displaypipeline` (
+  `id` int(11) NOT NULL auto_increment,
+  `userid` int(11) NOT NULL default '0',
+  `only_user` int(4) NOT NULL default '0',
+  `once_per_user` int(4) NOT NULL default '0',
+  `timestamp` datetime default '0000-00-00 00:00:00',
+  `expire` int(11) NOT NULL default '0',
+  `expstamp` datetime default '0000-00-00 00:00:00',
+  `displaycount` int(11) NOT NULL default '0',
+  `displaymax` int(11) NOT NULL default '0',
+  `displaytext` text,
+  `params` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_displaypipeline`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_event`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_event` (
+  `id` int(11) NOT NULL auto_increment,
+  `userid` int(11) NOT NULL default '0',
+  `status` varchar(40) default NULL,
+  `type` varchar(255) default NULL,
+  `subtype` varchar(255) default NULL,
+  `appid` int(11) NOT NULL default '0',
+  `event` varchar(255) default NULL,
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `due_date` datetime default '0000-00-00 00:00:00',
+  `context` text,
+  `params` text,
+  `customparams` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_event`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_eventlog`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_eventlog` (
+  `id` int(11) NOT NULL auto_increment,
+  `datetime` datetime default '0000-00-00 00:00:00',
+  `short` varchar(60) NOT NULL,
+  `tags` text,
+  `event` text,
+  `level` int(4) NOT NULL default '2',
+  `notify` int(1) NOT NULL default '0',
+  `params` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_eventlog`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_eventlog` (`id`, `datetime`, `short`, `tags`, `event`, `level`, `notify`, `params`) VALUES
+(1, '2009-12-24 13:42:16', 'AEC install', 'install,system', 'The AEC Version 0.12.6 has been installed. Welcome to your new version of the Account Expiration Control Component!', 2, 1, 'YToxOntzOjY6InVzZXJpZCI7czoyOiI2MiI7fQ=='),
+(2, '2009-12-24 13:44:57', 'Heartbeat', 'heartbeat', 'Heartbeat carried out: does nothing', 2, 0, NULL),
+(3, '2009-12-24 13:45:30', 'settings change', 'settings,system', 'The Settings for AEC have been saved, changes: none', 2, 0, 'YTozOntzOjY6InVzZXJpZCI7czoyOiI2MiI7czoyOiJpcCI7czo5OiIxMjcuMC4wLjEiO3M6MzoiaXNwIjtzOjk6ImxvY2FsaG9zdCI7fQ=='),
+(4, '2009-12-24 13:54:29', 'settings change', 'settings,system', 'The Settings for AEC have been saved, changes: none', 2, 0, 'YTozOntzOjY6InVzZXJpZCI7czoyOiI2MiI7czoyOiJpcCI7czo5OiIxMjcuMC4wLjEiO3M6MzoiaXNwIjtzOjk6ImxvY2FsaG9zdCI7fQ==');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_export`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_export` (
+  `id` int(11) NOT NULL auto_increment,
+  `system` int(2) NOT NULL default '0',
+  `name` varchar(255) default NULL,
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `lastused_date` datetime default '0000-00-00 00:00:00',
+  `filter` text,
+  `options` text,
+  `params` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_export`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_heartbeat`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_heartbeat` (
+  `id` int(11) NOT NULL auto_increment,
+  `last_beat` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_heartbeat`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_heartbeat` (`id`, `last_beat`) VALUES
+(1, '2009-12-24 13:44:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_invoices`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_invoices` (
+  `id` int(11) NOT NULL auto_increment,
+  `active` int(4) NOT NULL default '1',
+  `counter` int(11) NOT NULL default '0',
+  `userid` int(11) NOT NULL default '0',
+  `subscr_id` int(11) default NULL,
+  `invoice_number` varchar(64) default NULL,
+  `invoice_number_format` varchar(64) default NULL,
+  `secondary_ident` varchar(64) default NULL,
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `transaction_date` datetime default '0000-00-00 00:00:00',
+  `fixed` int(4) NOT NULL default '0',
+  `usage` varchar(255) default NULL,
+  `method` varchar(40) default NULL,
+  `amount` varchar(40) default NULL,
+  `currency` varchar(10) default NULL,
+  `coupons` text,
+  `transactions` text,
+  `params` text,
+  `conditions` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_invoices`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_invoices` (`id`, `active`, `counter`, `userid`, `subscr_id`, `invoice_number`, `invoice_number_format`, `secondary_ident`, `created_date`, `transaction_date`, `fixed`, `usage`, `method`, `amount`, `currency`, `coupons`, `transactions`, `params`, `conditions`) VALUES
+(1, 1, 2, 63, 2, 'INzBiMjNkOWIwZDU3', NULL, NULL, '2009-12-24 13:54:09', '2009-12-24 13:54:09', 0, '4', 'free', '0.00', NULL, NULL, 'YToxOntpOjA7Tzo4OiJzdGRDbGFzcyI6NDp7czo5OiJ0aW1lc3RhbXAiO3M6MTk6IjIwMDktMTItMjQgMTM6NTQ6MDkiO3M6NjoiYW1vdW50IjtzOjQ6IjAuMDAiO3M6ODoiY3VycmVuY3kiO3M6MDoiIjtzOjk6InByb2Nlc3NvciI7czo0OiJmcmVlIjt9fQ==', 'YToyOntzOjEwOiJjcmVhdG9yX2lwIjtzOjk6IjEyNy4wLjAuMSI7czoyMDoidXNlcnNlbGVjdF9yZWN1cnJpbmciO3M6MToiMCI7fQ==', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_itemgroups`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_itemgroups` (
+  `id` int(11) NOT NULL auto_increment,
+  `active` int(4) NOT NULL default '1',
+  `visible` int(4) NOT NULL default '1',
+  `ordering` int(11) NOT NULL default '999999',
+  `name` varchar(40) default NULL,
+  `desc` text,
+  `params` text,
+  `custom_params` text,
+  `restrictions` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_itemgroups`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_itemgroups` (`id`, `active`, `visible`, `ordering`, `name`, `desc`, `params`, `custom_params`, `restrictions`) VALUES
+(1, 1, 1, 999999, 'Root', 'Root Group. This entry cannot be deleted, modification is limited.', 'YTozOntzOjU6ImNvbG9yIjtzOjY6ImJiZGRmZiI7czo0OiJpY29uIjtzOjk6ImZsYWdfYmx1ZSI7czoxODoicmV2ZWFsX2NoaWxkX2l0ZW1zIjtpOjE7fQ==', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_itemxgroup`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_itemxgroup` (
+  `id` int(11) NOT NULL auto_increment,
+  `type` varchar(255) default NULL,
+  `item_id` int(11) default NULL,
+  `group_id` int(11) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_itemxgroup`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_itemxgroup` (`id`, `type`, `item_id`, `group_id`) VALUES
+(2, 'item', 2, 1),
+(4, 'item', 4, 1),
+(5, 'item', 5, 1),
+(13, 'item', 13, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_log_history`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_log_history` (
+  `id` int(11) NOT NULL auto_increment,
+  `proc_id` int(4) default NULL,
+  `proc_name` varchar(100) default NULL,
+  `user_id` int(4) default NULL,
+  `user_name` varchar(100) default NULL,
+  `plan_id` int(4) default NULL,
+  `plan_name` varchar(100) default NULL,
+  `transaction_date` datetime default '0000-00-00 00:00:00',
+  `amount` varchar(40) default NULL,
+  `invoice_number` varchar(60) default NULL,
+  `response` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_log_history`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_metauser`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_metauser` (
+  `id` int(11) NOT NULL auto_increment,
+  `userid` int(11) NOT NULL default '0',
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `modified_date` datetime default '0000-00-00 00:00:00',
+  `plan_history` text,
+  `processor_params` text,
+  `plan_params` text,
+  `params` text,
+  `custom_params` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_metauser`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_metauser` (`id`, `userid`, `created_date`, `modified_date`, `plan_history`, `processor_params`, `plan_params`, `params`, `custom_params`) VALUES
+(1, 62, '2009-12-24 13:42:12', '2009-12-24 13:42:12', NULL, NULL, NULL, NULL, NULL),
+(2, 0, '2009-12-24 13:53:32', '2009-12-24 13:53:32', NULL, NULL, NULL, NULL, NULL),
+(3, 63, '2009-12-24 13:54:07', '2009-12-24 13:54:09', 'Tzo4OiJzdGRDbGFzcyI6Mjp7czoxMjoicGxhbl9oaXN0b3J5IjthOjE6e2k6MDtzOjE6IjQiO31zOjEwOiJ1c2VkX3BsYW5zIjthOjE6e2k6NDtpOjE7fX0=', NULL, NULL, NULL, 'YToyOntzOjExOiJ0ZW1wYXV0aF9pcCI7czo5OiIxMjcuMC4wLjEiO3M6MTY6InRlbXBhdXRoX2V4cHRpbWUiO2k6MTI2MTY0Mzk0OTt9');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_microintegrations`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_microintegrations` (
+  `id` int(11) NOT NULL auto_increment,
+  `active` int(4) NOT NULL default '1',
+  `system` int(4) NOT NULL default '0',
+  `hidden` int(4) NOT NULL default '0',
+  `ordering` int(11) NOT NULL default '999999',
+  `name` varchar(40) default NULL,
+  `desc` text,
+  `class_name` varchar(40) default NULL,
+  `params` text,
+  `auto_check` int(4) NOT NULL default '0',
+  `on_userchange` int(4) NOT NULL default '0',
+  `pre_exp_check` int(4) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_microintegrations`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_plans`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_plans` (
+  `id` int(11) NOT NULL auto_increment,
+  `active` int(4) NOT NULL default '1',
+  `visible` int(4) NOT NULL default '1',
+  `ordering` int(11) NOT NULL default '999999',
+  `name` varchar(40) default NULL,
+  `desc` text,
+  `email_desc` text,
+  `params` text,
+  `custom_params` text,
+  `restrictions` text,
+  `micro_integrations` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_plans`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_plans` (`id`, `active`, `visible`, `ordering`, `name`, `desc`, `email_desc`, `params`, `custom_params`, `restrictions`, `micro_integrations`) VALUES
+(2, 1, 1, 1, 'AEC Plan 001 (ID 2)', '<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>', '', 'YToyMzp7czo5OiJmdWxsX2ZyZWUiO2k6MTtzOjExOiJmdWxsX2Ftb3VudCI7czo0OiIwLjAwIjtzOjExOiJmdWxsX3BlcmlvZCI7czoxOiIzIjtzOjE1OiJmdWxsX3BlcmlvZHVuaXQiO3M6MToiRCI7czoxMDoidHJpYWxfZnJlZSI7czoxOiIwIjtzOjEyOiJ0cmlhbF9hbW91bnQiO3M6MDoiIjtzOjEyOiJ0cmlhbF9wZXJpb2QiO3M6MDoiIjtzOjE2OiJ0cmlhbF9wZXJpb2R1bml0IjtzOjE6IkQiO3M6MTE6ImdpZF9lbmFibGVkIjtzOjE6IjEiO3M6MzoiZ2lkIjtzOjI6IjE4IjtzOjg6ImxpZmV0aW1lIjtzOjE6IjAiO3M6MTU6InN0YW5kYXJkX3BhcmVudCI7czoxOiIwIjtzOjg6ImZhbGxiYWNrIjtzOjE6IjAiO3M6MTE6Im1ha2VfYWN0aXZlIjtzOjE6IjEiO3M6MTI6Im1ha2VfcHJpbWFyeSI7czoxOiIxIjtzOjE1OiJ1cGRhdGVfZXhpc3RpbmciO3M6MToiMSI7czoxMjoiY3VzdG9tdGhhbmtzIjtzOjA6IiI7czozMDoiY3VzdG9tdGV4dF90aGFua3Nfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTg6ImN1c3RvbWFtb3VudGZvcm1hdCI7czozNzM6InthZWNqc29ufXsiY21kIjoiY29uZGl0aW9uIiwidmFycyI6W3siY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50LmZyZWV0cmlhbCJ9LHsiY21kIjoiY29uY2F0IiwidmFycyI6W3siY21kIjoiY29uc3RhbnQiLCJ2YXJzIjoiX0NPTkZJUk1fRlJFRVRSSUFMIn0sIsKgIix7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5tZXRob2RfbmFtZSJ9XX0seyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuYW1vdW50In0seyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuY3VycmVuY3lfc3ltYm9sIn0sIsKgIix7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5tZXRob2RfbmFtZSJ9XX1dfXsvYWVjanNvbn0iO3M6MTc6ImN1c3RvbXRleHRfdGhhbmtzIjtzOjA6IiI7czoxOToib3ZlcnJpZGVfYWN0aXZhdGlvbiI7czoxOiIwIjtzOjE2OiJvdmVycmlkZV9yZWdtYWlsIjtzOjE6IjAiO3M6MTA6InByb2Nlc3NvcnMiO3M6MDoiIjt9', 'YToxOntzOjk6ImFkZF9ncm91cCI7czoxOiIwIjt9', 'YTo0NDp7czoxNDoibWluZ2lkX2VuYWJsZWQiO3M6MToiMCI7czo2OiJtaW5naWQiO3M6MjoiMTgiO3M6MTQ6ImZpeGdpZF9lbmFibGVkIjtzOjE6IjAiO3M6NjoiZml4Z2lkIjtzOjI6IjE5IjtzOjE0OiJtYXhnaWRfZW5hYmxlZCI7czoxOiIwIjtzOjY6Im1heGdpZCI7czoyOiIyMSI7czoyNDoicHJldmlvdXNwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTY6InByZXZpb3VzcGxhbl9yZXEiO2E6MTp7aTowO3M6MToiMCI7fXM6MjM6ImN1cnJlbnRwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTU6ImN1cnJlbnRwbGFuX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czoyMzoib3ZlcmFsbHBsYW5fcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNToib3ZlcmFsbHBsYW5fcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJwcmV2aW91c3BsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToicHJldmlvdXNwbGFuX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czozMjoiY3VycmVudHBsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNDoiY3VycmVudHBsYW5fcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjMyOiJvdmVyYWxscGxhbl9yZXFfZW5hYmxlZF9leGNsdWRlZCI7czoxOiIwIjtzOjI0OiJvdmVyYWxscGxhbl9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjE6InVzZWRfcGxhbl9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIwOiJ1c2VkX3BsYW5fbWluX2Ftb3VudCI7czoxOiIwIjtzOjEzOiJ1c2VkX3BsYW5fbWluIjthOjE6e2k6MDtzOjE6IjAiO31zOjIxOiJ1c2VkX3BsYW5fbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMDoidXNlZF9wbGFuX21heF9hbW91bnQiO3M6MToiMCI7czoxMzoidXNlZF9wbGFuX21heCI7YToxOntpOjA7czoxOiIwIjt9czoyNzoiY3VzdG9tX3Jlc3RyaWN0aW9uc19lbmFibGVkIjtzOjE6IjAiO3M6MTk6ImN1c3RvbV9yZXN0cmljdGlvbnMiO3M6MDoiIjtzOjI1OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTc6InByZXZpb3VzZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjM0OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjY6InByZXZpb3VzZ3JvdXBfcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjI0OiJjdXJyZW50Z3JvdXBfcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNjoiY3VycmVudGdyb3VwX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czozMzoiY3VycmVudGdyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjU6ImN1cnJlbnRncm91cF9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjQ6Im92ZXJhbGxncm91cF9yZXFfZW5hYmxlZCI7czoxOiIwIjtzOjE2OiJvdmVyYWxsZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJvdmVyYWxsZ3JvdXBfcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToib3ZlcmFsbGdyb3VwX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czoyMjoidXNlZF9ncm91cF9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIxOiJ1c2VkX2dyb3VwX21pbl9hbW91bnQiO3M6MToiMCI7czoxNDoidXNlZF9ncm91cF9taW4iO2E6MTp7aTowO3M6MToiMCI7fXM6MjI6InVzZWRfZ3JvdXBfbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMToidXNlZF9ncm91cF9tYXhfYW1vdW50IjtzOjE6IjAiO3M6MTQ6InVzZWRfZ3JvdXBfbWF4IjthOjE6e2k6MDtzOjE6IjAiO319', NULL),
+(4, 1, 1, 2, 'AEC Plan 002 (ID 4)', '<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>', '', 'YToyMzp7czo5OiJmdWxsX2ZyZWUiO2k6MTtzOjExOiJmdWxsX2Ftb3VudCI7czo0OiIwLjAwIjtzOjExOiJmdWxsX3BlcmlvZCI7czowOiIiO3M6MTU6ImZ1bGxfcGVyaW9kdW5pdCI7czoxOiJEIjtzOjEwOiJ0cmlhbF9mcmVlIjtzOjE6IjAiO3M6MTI6InRyaWFsX2Ftb3VudCI7czowOiIiO3M6MTI6InRyaWFsX3BlcmlvZCI7czowOiIiO3M6MTY6InRyaWFsX3BlcmlvZHVuaXQiO3M6MToiRCI7czoxMToiZ2lkX2VuYWJsZWQiO3M6MToiMSI7czozOiJnaWQiO3M6MjoiMTgiO3M6ODoibGlmZXRpbWUiO3M6MToiMCI7czoxNToic3RhbmRhcmRfcGFyZW50IjtzOjE6IjAiO3M6ODoiZmFsbGJhY2siO3M6MToiMCI7czoxMToibWFrZV9hY3RpdmUiO3M6MToiMSI7czoxMjoibWFrZV9wcmltYXJ5IjtzOjE6IjEiO3M6MTU6InVwZGF0ZV9leGlzdGluZyI7czoxOiIxIjtzOjEyOiJjdXN0b210aGFua3MiO3M6MDoiIjtzOjMwOiJjdXN0b210ZXh0X3RoYW5rc19rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tYW1vdW50Zm9ybWF0IjtzOjM3Mzoie2FlY2pzb259eyJjbWQiOiJjb25kaXRpb24iLCJ2YXJzIjpbeyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuZnJlZXRyaWFsIn0seyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJjb25zdGFudCIsInZhcnMiOiJfQ09ORklSTV9GUkVFVFJJQUwifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfSx7ImNtZCI6ImNvbmNhdCIsInZhcnMiOlt7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5hbW91bnQifSx7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5jdXJyZW5jeV9zeW1ib2wifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfV19ey9hZWNqc29ufSI7czoxNzoiY3VzdG9tdGV4dF90aGFua3MiO3M6MDoiIjtzOjE5OiJvdmVycmlkZV9hY3RpdmF0aW9uIjtzOjE6IjAiO3M6MTY6Im92ZXJyaWRlX3JlZ21haWwiO3M6MToiMCI7czoxMDoicHJvY2Vzc29ycyI7czowOiIiO30=', 'YToxOntzOjk6ImFkZF9ncm91cCI7czoxOiIwIjt9', 'YTo0NDp7czoxNDoibWluZ2lkX2VuYWJsZWQiO3M6MToiMCI7czo2OiJtaW5naWQiO3M6MjoiMTgiO3M6MTQ6ImZpeGdpZF9lbmFibGVkIjtzOjE6IjAiO3M6NjoiZml4Z2lkIjtzOjI6IjE5IjtzOjE0OiJtYXhnaWRfZW5hYmxlZCI7czoxOiIwIjtzOjY6Im1heGdpZCI7czoyOiIyMSI7czoyNDoicHJldmlvdXNwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTY6InByZXZpb3VzcGxhbl9yZXEiO2E6MTp7aTowO3M6MToiMCI7fXM6MjM6ImN1cnJlbnRwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTU6ImN1cnJlbnRwbGFuX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czoyMzoib3ZlcmFsbHBsYW5fcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNToib3ZlcmFsbHBsYW5fcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJwcmV2aW91c3BsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToicHJldmlvdXNwbGFuX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czozMjoiY3VycmVudHBsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNDoiY3VycmVudHBsYW5fcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjMyOiJvdmVyYWxscGxhbl9yZXFfZW5hYmxlZF9leGNsdWRlZCI7czoxOiIwIjtzOjI0OiJvdmVyYWxscGxhbl9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjE6InVzZWRfcGxhbl9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIwOiJ1c2VkX3BsYW5fbWluX2Ftb3VudCI7czoxOiIwIjtzOjEzOiJ1c2VkX3BsYW5fbWluIjthOjE6e2k6MDtzOjE6IjAiO31zOjIxOiJ1c2VkX3BsYW5fbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMDoidXNlZF9wbGFuX21heF9hbW91bnQiO3M6MToiMCI7czoxMzoidXNlZF9wbGFuX21heCI7YToxOntpOjA7czoxOiIwIjt9czoyNzoiY3VzdG9tX3Jlc3RyaWN0aW9uc19lbmFibGVkIjtzOjE6IjAiO3M6MTk6ImN1c3RvbV9yZXN0cmljdGlvbnMiO3M6MDoiIjtzOjI1OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTc6InByZXZpb3VzZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjM0OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjY6InByZXZpb3VzZ3JvdXBfcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjI0OiJjdXJyZW50Z3JvdXBfcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNjoiY3VycmVudGdyb3VwX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czozMzoiY3VycmVudGdyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjU6ImN1cnJlbnRncm91cF9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjQ6Im92ZXJhbGxncm91cF9yZXFfZW5hYmxlZCI7czoxOiIwIjtzOjE2OiJvdmVyYWxsZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJvdmVyYWxsZ3JvdXBfcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToib3ZlcmFsbGdyb3VwX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czoyMjoidXNlZF9ncm91cF9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIxOiJ1c2VkX2dyb3VwX21pbl9hbW91bnQiO3M6MToiMCI7czoxNDoidXNlZF9ncm91cF9taW4iO2E6MTp7aTowO3M6MToiMCI7fXM6MjI6InVzZWRfZ3JvdXBfbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMToidXNlZF9ncm91cF9tYXhfYW1vdW50IjtzOjE6IjAiO3M6MTQ6InVzZWRfZ3JvdXBfbWF4IjthOjE6e2k6MDtzOjE6IjAiO319', NULL),
+(5, 1, 1, 3, 'AEC Plan 003 (ID 5)', '<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>', '', 'YToyMzp7czo5OiJmdWxsX2ZyZWUiO2k6MTtzOjExOiJmdWxsX2Ftb3VudCI7czo0OiIwLjAwIjtzOjExOiJmdWxsX3BlcmlvZCI7czowOiIiO3M6MTU6ImZ1bGxfcGVyaW9kdW5pdCI7czoxOiJEIjtzOjEwOiJ0cmlhbF9mcmVlIjtzOjE6IjAiO3M6MTI6InRyaWFsX2Ftb3VudCI7czowOiIiO3M6MTI6InRyaWFsX3BlcmlvZCI7czowOiIiO3M6MTY6InRyaWFsX3BlcmlvZHVuaXQiO3M6MToiRCI7czoxMToiZ2lkX2VuYWJsZWQiO3M6MToiMSI7czozOiJnaWQiO3M6MjoiMTgiO3M6ODoibGlmZXRpbWUiO3M6MToiMCI7czoxNToic3RhbmRhcmRfcGFyZW50IjtzOjE6IjAiO3M6ODoiZmFsbGJhY2siO3M6MToiMCI7czoxMToibWFrZV9hY3RpdmUiO3M6MToiMSI7czoxMjoibWFrZV9wcmltYXJ5IjtzOjE6IjEiO3M6MTU6InVwZGF0ZV9leGlzdGluZyI7czoxOiIxIjtzOjEyOiJjdXN0b210aGFua3MiO3M6MDoiIjtzOjMwOiJjdXN0b210ZXh0X3RoYW5rc19rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tYW1vdW50Zm9ybWF0IjtzOjM3Mzoie2FlY2pzb259eyJjbWQiOiJjb25kaXRpb24iLCJ2YXJzIjpbeyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuZnJlZXRyaWFsIn0seyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJjb25zdGFudCIsInZhcnMiOiJfQ09ORklSTV9GUkVFVFJJQUwifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfSx7ImNtZCI6ImNvbmNhdCIsInZhcnMiOlt7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5hbW91bnQifSx7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5jdXJyZW5jeV9zeW1ib2wifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfV19ey9hZWNqc29ufSI7czoxNzoiY3VzdG9tdGV4dF90aGFua3MiO3M6MDoiIjtzOjE5OiJvdmVycmlkZV9hY3RpdmF0aW9uIjtzOjE6IjAiO3M6MTY6Im92ZXJyaWRlX3JlZ21haWwiO3M6MToiMCI7czoxMDoicHJvY2Vzc29ycyI7czowOiIiO30=', 'YToxOntzOjk6ImFkZF9ncm91cCI7czoxOiIwIjt9', 'YTo0NDp7czoxNDoibWluZ2lkX2VuYWJsZWQiO3M6MToiMCI7czo2OiJtaW5naWQiO3M6MjoiMTgiO3M6MTQ6ImZpeGdpZF9lbmFibGVkIjtzOjE6IjAiO3M6NjoiZml4Z2lkIjtzOjI6IjE5IjtzOjE0OiJtYXhnaWRfZW5hYmxlZCI7czoxOiIwIjtzOjY6Im1heGdpZCI7czoyOiIyMSI7czoyNDoicHJldmlvdXNwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTY6InByZXZpb3VzcGxhbl9yZXEiO2E6MTp7aTowO3M6MToiMCI7fXM6MjM6ImN1cnJlbnRwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTU6ImN1cnJlbnRwbGFuX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czoyMzoib3ZlcmFsbHBsYW5fcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNToib3ZlcmFsbHBsYW5fcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJwcmV2aW91c3BsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToicHJldmlvdXNwbGFuX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czozMjoiY3VycmVudHBsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNDoiY3VycmVudHBsYW5fcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjMyOiJvdmVyYWxscGxhbl9yZXFfZW5hYmxlZF9leGNsdWRlZCI7czoxOiIwIjtzOjI0OiJvdmVyYWxscGxhbl9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjE6InVzZWRfcGxhbl9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIwOiJ1c2VkX3BsYW5fbWluX2Ftb3VudCI7czoxOiIwIjtzOjEzOiJ1c2VkX3BsYW5fbWluIjthOjE6e2k6MDtzOjE6IjAiO31zOjIxOiJ1c2VkX3BsYW5fbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMDoidXNlZF9wbGFuX21heF9hbW91bnQiO3M6MToiMCI7czoxMzoidXNlZF9wbGFuX21heCI7YToxOntpOjA7czoxOiIwIjt9czoyNzoiY3VzdG9tX3Jlc3RyaWN0aW9uc19lbmFibGVkIjtzOjE6IjAiO3M6MTk6ImN1c3RvbV9yZXN0cmljdGlvbnMiO3M6MDoiIjtzOjI1OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTc6InByZXZpb3VzZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjM0OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjY6InByZXZpb3VzZ3JvdXBfcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjI0OiJjdXJyZW50Z3JvdXBfcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNjoiY3VycmVudGdyb3VwX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czozMzoiY3VycmVudGdyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjU6ImN1cnJlbnRncm91cF9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjQ6Im92ZXJhbGxncm91cF9yZXFfZW5hYmxlZCI7czoxOiIwIjtzOjE2OiJvdmVyYWxsZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJvdmVyYWxsZ3JvdXBfcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToib3ZlcmFsbGdyb3VwX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czoyMjoidXNlZF9ncm91cF9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIxOiJ1c2VkX2dyb3VwX21pbl9hbW91bnQiO3M6MToiMCI7czoxNDoidXNlZF9ncm91cF9taW4iO2E6MTp7aTowO3M6MToiMCI7fXM6MjI6InVzZWRfZ3JvdXBfbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMToidXNlZF9ncm91cF9tYXhfYW1vdW50IjtzOjE6IjAiO3M6MTQ6InVzZWRfZ3JvdXBfbWF4IjthOjE6e2k6MDtzOjE6IjAiO319', NULL),
+(13, 1, 1, 4, 'AEC Plan 004 (ID 13)', '<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>', '', 'YToyMzp7czo5OiJmdWxsX2ZyZWUiO2k6MTtzOjExOiJmdWxsX2Ftb3VudCI7czo0OiIwLjAwIjtzOjExOiJmdWxsX3BlcmlvZCI7czowOiIiO3M6MTU6ImZ1bGxfcGVyaW9kdW5pdCI7czoxOiJEIjtzOjEwOiJ0cmlhbF9mcmVlIjtzOjE6IjAiO3M6MTI6InRyaWFsX2Ftb3VudCI7czowOiIiO3M6MTI6InRyaWFsX3BlcmlvZCI7czowOiIiO3M6MTY6InRyaWFsX3BlcmlvZHVuaXQiO3M6MToiRCI7czoxMToiZ2lkX2VuYWJsZWQiO3M6MToiMSI7czozOiJnaWQiO3M6MjoiMTgiO3M6ODoibGlmZXRpbWUiO3M6MToiMCI7czoxNToic3RhbmRhcmRfcGFyZW50IjtzOjE6IjAiO3M6ODoiZmFsbGJhY2siO3M6MToiMCI7czoxMToibWFrZV9hY3RpdmUiO3M6MToiMSI7czoxMjoibWFrZV9wcmltYXJ5IjtzOjE6IjEiO3M6MTU6InVwZGF0ZV9leGlzdGluZyI7czoxOiIxIjtzOjEyOiJjdXN0b210aGFua3MiO3M6MDoiIjtzOjMwOiJjdXN0b210ZXh0X3RoYW5rc19rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tYW1vdW50Zm9ybWF0IjtzOjM3Mzoie2FlY2pzb259eyJjbWQiOiJjb25kaXRpb24iLCJ2YXJzIjpbeyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuZnJlZXRyaWFsIn0seyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJjb25zdGFudCIsInZhcnMiOiJfQ09ORklSTV9GUkVFVFJJQUwifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfSx7ImNtZCI6ImNvbmNhdCIsInZhcnMiOlt7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5hbW91bnQifSx7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5jdXJyZW5jeV9zeW1ib2wifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfV19ey9hZWNqc29ufSI7czoxNzoiY3VzdG9tdGV4dF90aGFua3MiO3M6MDoiIjtzOjE5OiJvdmVycmlkZV9hY3RpdmF0aW9uIjtzOjE6IjAiO3M6MTY6Im92ZXJyaWRlX3JlZ21haWwiO3M6MToiMCI7czoxMDoicHJvY2Vzc29ycyI7czowOiIiO30=', 'YToxOntzOjk6ImFkZF9ncm91cCI7czoxOiIwIjt9', 'YTo0NDp7czoxNDoibWluZ2lkX2VuYWJsZWQiO3M6MToiMCI7czo2OiJtaW5naWQiO3M6MjoiMTgiO3M6MTQ6ImZpeGdpZF9lbmFibGVkIjtzOjE6IjAiO3M6NjoiZml4Z2lkIjtzOjI6IjE5IjtzOjE0OiJtYXhnaWRfZW5hYmxlZCI7czoxOiIwIjtzOjY6Im1heGdpZCI7czoyOiIyMSI7czoyNDoicHJldmlvdXNwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTY6InByZXZpb3VzcGxhbl9yZXEiO2E6MTp7aTowO3M6MToiMCI7fXM6MjM6ImN1cnJlbnRwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTU6ImN1cnJlbnRwbGFuX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czoyMzoib3ZlcmFsbHBsYW5fcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNToib3ZlcmFsbHBsYW5fcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJwcmV2aW91c3BsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToicHJldmlvdXNwbGFuX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czozMjoiY3VycmVudHBsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNDoiY3VycmVudHBsYW5fcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjMyOiJvdmVyYWxscGxhbl9yZXFfZW5hYmxlZF9leGNsdWRlZCI7czoxOiIwIjtzOjI0OiJvdmVyYWxscGxhbl9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjE6InVzZWRfcGxhbl9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIwOiJ1c2VkX3BsYW5fbWluX2Ftb3VudCI7czoxOiIwIjtzOjEzOiJ1c2VkX3BsYW5fbWluIjthOjE6e2k6MDtzOjE6IjAiO31zOjIxOiJ1c2VkX3BsYW5fbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMDoidXNlZF9wbGFuX21heF9hbW91bnQiO3M6MToiMCI7czoxMzoidXNlZF9wbGFuX21heCI7YToxOntpOjA7czoxOiIwIjt9czoyNzoiY3VzdG9tX3Jlc3RyaWN0aW9uc19lbmFibGVkIjtzOjE6IjAiO3M6MTk6ImN1c3RvbV9yZXN0cmljdGlvbnMiO3M6MDoiIjtzOjI1OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTc6InByZXZpb3VzZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjM0OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjY6InByZXZpb3VzZ3JvdXBfcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjI0OiJjdXJyZW50Z3JvdXBfcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNjoiY3VycmVudGdyb3VwX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czozMzoiY3VycmVudGdyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjU6ImN1cnJlbnRncm91cF9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjQ6Im92ZXJhbGxncm91cF9yZXFfZW5hYmxlZCI7czoxOiIwIjtzOjE2OiJvdmVyYWxsZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJvdmVyYWxsZ3JvdXBfcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToib3ZlcmFsbGdyb3VwX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czoyMjoidXNlZF9ncm91cF9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIxOiJ1c2VkX2dyb3VwX21pbl9hbW91bnQiO3M6MToiMCI7czoxNDoidXNlZF9ncm91cF9taW4iO2E6MTp7aTowO3M6MToiMCI7fXM6MjI6InVzZWRfZ3JvdXBfbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMToidXNlZF9ncm91cF9tYXhfYW1vdW50IjtzOjE6IjAiO3M6MTQ6InVzZWRfZ3JvdXBfbWF4IjthOjE6e2k6MDtzOjE6IjAiO319', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_subscr`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_subscr` (
+  `id` int(11) NOT NULL auto_increment,
+  `userid` int(11) default NULL,
+  `primary` int(1) NOT NULL default '0',
+  `type` varchar(40) default NULL,
+  `status` varchar(10) default NULL,
+  `signup_date` datetime default '0000-00-00 00:00:00',
+  `lastpay_date` datetime default '0000-00-00 00:00:00',
+  `cancel_date` datetime default '0000-00-00 00:00:00',
+  `eot_date` datetime default '0000-00-00 00:00:00',
+  `eot_cause` varchar(100) default NULL,
+  `plan` int(11) default NULL,
+  `previous_plan` int(11) default NULL,
+  `used_plans` varchar(255) default NULL,
+  `recurring` int(1) NOT NULL default '0',
+  `lifetime` int(1) NOT NULL default '0',
+  `expiration` datetime default '0000-00-00 00:00:00',
+  `params` text,
+  `customparams` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_subscr`
+--
+
+INSERT INTO `@joomla.dbprefix@acctexp_subscr` (`id`, `userid`, `primary`, `type`, `status`, `signup_date`, `lastpay_date`, `cancel_date`, `eot_date`, `eot_cause`, `plan`, `previous_plan`, `used_plans`, `recurring`, `lifetime`, `expiration`, `params`, `customparams`) VALUES
+(1, 62, 1, 'free', 'Excluded', '2009-12-24 13:42:12', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, NULL, NULL, 0, 0, '2009-12-24 13:42:12', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `@joomla.dbprefix@acctexp_temptoken`
+--
+
+CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@acctexp_temptoken` (
+  `id` int(11) NOT NULL auto_increment,
+  `token` varchar(200) default NULL,
+  `content` text,
+  `created_date` datetime default '0000-00-00 00:00:00',
+  `ip` varchar(25) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `@joomla.dbprefix@acctexp_temptoken`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `@joomla.dbprefix@banner`
 --
 
@@ -1051,7 +1568,7 @@ CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@components` (
   `enabled` tinyint(4) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `parent_option` (`parent`,`option`(32))
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
 
 --
 -- Dumping data for table `@joomla.dbprefix@components`
@@ -1100,7 +1617,21 @@ INSERT INTO `@joomla.dbprefix@components` (`id`, `name`, `link`, `menuid`, `pare
 (41, 'Mail Queue', '', 0, 34, 'option=com_community&view=mailqueue', 'Mail Queue', 'com_community', 6, 'components/com_community/assets/icons/mailq-favicon.gif', 0, '', 1),
 (42, 'Applications', '', 0, 34, 'option=com_plugins&filter_type=community', 'Applications', 'com_community', 7, 'components/com_community/assets/icons/applications-favicon.gif', 0, '', 1),
 (43, 'User Points', '', 0, 34, 'option=com_community&view=userpoints', 'User Points', 'com_community', 8, 'components/com_community/assets/icons/userpoints-favicon.gif', 0, '', 1),
-(44, 'About', '', 0, 34, 'option=com_community&view=about', 'About', 'com_community', 9, 'components/com_community/assets/icons/about-favicon.gif', 0, '', 1);
+(44, 'About', '', 0, 34, 'option=com_community&view=about', 'About', 'com_community', 9, 'components/com_community/assets/icons/about-favicon.gif', 0, '', 1),
+(52, 'AEC Subscription Manager', 'option=com_acctexp', 0, 0, 'option=com_acctexp&task=showCentral', 'AEC Subscription Manager', 'com_acctexp', 0, '../administrator/components/com_acctexp/images/icons/aec_logo_tiny.png', 0, '', 1),
+(53, 'AEC Central', '', 0, 52, 'option=com_acctexp&task=showCentral', 'AEC Central', 'com_acctexp', 0, '../administrator/components/com_acctexp/images/icons/aec_logo_tiny.png', 0, '', 1),
+(54, 'Plans', '', 0, 52, 'option=com_acctexp&task=showSubscriptionPlans', 'Plans', 'com_acctexp', 1, '../administrator/components/com_acctexp/images/icons/aec_symbol_plans_tiny.png', 0, '', 1),
+(55, 'Active', '', 0, 52, 'option=com_acctexp&task=showActive', 'Active', 'com_acctexp', 2, '../administrator/components/com_acctexp/images/icons/aec_symbol_active_tiny.png', 0, '', 1),
+(56, 'Pending', '', 0, 52, 'option=com_acctexp&task=showPending', 'Pending', 'com_acctexp', 3, '../administrator/components/com_acctexp/images/icons/aec_symbol_pending_tiny.png', 0, '', 1),
+(57, 'Cancelled', '', 0, 52, 'option=com_acctexp&task=showCancelled', 'Cancelled', 'com_acctexp', 4, '../administrator/components/com_acctexp/images/icons/aec_symbol_cancelled_tiny.png', 0, '', 1),
+(58, 'Closed', '', 0, 52, 'option=com_acctexp&task=showClosed', 'Closed', 'com_acctexp', 5, '../administrator/components/com_acctexp/images/icons/aec_symbol_closed_tiny.png', 0, '', 1),
+(59, 'Excluded', '', 0, 52, 'option=com_acctexp&task=showExcluded', 'Excluded', 'com_acctexp', 6, '../administrator/components/com_acctexp/images/icons/aec_symbol_excluded_tiny.png', 0, '', 1),
+(60, 'Manual', '', 0, 52, 'option=com_acctexp&task=showManual', 'Manual', 'com_acctexp', 7, '../administrator/components/com_acctexp/images/icons/aec_symbol_manual_tiny.png', 0, '', 1),
+(61, 'Micro Integr.', '', 0, 52, 'option=com_acctexp&task=showMicroIntegrations', 'Micro Integr.', 'com_acctexp', 8, '../administrator/components/com_acctexp/images/icons/aec_symbol_mi_tiny.png', 0, '', 1),
+(62, 'Settings', '', 0, 52, 'option=com_acctexp&task=showSettings', 'Settings', 'com_acctexp', 9, '../administrator/components/com_acctexp/images/icons/aec_symbol_settings_tiny.png', 0, '', 1),
+(63, 'Edit CSS', '', 0, 52, 'option=com_acctexp&task=editCSS', 'Edit CSS', 'com_acctexp', 10, '../administrator/components/com_acctexp/images/icons/aec_symbol_css_tiny.png', 0, '', 1),
+(64, 'Hacks', '', 0, 52, 'option=com_acctexp&task=hacks', 'Hacks', 'com_acctexp', 11, '../administrator/components/com_acctexp/images/icons/aec_symbol_hacks_tiny.png', 0, '', 1),
+(65, 'Help', '', 0, 52, 'option=com_acctexp&task=help', 'Help', 'com_acctexp', 12, '../administrator/components/com_acctexp/images/icons/aec_symbol_help_tiny.png', 0, '', 1);
 
 -- --------------------------------------------------------
 
@@ -1854,9 +2385,13 @@ INSERT INTO `@joomla.dbprefix@plugins` (`id`, `name`, `element`, `folder`, `acce
 (31, 'System - Log', 'log', 'system', 0, 5, 0, 1, 0, 0, '0000-00-00 00:00:00', ''),
 (32, 'System - Remember Me', 'remember', 'system', 0, 6, 1, 1, 0, 0, '0000-00-00 00:00:00', ''),
 (33, 'System - Backlink', 'backlink', 'system', 0, 7, 0, 1, 0, 0, '0000-00-00 00:00:00', ''),
-(34, 'Azrul System Mambot', 'azrul.system', 'system', 0, -1000, 1, 0, 0, 0, '0000-00-00 00:00:00', ''),
+(34, 'Azrul System Mambot', 'azrul.system', 'system', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', ''),
 (35, 'User - Jomsocial User', 'jomsocialuser', 'user', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', ''),
-(36, 'Walls', 'walls', 'community', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', 'cache=1');
+(36, 'Walls', 'walls', 'community', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', 'cache=1'),
+(37, 'Authorization - AEC Access', 'aecaccess', 'user', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', ''),
+(38, 'System - AEC ErrorHandler', 'aecerrorhandler', 'system', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', ''),
+(39, 'System - AEC Routing', 'aecrouting', 'system', 0, -1000, 1, 0, 0, 0, '0000-00-00 00:00:00', ''),
+(40, 'User - AEC User', 'aecuser', 'user', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -2023,6 +2558,13 @@ CREATE TABLE IF NOT EXISTS `@joomla.dbprefix@session` (
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `@joomla.dbprefix@session`
+--
+
+INSERT INTO `@joomla.dbprefix@session` (`username`, `time`, `session_id`, `guest`, `userid`, `usertype`, `gid`, `client_id`, `data`) VALUES
+('', '1261643205', '4f4633f22590aac06f50e0ad13480794', 1, 0, '', 0, 0, '__default|a:8:{s:22:"session.client.browser";s:105:"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.15) Gecko/2009102815 Ubuntu/9.04 (jaunty) Firefox/3.0.15";s:15:"session.counter";i:21;s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:57:"/var/www/root6734/libraries/joomla/html/parameter/element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}s:13:"session.token";s:32:"18275414f715614f0c484892acf92faa";s:19:"session.timer.start";i:1261642261;s:18:"session.timer.last";i:1261643203;s:17:"session.timer.now";i:1261643205;}__JOMSOCIAL|a:2:{s:12:"JS_REG_TOKEN";s:32:"18275414f715614f0c484892acf92faa";s:7:"tmpUser";O:5:"JUser":23:{s:2:"id";i:63;s:4:"name";s:9:"sample001";s:8:"username";s:9:"sample001";s:5:"email";s:19:"sample001@goguru.in";s:8:"password";s:65:"d59a436a9ac0e0033313fb0cdce67f70:6qazS1eR193PBVjhGAmvwq5jC38cmdzX";s:14:"password_clear";s:9:"sample001";s:8:"usertype";s:0:"";s:5:"block";s:1:"1";s:9:"sendEmail";i:0;s:3:"gid";s:2:"18";s:12:"registerDate";s:19:"2009-12-24 08:24:03";s:13:"lastvisitDate";N;s:10:"activation";s:32:"4f7b34e328e4bedfbd0abf5e3768d0f3";s:6:"params";s:1:"\n";s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";r:27;s:9:"_errorMsg";N;s:7:"_errors";a:0:{}s:5:"token";s:32:"e8159d1366e63d52f3df073de2bb4392";s:7:"created";s:19:"2009-12-24 08:23:51";s:2:"ip";s:9:"127.0.0.1";s:9:"password2";s:9:"sample001";}}'),
+('admin', '1261643334', '33dce5228f7c83fbed8f50d79f37db67', 0, 62, 'Super Administrator', 25, 1, '__default|a:8:{s:15:"session.counter";i:79;s:19:"session.timer.start";i:1261642289;s:18:"session.timer.last";i:1261643333;s:17:"session.timer.now";i:1261643334;s:22:"session.client.browser";s:105:"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.15) Gecko/2009102815 Ubuntu/9.04 (jaunty) Firefox/3.0.15";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:4:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}s:11:"application";a:1:{s:4:"data";O:8:"stdClass":1:{s:4:"lang";s:0:"";}}s:11:"com_plugins";a:1:{s:4:"data";O:8:"stdClass":2:{s:4:"site";O:8:"stdClass":5:{s:12:"filter_order";s:8:"p.folder";s:16:"filter_order_Dir";s:0:"";s:12:"filter_state";s:1:"P";s:11:"filter_type";s:1:"1";s:6:"search";s:0:"";}s:10:"limitstart";i:0;}}s:6:"global";a:1:{s:4:"data";O:8:"stdClass":1:{s:4:"list";O:8:"stdClass":1:{s:5:"limit";i:0;}}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";s:2:"62";s:4:"name";s:13:"Administrator";s:8:"username";s:5:"admin";s:5:"email";s:19:"shyam@readybytes.in";s:8:"password";s:65:"6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm";s:14:"password_clear";s:0:"";s:8:"usertype";s:19:"Super Administrator";s:5:"block";s:1:"0";s:9:"sendEmail";s:1:"1";s:3:"gid";s:2:"25";s:12:"registerDate";s:19:"2009-10-27 14:21:57";s:13:"lastvisitDate";s:19:"2009-11-03 06:57:39";s:10:"activation";s:0:"";s:6:"params";s:0:"";s:3:"aid";i:2;s:5:"guest";i:0;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:57:"/var/www/root6734/libraries/joomla/html/parameter/element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}s:13:"session.token";s:32:"64a18ce690257e9fbe0a0e9722c00ac5";}');
 
 -- --------------------------------------------------------
 

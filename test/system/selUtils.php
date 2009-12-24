@@ -69,4 +69,69 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
       $this->assertFalse($this->isTextPresent("( ! ) Notice:"));
       // a call stack ping due to assert/notice etc.
   }
+  
+  function waitForElement($element)
+  {
+	  //wait for ajax window
+  		for ($second = 0; ; $second++) {
+	        if ($second >= 10) $this->fail("timeout");
+	        try {
+	            if ($this->isElementPresent($element)) break;
+	        } catch (Exception $e) {}
+	        sleep(1);
+	    }
+  }
+  
+  function changeJomSocialConfig($filters)
+  {
+	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );
+	$query = "SELECT params FROM `#__community_config` WHERE `name`='config'";
+	$db	=& JFactory::getDBO();
+	$db->setQuery($query);
+	$params=$db->loadResult();
+	
+	$newParams = new JParameter($params);
+	foreach($filters as $key => $value)
+		$newParams->set($key,$value);
+		
+	$paraStr = '';
+	$allData = $newParams->_registry['_default']['data']; 
+	foreach ($allData as $key => $value)
+		$paraStr .= "$key=$value\n";
+		
+	$query = "UPDATE `#__community_config` SET `params`='".$paraStr."' WHERE `name`='config'";
+	$db	=& JFactory::getDBO();
+	$db->setQuery($query);
+	$db->query();
+  }
+  
+  function changeJSPTConfig($filters)
+  {
+ 
+  	if(!$filters)
+  		return;
+  		
+	$query = "SELECT params FROM `#__components` WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ";
+	$db	=& JFactory::getDBO();
+	$db->setQuery($query);
+	$params=$db->loadResult();
+	
+	$newParams = new JParameter($params);
+	
+	foreach($filters as $key => $value)
+		$newParams->set($key,$value);
+		
+	$paraStr = '';
+	$allData = $newParams->_registry['_default']['data']; 
+	foreach ($allData as $key => $value)
+		$paraStr .= "$key=$value\n";
+		
+	$query = "UPDATE `#__components` SET `params`='".$paraStr."' WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1";
+	$db	=& JFactory::getDBO();
+	$db->setQuery($query);
+	$db->query();
+  	
+	$done=true;
+  }
+  
 }

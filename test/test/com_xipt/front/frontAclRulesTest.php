@@ -14,17 +14,6 @@ class FrontAclRulesTest extends XiSelTestCase
     $this->setBrowserUrl( JOOMLA_LOCATION."/index.php?option=com_community");
   }
 
-  function waitForElement($element)
-  {
-	  //wait for ajax window
-  		for ($second = 0; ; $second++) {
-	        if ($second >= 10) $this->fail("timeout");
-	        try {
-	            if ($this->isElementPresent($element)) break;
-	        } catch (Exception $e) {}
-	        sleep(1);
-	    }
-  }
   
   function verifyRestrict($verify)
   {
@@ -33,33 +22,6 @@ class FrontAclRulesTest extends XiSelTestCase
   	$this->assertTrue($verify != $present);
   }
   
-  function JomSocialSetup()
-  {
-  	static $done=false;
-  	
-  	if($done)
-  		return;
-  				
-	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );
-	$query = "SELECT params FROM `#__community_config` WHERE `name`='config'";
-	$db	=& JFactory::getDBO();
-	$db->setQuery($query);
-	$params=$db->loadResult();
-	
-	$newParams = new JParameter($params);
-	$newParams->set('floodLimit','0');
-	$paraStr = '';
-	$allData = $newParams->_registry['_default']['data']; 
-	foreach ($allData as $key => $value)
-		$paraStr .= "$key=$value\n";
-		
-	$query = "UPDATE `#__community_config` SET `params`='".$paraStr."' WHERE `name`='config'";
-	$db	=& JFactory::getDBO();
-	$db->setQuery($query);
-	$db->query();
-  	
-	$done=true;
-  }
 
   function checkCreateGroup($from, $verify)
   {
@@ -177,7 +139,8 @@ class FrontAclRulesTest extends XiSelTestCase
   
   function testACLRules0()
   {
-  	  $this->JomSocialSetup();
+  	  $filter['floodLimit']=1;
+  	  $this->changeJomSocialConfig($filter);
   	  
   	  //login as admin user
       $user = JFactory::getUser(82);//regtest8774090

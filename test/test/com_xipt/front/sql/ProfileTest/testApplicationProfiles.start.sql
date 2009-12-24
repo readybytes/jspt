@@ -1,19 +1,21 @@
+TRUNCATE TABLE `#__community_apps`; /*We need to reset this table*/
+
 TRUNCATE TABLE `#__xipt_applications`;
 INSERT INTO `#__xipt_applications` (`applicationid`, `profiletype`) VALUES
-(38, 2),
-(38, 3),
-(38, 4),
-(39, 1),
-(39, 3),
-(39, 4),
-(40, 3),
-(40, 4),
-(43, 2),
+(42, 2),
+(42, 3),
+(42, 4),
+(43, 1),
 (43, 3),
 (43, 4),
-(44, 1),
 (44, 3),
-(44, 4);
+(44, 4),
+(47, 2),
+(47, 3),
+(47, 4),
+(48, 1),
+(48, 3),
+(48, 4);
 
 TRUNCATE TABLE `#__community_fields` ;
 INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES

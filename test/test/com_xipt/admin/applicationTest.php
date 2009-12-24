@@ -27,7 +27,7 @@ class ApplicationTest extends XiSelTestCase
     $this->_DBO->filterColumn('#__xipt_applications','id');
     
     // now check for showing application
-    $this->click("//span[@id='name38']/a");
+    $this->click("//span[@id='name42']/a");
     $this->waitPageLoad();
     $this->click("profileTypes1");
     $this->click("profileTypes0");
@@ -35,7 +35,7 @@ class ApplicationTest extends XiSelTestCase
     $this->waitPageLoad();
     
     // for 2
-    $this->click("//span[@id='name39']/a");
+    $this->click("//span[@id='name43']/a");
     $this->waitPageLoad();
     $this->click("profileTypes2");
     $this->click("profileTypes0");
@@ -43,7 +43,7 @@ class ApplicationTest extends XiSelTestCase
     $this->waitPageLoad();
     
     //for 1,2
-    $this->click("//span[@id='name40']/a");
+    $this->click("//span[@id='name44']/a");
     $this->waitPageLoad();
     $this->click("profileTypes1");
     $this->click("profileTypes2");
@@ -52,7 +52,7 @@ class ApplicationTest extends XiSelTestCase
     $this->waitPageLoad();
     
     //still ALL should reflect
-    $this->click("//span[@id='name41']/a");
+    $this->click("//span[@id='name45']/a");
     $this->waitPageLoad();
     $this->click("profileTypes1");
     $this->click("profileTypes2");
@@ -60,7 +60,7 @@ class ApplicationTest extends XiSelTestCase
     $this->waitPageLoad();
     
     //For core application
-    $this->click("//span[@id='name43']/a");
+    $this->click("//span[@id='name47']/a");
     $this->waitPageLoad();
     $this->click("profileTypes0");
     $this->click("profileTypes1");
@@ -68,7 +68,7 @@ class ApplicationTest extends XiSelTestCase
     $this->waitPageLoad();
     
     //still ALL should reflect
-    $this->click("//span[@id='name44']/a");
+    $this->click("//span[@id='name48']/a");
     $this->waitPageLoad();
     $this->click("profileTypes0");
     $this->click("profileTypes2");

@@ -65,22 +65,8 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage2']/img[contains(@src,'images/publish_x.png')]"));
     
 	//$this->click("//td[@id='setupMessage1']/a");
-	//XITODO : how to crosscheck link is going on right place
-	
-    //now set default profiletype and link should be removed
-    $sql = "UPDATE `#__components` 
-			SET `params`= 
-				'show_ptype_during_reg=1 
-				allow_user_to_change_ptype_after_reg=1 
-				defaultProfiletypeID=1 
-				jspt_show_radio=1 allow_templatechange=1 
-				aec_integrate=0 aec_message=b 
-				jspt_restrict_reg_check=0 
-				jspt_prevent_username= 
-				jspt_allowed_email= '
-			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
-			";
-    $this->_DBO->execSql($sql);
+	$filter['defaultProfiletypeID']=1;
+	$this->changeJSPTConfig($filter);
     
     //now link should be converted into right
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
