@@ -39,26 +39,26 @@ class FrontAclRulesTest extends XiSelTestCase
   	
   	if($done)
   		return;
-  
-  	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );
-  	//setup floodLimit to 0
-  	$config =& CFactory::getConfig();
-    $config->set( 'floodLimit', 0 );
-    
-  	$query = "SELECT params FROM `#__community_config` WHERE `name`='config'";
-  	$db	=& JFactory::getDBO();
-  	$db->setQuery($query);
-  	$params=$db->loadResult();
-
-  	$newParams = new JParameter($params);
-  	$newParams->set('floodLimit','0');
-	$params	= $newParams->_raw;
+  				
+	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );
+	$query = "SELECT params FROM `#__community_config` WHERE `name`='config'";
+	$db	=& JFactory::getDBO();
+	$db->setQuery($query);
+	$params=$db->loadResult();
 	
-  	$query = "UPDATE `#__community_config` SET `params`='$params' WHERE `name`='config'";
-  	$db	=& JFactory::getDBO();
-  	$db->setQuery($query);
-  	$db->query();
-  	$done=true;
+	$newParams = new JParameter($params);
+	$newParams->set('floodLimit','0');
+	$paraStr = '';
+	$allData = $newParams->_registry['_default']['data']; 
+	foreach ($allData as $key => $value)
+		$paraStr .= "$key=$value\n";
+		
+	$query = "UPDATE `#__community_config` SET `params`='".$paraStr."' WHERE `name`='config'";
+	$db	=& JFactory::getDBO();
+	$db->setQuery($query);
+	$db->query();
+  	
+	$done=true;
   }
 
   function checkCreateGroup($from, $verify)
