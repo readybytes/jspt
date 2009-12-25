@@ -6,15 +6,6 @@ class InstallTest extends XiSelTestCase
   {
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
-  
-  function setUp()
-  {
-    $this->setBrowser("*chrome");
-    $this->setBrowserUrl( JOOMLA_LOCATION."/administrator/index.php?option=com_login");
-    
-    //verify tables setup
-    $this->assertEquals($this->_DBO->getErrorLog(),'');
-  }
 
    /**
    */
@@ -28,8 +19,9 @@ class InstallTest extends XiSelTestCase
     $this->waitPageLoad("30000");
       
 	// add profiletype-one
-    $this->type("install_package", COM_XIPT_PKG);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", COM_XIPT_PKG);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+   
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Component Success"));
     
@@ -61,8 +53,8 @@ class InstallTest extends XiSelTestCase
 	    $this->waitPageLoad("30000");
 	      
 		// add profiletype-one
-	    $this->type("install_package", JOMSOCIAL_PKG);
-	    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+	    $this->type("install_url", JOMSOCIAL_PKG);
+	    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
 	    $this->waitPageLoad();
 
 	  $this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
@@ -101,34 +93,34 @@ class InstallTest extends XiSelTestCase
     $this->waitPageLoad("30000");
       
 	// add profiletype-one
-    $this->type("install_package", JOMSOCIAL_APPS1);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", JOMSOCIAL_APPS1);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
     
-    $this->type("install_package", JOMSOCIAL_APPS2);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", JOMSOCIAL_APPS2);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
     
-    $this->type("install_package", JOMSOCIAL_APPS3);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", JOMSOCIAL_APPS3);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
     
     
-    $this->type("install_package", JOMSOCIAL_APPS4);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", JOMSOCIAL_APPS4);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
     
-    $this->type("install_package", JOMSOCIAL_APPS5);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", JOMSOCIAL_APPS5);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
     
-    $this->type("install_package", JOMSOCIAL_APPS6);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", JOMSOCIAL_APPS6);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
     
@@ -150,8 +142,8 @@ class InstallTest extends XiSelTestCase
     $this->waitPageLoad("30000");
       
 	// add profiletype-one
-    $this->type("install_package", PLG_XIPT_SYS_PKG);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", PLG_XIPT_SYS_PKG);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
   }
@@ -168,8 +160,8 @@ class InstallTest extends XiSelTestCase
     $this->waitPageLoad("30000");
       
 	// add profiletype-one
-    $this->type("install_package", PLG_XIPT_COM_PKG);
-    $this->click("//form[@name='adminForm']/table[1]/tbody/tr[2]/td[2]/input[2]");
+    $this->type("install_url", PLG_XIPT_COM_PKG);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("Install Plugin Success"));
   } 

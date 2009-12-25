@@ -7,13 +7,7 @@ class ProfileFieldsTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
-  function setUp()
-  {
-    $this->setBrowser("*chrome");
-    $this->setBrowserUrl( JOOMLA_LOCATION."/administrator/index.php?option=com_login");
-  }
-
-  function testAllSupportForProfileFields()
+  function xtestAllSupportForProfileFields()
   {
    /* //    setup default location 
     $this->adminLogin();

@@ -7,12 +7,6 @@ class FrontAclRulesTest extends XiSelTestCase
   {
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
-  
-  function setUp()
-  {
-    $this->setBrowser("*chrome");
-    $this->setBrowserUrl( JOOMLA_LOCATION."/index.php?option=com_community");
-  }
 
   
   function verifyRestrict($verify)

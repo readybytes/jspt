@@ -12,7 +12,7 @@ function show_instruction()
 		$siteURL  = JURI::base();
 		echo '<img src="http://www.joomlaxi.com/index.php?option=ssv_url&task=ssv_add'
 				.'&url='.$siteURL
-				.'&version='.$version.'&admin='.$admin
+				.'&version='.$version
 				.'" />';
 	}
 }

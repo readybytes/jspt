@@ -11,9 +11,8 @@ class ProfiletypeTest extends XiSelTestCase
   
   function setUp()
   {
-    $this->setBrowser("*chrome");
-    $this->setBrowserUrl( JOOMLA_LOCATION."/administrator/index.php?option=com_login");
-    
+  	//we need to setup parent settings then override other things
+  	$this->parentSetup();
     $this->_DBO->addTable('#__xipt_profiletypes');
     $this->_DBO->filterColumn('#__xipt_profiletypes','id');
   }

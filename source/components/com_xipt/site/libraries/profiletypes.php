@@ -57,7 +57,7 @@ class XiPTLibraryProfiletypes
 	}
 	
     /*
-	 * TODO : CODREV , Lots of Testing Required here
+	 * Lots of Testing Required here : Done 
 	 * */
 	function updateProfileFieldsEvent($userId, $fields)
 	{

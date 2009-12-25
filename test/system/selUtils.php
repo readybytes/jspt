@@ -5,12 +5,28 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
 {
   var  $_DBO;
   protected $captureScreenshotOnFailure = TRUE;
-  protected $screenshotPath = JOOMLA_FTP_LOCATION;
-  protected $screenshotUrl  = JOOMLA_LOCATION;
+  protected $screenshotPath = SCREENSHOT_PATH;
+  protected $screenshotUrl  = SCREENSHOT_URL;
 /*  
   protected $collectCodeCoverageInformation = TRUE;
   protected $coverageScriptUrl = 'http://localhost/phpunit_coverage.php';
  */ 
+  function setUp()
+  {
+  	$this->parentSetup();
+  }
+  
+  function parentSetup()
+  {
+  	$this->setHost(SEL_RC_SERVER);
+  	$this->setPort(SEL_RC_PORT);
+  	$this->setTimeout(10);
+  	
+  	//to be available to all childs
+    $this->setBrowser("*chrome");
+    $this->setBrowserUrl( JOOMLA_LOCATION);
+  }
+  
   function assertPreConditions()
   {
     // this will be a assert for every test

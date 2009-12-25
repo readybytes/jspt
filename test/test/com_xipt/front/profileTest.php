@@ -9,11 +9,6 @@ class ProfileTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
-  function setUp()
-  {
-    $this->setBrowser("*chrome");
-    $this->setBrowserUrl( JOOMLA_LOCATION."/index.php?option=com_community");
-  }
   
   //cross check page exists and comes
   function testViewableProfiles()
@@ -108,56 +103,20 @@ class ProfileTest extends XiSelTestCase
     	$user = JFactory::getUser(82);
   	  	$this->frontLogin($user->username,$user->username);
   	  	
-  		//profiletype and template change allowed
-  		$sql = "UPDATE `#__components` 
-				SET `params`= 
-				'show_ptype_during_reg=1 
-				allow_user_to_change_ptype_after_reg=1 
-				defaultProfiletypeID=1 
-				jspt_show_radio=1 
-				allow_templatechange=1 
-				aec_integrate=0 aec_message=b 
-				jspt_restrict_reg_check=0 
-				jspt_prevent_username= 
-				jspt_allowed_email= '
-			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
-			";
-    	$this->_DBO->execSql($sql);
-        
-
-    	//profiletype and template change not allowed
-    	// profiletype not allowed and template change not allowed
-    	$this->verifyEditablePTFields(true,true);
-    	$sql = "UPDATE `#__components` 
-				SET `params`= 
-				'show_ptype_during_reg=1 
-				allow_user_to_change_ptype_after_reg=1 
-				defaultProfiletypeID=1 
-				jspt_show_radio=1 
-				allow_templatechange=0
-				aec_integrate=0 aec_message=b 
-				jspt_restrict_reg_check=0 
-				jspt_prevent_username= 
-				jspt_allowed_email= '
-			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
-			";
-    	$this->_DBO->execSql($sql);
-    	$this->verifyEditablePTFields(true,false);
+  	  	//profiletype and template change allowed
+  	  	$filter['allow_user_to_change_ptype_after_reg']=1;
+  	  	$filter['allow_templatechange']=1;
+  	  	$this->changeJSPTConfig($filter);
+  		$this->verifyEditablePTFields(true,true);
     	
-    	$sql = "UPDATE `#__components` 
-				SET `params`= 
-				'show_ptype_during_reg=1 
-				allow_user_to_change_ptype_after_reg=0 
-				defaultProfiletypeID=1 
-				jspt_show_radio=1 
-				allow_templatechange=0
-				aec_integrate=0 aec_message=b 
-				jspt_restrict_reg_check=0 
-				jspt_prevent_username= 
-				jspt_allowed_email= '
-			WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ;
-			";
-    	$this->_DBO->execSql($sql);
+    	$filter['allow_user_to_change_ptype_after_reg']=1;
+  	  	$filter['allow_templatechange']=0;
+  	  	$this->changeJSPTConfig($filter);
+     	$this->verifyEditablePTFields(true,false);
+    	
+     	$filter['allow_user_to_change_ptype_after_reg']=0;
+  	  	$filter['allow_templatechange']=0;
+  	  	$this->changeJSPTConfig($filter);
     	$this->verifyEditablePTFields(false,false);    
   }
   
