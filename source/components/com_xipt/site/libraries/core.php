@@ -198,7 +198,7 @@ class XiPTLibraryCore
 		$db->setQuery( $query );
 		$res = $db->loadObject();
 
-		//CODREV : record does not exist, insert it
+		//record does not exist, insert it
 		if(!$res)
 		{
 			$res= new stdClass();
@@ -229,7 +229,7 @@ class XiPTLibraryCore
 	
 	function updateCommunityUserAvatar($userid,$profiletypeID)
 	{
-		//TODO : CODREV: We must enforce this as we never want
+		//Imp: We must enforce this as we never want
 		// to overwrite a custom avatar
 		if(!XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($userid,'avatar','profiletype'))
 			return false;
@@ -294,10 +294,7 @@ class XiPTLibraryCore
 		$oldGroup = XiPTLibraryProfiletypes::getProfileTypeData($oldProfileTypeId,'group');
         $newGroup = XiPTLibraryProfiletypes::getProfileTypeData($profileTypeId,'group');
         
-        /* CODREV : Cross check if user is member of newGroup then return
-         * 	if($oldGroup == $newGroup)
-         * 		return;
-         */
+        // Cross check if user is member of newGroup then return
         if(self::_isMemberOfGroup($userId,$newGroup))
         	return;
         	    

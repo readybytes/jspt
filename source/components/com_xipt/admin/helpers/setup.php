@@ -70,7 +70,7 @@ class XiPTHelperSetup
 		
 	}
 	
-	//CODREV : call fn don't write update query here
+	//call fn don't write update query here
 	function enableField($fieldcode)
 	{
 		$db			=& JFactory::getDBO();
@@ -172,18 +172,7 @@ class XiPTHelperSetup
 			return false;
 			
 		return true;
-				
 	}
-	
-	function isLibraryFieldExist($filename)
-	{
-		//CODREV check customfield patch required
-		if (file_exists($filename))
-			return true;
-		else
-			return false;
-	}
-	
 	
 	function isCustomLibraryFieldRequired()
 	{
@@ -192,9 +181,9 @@ class XiPTHelperSetup
 		$tLibrary = false;
 		
 		$pFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.PROFILETYPE_FIELD_TYPE_NAME.'.php';
-		$pLibrary = self::isLibraryFieldExist($pFileName);
+		$pLibrary = file_exists($pFileName);
     	$tFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.TEMPLATE_FIELD_TYPE_NAME.'.php';
-    	$tLibrary = self::isLibraryFieldExist($tFileName);
+    	$tLibrary = file_exists($tFileName);
 
     	if($pLibrary && $tLibrary)
     		return false;

@@ -133,7 +133,7 @@ function getProfileTypeData($id,$what='name')
 				break;	
 		case  'avatar':
 				$searchFor 		= 'avatar';
-				$defaultValue	= 'components/com_community/assets/default.jpg';
+				$defaultValue	= DEFAULT_AVATAR;
 				break;
 		case  'watermark':
 				$searchFor 		= 'watermark';
@@ -366,12 +366,12 @@ function resetAllUsers($pid)
 
 			// If old file is default_thumb or default, we should not remove it.
 			// Need proper way to test it
-			if(!Jstring::stristr( $oldFile , 'components/com_community/assets/default.jpg' ) 
-				&& !Jstring::stristr( $oldFile , 'components/com_community/assets/default_thumb.jpg' ) 
+			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR ) 
+				&& !Jstring::stristr( $oldFile , DEFAULT_AVATAR_THUMB ) 
 					&& $oldFile != $image){
 				// File exists, try to remove old files first.
 				$oldFile	= JString::str_ireplace( '/' , DS , $oldFile );			
-				JFile::delete($oldFile);	
+				JFile::delete($oldFile);
 			}
 			
 			$db =& JFactory::getDBO();

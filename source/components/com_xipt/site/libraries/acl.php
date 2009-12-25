@@ -188,7 +188,7 @@ class XiPTLibraryAcl
 		$myPID	 = XiPTLibraryProfiletypes::getUserData($userID,'PROFILETYPE');
 		$db		 = JFactory::getDBO();
 		
-		//CODREV : is this require to check if viewuserid and userid is same
+		//is this require to check if viewuserid and userid is same
 		//then user can visit their own profile or not
 		if($viewuserid)
 			$otherpid	= XiPTLibraryProfiletypes::getUserData($viewuserid,'PROFILETYPE');

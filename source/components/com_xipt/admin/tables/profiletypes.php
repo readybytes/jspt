@@ -52,7 +52,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->template		= "default";
 			$this->jusertype	= "Registered";
 			$this->allowt		= false;
-			$this->avatar		= "components/com_community/assets/default.jpg";
+			$this->avatar		= DEFAULT_AVATAR;
 			$this->watermark	= "";
 			$this->approve		= false;
 			$this->group 		= 0;

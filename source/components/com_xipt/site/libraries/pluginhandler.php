@@ -173,7 +173,7 @@ class XiPTLibraryPluginHandler
 		$templateValue    =& $fieldValueCodes[TEMPLATE_CUSTOM_FIELD_CODE];
 		
 		global $mainframe;
-		//  CODREV : While editing in backend do not check for verification Dont run in admin
+		// While editing in backend do not check for verification Dont run in admin
 		if ($mainframe->isAdmin())
 			return true;
 			
@@ -264,18 +264,14 @@ class XiPTLibraryPluginHandler
 		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
 			$thumb = strstr('_thumb',$old_avatar_path);
 			if ($thumb)
-				$old_avatar_path = 'components/com_community/assets/default_thumb.jpg';
+				$old_avatar_path = DEFAULT_AVATAR_THUMB;
 			else
-				$old_avatar_path = 'components/com_community/assets/default.jpg';
-		}
+				$old_avatar_path = DEFAULT_AVATAR;
+		}		
 		
-		//CODREV : check if watermark add is enable
-		//check what should be the watermark , watermark image , default ptype avatar
-		//or ptype name
 		//check what is new avatar , if thumb or original
 		//it comes here 2 times , while updating avatar or thumb
-		//add watemark on new_avatar
-		
+		// add watemark on new_avatar
 		if(strstr($new_avatar_path,'thumb'))
 			$what = 'thumb';
 		else

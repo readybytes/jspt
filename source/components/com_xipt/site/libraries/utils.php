@@ -276,7 +276,7 @@ class XiPTLibraryUtils
 		return $url;
 	}
 
-	//CODREV TODOXI : use it everywhere. 
+	//use it everywhere. 
 	function getReturnURL()
 	{
 	    $mySess    = JFactory::getSession();

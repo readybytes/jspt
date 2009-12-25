@@ -29,6 +29,9 @@ define('AVATAR_WIDTH',160);
 define('AVATAR_HEIGHT_THUMB',60);
 define('AVATAR_WIDTH_THUMB',60);
 
+define('DEFAULT_AVATAR','components/com_community/assets/default.jpg');
+define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg');
+
 //define some constant
 define('ALL',-1); //required in admin in ACL rules only ,
 // it's not -1 at all places , we have used this as 0

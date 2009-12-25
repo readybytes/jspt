@@ -88,7 +88,7 @@ class XiPTControllerProfiletypes extends JController
 			if($id != 0)
 			{
 		
-				//CODREV : call uploadImage function if post(image) data is set
+				//call uploadImage function if post(image) data is set
 				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
 		
 				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) ) 

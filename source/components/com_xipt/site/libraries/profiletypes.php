@@ -96,7 +96,7 @@ class XiPTLibraryProfiletypes
 	{
 		assert($userid) || JError::raiseError('XIPT SYSTEM ERROR','No User ID in '.__FUNCTION__);
 		//store prev profiletype
-		//CODREV : must be first line, as we want to store prev profiletype
+		//IMP : must be first line, as we want to store prev profiletype
 		$prevProfiletype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		
 		if($what == 'profiletype' || $what == 'ALL')
@@ -112,22 +112,25 @@ class XiPTLibraryProfiletypes
 			XiPTLibraryCore::updateCommunityCustomField($userid,$ptype,PROFILETYPE_CUSTOM_FIELD_CODE);
 			
 		}
-		
-		if($what == 'ALL')
-		{
-			//2.set usertype acc to profiletype in #__user table
+
+		//2.set usertype acc to profiletype in #__user table
+		if($what == 'ALL' || $what == 'jusertype')
 			XiPTLibraryCore::updateJoomlaUserType($userid,$ptype);
 			
-			//3.set user avatar in #__community_users table
+		//3.set user avatar in #__community_users table
+		if($what == 'ALL'  || $what == 'avatar')
 			XiPTLibraryCore::updateCommunityUserAvatar($userid,$ptype);
 			
-			// assign the default group
+		//4. assign the default group
+		if($what == 'ALL'  || $what == 'group')
 			XiPTLibraryCore::updateCommunityUserGroup($userid,$ptype,$prevProfiletype);
 			
-			//5.set privacy data
+		//5.set privacy data
+		if($what == 'ALL'  || $what == 'privacy')
 			XiPTLibraryCore::updateCommunityUserPrivacy($userid,$ptype);
-		}
+			
 		
+				
 		//Reseting user already loaded information ,
 		//bcoz JS collects all data in static array when system load
 		//so it don't load profile data again , just load previous loaded data
@@ -297,7 +300,7 @@ class XiPTLibraryProfiletypes
 					break;
 			case  'avatar':
 					$searchFor 		= 'avatar';
-					$defaultValue	= 'components/com_community/assets/default.jpg';
+					$defaultValue	= DEFAULT_AVATAR;
 					break;
 			case  'watermark':
 					$searchFor 		= 'watermark';
@@ -445,8 +448,8 @@ class XiPTLibraryProfiletypes
 				return true;
 			if(Jstring::stristr($path, XiPTLibraryUtils::getThumbAvatarFromFull($one->avatar)))
 				return true;
-			if($isDefaultCheckRequired && ( Jstring::stristr('components/com_community/assets/default.jpg' ,$path)
-				|| Jstring::stristr('components/com_community/assets/default_thumb.jpg' ,$path)))
+			if($isDefaultCheckRequired && ( Jstring::stristr(DEFAULT_AVATAR ,$path)
+				|| Jstring::stristr(DEFAULT_AVATAR_THUMB ,$path)))
 				return true;
 		}
 		
@@ -461,7 +464,8 @@ class XiPTLibraryProfiletypes
 	        $oldAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
 			$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($oldAvatar,true);
 			
-			//CODREV : Check if watermark is enable if true then return true
+			//Check if watermark is enable if true then return true
+			
 			//now check here watermark required feature also
 			//if avatar is user also then we have to add watermark for new profiletype ,
 			//for which we have to update new watermark with user image

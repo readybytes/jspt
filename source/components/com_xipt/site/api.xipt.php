@@ -75,7 +75,7 @@ class XiptAPI
 	 * @param $userId			: Which user's profiletype should be updated
 	 * @param $profiletypeId	: New Profiletype ID
 	 * @param $reset			: Which attributes should be reset, default is ALL
-	 * XITODO 					or you can use (profiletype, avatar, group, privacy etc.)
+	 * 							  or you can use (profiletype, jusertype, avatar, group, privacy etc.)
 	 * @return unknown_type
 	 */
 	function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')

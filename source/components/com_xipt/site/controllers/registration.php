@@ -25,7 +25,7 @@ class XiPTControllerRegistration extends JController {
 			$mainframe->redirect($redirectUrl,$msg);
 		}
 
-		//TODO CODREV: If not allowed to select PT for user then return
+		//If not allowed to select PT for user then return
 		if(XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt')==0){
 
 		    // we need to set default things

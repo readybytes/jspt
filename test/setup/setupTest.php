@@ -19,13 +19,10 @@ class SetupTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
     $this->waitPageLoad();
     
-    //link is present
-    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage1']/a"));
-    //image is correct
-    $this->assertTrue($this->isElementPresent("//td[@id='setupImage1']/img[contains(@src,'images/publish_x.png')]"));
     
-	//$this->click("//td[@id='setupMessage1']/a");
-	//XITODO : how to crosscheck link is going on right place
+    //link is present     //image is correct
+    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage1']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage1']/img[contains(@src,'images/publish_x.png')]"));
 	
     //now add profiletype and link should be removed
     $sql = " INSERT INTO `#__xipt_profiletypes`  (`id`,`name`, `ordering`)  
@@ -53,21 +50,25 @@ class SetupTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
     $this->waitPageLoad();
     
-    //link is present
+    $filter['defaultProfiletypeID']=0;
+	$this->changeJSPTConfig($filter);
+	
+    //link is present , image is correct
     $this->assertTrue($this->isElementPresent("//td[@id='setupMessage2']/a"));
-    //image is correct
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage2']/img[contains(@src,'images/publish_x.png')]"));
     
-	//$this->click("//td[@id='setupMessage1']/a");
+    $this->click("//td[@id='setupMessage2']/a");
+	$this->waitForElement('sbox-window');
+
 	$filter['defaultProfiletypeID']=1;
 	$this->changeJSPTConfig($filter);
     
     //now link should be converted into right
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
     $this->waitPageLoad();
-    //link should not be present
+
+    //link should not be present , image is correct
     $this->assertFalse($this->isElementPresent("//td[@id='setupMessage2']/a"));
-    //image is correct
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage2']/img[contains(@src,'images/tick.png')]"));
   }
   
