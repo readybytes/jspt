@@ -80,11 +80,9 @@ class XiPTControllerProfiletypes extends JController
 		
 		$row->bindAjaxPost($data);
 
-		// CODREV: we will save avatar and watermark manually, 
-		// so we do not add them in data before binding post data
-		// IMP :  We do not touch params here.
-		$data['avatar'] 	= $post['avatar'];
-		$data['watermark'] 	= $post['watermark'];
+		
+		/*$data['avatar'] 	= $post['avatar'];
+		$data['watermark'] 	= $post['watermark'];*/
 		
 		if( $isValid )
 		{
@@ -108,6 +106,13 @@ class XiPTControllerProfiletypes extends JController
 				if( isset( $fileWatermark['tmp_name'] ) && !empty( $fileWatermark['tmp_name'] ) ) 
 					XiPTHelperProfiletypes::uploadAndSetImage($fileWatermark,$row->id,'watermark');
 		
+
+				// CODREV: we will save avatar and watermark manually, 
+				// so we do not add them in data before binding post data
+				// IMP :  We do not touch params here.
+				$data['avatar'] 	= XiPTLibraryProfiletypes::getProfiletypeData($id,'avatar');
+				$data['watermark'] 	= XiPTLibraryProfiletypes::getProfiletypeData($id,'watermark');
+
 				/* Reset existing user's */
 				if($post['resetAll'])
 					XiPTHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);

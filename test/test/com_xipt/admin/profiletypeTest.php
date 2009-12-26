@@ -110,162 +110,51 @@ class ProfiletypeTest extends XiSelTestCase
     	  // we can check for ordering also
     	$this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
 	}
-	
-	
-  function xtestChildProfileType()
+
+  function testAddProfileTypeAvatar()
   {
-    //    setup default location 
+      //    setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
     $this->waitPageLoad();
-    
-	// add profiletype-one - id will be 5
+      
+	// add profiletype-one
     $this->click("//td[@id='toolbar-new']/a");
     $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-5-CHILD-of-1");
-    $this->select("parent", "value=1");
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
     
-    //id will be 6, child of unpublished profiletype
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-6-CHILD-of-4");
-    $this->select("parent", "value=4");
+    $this->type("name", "PROFILETYPE-1");
+    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
+    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_1.jpg");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
     
-    // id will be 7
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-7-CHILD-of-5");
-    $this->select("parent", "value=5");
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
-    
-    //Normale profiletype child of None
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-8-CHILD-of-NONE");
-    $this->select("parent", "value=0");
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
-    
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-9-CHILD-of-5");
-    $this->select("parent", "value=5");
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
-    
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-10-CHILD-of-1");
-    $this->select("parent", "value=1");
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
-    // child of 10    
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-11-CHILD-of-10");
-    $this->select("parent", "value=10");
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
-    // child of 10
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-12-CHILD-of-10");
-    $this->select("parent", "value=10");
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
-  }
+    $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
   
-  function xtestOrderChildProfileType()
-  {
-  	$this->adminLogin();
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
+    $this->click("//td[@id='toolbar-new']/a");
     $this->waitPageLoad();
+    $this->type("name", "PROFILETYPE-2");
+	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_2.png");
+	$this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_2.gif");
+	$this->click("//td[@id='toolbar-save']/a");
+    $this->waitPageLoad();
+	$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));
+	
+	// now edit first entry, and change watermark
+	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+    $this->waitPageLoad();
+	$this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_3.png");
+	$this->click("//td[@id='toolbar-save']/a");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
     
-  	$this->click("//tr[@id='rowid5']/td[12]/span[2]/a");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
     $this->waitPageLoad();
-  	$this->click("//tr[@id='rowid12']/td[12]/span[2]/a");
+	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
+	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
-  	$this->click("//tr[@id='rowid12']/td[12]/span[1]/a");
-    $this->waitPageLoad();
-  	$this->click("//tr[@id='rowid7']/td[12]/span[2]/a");
-    $this->waitPageLoad();
-  	$this->click("//tr[@id='rowid2']/td[12]/span[1]/a");
-    $this->waitPageLoad();
-  	$this->click("//td[@id='published12']/a");
-    $this->waitPageLoad();
-  	$this->click("//td[@id='published10']/a");
-    $this->waitPageLoad();
-  	$this->click("//tr[@id='rowid11']/td[12]/span[1]/a");
-    $this->waitPageLoad();
-  	$this->click("//tr[@id='rowid10']/td[12]/span[2]/a");
-    $this->waitPageLoad();
-  	$this->click("//tr[@id='rowid4']/td[12]/span[1]/a");
-    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
+	
+    // setup custom filters
+    $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
   }
-  
-	function xtestDeleteChildProfileType()
-	{
-	    //setup default location 
-        $this->adminLogin();
-        $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
-        $this->waitPageLoad();
-        
-        /* 
-         *  pt1 - 1  - 0
-         *  pt10 - 5 - 4
-         *  pt11 - 6 - 5
-         *  pt12 - 7 - 6
-         */
-    	$this->click("//input[@id='cb0']"); // should not delete 1
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	  
-    	$this->click("//input[@id='cb4']"); // should not delete 10
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	
-    	
-    	$this->click("//input[@id='cb6']"); // should  delete 12
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	
-    	$this->click("//input[@id='cb5']"); // should  delete 11
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	
-    	$this->click("//input[@id='cb4']"); // should  delete 10
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	
-    	$this->click("//input[@id='cb0']"); // should  delete 1
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	
-    	$this->click("//input[@id='cb0']"); // should  not delete 1
-    	$this->click("//input[@id='cb1']"); // should not delete 2
-    	$this->click("//input[@id='cb2']"); // should  delete 3
-    	$this->click("//input[@id='cb3']"); // should  delete 4
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	
-    	$this->click("//input[@id='cb4']"); // should  not delete 4
-    	$this->click("//input[@id='cb5']"); // should delete 6
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
-    	$this->waitPageLoad();
-    	
-	}
 }
-?>
