@@ -139,6 +139,14 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));
 	
+	// add entry 3 with default avatar and watermark as blank
+	$this->click("//td[@id='toolbar-new']/a");
+    $this->waitPageLoad();
+    $this->type("name", "PROFILETYPE-3");
+    $this->click("//td[@id='toolbar-save']/a");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));
+    
 	// now edit first entry, and change watermark
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
     $this->waitPageLoad();
@@ -147,6 +155,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
     
+    //edit 1st entry
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
     $this->waitPageLoad();
 	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
@@ -154,7 +163,18 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
 	
+    // now edit 3rd entry, and change watermark and avatar
+	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
+    $this->waitPageLoad();
+    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
+    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_1.jpg");
+    $this->click("//td[@id='toolbar-save']/a");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));	
+    
     // setup custom filters
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
   }
+  
+  
 }

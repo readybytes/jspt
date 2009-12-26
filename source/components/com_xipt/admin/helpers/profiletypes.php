@@ -380,10 +380,14 @@ function resetAllUsers($pid, $oldData, $newData)
 			// Need proper way to test it
 			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR ) 
 				&& !Jstring::stristr( $oldFile , DEFAULT_AVATAR_THUMB ) 
-					&& $oldFile != $image){
+					&& $oldFile != $image
+					&& $oldFile != ''){
 				// File exists, try to remove old files first.
-				$oldFile	= JString::str_ireplace( '/' , DS , $oldFile );			
-				JFile::delete($oldFile);
+				$oldFile	= JString::str_ireplace( '/' , DS , $oldFile );
+
+				//only delete when required
+				if(JFile::exists($oldFile))			
+					JFile::delete($oldFile);
 			}
 			
 			$db =& JFactory::getDBO();
