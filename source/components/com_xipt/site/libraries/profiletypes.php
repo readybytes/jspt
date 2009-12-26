@@ -91,64 +91,141 @@ class XiPTLibraryProfiletypes
 	}
     
 	
-    //         ALL means you are from register
+	/**
+	 * This function will not change user's profiletype
+	 * It only updates user's data, do not add profiletypes
+	 * @param $userid
+	 * @param $oldData
+	 * @param $newData
+	 * @return unknown_type
+	 */
+	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
+	{
+		assert($userid) || JError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
+		
+		foreach($filter as $feature)
+		{
+			switch($feature)
+			{
+				case 'template':
+					$template = $newData['template'];
+					$ptype  =  XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+					XiPTLibraryProfiletypes::saveXiPTUser($userid,$ptype,$template);
+					XiPTLibraryCore::updateCommunityCustomField($userid,$template,TEMPLATE_CUSTOM_FIELD_CODE);
+					break;
+					
+				case 'jusertype' :
+					$newJUtype 	= $newData['jusertype']; 
+					XiPTLibraryCore::updateJoomlaUserType($userid,$newJUtype);
+					break;
+					
+				case 'avatar' :
+					$newAvatar 	= $newData['avatar'];
+					$oldAvatar 	= $oldData['avatar'];  
+					XiPTLibraryCore::updateCommunityUserAvatar($userid,$oldAvatar, $newAvatar);
+					break;
+				
+				case 'watermark' :
+					$newWatermark 	= $newData['watermark']; 
+					XiPTLibraryCore::updateCommunityUserWatermark($userid,$newWatermark);
+					break;
+
+				case 'group' :
+					$newGroup 	= $newData['group'];
+					$oldGroup	= $oldData['group'];
+					XiPTLibraryCore::updateCommunityUserGroup($userid,$oldGroup, $newGroup);
+					break;
+				
+				case 'privacy':
+					$newPrivacy = $newData['privacy'];
+					XiPTLibraryCore::updateCommunityUserPrivacy($userid,$newPrivacy);
+					break;
+					
+				default:
+					assert(0);
+					JError::raiseWarning('XIPT',"Not a valid filter options  ".__FUNCTION__);
+					break;
+			}
+		}
+
+		//IMP : Reseting user already loaded information
+		XiPTLibraryCore::reloadCUser($userid);
+	}
+	
+	/** 
+	 * This function is used to update user's profiletype
+	 * and its associated data. 
+	 * @param $userid
+	 * @param $ptype
+	 * @param $template
+	 * @param $what
+	 * @return unknown_type
+	 */
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
-		assert($userid) || JError::raiseError('XIPT SYSTEM ERROR','No User ID in '.__FUNCTION__);
+		assert($userid) || JError::raiseError('XIPTERR', 'No User ID in '.__FUNCTION__);
+
 		//store prev profiletype
 		//IMP : must be first line, as we want to store prev profiletype
 		$prevProfiletype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
 		
 		if($what == 'profiletype' || $what == 'ALL')
 		{
-			//1.set profiletype and template for user in #__xipt_users table
-			if(!$template)
-			    $template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
+			//set profiletype and template for user in #__xipt_users table
+			if(!$template) 
+				$template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
 			XiPTLibraryProfiletypes::saveXiPTUser($userid,$ptype,$template);
 
-			//4.set profiletype and template field in #__community_fields_values table
+			//set profiletype and template field in #__community_fields_values table
 			// also change the user's type in profiletype field.
 			XiPTLibraryCore::updateCommunityCustomField($userid,$template,TEMPLATE_CUSTOM_FIELD_CODE);
 			XiPTLibraryCore::updateCommunityCustomField($userid,$ptype,PROFILETYPE_CUSTOM_FIELD_CODE);
-			
 		}
 
-		//2.set usertype acc to profiletype in #__user table
+		$feature=array();
+		$oldData=array();
+		$newData=array();
+		
+		//set usertype acc to profiletype in #__user table
 		if($what == 'ALL' || $what == 'jusertype')
-			XiPTLibraryCore::updateJoomlaUserType($userid,$ptype);
+		{
+			$feature[]='jusertype';
+			$oldData['jusertype']=self::getProfiletypeData($prevProfiletype,'jusertype');
+			$newData['jusertype']=self::getProfiletypeData($ptype,'jusertype');
+		}
 			
-		//3.set user avatar in #__community_users table
+		//set user avatar in #__community_users table
 		if($what == 'ALL'  || $what == 'avatar')
-			XiPTLibraryCore::updateCommunityUserAvatar($userid,$ptype);
+		{
+			$feature[]='avatar';
+			$oldData['avatar'] = self::getProfiletypeData($prevProfiletype,'avatar');
+			$newData['avatar'] = self::getProfiletypeData($ptype,'avatar');
+		}
 			
-		//4. assign the default group
+		//assign the default group
 		if($what == 'ALL'  || $what == 'group')
-			XiPTLibraryCore::updateCommunityUserGroup($userid,$ptype,$prevProfiletype);
+		{
+			$feature[]='group';
+			$oldData['group'] = self::getProfiletypeData($prevProfiletype,'group');
+			$newData['group'] = self::getProfiletypeData($ptype,'group');
+		}
 			
-		//5.set privacy data
+		//set privacy data
 		if($what == 'ALL'  || $what == 'privacy')
-			XiPTLibraryCore::updateCommunityUserPrivacy($userid,$ptype);
+		{
+			$feature[] = 'privacy';
+			$oldPrivacy		= self::getProfiletypeData($prevProfiletype,'privacy');
+			$newPrivacy		= self::getProfiletypeData($ptype,'privacy');
 			
-		
-				
-		//Reseting user already loaded information ,
-		//bcoz JS collects all data in static array when system load
-		//so it don't load profile data again , just load previous loaded data
-		//so our effect will not reflect ( avatar , privacy etc. )
-		//so for showing it's effect we have clear the user ( user is refrence )
-		//so by clearing we have cleared loaded data
-		//after again initializinng we have again loaded our data
-		
-		$user	=& CFactory::getUser($userid);
-		$user	= array();
-		$user	=& CFactory::getUser($userid);
+			$oldData['privacy']	= XiPTLibraryUtils::getPTPrivacyValue($oldPrivacy);
+			$newData['privacy']	= XiPTLibraryUtils::getPTPrivacyValue($newPrivacy);
+		}
+			
+		self::updateUserProfiletypeFilteredData($userid,$feature,$oldData,$newData);
+		return true;
 	}
 	
 
-	
-    
-  
-    
 	// get default profiletype from config
 	function getDefaultProfiletype()
 	{
@@ -469,6 +546,7 @@ class XiPTLibraryProfiletypes
 			//now check here watermark required feature also
 			//if avatar is user also then we have to add watermark for new profiletype ,
 			//for which we have to update new watermark with user image
+			//XITODO : CODREV : Its a bug
 			if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')
 				&& !$isDefault)
 				return true;

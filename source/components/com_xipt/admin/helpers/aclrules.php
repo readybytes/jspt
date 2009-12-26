@@ -30,7 +30,6 @@ class XiPTHelperAclRules
 				//None support
 				$allValues[] = 0;
 				//All support
-				//CODREV : Define all
 				$allValues[] = ALL;
 				break;
 			default:

@@ -63,6 +63,9 @@ class XiPTControllerProfiletypes extends JController
 		$row->load( $cid[0] );	
 		$isValid	= true;
 		
+		//for Reset we will save old Data
+		$oldData = $row;
+		
 		$data = array();
 		$data['name'] 		= $post['name'];
 		$data['tip'] 		= JRequest::getVar( 'tip', '', 'post', 'string', JREQUEST_ALLOWRAW );
@@ -70,13 +73,18 @@ class XiPTControllerProfiletypes extends JController
 		$data['template'] 	= $post['template'];
 		$data['jusertype'] 	= $post['jusertype'];
 		$data['privacy'] 	= $post['privacy'];
-		//$data['avatar'] 	= $post['avatar'];
-		//$data['watermark'] 	= $post['watermark'];
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
 		$data['group'] 		= $post['group'];
 		//$data['ordering']	= 0;
+		
 		$row->bindAjaxPost($data);
+
+		// CODREV: we will save avatar and watermark manually, 
+		// so we do not add them in data before binding post data
+		// IMP :  We do not touch params here.
+		$data['avatar'] 	= $post['avatar'];
+		$data['watermark'] 	= $post['watermark'];
 		
 		if( $isValid )
 		{
@@ -102,7 +110,7 @@ class XiPTControllerProfiletypes extends JController
 		
 				/* Reset existing user's */
 				if($post['resetAll'])
-					XiPTHelperProfiletypes::resetAllUsers($row->id);
+					XiPTHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);
 					
 				$msg = JText::_('PROFILETYPE SAVED');
 			}

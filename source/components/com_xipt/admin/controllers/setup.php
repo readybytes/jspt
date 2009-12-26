@@ -87,7 +87,7 @@ class XiPTControllerSetup extends JController
     	if(XiPTHelperSetup::isModelFilePatchRequired()){
     		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
     		
-	    	//	CODREV : create a backup file first
+	    	//	create a backup file first
     	    if(!JFile::copy($filename, $filename.'.jxibak')){
     	    	global $mainframe;
     	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
@@ -143,7 +143,7 @@ class XiPTControllerSetup extends JController
     	if(XiPTHelperSetup::isAdminUserModelPatchRequired()){
     		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
     		
-    		//	CODREV : create a backup file first
+    		//	create a backup file first
     	    if(!JFile::copy($filename, $filename.'.jxibak')){
     	    	global $mainframe;
     	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
@@ -202,7 +202,7 @@ class XiPTControllerSetup extends JController
 		        $replaceString = ob_get_contents();
 		        $file = str_replace($searchString,$replaceString,$file);
 		        
-	        	//	CODREV : create a backup file first
+	        	// create a backup file first
 	    	    if(!JFile::copy($filename, $filename.'.jxibak')){
 	    	    	global $mainframe;
 	    	    	$mainframe->enqueueMessage("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");

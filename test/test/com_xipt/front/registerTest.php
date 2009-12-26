@@ -39,6 +39,7 @@ class RegisterTest extends XiSelTestCase
     $this->assertTrue($this->isTextPresent("Register new user"));
   }
   
+
   //cross check fields exists
   function testRegisterProfileFieldPage()
   {
@@ -204,5 +205,44 @@ class RegisterTest extends XiSelTestCase
   	
   	 
   	return true;
+  }
+  
+  //cross check page exists and comes
+  function testAECRegisterPage()
+  {
+  	$filter['aec_integrate']=1;
+	$this->changeJSPTConfig($filter);
+	
+    // go to register location 
+    $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=register");
+    $this->waitPageLoad();
+   
+    $data[2] = 1;
+    $data[4] = 3;
+    $data[5] = 4;
+    $data[13] = 2;
+    
+    //create backend test
+    // create 4 MI
+    // attach them to plans as above
+    foreach($data as $plan => $profiletype)
+    {
+    	$this->assertTrue($this->isTextPresent("Payment Plans"));
+
+    	//select plan
+    	$this->click("//div[@class='aec_ilist_item aec_ilist_item_$plan']/div/div/form/input[@name='submit']");
+    	$this->waitPageLoad();
+    	
+    	$this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));
+    	$this->assertTrue($this->isElementPresent("xipt_back_link"));
+    	$this->assertTrue($this->isTextPresent("Register new user"));
+    	$this->assertTrue($this->isTextPresent("PROFILETYPE-$profiletype"));
+
+    	// click on click here link
+    	$this->click("xipt_back_link");
+    	$this->waitPageLoad();
+    }
+
+    
   }
 }

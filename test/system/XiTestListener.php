@@ -5,7 +5,7 @@ require_once dirname(__FILE__). '/joomlaFramework.php';
 
 class XiDBCheck
 {
-    static private $db;
+    private $db;
     private $testTables;
     private $excludeC;
     private $excludeR;

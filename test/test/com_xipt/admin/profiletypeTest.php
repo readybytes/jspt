@@ -111,6 +111,7 @@ class ProfiletypeTest extends XiSelTestCase
     	$this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
 	}
 	
+	
   function xtestChildProfileType()
   {
     //    setup default location 

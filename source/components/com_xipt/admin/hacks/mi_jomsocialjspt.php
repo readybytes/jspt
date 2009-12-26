@@ -38,6 +38,7 @@ class mi_jomsocialjspt
 
 		if(!is_dir( $mosConfig_absolute_path . '/components/com_community' ))
 			return false;
+			
 		if(!is_dir( $mosConfig_absolute_path . '/components/com_xipt' ))
 			return false;
 
@@ -112,7 +113,6 @@ class mi_jomsocialjspt
 	function saveparams( $request )
 	{
 		//save all data in xipt_aec table
-
 		$db =& JFactory::getDBO();
 
 		$planid = $this->id;

@@ -112,6 +112,23 @@ class SetupTest extends XiSelTestCase
     //link should not be present     //image is correct
     $this->assertFalse($this->isElementPresent("//td[@id='setupMessage4']/a"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/tick.png')]"));
+    
+    //if AEC exits
+    if(file_exists(JPATH_ROOT.'/components/com_acctexp'))
+    {
+	    //link is present //image is correct
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage8']/a"));
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage8']/img[contains(@src,'images/publish_x.png')]"));
+	    
+		$this->click("//td[@id='setupMessage8']/a");
+	    $this->waitPageLoad();
+	    
+	    //link should not be present     //image is correct
+	    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage8']/a"));
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage8']/img[contains(@src,'images/tick.png')]"));
+    }
+    
+    
   }
   
   

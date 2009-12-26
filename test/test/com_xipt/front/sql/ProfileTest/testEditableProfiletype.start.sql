@@ -1,3 +1,5 @@
+TRUNCATE TABLE `#__xipt_aclrules`;
+
 TRUNCATE TABLE `#__community_fields` ;
 INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES
 (1, 'group', 1, 1, 10, 100, 'Basic Information', 'Basicr', 1, 1, 1, 1, '', ''),

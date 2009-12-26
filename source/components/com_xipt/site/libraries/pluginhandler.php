@@ -365,7 +365,7 @@ class XiPTLibraryPluginHandler
 			    $msg = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
 			}
 
-			$link = '<a href='.$url.'>'. JText::_("CLICK HERE").'</a>';
+			$link = '<a id="xipt_back_link" href='.$url.'>'. JText::_("CLICK HERE").'</a>';
 			$this->mainframe->enqueueMessage($msg.' '.$link);
 			return;
 		}

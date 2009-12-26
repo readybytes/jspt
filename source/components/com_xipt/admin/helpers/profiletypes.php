@@ -42,7 +42,7 @@ class XiPTHelperProfiletypes
 					if ($groups)
 						foreach ($groups as $g)
 							$allValues[$g->id]=$g->name;
-					//CODREV : We should add none also.
+					//We should add none also.
 					$allValues['0']='None';
 					break;
 			default:
@@ -261,15 +261,27 @@ function addProfileTypeInfroForAll($fID)
 		}
 }
 
-function resetAllUsers($pid)
+function resetAllUsers($pid, $oldData, $newData)
 {
 	$allUsers = XiPTLibraryProfiletypes::getAllUsers($pid);
 	
 	if(!$allUsers)
 		return;
+
+	$featuresToReset = array('jusertype','template','group','privacy','watermark','avatar');
+	foreach($oldData as $key=>$value)
+	{
+		//do not add all features to reset
+		if(in_array($key,$featuresToReset)==false)
+			continue;
+			
+		//only reset if required
+		if($newData[$key] != $value)
+			$features[]=$key;
+	}
 	
 	foreach ($allUsers as $user)
-		XiPTLibraryProfiletypes::updateUserProfiletypeData($user, $pid, 0, 'ALL');
+		XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($user, $feature, $oldData, $newData);
 }
 
 	function getProfiletypeFieldHTML($value)

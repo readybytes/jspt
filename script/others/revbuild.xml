@@ -34,7 +34,7 @@
 			
 
 	                
-                <php function="file_exists" returnProperty="fileExist">
+        <php function="file_exists" returnProperty="fileExist">
 		  <param value="${source}/components/com_community/libraries/fields/templates.php"/>
 		</php>
 
@@ -52,12 +52,12 @@
 
 
 
-                <php function="file_exists" returnProperty="1">
+        <php function="file_exists" returnProperty="fileExist">
 		  <param value="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php"/>
 		</php>
 
 		<if>
-		 <equals arg1="${fileExist}" arg2="true" />
+		 <equals arg1="${fileExist}" arg2="1" />
 		  <then>     
                 <copy   file="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" 
                         tofile="${source}/administrator/components/com_xipt/hacks/mi_jomsocialjspt.php" 

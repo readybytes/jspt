@@ -84,10 +84,13 @@ class XiPTLibraryCore
 		return $result;
 	}
 	
-/*
+    /**
      * Save user's joomla-user-type
-     * */
-    function updateJoomlaUserType($userid,$profiletypeId)
+     * @param $userid
+     * @param $newUsertype
+     * @return true/false
+     */
+    function updateJoomlaUserType($userid, $newUsertype='')
 	{
 	    //do not change usertypes for admins
 		if(XiPTLibraryUtils::isAdmin($userid)==true || (0 == $userid ))
@@ -95,8 +98,6 @@ class XiPTLibraryCore
 
 		$user 			=& CFactory::getUser($userid);
 		$authorize		=& JFactory::getACL();
-		
-		$newUsertype = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'jusertype');
 		$user->set('usertype',$newUsertype);
 		$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
 		
@@ -106,8 +107,9 @@ class XiPTLibraryCore
         	self::reloadCUser($userid);	
 		    return true;
 		}
+		
 		// Error
-		JError::raiseWarning('XIPT SYSEM ERROR', JText::_( $user->getError()));
+		JError::raiseWarning('XIPTERR', JText::_( $user->getError()));
 		return false;
 	}
 	
@@ -172,7 +174,7 @@ class XiPTLibraryCore
 		return true;
 	}
 	
-	function updateCommunityCustomField($userId, $value,$what='')
+	function updateCommunityCustomField($userId, $value, $what='')
 	{
 	    //ensure we are calling it for correct field
 	    assert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
@@ -227,36 +229,61 @@ class XiPTLibraryCore
 		return true;
 	}
 	
-	function updateCommunityUserAvatar($userid,$profiletypeID)
+	/**
+	 * This function add's given watermark to avatars
+	 * 	IMP : If avatar, is default (JomSocil default or profiletypes default)
+	 * 	then no action is taken
+	 * 
+	 * @param $userid
+	 * @param $watermarkInfo
+	 * @return unknown_type
+	 */
+	function updateCommunityUserWatermark($userid,$watermarkInfo)
 	{
-		//Imp: We must enforce this as we never want
-		// to overwrite a custom avatar
-		if(!XiPTLibraryProfiletypes::isProfileTypeDataResetRequired($userid,'avatar','profiletype'))
+		//no watermark
+		if($watermarkInfo == '')
+			return false;
+			
+		//check if watermark is enable
+		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')==false)
+			return false;
+		
+		//update watermark on user's avatar
+		$pTypeAvatar  	   = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
+		$pTypeThumbAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'thumb');
+		$isDefault		   = XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true);
+		
+		// no watermark on default avatars
+		if($isDefault)
+			return false;
+				
+		//add watermark on user avatar image
+		if($pTypeAvatar)
+			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermarkInfo,'avatar');
+
+		//add watermark on thumb image
+		if($pTypeThumbAvatar)
+			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermarkInfo,'thumb');
+
+		return true;
+	}
+	
+	function updateCommunityUserAvatar($userid, $oldAvatar, $newAvatar)
+	{
+		//Imp: We must enforce this as we never want to overwrite a custom avatar
+		$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($oldAvatar,true);
+		if($isDefault==false)
 			return false;
 
-		//check if watermark is enable
-		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')) {
-			//update watermark on user
-			$pTypeAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
-			$pTypeThumbAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'thumb');
-			
-			$watermarkInfo = XiPTLibraryUtils::getWatermark($userid);
-			//add watermark on user avatar image
-			if($pTypeAvatar)
-				XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermarkInfo,'avatar');
-			//add watermark on thumb image
-			if($pTypeThumbAvatar)
-				XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermarkInfo,'thumb');
-		}
-		else {
-			// we can safely update avatar
-			$pTypeAvatar 	  = XiPTLibraryProfiletypes::getProfileTypeData($profiletypeID,'avatar');
-			$pTypeThumbAvatar = XiPTLibraryUtils::getThumbAvatarFromFull($pTypeAvatar);
-		}
+		// we can safely update avatar
+		$pTypeAvatar	= $newAvatar;
+		$pTypeThumbAvatar = XiPTLibraryUtils::getThumbAvatarFromFull($pTypeAvatar);
 
-		// perform the operation
+		//reload : so that we do not override previous information if any updated in database.
 		self::reloadCUser($userid);
-		$user    =&  CFactory::getUser($userid);
+		
+		// perform the operation
+		$user    =& CFactory::getUser($userid);
 		$user->set('_avatar',$pTypeAvatar);
 		$user->set('_thumb', $pTypeThumbAvatar);
 		
@@ -265,20 +292,24 @@ class XiPTLibraryCore
 		
 		//enforce JomSocial to clean cached user
         self::reloadCUser($userid);
+        
+        //apply watermark on user's avatar
+        $profiletype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+        $watermark 	 = XiPTLibraryProfiletypes::getProfiletypeData($profiletype,'watermark');
+        self::updateCommunityUserWatermark($userid, $watermark);
+        
 		return true;
 	}
 
+	
 	/*This function set privacy for user as per his profiletype*/
-	function updateCommunityUserPrivacy($userid,$profiletypeId)
-	{
-		
-		$privacy 	= XiPTLibraryProfiletypes::getProfileTypeData($profiletypeId,'privacy');
-		$myprivacy	= XiPTLibraryUtils::getPTPrivacyValue($privacy);
-		
+	function updateCommunityUserPrivacy($userid,$myprivacy)
+	{	
 		// get params
 		self::reloadCUser($userid);
-		$cuser    =&  CFactory::getUser($userid);
-		$myparams = $cuser->getParams();
+		
+		$cuser    =& CFactory::getUser($userid);
+		$myparams =  $cuser->getParams();
 		$myparams->set('privacyProfileView',$myprivacy);
 		
         if(!$cuser->save())
@@ -289,21 +320,18 @@ class XiPTLibraryCore
  		return true;
 	}
 	
-	function updateCommunityUserGroup($userId,$profileTypeId, $oldProfileTypeId=0 )
+	function updateCommunityUserGroup($userId,$oldGroup, $newGroup)
 	{
-		$oldGroup = XiPTLibraryProfiletypes::getProfileTypeData($oldProfileTypeId,'group');
-        $newGroup = XiPTLibraryProfiletypes::getProfileTypeData($profileTypeId,'group');
-        
-        // Cross check if user is member of newGroup then return
-        if(self::_isMemberOfGroup($userId,$newGroup))
-        	return;
-        	    
-		// if user is changing profiletype then remove it from other group
-		if($oldProfileTypeId != $profileTypeId)
+		// remove from oldGroup
+		if($oldGroup && self::_isMemberOfGroup($userId,$oldGroup))
 			XiPTLibraryCore::_removeUserFromGroup($userId,$oldGroup);
 		
+		// add to newGroup
+        if($newGroup && self::_isMemberOfGroup($userId,$newGroup)==false)
+        	XiPTLibraryCore::_addUserToGroup($userId,$newGroup);
+       
 		// add to new group
-		XiPTLibraryCore::_addUserToGroup($userId,$newGroup);
+		return true;
 	}
 	
 	function _isMemberOfGroup($userid, $groupid)

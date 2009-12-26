@@ -23,7 +23,7 @@ class XiPTViewProfiletypes extends JView
 				foreach ($allTypes as $ptype){
 					$profiletypes[$ptype->id]	= $ptype->name;
 				}
-		//CODREV : We should add none also.
+		//We should add none also.
 		$profiletypes['0']='None';
 		// Load tooltips
 		JHTML::_('behavior.tooltip', '.hasTip');
