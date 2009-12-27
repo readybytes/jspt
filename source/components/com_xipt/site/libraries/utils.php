@@ -206,31 +206,33 @@ class XiPTLibraryUtils
 	}
 	
 	
-	function addWatermarkOnAvatar($userid,&$avatar,$waterMark,$what)
+	function addWatermarkOnAvatar($userid, &$image, $waterMark, $what)
 	{
+		//XITODO : Things are not working correctly, so please fix watermark
+
 		// Load image helper library as it is needed.
 		CFactory::load( 'helpers' , 'image' );
 		
+		//ideally we should not be here, but accidentaly then raise an error
 		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($avatar,true))
-			return;
+			assert(0);
 		
 		if($what == 'thumb')
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
 		
-		$extension			= JString::substr( $avatar , JString::strrpos( $avatar , '.' ) );
-		
-		$type				= 'image/jpg';
-			
-		if( $extension == '.png' )
+		$extension	= JString::substr( $avatar , JString::strrpos( $image , '.' ) );	
+		switch($extension)
 		{
-			$type			= 'image/png';
+			case '.png':
+				$type	= 'image/png';
+				break;
+			case '.gif':
+				$type	= 'image/gif';
+				break;
+			default :
+				$type	= 'image/jpg';
 		}
 		
-		if( $extension == '.gif' )
-		{
-			$type	= 'image/gif';
-		}
-
 		if($what == 'avatar'){
 			$watermarkWidth = WATERMARK_HEIGHT;
 			$watermarkHeight = WATERMARK_WIDTH;
@@ -240,13 +242,16 @@ class XiPTLibraryUtils
 			$watermarkWidth = WATERMARK_HEIGHT_THUMB;
 			$watermarkHeight = WATERMARK_WIDTH_THUMB;
 		}
-		//list( $watermarkWidth , $watermarkHeight ) = getimagesize( $waterMark );
-		list( $imageWidth , $imageHeight ) = getimagesize( $avatar );
-		list( $thumbWidth , $thumbHeight ) = getimagesize( $avatar );
-		
-		cImageAddWaterMark( $avatar , $avatar , $type , $waterMark , ( $imageWidth - $watermarkWidth ), ( $imageHeight - $watermarkHeight) );
-		
-		//cImageAddWaterMark( $storageThumbnail , $storageThumbnail , $type , FACEBOOK_FAVICON , ( $thumbWidth - $watermarkWidth ), ( $thumbHeight - $watermarkHeight) );
+
+		$imageInfo	= getimagesize( $image );
+		$imageWidth = $imageInfo['width'];	
+		$imageHeight= $imageInfo['height'];
+		$tyep		= $imageInfo['mime'];
+		 		
+		cImageAddWaterMark( $image, $image , 
+							$type , $waterMark,
+							($imageWidth - $watermarkWidth), ($imageHeight - $watermarkHeight)
+						);
 	}
 	
 	

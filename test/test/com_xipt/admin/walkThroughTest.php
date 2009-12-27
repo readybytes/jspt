@@ -11,8 +11,9 @@ class WalkThroughTest extends XiSelTestCase
   
   function testAECMI()
   {
+  	$this->adminLogin();
   	//go to MI page
-  	$this->open(JOOMLA_LOCATION.'/index.php?option=com_acctexp&task=showMicroIntegrations');
+  	$this->open(JOOMLA_LOCATION.'/administrator/index.php?option=com_acctexp&task=showMicroIntegrations');
 
   	//try to edit one MI
   	$this->click("cb0");

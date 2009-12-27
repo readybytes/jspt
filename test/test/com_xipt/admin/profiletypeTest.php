@@ -9,17 +9,12 @@ class ProfiletypeTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
-  function setUp()
-  {
-  	//we need to setup parent settings then override other things
-  	$this->parentSetup();
-    $this->_DBO->addTable('#__xipt_profiletypes');
-    $this->_DBO->filterColumn('#__xipt_profiletypes','id');
-  }
-
 
   function testAddProfileType()
   {
+  	$this->_DBO->addTable('#__xipt_profiletypes');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','id');
+  	
       //    setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
@@ -40,6 +35,9 @@ class ProfiletypeTest extends XiSelTestCase
 	
 	function testOrderProfileType()
 	{
+		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterColumn('#__xipt_profiletypes','id');
+		
 	    //setup default location 
 	    $this->adminLogin();
         $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
@@ -66,6 +64,10 @@ class ProfiletypeTest extends XiSelTestCase
 	// unpublish fed profiletypes
 	function testPublishProfileType()
 	{	
+		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterColumn('#__xipt_profiletypes','id');
+		
+    
 	    //setup default location 
 	    $this->adminLogin();
         $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
@@ -94,6 +96,10 @@ class ProfiletypeTest extends XiSelTestCase
 	
 	function testDeleteProfileType()
 	{
+		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterColumn('#__xipt_profiletypes','id');
+		
+    
 	    //setup default location 
         $this->adminLogin();
         $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
@@ -113,6 +119,10 @@ class ProfiletypeTest extends XiSelTestCase
 
   function testAddProfileTypeAvatar()
   {
+  	$this->_DBO->addTable('#__xipt_profiletypes');
+  	$this->_DBO->filterColumn('#__xipt_profiletypes','id');
+  	
+    
       //    setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
@@ -176,5 +186,53 @@ class ProfiletypeTest extends XiSelTestCase
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
   }
   
+  function testProfiletypeResetAll()
+  {
+  	$this->adminLogin();
+  	//XITODO : We need to test effect of watermark also
+  	// will do once watermark is working properly
+  	$filter['show_watermark']=0;
+	$this->changeJSPTConfig($filter);
+	
+  	//edit 2nd profiletype
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=2");
+    $this->waitPageLoad();
+    $this->select("privacy", "label=Public");
+    $this->select("template", "value=default");
+    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
+    $this->click("resetAll1");
+	$this->click("//td[@id='toolbar-save']/a");
+    $this->waitPageLoad();
+	$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));   
+	
+	//edit 1st profiletype joomla user type
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+    $this->waitPageLoad();
+    $this->select("jusertype", "label=Manager");
+    $this->click("resetAll1");
+	$this->click("//td[@id='toolbar-save']/a");
+    $this->waitPageLoad();
+	$this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
+
+	//edit 3rd profiletype 
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
+    $this->waitPageLoad();
+    $this->select("group", "value=2"); // from 4 to 2
+    $this->click("resetAll1");
+	$this->click("//td[@id='toolbar-save']/a");
+    $this->waitPageLoad();
+	$this->assertTrue($this->isTextPresent("PROFILETYPE-3"));
+	
+	$this->_DBO->addTable('#__community_fields_values');
+	$this->_DBO->addTable('#__community_groups_members');
+	$this->_DBO->addTable('#__community_users');
+	$this->_DBO->addTable('#__users');
+	$this->_DBO->addTable('#__xipt_profiletypes');
+	$this->_DBO->addTable('#__xipt_users');
+	$this->_DBO->addTable('#__core_acl_groups_aro_map');
+	$this->_DBO->filterColumn('#__users','lastvisitDate');
+	$this->_DBO->filterColumn('#__xipt_profiletypes','tip');
+	$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
+  }
   
 }

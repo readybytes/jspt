@@ -261,6 +261,17 @@ function addProfileTypeInfroForAll($fID)
 		}
 }
 
+/**
+ * The function will reapply attributes to every user of profiletype $pid
+ * IMP : if user have custom avatar, then it will not be updated
+ * IMP : we will re-apply watermark on custom avatar
+ * IMP : Users other attribute will be reset irrespective of there settings 
+ *
+ * @param $pid
+ * @param $oldData
+ * @param $newData
+ * @return unknown_type
+ */
 function resetAllUsers($pid, $oldData, $newData)
 {
 	$allUsers = XiPTLibraryProfiletypes::getAllUsers($pid);
@@ -269,19 +280,20 @@ function resetAllUsers($pid, $oldData, $newData)
 		return;
 
 	$featuresToReset = array('jusertype','template','group','privacy','watermark','avatar');
-	foreach($oldData as $key=>$value)
+	$filteredOldData= array();
+	$filteredNewData= array();
+	
+	foreach ($featuresToReset  as $feature)
 	{
-		//do not add all features to reset
-		if(in_array($key,$featuresToReset)==false)
-			continue;
-			
-		//only reset if required
-		if($newData[$key] != $value)
-			$features[]=$key;
+		$filteredOldData[$feature]= $oldData->$feature;
+		$filteredNewData[$feature]= $newData[$feature];
 	}
 	
 	foreach ($allUsers as $user)
-		XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($user, $feature, $oldData, $newData);
+	{
+		if(XiPTLibraryUtils::isAdmin($user)==false)
+			XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
+	}
 }
 
 	function getProfiletypeFieldHTML($value)

@@ -121,8 +121,7 @@ class XiPTLibraryProfiletypes
 					
 				case 'avatar' :
 					$newAvatar 	= $newData['avatar'];
-					$oldAvatar 	= $oldData['avatar'];  
-					XiPTLibraryCore::updateCommunityUserAvatar($userid,$oldAvatar, $newAvatar);
+					XiPTLibraryCore::updateCommunityUserAvatar($userid,$newAvatar);
 					break;
 				
 				case 'watermark' :
@@ -138,6 +137,7 @@ class XiPTLibraryProfiletypes
 				
 				case 'privacy':
 					$newPrivacy = $newData['privacy'];
+					$newPrivacy = XiPTLibraryUtils::getPTPrivacyValue($newPrivacy);
 					XiPTLibraryCore::updateCommunityUserPrivacy($userid,$newPrivacy);
 					break;
 					
@@ -214,11 +214,11 @@ class XiPTLibraryProfiletypes
 		if($what == 'ALL'  || $what == 'privacy')
 		{
 			$feature[] = 'privacy';
-			$oldPrivacy		= self::getProfiletypeData($prevProfiletype,'privacy');
-			$newPrivacy		= self::getProfiletypeData($ptype,'privacy');
+			$oldPrivacy	= self::getProfiletypeData($prevProfiletype,'privacy');
+			$newPrivacy	= self::getProfiletypeData($ptype,'privacy');
 			
-			$oldData['privacy']	= XiPTLibraryUtils::getPTPrivacyValue($oldPrivacy);
-			$newData['privacy']	= XiPTLibraryUtils::getPTPrivacyValue($newPrivacy);
+			$oldData['privacy']	=$oldPrivacy;
+			$newData['privacy']	= $newPrivacy;
 		}
 			
 		self::updateUserProfiletypeFilteredData($userid,$feature,$oldData,$newData);
@@ -525,6 +525,7 @@ class XiPTLibraryProfiletypes
 				return true;
 			if(Jstring::stristr($path, XiPTLibraryUtils::getThumbAvatarFromFull($one->avatar)))
 				return true;
+			//CODREV : default value of $isDefaultCheckRequired  should be TRUE
 			if($isDefaultCheckRequired && ( Jstring::stristr(DEFAULT_AVATAR ,$path)
 				|| Jstring::stristr(DEFAULT_AVATAR_THUMB ,$path)))
 				return true;

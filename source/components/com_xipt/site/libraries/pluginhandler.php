@@ -241,7 +241,7 @@ class XiPTLibraryPluginHandler
 	 */
 	function onProfileAvatarUpdate($userid, &$old_avatar_path, &$new_avatar_path)
 	{
-	    //TODO: check for a valid $userid
+	    //XITODO: check for a valid $userid
 
 		// When admin is removing a user's avatar
 		// we need to apply default avatar of profiletype
@@ -269,22 +269,23 @@ class XiPTLibraryPluginHandler
 				$old_avatar_path = DEFAULT_AVATAR;
 		}		
 		
-		//check what is new avatar , if thumb or original
-		//it comes here 2 times , while updating avatar or thumb
-		// add watemark on new_avatar
+		//Now apply watermark to images
+		//	for that we don't require to add watermark
+		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')==false)
+			return true;
+					
+		//check if uploadable avatar is not default ptype avatar
+		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($new_avatar_path,true))
+			return true;
+		
+		//check what is new image , if thumb or original
 		if(strstr($new_avatar_path,'thumb'))
 			$what = 'thumb';
 		else
 			$what = 'avatar';
 		
-		//check if uploadable avatar is not default ptype avatar
-		//for that we don't require to add watermark
-		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')) {
-			
-			$watermarkInfo = XiPTLibraryUtils::getWatermark($userid);
-			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
-		}
-		
+		$watermarkInfo = XiPTLibraryUtils::getWatermark($userid);
+		XiPTLibraryUtils::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
 		return true;
 	}
 

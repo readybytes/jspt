@@ -64,7 +64,7 @@ class XiPTControllerProfiletypes extends JController
 		$isValid	= true;
 		
 		//for Reset we will save old Data
-		$oldData = $row;
+		$oldData = clone($row);
 		
 		$data = array();
 		$data['name'] 		= $post['name'];
@@ -93,26 +93,24 @@ class XiPTControllerProfiletypes extends JController
 	
 			if($id != 0)
 			{
-		
+				
 				//call uploadImage function if post(image) data is set
 				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
 		
-				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) ) 
+				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) )
 					XiPTHelperProfiletypes::uploadAndSetImage($fileAvatar,$row->id,'avatar');
-				
+ 
+
 
 				$fileWatermark		= JRequest::getVar( 'FileWatermark' , '' , 'FILES' , 'array' );
 		
 				if( isset( $fileWatermark['tmp_name'] ) && !empty( $fileWatermark['tmp_name'] ) ) 
-					XiPTHelperProfiletypes::uploadAndSetImage($fileWatermark,$row->id,'watermark');
-		
+					XiPTHelperProfiletypes::uploadAndSetImage($fileWatermark,$row->id,'watermark');		
 
-				// CODREV: we will save avatar and watermark manually, 
-				// so we do not add them in data before binding post data
-				// IMP :  We do not touch params here.
-				$data['avatar'] 	= XiPTLibraryProfiletypes::getProfiletypeData($id,'avatar');
-				$data['watermark'] 	= XiPTLibraryProfiletypes::getProfiletypeData($id,'watermark');
-
+				// CODREV: If not uploaded data then by default save the previous values 
+				$data['avatar'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'avatar');
+				$data['watermark'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'watermark');
+					
 				/* Reset existing user's */
 				if($post['resetAll'])
 					XiPTHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);

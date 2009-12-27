@@ -238,10 +238,10 @@ class XiPTLibraryCore
 	 * @param $watermarkInfo
 	 * @return unknown_type
 	 */
-	function updateCommunityUserWatermark($userid,$watermarkInfo)
+	function updateCommunityUserWatermark($userid,$watermark)
 	{
 		//no watermark
-		if($watermarkInfo == '')
+		if($watermark == '')
 			return false;
 			
 		//check if watermark is enable
@@ -259,33 +259,42 @@ class XiPTLibraryCore
 				
 		//add watermark on user avatar image
 		if($pTypeAvatar)
-			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermarkInfo,'avatar');
+			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
 
 		//add watermark on thumb image
 		if($pTypeThumbAvatar)
-			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermarkInfo,'thumb');
+			XiPTLibraryUtils::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermark,'thumb');
 
 		return true;
 	}
 	
-	function updateCommunityUserAvatar($userid, $oldAvatar, $newAvatar)
+	/**
+	 * It updates user's oldAvtar to newAvatars
+	 * @param $userid
+	 * @param $newAvatar
+	 * @return unknown_type
+	 */
+	function updateCommunityUserAvatar($userid, $newAvatar)
 	{
-		//Imp: We must enforce this as we never want to overwrite a custom avatar
-		$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($oldAvatar,true);
+		/*
+		 * XITODO : During migration we should change profiletype avatars to profiletype-1, 2 etc.
+		 * So that we do not need to tense about old avatar of profiletype
+		 * */
+		
+		//reload : so that we do not override previous information if any updated in database.
+		self::reloadCUser($userid);
+		$user    =& CFactory::getUser($userid);
+		$userAvatar  = $user->_avatar;
+		$userThumb   = $user->_thumb;
+		
+		//We must enforce this as we never want to overwrite a custom avatar
+		$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true); 
 		if($isDefault==false)
 			return false;
 
-		// we can safely update avatar
-		$pTypeAvatar	= $newAvatar;
-		$pTypeThumbAvatar = XiPTLibraryUtils::getThumbAvatarFromFull($pTypeAvatar);
-
-		//reload : so that we do not override previous information if any updated in database.
-		self::reloadCUser($userid);
-		
-		// perform the operation
-		$user    =& CFactory::getUser($userid);
-		$user->set('_avatar',$pTypeAvatar);
-		$user->set('_thumb', $pTypeThumbAvatar);
+		// we can safely update avatar so perform the operation		
+		$user->set('_avatar',$newAvatar);
+		$user->set('_thumb', XiPTLibraryUtils::getThumbAvatarFromFull($newAvatar));
 		
 		if(!$user->save())
 		    return false;
