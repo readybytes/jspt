@@ -208,19 +208,13 @@ class XiPTLibraryUtils
 	
 	function addWatermarkOnAvatar($userid, &$image, $waterMark, $what)
 	{
-		//XITODO : Things are not working correctly, so please fix watermark
-
 		// Load image helper library as it is needed.
-		CFactory::load( 'helpers' , 'image' );
 		
-		//ideally we should not be here, but accidentaly then raise an error
-		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($avatar,true))
-			assert(0);
 		
 		if($what == 'thumb')
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
 		
-		$extension	= JString::substr( $avatar , JString::strrpos( $image , '.' ) );	
+		$extension	= JString::substr( $image , JString::strrpos( $image , '.' ) );	
 		switch($extension)
 		{
 			case '.png':
@@ -233,28 +227,94 @@ class XiPTLibraryUtils
 				$type	= 'image/jpg';
 		}
 		
+		$imageInfo	= getimagesize($image);
+		$imageWidth = $imageInfo[0];	
+		$imageHeight= $imageInfo[1];
+		$type		= $imageInfo['mime'];
+
 		if($what == 'avatar'){
-			$watermarkWidth = WATERMARK_HEIGHT;
+			$watermarkWidth  = WATERMARK_HEIGHT;
 			$watermarkHeight = WATERMARK_WIDTH;
 		}
 		
 		if($what == 'thumb'){
-			$watermarkWidth = WATERMARK_HEIGHT_THUMB;
+			$watermarkWidth  = WATERMARK_HEIGHT_THUMB;
 			$watermarkHeight = WATERMARK_WIDTH_THUMB;
+			
+			//JSTODO : here we need to trick as per the JomSocial
+			// we need to modify the code when things changes, currently 
+			// the image informationfor thumbs does not come correctly
+			$imageWidth = AVATAR_WIDTH_THUMB;
+			$imageHeight = AVATAR_HEIGHT_THUMB;
 		}
-
-		$imageInfo	= getimagesize( $image );
-		$imageWidth = $imageInfo['width'];	
-		$imageHeight= $imageInfo['height'];
-		$tyep		= $imageInfo['mime'];
-		 		
-		cImageAddWaterMark( $image, $image , 
-							$type , $waterMark,
-							($imageWidth - $watermarkWidth), ($imageHeight - $watermarkHeight)
-						);
+		
+		return self::XiImageAddWaterMark( $image, $waterMark,
+							($imageWidth - $watermarkWidth),
+							($imageHeight - $watermarkHeight)
+						  );
 	}
 	
+	function XiImageAddWatermark( $imagePath, $watermarkPath , $positionX = 0 , $positionY = 0 )
+	{
+		assert(JFile::exists($imagePath) && JFile::exists($watermarkPath));
+		
+		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+		
+		//original image
+		$imageInfo	= getimagesize( $imagePath );
+		assert($imageInfo != false);
+		$destinationType = $imageInfo['mime'] ;
+		$imageImage	= cImageOpen( $imagePath , $destinationType);
+		
+		//watermark image
+		$watermarkInfo		= getimagesize( $watermarkPath );
+		assert($watermarkInfo != false);
+		$watermarkImage		= cImageOpen( $watermarkPath , $watermarkInfo['mime'] );
+		
+		/*
+		// Try to make the watermark image transparent
+		imagecolortransparent( $watermarkImage ,imagecolorat( $watermarkImage , 0 , 0 ) );
+		*/
 	
+		// Get overlay image width and hight
+		$watermarkWidth		= imagesx( $watermarkImage );
+		$watermarkHeight	= imagesy( $watermarkImage );
+	
+		// Combine background image and watermark into a single output image
+		imagecopymerge( $imageImage , $watermarkImage , $positionX , $positionY , 0 , 0 , $watermarkWidth , $watermarkHeight , 100 );
+	
+		// Output
+		ob_start();
+	
+		// Test if type is png
+		if( $destinationType == 'image/png' || $destinationType == 'image/x-png' )
+		{
+			imagepng( $imageImage );
+		}
+		elseif ( $destinationType == 'image/gif')
+		{
+			imagegif( $imageImage );
+		}
+		else
+		{
+			// We default to use jpeg
+			imagejpeg($imageImage, null, 80);
+		}
+		
+		$output = ob_get_contents();
+		ob_end_clean();
+		
+		
+		// Delete old image
+		JFile::delete( $imagePath );
+		
+		// Free any memory from the existing image resources
+		imagedestroy( $imageImage );
+		imagedestroy( $watermarkImage );
+		
+		return JFile::write( $imagePath , $output );
+	}
+
 	//get params data from xipt component or any
 	function getParams($paramName='', $comName='com_xipt', $defaultValue=0)
 	{

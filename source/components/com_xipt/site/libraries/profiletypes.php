@@ -534,37 +534,12 @@ class XiPTLibraryProfiletypes
 		return false;
 	}
 
+	/*
+	 * We do not need this function anymore
+	 */
 	function isProfileTypeDataResetRequired($userid, $check, $what='ALL')
 	{
-	    // we can not discard user uploaded avatar
-	    if($check == 'avatar')
-	    {
-	        $oldAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
-			$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($oldAvatar,true);
-			
-			//Check if watermark is enable if true then return true
-			
-			//now check here watermark required feature also
-			//if avatar is user also then we have to add watermark for new profiletype ,
-			//for which we have to update new watermark with user image
-			//XITODO : CODREV : Its a bug
-			if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')
-				&& !$isDefault)
-				return true;
-			
-			return $isDefault;
-	    }
-	    
-	    // You are changing all things, you should reset other attributes
-		if($what == 'ALL')
-			return true;
-			
-		// you are changing profiletype, you should reset other attributes
-		if($what == 'profiletype')
-			return true;
-
-        //default answer is NO
-		return false;
+	    assert(0);
 	}
 	
 	

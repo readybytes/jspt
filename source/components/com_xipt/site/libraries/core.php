@@ -41,8 +41,6 @@ class XiPTFactory
         require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
         
         $instance   = new XiPTModelUser($userid);
-            
-            
     }
 }
 
@@ -302,10 +300,13 @@ class XiPTLibraryCore
 		//enforce JomSocial to clean cached user
         self::reloadCUser($userid);
         
-        //apply watermark on user's avatar
+        //apply watermark on user's avatar, as we are not updating custom avatar 
+        // we are never going to apply watermark over here
+        /*
         $profiletype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
         $watermark 	 = XiPTLibraryProfiletypes::getProfiletypeData($profiletype,'watermark');
         self::updateCommunityUserWatermark($userid, $watermark);
+        */
         
 		return true;
 	}

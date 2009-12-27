@@ -26,8 +26,8 @@ define('WATERMARK_WIDTH_THUMB',16);
 
 define('AVATAR_HEIGHT',160);
 define('AVATAR_WIDTH',160);
-define('AVATAR_HEIGHT_THUMB',60);
-define('AVATAR_WIDTH_THUMB',60);
+define('AVATAR_HEIGHT_THUMB',64);
+define('AVATAR_WIDTH_THUMB',64);
 
 define('DEFAULT_AVATAR','components/com_community/assets/default.jpg');
 define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg');
