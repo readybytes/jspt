@@ -119,8 +119,8 @@ class XiPTLibraryUtils
 	
     function isAdmin($id, $refID=0)
 	{
-	    require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'owner.php';
-		return isCommunityAdmin($id);
+		$my	=& CFactory::getUser($id);		
+		return ( $my->usertype == 'Super Administrator');
 	}
 	
 	/*function checkEditAccessRight($myId, $calleId)
@@ -232,6 +232,9 @@ class XiPTLibraryUtils
 		
 		if($what == 'thumb')
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
+		
+		$image = JPATH_ROOT. DS. $image;
+		$waterMark= JPATH_ROOT. DS. $waterMark;
 		
 		$type = self::getImageType($image);
 		$wType = self::getImageType($waterMark);

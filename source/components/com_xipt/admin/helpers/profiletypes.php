@@ -279,8 +279,7 @@ function resetAllUsers($pid, $oldData, $newData)
 	if(!$allUsers)
 		return;
 
-	//XITODO : Watermark is not being added during resetAll ,'watermark'
-	$featuresToReset = array('jusertype','template','group','privacy','avatar');
+	$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
 	$filteredOldData= array();
 	$filteredNewData= array();
 	
@@ -292,8 +291,7 @@ function resetAllUsers($pid, $oldData, $newData)
 	
 	foreach ($allUsers as $user)
 	{
-		if(XiPTLibraryUtils::isAdmin($user)==false)
-			XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
+		XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
 	}
 }
 
