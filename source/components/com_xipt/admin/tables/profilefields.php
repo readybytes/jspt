@@ -21,6 +21,7 @@ class XiPTTableProfileFields extends JTable
 			$this->id			= 0;
 			$this->fid			= 0;
 			$this->pid			= 0;
+			return true;
 		}
 		else
 		{
@@ -51,7 +52,7 @@ class XiPTTableProfileFields extends JTable
 		$db->setQuery( $query );
 		$count	= $db->loadResult();
 		if($count)
-			return;
+			return false;
  		return parent::store();
 	}
 

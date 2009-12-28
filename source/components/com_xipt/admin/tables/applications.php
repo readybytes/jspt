@@ -24,7 +24,7 @@ class XiPTTableApplications extends JTable
 	 * 	 
 	 * @return boolean true on success
 	 **/
-	function load( $id , $isGroup = false )
+	function load( $id)
 	{
 		if( $id ){
 			return parent::load( $id );
@@ -33,6 +33,7 @@ class XiPTTableApplications extends JTable
 		$this->id				= 0;
 		$this->applicationid	= '';
 		$this->profiletype		= '';
+		return true;
 	}
 
 	function delete()
@@ -60,7 +61,7 @@ class XiPTTableApplications extends JTable
 		$db->setQuery( $query );
 		$count	= $db->loadResult();
 		if($count)
-			return;
+			return false;
  		  
        	return 	parent::store();
 	}

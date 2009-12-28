@@ -52,7 +52,7 @@ class CFieldsTemplates
 		
 		$tName	= $field->value;
 		$templates = XiPTLibraryUtils::getTemplatesList();
-		$class	= ($field->required == 1) ? ' required' : '';
+		$class	= ($required == 1) ? ' required' : '';
 		
 		$selectedValue = CFieldsTemplates::getTemplateValue($tName,$user->id);
 		

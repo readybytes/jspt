@@ -62,16 +62,11 @@ class XiPTControllerAclRules extends JController
 		// Load the JTable Object.
 		$row	=& JTable::getInstance( 'aclrules' , 'XiPTTable' );
 		$row->load( $post['id'] );	
-		$isValid	= true;
 		$row->bindAjaxPost($data);
-
 		
-		if( $isValid )
-		{
-			$id = $row->store();
-			$msg = JText::_('RULE SAVED');
-		}
-
+		$row->store();
+		$msg = JText::_('RULE SAVED');
+		
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
 	}
@@ -135,6 +130,7 @@ function remove()
 		$msg = JText::sprintf( $count.' ITEMS PUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
+		return true;
 	}
 	
 	function unpublish()
@@ -158,6 +154,7 @@ function remove()
 		$msg = JText::sprintf( $count.' ITEMS UNPUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
+		return true;
 	}
 	
 	

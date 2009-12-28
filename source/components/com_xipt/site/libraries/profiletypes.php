@@ -62,7 +62,7 @@ class XiPTLibraryProfiletypes
 	function updateProfileFieldsEvent($userId, $fields)
 	{
 		if(!$fields || $userId <= 0)
-			return;
+			return true;
 			
 		$profileType	= 0;
 		$template		= '';
@@ -471,7 +471,6 @@ class XiPTLibraryProfiletypes
 			
 		$notSelectedFields = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID);
 
-		$i=0;
 		$fieldCount=count($fields);
 		for($i=0 ; $i < $fieldCount ; $i++){
 		    $field =& $fields[$i];
@@ -537,10 +536,10 @@ class XiPTLibraryProfiletypes
 	/*
 	 * We do not need this function anymore
 	 */
-	function isProfileTypeDataResetRequired($userid, $check, $what='ALL')
+	/*function isProfileTypeDataResetRequired($userid, $check, $what='ALL')
 	{
 	    assert(0);
-	}
+	}*/
 	
 	
     /**

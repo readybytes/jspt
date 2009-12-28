@@ -75,11 +75,11 @@ class XiPTControllerProfileFields extends JController
 			}
 			if($count == 0) {
 				 XiPTHelperProfileFields::addFieldsProfileType($post['id'], 'XIPT_NONE');
-				 $msg = JText::_('FIELDS SAVED');
 			}
 		}	
 		$msg = JText::_('FIELDS SAVED');	
 		$link = JRoute::_('index.php?option=com_xipt&view=profilefields', false);
 		$mainframe->redirect($link, $msg);
+		return;
 	}
 }

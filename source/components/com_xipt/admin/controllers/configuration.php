@@ -156,7 +156,6 @@ class XiPTControllerConfiguration extends JController
 
 		// Get the ID in the correct location
  		$id			= JRequest::getVar( 'cid', array(), 'post', 'array' );
-		$db			=& JFactory::getDBO();
 
 		if( isset( $id[0] ) )
 		{

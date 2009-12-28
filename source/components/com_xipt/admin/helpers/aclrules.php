@@ -98,6 +98,7 @@ function _getDisplayNameofAclFeature($feature ="")
 		if(array_key_exists($feature,$allValues))
 				return ($allValues[$feature]);
 
-		assert(0);	
+		assert(0);
+		return false;	
 	}
 }

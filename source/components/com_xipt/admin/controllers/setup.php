@@ -215,7 +215,7 @@ class XiPTControllerSetup extends JController
         }
         $msg = JText::_('FILES PATCHED SUCCESSFULLY');
         $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
-    	
+    	return true;
     }
     
 	function patchAECfile()

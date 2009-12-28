@@ -93,7 +93,6 @@ class XiPTModelAclRules extends JModel
 	
 	function updatePublish($id,$value)
 	{
-		global $mainframe;
 		$db 	=& JFactory::getDBO();
 		$query 	= 'UPDATE #__xipt_aclrules'
 				. ' SET `published` ='.$db->Quote($value).''
@@ -101,5 +100,7 @@ class XiPTModelAclRules extends JModel
 		$db->setQuery( $query );
 		if (!$db->query())
 			return JError::raiseWarning( 500, $db->getError() );
+			
+		return true;
 	}
 }

@@ -67,7 +67,6 @@ class XiPTControllerApplications extends JController
 					if(!array_key_exists('profileTypes'.$type,$post))
 					{
 						  XiPTHelperApplications::addApplicationProfileType($post['id'], $type);
-						  $msg = JText::_('APPLICATION SAVED');
 					}
 				}
 			}

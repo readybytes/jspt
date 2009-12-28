@@ -331,7 +331,7 @@ class XiPTLibraryPluginHandler
 		
 	    //set up return url to com_community
 	    XiPTLibraryUtils::setReturnURL();
-	    $aecData = XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
+	    XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
 
 		$show_ptype_during_reg = XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
@@ -382,7 +382,7 @@ class XiPTLibraryPluginHandler
 	{
 	    global $mainframe;
 	    $integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt');
-	    $forcePtypePage = XiPTLibraryUtils::getParams('aec_force_ptype_page','com_xipt');
+	    //$forcePtypePage = XiPTLibraryUtils::getParams('aec_force_ptype_page','com_xipt');
 
 	    // if we do not want to integrate AEC then simply return
 	    if(!$integrateAEC)

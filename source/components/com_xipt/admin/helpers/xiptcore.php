@@ -5,7 +5,7 @@ defined('_JEXEC') or die('Restricted access');
 
 class XiFactory
 {
-	function &getModel( $name = '', $config = array() )
+	function &getModel( $name = '')
 	{
 		static $modelInstances = null;
 		

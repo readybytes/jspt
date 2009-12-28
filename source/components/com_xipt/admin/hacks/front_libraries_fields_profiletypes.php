@@ -76,7 +76,7 @@ class CFieldsProfiletypes
 	{
 		$html	    = '';
 		$pID	    = $field->value;
-		$class	    = ($field->required == 1) ? ' required' : '';
+		$class	    = ($required == 1) ? ' required' : '';
 		$disabled   = '';
 		
 		if($this->_view ==='register') {
@@ -97,6 +97,7 @@ class CFieldsProfiletypes
 		    
 		// it might be some other user (in case of admin is editing profile)
 		$user    =& JFactory::getUser();
+		$userid  = $user->id;
 		
 		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
 		$allowToChangePType = $allowToChangePType || XiPTLibraryUtils::isAdmin($user->id);

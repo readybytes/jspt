@@ -50,6 +50,7 @@ class XiPTTableAclRules extends JTable
 		$this->redirecturl	= 'index.php?option=com_community';
 		$this->message		= JText::_('YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE');
 		$this->published	= true;
+		return true;
 	}
 
 	/**
@@ -60,7 +61,6 @@ class XiPTTableAclRules extends JTable
 	 **/
 	function store( )
 	{
-		$db		=& $this->getDBO();		
  		return 	parent::store();
 	}
 

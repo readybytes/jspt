@@ -86,11 +86,7 @@ class XiPTControllerProfiletypes extends JController
 		
 		if( $isValid )
 		{
-			$parent			= '';
-			$id = $row->store();
-			// Get the view
-			$view		=& $this->getView( 'profiletypes' , 'html' );
-	
+			$id = $row->store();	
 			if($id != 0)
 			{
 				
@@ -131,7 +127,6 @@ class XiPTControllerProfiletypes extends JController
 		$ids	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 	
 		//$post['id'] = (int) $cid[0];
-		$count	= count($ids);
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		$i = 1;
@@ -184,6 +179,7 @@ class XiPTControllerProfiletypes extends JController
 		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);	
+		return true;
 	}
 	
 	function unpublish()
@@ -207,6 +203,7 @@ class XiPTControllerProfiletypes extends JController
 		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
 		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);
+		return true;
 	}
 	
 	
@@ -226,7 +223,6 @@ class XiPTControllerProfiletypes extends JController
 
 		// Get the ID in the correct location
  		$id			= JRequest::getVar( 'cid', array(), 'post', 'array' );
-		$db			=& JFactory::getDBO();
 
 		if( isset( $id[0] ) )
 		{

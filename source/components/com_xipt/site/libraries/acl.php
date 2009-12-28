@@ -49,11 +49,7 @@ class XiPTLibraryAcl
 			return false;
 		
 			
-		$retVal = XiPTLibraryAcl::aclCheckFailedBlockUser($ajax,$aclViolatingRule, $task);
-		//for ajax we need to create a reponse and return it
-		//if($ajax == 1 && $retVal)
-		//	return $retVal;
-			
+		XiPTLibraryAcl::aclCheckFailedBlockUser($ajax,$aclViolatingRule, $task);	
 		return false;
 	}
 	
@@ -144,7 +140,7 @@ class XiPTLibraryAcl
 		
 		//TODO replace few KEYS in message - e.g. __TASKCOUNT__
 		if($ajax)
-			return XiPTLibraryAcl::aclAjaxBlock($message,$redirect);
+			XiPTLibraryAcl::aclAjaxBlock($message,$redirect);
 		else
 		{
 			// one special case
@@ -165,7 +161,7 @@ class XiPTLibraryAcl
 	}
 	
 
-	function aclAjaxBlock($msg,$redir)
+	function aclAjaxBlock($msg)
 	{
 		$objResponse   	= new JAXResponse();
 		$uri			= CFactory::getLastURI();
@@ -176,7 +172,7 @@ class XiPTLibraryAcl
 		$objResponse->addAssign('cwin_logo', 'innerHTML', JText::_('CC JSPTACL YOU ARE NOT ALLOWED TO PERFORM THIS ACTION'));
 		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);
 		$objResponse->addScriptCall('cWindowResize', 80);
-		return $objResponse->sendResponse();
+		$objResponse->sendResponse();
 	}
 	
 	// final aclChecking
@@ -242,7 +238,7 @@ class XiPTLibraryAcl
 	{
 		$groupsModel	=& CFactory::getModel('groups');
 		$photoModel		=& CFactory::getModel('photos');
-		$inboxModel		=& CFactory::getModel('inbox');
+		//$inboxModel		=& CFactory::getModel('inbox');
 		switch($feature)
 		{
 			case 'aclFeatureJoinGroup' :
@@ -287,13 +283,14 @@ class XiPTLibraryAcl
 			
 			default :
 				assert(0);
+				
 		}
+		return 0;
 	}
 	
 	function getTotalMessageSent( $userId,$otherpid=-1 )
 	{
 		CFactory::load( 'helpers' , 'time' );
-		$date		= cGetDate();
 		$db			=& JFactory::getDBO();
 		
 		if($otherpid == -1)

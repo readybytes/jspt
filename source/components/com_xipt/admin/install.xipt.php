@@ -152,15 +152,7 @@ function check_jomsocial_existance()
 function copy_files() 
 {
 	$filestoreplace = getJSPTFileList();
-	$js_version 	= get_js_version();
-
-	
-	$MY_PATH_FRNTEND = dirname( JPATH_BASE )  . DS. 'components' . DS . 'com_xipt';
 	$MY_PATH_ADMIN	  = dirname( JPATH_BASE ) . DS. 'administrator' .DS.'components' . DS . 'com_xipt';
-
-	$CMP_PATH_FRNTEND = dirname( JPATH_BASE ) . DS. 'components' . DS . 'com_community';
-	$CMP_PATH_ADMIN	  = dirname( JPATH_BASE ) . DS. 'administrator' .DS.'components' . DS . 'com_community';
-	
 	
 	foreach($filestoreplace AS $key => $val)
 	{
@@ -174,12 +166,12 @@ function copy_files()
 		if(JFile::exists($targetFile)){
 			
 			// previous backup, delete it.
-			if(JFile::exists($targetFile. '.jxibak')){
-				JFile::delete($targetFile.'.jxibak');
+			if(JFile::exists($targetFileBackup)){
+				JFile::delete($targetFileBackup);
 			}
 			
 			// create a backup
-			JFile::move($targetFile, $targetFile.'.jxibak');
+			JFile::move($targetFile, $targetFileBackup);
 		}
 
 		// now copy files
@@ -359,6 +351,7 @@ function remove_table($tableName)
 		JError::raiseError( 500, $db->stderr());
 		return false;
 	}
+	return true;
 }
 
 function remove_column($tableName, $columnName)

@@ -176,10 +176,6 @@ class XiPTHelperSetup
 	
 	function isCustomLibraryFieldRequired()
 	{
-		global $mainframe;
-		$pLibrary = false;
-		$tLibrary = false;
-		
 		$pFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.PROFILETYPE_FIELD_TYPE_NAME.'.php';
 		$pLibrary = file_exists($pFileName);
     	$tFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.TEMPLATE_FIELD_TYPE_NAME.'.php';

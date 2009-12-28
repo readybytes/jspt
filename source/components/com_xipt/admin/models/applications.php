@@ -103,12 +103,12 @@ class XiPTModelApplications extends JModel
 		//print_r("query = ".$query);
 		if($db->getErrorNum()){
 		     JError::raiseError( 500, $db->stderr());
-		     return;
+		     return false;
 		}
       
 		if(!empty($result))
 			return $result->name;
 		else
-			return 0;
+			return false;
 	}
 }

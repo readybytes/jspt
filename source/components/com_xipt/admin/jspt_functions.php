@@ -23,9 +23,10 @@ function get_js_version()
 	
 function getJSPTFileList()
 {
+/*
 	$MY_PATH_FRNTEND  = dirname( JPATH_BASE ) .DS. 'components' . DS . 'com_xipt';
 	$MY_PATH_ADMIN	  = dirname( JPATH_BASE ) .DS. 'administrator' .DS.'components' . DS . 'com_xipt';
-
+*/
 	$CMP_PATH_FRNTEND = dirname( JPATH_BASE ) .DS. 'components' . DS . 'com_community';
 	$CMP_PATH_ADMIN	  = dirname( JPATH_BASE ) .DS. 'administrator' .DS.'components' . DS . 'com_community';
 	

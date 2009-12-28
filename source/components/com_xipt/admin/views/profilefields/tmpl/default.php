@@ -39,7 +39,6 @@ defined('_JEXEC') or die('Restricted access');
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
 					<?php $link = JRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
 						&nbsp;&nbsp;|_ <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
-						<?php //echo JHTML::_('link', 'javascript:void(0);', $row->name, 'onclick'=>"javascript:editFields()"); ?>
 					</span>
 				</td>
 				<td align="center">
@@ -62,7 +61,6 @@ defined('_JEXEC') or die('Restricted access');
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
 					<?php $link = JRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
 						Group <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
-						<?php //echo JHTML::_('link', 'javascript:void(0);', $row->name, 'onclick'=>"javascript:editFields()"); ?>
 					</span>
 				</td>
 				<td align="center">

@@ -40,7 +40,8 @@ class XiPTFactory
         
         require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
         
-        $instance   = new XiPTModelUser($userid);
+        $instance[$userid] = new XiPTModelUser($userid);
+        return $instance[$userid];
     }
 }
 
@@ -125,7 +126,7 @@ class XiPTLibraryCore
 		global $mainframe;
 		$pID = '';
 		if($mainframe->isAdmin())
-			return;
+			return true;
 		$loggedInUser = JFactory::getUser();
 		
 		$view = JRequest :: getVar('view');
@@ -286,7 +287,6 @@ class XiPTLibraryCore
 		self::reloadCUser($userid);
 		$user    =& CFactory::getUser($userid);
 		$userAvatar  = $user->_avatar;
-		$userThumb   = $user->_thumb;
 		
 		//We must enforce this as we never want to overwrite a custom avatar
 		$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true); 
@@ -360,7 +360,7 @@ class XiPTLibraryCore
 	function _addUserToGroup( $userId , $groupId)
 	{
 		$groupModel	=& CFactory::getModel( 'groups' );
-		$userModel	=& CFactory::getModel( 'user' );
+		//$userModel	=& CFactory::getModel( 'user' );
 	
 		if(!$groupId)
 			return false;
@@ -391,7 +391,6 @@ class XiPTLibraryCore
 				$groupModel->addMembersCount($groupId);
 			return true;
 		}
-		return false;
 	}
 	    
 	function _removeUserFromGroup($userId , $groupId)
@@ -433,7 +432,7 @@ class XiPTLibraryCore
 		
 		$cuser =& CFactory::getUser($userid);
 		$cuser = array();
-		$cuser =& CFactory::getUser($userid);
+		CFactory::getUser($userid);
 		return;	
 	}
 }

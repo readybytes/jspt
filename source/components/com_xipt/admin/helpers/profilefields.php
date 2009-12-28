@@ -21,7 +21,7 @@ function get_jomsocial_profile_fields()
 	if(!empty($result))
 		return $result;
 	else
-		false;
+		return false;
 }
 
 //return fieldname form field id from community fields table

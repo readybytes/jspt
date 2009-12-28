@@ -105,8 +105,6 @@ class mi_jomsocialjspt
 	function setUserProfiletype($userId,$pId)
 	{
 		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-		
-		$cuser  =& CFactory::getUser($userId);
 		XiPTLibraryProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
 	}
 

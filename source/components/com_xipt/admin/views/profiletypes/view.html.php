@@ -17,7 +17,6 @@ class XiPTViewProfiletypes extends JView
 		$fields		=& $profiletype->getFields();
 		$pagination	=& $profiletype->getPagination();
 		$profiletypes = array();
-		$depth		  = array();
 		$allTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
 		if ($allTypes)
 				foreach ($allTypes as $ptype){

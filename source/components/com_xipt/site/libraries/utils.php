@@ -117,7 +117,7 @@ class XiPTLibraryUtils
 	
 	
 	
-    function isAdmin($id, $refID=0)
+    function isAdmin($id)
 	{
 		$my	=& CFactory::getUser($id);		
 		return ( $my->usertype == 'Super Administrator');
@@ -168,7 +168,8 @@ class XiPTLibraryUtils
 		jimport('joomla.filesystem.file');		
 		$path	= JPATH_ROOT. DS . 'components' . DS . 'com_community' . DS . 'templates';
 		
-		if( $handle = @opendir($path) )
+		$handle = @opendir($path);
+		if( $handle )
 		{
 			while( false !== ( $file = readdir( $handle ) ) )
 			{
@@ -243,7 +244,7 @@ class XiPTLibraryUtils
 		{
 			global $mainframe;
 			$mainframe->enqueueMessage("Watermark must be PNG or GIF image, no watermark applied");
-			return;
+			return false;
 		}
 
 		/*static $tmp = 0;
@@ -264,7 +265,7 @@ class XiPTLibraryUtils
 		{
 			global $mainframe;
 			$mainframe->enqueueMessage("Unable to open through getimage the file $image");
-			return;
+			return false;
 		}
 		
 		$imageWidth = $imageInfo[0];//imagesx( $image );	
@@ -300,6 +301,8 @@ class XiPTLibraryUtils
 						  );*/
 	}
 	
+	/*
+	 * 
 	function XiImageAddWatermark( $imagePath, $watermarkPath , $positionX = 0 , $positionY = 0 )
 	{
 		assert(JFile::exists($imagePath) && JFile::exists($watermarkPath));
@@ -309,11 +312,6 @@ class XiPTLibraryUtils
 		$imageImage		 = cImageOpen( $imagePath , $destinationType);
 		$watermarkImage	 = cImageOpen( $watermarkPath , self::getImageType($watermarkPath));
 		
-		/*
-		// Try to make the watermark image transparent
-		imagecolortransparent( $watermarkImage ,imagecolorat( $watermarkImage , 0 , 0 ) );
-		*/
-	
 		// Get overlay image width and hight
 		$watermarkWidth		= imagesx( $watermarkImage );
 		$watermarkHeight	= imagesy( $watermarkImage );
@@ -354,7 +352,7 @@ class XiPTLibraryUtils
 		
 		return $output;
 	}
-
+*/
 	//get params data from xipt component or any
 	function getParams($paramName='', $comName='com_xipt', $defaultValue=0)
 	{

@@ -93,8 +93,6 @@ class XiPTModelProfiletypes extends JModel
 	
 	function updatePublish($id,$value)
 	{
-		global $mainframe;
-		
 		$db 	=& JFactory::getDBO();
 		$query 	= 'UPDATE #__xipt_profiletypes'
 				. ' SET `published` ='.$db->Quote($value).''

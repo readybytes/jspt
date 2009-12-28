@@ -70,7 +70,6 @@
 					</span>
 				</td>
 				<td valign="top">
-					<?php //echo JHTML::_('select.booleanlist' , 'usesystemfolderpermissions' , null ,  $this->config->get('usesystemfolderpermissions' , true ) , JText::_('Use system default') , JText::_('Enable all (CHMOD 0777)') ); ?>
 					<?php echo $this->getFolderPermissionsPhoto( 'folderpermissionsphoto' , $this->config->get('folderpermissionsphoto') ); ?>
 				</td>
 			</tr>

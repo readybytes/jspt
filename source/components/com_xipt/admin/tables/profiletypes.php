@@ -34,11 +34,10 @@ class XiPTTableProfiletypes extends JTable
 	 * upon loading a new entry
 	 * 
 	 * @param	int	id	The id of the field
-	 * @param	boolean isGroup	Whether the field is a group
 	 * 	 
 	 * @return boolean true on success
 	 **/
-	function load( $id , $isGroup = false )
+	function load( $id)
 	{
 		if( $id == 0 )
 		{
@@ -57,16 +56,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->approve		= false;
 			$this->group 		= 0;
 			$this->params 		= '';
-			/*
-			  Registered
-			  Author
-			  Editor
-			  Publisher
-					------	backend -----
-			  Manager
-			  Administrator
-			  Super Administrator 
-			*/
+			return true;
 		}
 		else
 		{

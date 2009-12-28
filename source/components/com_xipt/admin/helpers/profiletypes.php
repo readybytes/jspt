@@ -6,7 +6,7 @@ defined('_JEXEC') or die('Restricted access');
 class XiPTHelperProfiletypes 
 {
 	
-	function buildTypes($value, $what,$self=0)
+	function buildTypes($value, $what)
 	{
 		$allValues	= array();
 		switch($what)
@@ -94,7 +94,8 @@ class XiPTHelperProfiletypes
 	{
 		$path	= dirname(JPATH_BASE) . DS . 'components' . DS . 'com_community' . DS . 'templates';
 	
-		if( $handle = @opendir($path) )
+		$handle = @opendir($path);
+		if($handle)
 		{
 			while( false !== ( $file = readdir( $handle ) ) )
 			{
@@ -299,15 +300,9 @@ function resetAllUsers($pid, $oldData, $newData)
 	{	
 		$required			='1';
 		$html				= '';
-		$selectedElement	= 0;
 		$class				= ($required == 1) ? ' required' : '';
-		$elementSelected	= 0;
-		$elementCnt	        = 0;
 		$options			= XiPTLibraryProfiletypes::getProfiletypeArray();
 		
-		$config = CFactory::getConfig();
-	
-		$cnt = 0;
 		$html	.= '<select id="params[defaultProfiletypeID]" name="params[defaultProfiletypeID]" class="hasTip select'.$class.'" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
 		for( $i = 0; $i < count( $options ); $i++ )
 		{
@@ -345,8 +340,6 @@ function resetAllUsers($pid, $oldData, $newData)
 		}
 		else
 		{
-			$imageSize		= cImageGetSize( $file['tmp_name'] );
-
 			switch($what) {
 				case 'avatar':
 					$imageMaxWidth	= AVATAR_WIDTH;
@@ -367,7 +360,7 @@ function resetAllUsers($pid, $oldData, $newData)
 			$storageImage		= $storage . DS .$imgPrefix. $id . cImageTypeToExt( $file['type'] );
 			$storageThumbnail	= $storage . DS . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 			$image				= 'images/profiletype/'.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
-			$thumbnail			= 'images/profiletype/' . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
+			//$thumbnail			= 'images/profiletype/' . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 			
 			//here check if folder exist or not ? if not then create it.
 			if(JFolder::exists($storage)==false)

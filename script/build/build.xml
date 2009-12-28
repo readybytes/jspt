@@ -41,12 +41,16 @@
 				<include name="**" />
 			</fileset>
 		</copy>
+		
+		<!-- apply lint -->
+<analyze analyzerPath="/usr/local/bin/zca" disable="var-ref-notmodified,if-if-else,expr-unused,include-var" >
+	<fileset dir="${global.dir.tmp}">
+	    <include name="**/*.php"/>
+	</fileset>
+</analyze>
 
-		<phplint haltonfailure="true">
-		  <fileset dir="${global.dir.tmp}">
-		    <include name="**/*.php"/>
-		  </fileset>
-		</phplint>
+
+		<!-- gather stats phpcpd / phploc / test-count,assert-count, xitodo/codrev numbers / coverage numbers  -->
 	</target>
 
 	<target name="svn_lastrevision" depends="config">
