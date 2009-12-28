@@ -15,13 +15,13 @@ class ProfileTest extends XiSelTestCase
   {
   	//login as admin user
     $this->frontLogin();
-	$this->viewProfile(82,1);
-	$this->viewProfile(83,2);
-	$this->viewProfile(84,3);   
+	$this->verifyViewProfile(82,1);
+	$this->verifyViewProfile(83,2);
+	$this->verifyViewProfile(84,3);   
     
   }
   
-  function viewProfile($userid,$ptype)
+  function verifyViewProfile($userid,$ptype)
   {
   	  // open user's profile
 	  $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=".$userid);
@@ -59,21 +59,21 @@ class ProfileTest extends XiSelTestCase
   	  //login as self
   	  $user = JFactory::getUser(82);
   	  $this->frontLogin($user->username,$user->username);
-	  $this->editProfile(82,1);
+	  $this->verifyEditProfileFields(82,1);
 	  $this->frontLogout();
 	  
 	  $user = JFactory::getUser(83);
   	  $this->frontLogin($user->username,$user->username);
-	  $this->editProfile(83,2);
+	  $this->verifyEditProfileFields(83,2);
 	  $this->frontLogout();
 	  
 	  $user = JFactory::getUser(84);
   	  $this->frontLogin($user->username,$user->username);
-  	  $this->editProfile(84,3);
+  	  $this->verifyEditProfileFields(84,3);
   	  $this->frontLogout();
   }
   
-  function editProfile($userid,$ptype)
+  function verifyEditProfileFields($userid,$ptype)
   {
       // open user's profile
 	  $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=edit");
@@ -117,14 +117,13 @@ class ProfileTest extends XiSelTestCase
      	$filter['allow_user_to_change_ptype_after_reg']=0;
   	  	$filter['allow_templatechange']=0;
   	  	$this->changeJSPTConfig($filter);
-    	$this->verifyEditablePTFields(false,false);    
+    	$this->verifyEditablePTFields(false,false);
   }
-  
   
   
   function verifyEditablePTFields($profiletype,$template)
   {
-  	//go to profile edit page	  	
+  		//go to profile edit page
   	  	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=edit");
 	  	$this->waitPageLoad();
 	  	$this->assertTrue($this->isTextPresent("Edit profile"));
@@ -265,5 +264,79 @@ enablephotos=1'
   	
 	
 	$this->frontLogout();  
+  }
+  
+  function testChangeProfiletype()
+  {
+      //we should also test to change profiletypes
+      $filter['allow_user_to_change_ptype_after_reg']=1;
+      $filter['allow_templatechange']=1;
+  	  $this->changeJSPTConfig($filter);
+
+  	  $user = JFactory::getUser(82);
+  	  $this->frontLogin($user->username,$user->username);
+	  $this->verifyChangeProfiletype(82,2); // 1 -> 2
+	  $this->frontLogout();
+	  
+	  $user = JFactory::getUser(83);
+  	  $this->frontLogin($user->username,$user->username);
+	  $this->verifyChangeProfiletype(83,3); // 2 -> 3
+	  $this->frontLogout();
+	  
+	  $filter['allow_user_to_change_ptype_after_reg']=1;
+      $filter['allow_templatechange']=0;
+  	  $this->changeJSPTConfig($filter);
+  	  
+	  $user = JFactory::getUser(84);
+  	  $this->frontLogin($user->username,$user->username);
+  	  $this->verifyChangeProfiletype(84,1); // 3 -> 1
+  	  $this->frontLogout();
+  	  
+  	  //test for admin too, no change is usertype
+  	  // and also it have custom avatar
+  	  $user = JFactory::getUser(62);
+  	  $this->frontLogin(JOOMLA_ADMIN_USERNAME,JOOMLA_ADMIN_PASSWORD);
+  	  $this->verifyChangeProfiletype(62,3); // 1 -> 3
+  	  $this->frontLogout();
+  	    	  
+	  $this->_DBO->addTable('#__xipt_users');
+	  $this->_DBO->filterOrder('#__xipt_users','userid');
+
+	  $this->_DBO->addTable('#__community_fields_values');
+	  $this->_DBO->filterOrder('#__community_fields_values','id');
+	
+	  $this->_DBO->addTable('#__community_groups_members');
+	  $this->_DBO->filterOrder('#__users','memberid');
+	  $this->_DBO->addTable('#__community_users');
+	  $this->_DBO->filterOrder('#__community_users','userid');
+	
+	  $this->_DBO->addTable('#__users');
+	  $this->_DBO->filterColumn('#__users','lastvisitDate');
+	  $this->_DBO->filterOrder('#__users','id');
+	
+	  $this->_DBO->addTable('#__core_acl_groups_aro_map');
+	  $this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
+  }
+  
+  function verifyChangeProfiletype($userid, $newProfiletype)
+  {
+  		$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=edit");
+	  	$this->waitPageLoad();
+	  	
+	  	$this->assertTrue($this->isTextPresent("Edit profile"));
+	  	$this->assertTrue($this->isElementPresent("field17"));
+	  	$this->select("field17", "value=$newProfiletype");
+	  	$this->click("//input[@value='Save']");
+	  	$this->waitPageLoad();
+  }
+  
+  function xtestUploadAvatar()
+  {
+  	//XITODO : testUploadAvatar
+  	// It test uploading an avatar
+  	// check if it does accidentaly delete default avatar of profiletye
+  	// check if watermark is applied or not 
+  
+  	//filemtime
   }
 }

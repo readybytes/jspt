@@ -279,7 +279,8 @@ function resetAllUsers($pid, $oldData, $newData)
 	if(!$allUsers)
 		return;
 
-	$featuresToReset = array('jusertype','template','group','privacy','watermark','avatar');
+	//XITODO : Watermark is not being added during resetAll ,'watermark'
+	$featuresToReset = array('jusertype','template','group','privacy','avatar');
 	$filteredOldData= array();
 	$filteredNewData= array();
 	

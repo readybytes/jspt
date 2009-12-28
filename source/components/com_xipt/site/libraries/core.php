@@ -94,6 +94,8 @@ class XiPTLibraryCore
 		if(XiPTLibraryUtils::isAdmin($userid)==true || (0 == $userid ))
 		    return false;
 
+		self::reloadCUser($userid);
+		
 		$user 			=& CFactory::getUser($userid);
 		$authorize		=& JFactory::getACL();
 		$user->set('usertype',$newUsertype);
@@ -106,9 +108,10 @@ class XiPTLibraryCore
 		    return true;
 		}
 		
-		// Error
-		JError::raiseWarning('XIPTERR', JText::_( $user->getError()));
-		return false;
+		// With CUSER->save() nothing is returned
+		//JError::raiseError('XIPTERR', JText::_( $user->getError()));
+		self::reloadCUser($userid);
+		return true;
 	}
 	
 

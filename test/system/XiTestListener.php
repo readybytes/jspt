@@ -65,7 +65,8 @@ class XiDBCheck
 
          $this->log[]=  "\n auTable :".var_export($auTable,true);
          $this->log[]=  "\n logTable :".var_export($logTable,true);
-        $count=count($auTable);	
+        $count=count($auTable);
+        $isError = false;	
         for($i=0 ; $i<$count;$i++)
         {    
         	$auArr = $auTable[$i];
@@ -86,7 +87,7 @@ class XiDBCheck
                         ;
                 $this->errorLog[]=$error;
 				$this->log[]= $error;
-                return false;
+                $isError = true;
             }
             else
             {
@@ -94,6 +95,10 @@ class XiDBCheck
             }
             
         }
+        
+        if($isError)
+        	return false;
+        	
         $this->log[]= " \n ==  Table ".$tableName. " Matched == \n ";
         return true;        
     }

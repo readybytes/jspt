@@ -205,32 +205,68 @@ class XiPTLibraryUtils
 		return $watermarkInfo;
 	}
 	
+	function getImageType($imagePath)
+	{
+		$extension	= JFile::getExt($imagePath);	
+		switch($extension)
+		{
+			case 'png':
+				$type	= 'image/png';
+				break;
+			case 'gif':
+				$type	= 'image/gif';
+				break;
+			case 'jpg':
+			case 'jpeg':
+			default :
+				$type	= 'image/jpg';
+		}
+		return $type;
+	}
 	
 	function addWatermarkOnAvatar($userid, &$image, $waterMark, $what)
 	{
 		// Load image helper library as it is needed.
-		
+		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+		ini_set('gd.jpeg_ignore_warning', 1);
 		
 		if($what == 'thumb')
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
 		
-		$extension	= JString::substr( $image , JString::strrpos( $image , '.' ) );	
-		switch($extension)
+		$type = self::getImageType($image);
+		$wType = self::getImageType($waterMark);
+
+		if($wType == 'image/jpg')
 		{
-			case '.png':
-				$type	= 'image/png';
-				break;
-			case '.gif':
-				$type	= 'image/gif';
-				break;
-			default :
-				$type	= 'image/jpg';
+			global $mainframe;
+			$mainframe->enqueueMessage("Watermark must be PNG or GIF image, no watermark applied");
+			return;
+		}
+
+		/*static $tmp = 0;
+		if($tmp == 0)
+		{
+			$name = JPATH_ROOT.DS.$image.time();
+			ob_start();
+			echo phpinfo();
+			$output = ob_get_contents();
+			ob_end_clean();
+			
+			JFile::write($name, $output);
+			$tmp++;
+		}*/
+		$imageInfo	= getimagesize($image);
+		
+		if($imageInfo ==false)
+		{
+			global $mainframe;
+			$mainframe->enqueueMessage("Unable to open through getimage the file $image");
+			return;
 		}
 		
-		$imageInfo	= getimagesize($image);
-		$imageWidth = $imageInfo[0];	
-		$imageHeight= $imageInfo[1];
-		$type		= $imageInfo['mime'];
+		$imageWidth = $imageInfo[0];//imagesx( $image );	
+		$imageHeight= $imageInfo[1];// imagesy( $image );
+
 
 		if($what == 'avatar'){
 			$watermarkWidth  = WATERMARK_HEIGHT;
@@ -248,28 +284,27 @@ class XiPTLibraryUtils
 			$imageHeight = AVATAR_HEIGHT_THUMB;
 		}
 		
-		return self::XiImageAddWaterMark( $image, $waterMark,
+		
+		//try jomSocial code
+		return cImageAddWatermark($image, $image, $type, $waterMark, 
 							($imageWidth - $watermarkWidth),
 							($imageHeight - $watermarkHeight)
-						  );
+							);
+		
+		/*return self::XiImageAddWaterMark( $image, $waterMark,
+							($imageWidth - $watermarkWidth),
+							($imageHeight - $watermarkHeight)
+						  );*/
 	}
 	
 	function XiImageAddWatermark( $imagePath, $watermarkPath , $positionX = 0 , $positionY = 0 )
 	{
 		assert(JFile::exists($imagePath) && JFile::exists($watermarkPath));
 		
-		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
-		
 		//original image
-		$imageInfo	= getimagesize( $imagePath );
-		assert($imageInfo != false);
-		$destinationType = $imageInfo['mime'] ;
-		$imageImage	= cImageOpen( $imagePath , $destinationType);
-		
-		//watermark image
-		$watermarkInfo		= getimagesize( $watermarkPath );
-		assert($watermarkInfo != false);
-		$watermarkImage		= cImageOpen( $watermarkPath , $watermarkInfo['mime'] );
+		$destinationType = self::getImageType($imagePath);
+		$imageImage		 = cImageOpen( $imagePath , $destinationType);
+		$watermarkImage	 = cImageOpen( $watermarkPath , self::getImageType($watermarkPath));
 		
 		/*
 		// Try to make the watermark image transparent
@@ -282,37 +317,39 @@ class XiPTLibraryUtils
 	
 		// Combine background image and watermark into a single output image
 		imagecopymerge( $imageImage , $watermarkImage , $positionX , $positionY , 0 , 0 , $watermarkWidth , $watermarkHeight , 100 );
-	
-		// Output
-		ob_start();
-	
+
+		// Delete old image
+		if(!JFile::delete( $imagePath ))
+		{
+			global $mainframe;
+			$mainframe->enqueueMessage("Unable to delete the file $imagePath");
+			
+			imagedestroy( $imageImage );
+			imagedestroy( $watermarkImage );
+			
+			return;
+		}
+
 		// Test if type is png
 		if( $destinationType == 'image/png' || $destinationType == 'image/x-png' )
 		{
-			imagepng( $imageImage );
+			$output = imagepng( $imageImage, $imagePath  );
 		}
 		elseif ( $destinationType == 'image/gif')
 		{
-			imagegif( $imageImage );
+			$output = imagegif( $imageImage , $imagePath );
 		}
 		else
 		{
 			// We default to use jpeg
-			imagejpeg($imageImage, null, 80);
+			$output =  imagejpeg($imageImage, $imagePath ,100);
 		}
-		
-		$output = ob_get_contents();
-		ob_end_clean();
-		
-		
-		// Delete old image
-		JFile::delete( $imagePath );
 		
 		// Free any memory from the existing image resources
 		imagedestroy( $imageImage );
 		imagedestroy( $watermarkImage );
 		
-		return JFile::write( $imagePath , $output );
+		return $output;
 	}
 
 	//get params data from xipt component or any
