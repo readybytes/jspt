@@ -17,12 +17,14 @@
 		<phing phingfile="plg_xipt_system.xml" inheritAll="true" target="build" />
 		<phing phingfile="plg_xipt_community.xml" inheritAll="true" target="build" />
 
-		<mkdir dir="JSPT-${global.version}.${svn.lastrevision}-Unzip-First" />
-		<delete file="${dir.packages}/JSPT-${global.version}.${svn.lastrevision}-Unzip-First.zip" />
+		
+		<delete file="${global.dir.packages}/JSPT-${global.version}.${svn.lastrevision}-Unzip-First.zip" />
 
+		<mkdir dir="JSPT-${global.version}.${svn.lastrevision}-Unzip-First" />		
 		<copy todir="JSPT-${global.version}.${svn.lastrevision}-Unzip-First">
 			<fileset dir="${global.dir.packages}">
-				<include name="*${global.version}.${svn.lastrevision}*.zip" />
+				<include name="com*${global.version}.${svn.lastrevision}.zip" />
+				<include name="plg*${global.version}.${svn.lastrevision}.zip" />
 			</fileset>
 		</copy>
 
