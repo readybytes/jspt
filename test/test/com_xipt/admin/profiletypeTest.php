@@ -189,8 +189,6 @@ class ProfiletypeTest extends XiSelTestCase
   function testProfiletypeResetAll()
   {
   	$this->adminLogin();
-  	//XITODO : We need to test effect of watermark also
-  	// will do once watermark is working properly
   	$filter['show_watermark']=0;
 	$this->changeJSPTConfig($filter);
 	

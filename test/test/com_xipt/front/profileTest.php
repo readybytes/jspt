@@ -330,13 +330,157 @@ enablephotos=1'
 	  	$this->waitPageLoad();
   }
   
-  function xtestUploadAvatar()
+  // It test uploading an avatar
+  // check if it does accidentaly delete default avatar of profiletye
+  // check if watermark is applied or not
+  // check what happend if Picture is removed by admin
+  function testUploadAvatar()
   {
-  	//XITODO : testUploadAvatar
-  	// It test uploading an avatar
-  	// check if it does accidentaly delete default avatar of profiletye
-  	// check if watermark is applied or not 
+  	  //ensure we have watermarks in place
+  	  require_once (JPATH_BASE . '/components/com_xipt/includes.xipt.php' );
+  	  if(JFolder::exists(JPATH_ROOT.DS.'images/profiletype')==false)
+			JFolder::create(JPATH_ROOT.DS.'images/profiletype');
+  	  
+  	  $watermarks[]='watermark_1.png';
+  	  $watermarks[]='watermark_1_thumb.png';
+  	  $watermarks[]='watermark_2.gif';
+  	  $watermarks[]='watermark_2_thumb.gif';
+  	  $watermarks[]='watermark_3.png';
+  	  $watermarks[]='watermark_3_thumb.png';
+  	  foreach($watermarks as $src)
+  	  {
+  	  	$dest = JPATH_ROOT.DS.'images/profiletype'.DS.$src;
+  	  	$src  = JPATH_ROOT.DS.'test/test/com_xipt/front/images'.DS.$src;
+  	  	
+  	  	if(JFile::exists($dest))
+  	  		JFile::delete($dest);
+  	  	
+  	  	JFile::copy($src, $dest);
+  	  	$this->assertTrue(JFile::exists($dest));
+  	  }
+
+   	  //ensure that default profiletype avatars in place
+  	  $avatars[] = array('group.jpg','avatar_2.jpg');
+  	  $avatars[] = array('group_thumb.jpg','avatar_2_thumb.jpg');
+  	  $avatars[] = array('group.jpg','avatar_3.jpg');
+  	  $avatars[] = array('group_thumb.jpg','avatar_3_thumb.jpg');
+  	  
+  	  foreach($avatars as $arr)
+  	  {
+  	  	  $src = $arr[0];
+  	  	  $dest = $arr[1];
+  	  	  
+	  	  $dest = JPATH_ROOT.DS.'images/profiletype'.DS.$dest;
+	  	  $src  = JPATH_ROOT.DS.'components/com_community/assets'.DS.$src;
+	  	  if(JFile::exists($dest))
+	  	  		JFile::delete($dest);
+	  	  
+	  	  JFile::copy($src, $dest);
+	  	  $this->assertTrue(JFile::exists($dest));
+  	  }
+  	  
+  	  $filter['show_watermark']=1;
+  	  $this->changeJSPTConfig($filter);
+	
+  	  //updates from Default JomSocial avatar
+  	  $user = JFactory::getUser(82);
+  	  $this->frontLogin($user->username,$user->username);
+  	  $newAvatar = 'test/test/com_xipt/front/images/avatar_1.png';
+  	  $newAvatarAU = 'test/test/com_xipt/front/images/avatar_1_AU.png';
+	  $this->verifyUploadAvatar(82,1,$newAvatar,$newAvatarAU);
+	  $this->frontLogout();
+	  
+	  //updates from Default Profiletype avatar
+	  $user = JFactory::getUser(83);
+  	  $this->frontLogin($user->username,$user->username);
+	  $newAvatar = 'test/test/com_xipt/front/images/avatar_2.png';
+	  $newAvatarAU = 'test/test/com_xipt/front/images/avatar_2_AU.png';
+	  $this->verifyUploadAvatar(83,2,$newAvatar,$newAvatarAU); 
+	  $this->frontLogout();
+	  
+	  //updates from custom avatar
+	  $user = JFactory::getUser(84);
+  	  $this->frontLogin($user->username,$user->username);
+  	  $newAvatar = 'test/test/com_xipt/front/images/avatar_3.gif';
+  	  $newAvatarAU = 'test/test/com_xipt/front/images/avatar_3_AU.gif';
+  	  $this->verifyUploadAvatar(84,3,$newAvatar,$newAvatarAU); 
+  	  $this->frontLogout();
+  	  
+  	  $this->frontLogin();
+  	  $this->verifyRemovePicture(82,1); 
+  	  $this->verifyRemovePicture(83,2);
+  	  $this->verifyRemovePicture(84,3);
+  	  $this->frontLogout();
+  	  
+  }
   
-  	//filemtime
+  function verifyUploadAvatar($userid, $ptype, $newAvatar, $newAvatarAU)
+  {
+  		//check first if default avavatr exist or not
+  		$defaultAvatar	= XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
+  		//echo "\nDefault avavtar is $defaultAvatar";
+  		$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$defaultAvatar));
+  		
+  		//open page
+ 		$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=uploadAvatar");
+	  	$this->waitPageLoad();
+	  	$this->assertTrue($this->isTextPresent("Change profile picture"));
+
+	  	//upload new avavtr
+	  	$this->type("file-upload", JPATH_ROOT.DS.$newAvatar);
+	  	$this->click("file-upload-submit");
+	  	$this->waitPageLoad();
+	  	
+	  	//still on same avatar page
+	  	$this->assertTrue($this->isTextPresent("Change profile picture"));
+	  	
+	  	//1. verify that default avatar of this profiletype does not get deleted
+	  	$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$defaultAvatar));
+	  	
+	  	//2. watermark have been applied to it 	  	//try MD5 compare for now
+	  	$query = " SELECT * FROM `#__community_users` "
+	  			." WHERE `userid`='$userid' ";
+	  	
+	  	$db		=& JFactory::getDBO();
+	  	$db->setQuery($query);
+	  	$cuser =  $db->loadObject();
+	  	
+	  	$md5_avatar = md5(JFile::read(JPATH_ROOT.DS.$cuser->avatar));
+	  	$md5_thumb  = md5(JFile::read(JPATH_ROOT.DS.$cuser->thumb));
+	  	$md5_avatar_gold = md5(JFile::read(JPATH_ROOT.DS.$newAvatarAU));
+	  	$md5_thumb_gold = md5(JFile::read(XiPTLibraryUtils::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
+	  	
+	  	$this->assertEquals($md5_avatar, $md5_avatar_gold);
+	  	$this->assertEquals($md5_thumb, $md5_thumb_gold);
+  }
+  
+  function verifyRemovePicture($userid, $ptype)
+  {
+  		$defaultAvatar	= XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
+
+  		$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=$userid");
+	  	$this->waitPageLoad();
+	  	
+	  	$this->click("//a[@onclick=\"joms.users.removePicture('$userid');\"]");
+	  	//onclick="joms.users.removePicture('82');"
+	  	$this->waitForElement("cwin_tm");
+	  	$this->assertTrue($this->isTextPresent("Remove profile picture"));
+	  	sleep(2);
+	  	$this->click("//input[@value='Yes']");
+    	$this->waitPageLoad();
+    	$this->assertTrue($this->isTextPresent("Profile picture removed"));
+    	
+    	//now check if default avavatra exist 
+    	$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$defaultAvatar));
+    	
+    	//avatar is correct
+    	$query = " SELECT * FROM `#__community_users` "
+	  			." WHERE `userid`='$userid' ";
+	  	
+	  	$db		=& JFactory::getDBO();
+	  	$db->setQuery($query);
+	  	$cuser =  $db->loadObject();
+	  	
+	  	$this->assertEquals($cuser->avatar,$defaultAvatar); 
   }
 }
