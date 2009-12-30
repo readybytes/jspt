@@ -38,12 +38,18 @@ class plgSystemxipt_system extends JPlugin
 		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
 			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
-		
-		$option = JRequest::getCmd('option','','GET');
-		$view = JRequest::getCmd('view','BLANK','GET');
+		//sometimes in SEF, value from GET might be blank		
+		$option = JRequest::getCmd('option','BLANK','GET');
+		if($option == 'BLANK')
+			$option = JRequest::getVar('option','');
+
+		//sometimes in SEF, value from GET might be blank
 		$task = JRequest::getCmd('task','BLANK','GET');
 		if($task=='BLANK')
-			$task = JRequest::getCmd('task','BLANK','POST');
+			$task = JRequest::getVar('task','BLANK');
+			
+		$view = JRequest::getVar('view','BLANK');
+		
 		
 		switch(trim($option))
 		{		 

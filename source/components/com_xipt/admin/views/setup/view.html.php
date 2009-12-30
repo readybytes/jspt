@@ -102,6 +102,17 @@ class XiPTViewSetup extends JView
 				$requiredSetup['syncUpUserPT']['done'] = true;
 			}
 		
+			$link = JRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
+			if(XiPTHelperSetup::migrateAvatarRequired()) {
+				$requiredSetup['migrateAvatar']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO MIGRATE AVATARS").'</a>';
+				$requiredSetup['migrateAvatar']['done'] = false;
+			}
+			else {
+				$requiredSetup['migrateAvatar']['message'] = JText::_("AVATARS ALREADY MIGRATED");
+				$requiredSetup['migrateAvatar']['done'] = true;
+			}
+			
+			
 		/*Display only if user have AEC installed*/
 		if(XiPTLibraryAEC::_checkAECExistance()){
 			

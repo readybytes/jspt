@@ -506,27 +506,37 @@ class XiPTLibraryProfiletypes
 	
 	
     // Checks if given avatar is default profiletype avatar
-    // or default of one of ProfileType
+    // or default of one of ProfileType? 
 	function isDefaultAvatarOfProfileType($path,$isDefaultCheckRequired = false)
 	{
-		$searchFor 		= 'avatar';
-		
-		$db			=& JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote($searchFor)
-					.' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
-		$db->setQuery( $query );
-		$all = $db->loadObjectList();
-		
-		if($all)
-		foreach ($all as $one)
+		//if default check required //CODREV : we should not ignore case
+		if($isDefaultCheckRequired)
 		{
-			if(Jstring::stristr($one->avatar ,$path))
+			$val1 = JString::stristr(DEFAULT_AVATAR,$path);
+			$val2 = JString::stristr(DEFAULT_AVATAR_THUMB,$path);
+			if( $val1 || $val2 )
 				return true;
-			if(Jstring::stristr($path, XiPTLibraryUtils::getThumbAvatarFromFull($one->avatar)))
+		}	
+		
+		static $allAvatars = null ;
+		//it will improve the performance
+		if($allAvatars == null)
+		{
+			$searchFor 		= 'avatar';
+			$db			=& JFactory::getDBO();
+			$query		= 'SELECT '.$db->nameQuote($searchFor)
+						.' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
+			$db->setQuery( $query );
+			$allAvatars  = $db->loadObjectList();
+			if(!$allAvatars)
 				return true;
-			//CODREV : default value of $isDefaultCheckRequired  should be TRUE
-			if($isDefaultCheckRequired && ( Jstring::stristr(DEFAULT_AVATAR ,$path)
-				|| Jstring::stristr(DEFAULT_AVATAR_THUMB ,$path)))
+		}
+			
+		foreach($allAvatars as $one)
+		{
+			if(JString::stristr($one->avatar ,$path))
+				return true;
+			if(JString::stristr($path, XiPTLibraryUtils::getThumbAvatarFromFull($one->avatar)))
 				return true;
 		}
 		

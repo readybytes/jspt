@@ -246,4 +246,77 @@ class XiPTControllerSetup extends JController
         $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     }
     
+    /**
+     * this functions migrate all JSPT 1.4.xxx avatars
+     * to JSPT 2.0.xx version
+     */
+    function migrateAvatar()
+    {
+    	//Migrate Avatars
+		$imgPrefix 			= 'avatar_';
+		$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
+		
+		//here check if folder exist or not ? if not then create it.
+		if(JFolder::exists($storage)==false)
+			JFolder::create($storage);
+		
+		$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		
+		if(!$profiletypes)		
+			return;
+			
+		//get avatars of all profileype 
+		foreach($profiletypes as $profiletype)
+		{
+			$pId 	= $profiletype->id;
+			$avatar = $profiletype->avatar;
+
+			//if avatar is default then skip
+			if($avatar == DEFAULT_AVATAR)
+				continue;
+			
+			//create proper names 
+			$type = JFile::getExt($avatar);
+			$storageImage		= $storage. DS .$imgPrefix. $pId .".$type" ;
+			$storageThumbnail	= $storage. DS .$imgPrefix. $pId ."_thumb.$type";
+			$image				= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS .$imgPrefix. $pId .".$type" ;;			
+			//if avatar is already in new format 
+			if($avatar == $image)
+				continue;
+						
+			$avatarThumb = XiPTLibraryUtils::getThumbAvatarFromFull($avatar);
+	
+			//copy absolute files to new locations
+			JFile::copy(JPATH_ROOT.DS.$avatar, 	  $storageImage);
+			JFile::copy(JPATH_ROOT.DS.$avatarThumb,  $storageThumbnail);
+			
+			//IMP : First we need to update users. update all users of that profiletype
+			$allUsers = XiPTLibraryProfiletypes::getAllUsers($pId);
+			if(!$allUsers)
+				continue;
+
+			$filter[] = 'avatar';
+			$newData['avatar'] = $image;
+			$oldData['avatar'] = $avatar;  
+			foreach ($allUsers as $userid)
+				XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
+				
+				
+			//update database xipt_profiletypes
+			//IMP : Store reference path only
+			$db =& JFactory::getDBO();
+			$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
+	    			. 'SET ' . $db->nameQuote( 'avatar' ) . '=' . $db->Quote( $image ) . ' '
+	    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $pId );
+	    	$db->setQuery( $query );
+	    	$db->query( $query );
+			if($db->getErrorNum())
+				JError::raiseError( 500, $db->stderr());
+		}
+		
+		global $mainframe;
+		$msg = JText::_('AVATARS MIGRATED');
+		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg); 
+    }
+    
 }

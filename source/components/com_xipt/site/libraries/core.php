@@ -279,7 +279,8 @@ class XiPTLibraryCore
 	function updateCommunityUserAvatar($userid, $newAvatar)
 	{
 		/*
-		 * XITODO : During migration we should change profiletype avatars to profiletype-1, 2 etc.
+		 * IMP : Implemented in setup 
+		 * we migrate profiletype avatars to profiletype-1, 2 etc.
 		 * So that we do not need to tense about old avatar of profiletype
 		 * */
 		

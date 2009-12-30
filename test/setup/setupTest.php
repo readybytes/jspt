@@ -117,15 +117,15 @@ class SetupTest extends XiSelTestCase
     if(file_exists(JPATH_ROOT.'/components/com_acctexp'))
     {
 	    //link is present //image is correct
-	    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage8']/a"));
-	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage8']/img[contains(@src,'images/publish_x.png')]"));
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage9']/a"));
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage9']/img[contains(@src,'images/publish_x.png')]"));
 	    
-		$this->click("//td[@id='setupMessage8']/a");
+		$this->click("//td[@id='setupMessage9']/a");
 	    $this->waitPageLoad();
 	    
 	    //link should not be present     //image is correct
-	    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage8']/a"));
-	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage8']/img[contains(@src,'images/tick.png')]"));
+	    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage9']/a"));
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage9']/img[contains(@src,'images/tick.png')]"));
     }
     
     
@@ -177,5 +177,27 @@ class SetupTest extends XiSelTestCase
     //link should not be present     //image is correct
     $this->assertFalse($this->isElementPresent("//td[@id='setupMessage7']/a"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage7']/img[contains(@src,'images/tick.png')]"));
+  }
+  
+  function testMigrateAvatar()
+  {
+  	// setup default location 
+    $this->adminLogin();
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
+    $this->waitPageLoad();
+    
+    //link is present //image is correct
+    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage8']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage8']/img[contains(@src,'images/publish_x.png')]"));
+    
+	$this->click("//td[@id='setupMessage8']/a");
+    $this->waitPageLoad(); // will be back at same page
+    
+    //link should not be present     //image is correct
+    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage8']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage8']/img[contains(@src,'images/tick.png')]"));
+    
+    $this->_DBO->addTable('#__xipt_profiletypes');
+    $this->_DBO->addTable('#__community_users');
   }
 }

@@ -464,4 +464,37 @@ class XiPTHelperSetup
 		return true;
 	}
 	
+	
+	function migrateAvatarRequired()
+	{
+		//check for avatar
+		$imgPrefix 			= 'avatar_';
+		$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		
+		if(!$profiletypes)
+			return false;
+			
+		//get avatars of all profileype 
+		foreach($profiletypes as $profiletype)
+		{
+			$pId 	= $profiletype->id;
+			$avatar = $profiletype->avatar;
+
+			//if avatar is default then skip
+			if($avatar == DEFAULT_AVATAR)
+				continue;
+			
+			//create proper names 
+			$type = JFile::getExt($avatar);
+			$storageImage= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH. DS .$imgPrefix. $pId .".$type" ;
+			
+			//if avatar is already in new format 
+			if($avatar == $storageImage)
+				continue;
+			else
+				return true;
+		}
+		
+		return false;
+	}
 }

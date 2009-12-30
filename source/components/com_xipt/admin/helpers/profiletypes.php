@@ -355,14 +355,13 @@ function resetAllUsers($pid, $oldData, $newData)
 					break;
 			}
 			
-			//@todo: configurable path for avatar storage?
-			$storage			= JPATH_ROOT . DS . 'images' . DS . 'profiletype';
+			$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
 			$storageImage		= $storage . DS .$imgPrefix. $id . cImageTypeToExt( $file['type'] );
 			$storageThumbnail	= $storage . DS . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
-			$image				= 'images/profiletype/'.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
-			//$thumbnail			= 'images/profiletype/' . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
+			$image				= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
+			//$thumbnail			= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 			
-			//here check if folder exist or not ? if not then create it.
+			//here check if folder exist or not. if not then create it.
 			if(JFolder::exists($storage)==false)
 				JFolder::create($storage);
 

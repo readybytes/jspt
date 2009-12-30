@@ -24,6 +24,7 @@ define('WATERMARK_WIDTH',40);
 define('WATERMARK_HEIGHT_THUMB',16);
 define('WATERMARK_WIDTH_THUMB',16);
 
+//define avatar sizes
 define('AVATAR_HEIGHT',160);
 define('AVATAR_WIDTH',160);
 define('AVATAR_HEIGHT_THUMB',64);
@@ -31,6 +32,12 @@ define('AVATAR_WIDTH_THUMB',64);
 
 define('DEFAULT_AVATAR','components/com_community/assets/default.jpg');
 define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg');
+
+//where to store profiletype avatars
+define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images' . DS . 'profiletype');
+define('PROFILETYPE_AVATAR_STORAGE_PATH', JPATH_ROOT . PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH);
+
+
 
 //define some constant
 define('ALL',-1); //required in admin in ACL rules only ,
