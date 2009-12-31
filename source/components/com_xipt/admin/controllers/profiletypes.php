@@ -103,7 +103,7 @@ class XiPTControllerProfiletypes extends JController
 				if( isset( $fileWatermark['tmp_name'] ) && !empty( $fileWatermark['tmp_name'] ) ) 
 					XiPTHelperProfiletypes::uploadAndSetImage($fileWatermark,$row->id,'watermark');		
 
-				// CODREV: If not uploaded data then by default save the previous values 
+				//If not uploaded data then by default save the previous values 
 				$data['avatar'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'avatar');
 				$data['watermark'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'watermark');
 					

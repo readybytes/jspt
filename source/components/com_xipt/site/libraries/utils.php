@@ -196,9 +196,6 @@ class XiPTLibraryUtils
 	function getWatermark($userid)
 	{
 		$ptype = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
-		//CODREV : find what should be default watermark
-		//ptypename , watermark image or avatar
-		//generate image with name if name is enable
 		$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'watermark');
 		if(!$watermarkInfo)
 			$watermarkInfo = XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');

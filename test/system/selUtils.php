@@ -25,6 +25,9 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   	//to be available to all childs
     $this->setBrowser("*chrome");
     $this->setBrowserUrl( JOOMLA_LOCATION);
+    
+    $filter['debug']=1;
+    $this->updateJoomlaConfig($filter);
   }
   
   function assertPreConditions()
@@ -83,6 +86,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
       // page does not have any type of error
       // XIPT SYSTEM ERROR
       $this->assertFalse($this->isTextPresent("( ! ) Notice:"));
+      $this->assertFalse($this->isTextPresent("500 - An error has occurred."));
       // a call stack ping due to assert/notice etc.
   }
   
@@ -148,6 +152,26 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
 	$db->query();
   	
 	$done=true;
+  }
+  
+  function updateJoomlaConfig($filter)
+  {
+	  	$config =& JFactory::getConfig();		
+  		foreach($filter as $key=>$value)
+  			$config->setValue($key,$value);
+  		
+		jimport('joomla.filesystem.file');
+		$fname = JPATH_CONFIGURATION.DS.'configuration.php';
+		
+		system("sudo chmod 777 $fname");
+		
+  		if (!JFile::write($fname, 
+  				$config->toString('PHP', 'config', array('class' => 'JConfig')) )
+  		    ) 
+		{
+			echo JText::_('ERRORCONFIGFILE');
+		}
+  		
   }
   
 }

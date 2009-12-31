@@ -70,7 +70,7 @@ class XiPTModelApplications extends JModel
 		$limitstart	= ($limit != 0) ? ($limitstart / $limit ) * $limit : 0;
 
 		// Get the total number of records for pagination
-		$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__plgins' ).' '
+		$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__plugins' ).' '
 		          .'where '.$db->nameQuote('folder').'='.$db->Quote("community");
 		$db->setQuery( $query );
 		$total	= $db->loadResult();

@@ -394,7 +394,7 @@ function resetAllUsers($pid, $oldData, $newData)
 			}
 			
 			$db =& JFactory::getDBO();
-			//CODREV : now update profiletype with new avatar
+			//now update profiletype with new avatar
 			$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
 	    			. 'SET ' . $db->nameQuote( $what ) . '=' . $db->Quote( $image ) . ' '
 	    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $id );

@@ -236,8 +236,6 @@ class XiPTLibraryPluginHandler
 	 */
 	function onProfileAvatarUpdate($userid, &$old_avatar_path, &$new_avatar_path)
 	{
-	    //XITODO: check for a valid $userid
-
 		// When admin is removing a user's avatar
 		// we need to apply default avatar of profiletype
 		$isAdmin = XiPTLibraryUtils::isAdmin(JFactory::getUser()->id);

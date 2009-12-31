@@ -1,7 +1,4 @@
 <?php
-/**
- */
-
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
@@ -509,7 +506,8 @@ class XiPTLibraryProfiletypes
     // or default of one of ProfileType? 
 	function isDefaultAvatarOfProfileType($path,$isDefaultCheckRequired = false)
 	{
-		//if default check required //CODREV : we should not ignore case
+		//if default check required 
+		//we should not ignore case for windows 
 		if($isDefaultCheckRequired)
 		{
 			$val1 = JString::stristr(DEFAULT_AVATAR,$path);
