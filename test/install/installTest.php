@@ -36,6 +36,9 @@ class InstallTest extends XiSelTestCase
     $this->_DBO->addTable('#__xipt_profiletypes'); 
     $this->_DBO->addTable('#__xipt_users');
     $this->_DBO->addTable('#__xipt_users');
+    $this->_DBO->addTable('#__components');
+    $this->_DBO->filterRow('#__components',"`parent`='0' AND `option` ='com_xipt'");
+    $this->_DBO->filterColumn('#__components','id');
   }
   
   

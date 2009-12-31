@@ -118,7 +118,10 @@ class XiDBCheck
     
     function filterRow($table, $row)
     {
-        if(array_key_exists($this->excludeR[$table])==false)
+    	if(!$this->excludeR)
+    		$this->excludeR=array();
+    		
+        if(array_key_exists($table, $this->excludeR)==false)
             $this->excludeR[$table] = ' WHERE '. $row;
         else
             $this->excludeR[$table] = ' AND '. $row;

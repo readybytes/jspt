@@ -262,7 +262,6 @@ enablephotos=1'
 	$this->waitPageLoad();
 	$this->assertFalse($this->isTextPresent("Video has been disabled"));
   	
-	
 	$this->frontLogout();  
   }
   

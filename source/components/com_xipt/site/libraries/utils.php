@@ -25,7 +25,7 @@ class XiPTLibraryUtils
 	function ajaxCheckUserName(&$args, &$response)
 	{
 		// as per JomSocial code
-		$uname = $args;
+		$uname = $args[0];
 		if(XiPTLibraryUtils::checkIfUsernameAllowed($uname))
 			return true;
 

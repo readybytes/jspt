@@ -293,7 +293,6 @@ function migrate_tables()
 	backup_table('#__community_jspt_aec','#__xiptbak_jspt_aec');
 	backup_table('#__community_jsptacl','#__xiptbak_jsptacl');
 	
-	
 	remove_column('#__community_users','profiletype');
 	remove_column('#__community_users','template');
 	remove_column('#__community_fields','reg_show');
@@ -310,8 +309,46 @@ function migrate_tables()
 			. " WHERE `type`='profiletypes' ";
 	$db->setQuery($query);
 	$db->Query();
-			
+	
+	//also migrate configuration
+	migrate_configuration();
+	
 	return true;
+}
+
+
+function migrate_configuration()
+{
+	//
+	$query = "SELECT params FROM `#__community_config` WHERE `name`='config'";
+	$db	=& JFactory::getDBO();
+	$db->setQuery($query);
+	$params=$db->loadResult();
+	$JSParams = new JParameter($params);
+	
+	$JSPTConfig['jspt_during_reg']='show_ptype_during_reg';
+	$JSPTConfig['jspt_allow_typechange']='allow_user_to_change_ptype_after_reg';
+	$JSPTConfig['profiletypes']='defaultProfiletypeID';
+	$JSPTConfig['jspt_show_radio']='jspt_show_radio';
+	$JSPTConfig['jspt_allow_templatechange']='allow_templatechange';
+	$JSPTConfig['forceAecPlan']='aec_integrate';
+	$JSPTConfig['aecmessage']='aec_message';
+	$JSPTConfig['jspt_restrict_reg_check']='jspt_restrict_reg_check';
+	$JSPTConfig['jspt_prevent_username']='jspt_prevent_username';
+	$JSPTConfig['jspt_allowed_email']='jspt_allowed_email';
+	$JSPTConfig['jspt_prevent_email']='jspt_prevent_email';
+	
+	//insert data in #__component table
+	$paraStr = '';
+	foreach ($JSPTConfig as $oldkey => $newkey)
+	{
+		$value = $JSParams->get($oldkey);
+		$paraStr .= "$newkey=$value\n";
+	}
+		
+	$query = "UPDATE `#__components` SET `params`='".$paraStr."' WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1";	
+	$db->setQuery($query);
+	$db->query();
 }
 
 function check_column_exist($tableName, $columnName)

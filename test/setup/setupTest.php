@@ -46,12 +46,11 @@ class SetupTest extends XiSelTestCase
   {
   	// setup default location 
     $this->adminLogin();
-    
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
-    $this->waitPageLoad();
-    
     $filter['defaultProfiletypeID']=0;
 	$this->changeJSPTConfig($filter);
+	
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
+    $this->waitPageLoad();
 	
     //link is present , image is correct
     $this->assertTrue($this->isElementPresent("//td[@id='setupMessage2']/a"));
