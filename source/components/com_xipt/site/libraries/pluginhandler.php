@@ -233,6 +233,10 @@ class XiPTLibraryPluginHandler
 	 * delete non-default avatar when user change his avatar
 	 * so in that case if that user has any ptype default avatar
 	 * then our ptype avatar will be deleted.
+	 * 
+	 * This function also ensures that when remove pciture is used by admin
+	 * on custom avatar, then we need to add default avatar of profiletype to user
+	 * not the jomsocial default avatar
 	 */
 	function onProfileAvatarUpdate($userid, &$old_avatar_path, &$new_avatar_path)
 	{
@@ -241,11 +245,15 @@ class XiPTLibraryPluginHandler
 		$isAdmin = XiPTLibraryUtils::isAdmin(JFactory::getUser()->id);
 		$view = JRequest::getVar('view','','GET');
 		$task = JRequest::getVar('task','','GET');
+		//
 		if($isAdmin && $view == 'profile' && $task == 'removepicture')
 		{
 			//setup $new_avatar
 			$ptype = XiPTLibraryProfiletypes::getUserData($userid, 'PROFILETYPE');
 			$avatar = XiPTLibraryProfiletypes::getProfiletypeData($ptype, 'avatar');
+			//if users avatar is custom avatar then thumb is stored as thumb_XXXX.gif
+			//else if it is a default avatar(JomSocial OR Profiletype) then stored as XXX_thumb.gif
+			//HERE the new_avatar will be default jomsocial avatar so search _thumb 
 			$thumb = strstr('_thumb',$new_avatar_path);
 			if($thumb)
 				$new_avatar_path = XiPTLibraryUtils::getThumbAvatarFromFull($avatar);
@@ -255,6 +263,7 @@ class XiPTLibraryPluginHandler
 		
 		//check if avatar is ptype default avatar
 		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
+			//HERE we should search for _thumb, not for thumb_
 			$thumb = strstr('_thumb',$old_avatar_path);
 			if ($thumb)
 				$old_avatar_path = DEFAULT_AVATAR_THUMB;

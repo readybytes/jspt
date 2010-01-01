@@ -22,7 +22,7 @@ function getProfileTypeNameforApplication($id)
 function getProfileTypeNamesForApplicationId($aid)
 {
 	
-	assert($aid);
+	XiPTLibraryUtils::XAssert($aid, "Application Id cannot be null.");
 
 		$selected = array();
 		$selected = XiPTHelperApplications::getProfileTypeArrayForApplicationId($aid);
@@ -52,7 +52,7 @@ function getProfileTypeNamesForApplicationId($aid)
 function getProfileTypeArrayForApplicationId($aid)
 {
 	
-	assert($aid);
+	XiPTLibraryUtils::XAssert($aid, "Application ID cannot be NULL.");
 		
 	//Load all profiletypes for the field
 	$db			=& JFactory::getDBO();

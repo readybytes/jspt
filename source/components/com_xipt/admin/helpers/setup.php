@@ -54,7 +54,7 @@ class XiPTHelperSetup
 						$data['tips']			= 'Template Of User';
 						break;
 			default :
-						assert(0);
+						XiPTLibraryUtils::XAssert(0);
 						break;
 		}
 		$data['fieldcode']		= $what;
@@ -390,10 +390,10 @@ class XiPTHelperSetup
 
 		if(empty($result))
 		{
-			//not required assert b'coz from backend fisrt time admin will not have entry in community table
-			//and that time it will assert
+			//not required XiPTLibraryUtils::XAssert b'coz from backend fisrt time admin will not have entry in community table
+			//and that time it will XiPTLibraryUtils::XAssert
 			//when admin login from front-end commuity create entry for admin in community_users table
-			//assert(0);
+			//XiPTLibraryUtils::XAssert(0);
 			return false;
 		}
 		

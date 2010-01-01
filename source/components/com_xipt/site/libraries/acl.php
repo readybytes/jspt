@@ -130,7 +130,7 @@ class XiPTLibraryAcl
 		$db->setQuery( $query );
 		$result	= $db->loadObject();
 		
-		assert($result);
+		XiPTLibraryUtils::XAssert($result);
 		
 		//foreach($results as $result)
 		//{
@@ -179,7 +179,7 @@ class XiPTLibraryAcl
 	function aclMicroCheck($userID , $feature , $viewuserid = 0,$objectID = 0)
 	{
 		// get profiletype
-		assert($feature && $userID);
+		XiPTLibraryUtils::XAssert($feature && $userID);
 		
 		$myPID	 = XiPTLibraryProfiletypes::getUserData($userID,'PROFILETYPE');
 		$db		 = JFactory::getDBO();
@@ -282,7 +282,7 @@ class XiPTLibraryAcl
 				return self::getTotalMessageSent($userid,$otherpid);
 			
 			default :
-				assert(0);
+				XiPTLibraryUtils::XAssert(0);
 				
 		}
 		return 0;

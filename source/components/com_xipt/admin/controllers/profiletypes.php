@@ -89,14 +89,11 @@ class XiPTControllerProfiletypes extends JController
 			$id = $row->store();	
 			if($id != 0)
 			{
-				
 				//call uploadImage function if post(image) data is set
 				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
 		
 				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) )
 					XiPTHelperProfiletypes::uploadAndSetImage($fileAvatar,$row->id,'avatar');
- 
-
 
 				$fileWatermark		= JRequest::getVar( 'FileWatermark' , '' , 'FILES' , 'array' );
 		

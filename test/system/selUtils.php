@@ -88,6 +88,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
       // XIPT SYSTEM ERROR
       $this->assertFalse($this->isTextPresent("( ! ) Notice:"));
       $this->assertFalse($this->isTextPresent("500 - An error has occurred."));
+      $this->assertFalse($this->isTextPresent("XIPT-SYSTEM-ERROR"));
       // a call stack ping due to assert/notice etc.
   }
   

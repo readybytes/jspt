@@ -157,7 +157,7 @@ class XiPTLibraryUtils
 					$value = PRIVACY_PUBLIC;
 					break;
 				default:
-					assert(0);
+					XiPTLibraryUtils::XAssert(0);
 			}
 		return $value;
 	}
@@ -187,8 +187,6 @@ class XiPTLibraryUtils
 		jimport('joomla.filesystem.file');
 		$ext = JFile::getExt($avatar);
 		$thumb = JFile::stripExt($avatar).'_thumb.'.$ext;
-		$avatar = $thumb;
-		//print_r($thumb);
 		return $thumb;
 	}
 	
@@ -244,18 +242,6 @@ class XiPTLibraryUtils
 			return false;
 		}
 
-		/*static $tmp = 0;
-		if($tmp == 0)
-		{
-			$name = JPATH_ROOT.DS.$image.time();
-			ob_start();
-			echo phpinfo();
-			$output = ob_get_contents();
-			ob_end_clean();
-			
-			JFile::write($name, $output);
-			$tmp++;
-		}*/
 		$imageInfo	= getimagesize($image);
 		
 		if($imageInfo ==false)
@@ -302,7 +288,7 @@ class XiPTLibraryUtils
 	 * 
 	function XiImageAddWatermark( $imagePath, $watermarkPath , $positionX = 0 , $positionY = 0 )
 	{
-		assert(JFile::exists($imagePath) && JFile::exists($watermarkPath));
+		XiPTLibraryUtils::XAssert(JFile::exists($imagePath) && JFile::exists($watermarkPath));
 		
 		//original image
 		$destinationType = self::getImageType($imagePath);
@@ -389,7 +375,7 @@ class XiPTLibraryUtils
 			$redirectURL = base64_decode($retURL);
 
 		if($redirectURL == self::getCurrentURL())
-		    assert(0);
+		    XiPTLibraryUtils::XAssert(0);
 		    
 		return $redirectURL;
 	}
@@ -403,6 +389,35 @@ class XiPTLibraryUtils
 	    
 	    $mySess->set('RETURL', base64_encode(self::getCurrentURL()), 'XIPT');
 	    return;
+	}
+	
+	function XAssert($condition, $errMsg="", $severity="ERROR" ,$file=__FILE__, $function=__FUNCTION__,$line=__LINE__)
+	{
+		static $counter=0;
+		if($condition)
+		{
+			$counter++;
+			return true;
+		}
+
+		$errMsg .= "\n Filename : $file \n Function : $function \n Line : $line \n ";
+		$xiptErrorCode = "XIPT-SYSTEM-ERROR";
+		switch($severity)
+		{
+			case 'ERROR':
+				JError::raiseError($xiptErrorCode, $errMsg);
+				break;
+				
+			case 'WARNING':
+				JError::raiseWarning($xiptErrorCode, $errMsg);
+				break;
+				
+			case 'NOTICE':
+			default:
+				JError::raiseNotice($xiptErrorCode, $errMsg);
+				break;
+		}
+		return false;
 	}
 /* =====   Currently Not Required  ====
  *

@@ -70,7 +70,7 @@ class XiPTLibraryCore
     //    get required user info from community_users table
 	function getUserDataFromCommunity($userid,$what)
 	{
-		assert(!empty($what));
+		XiPTLibraryUtils::XAssert(!empty($what));
 		$db			=& JFactory::getDBO();
 		$query	= 'SELECT '.$db->nameQuote($what).' FROM '
 				. $db->nameQuote( '#__community_users' ) . ' '
@@ -142,7 +142,7 @@ class XiPTLibraryCore
 			$pID = XiPTLibraryProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
 		}
 		
-		assert($pID);
+		XiPTLibraryUtils::XAssert($pID);
 		$params = XiPTLibraryProfiletypes::getParams($pID);
 		
 		if($params){		
@@ -179,7 +179,7 @@ class XiPTLibraryCore
 	function updateCommunityCustomField($userId, $value, $what='')
 	{
 	    //ensure we are calling it for correct field
-	    assert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
+	    XiPTLibraryUtils::XAssert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
 
 	    // find the profiletype or template field
 	    //TODO : user $user->setInfo, once it comes or some other way,
@@ -192,7 +192,7 @@ class XiPTLibraryCore
 		
 		$field_id = $res->id;
 		// skip these calls from backend
-		assert($res) || JError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
+		XiPTLibraryUtils::XAssert($res) || JError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
 		
 		//if row does not exist
 		$db		=& JFactory::getDBO();
@@ -385,8 +385,8 @@ class XiPTLibraryCore
 			$member->permissions	= '0';
 			$store	= $member->store();
 	
-			// Add assertion if storing fails
-			CError::assert( $store , true , 'eq' , __FILE__ , __LINE__ );
+			// Add XiPTLibraryUtils::XAssertion if storing fails
+			XiPTLibraryUtils::XAssert( $store );
 	
 			if($member->approved)
 				$groupModel->addMembersCount($groupId);

@@ -15,7 +15,7 @@ class XiPTLibraryProfiletypes
 	 */
 	function saveXiPTUser($userid,$profiletype,$template)
 	{
-		assert($userid);
+		XiPTLibraryUtils::XAssert($userid);
 		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
 		
 		$data             = new stdClass();
@@ -98,7 +98,7 @@ class XiPTLibraryProfiletypes
 	 */
 	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
 	{
-		assert($userid) || JError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
+		XiPTLibraryUtils::XAssert($userid) || JError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
 		
 		foreach($filter as $feature)
 		{
@@ -139,7 +139,7 @@ class XiPTLibraryProfiletypes
 					break;
 					
 				default:
-					assert(0);
+					XiPTLibraryUtils::XAssert(0);
 					JError::raiseWarning('XIPT',"Not a valid filter options  ".__FUNCTION__);
 					break;
 			}
@@ -160,7 +160,7 @@ class XiPTLibraryProfiletypes
 	 */
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
-		assert($userid) || JError::raiseError('XIPTERR', 'No User ID in '.__FUNCTION__);
+		XiPTLibraryUtils::XAssert($userid, 'No User ID in '.__FUNCTION__, "ERROR");
 
 		//store prev profiletype
 		//IMP : must be first line, as we want to store prev profiletype
@@ -546,7 +546,7 @@ class XiPTLibraryProfiletypes
 	 */
 	/*function isProfileTypeDataResetRequired($userid, $check, $what='ALL')
 	{
-	    assert(0);
+	    XiPTLibraryUtils::XAssert(0);
 	}*/
 	
 	

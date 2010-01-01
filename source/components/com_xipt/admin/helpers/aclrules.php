@@ -33,7 +33,7 @@ class XiPTHelperAclRules
 				$allValues[] = ALL;
 				break;
 			default:
-				assert(0);
+				XiPTLibraryUtils::XAssert(0, "Unknown build type was asked.");
 		}
 		
 		if(!strcmp(strtolower($what),strtolower('profiletype')) || !strcmp(strtolower($what),strtolower('otherprofiletype')))
@@ -98,7 +98,7 @@ function _getDisplayNameofAclFeature($feature ="")
 		if(array_key_exists($feature,$allValues))
 				return ($allValues[$feature]);
 
-		assert(0);
+		XiPTLibraryUtils::XAssert(0, "Unknown aclFeature was asked.");
 		return false;	
 	}
 }

@@ -10,8 +10,8 @@ class XiPTModelUser extends JModel
 		
 		$db		=& JFactory::getDBO();
 	
-		assert($what);
-		assert($value);
+		XiPTLibraryUtils::XAssert($what);
+		XiPTLibraryUtils::XAssert($value);
 		$query		= ' UPDATE '. $db->nameQuote('#__xipt_users')
                		 	. ' SET '.$db->nameQuote($what).'='. $db->Quote($value)
                		 	. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);

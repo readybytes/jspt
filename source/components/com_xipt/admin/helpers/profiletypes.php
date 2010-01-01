@@ -46,7 +46,7 @@ class XiPTHelperProfiletypes
 					$allValues['0']='None';
 					break;
 			default:
-				assert(0);
+				XiPTLibraryUtils::XAssert(0);
 		}
 	
 		$html	= '<span>';
@@ -153,7 +153,7 @@ function getProfileTypeData($id,$what='name')
 				$defaultValue	=  '0';
 				break;
 		default	:
-				assert(0);
+				XiPTLibraryUtils::XAssert(0);
 	}
 
 	if($id==0)
