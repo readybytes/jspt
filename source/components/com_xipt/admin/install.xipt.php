@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-require_once dirname(JPATH_BASE).DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';
+require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';
 
 function show_instruction()
 {
@@ -152,7 +152,7 @@ function check_jomsocial_existance()
 function copy_files() 
 {
 	$filestoreplace = getJSPTFileList();
-	$MY_PATH_ADMIN	  = dirname( JPATH_BASE ) . DS. 'administrator' .DS.'components' . DS . 'com_xipt';
+	$MY_PATH_ADMIN	  = JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_xipt';
 	
 	foreach($filestoreplace AS $key => $val)
 	{
@@ -313,6 +313,18 @@ function migrate_tables()
 	//also migrate configuration
 	migrate_configuration();
 	
+	//also delete old MI of AEC if exist
+	$AEC_MI_PATH = JPATH_ROOT . DS. 'components' . DS . 'com_acctexp' . DS . 'micro_integration';
+	$AEC_MI_FILE = $AEC_MI_PATH .DS.'mi_jomsocialjspt.php';
+	
+	if(JFolder::exists($AEC_MI_PATH) && JFile::exists($AEC_MI_FILE ))
+	{
+		if(!JFile::delete($AEC_MI_FILE))
+		{
+			global $mainframe;
+			$mainframe->enqueueMessage("Unable to delete $AEC_MI_FILE, Please delete it manually.");
+		}
+	}
 	return true;
 }
 

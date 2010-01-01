@@ -179,7 +179,7 @@ class XiPTControllerSetup extends JController
         //now check XML File patch required
         if(XiPTHelperSetup::isXMLFilePatchRequired()) {
         	//give patch data fn file to patch
-        	$filename	= dirname( JPATH_BASE ) . DS. 'components' . DS . 'com_community'
+        	$filename	= JPATH_ROOT . DS. 'components' . DS . 'com_community'
         					.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
         	if (file_exists($filename)) {
 		

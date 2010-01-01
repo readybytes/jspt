@@ -301,7 +301,7 @@ class XiPTHelperSetup
 	
 	function isXMLFilePatchRequired()
 	{
-		$filename	= dirname( JPATH_BASE ) . DS. 'components' . DS . 'com_community'.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
+		$filename	= JPATH_ROOT . DS. 'components' . DS . 'com_community'.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
 		if (file_exists($filename)) {
 			
 			if(!is_readable($filename)) 
@@ -322,9 +322,9 @@ class XiPTHelperSetup
 
 	function copyLibraryFiles()
 	{
-		$XIPT_PATH_ADMIN	  = dirname( JPATH_BASE ) .DS. 'administrator' .DS.'components' . DS . 'com_xipt';
+		$XIPT_PATH_ADMIN	  = JPATH_ROOT .DS. 'administrator' .DS.'components' . DS . 'com_xipt';
 	
-		$COMMUNITY_PATH_FRNTEND = dirname( JPATH_BASE ) .DS. 'components' . DS . 'com_community';
+		$COMMUNITY_PATH_FRNTEND = JPATH_ROOT .DS. 'components' . DS . 'com_community';
 		
 		$sourceFile = $XIPT_PATH_ADMIN.DS.'hacks'.DS.'front_libraries_fields_profiletypes.php';
 		$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'profiletypes.php';

@@ -14,6 +14,15 @@ class InstallTest extends XiSelTestCase
     // setup default location 
     $this->adminLogin();
     
+    // first copy a dummy old AEC MI, so that we can test that file 
+    // does not exist after the migration
+    jimport( 'joomla.filesystem.file' );
+    jimport( 'joomla.filesystem.folder' );
+    $AEC_MI_PATH = dirname( JPATH_ROOT ) . DS. 'components' . DS . 'com_acctexp' . DS . 'micro_integration';
+	$AEC_MI_FILE = $AEC_MI_PATH .DS.'mi_jomsocialjspt.php';
+	if(JFolder::exists($AEC_MI_PATH))
+		$this->assertTrue(JFile::write($AEC_MI_FILE, "Dummy files"));
+    
     // go to installation
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
     $this->waitPageLoad("30000");
@@ -39,6 +48,9 @@ class InstallTest extends XiSelTestCase
     $this->_DBO->addTable('#__components');
     $this->_DBO->filterRow('#__components',"`parent`='0' AND `option` ='com_xipt'");
     $this->_DBO->filterColumn('#__components','id');
+    
+    //now compare that AEC MI deleted or not
+	$this->assertFalse(JFile::exists($AEC_MI_FILE));
   }
   
   

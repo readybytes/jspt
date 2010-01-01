@@ -5,9 +5,9 @@ defined('_JEXEC') or die();
 jimport( 'joomla.filesystem.folder' );
 jimport('joomla.filesystem.file');
 
-require_once dirname(JPATH_BASE).DS.'includes'.DS.'application.php';
+require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
+require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'jspt_functions.php';
 
-require_once dirname(JPATH_BASE).DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'jspt_functions.php';
 function com_uninstall()
 {
 	uncopyHackedFiles();
@@ -72,7 +72,7 @@ function uncopyHackedFiles()
 
 function unCopyXIPTFilesFromJomSocial()
 {
-	$COMMUNITY_PATH_FRNTEND = dirname( JPATH_BASE ) .DS. 'components' . DS . 'com_community';
+	$COMMUNITY_PATH_FRNTEND = JPATH_ROOT .DS. 'components' . DS . 'com_community';
 	
 	$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'profiletypes.php';
 	if(JFile::exists($targetFile))

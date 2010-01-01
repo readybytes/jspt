@@ -88,11 +88,11 @@ class XiPTHelperProfiletypes
 		return $rows;
 	}
 	
-	
 
 	function getBackendTemplatesList()
 	{
-		$path	= dirname(JPATH_BASE) . DS . 'components' . DS . 'com_community' . DS . 'templates';
+		return XiPTLibraryUtils::getTemplatesList();
+		/*$path	= JPATH_ROOT . DS . 'components' . DS . 'com_community' . DS . 'templates';
 	
 		$handle = @opendir($path);
 		if($handle)
@@ -104,7 +104,7 @@ class XiPTHelperProfiletypes
 					$templates[]	= $file;
 			}
 		}
-		return $templates;
+		return $templates;*/
 	}
 	
 function getProfileTypeData($id,$what='name')
