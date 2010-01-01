@@ -44,13 +44,16 @@ class ProfileTest extends XiSelTestCase
 	    
 	    foreach ($notAvail[$ptype] as $p)
 	    	$this->assertFalse($this->isTextPresent("Hometown".$p));
-	  
+	   
 	    //check others template
-	    $template[1] = "/components/com_community/templates/default/css/style.css";
-	    $template[2] = "/components/com_community/templates/blueface/css/style.css";
-	    $template[3] = "/components/com_community/templates/blackout/css/style.css";	    
-	    $this->assertTrue($this->isTextPresent($template[$p]));
-	    
+	    //<link rel="stylesheet" href="http://localhost/root6145/components/com_community/templates/default/css/style.css" type="text/css" />
+	    $template[1] = "components/com_community/templates/default/css/style.css";
+	    $template[2] = "components/com_community/templates/blueface/css/style.css";
+	    $template[3] = "components/com_community/templates/blackout/css/style.css";
+	    $element = "//link[@href='".JOOMLA_LOCATION.$template[$ptype]."']";
+	    //echo "\n Element is s". $element;
+	    //http://localhost/root6145/components/com_community/assets/window.css	    
+	    $this->assertTrue($this->isElementPresent($element));
   }
   
   //cross check page exists and comes
@@ -336,10 +339,13 @@ enablephotos=1'
   function testUploadAvatar()
   {
   	  //ensure we have watermarks in place
-  	  require_once (JPATH_BASE . '/components/com_xipt/includes.xipt.php' );
+  	  require_once (JPATH_ROOT . '/components/com_xipt/includes.xipt.php' );
   	  if(JFolder::exists(JPATH_ROOT.DS.'images/profiletype')==false)
 			JFolder::create(JPATH_ROOT.DS.'images/profiletype');
   	  
+	  $fname = JPATH_ROOT.DS.'images/profiletype';
+	  system("sudo chmod -R 777 $fname");
+		
   	  $watermarks[]='watermark_1.png';
   	  $watermarks[]='watermark_1_thumb.png';
   	  $watermarks[]='watermark_2.gif';
@@ -354,7 +360,8 @@ enablephotos=1'
   	  	if(JFile::exists($dest))
   	  		JFile::delete($dest);
   	  	
-  	  	JFile::copy($src, $dest);
+  	  	if(!JFile::copy($src, $dest))
+  	  		echo "\n Failed copy from $src to $dest ";
   	  	$this->assertTrue(JFile::exists($dest));
   	  }
 
@@ -374,7 +381,8 @@ enablephotos=1'
 	  	  if(JFile::exists($dest))
 	  	  		JFile::delete($dest);
 	  	  
-	  	  JFile::copy($src, $dest);
+	  	  if(!JFile::copy($src, $dest))
+  	  		echo "\n Failed copy from $src to $dest ";
 	  	  $this->assertTrue(JFile::exists($dest));
   	  }
   	  

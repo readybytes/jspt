@@ -35,7 +35,7 @@ define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg
 
 //where to store profiletype avatars
 define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images' . DS . 'profiletype');
-define('PROFILETYPE_AVATAR_STORAGE_PATH', JPATH_ROOT . PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH);
+define('PROFILETYPE_AVATAR_STORAGE_PATH', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH);
 
 
 

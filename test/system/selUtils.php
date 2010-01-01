@@ -27,6 +27,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
     $this->setBrowserUrl( JOOMLA_LOCATION);
     
     $filter['debug']=1;
+    $filter['error_reporting']=6143;
     $this->updateJoomlaConfig($filter);
   }
   
