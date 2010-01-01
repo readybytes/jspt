@@ -1,6 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
+
 require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';
 
 function show_instruction()
