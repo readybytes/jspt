@@ -118,56 +118,47 @@ class ProfiletypeTest extends XiSelTestCase
 	}
 
   function testAddProfileTypeAvatar()
-  {
-  	$this->_DBO->addTable('#__xipt_profiletypes');
-  	$this->_DBO->filterColumn('#__xipt_profiletypes','id');
-  	
-    
-      //    setup default location 
+  {    
+    //setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
     $this->waitPageLoad();
       
-	// add profiletype-one
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    
-    $this->type("name", "PROFILETYPE-1");
+	// Edit profiletype-one
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+    $this->waitPageLoad(); //1: png.jpg
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
     $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_1.jpg");
+    $this->click("resetAll1");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
-    
-    $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
   
-    $this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-2");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=2");
+    $this->waitPageLoad();//2:png,gif
 	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_2.png");
 	$this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_2.gif");
+	$this->click("resetAll1");
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
-	$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));
 	
-	// add entry 3 with default avatar and watermark as blank
-	$this->click("//td[@id='toolbar-new']/a");
-    $this->waitPageLoad();
-    $this->type("name", "PROFILETYPE-3");
+	// Edit entry 3 with default avatar and watermark as blank
+	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
+    $this->waitPageLoad();//3: jpg,-
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));
     
 	// now edit first entry, and change watermark
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
-    $this->waitPageLoad();
+    $this->waitPageLoad();//1. png,png
 	$this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_3.png");
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
     
-    //edit 1st entry
+    //edit 1st entry and change avatar before it was PNG and now its GIF
+    //user must be updated
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
-    $this->waitPageLoad();
+    $this->waitPageLoad(); //1: gif,png
 	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
@@ -175,15 +166,31 @@ class ProfiletypeTest extends XiSelTestCase
 	
     // now edit 3rd entry, and change watermark and avatar
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
-    $this->waitPageLoad();
+    $this->waitPageLoad();//3: png,png
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
-    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_1.jpg");
+    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_3.png");
+    $this->click("resetAll1");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));	
     
+    //now add profiletype-4
+    $this->click("//td[@id='toolbar-new']/a");
+    $this->waitPageLoad();
+    
+    $this->type("name", "PROFILETYPE-4");
+    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
+    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_3.png");
+    $this->click("//td[@id='toolbar-save']/a");//4:png.png
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("PROFILETYPE-4"));
+        
     // setup custom filters
+    $this->_DBO->addTable('#__xipt_profiletypes');
+  	$this->_DBO->filterColumn('#__xipt_profiletypes','id');
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    $this->_DBO->addTable('#__community_users');
+    $this->_DBO->filterColumn('#__community_users','params');
   }
   
   function testProfiletypeResetAll()
@@ -197,6 +204,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
     $this->select("privacy", "label=Public");
     $this->select("template", "value=default");
+    //previous was PNG, now adding GIF, so all users must be updated
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
     $this->click("resetAll1");
 	$this->click("//td[@id='toolbar-save']/a");
@@ -232,5 +240,4 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->_DBO->filterColumn('#__xipt_profiletypes','tip');
 	$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
   }
-  
 }

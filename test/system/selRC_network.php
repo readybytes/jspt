@@ -7,4 +7,4 @@ define('SCREENSHOT_PATH','/var/www/selRC');
 define('SCREENSHOT_URL','http://'.SEL_RC_SERVER.'/selRC');
 
 //we should calculate our own IP rather then hardcoding
-define('JOOMLA_HOST',$_SERVER['SERVER_ADDR']');
+define('JOOMLA_HOST',$_SERVER['SERVER_ADDR']);

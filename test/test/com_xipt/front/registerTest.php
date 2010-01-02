@@ -245,6 +245,9 @@ class RegisterTest extends XiSelTestCase
     	$this->click("xipt_back_link");
     	$this->waitPageLoad();
     }
+    
+    //now go upto
+    //fillDataPT
 
     
   }

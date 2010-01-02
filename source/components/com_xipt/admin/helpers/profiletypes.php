@@ -380,7 +380,6 @@ function resetAllUsers($pid, $oldData, $newData)
 			$oldFile = XiPTLibraryProfiletypes::getProfiletypeData($id,$what);
 
 			// If old file is default_thumb or default, we should not remove it.
-			// Need proper way to test it
 			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR ) 
 				&& !Jstring::stristr( $oldFile , DEFAULT_AVATAR_THUMB ) 
 					&& $oldFile != $image
@@ -393,8 +392,28 @@ function resetAllUsers($pid, $oldData, $newData)
 					JFile::delete($oldFile);
 			}
 			
+			//here due to extension mismatch we can break the functionality of avatar
+			if($what === 'avatar')
+			{
+				$newAvatar	= $image;
+				$newThumb   = XiPTLibraryUtils::getThumbAvatarFromFull($newAvatar);
+				$oldAvatar  = XiPTLibraryProfiletypes::getProfiletypeData($id,'avatar');
+					
+				$db =& JFactory::getDBO();
+				$query	= ' UPDATE ' . $db->nameQuote( '#__community_users' )
+		    			. ' SET ' 
+		    			. $db->nameQuote('avatar') . '=' . $db->Quote( $newAvatar )
+		    			. ' , '. $db->nameQuote('thumb') . '=' . $db->Quote( $newThumb)
+		    			. ' WHERE ' . $db->nameQuote( 'avatar' ) . '=' . $db->Quote( $oldAvatar);
+		    	$db->setQuery( $query );
+		    	$db->query( $query );
+		    	
+		    	if($db->getErrorNum())
+		    		JError::raiseError( 500, $db->stderr());		    			
+			}
+			
+			//now update profiletype with new avatar or watermark
 			$db =& JFactory::getDBO();
-			//now update profiletype with new avatar
 			$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
 	    			. 'SET ' . $db->nameQuote( $what ) . '=' . $db->Quote( $image ) . ' '
 	    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $id );
