@@ -104,7 +104,14 @@ class mi_jomsocialjspt
 
 	function setUserProfiletype($userId,$pId)
 	{
-		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		if($this->detect_application()==false)
+			return;
+			
+		//IMP : if MI are attached but aec_integrate is set to false
+		// then dont apply any action 
+		$aec_integrate =  XiPTLibraryUtils::getParams('aec_integrate');
+		if($aec_integrate == 0)
+			return;
 		XiPTLibraryProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
 	}
 

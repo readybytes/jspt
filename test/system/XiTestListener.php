@@ -26,6 +26,10 @@ class XiDBCheck
     {
         $this->log[]= "\n --> Comparing table ".$tableName;
         
+        //sometimes it creates issue :
+        if(!$this->excludeR || array_key_exists($tableName, $this->excludeR)==false)
+        	$this->excludeR[$tableName]="";
+        
         $tmpCol = $this->db->getTableFields($tableName, false);
         $allcol = array_keys ($tmpCol[$tableName]);
         $ec 	= $this->excludeC[$tableName];

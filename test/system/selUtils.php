@@ -176,4 +176,40 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   		
   }
   
+  function changePluginState($pluginname, $action=1)
+  {
+  	
+		$db			=& JFactory::getDBO();
+		$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
+				. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
+	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
+
+		$db->setQuery($query);		
+		
+		if(!$db->query())
+			return false;
+			
+		return true;
+  }
+  
+  
+  /**
+   * Verifies that plugin is in correct state
+   * @param $pluginname : Name of plugin
+   * @param $enabled : Boolean, 
+   * @return unknown_type
+   */
+  function verifyPluginState($pluginname, $enabled=true)
+  {
+  	
+		$db			=& JFactory::getDBO();
+		$query	= 'SELECT '.$db->nameQuote('published')
+				.' FROM ' . $db->nameQuote( '#__plugins' )
+	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
+
+		$db->setQuery($query);		
+		$actualState= (boolean) $db->loadResult();
+		$this->assertEquals($actualState, $enabled);
+  }
+  
 }
