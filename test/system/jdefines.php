@@ -14,6 +14,8 @@ require_once dirname(__FILE__). "/selRC_$whichSelRC.php";
 define('JOOMLA_LOCATION',	'http://'.JOOMLA_HOST.'/@joomla.folder@/');
 define('JOOMLA_FTP_LOCATION', 	JPATH_BASE);
 
+$_SERVER['HTTP_HOST'] = JOOMLA_LOCATION;
+
 define('TIMEOUT_SEC',30000);
 define('JOOMLA_ADMIN_USERNAME', 'admin');
 define('JOOMLA_ADMIN_PASSWORD',	'ssv445');

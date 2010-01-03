@@ -30,6 +30,14 @@ class XiPTLibraryPluginHandler
 	//if value exist in session then return ptype else return false
 	function isPTypeExistInSession()
 	{
+		$aecExists 		= XiPTLibraryAEC::_checkAECExistance();
+		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
+		if($aecExists && $integrateAEC)
+		{
+			$data  = XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
+			return $data['profiletype'];
+		}
+		
 		if($this->mySess->has('SELECTED_PROFILETYPE_ID', 'XIPT') == false)
 		    return 0;
 

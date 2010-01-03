@@ -80,7 +80,7 @@ class RegisterTest extends XiSelTestCase
   	
   }
   
-  function fillDataPT($ptype)
+  function fillDataPT($ptype, $full=true)
   {
   	$this->assertTrue($this->isTextPresent("Register new user"));
   	
@@ -119,6 +119,18 @@ class RegisterTest extends XiSelTestCase
     
     foreach ($notAvail[$ptype] as $p)
     	$this->assertFalse($this->isElementPresent("field".$p));
+    
+    //template
+    $this->assertTrue($this->isElementPresent("field16"));
+    //profiletype is correctly displayed
+    $element = "//input[@id='field17' and @value='$ptype']";
+    $this->assertTrue($this->isElementPresent($element));
+    
+    //sometime we dont want to complete the process
+    if($full===false)
+    {
+    	return $randomStr;
+    }
     
    	$this->click("btnSubmit");
     $this->waitPageLoad();
@@ -215,14 +227,10 @@ class RegisterTest extends XiSelTestCase
   {
   	$filter['aec_integrate']=1;
 	$this->changeJSPTConfig($filter);
-	
-    // go to register location 
-    $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=register");
-    $this->waitPageLoad();
-   
+
     $data[2] = 1;
     $data[4] = 3;
-    $data[5] = 4;
+//    $data[5] = 4;
     $data[13] = 2;
     
     //create backend test
@@ -230,6 +238,9 @@ class RegisterTest extends XiSelTestCase
     // attach them to plans as above
     foreach($data as $plan => $profiletype)
     {
+    	// go to register location 
+    	$this->open(JOOMLA_LOCATION."/index.php?option=com_acctexp&task=subscribe");
+    	$this->waitPageLoad();
     	$this->assertTrue($this->isTextPresent("Payment Plans"));
 
     	//select plan
@@ -238,17 +249,30 @@ class RegisterTest extends XiSelTestCase
     	
     	$this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));
     	$this->assertTrue($this->isElementPresent("xipt_back_link"));
-    	$this->assertTrue($this->isTextPresent("Register new user"));
     	$this->assertTrue($this->isTextPresent("PROFILETYPE-$profiletype"));
-
-    	// click on click here link
-    	$this->click("xipt_back_link");
-    	$this->waitPageLoad();
+    	
+    	$username = $this->fillDataPT($profiletype);
+    	$this->verifyUser($username, $profiletype);
     }
     
-    //now go upto
-    //fillDataPT
-
-    
+    foreach($data as $plan => $profiletype)
+    {
+	    // now test some partial registration
+	    $this->open(JOOMLA_LOCATION."/index.php?option=com_acctexp&task=subscribe");
+	    $this->waitPageLoad();
+	    $this->assertTrue($this->isTextPresent("Payment Plans"));
+	
+    	//select plan
+	    $this->click("//div[@class='aec_ilist_item aec_ilist_item_$plan']/div/div/form/input[@name='submit']");
+	    $this->waitPageLoad();
+	    	
+	    $this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));
+	    $this->assertTrue($this->isElementPresent("xipt_back_link"));
+	    $this->assertTrue($this->isTextPresent("PROFILETYPE-$profiletype"));
+	    //here due to partial registration
+	    //profiletype might get mixed : lets test it
+	    $username = $this->fillDataPT($profiletype,false);
+    }
+    	
   }
 }
