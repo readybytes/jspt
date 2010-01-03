@@ -262,7 +262,7 @@ class XiPTLibraryPluginHandler
 			//if users avatar is custom avatar then thumb is stored as thumb_XXXX.gif
 			//else if it is a default avatar(JomSocial OR Profiletype) then stored as XXX_thumb.gif
 			//HERE the new_avatar will be default jomsocial avatar so search _thumb 
-			$thumb = strstr('_thumb',$new_avatar_path);
+			$thumb = JString::stristr($new_avatar_path,'thumb');
 			if($thumb)
 				$new_avatar_path = XiPTLibraryUtils::getThumbAvatarFromFull($avatar);
 			else
@@ -272,7 +272,7 @@ class XiPTLibraryPluginHandler
 		//check if avatar is ptype default avatar
 		if(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
 			//HERE we should search for _thumb, not for thumb_
-			$thumb = strstr('_thumb',$old_avatar_path);
+			$thumb = JString::stristr($old_avatar_path,'thumb');
 			if ($thumb)
 				$old_avatar_path = DEFAULT_AVATAR_THUMB;
 			else
@@ -289,7 +289,7 @@ class XiPTLibraryPluginHandler
 			return true;
 		
 		//check what is new image , if thumb or original
-		if(strstr($new_avatar_path,'thumb'))
+		if(JString::stristr($new_avatar_path,'thumb'))
 			$what = 'thumb';
 		else
 			$what = 'avatar';

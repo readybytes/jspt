@@ -464,6 +464,7 @@ enablephotos=1'
   function verifyRemovePicture($userid, $ptype)
   {
   		$defaultAvatar	= XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
+  		$defaultThumb	= XiPTLibraryUtils::getThumbAvatarFromFull($defaultAvatar);
 
   		$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=$userid");
 	  	$this->waitPageLoad();
@@ -489,5 +490,6 @@ enablephotos=1'
 	  	$cuser =  $db->loadObject();
 	  	
 	  	$this->assertEquals($cuser->avatar,$defaultAvatar); 
+	  	$this->assertEquals($cuser->thumb,$defaultThumb);
   }
 }
