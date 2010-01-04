@@ -26,6 +26,10 @@
 				<include name="com*${global.version}.${svn.lastrevision}.zip" />
 				<include name="plg*${global.version}.${svn.lastrevision}.zip" />
 			</fileset>
+
+			<fileset dir="${global.dir.root}/data">
+				<include name="JSPT_${global.version}_Documentation.pdf" />
+			</fileset>
 		</copy>
 
 			<zip destfile="${global.dir.packages}/JSPT-${global.version}.${svn.lastrevision}-Unzip-First.zip" 
