@@ -320,7 +320,7 @@ class XiPTLibraryProfiletypes
                 break;
                 
 	        default :
-	            JError::raiseError('XIPT_ERR','XIPT System Error');
+	            JError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
 	    }
 
 	    $db		=& JFactory::getDBO();

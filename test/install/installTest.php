@@ -196,7 +196,7 @@ function testXiptUninstallReinstall()
   		//1. Plugins are disabled
   		//2. Files are properly unpatched
   		//3. Custom Fields have been unpublished
-  		//4. XITODO : AEC MI should not apply any action
+  		//4. AEC MI should not apply any action
 
   		//1.
   		$this->verifyPluginState('plg_xipt_community',false);

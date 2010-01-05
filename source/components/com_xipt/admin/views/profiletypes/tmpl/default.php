@@ -92,7 +92,7 @@ function submitbutton( action )
 				<img src="<?php echo JURI::root().$field->avatar;?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
 			<td align="center" id="watermark<?php echo $field->id;?>">
-				<img src="<?php echo JURI::root().$field->watermark;?>" width="64" height="64" border="0" alt="<?php echo $field->watermark; ?>" />	
+				<img src="<?php echo JURI::root().$field->watermark;?>" width="<?php echo WATERMARK_WIDTH_THUMB; ?>" height="<?php echo WATERMARK_HEIGHT_THUMB; ?>" border="0" alt="<?php echo $field->watermark; ?>" />	
 			</td>
 			<td align="center" id="template<?php echo $field->id;?>">
 				<?php echo $field->template; ?>

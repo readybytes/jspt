@@ -8,7 +8,7 @@
 	<copyright>All rights reserved</copyright>
 	<license>GNU GPL v2.0</license>
 	<version>@global.version@.@svn.lastrevision@</version>
-	<description>JSPT is a component for JomSocial : Add's profile customization as per user types</description>
+	<description>JSPT (code name is XIPT) is a component to setup multiple user profile types in JomSocial</description>
 	<installfile>install.xipt.php</installfile>
 	<uninstallfile>uninstall.xipt.php</uninstallfile>
 

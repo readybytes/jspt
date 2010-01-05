@@ -343,7 +343,7 @@ class XiPTLibraryUtils
 		
 		if(!$params)
 		{
-		    JError::raiseWarning('XIPT_SYS_ERR','JSPT PARAMS ARE NULL');
+		    JError::raiseWarning('XIPT-SYSTEM-ERROR','JSPT PARAMS ARE NULL');
 		}
 		
 		if(empty($paramName))

@@ -55,8 +55,8 @@ class mi_jomsocialjspt
 		$settings['profiletype']				= array( 'list' );
 		$settings['profiletype_after_exp'] 		= array( 'list' );
 
-		//CODREV : visible should be true;
-	 	$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		$filter = array ('published'=>1);
+	 	$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
 
 		$spt = array();
 		$spte = array();

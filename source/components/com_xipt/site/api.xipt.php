@@ -1,10 +1,10 @@
 <?php
 /**
 * @version      $Id$
-* @package      JoomlaXi
-* @subpackage   JomSocial Profile Types
+* @package      JomSocial Profile Types
+* @subpackage   API
 * @copyright    Copyright (C) 2009 - 2009 Ready Bytes Software Labs Pvt. Ltd. All rights reserved.
-* @license      GNU/GPL, see LICENSE.php
+* @license      GNU/GPL v2, see LICENSE.php
 */
 
 
@@ -14,11 +14,11 @@ class XiptAPI
 {
     
 	/**
-	 * Collect Profiletype from user-id
+	 * Collect User's Profiletype from user-id
 	 * 
 	 * @param $userid
 	 * @param $what (default value is "id", you can ask for "name" too)
-	 * @return unknown_type
+	 * @return int (id) or String (Name)
 	 */
 	function getUserProfiletype($userid, $what='id')
 	{
@@ -31,17 +31,30 @@ class XiptAPI
 	}
 	
 	/**
-	 * Gives profiletype attributes -
+	 * Use this function to update user's profiletype
+	 * @param $userId			: Which user's profiletype should be updated
+	 * @param $profiletypeId	: New Profiletype ID
+	 * @param $reset			: Which attributes should be reset, default is ALL
+	 * 							  or you can use (profiletype, jusertype, avatar, group, privacy etc.)
+	 * @return unknown_type
+	 */
+	function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')
+	{
+		return XiPTLibraryProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $reset);
+	}
+
+	/**
+	 * Gives all the profiletypes attributes -
 	 *  
 	 *  - if "id" is not given then returns all profiletypes
-	 *  - if "visible" is true, then send all profiletypes, invisibles too. 
+	 *   
 	 * @param $id
-	 * @param $visible
+	 * @param $filter : Associative array to define conditions
 	 * @return Array of Profiletype Objects
 	 */
-	function getProfiletypeInfo($id=0,$onlyvisible=false,$onlypublished=1)
+	function getProfiletypeInfo($id=0, $filter)
 	{
-		$filter = array('published'=>$onlypublished);
+		//$filter = array('published'=>$onlypublished);
 	    $allPT = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
 
 	    //no profiletype available
@@ -55,7 +68,11 @@ class XiptAPI
 	    //return specfic array
 	    foreach($allPT as $pt)
 	        if($pt->id == $id)
-	            return $pt;
+	        {
+	        	//return always an array
+	        	$retVal[] = $pt;
+	            return $retVal;
+	        }
 
 	    // invalid id 
 	    return null;  
@@ -69,23 +86,29 @@ class XiptAPI
 		return XiPTLibraryProfiletypes::getDefaultProfiletype();
 	}
 	
-
 	/**
-	 * Use this function to update user's profiletype
-	 * @param $userId			: Which user's profiletype should be updated
-	 * @param $profiletypeId	: New Profiletype ID
-	 * @param $reset			: Which attributes should be reset, default is ALL
-	 * 							  or you can use (profiletype, jusertype, avatar, group, privacy etc.)
+	 * returns user information
+	 * @param $userid : 
+	 * @param $what : can be 'PROFILETYPE' or 'TEMPLATE'
 	 * @return unknown_type
 	 */
-	function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')
-	{
-		return XiPTLibraryProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $reset);
-	}
-	
-	
 	function getUserInfo($userid, $what='PROFILETYPE')
 	{
 		return XiPTLibraryProfiletypes::getUserData($userid,$what);
+	}
+	
+	
+	/**
+	 * Returns any global configuration settings in JSPT 
+	 * @param $paramName : the value of which variable you require
+	 * @param $defaultValue
+	 * @return unknown_type
+	 */
+	function getGlobalConfig($paramName='', $defaultValue=0)
+	{
+		if($paramName === '')
+			return null;
+			
+		return XiPTLibraryUtils::getParams($paramName,'com_xipt' ,$defaultValue);
 	}
 }
