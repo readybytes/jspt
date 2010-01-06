@@ -5,10 +5,10 @@ echo $this->pane->startPanel( JText::_('JOOMLAXI UPDATES') , 'xipt' );
 
 ?>
 	<script src="http://widgets.twimg.com/j/2/widget.js"></script>
-	<script>
+<script>
 new TWTR.Widget({
-version: 2,
-type: 'search',
+  version: 2,
+  type: 'search',
 search: 'JoomlaXiNews',
 interval: 6000,
 title: '',
@@ -26,15 +26,15 @@ color: '#444444',
 links: '#1985b5'
 }
 },
-features: {
-scrollbar: false,
-loop: false,
-live: false,
-hashtags: true,
-timestamp: true,
-avatars: false,
-behavior: 'all'
-}
+  features: {
+    scrollbar: false,
+    loop: true,
+    live: false,
+    hashtags: false,
+    timestamp: true,
+    avatars: true,
+    behavior: 'default'
+  }
 }).render().start();
 </script>
 

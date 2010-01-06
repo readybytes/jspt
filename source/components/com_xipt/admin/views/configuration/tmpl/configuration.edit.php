@@ -8,16 +8,17 @@ defined('_JEXEC') or die('Restricted access');
 		<table class="noshow">
 			<tr>
 				<td>
-					<?php require_once( dirname(__FILE__) . DS . 'groups.php' ); ?>
-					<?php require_once( dirname(__FILE__) . DS . 'reportings.php' ); ?>
-					<?php require_once( dirname(__FILE__) . DS . 'videos.php' ); ?>
+					<?php require_once( $this->jsConfigPath . DS . 'registrations.php' ); ?>
+					<?php require_once( $this->jsConfigPath . DS . 'reportings.php' ); ?>
+					<?php require_once( $this->jsConfigPath  . DS . 'privacy.php' ); ?>
+					<?php require_once( $this->jsConfigPath  . DS . 'messaging.php' ); ?>
+					<?php require_once( $this->jsConfigPath  . DS . 'walls.php' ); ?>
 				</td>
 				<td>
-					<?php require_once( dirname(__FILE__) . DS . 'photos.php' ); ?>
-					<?php require_once( dirname(__FILE__) . DS . 'privacy.php' ); ?>
-					<?php require_once( dirname(__FILE__) . DS . 'messaging.php' ); ?>
-					<?php require_once( dirname(__FILE__) . DS . 'walls.php' ); ?>
-					
+					<?php require_once( $this->jsConfigPath . DS . 'groups.php' ); ?>
+					<?php require_once( $this->jsConfigPath . DS . 'videos.php' ); ?>
+					<?php require_once( $this->jsConfigPath . DS . 'photos.php' ); ?>
+					<?php require_once( $this->jsConfigPath . DS . 'myblog.php' ); ?>
 				</td>
 			</tr>
 		</table>

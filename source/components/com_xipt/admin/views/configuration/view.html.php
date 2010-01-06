@@ -79,6 +79,11 @@ class XiPTViewConfiguration extends JView
 		$this->assign( 'uploadLimit' , $uploadLimit );
 		$this->assign( 'config'	, $params );
 		$this->assign( 'id'	, $id );
+		$lang =& JFactory::getLanguage();
+		if($lang)
+			$lang->load( 'com_community' );
+	
+		$this->assign( 'jsConfigPath'	, JPATH_ADMINISTRATOR .DS.'components'. DS. 'com_community'.DS.'views'.DS.'configuration'.DS.'tmpl' );
 		
 		// Set the titlebar text
 		JToolBarHelper::title( sprintf(JText::_( 'EDIT CONFIGURATION'), $name), 'configuration' );

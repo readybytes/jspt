@@ -42,33 +42,6 @@ function submitbutton( action )
 			<th width="30%">
 				<?php echo JText::_( 'RESET_TO_JOMSOCIAL' ); ?>
 			</th>
-			<!--<th width="10%">
-				<?php echo JText::_( 'WATERMARK' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'GROUP' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'PRIVACY' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'TEMPLATE' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'JOOMLA USER TYPE' ); ?>
-			</th>
-			<th width="5%">
-				<?php echo JText::_( 'REQUIRE APPROVAL' ); ?>
-			</th>
-			<th width="5%">
-				<?php echo JText::_( 'ALLOW TEMPLATE' ); ?>
-			</th>
-			<th width="5%">
-				<?php echo JText::_( 'PUBLISHED' ); ?>
-			</th>
-			<th width="5%" align="center">
-				<?php echo JText::_( 'ORDERING' ); ?>
-			</th> -->
 		</tr>		
 	</thead>
 <?php
