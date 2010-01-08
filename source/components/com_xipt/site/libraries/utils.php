@@ -220,8 +220,12 @@ class XiPTLibraryUtils
 		return $type;
 	}
 	
-	function addWatermarkOnAvatar($userid, &$image, $waterMark, $what)
+	//When we do not modify original image path, then we should not call it by reference.
+	function addWatermarkOnAvatar($userid, $originalImage, $waterMark, $what)
 	{
+		//IMP : do not modify original image.
+		$image = JPATH_ROOT. DS. $originalImage;
+		
 		// Load image helper library as it is needed.
 		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 		ini_set('gd.jpeg_ignore_warning', 1);
@@ -229,7 +233,7 @@ class XiPTLibraryUtils
 		if($what == 'thumb')
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
 		
-		$image = JPATH_ROOT. DS. $image;
+		
 		$waterMark= JPATH_ROOT. DS. $waterMark;
 		
 		$type = self::getImageType($image);

@@ -48,6 +48,7 @@ class RegisterTest extends XiSelTestCase
   		
 		$this->userRegistrationForPT(1);
 		$this->userRegistrationForPT(2);
+		$this->userRegistrationForPT(2);
 		$this->userRegistrationForPT(3);		
   }
   
@@ -68,15 +69,45 @@ class RegisterTest extends XiSelTestCase
     $username =  $this->fillDataPT($ptype);
     
     //avatar page
-    $this->assertTrue($this->isTextPresent("Change profile picture"));
-    // verify user's attributes in Joomla User and JomSocial User tables 
+    $this->assertTrue($this->isTextPresent("Change profile picture")); 
     $this->assertTrue($this->verifyAvatar($ptype));
-    $this->click("link=[Skip]");
-    $this->waitPageLoad();
+    
+    //we should try to upload custom avatar also, so that it can be tested.
+    if($ptype == 2)
+    {
+    	$customAvatar = 1;
+    	//try once to apply watermark too
+    	static $counter=0;
+    	if($counter==0)
+    	{
+			//make watermark enable for one type
+    		$filter['show_watermark']=1;
+    		$this->changeJSPTConfig($filter);
+    	}
+    	
+    	$newAvatar = 'test/test/com_xipt/front/images/avatar_3.gif';
+    	$this->type("file-upload", JPATH_ROOT.DS.$newAvatar);
+	  	$this->click("file-upload-submit");
+    	$this->waitPageLoad();
+    	
+      	if($counter==0)
+    	{
+    		$filter['show_watermark']=0;
+    		$this->changeJSPTConfig($filter);
+    		$counter++;
+    	}
+    }
+    else
+    {
+    	$customAvatar = 0;
+    	$this->click("link=[Skip]");
+    	$this->waitPageLoad();
+    }
+    
     $this->assertTrue($this->isTextPresent("User Registered."));
     
     //verify users
-    $this->assertTrue($this->verifyUser($username, $ptype));
+    $this->assertTrue($this->verifyUser($username, $ptype, $customAvatar));
   	
   }
   
@@ -155,7 +186,7 @@ class RegisterTest extends XiSelTestCase
 	  	
   }
   
-  function verifyUser($username, $ptype)
+  function verifyUser($username, $ptype, $customAvatar = 0)
   {
   	$db	=& JFactory::getDBO();
   	$query	= " SELECT `id` FROM #__users "
@@ -181,13 +212,24 @@ class RegisterTest extends XiSelTestCase
   			." WHERE `memberid`='". $userid ."' LIMIT 1";
   	$db->setQuery($query);
   	$groups = $db->loadResultArray();
+  	
+  	//if custom avatar was uploaded
+  	if($customAvatar==1)
+  	{
+  		$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$cUser->_avatar));
+  		$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$cUser->_thumb));
+  	}
+  	
   	//echo $groups;
   	switch ($ptype)
   	{
   		case '1':
   			$this->assertEquals($jUser->usertype,"Registered");
-  			$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
-  			$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+  			if($customAvatar==0)
+  			{
+  				$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
+  				$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+  			}
   			$this->assertEquals($privacy,PRIVACY_PUBLIC);
   			$this->assertEquals($template,"default");
   			$this->assertEquals($profiletype,1);
@@ -195,8 +237,11 @@ class RegisterTest extends XiSelTestCase
   			break;
   		case '2':
   			$this->assertEquals($jUser->usertype,"Editor");
-  			$this->assertEquals($cUser->_avatar,"components/com_community/assets/group.jpg");
-  			$this->assertEquals($cUser->_thumb,"components/com_community/assets/group_thumb.jpg");
+  			if($customAvatar==0)
+  			{
+  				$this->assertEquals($cUser->_avatar,"components/com_community/assets/group.jpg");
+  				$this->assertEquals($cUser->_thumb,"components/com_community/assets/group_thumb.jpg");
+  			}
   			$this->assertEquals($privacy,PRIVACY_FRIENDS);
   			$this->assertEquals($template,"blueface");
   			$this->assertEquals($profiletype,2);
@@ -206,8 +251,11 @@ class RegisterTest extends XiSelTestCase
   			
   		case '3':
 	  		$this->assertEquals($jUser->usertype,"Publisher");
-	  		$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
-  			$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+	  		if($customAvatar==0)
+  			{
+  				$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
+  				$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+  			}
   			$this->assertEquals($privacy,PRIVACY_MEMBERS);
   			$this->assertEquals($template,"blackout");
   			$this->assertEquals($profiletype,3);

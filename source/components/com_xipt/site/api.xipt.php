@@ -52,7 +52,7 @@ class XiptAPI
 	 * @param $filter : Associative array to define conditions
 	 * @return Array of Profiletype Objects
 	 */
-	function getProfiletypeInfo($id=0, $filter)
+	function getProfiletypeInfo($id=0, $filter=array())
 	{
 		//$filter = array('published'=>$onlypublished);
 	    $allPT = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
