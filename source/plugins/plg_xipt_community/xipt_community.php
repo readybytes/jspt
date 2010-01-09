@@ -48,7 +48,7 @@ class plgCommunityxipt_community extends CApplications
 	}
 
 	// update the configuration
-	function onAfterConfigCreate(&$config)
+	function onAfterConfigCreate($config)
 	{
 		return $this->_pluginHandler->onAfterConfigCreate($config);
 	}
@@ -68,5 +68,4 @@ class plgCommunityxipt_community extends CApplications
 	{
 		return $this->_pluginHandler->onAfterProfileUpdate($userId, $saveSuccess);
 	}
-
 }
