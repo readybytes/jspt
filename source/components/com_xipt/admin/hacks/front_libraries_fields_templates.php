@@ -7,7 +7,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-
+ 
 class CFieldsTemplates
 {
 	var $_mainframe;
@@ -32,7 +32,7 @@ class CFieldsTemplates
 	function getFieldData( $value )
 	{
 		$userid = JRequest::getVar('userid',0);
-		$tName = self::getTemplateValue($value,$userid);
+		$tName = JText::_(self::getTemplateValue($value,$userid));
 		
 		/*
 		 // add search link
@@ -54,7 +54,7 @@ class CFieldsTemplates
 		$templates = XiPTLibraryUtils::getTemplatesList();
 		$class	= ($required == 1) ? ' required' : '';
 		
-		$selectedValue = CFieldsTemplates::getTemplateValue($tName,$user->id);
+		$selectedValue = JText::_(CFieldsTemplates::getTemplateValue($tName,$user->id));
 		
 		$allowToChangeTemplate = $this->_params->get('allow_templatechange',0);
 		$allowToChangeTemplate = $allowToChangeTemplate || XiPTLibraryUtils::isAdmin($user->id);

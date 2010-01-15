@@ -60,7 +60,7 @@
 	</target>
 
 	<target name="svn_lastrevision" depends="config">
-		<svnlastrevision workingcopy="${global.dir.local}" propertyname="svn.lastrevision" />
+		<svnlastrevision workingcopy="${global.dir.root}" propertyname="svn.lastrevision" />
 	</target>
 	
 </project>

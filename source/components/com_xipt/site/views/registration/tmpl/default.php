@@ -2,9 +2,8 @@
 // Disallow direct access to this file
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
 ?>
-
 <form action="<?php echo JRoute::_( 'index.php?option=com_xipt&view=registration',false ); ?>" method="post" name="ptypeForm">
-
+ 
 	<div class="registerProfileType">
 	<h3 id="Title"><?php
 	echo JText::_ ( 'CHOOSE PROFILE TYPE' );
@@ -36,7 +35,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 					<div id="Name">
 							<input type="radio" id="profiletypes<?php echo $pType->id?>" name="profiletypes" 
 									value="<?php echo $pType->id;?>" <?php echo $selected; ?> />
-							<?php echo $pType->name; ?>
+							<?php echo JText::_($pType->name); ?>
 					</div>
 		
 					<div id="Details">
@@ -44,7 +43,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 							<img src="<?php echo $pType->avatar; ?>" height="60px" width="60px"/>
 						</div>
 						
-						<p id="Description"> <?php echo $pType->tip; ?> </p>
+						<p id="Description"> <?php echo JText::_($pType->tip); ?> </p>
 					</div>
 				</div>
 				
@@ -54,7 +53,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 			else
 			{
 				// show as selectbox	
-			    $option		= $pType->name;
+			    $option		= JText::_($pType->name);
 				$id			= $pType->id;
 			    
 			    $selected	= ( JString::trim($id) == $this->selectedProfileTypeID ) ? ' selected="true"' : '';

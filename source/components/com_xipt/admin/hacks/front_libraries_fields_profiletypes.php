@@ -4,7 +4,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-
+ 
 class CFieldsProfiletypes
 {
 	/* Value must be numeric */
@@ -66,7 +66,7 @@ class CFieldsProfiletypes
 
 		return $data; //$pName;
 		*/
-		return $pName;
+		return JText::_($pName);
 	}
 	
 	/*
@@ -90,7 +90,7 @@ class CFieldsProfiletypes
 							value="'.$pID.'" />';
 			
 			$pName = XiPTLibraryProfiletypes::getProfiletypeName($pID);
-			$html .= $pName;
+			$html .= JText::_($pName);
 			
 			return $html;
 		}
@@ -111,6 +111,7 @@ class CFieldsProfiletypes
 			}
 			
 			$pName = XiPTLibraryProfiletypes::getProfileTypeName($pID);
+			$pName =JText::_($pName);
 			$html = '<input type="hidden"
 							id="field'.$field->id.'"
 							name="field' . $field->id.'"
@@ -132,7 +133,7 @@ class CFieldsProfiletypes
 				if( !empty( $selected ) )
 					$selectedElement++;
 				
-				$html	.= '<option value="' . $pType->id . '"' . $selected . '>' .$pType->name  . '</option>';
+				$html	.= '<option value="' . $pType->id . '"' . $selected . '>' .JText::_($pType->name)  . '</option>';
 			}
 		}
 		
