@@ -170,13 +170,20 @@ class ProfileTest extends XiSelTestCase
   	$allowedApps[1]=array(42,44,45,46);
   	$allowedApps[2]=array(43,44,45,46);
   	$allowedApps[3]=array(45,46);
-  	
+
+/*  	
   	$appsNames[42]='Walls';
   	$appsNames[43]='Feeds';
   	$appsNames[44]='Groups'; 
   	$appsNames[45]='Latest Photos';  	
   	$appsNames[46]='My Articles';
-  	
+*/  
+	$appsNames[42]='walls'; 
+        $appsNames[43]='feeds'; 
+        $appsNames[44]='groups'; 
+        $appsNames[45]='latestphoto'; 
+        $appsNames[46]='myarticles'; 
+	
   	// now check for every links
   	foreach($allApps as $a)
   	{
