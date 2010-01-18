@@ -120,12 +120,12 @@ class XiPTHelperSetup
 	function isModelFilePatchRequired()
 	{
 		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
-		if (file_exists($filename)) {
+		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
 				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
-			$file = file_get_contents($filename);
+			$file = JFile::read($filename);
 			
 			$searchString = '$pluginHandler=& XiPTFactory::getLibraryPluginHandler()';
 			$count = substr_count($file,$searchString);
@@ -143,12 +143,12 @@ class XiPTHelperSetup
 		// return false;
 		// we need to patch User Model
 		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
-		if (file_exists($filename)) {
+		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
 				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
-			$file = file_get_contents($filename);
+			$file =JFile::read($filename);
 			
 			$searchString = '$pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);';
 			$count = substr_count($file,$searchString);
@@ -177,9 +177,9 @@ class XiPTHelperSetup
 	function isCustomLibraryFieldRequired()
 	{
 		$pFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.PROFILETYPE_FIELD_TYPE_NAME.'.php';
-		$pLibrary = file_exists($pFileName);
+		$pLibrary = JFile::exists($pFileName);
     	$tFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.TEMPLATE_FIELD_TYPE_NAME.'.php';
-    	$tLibrary = file_exists($tFileName);
+    	$tLibrary = JFile::exists($tFileName);
 
     	if($pLibrary && $tLibrary)
     		return false;
@@ -276,13 +276,15 @@ class XiPTHelperSetup
 	function patchData($searchString,$replaceString,$filename,$funcName)
 	{
 		
-		if (file_exists($filename)) {
+		if (JFile::exists($filename)) {
 		
 			if(!is_readable($filename)) 
 				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
-			$file = file_get_contents($filename);
-    			    	
+			$file = JFile::read($filename);
+			if(!$file)
+				return false;
+			
 	    	$fileParts = explode($funcName, $file);
     	    
 	    	if(count($fileParts) >= 2) {
@@ -291,7 +293,7 @@ class XiPTHelperSetup
 	    	    $afterStr = substr($fileParts[1],$firstPos+strlen($searchString));
 	    	    $fileParts[1]=$beforeStr . $replaceString . $afterStr;
 	    	    $file = $fileParts[0].$funcName.$fileParts[1];
-	    	    file_put_contents($filename,$file);
+	    	    JFile::write($filename,$file);
 	    	    return true;
 	    	}
 		}
@@ -302,13 +304,16 @@ class XiPTHelperSetup
 	function isXMLFilePatchRequired()
 	{
 		$filename	= JPATH_ROOT . DS. 'components' . DS . 'com_community'.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
-		if (file_exists($filename)) {
+		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
 				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
-			$file = file_get_contents($filename);
+			$file = JFile::read($filename);
 			
+			if(!$file)
+				return false;
+				
 			$searchString = PROFILETYPE_FIELD_TYPE_NAME;
 			$count = substr_count($file,$searchString);
 			if($count >= 1)

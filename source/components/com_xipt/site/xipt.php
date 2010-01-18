@@ -18,7 +18,7 @@ require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 		$path		= JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.$controller.'.php';
 	
 		// Test if the controller really exists
-		if( file_exists( $path ) )
+		if( JFile::exists( $path ) )
 			require_once( $path );
 		else
 			JError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );

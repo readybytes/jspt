@@ -181,12 +181,12 @@ class XiPTControllerSetup extends JController
         	//give patch data fn file to patch
         	$filename	= JPATH_ROOT . DS. 'components' . DS . 'com_community'
         					.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
-        	if (file_exists($filename)) {
+        	if (JFile::exists($filename)) {
 		
 				if(!is_readable($filename)) 
 					JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 				
-				$file = file_get_contents($filename);				
+				$file =JFile::read($filename);				
 			    $searchString = '</fields>';
 		    	ob_start();
 		    	?><field>
@@ -209,7 +209,7 @@ class XiPTControllerSetup extends JController
 	    	    	return false;
 	    	    }
 	    	    
-	    	    file_put_contents($filename,$file);
+	    	    JFile::write($filename,$file);
 	        	 	
         	}
         }
