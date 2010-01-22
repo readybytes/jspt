@@ -231,7 +231,13 @@ class XiPTLibraryPluginHandler
 	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
 	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
 
+	    //update profiletype only
 	    XiPTLibraryProfiletypes::updateUserProfiletypeData($userid,$profiletype,$template,'ALL');
+	    
+	    //update template seperately
+	    $filter[] = 'template';
+	    $newData['template']= $template;
+	    XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($userid,$filter,null,$newData);
 	    return true;
 	}
 

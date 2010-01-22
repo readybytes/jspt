@@ -231,12 +231,12 @@ function testEditUserTemplateProfiletype()
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
 	
 	// now verify settings as per new profiletype
-	require_once (JPATH_BASE . '/components/com_xipt/api.xipt.php' );
+	require_once (JPATH_ROOT . '/components/com_xipt/api.xipt.php' );
 	$this->assertEquals($newPType[$ptype], XiptAPI::getUserInfo($userid,'PROFILETYPE'));
 	
-	//also check effect on template
-		// now verify settings as per new template
-	require_once (JPATH_BASE . '/components/com_xipt/api.xipt.php' );
+	// also check effect on template
+	// now verify settings as per new template
+	require_once (JPATH_ROOT . '/components/com_xipt/api.xipt.php' );
 	$this->assertEquals($newTemplate[$userid], XiptAPI::getUserInfo($userid,'TEMPLATE'));
   }
   
