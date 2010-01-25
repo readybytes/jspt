@@ -42,5 +42,3 @@ if( !function_exists('getLatestMember') )
 		return $result;
 	}
 }
-
-?>

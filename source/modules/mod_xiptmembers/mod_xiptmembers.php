@@ -64,4 +64,3 @@ SHOWJS;
 	
 	
 	require(JModuleHelper::getLayoutPath('mod_xiptmembers'));
-?>

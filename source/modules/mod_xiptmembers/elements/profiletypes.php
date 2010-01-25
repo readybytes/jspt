@@ -49,5 +49,3 @@ function getProfiletypeFieldHTML($name,$value)
 	}
 
 }
-
-?>

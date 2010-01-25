@@ -1,4 +1,6 @@
-<div>
+<?php
+
+?><div>
 	<?php
 	if(empty($profile_type))
 	{
