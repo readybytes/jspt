@@ -51,11 +51,17 @@
 		JHTML::script('mootools.js', 'media/system/js/', false);
 	}
 	
-	$tooltipScript =<<<SHOWJS
-		window.addEvent('domready', function(){ var JTooltips = new Tips($$('.hasTipLatestMembers'), { maxTitleChars: 50, fixed: false}); });
+$tooltipScript =<<<SHOWJS
+window.addEvent('domready', function(){ var JTooltips = new Tips($$('.hasTipLatestMembers'), { maxTitleChars: 50, fixed: false}); });
 SHOWJS;
+
+	$type = strtolower('text/javascript'); 
+	if(false == isset($document->_script[$type]) || false == JString::stristr($document->_script[$type],$tooltipScript))
+	{
+		$document->addScriptDeclaration($tooltipScript);	
+	}
 	
-	$document->addScriptDeclaration($tooltipScript);
-		
+	
+	
 	require(JModuleHelper::getLayoutPath('mod_xiptmembers'));
 ?>

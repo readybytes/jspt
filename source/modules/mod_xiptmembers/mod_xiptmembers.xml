@@ -2,14 +2,14 @@
 <!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/module-install.dtd">
 <install version="1.5" type="module" client="site">
 	<name>Xipt Members</name>
-	<author>Community</author>
+	<author>Team JoomlaXi</author>
 	<creationDate>March 2009</creationDate>
-	<copyright>Copyright (C) 2008. All rights reserved.</copyright>
+	<copyright>(C) by Team JomSocial, code modified by Team JoomlaXi</copyright>
 	<license/>
 	<authorEmail/>
 	<authorUrl/>	
-	<version>1.6</version>
-	<description>Show the latest members</description>
+	<version>@global.version@.@svn.lastrevision@</version>
+	<description>Show the latest members in JomSocial as per profiletype</description>
 	<languages>
 		<language tag="en-GB">en-GB.mod_xiptmembers.ini</language>
 	</languages>
