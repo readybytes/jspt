@@ -24,6 +24,7 @@ define('JOOMLA_ADMIN_PASSWORD',	'ssv445');
 define('PLG_XIPT_COM_PKG',	JOOMLA_LOCATION.'/plg_xipt_community.zip');
 define('PLG_XIPT_SYS_PKG',	JOOMLA_LOCATION.'/plg_xipt_system.zip');
 define('COM_XIPT_PKG',		JOOMLA_LOCATION.'/com_xipt.zip');
+define('MOD_XIPT_MEMBERS_PKG',		JOOMLA_LOCATION.'/mod_xiptmembers.zip');
 define('JOMSOCIAL_PKG',		JOOMLA_LOCATION.'/com_community.zip');
 
 define('JOMSOCIAL_APPS1',	JOOMLA_LOCATION.'/plg_feeds.zip');

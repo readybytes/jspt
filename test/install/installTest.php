@@ -156,6 +156,13 @@ class InstallTest extends XiSelTestCase
     //enable xipt plugins also, uninstallation will again disable them
     $sql = "UPDATE `#__plugins` SET `published` = '1' WHERE `folder` ='community';";
     $this->_DBO->execSql($sql);
+
+		// install modules
+    $this->type("install_url", MOD_XIPT_MEMBERS_PKG);
+    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Install Module Success"));
+    $this->assertFalse($this->isElementPresent("//dl[@id='system-error']/dd/ul/li"));
   }
       
   

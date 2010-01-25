@@ -17,6 +17,7 @@
 		<phingcall target="copy_com_xipt" />
 		<phingcall target="copy_plg_xipt_system" />
 		<phingcall target="copy_plg_xipt_community" />
+		<phingcall target="copy_mod_xiptmembers" />
 		<phingcall target="copy_testcase" />
 		<!-- Copy latest JomSocial -->
 		<copy 	file="${pkg.location}/com_community.zip" 
@@ -85,6 +86,15 @@
 		<property file="../build/build.properties"  override="true" />
 
 		<property file="../build/plg_xipt_system.properties"  override="true" />
+		<echo msg="Copying ${dir.packages}/${file.package}${svn.lastrevision}${file.extension} " />
+		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
+				tofile="${joomla.rootpath}/${joomla.folder}/${project.name}${file.extension}" />
+	</target>
+
+    <target name="copy_mod_xiptmembers">
+		<property file="../build/build.properties"  override="true" />
+
+		<property file="../build/mod_xiptmembers.properties"  override="true" />
 		<echo msg="Copying ${dir.packages}/${file.package}${svn.lastrevision}${file.extension} " />
 		<copy 	file="${dir.packages}/${file.package}${svn.lastrevision}${file.extension}" 
 				tofile="${joomla.rootpath}/${joomla.folder}/${project.name}${file.extension}" />
