@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Copying XiPT data to SVN" basedir="." default="copy_to_svn">
  
-        <property name="target" value="/home/shyam/jspt2/trunk/source" override="true" />
+        <property name="target" value="@local.repository.location@" override="true" />
         <property name="source" value="${project.basedir}" override="true" />
         
         <!-- Copy Target -->
@@ -70,38 +70,38 @@
 		</if>
 
                 
-				<copy todir="${target}/components/com_xipt/admin">
+				<copy todir="${target}/source/components/com_xipt/admin">
 					<fileset dir="${source}/administrator/components/com_xipt">
 						<include name="**/*.*" />
 					</fileset>
                  </copy>
                 
-                <copy todir="${target}/components/com_xipt/site">
+                <copy todir="${target}/source/components/com_xipt/site">
 					<fileset dir="${source}/components/com_xipt">
 						<include name="**/*.*" />
 					</fileset>
                  </copy>        
  
-                 <copy todir="${target}/plugins/plg_xipt_community">
+                 <copy todir="${target}/source/plugins/plg_xipt_community">
 					<fileset dir="${source}/plugins/community/">
 						<include name="xipt*" />
 					</fileset>
                  </copy>
                          
-                 <copy todir="${target}/plugins/plg_xipt_system">
+                 <copy todir="${target}/source/plugins/plg_xipt_system">
 					<fileset dir="${source}/plugins/system/">
 						<include name="xipt*" />
 					</fileset>
                  </copy>
 
-		<copy todir="${target}/../test">
+		<copy todir="${target}/test">
 					<fileset dir="${source}/test/">
 						<include name="**/*.*" />
 					</fileset>
                  </copy>
 
 		  <copy   file="${source}/build.xml" 
-                        tofile="${target}/../script/others/revbuild.xml" 
+                        tofile="${target}/script/others/revbuild.xml" 
                          />
 
 

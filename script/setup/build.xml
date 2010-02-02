@@ -40,6 +40,19 @@
 		<copy 	file="${global.dir.root}/script/others/revbuild.xml" 
 				tofile="${joomla.rootpath}/${joomla.folder}/build.xml" />
 
+		<exec command="sudo chmod -R  ." dir="${joomla.rootpath}/${joomla.folder}" />
+		<!-- Replace current location path in revbuild.xml for replacing the code -->
+		<reflexive>
+			<fileset dir="${joomla.rootpath}/${joomla.folder}">
+			    <include name="build.xml" />
+			</fileset>
+			 <filterchain>
+				<replacetokens>
+				    <token key="local.repository.location" 	value="${project.basedir}/../../"/>
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+
 	</target>
 
 	<target name="copy_testcase">
