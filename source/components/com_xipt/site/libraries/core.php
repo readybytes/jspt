@@ -125,54 +125,53 @@ class XiPTLibraryCore
 		// skip these calls from backend
 		global $mainframe;
 		$pID = '';
+		
 		if($mainframe->isAdmin())
 			return true;
-		$loggedInUser = JFactory::getUser();
 		
-		$view = JRequest :: getVar('view');
-		if($view == 'register'){
-			$pluginHandler = XiPTFactory::getLibraryPluginHandler();
-			$pID = $pluginHandler->getRegistrationPType();
-		}
-		else{	
-			if(!$loggedInUser->id)
-				return true;
-				
+		$loggedInUser = JFactory::getUser();
+
+		//if user is logged in then only we need to update configuration  
+		if($loggedInUser->id)
+		{
+			$view = JRequest :: getVar('view');
+			if($view == 'register')
+			{
+				$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+				$pID = $pluginHandler->getRegistrationPType();
+			}
+						
 			// get params of user.
 			$pID = XiPTLibraryProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
-		}
-		
-		XiPTLibraryUtils::XAssert($pID);
-		$params = XiPTLibraryProfiletypes::getParams($pID);
-		
-		if($params){		
-			$allParams = $params->_registry['_default']['data']; 
-			//$params->getParams();
-			foreach($allParams as $key => $value){
-				$instance->set($key,$value); 
+			
+			XiPTLibraryUtils::XAssert($pID);
+			$params = XiPTLibraryProfiletypes::getParams($pID);
+			
+			if($params)
+			{		
+				$allParams = $params->_registry['_default']['data']; 
+				//$params->getParams();
+				foreach($allParams as $key => $value)
+					$instance->set($key,$value); 
 			}
 		}
-
+		
 		//means guest is looking user profile ,
 		// so we will show them default template
-
 		$visitingUser	= JRequest::getVar('userid','NOT','GET');
+		
 		//$visitingUser = 0 means loggen-in-user is looking their own profile
 		//so we set $visitingUser as logged-in-user
-		if($visitingUser == 'NOT' || $visitingUser == '0')
-				$visitingUser= $loggedInUser->id;
+		if($visitingUser <= 0 || $visitingUser == 'NOT' || $visitingUser == '0')
+				return true;
 		
 		//$visitingUser > 0 means a valid-user to visit profile
 		//so we will show them profile in user template
 		//so update the template in configuration				
-		if($visitingUser > 0) {
-			$template = XiPTLibraryProfiletypes::getUserData($visitingUser,'TEMPLATE');
-			//now update template @template
-			if($template) {
-				$instance->set('template',$template);
-			}
-		}
-		
+		$template = XiPTLibraryProfiletypes::getUserData($visitingUser,'TEMPLATE');
+
+		//now update template @template
+		if($template) $instance->set('template',$template);
 		return true;
 	}
 	

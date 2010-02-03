@@ -18,7 +18,12 @@ class ProfileTest extends XiSelTestCase
 	$this->verifyViewProfile(82,1);
 	$this->verifyViewProfile(83,2);
 	$this->verifyViewProfile(84,3);   
-    
+   $this->frontLogout();
+//ssee profiles publicly
+	$this->verifyViewProfile(79,1);
+	$this->verifyViewProfile(82,1);
+	$this->verifyViewProfile(85,1); 
+
   }
   
   function verifyViewProfile($userid,$ptype)
@@ -270,8 +275,7 @@ enablephotos=1'
 	
 	$this->open("index.php?option=com_community&view=videos&userid=84&Itemid=53");
 	$this->waitPageLoad();
-	$this->assertFalse($this->isTextPresent("Video has been disabled"));
-  	
+	$this->assertFalse($this->isTextPresent("Video has been disabled")); 	
 	$this->frontLogout();  
   }
   

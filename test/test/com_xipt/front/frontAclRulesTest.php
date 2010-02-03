@@ -12,7 +12,7 @@ class FrontAclRulesTest extends XiSelTestCase
   function verifyRestrict($verify)
   {
   	sleep(1);
- 	$present = $this->isTextPresent("You are not allowed to access this resource");	
+ 	$present = $this->isTextPresent("You are not allowed to access this resource");
   	$this->assertTrue($verify != $present);
   }
   
@@ -48,7 +48,7 @@ class FrontAclRulesTest extends XiSelTestCase
 		$this->type("//textarea[@id='description']", "Album$counter");
 		$this->click("//form[@id='newalbum']/table/tbody/tr[3]/td[2]/input[2]");
 		$this->waitPageLoad();
-		$this->assertTrue($this->isTextPresent("New Album Created."));
+		$this->assertTrue($this->isTextPresent("New album created."));
 		$counter++;
     }	
   }
