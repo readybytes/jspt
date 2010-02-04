@@ -396,20 +396,20 @@ function resetAllUsers($pid, $oldData, $newData)
 			if($what === 'avatar')
 			{
 				$newAvatar	= $image;
-				$newThumb   = XiPTLibraryUtils::getThumbAvatarFromFull($newAvatar);
+				/* No need to update thumb here , script will update both avatar and thumb */
+				//$newThumb   = XiPTLibraryUtils::getThumbAvatarFromFull($newAvatar);
 				$oldAvatar  = XiPTLibraryProfiletypes::getProfiletypeData($id,'avatar');
 					
-				$db =& JFactory::getDBO();
-				$query	= ' UPDATE ' . $db->nameQuote( '#__community_users' )
-		    			. ' SET ' 
-		    			. $db->nameQuote('avatar') . '=' . $db->Quote( $newAvatar )
-		    			. ' , '. $db->nameQuote('thumb') . '=' . $db->Quote( $newThumb)
-		    			. ' WHERE ' . $db->nameQuote( 'avatar' ) . '=' . $db->Quote( $oldAvatar);
-		    	$db->setQuery( $query );
-		    	$db->query( $query );
-		    	
-		    	if($db->getErrorNum())
-		    		JError::raiseError( 500, $db->stderr());		    			
+				$allUsers = XiPTLibraryProfiletypes::getAllUsers($id);
+				if($allUsers) {
+					
+					$filter[] = 'avatar';
+					$newData['avatar'] = $newAvatar;
+					$oldData['avatar'] = $oldAvatar;  
+					foreach ($allUsers as $userid)
+						XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
+
+				}		    			
 			}
 			
 			//now update profiletype with new avatar or watermark
