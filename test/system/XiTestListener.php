@@ -70,7 +70,11 @@ class XiDBCheck
          $this->log[]=  "\n auTable :".var_export($auTable,true);
          $this->log[]=  "\n logTable :".var_export($logTable,true);
         $count=count($auTable);
-        $isError = false;	
+        $isError = false;
+
+        $logCount=count($logTable);
+        $auCount=count($auTable);
+	
         for($i=0 ; $i<$count;$i++)
         {    
         	$auArr = $auTable[$i];
@@ -100,6 +104,16 @@ class XiDBCheck
             
         }
         
+	if($logCount != $auCount)	
+	{		
+		$error = "Table count is not same Log Count : $logCount and AuCount : $auCount";
+		$this->errorLog[]=$error;
+		$this->log[]= $error;
+        //Fix error in testcases before we enable this error check  
+		//$isError = true;
+	}
+
+
         if($isError)
         	return false;
         	
