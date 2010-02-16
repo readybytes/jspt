@@ -13,9 +13,6 @@ defined('_JEXEC') or die('Restricted access');
 					<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', JText::_('ACCESS CONTROL'));?>
 					<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', JText::_('APPLICATIONS'));?>
 					<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', JText::_('PROFILE FIELDS'));?>
-				</div>
-				<div class="clr"></div>
-				<div id="cpanel">
 					<?php echo $this->addIcon('download.png','http://www.joomlaxi.com/downloads/jomsocial-multi-profile-types.html', JText::_('DOWNLOAD'));?>
 					<?php echo $this->addIcon('documentation.png','http://www.joomlaxi.com/support/documentation/59-multiple-profile-type.html', JText::_('DOCUMENTATION'));?>
 					<?php echo $this->addIcon('support.png','http://www.joomlaxi.com/support/forum.html', JText::_('SUPPORT'));?>
@@ -23,6 +20,7 @@ defined('_JEXEC') or die('Restricted access');
 					<?php echo $this->addIcon('twitter.jpg','http://twitter.com/joomlaXi', JText::_('FOLLOW TWITTER'));?>
 				</div>
 			</div>
+			<div class="clr"></div>
 		</td>
 		<td width="40%" valign="top">
 			<?php

@@ -40,7 +40,7 @@ class XiPTControllerRegistration extends JController {
 
 
 
-		//@TODO : do some validation for visibility and publish of ptype
+		//@XITODO : do some validation for visibility and publish of ptype
 		if(JRequest::getVar('save', '', 'POST') != ''){
 
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
@@ -59,7 +59,7 @@ class XiPTControllerRegistration extends JController {
 			$mainframe->redirect($retURL);
 		}
 
-		$css		= JURI::base() . 'components/com_xipt/assets/style.css';
+		$css		= JURI::root() . 'components/com_xipt/assets/style.css';
 
 		$document	=& JFactory::getDocument();
 		$document->addStyleSheet($css);

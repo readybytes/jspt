@@ -8,7 +8,7 @@ class XiPTLibraryUtils
 	function ajaxCheckEmail(&$args, &$response)
 	{
 		// as per JomSocial code
-		$email = $args;
+		$email = $args[0];
 		if(XiPTLibraryUtils::checkIfEmailAllowed($email))
 			return true;
 
