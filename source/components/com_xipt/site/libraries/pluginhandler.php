@@ -359,9 +359,18 @@ class XiPTLibraryPluginHandler
 
 		if($show_ptype_during_reg){
 
+			$link = "index.php?option=com_xipt&view=registration";
+								
+			$menu = &JSite::getMenu(); 
+			$itemid = $menu->getItems('link', $link);
+
+			$itemInfo = '';
+			if(!empty($itemid))
+				$itemInfo .= "&Itemid=".$itemid[0]->id;
+								
 			// pType not selected : send to select profiletype
 			if(!$selectedProfiletypeID){
-				$this->mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=registration",false));
+				$this->mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
 				return;
 			}
 
@@ -377,7 +386,7 @@ class XiPTLibraryPluginHandler
 			}
 			else
 			{
-			    $url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID,false);
+			    $url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo,false);
 			    $selectedpTypeName = XiPTLibraryProfiletypes::getProfiletypeName($selectedProfiletypeID);
 			    $msg = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
 			}
