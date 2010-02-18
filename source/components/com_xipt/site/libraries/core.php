@@ -158,13 +158,15 @@ class XiPTLibraryCore
 		
 		//means guest is looking user profile ,
 		// so we will show them default template
-		$visitingUser	= JRequest::getVar('userid','NOT','GET');
-		
+		$visitingUser	= JRequest::getVar('userid',$loggedInUser->id);
+	
 		//$visitingUser = 0 means loggen-in-user is looking their own profile
 		//so we set $visitingUser as logged-in-user
-		if($visitingUser <= 0 || $visitingUser == 'NOT' || $visitingUser == '0')
-				return true;
-		
+			//if in case user is already logged in
+			//then honour his template else return and honour global settings
+		if($visitingUser <= 0  || $visitingUser == '0')
+			return true;
+				
 		//$visitingUser > 0 means a valid-user to visit profile
 		//so we will show them profile in user template
 		//so update the template in configuration				
