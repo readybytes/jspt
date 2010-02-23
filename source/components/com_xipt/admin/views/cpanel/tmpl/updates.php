@@ -1,7 +1,7 @@
 <?php
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
-echo $this->pane->startPanel( JText::_('XIPT UPDATES') , 'xipt' );
+//echo $this->pane->startPanel( JText::_('XIPT UPDATES') , 'xipt' );
 
 ?>
 	<script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -39,4 +39,4 @@ behavior: 'all'
 </script>
 
 <?php 
-echo $this->pane->endPanel();
+//echo $this->pane->endPanel();

@@ -35,8 +35,24 @@ class XiPTControllerProfiletypes extends JController
 		$layout		= JRequest::getCmd( 'layout' , 'profiletypes.edit' );
 		$view->setLayout( $layout );
 		echo $view->edit($id);
-		
 	}
+	
+	
+	function apply()
+	{
+		global $mainframe;
+		// Check for request forgeries
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+		
+		jimport('joomla.filesystem.file');
+		jimport('joomla.utilities.utility');
+
+		$info = $this->_processSave();
+		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
+		$mainframe->redirect($link, $info['msg']);
+	}
+	
+	
 	
 	function save()
 	{
@@ -46,7 +62,15 @@ class XiPTControllerProfiletypes extends JController
 		
 		jimport('joomla.filesystem.file');
 		jimport('joomla.utilities.utility');
-
+		
+		$info = $this->_processSave();
+		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$mainframe->redirect($link, $info['msg']);
+	}
+	
+	
+	function _processSave()
+	{
 		$post	= JRequest::get('post');
 		$cid	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		
@@ -56,7 +80,12 @@ class XiPTControllerProfiletypes extends JController
 			JError::raiseError( 403, JText::_('Access Forbidden') );
 			return;
 		}
-				
+
+		$info = array();
+		$info['id'] = $cid[0];
+		$info['msg'] = '';
+		
+		
 		// Load the JTable Object.
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
@@ -76,14 +105,14 @@ class XiPTControllerProfiletypes extends JController
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
 		$data['group'] 		= $post['group'];
+		
+		$registry	=& JRegistry::getInstance( 'xipt' );
+		$registry->loadArray($post['watermarkparams'],'xipt_watermarkparams');
+		$data['watermarkparams'] =  $registry->toString('INI' , 'xipt_watermarkparams' );
 		//$data['ordering']	= 0;
 		
 		$row->bindAjaxPost($data);
 
-		
-		/*$data['avatar'] 	= $post['avatar'];
-		$data['watermark'] 	= $post['watermark'];*/
-		
 		if( $isValid )
 		{
 			$id = $row->store();	
@@ -95,24 +124,90 @@ class XiPTControllerProfiletypes extends JController
 				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) )
 					XiPTHelperProfiletypes::uploadAndSetImage($fileAvatar,$row->id,'avatar');
 
-				$fileWatermark		= JRequest::getVar( 'FileWatermark' , '' , 'FILES' , 'array' );
-		
-				if( isset( $fileWatermark['tmp_name'] ) && !empty( $fileWatermark['tmp_name'] ) ) 
-					XiPTHelperProfiletypes::uploadAndSetImage($fileWatermark,$row->id,'watermark');		
-
-				//If not uploaded data then by default save the previous values 
-				$data['avatar'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'avatar');
-				$data['watermark'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'watermark');
+				/* generate watermark image */
+				$config = new JParameter('','');
+				$config->bind($row->watermarkparams);
+				/*XITODO : send debug mode in second parameter */
+				$imageGenerator = new XiPTImageGenerator($config,0);
+				$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
+				$imageName = 'watermark_'. $row->id;
+				$filename	= $imageGenerator->genImage($storage,$imageName);
+				
+				if($filename) {
+					$config->set('demo',$row->id);
+					//save watermark params
 					
+					$image=$this->saveWatermarkparams($filename,$row,$config);
+					/*generate thumnail */
+				    $this->generateThumbnail($imageName,$filename,$storage,$row,$config);
+				    
+					}				    
 				/* Reset existing user's */
-				if($post['resetAll'])
-					XiPTHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);
+				if($post['resetAll']) {
+					//If not uploaded data then by default save the previous values 
+					$data['avatar'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'avatar');
+					$data['watermark'] 	= $image; //XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'watermark');
+					XiPTHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);	
+				}
 					
-				$msg = JText::_('PROFILETYPE SAVED');
+				$info['id'] = $row->id;
+				$info['msg'] .= JText::_('PROFILETYPE SAVED');
 			}
 		}
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);
+		return $info;
+	}
+	
+	function saveWatermarkparams($filename,$row,$config)
+	{
+		$image = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$filename;
+		
+		/*assign ptype id in  demo so we can generate data in element itself */ 
+		
+		$params = $config->toString('INI');
+		//now update profiletype with new watermark
+		$db =& JFactory::getDBO();
+		$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
+    			. 'SET ' . $db->nameQuote( 'watermark' ) . '=' . $db->Quote( $image ) . ' '
+    			. ', '.$db->nameQuote( 'watermarkparams' ) . '=' . $db->Quote( $params ) . ' '
+    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $row->id );
+    	$db->setQuery( $query );
+    	$db->query( $query );
+
+		if($db->getErrorNum())
+		{
+			JError::raiseError( 500, $db->stderr());
+	    }
+	    return $image;
+	}
+
+	// this function generates thumbnail of watermark
+	function generateThumbnail($imageName,$filename,$storage,$row,$config)
+	{
+		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+					
+		$fileExt = JFile::getExt($filename);
+		$thumbnailName = 'watermark_'. $row->id.'_thumb.'.$fileExt;
+		$storageThumbnail = $storage . DS .$thumbnailName;
+		$watermarkPath = $storage.DS.$imageName.'.'.$fileExt;
+		
+		$watermarkThumbWidth  = $config->get('xiThumbWidth',80);
+		$watermarkThumbHeight = $config->get('xiThumbHeight',20);
+		$dstimg 			= 	ImageCreateTrueColor($watermarkThumbWidth,$watermarkThumbHeight) 
+					or die('Cannot initialize GD Image');
+
+		$watermarkType = XiPTLibraryUtils::getImageType($watermarkPath);
+		$srcimg	 = cImageOpen( $watermarkPath , $watermarkType);
+		//XITODO : also support other formats
+		
+		
+		if(imagecopyresampled($dstimg,$srcimg,0,0,0,0,$watermarkThumbWidth,$watermarkThumbHeight,$config->get(xiWidth,64),$config->get(xiHeight,64)))
+			imagepng($dstimg,$storageThumbnail);
+		else
+			JError::raiseWarning('XIPT_THUMB_WAR','THUMBNAIL NOT SUPPORTED');
+		
+		/*if(!cImageCreateThumb( $watermarkPath , $storageThumbnail , XiPTLibraryUtils::getImageType($watermarkPath),$config->get(xiWidth,64)/2,$config->get(xiHeight,64)/2));
+			$info['msg'] .= sprintf(JText::_('ERROR MOVING UPLOADED FILE') , $storageThumbnail);*/
+		return;
 	}
 	
 	function remove()

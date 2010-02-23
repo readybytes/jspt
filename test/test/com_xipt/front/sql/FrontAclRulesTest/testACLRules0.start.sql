@@ -3,18 +3,19 @@ TRUNCATE TABLE `#__community_msg`;
 TRUNCATE TABLE `#__community_photos_albums`;
 
 TRUNCATE TABLE `#__xipt_aclrules`;
-INSERT INTO `#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
-(1, 1, 'RULE-1', 'aclFeatureCreateGroup', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(2, 1, 'RULE-2', 'aclFeatureJoinGroup', 0, 'index.php?option=com_community&view=profile', 'You are not allowed to access this resource', 1, 0),
-(3, 1, 'RULE-3', 'aclFeatureAddPhotos', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(4, 1, 'RULE-4', 'aclFeatureAddAlbum', 1, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(5, 1, 'RULE-5', 'aclFeatureAddVideos', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(6, 1, 'RULE-6', 'aclFeatureWriteMessages', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, -1),
-(7, 1, 'RULE-7', 'aclFeatureChangeAvatar', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(8, 1, 'RULE-8', 'aclFeatureChangePrivacy', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(9, 1, 'RULE-9', 'aclFeatureEditProfile', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(10, 1, 'RULE-10', 'aclFeatureEditProfileDetail', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(11, 1, 'RULE-11', 'aclFeatureCantVisitOtherProfile', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 2);
+INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
+(1, 'RULE-1', 'creategroup', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'creategroup_limit=0\n\n', 1),
+(2, 'RULE-2', 'joingroup', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community&view=profile\n\n', 'joingroup_limit=0\n\n', 1),
+(3, 'RULE-3', 'addphotos', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'addphotos_limit=0\n\n', 1),
+(4, 'RULE-4', 'addalbums', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'addalbums_limit=1\n\n', 1),
+(5, 'RULE-5', 'addvideos', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'addvideos_limit=0\n\n', 1),
+(6, 'RULE-6', 'writemessages', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=0\nwritemessage_limit=0\n\n', 1),
+(7, 'RULE-7', 'changeavatar', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', '\n', 1),
+(8, 'RULE-8', 'changeprivacy', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', '\n', 1),
+(9, 'RULE-9', 'editselfprofile', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', '\n', 1),
+(10, 'RULE-10', 'editselfprofiledetails', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', '\n', 1),
+(11, 'RULE-11', 'cantviewotherprofile', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\n\n', 1),
+(12, 'RULE-12', 'addasfriends', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community&view=profile\n\n', 'other_profiletype=2\n\n', 1);
 
 
 TRUNCATE TABLE `#__community_fields` ;

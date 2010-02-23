@@ -240,5 +240,45 @@ function testEditUserTemplateProfiletype()
 	$this->assertEquals($newTemplate[$userid], XiptAPI::getUserInfo($userid,'TEMPLATE'));
   }
   
+  
+  function testDeleteUser()
+  {
+  	 //setup default location 
+    $this->adminLogin(); 	
+    
+    $this->deleteUser(82);
+    $this->deleteUser(83);
+    $this->deleteUser(84);
+  }
+
+  
+  
+  function deleteUser($userid)
+  {
+  	//load editing page
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_users");
+    $this->waitPageLoad();
+   
+    $this->click("//input[contains(@type,'checkbox')][contains(@value,'".$userid."')]");
+    $this->click("//td[@id='toolbar-delete']/a/span");
+    $this->waitPageLoad();
+    $this->assertTrue($this->checkDeletedUser($userid));
+  }
+  
+  
+	function checkDeletedUser($userid)
+	{
+	  	$db	=& JFactory::getDBO();
+	  	$query	= " SELECT * FROM #__xipt_users"
+	  			." WHERE `userid`='". $userid ."'"
+	  			." LIMIT 1";
+	  	$db->setQuery($query);
+	  	$userPtypeInfo = $db->loadObject();
+	  	
+	  	if(empty($userPtypeInfo))
+	  		return true;
+	  		
+	  	return false;
+	 }
 }
 ?>

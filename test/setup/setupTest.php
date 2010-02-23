@@ -197,6 +197,7 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage8']/img[contains(@src,'images/tick.png')]"));
     
     $this->_DBO->addTable('#__xipt_profiletypes');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
     $this->_DBO->addTable('#__community_users');
   }
 }

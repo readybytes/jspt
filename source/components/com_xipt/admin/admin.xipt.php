@@ -48,6 +48,16 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'inc
 		$task='display';
 	}
 	
+	$version = XiPTHelperSetup::get_js_version();
+	
+	global $mainframe;
+	if(Jstring::stristr($version,'1.5'))
+	{
+		$msg = "ERROR : The JomSocial Version $version used by you is not supported for ProfileTypes.
+				The JSPT 2.x.x release will only supports newer version of JomSocial since JomSocial 1.6.184.";
+		$mainframe->enqueueMessage($msg,false);
+	}
+		
 	// Task's are methods of the controller. Perform the Request task
 	$controller->execute( $task );
 	

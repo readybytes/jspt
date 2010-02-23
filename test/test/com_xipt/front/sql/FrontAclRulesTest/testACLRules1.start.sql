@@ -3,13 +3,15 @@ TRUNCATE TABLE `#__community_msg`;
 TRUNCATE TABLE `#__community_photos_albums`;
 
 TRUNCATE TABLE `#__xipt_aclrules`;
-INSERT INTO `#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
-(1, 1, 'RULE-1', 'aclFeatureCreateGroup', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(2, 1, 'RULE-2', 'aclFeatureJoinGroup', 10, 'index.php?option=com_community&view=profile', 'You are not allowed to access this resource', 1, 0),
-(3, 1, 'RULE-3', 'aclFeatureAddPhotos', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(4, 1, 'RULE-4', 'aclFeatureAddAlbum', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(5, 1, 'RULE-5', 'aclFeatureAddVideos', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 0),
-(6, 1, 'RULE-6', 'aclFeatureWriteMessages', 10, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, -1);
+INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
+(1, 'RULE-1', 'creategroup', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'creategroup_limit=10\n\n', 1),
+(2, 'RULE-2', 'joingroup', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community&view=profile\n\n', 'joingroup_limit=10\n\n', 1),
+(3, 'RULE-3', 'addphotos', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'addphotos_limit=10\n\n', 1),
+(4, 'RULE-4', 'addalbums', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'addalbums_limit=10\n\n', 1),
+(5, 'RULE-5', 'addvideos', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'addvideos_limit=10\n\n', 1),
+(6, 'RULE-6', 'writemessages', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=0\nwritemessage_limit=10\n\n', 1),
+(7, 'RULE-7', 'addasfriends', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community&view=profile\n\n', 'other_profiletype=0\n\n', 1);
+
 
 TRUNCATE TABLE `#__community_fields` ;
 INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES

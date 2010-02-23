@@ -1,7 +1,7 @@
 <?php
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
-echo $this->pane->startPanel( JText::_('JOOMLAXI UPDATES') , 'xipt' );
+//echo $this->pane->startPanel( JText::_('JOOMLAXI UPDATES') , 'xipt' );
 
 ?>
 	<script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -11,8 +11,8 @@ new TWTR.Widget({
   type: 'search',
 search: 'JoomlaXiNews',
 interval: 6000,
-title: '',
-subject: '',
+title: 'Latest Joomlaxi News ',
+subject: 'JoomlaXi News',
 width: 'auto',
 height: 300,
 theme: {
@@ -39,4 +39,4 @@ links: '#1985b5'
 </script>
 
 <?php 
-echo $this->pane->endPanel();
+//echo $this->pane->endPanel();

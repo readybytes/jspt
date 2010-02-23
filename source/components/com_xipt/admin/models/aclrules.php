@@ -42,7 +42,7 @@ class XiPTModelAclRules extends JModel
 	{
 		if ($this->_pagination == null)
 		{
-			$this->getFields();
+			$this->getRules();
 		}
 		return $this->_pagination;
 	}
@@ -52,15 +52,15 @@ class XiPTModelAclRules extends JModel
 	 *
 	 * @return object	JParameter object
 	 **/
-	function &getFields()
+	function &getRules()
 	{
 		global $mainframe;
 
-		static $fields;
+		static $rules;
 		
-		if( isset( $fields ) )
+		if( isset( $rules ) )
 		{
-			return $fields;
+			return $rules;
 		}
 
 		// Initialize variables
@@ -86,9 +86,9 @@ class XiPTModelAclRules extends JModel
 		$query	= 'SELECT * FROM ' 
 				. $db->nameQuote( '#__xipt_aclrules' );
 		$db->setQuery( $query , $this->_pagination->limitstart , $this->_pagination->limit );		
-		$fields	= $db->loadObjectList();
+		$rules	= $db->loadObjectList();
 		
-		return $fields;
+		return $rules;
 	}
 	
 	function updatePublish($id,$value)

@@ -1,5 +1,5 @@
 <?php
-	echo $this->pane->startPanel( JText::_('WELCOME TO XIPT') , 'welcome' );
+	//echo $this->pane->startPanel( JText::_('WELCOME TO XIPT') , 'welcome' );
 	?>
 	<table class="adminlist">
 		<tr>
@@ -16,4 +16,4 @@
 		</tr>
 	</table>
 <?php
-	echo $this->pane->endPanel();
+	//echo $this->pane->endPanel();

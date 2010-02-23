@@ -30,6 +30,7 @@
 		<filename>libraries/utils.php</filename>
 		<filename>libraries/apps.php</filename>
 		<filename>libraries/aec.php</filename>
+		<filename>libraries/imagegenerator.php</filename>
 		<filename>libraries/index.html</filename>
 		
 		<filename>controllers/registration.php</filename>
@@ -39,11 +40,22 @@
 		<filename>models/index.html</filename>
 
 		<filename>assets/style.css</filename>
+		<filename>assets/index.html</filename>
+		<filename>assets/fonts/index.html</filename>
+		<filename>assets/fonts/monofont.ttf</filename>
+		<filename>assets/fonts/stilltim.ttf</filename>
+		<filename>assets/fonts/saysochic.ttf</filename>
+		<filename>assets/fonts/earwigfa.ttf</filename>
+		<filename>assets/fonts/cuomotyp.ttf</filename>
+		<filename>assets/fonts/primer.ttf</filename>
+		<filename>assets/fonts/primerb.ttf</filename>
+		<filename>assets/fonts/interpla.ttf</filename>
 		
 		<filename>views/index.html</filename>
 		<filename>views/registration/view.html.php</filename>
 		<filename>views/registration/index.html</filename>
 		<filename>views/registration/tmpl/default.php</filename>
+		<filename>views/registration/tmpl/facebook.php</filename>
 		<filename>views/registration/tmpl/index.html</filename>
 		
 	</files>
@@ -66,6 +78,7 @@
 			<filename>index.html</filename>
 			<filename>admin.xipt.php</filename>
 			<filename>config.xml</filename>
+			<filename>watermark.xml</filename>
 			<filename>jspt_functions.php</filename>
 			<filename>includes.xipt.php</filename>
 			
@@ -92,8 +105,71 @@
 			<filename>helpers/xiptcore.php</filename>
 			<filename>helpers/setup.php</filename>
 			
+			<filename>libraries/index.html</filename>
+			<filename>libraries/aclrules/index.html</filename>
+			<filename>libraries/aclrules/aclrule.php</filename>
+			<filename>libraries/aclrules/coreparams.xml</filename>
+			
+			<filename>libraries/aclrules/joingroup/index.html</filename>
+			<filename>libraries/aclrules/joingroup/joingroup.php</filename>
+			<filename>libraries/aclrules/joingroup/joingroup.xml</filename>
+			
+			<filename>libraries/aclrules/addalbums/index.html</filename>
+			<filename>libraries/aclrules/addalbums/addalbums.php</filename>
+			<filename>libraries/aclrules/addalbums/addalbums.xml</filename>
+			
+			<filename>libraries/aclrules/addasfriends/index.html</filename>
+			<filename>libraries/aclrules/addasfriends/addasfriends.php</filename>
+			<filename>libraries/aclrules/addasfriends/addasfriends.xml</filename>
+
+			<filename>libraries/aclrules/addphotos/index.html</filename>
+			<filename>libraries/aclrules/addphotos/addphotos.php</filename>
+			<filename>libraries/aclrules/addphotos/addphotos.xml</filename>
+			
+			<filename>libraries/aclrules/addvideos/index.html</filename>
+			<filename>libraries/aclrules/addvideos/addvideos.php</filename>
+			<filename>libraries/aclrules/addvideos/addvideos.xml</filename>
+			
+			<filename>libraries/aclrules/cantviewotherprofile/index.html</filename>
+			<filename>libraries/aclrules/cantviewotherprofile/cantviewotherprofile.php</filename>
+			<filename>libraries/aclrules/cantviewotherprofile/cantviewotherprofile.xml</filename>
+			
+			<filename>libraries/aclrules/changeavatar/index.html</filename>
+			<filename>libraries/aclrules/changeavatar/changeavatar.php</filename>
+			<filename>libraries/aclrules/changeavatar/changeavatar.xml</filename>
+			
+			<filename>libraries/aclrules/changeprivacy/index.html</filename>
+			<filename>libraries/aclrules/changeprivacy/changeprivacy.php</filename>
+			<filename>libraries/aclrules/changeprivacy/changeprivacy.xml</filename>
+			
+			<filename>libraries/aclrules/creategroup/index.html</filename>
+			<filename>libraries/aclrules/creategroup/creategroup.php</filename>
+			<filename>libraries/aclrules/creategroup/creategroup.xml</filename>
+			
+			<filename>libraries/aclrules/editselfprofile/index.html</filename>
+			<filename>libraries/aclrules/editselfprofile/editselfprofile.php</filename>
+			<filename>libraries/aclrules/editselfprofile/editselfprofile.xml</filename>
+			
+			<filename>libraries/aclrules/editselfprofiledetails/index.html</filename>
+			<filename>libraries/aclrules/editselfprofiledetails/editselfprofiledetails.php</filename>
+			<filename>libraries/aclrules/editselfprofiledetails/editselfprofiledetails.xml</filename>
+			
+			<filename>libraries/aclrules/writemessages/index.html</filename>
+			<filename>libraries/aclrules/writemessages/writemessages.php</filename>
+			<filename>libraries/aclrules/writemessages/writemessages.xml</filename>
+			
 			<filename>elements/index.html</filename>
 			<filename>elements/profiletypes.php</filename>
+			<filename>elements/fonts.php</filename>
+			<filename>elements/image.php</filename>
+			<filename>elements/watermarkposition.php</filename>
+			<filename>elements/colorbox.php</filename>
+			<filename>elements/colorbox/index.html</filename>
+			<filename>elements/colorbox/arrow.gif</filename>
+			<filename>elements/colorbox/cross.gif</filename>
+			<filename>elements/colorbox/hs.png</filename>
+			<filename>elements/colorbox/hv.png</filename>
+			<filename>elements/colorbox/jscolor.js</filename>
 			
 			<filename>views/index.html</filename>
 			
@@ -101,6 +177,7 @@
 			<filename>views/cpanel/view.html.php</filename>
 			<filename>views/cpanel/tmpl/index.html</filename>
 			<filename>views/cpanel/tmpl/default.php</filename>
+			<filename>views/cpanel/tmpl/aboutus.php</filename>
 			<filename>views/cpanel/tmpl/news.php</filename>
 			<filename>views/cpanel/tmpl/updates.php</filename>
 			<filename>views/cpanel/tmpl/welcome.php</filename>
@@ -140,6 +217,7 @@
 			<filename>views/aclrules/view.html.php</filename>
 			<filename>views/aclrules/tmpl/index.html</filename>
 			<filename>views/aclrules/tmpl/default.php</filename>
+			<filename>views/aclrules/tmpl/acl.add.php</filename>
 			<filename>views/aclrules/tmpl/aclrules.edit.php</filename>
 			
 			<filename>views/applications/index.html</filename>
@@ -179,6 +257,7 @@
 			<filename>images/icon-aclrules.gif</filename>
 			<filename>images/icon-applications.gif</filename>
 			<filename>images/icon-cpanel.png</filename>
+			<filename>images/icon-aboutus.png</filename>
 		</files>
 	</administration>
 </install>

@@ -33,6 +33,16 @@ class FrontAclRulesTest extends XiSelTestCase
 	$this->waitForElement("cwin_tm");
     $this->verifyRestrict($verify);
   }
+
+
+  function checkAddAsFriend($from, $userid, $verify)
+  {
+	$this->open("index.php?option=com_community&view=profile&userid=$userid&Itemid=53");
+	$this->waitPageLoad();
+	$this->click("//a[@onclick=\"joms.friends.connect('$userid')\"]");
+	$this->waitForElement("cwin_tm");
+    $this->verifyRestrict($verify);
+  }
   
   function checkCreateAlbum($from, $verify)
   {
@@ -145,6 +155,8 @@ class FrontAclRulesTest extends XiSelTestCase
   	  	$this->checkCreateGroup($userid,False);
   	  	$groupid=4;    
 	    $this->checkJoinGroup($userid,$groupid,False);
+	    //userid 81 has ptype=3 ,so 82 can add 81 as friend
+	    $this->checkAddAsFriend($userid,81,True);
 	    //one album allowed 	    
 	    $albumID = $this->checkCreateAlbum($userid,True);
 	    $this->checkCreateAlbum($userid,False);
@@ -173,7 +185,12 @@ class FrontAclRulesTest extends XiSelTestCase
   	  
 		$this->checkCreateGroup($userid,True);
 		$groupid=4;
-	    $this->checkJoinGroup($userid,$groupid,True);	    
+	    $this->checkJoinGroup($userid,$groupid,True);
+	    //userid 82 can't add any one as friend
+	    $this->checkAddAsFriend($userid,81,False);	    
+	    $this->checkAddAsFriend($userid,85,False);	    
+	    $this->checkAddAsFriend($userid,86,False);
+	    
 	    $albumID = $this->checkCreateAlbum($userid,True);    
 	    $this->checkAddPhotos($userid,$albumID,True);
 	    $this->checkAddVideos($userid,True);

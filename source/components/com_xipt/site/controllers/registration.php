@@ -15,7 +15,7 @@ class XiPTControllerRegistration extends JController {
     function display()
 	{
 		global $mainframe;
-
+		$redirectUrl = XiPTLibraryUtils::getReturnURL();
 
 		// 	check for session, if does not exist redirect user to community page
 		if(!$this->mySess){
@@ -33,7 +33,7 @@ class XiPTControllerRegistration extends JController {
 			$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
 
 			// redirect to correct page
-			$redirectUrl = XiPTLibraryUtils::getReturnURL();
+			//$redirectUrl = XiPTLibraryUtils::getReturnURL();
 			$msg = JText::_('USERS ARE NOT ALLOWED TO SELECT PROFILETYPES');
 			$mainframe->redirect($redirectUrl,$msg);
 		}
@@ -47,7 +47,7 @@ class XiPTControllerRegistration extends JController {
 
 			// validate values
 			if(!XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID)) {
-				$redirectUrl = XiPTLibraryUtils::getReturnURL();
+				//$redirectUrl = XiPTLibraryUtils::getReturnURL();
 				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
 				$mainframe->redirect($redirectUrl,$msg);
 				return;
@@ -55,8 +55,8 @@ class XiPTControllerRegistration extends JController {
 			
 			//set value in session and redirect to destination url
 			$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
-			$retURL  = XiPTLibraryUtils::getReturnURL();
-			$mainframe->redirect($retURL);
+			//$retURL  = XiPTLibraryUtils::getReturnURL();
+			$mainframe->redirect($redirectUrl);
 		}
 
 		$css		= JURI::root() . 'components/com_xipt/assets/style.css';

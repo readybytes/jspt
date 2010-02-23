@@ -7,16 +7,9 @@ class XiPTTableAclRules extends JTable
 
 	var $id					= null;
 	var $rulename			= null;
-	var $pid				= null;
-	var $otherpid			= null;
-	var $feature			= null;
-	var $taskcount 			= null;
-	/*TODO : Will include this feature in next releases.
-  	var $objectid			= null;
-	var $userid				= null;
-		*/	
-	var $redirecturl		= null;
-	var $message			= null;
+	var $aclname			= null;
+	var $aclparams			= null;
+	var $coreparams			= null;
 	var $published			= null;
 	
 	function __construct(&$db)
@@ -43,12 +36,9 @@ class XiPTTableAclRules extends JTable
 		// load the default value for new object 
 		$this->id			= 0;
 		$this->rulename		= '';
-		$this->pid			= '';
-		$this->otherpid		= '0';
-		$this->feature		= '';
-		$this->taskcount	= '0';
-		$this->redirecturl	= 'index.php?option=com_community';
-		$this->message		= JText::_('YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE');
+		$this->aclname		= '';
+		$this->aclparams	= '';
+		$this->coreparams	= '';
 		$this->published	= true;
 		return true;
 	}
@@ -61,22 +51,8 @@ class XiPTTableAclRules extends JTable
 	 **/
 	function store( )
 	{
- 		return 	parent::store();
+ 		parent::store();
+ 		return $this->id;
 	}
 
-	/**
-	 * Bind AJAX data into object's property
-	 * @param	array	data	The data for this field
-	 **/
-	function bindAjaxPost( $data )
-	{
-			$this->rulename			= $data['rulename'];
-			$this->pid				= $data['profiletype'];
-			$this->otherpid			= $data['otherprofiletype'];
-			$this->feature			= $data['feature'];
-			$this->taskcount		= $data['taskcount'];
-			$this->redirecturl		= $data['redirecturl'];
-			$this->message			= $data['message'];
-			$this->published		= $data['published'];
-	}
 }

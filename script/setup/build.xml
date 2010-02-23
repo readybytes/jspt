@@ -4,7 +4,7 @@
 
 	<target name="config" description="Load configuration file">
 		<property file="../build/build.properties"  override="true" />		
-		<svnlastrevision workingcopy="${global.dir.local}" propertyname="svn.lastrevision" />
+		<svnlastrevision workingcopy="${global.dir.root}" propertyname="svn.lastrevision" />
 		<php expression="rand(1000,9999)" returnProperty="joomla.now"/>
 		<php expression="rand(100,999)" returnProperty="joomla.random3"/>
 		<property file="build.properties"  override="false" />

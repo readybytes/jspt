@@ -37,9 +37,20 @@ class XiPTViewCPanel extends JView
 	 **/
 	function setToolBar()
 	{
-
+		?>
+		<style type="text/css">
+		#toolbar-aboutus
+		{
+	 		background-image:  url(../administrator/components/com_xipt/images/icon-aboutus.png);
+	 		background-repeat:no-repeat;
+	 		background-position: top center;
+	 	}
+		</style>
+		<?php 
 		// Set the titlebar text
 		JToolBarHelper::title( JText::_( 'CONTROL PANEL' ), 'XiPT' );
+		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+		JToolBarHelper::custom('aboutus','aboutus','',JText::_('ABOUT US'),0,0);
 		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	
@@ -57,5 +68,12 @@ class XiPTViewCPanel extends JView
 			</div>
 		</div>
 <?php
+	}
+	
+	
+	function aboutus($tpl = null)
+	{
+		$this->setToolbar();
+		parent::display( $tpl);
 	}
 }

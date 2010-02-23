@@ -32,19 +32,20 @@ INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, 
 (87, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_3.png', 'images/profiletype/avatar_3_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);
 
 TRUNCATE TABLE `#__xipt_profiletypes`;
-INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`) VALUES
-(1, 'PROFILETYPE-1', 1, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', ''),
-(2, 'PROFILETYPE-2', 2, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', ''),
-(3, 'PROFILETYPE-3', 3, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '');
+INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`, `watermarkparams`) VALUES
+(1, 'PROFILETYPE-1', 1, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=Profiletype\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
+(2, 'PROFILETYPE-2', 2, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=Profiletype\nxiWidth=160\nxiHeight=40\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=2\n\n'),
+(3, 'PROFILETYPE-3', 3, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=Profiletype\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=3\n\n');
 ALTER TABLE `#__xipt_profiletypes` AUTO_INCREMENT = 4;
+
 
 CREATE TABLE IF NOT EXISTS `au_#__xipt_profiletypes` SELECT * FROM `#__xipt_profiletypes`;
 TRUNCATE TABLE `au_#__xipt_profiletypes`;
-INSERT INTO `au_#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`) VALUES
-(1, 'PROFILETYPE-1', 1, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_1.gif', 0, 0, 0, 'images/profiletype/watermark_1.png', ''),
-(2, 'PROFILETYPE-2', 2, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_2.png', 0, 0, 0, 'images/profiletype/watermark_2.gif', ''),
-(3, 'PROFILETYPE-3', 3, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_3.png', 0, 0, 0, 'images/profiletype/watermark_3.png', ''),
-(4, 'PROFILETYPE-4', 4, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_4.png', 0, 0, 0, 'images/profiletype/watermark_4.png', '');
+INSERT INTO `au_#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`, `watermarkparams`) VALUES
+(1, 'PROFILETYPE-1', 1, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_1.gif', 0, 0, 0, 'images/profiletype/watermark_1.png', '', 'enableWaterMark=1\nxiText=Profiletype1\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
+(2, 'PROFILETYPE-2', 2, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_2.png', 0, 0, 0, 'images/profiletype/watermark_2.png', '', 'enableWaterMark=1\nxiText=Profiletype2\nxiWidth=160\nxiHeight=40\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=2\n\n'),
+(3, 'PROFILETYPE-3', 3, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_3.png', 0, 0, 0, 'images/profiletype/watermark_3.png', '', 'enableWaterMark=1\nxiText=Profiletype3\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=3\n\n'),
+(4, 'PROFILETYPE-4', 4, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_4.png', 0, 0, 0, 'images/profiletype/watermark_4.png', '', 'enableWaterMark=1\nxiText=Profiletype4\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=4\n\n');
 
 
 TRUNCATE TABLE `#__xipt_users`;

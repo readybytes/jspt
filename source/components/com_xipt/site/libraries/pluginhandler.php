@@ -111,6 +111,22 @@ class XiPTLibraryPluginHandler
 		// If we come here means ACL Check was passed
 		$controller	=	$callArray[0];
 		$function	=	$callArray[1];
+	
+		if($controller	==	'connect')
+		{
+			switch($function)
+			{
+				case 'ajaxCheckEmail' 	 :
+					return XiPTLibraryUtils::ajaxCheckEmailDuringFacebook($args,$response);
+				case 'ajaxCheckUsername' :
+					return XiPTLibraryUtils::ajaxCheckUsernameDuringFacebook($args,$response);
+				case 'ajaxShowNewUserForm' :
+					return XiPTLibraryUtils::ajaxShowNewUserForm($args,$response);
+				case 'ajaxUpdate' :
+					return XiPTLibraryUtils::ajaxUpdate($args,$response);
+			}
+		}
+		
 		if($controller	==	'register')
 		{
 			switch($function)
@@ -138,6 +154,16 @@ class XiPTLibraryPluginHandler
 		return true;
 	}
 
+	
+	/*Function will call replacement controller for any community controller
+	 * we are doing this for facebook ( connect ) controller
+	 
+	function onBeforeControllerCreate(&$args)
+	{
+
+	}
+	*/
+	
 
 	/**
 	 * This function will store user's registration information
@@ -149,6 +175,73 @@ class XiPTLibraryPluginHandler
 	{
 		$userid	= $cuser->_userid;
 
+		return self::storeUser($userid);
+	}
+	
+	
+	/**
+	 * This function will store user's registration information
+	 * in the tables, when User object is created
+	 * @param $cuser
+	 * @return true
+	 */
+	function onAfterStoreUser($args)
+	{
+		/*args[1] contain isNew user
+		 * args[2] = success
+		 * args[3] = error
+		 * so we will check that if user is old 
+		 * or error in save or not success then we will return
+		 */
+		if($args[1] == false || $args[2] == false || $args[3] == true) {
+			self::cleanRegistrationSession();
+			return true;
+		}
+
+		return self::storeUser($args[0]['id']);
+	}
+	
+	/*function will delete user entry from xipt_users table also */
+	function onAfterDeleteUser($args)
+	{
+		/*args[1] = success
+		 * args[2] = error
+		 * so we will check that if user has beed successfully deleted
+		 * then we will proced else
+		 * or error in delete then we will return
+		 */
+		if($args[1] == false || $args[2] == true)
+			return true;
+
+		return self::deleteUser($args[0]['id']);
+	}
+
+	
+	function deleteUser($userid)
+	{
+		$db		=& JFactory::getDBO();
+		$query	= 'SELECT * FROM '. $db->nameQuote('#__xipt_users')
+				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
+
+		$db->setQuery( $query );
+		$result	= $db->loadObject();
+		
+		if(empty($result))
+			return true;
+			
+		$query	= 'DELETE FROM '. $db->nameQuote('#__xipt_users')
+				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
+
+		$db->setQuery( $query );
+		if($db->query())
+			return true;
+			
+		return false;
+	}
+	
+
+	function storeUser($userid)
+	{
 		// find pType of user
 		$profiletypeID = self::getRegistrationPType();
 
@@ -265,8 +358,8 @@ class XiPTLibraryPluginHandler
 			//setup $new_avatar
 			$ptype = XiPTLibraryProfiletypes::getUserData($userid, 'PROFILETYPE');
 			$avatar = XiPTLibraryProfiletypes::getProfiletypeData($ptype, 'avatar');
-			//if users avatar is custom avatar then thumb is stored as thumb_XXXX.gif
-			//else if it is a default avatar(JomSocial OR Profiletype) then stored as XXX_thumb.gif
+			//if users avatar is custom avatar then thumb is stored as thumb_XXXX.png
+			//else if it is a default avatar(JomSocial OR Profiletype) then stored as XXX_thumb.png
 			//HERE the new_avatar will be default jomsocial avatar so search _thumb 
 			$thumb = JString::stristr($new_avatar_path,'thumb');
 			if($thumb)
@@ -301,6 +394,9 @@ class XiPTLibraryPluginHandler
 			$what = 'avatar';
 		
 		$watermarkInfo = XiPTLibraryUtils::getWatermark($userid);
+		if(false == $watermarkInfo)
+			return true;
+			
 		XiPTLibraryUtils::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
 		return true;
 	}
@@ -349,8 +445,19 @@ class XiPTLibraryPluginHandler
 	//BLANK means task should be empty
 	function event_com_community_register_blank()
 	{
-		
-	    //set up return url to com_community
+		return $this->integrateRegistrationWithPType();
+	}
+	
+	
+	function event_com_user_register_blank()
+	{
+	    return $this->integrateRegistrationWithPType();
+	}
+	
+	/*Get decision to show ptype on registration session or not */
+	function integrateRegistrationWithPType()
+	{
+		//set up return url to return user to registration page again
 	    XiPTLibraryUtils::setReturnURL();
 	    XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
 

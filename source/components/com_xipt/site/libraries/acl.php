@@ -12,11 +12,15 @@ class XiPTLibraryAcl
 	{
 		$feature ='';
 		$task	 ='';
-		
+		$option 	= JRequest::getVar('option','');
 		// depending upon call get feature and task, might be objectID
 		if($ajax){
 			$feature 	= JString::strtolower($callArray[0]);
 			$task	 	= JString::strtolower($callArray[1]);
+			/*Imp : remove option from here if not sure that ajax request
+			* is comming only form community
+			*/
+			$option 	= 'com_community';
 		}
 		else{
 			$feature 	=  JRequest::getCmd('view');
@@ -29,27 +33,39 @@ class XiPTLibraryAcl
 		if(XiPTLibraryUtils::isAdmin($userId))
 			return false;
 		
-		if(($feature && ($task || $viewuserid) && $userId)== false)
-			return false;
-			
-		// resolve feature and task ==> into our aclFeature
-		$aclViolatingRule= false;
-		$aclFeature	= XiPTLibraryAcl::resolvePararmeters($feature, $task, $viewuserid, $args);
+		/*if(($feature && ($task || $viewuserid) && $userId)== false)
+			return false;*/
+		$info = array();
+		$info['option']			= $option;
+		$info['view'] 			= $feature;
+		$info['task'] 			= strtolower($task);
+		$info['userid'] 		= $userId;
+		$info['viewuserid'] 	= $viewuserid;
+		$info['ajax'] 			= $ajax;
+		$info['args'] 			= $args;
 		
-		//$mainframe->enqueueMessage("aclfeature = ".$aclFeature);
-		
-		// do acl check, is feature need to be checked ?
-		if($aclFeature == false)
+		$filter = array();
+		$filter['published'] = 1;
+		$rules = aclFactory::getAclRulesInfo($filter);
+		if(empty($rules))
 			return false;
-		else
-			$aclViolatingRule 	=	XiPTLibraryAcl::aclMicroCheck($userId,$aclFeature,$viewuserid);
+
 			
-		// if not violating any rule, just return else redirect/ajaxBlock and show message.
-		if($aclViolatingRule == false)
-			return false;
+		foreach($rules as $rule) {
+			$aclObject = aclFactory::getAclObject($rule->aclname);
+			$aclObject->bind($rule);
+			
+			if(false == $aclObject->isApplicable($info))
+				continue;
+			
+			if(false == $aclObject->isViolatingRule($info))
+				continue;
+			
+			$aclObject->handleViolation($info);
+			break;
+					
+		}
 		
-			
-		XiPTLibraryAcl::aclCheckFailedBlockUser($ajax,$aclViolatingRule, $task);	
 		return false;
 	}
 	

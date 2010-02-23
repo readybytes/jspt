@@ -8,6 +8,10 @@
 
 	
 	<target name="build" description="build installable package only" depends="config,svn_lastrevision">
+
+		<!-- delete packages -->
+        <delete dir="${global.dir.packages}" includeemptydirs="true" />
+
 		<mkdir dir="${global.dir.packages}" />
 		<mkdir dir="${global.dir.tmp}" />
 
@@ -51,11 +55,24 @@
 		</copy>
 		
 		<!-- apply lint -->
-<analyze analyzerPath="/usr/local/bin/zca" disable="var-ref-notmodified,if-if-else,expr-unused,include-var" >
-	<fileset dir="${global.dir.tmp}">
-	    <include name="**/*.php"/>
-	</fileset>
-</analyze>
+			<analyze analyzerPath="/usr/local/bin/zca" disable="var-ref-notmodified,if-if-else,expr-unused,include-var" >
+				<fileset dir="${global.dir.tmp}">
+				    <include name="**/*.php"/>
+				</fileset>
+			</analyze>
+
+
+			<exec command="phploc  ${global.dir.tmp} > loc.source.txt " escape="false" />
+	        <exec command="phploc  --count-tests ${global.dir.root}/test > loc.test.txt " escape="false" />
+	        <exec command="pdepend  --summary-xml=${global.dir.root}/data/pdepend.summary.xml --jdepend-chart=${global.dir.root}/data/pdepend1.svg  --overview-pyramid=${global.dir.root}/data/pdepend2.svg  ${global.dir.root}/source" escape="false" />
+	
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni xitodo  > ${global.dir.root}/data/xitodo.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni JSITE_PATH  > ${global.dir.root}/data/jsite-path.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _REQUEST   > ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _POST     >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _GET      >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _SESSION  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _GLOBALS  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
 
 
 		<!-- gather stats phpcpd / phploc / test-count,assert-count, xitodo/codrev numbers / coverage numbers  -->

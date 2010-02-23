@@ -40,3 +40,90 @@ function getJSPTFileList()
 
 	return $filestoreplace;
 }
+
+function generateParamsString($params=array())
+{
+	$config = new JParameter('','');
+	$config->bind($params);
+	$configString = $config->toString('INI');
+	return $configString;
+}
+
+
+function generateAclParams($aclname,$maxCount,$otherpid)
+{
+	$aclParams = array();
+	
+	switch($aclname) {
+		case 'joingroup' :
+			$aclParams['joingroup_limit'] = $maxCount;
+			break;
+		
+		case 'creategroup' :
+			$aclParams['creategroup_limit'] = $maxCount;
+			break;
+			
+		case 'addphotos' :
+			$aclParams['addphotos_limit'] = $maxCount;
+			break;
+			
+		case 'addalbums' :
+			$aclParams['addalbums_limit'] = $maxCount;
+			break;
+			
+		case 'addvideos' :
+			$aclParams['addvideos_limit'] = $maxCount;
+			break;
+			
+		case 'writemessages' :
+			$aclParams['writemessage_limit'] = $maxCount;
+			$aclParams['other_profiletype'] = $otherpid;
+			break;
+			
+		case 'changeavatar' :
+			break;
+			
+		case 'changeprivacy' :
+			break;
+			
+		case 'editselfprofile' :
+			break;
+			
+		case 'editselfprofiledetails' :
+			break;
+			
+		case 'cantviewotherprofile' :
+			$aclParams['other_profiletype'] = $otherpid;
+			break;
+	}
+	
+	return generateParamsString($aclParams);
+}
+
+
+function calculateAclName($feature ="")
+{
+	if (!$feature)
+		return '';
+		
+	$allValues = array();
+	$allValues['aclFeatureJoinGroup'] 		= "joingroup";
+	$allValues['aclFeatureCreateGroup'] 	= "creategroup";				
+	$allValues['aclFeatureAddPhotos'] 		= "addphotos";
+	$allValues['aclFeatureAddAlbum'] 		= "addalbums";				
+	$allValues['aclFeatureAddVideos'] 		= "addvideos";
+	$allValues['aclFeatureWriteMessages'] 	= "writemessages";
+	$allValues['aclFeatureChangeAvatar'] 	= "changeavatar";
+	$allValues['aclFeatureChangePrivacy'] 	= "changeprivacy";
+	$allValues['aclFeatureEditProfile'] 	= "editselfprofile";
+	$allValues['aclFeatureEditProfileDetail'] 	= "editselfprofiledetails";
+	$allValues['aclFeatureCantVisitOtherProfile'] 	= "cantviewotherprofile";
+
+		
+	if(array_key_exists($feature,$allValues))
+			return ($allValues[$feature]);
+
+	XiPTLibraryUtils::XAssert(0, "Unknown aclFeature was asked.");
+	return false;
+}
+

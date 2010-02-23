@@ -359,8 +359,8 @@ enablephotos=1'
 		
   	  $watermarks[]='watermark_1.png';
   	  $watermarks[]='watermark_1_thumb.png';
-  	  $watermarks[]='watermark_2.gif';
-  	  $watermarks[]='watermark_2_thumb.gif';
+  	  $watermarks[]='watermark_2.png';
+  	  $watermarks[]='watermark_2_thumb.png';
   	  $watermarks[]='watermark_3.png';
   	  $watermarks[]='watermark_3_thumb.png';
   	  foreach($watermarks as $src)
@@ -502,5 +502,48 @@ enablephotos=1'
 	  	
 	  	$this->assertEquals($cuser->avatar,$defaultAvatar); 
 	  	$this->assertEquals($cuser->thumb,$defaultThumb);
+  }
+  
+  function testTemplate()
+  {
+  	$this->frontLogin("gaurav2","gaurav2");
+  	$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
+  	$this->waitPageLoad();
+  	$this->verifyTemplate(2);
+  	$this->frontLogout();
+  	  	
+  	$this->frontLogin("gaurav1","gaurav1");
+  	$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
+  	$this->waitPageLoad();
+  	$this->verifyTemplate(1);
+  	$this->frontLogout();
+  	
+  }
+  
+  function verifyTemplate($ptype)
+  {
+  	$template[1] = "components/com_community/templates/default/css/style.css";
+  	$template[2] = "components/com_community/templates/blackout/css/style.css";
+	$element = "//link[@href='".JOOMLA_LOCATION.$template[$ptype]."']";
+	//echo "\n Element is s". $element;
+	//http://localhost/root6145/components/com_community/assets/window.css	    
+	$this->assertTrue($this->isElementPresent($element));
+	
+	//click on home
+	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile');
+    $this->waitPageLoad();
+	$this->assertTrue($this->isElementPresent($element));
+  	//click on friends
+	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=friends');
+	$this->waitPageLoad();
+	$this->assertTrue($this->isElementPresent($element));
+	// click on application 
+	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=apps');
+	$this->waitPageLoad();
+	$this->assertTrue($this->isElementPresent($element));
+	//click on inbox
+	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=inbox');
+	$this->waitPageLoad();
+	$this->assertTrue($this->isElementPresent($element));
   }
 }

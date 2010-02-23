@@ -9,20 +9,21 @@ defined('_JEXEC') or die('Restricted access');
 class XiPTTableProfiletypes extends JTable
 {
 
-	var $id			= null;
-	var $name		= null;
-	var $tip		= null;
-	var $ordering	= null;
-	var $published  = null;
-	var $privacy	= null;
-	var $template	= null;
-	var $jusertype	= null;
-	var $avatar		= null;
-	var $watermark	= null;
-	var $approve	= null;
-	var $allowt		= null;
-	var $group 		= null;
-	var $params 		= null;
+	var $id					= null;
+	var $name				= null;
+	var $tip				= null;
+	var $ordering			= null;
+	var $published  		= null;
+	var $privacy			= null;
+	var $template			= null;
+	var $jusertype			= null;
+	var $avatar				= null;
+	var $watermark			= null;
+	var $approve			= null;
+	var $allowt				= null;
+	var $group 				= null;
+	var $params 			= null;
+	var $watermarkparams 	= null;
 	
 	function __construct(&$db)
 	{
@@ -56,6 +57,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->approve		= false;
 			$this->group 		= 0;
 			$this->params 		= '';
+			$this->watermarkparams 		= '';
 			return true;
 		}
 		else
@@ -146,6 +148,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->approve		= $data['approve'];
 			$this->allowt		= $data['allowt'];
 			$this->group 		= $data['group'];
+			$this->watermarkparams 		= $data['watermarkparams'];
 			//$this->ordering		= $data['ordering'];
 	}
 }

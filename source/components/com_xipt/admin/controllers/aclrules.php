@@ -1,26 +1,24 @@
 <?php
 
-// no direct access
 defined('_JEXEC') or die('Restricted access');
- 
+
 class XiPTControllerAclRules extends JController 
 {
-    
+   
 	function __construct($config = array())
 	{
 		parent::__construct($config);
 	}
 	
     function display() 
-	{
+    {
 		parent::display();
     }
-	
-	function edit()
+    
+
+    function add()
 	{
-		$id = JRequest::getVar('editId', 0 , 'GET');
-		
-		$viewName	= JRequest::getCmd( 'view');
+		$viewName	= JRequest::getCmd( 'view' , 'aclRules' );
 		
 		// Get the document object
 		$document	=& JFactory::getDocument();
@@ -29,50 +27,140 @@ class XiPTControllerAclRules extends JController
 		$viewType	= $document->getType();
 		
 		$view		=& $this->getView( $viewName , $viewType );
-		$layout		= JRequest::getCmd( 'layout' , 'aclrules.edit' );
-		$view->setLayout( $layout );
-		echo $view->edit($id);
 		
+		$layout		= JRequest::getCmd( 'layout' , 'acl.add' );
+			
+		$view->setLayout( $layout );
+
+		echo $view->add();
 	}
 	
-	function save()
+	
+	function renderacl()
 	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
+		$id = JRequest::getVar('editId', 0 );
+		$acl = JRequest::getVar('acl', 0 ) ;
+		
+		$viewName	= JRequest::getCmd( 'view' , 'aclRule' );
+		
+		// Get the document object
+		$document	=& JFactory::getDocument();
 
-		$post	= JRequest::get('post');
-		$user	=& JFactory::getUser();
-
-		if ( $user->get('guest')) {
-			JError::raiseError( 403, JText::_('Access Forbidden') );
+		// Get the view type
+		$viewType	= $document->getType();
+		
+		$view		=& $this->getView( $viewName , $viewType );
+		
+		if(!$acl && !$id) {
+			$layout		= JRequest::getCmd( 'layout' , 'acl.add' );
+			$view->setLayout( $layout );
+			echo $view->add();
 			return;
 		}
 		
 		$data = array();
-		$data['rulename'] 			= $post['rulename'];
-		$data['profiletype'] 		= $post['profiletype'];
-		$data['otherprofiletype']	= $post['otherprofiletype'];
-		$data['feature'] 			= $post['feature'];
-		$data['taskcount']			= $post['taskcount'];
-		$data['redirecturl']		= $post['redirecturl'];
-		$data['message']			= $post['message'];
-		$data['published']			= $post['published'];
+		$data['id'] = $id;
 		
-		// Load the JTable Object.
-		$row	=& JTable::getInstance( 'aclrules' , 'XiPTTable' );
-		$row->load( $post['id'] );	
-		$row->bindAjaxPost($data);
+		if($acl) {
+			$aclObject = aclFactory::getAclObject($acl);
+			$aclObject->load($id);
+			$data = $aclObject->getObjectInfoArray();
+		}
 		
-		$row->store();
-		$msg = JText::_('RULE SAVED');
 		
+		if($id){
+			
+			$aclObject = aclFactory::getAclObjectFromId($id);
+			if(!$aclObject) {
+				$layout		= JRequest::getCmd( 'layout' , 'acl.add' );
+				$view->setLayout( $layout );
+				echo $view->add();
+				return;
+			}
+					
+			$aclObject->load($id);
+			$data = $aclObject->getObjectInfoArray();
+		}
+		
+		$layout		= JRequest::getCmd( 'layout' , 'aclrules.edit' );
+		$view->setLayout( $layout );
+		echo $view->renderacl($data);
+	}
+	
+	
+	function processSave()
+	{
+		//save aclparam and core param in individual columns
+		// Test if this is really a post request
+		$method	= JRequest::getMethod();
+		$id = JRequest::getVar('editId', 0 );
+		if( $method == 'GET' )
+		{
+			JError::raiseError( 500 , JText::_('ACCESS METHOD NOT ALLOWED') );
+			return;
+		}
+		
+		$mainframe	=& JFactory::getApplication();
+
+		$post	= JRequest::get('post');
+		
+		jimport('joomla.filesystem.file');
+
+		$aclTable	=& JTable::getInstance( 'aclrules' , 'XiPTTable' );
+		$aclTable->load($post['id']);
+				
+		$data = array();
+		
+		$registry	=& JRegistry::getInstance( 'xipt' );
+		$registry->loadArray($post['coreparams'],'xipt_coreparams');
+		// Get the complete INI string
+		$data['coreparams']	= $registry->toString('INI' , 'xipt_coreparams' );
+		
+		$data['id'] 			= $post['id'];
+		$data['aclname'] 		= $post['aclname'];
+		$data['rulename']	 	= $post['rulename'];
+		$data['published'] 		= $post['published'];
+		
+		unset($post['id']);
+		unset($post['rulename']);
+		unset($post['aclname']);
+		unset($post['published']);
+		unset($post['coreparams']);
+		
+		$aclObject = aclFactory::getAclObject($data['aclname']);
+		$data['aclparams'] = $aclObject->collectParamsFromPost($post);
+		
+		
+		$aclTable->bind($data);
+		$data = array();
+		// Save it
+		if(! ($data['id'] = $aclTable->store()) )
+			$data['msg'] = JText::_('ERROR IN SAVING RULE');
+		else
+			$data['msg'] = JText::_('RULE SAVED');	
+
+		return $data;
+	}
+	
+	function save()
+	{
+		$data = $this->processSave();
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
-		$mainframe->redirect($link, $msg);
+		$mainframe	=& JFactory::getApplication();
+		$mainframe->redirect($link, $data['msg']);		
+		
+	}
+	
+	function apply()
+	{
+		$data = $this->processSave();
+		$link = JRoute::_('index.php?option=com_xipt&view=aclrules&task=renderacl&editId='.$data['id'], false);
+		$mainframe	=& JFactory::getApplication();
+		$mainframe->redirect($link, $data['msg']);				
 	}
 	
 
-function remove()
+	function remove()
 	{
 		global $mainframe;
 		// Check for request forgeries
@@ -122,10 +210,10 @@ function remove()
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$jaclModel	= XiFactory::getModel( 'aclrules' );
+		$aclModel	= XiFactory::getModel( 'aclrules' );
 		foreach($ids as $id)
 		{
-			$jaclModel->updatePublish($id,1);
+			$aclModel->updatePublish($id,1);
 		}
 		$msg = JText::sprintf( $count.' ITEMS PUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
@@ -146,25 +234,15 @@ function remove()
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$jaclModel	= XiFactory::getModel( 'aclrules' );
+		$aclModel	= XiFactory::getModel( 'aclrules' );
 		foreach($ids as $id)
 		{
-			$jaclModel->updatePublish($id,0);
+			$aclModel->updatePublish($id,0);
 		}
 		$msg = JText::sprintf( $count.' ITEMS UNPUBLISHED' );
 		$link = JRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
 		return true;
 	}
-	
-	
-	function cancel()
-	{
-		// Check for request forgeries
-		global $mainframe;
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-
-		$mainframe->redirect( 'index.php?option=com_xipt&view=aclrules' );
-
-	}
+		
 }

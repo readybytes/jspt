@@ -231,21 +231,19 @@ INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, 
 
 CREATE TABLE IF NOT EXISTS `au_#__xipt_aclrules` (
   `id` int(31) NOT NULL auto_increment,
-  `pid` int(31) NOT NULL,
   `rulename` varchar(250) NOT NULL,
-  `feature` varchar(128) NOT NULL,
-  `taskcount` int(31) NOT NULL,
-  `redirecturl` varchar(250) NOT NULL default 'index.php?option=com_community',
-  `message` varchar(250) NOT NULL default 'You are not allowed to access this resource',
+  `aclname` varchar(128) NOT NULL,
+  `coreparams` text NOT NULL,
+  `aclparams` text NOT NULL,
   `published` tinyint(1) NOT NULL,
-  `otherpid` int(31) NOT NULL default '-1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
 
 TRUNCATE TABLE  `au_#__xipt_aclrules`;
-INSERT INTO `au_#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
-(1, 2, 'PT1 ', 'aclFeatureAddPhotos', 35, 'index.php?option=com_community', 'DO NOT ADD PHOTOS', 1, 0),
-(2, 2, 'PT2', 'aclFeatureWriteMessages', 10, 'index.php?option=com_community', 'DO NOT MORE MESSAGE', 1, 0);
+INSERT INTO `au_#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
+(1, 'PT1 ', 'addphotos', 'core_profiletype=2\ncore_display_message=DO NOT ADD PHOTOS\ncore_redirect_url=index.php?option=com_community\n\n', 'addphotos_limit=35\n\n', 1),
+(2, 'PT2', 'writemessages', 'core_profiletype=2\ncore_display_message=DO NOT MORE MESSAGE\ncore_redirect_url=index.php?option=com_community\n\n', 'writemessage_limit=10\nother_profiletype=0\n\n', 1);
 
 CREATE TABLE IF NOT EXISTS `au_#__xipt_aec` (
   `id` int(11) NOT NULL auto_increment,
@@ -299,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_profiletypes` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
- TRUNCATE TABLE  `au_#__xipt_profiletypes` ;
+TRUNCATE TABLE  `au_#__xipt_profiletypes` ;
 INSERT INTO `au_#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`) VALUES
 (1, 'PT1', 0, 1, 'PT1', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', ''),
 (2, 'PT2', 1, 1, 'PT2', 'members', 'blackout', 'Editor', 'components/com_community/assets/group.jpg', 0, 0, 0, '', ''),

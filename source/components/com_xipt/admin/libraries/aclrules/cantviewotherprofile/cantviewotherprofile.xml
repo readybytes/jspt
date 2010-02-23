@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+<params addpath="/administrator/components/com_xipt/elements" >
+	<param name="other_profiletype" type="profiletypes" addall="true" default="" label="OTHER PROFILETYPE USERS TO APPLY.Lable" description="OTHER PROFILETYPE TO APPLY.Desc" />
+</params>
+</config>

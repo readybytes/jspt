@@ -50,7 +50,7 @@ class plgSystemxipt_system extends JPlugin
 			
 		$view = JRequest::getVar('view','BLANK');
 		
-		
+		/*
 		switch(trim($option))
 		{		 
 		    case 'com_community':
@@ -59,16 +59,18 @@ class plgSystemxipt_system extends JPlugin
 		        
 		    default:
 		           return;
-		}
+		}*/
 		
 		// use factory to get any object
 		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
 
-		if($option == 'com_community')
+		/*if($option == 'com_community')
 		{
 			$nothing    = false;
 			$pluginHandler->performACLCheck($nothing,$nothing,$nothing);
-		}
+		}*/
+		$nothing    = false;
+		$pluginHandler->performACLCheck($nothing,$nothing,$nothing);
 
 		//do routine works
 		$eventName = $this->_eventPreText.strtolower($option).'_'.strtolower($view).'_'.strtolower($task);
@@ -77,14 +79,34 @@ class plgSystemxipt_system extends JPlugin
 		$exist = method_exists($pluginHandler,$eventName);
 		if($exist)
 		{
-/*
- * We will store only where we need
- * 			//store current url into session
-			XiPTLibraryUtils::setReturnURL();
-*/			//call function
+			/*
+			 * We will store only where we need
+			 * 			//store current url into session
+						XiPTLibraryUtils::setReturnURL();
+			*/			//call function
 			$pluginHandler->$eventName();
 		}
 			
 		return;
+	}
+	
+	function onAfterStoreUser($properties,$isNew,$result,$error)
+	{
+		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+
+		// use factory to get any object
+		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		return $pluginHandler->onAfterStoreUser(array($properties,$isNew,$result,$error));
+	}
+	
+	function onAfterDeleteUser($properties,$result,$error)
+	{
+		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+
+		// use factory to get any object
+		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		return $pluginHandler->onAfterDeleteUser(array($properties,$result,$error));
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
 ?>
+
 <script type="text/javascript" language="javascript">
 /**
  * This function needs to be here because, Joomla toolbar calls it
@@ -24,7 +24,11 @@ function submitbutton( action )
 }
 </script>
 
-<form action="<?php echo JURI::base();?>index.php" method="post" name="adminForm">
+<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
+	<?php echo JText::_('FOLLOWING PUBLISHED RULES WILL BE APPLIED FOR RESTRICTION');?>
+</div>
+
+<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
 		<tr class="title">
@@ -32,28 +36,16 @@ function submitbutton( action )
 				<?php echo JText::_( 'NUM' ); ?>
 			</th>
 			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
+				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->rules ); ?>);" />
 			</th>
 			<th>
 				<?php echo JText::_( 'RULE NAME' ); ?>
 			</th>
-			<th width="5%">
-				<?php echo JText::_( 'PROFILETYPE' ); ?>
+			<th>
+				<?php echo JText::_( 'ACL NAME' ); ?>
 			</th>
-			<th width="5%">
-				<?php echo JText::_( 'OTHER PROFILETYPE' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'FEATURE TO CONTROL' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'TASK LIMIT' ); ?>
-			</th>
-			<th width="20%">
-				<?php echo JText::_( 'REDIRECT URL' ); ?>
-			</th>
-			<th width="20%">
-				<?php echo JText::_( 'MESSAGE' ); ?>
+			<th>
+				<?php echo JText::_( 'APPLICABLE PROFILETYPE' ); ?>
 			</th>
 			<th width="5%">
 				<?php echo JText::_( 'PUBLISHED' ); ?>
@@ -64,58 +56,46 @@ function submitbutton( action )
 	$count	= 0;
 	$i		= 0;
 
-	if(!empty($this->fields))
-	foreach($this->fields as $field)
+	if(!empty($this->rules))
+	foreach($this->rules as $rule)
 	{
-		$input	= JHTML::_('grid.id', $count, $field->id);
+		$input	= JHTML::_('grid.id', $count, $rule->id);
 		
 		// Process publish / unpublish images
 		++$i;
 ?>
-		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
+		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $rule->id;?>">
 			<td><?php echo $i;?></td>
 			<td>
 				<?php echo $input; ?>
 			</td>
 			<td>
-				<span class="editlinktip" title="<?php echo $field->rulename; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = JRoute::_('index.php?option=com_xipt&view=aclrules&task=edit&editId='.$field->id, false); ?>
-						<A HREF="<?php echo $link; ?>"><?php echo $field->rulename; ?></A>
+				<span class="editlinktip" title="<?php echo $rule->rulename; ?>" id="rulename<?php echo $rule->id;?>">
+					<?php $link = JRoute::_('index.php?option=com_xipt&view=aclrules&task=renderacl&editId='.$rule->id, false); ?>
+						<A HREF="<?php echo $link; ?>"><?php echo $rule->rulename; ?></A>
 				</span>
 			</td>
-			<td align="center" id="profiletype<?php echo $field->id;?>">
-				<?php echo XiPTHelperAclRules::getProfileTypeNameforaclrules($field->pid); ?>
+			<td>
+				<?php echo JText::_($rule->aclname); ?>
 			</td>
-			<td align="center" id="otherprofiletype<?php echo $field->id;?>">
-				<?php echo XiPTHelperAclRules::getProfileTypeNameforaclrules($field->otherpid); ?>
+			<td>
+				<?php echo $this->ruleProfiletype[$rule->id]; ?>
 			</td>
-			<td align="center" id="feature<?php echo $field->id;?>">
-				<?php echo XiPTHelperAclRules::_getDisplayNameofAclFeature($field->feature); ?>
-			</td>
-			<td align="center" id="taskcount<?php echo $field->id;?>">
-				<?php echo $field->taskcount; ?>
-			</td>
-
-			<td align="center" id="redirecturl<?php echo $field->id;?>">
-				<?php echo $field->redirecturl; ?>
-			</td>
-			<td align="center" id="message<?php echo $field->id;?>">
-				<?php echo $field->message;	?>
-			</td>
-			<td align="center" id="published<?php echo $field->id;?>">
-				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->published ? 'unpublish' : 'publish' ?>')">
-							<?php if($field->published)
+			<td align="center" id="published<?php echo $rule->id;?>">
+				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $rule->published ? 'unpublish' : 'publish' ?>')">
+							<?php if($rule->published)
 							{ ?>
-								<img src="images/tick.png" width="16" height="16" border="0" alt="Published" /></a>
+								<img src="images/tick.png" width="16" height="16" border="0" alt="Published" />
 							<?php 
 							}
 							else 
 							{ ?>
-								<img src="images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" /></a>
+								<img src="images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" />
 						<?php 
 							} //echo $published;
 						?>
-			</td>		
+				</a>
+			</td>	
 		</tr>
 <?php
 		
@@ -130,8 +110,11 @@ function submitbutton( action )
 	</tr>
 	</tfoot>
 </table>
-<input type="hidden" name="view" value="aclrules" />
-<input type="hidden" name="task" value="<?php echo JRequest::getCmd( 'task' );?>" />
+
+
+
+<input type="hidden" name="view" value="<?php echo JRequest::getVar('view','aclrules');?>" />
+<input type="hidden" name="task" value="" />
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="boxchecked" value="0" />
 <?php echo JHTML::_( 'form.token' ); ?>

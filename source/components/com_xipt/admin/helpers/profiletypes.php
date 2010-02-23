@@ -167,11 +167,14 @@ function getProfileTypeData($id,$what='name')
 	return $val;
 }
 	
-function getProfileTypeName($id)
+function getProfileTypeName($id,$isNoneReq=false)
 {
 			
 		if($id==0 || empty($id))
 			return JText::_("All");
+			
+		if($isNoneReq && $id==-1)
+			return JText::_("NONE");
 
 		$db		=& JFactory::getDBO();
 		$query		= 'SELECT '.$db->nameQuote('name')
@@ -425,5 +428,24 @@ function resetAllUsers($pid, $oldData, $newData)
 				JError::raiseError( 500, $db->stderr());
 		    }
 		}
+	}
+	
+	
+	function getFonts()
+	{
+		$path	= JPATH_ROOT  . DS . 'components' . DS . 'com_xipt' . DS . 'assets' . DS . 'fonts';
+	
+		jimport( 'joomla.filesystem.file' );
+		$fonts = array();
+		if( $handle = @opendir($path) )
+		{
+			while( false !== ( $file = readdir( $handle ) ) )
+			{
+				if( JFile::getExt($file) === 'ttf')
+					//$fonts[JFile::stripExt($file)]	= JFile::stripExt($file);
+					$fonts[] = JHTML::_('select.option', JFile::stripExt($file), JFile::stripExt($file));
+			}
+		}
+		return $fonts;
 	}
 }

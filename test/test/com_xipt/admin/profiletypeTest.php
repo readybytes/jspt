@@ -24,13 +24,30 @@ class ProfiletypeTest extends XiSelTestCase
     $this->click("//td[@id='toolbar-new']/a");
     $this->waitPageLoad();
     $this->type("name", "PROFILETYPE-ONE");
-    $this->click("//td[@id='toolbar-save']/a");
+    $this->click("watermarkparamsenableWaterMark1");
+    $this->type("watermarkparamsxiText", "P1");
+    $this->type("watermarkparamsxiWidth", "40");
+    $this->type("watermarkparamsxiHeight", "40");
+    $this->type("watermarkparamsxiThumbWidth", "20");
+    $this->type("watermarkparamsxiThumbHeight", "20");
+    $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
+    $this->click("resetAll1");
+        
+    $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
-
+	
+    $checkWMExists=JFile::exists(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_1.png');
+    $this->assertTrue($checkWMExists);
+    
+    $md5_watermark      = md5(JFile::read(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_1.png'));
+    $md5_watermark_gold = md5(JFile::read(JPATH_ROOT.DS.'test'.DS.'test'.DS.'com_xipt'.DS.'admin'.DS.'watermark_1.png'));
+    $this->assertEquals($md5_watermark,$md5_watermark_gold);
     // setup custom filters
-    $this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
+    //$this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','params');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
   }
 	
 	function testOrderProfileType()
@@ -128,7 +145,9 @@ class ProfiletypeTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
     $this->waitPageLoad(); //1: png.jpg
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
-    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_1.jpg");
+    
+    $this->click("watermarkparamsenableWaterMark1");
+     $this->type("watermarkparamsxiText", "Profiletype1");
     $this->click("resetAll1");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
@@ -136,7 +155,8 @@ class ProfiletypeTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=2");
     $this->waitPageLoad();//2:png,gif
 	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_2.png");
-	$this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_2.gif");
+	 $this->type("watermarkparamsxiText", "Profiletype2");
+	$this->click("watermarkparamsenableWaterMark1");
 	$this->click("resetAll1");
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
@@ -150,8 +170,15 @@ class ProfiletypeTest extends XiSelTestCase
 	// now edit first entry, and change watermark
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
     $this->waitPageLoad();//1. png,png
-	$this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_3.png");
-	$this->click("//td[@id='toolbar-save']/a");
+	$this->type("watermarkparamsxiText", "Profiletype1");
+    $this->type("watermarkparamsxiWidth", "150");
+    $this->type("watermarkparamsxiHeight", "30");
+    $this->type("watermarkparamsxiFontSize", "24");
+    $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
+    $this->select("watermarkparamsxiWatermarkPosition", "label=Top Right");
+    $this->click("resetAll1");
+    $this->click("//td[@id='toolbar-save']/a");
+		
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
     
@@ -168,7 +195,13 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
     $this->waitPageLoad();//3: png,png
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
-    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_3.png");
+	$this->click("watermarkparamsenableWaterMark1");
+     $this->type("watermarkparamsxiText", "Profiletype3");
+	$this->type("watermarkparamsxiWidth", "100");
+    $this->type("watermarkparamsxiHeight", "40");
+    $this->type("watermarkparamsxiFontSize", "18");
+    $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
+    $this->select("watermarkparamsxiWatermarkPosition", "label=Right Bottom");
     $this->click("resetAll1");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
@@ -180,7 +213,14 @@ class ProfiletypeTest extends XiSelTestCase
     
     $this->type("name", "PROFILETYPE-4");
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
-    $this->type("FileWatermark", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/watermark_3.png");
+    $this->click("watermarkparamsenableWaterMark1");
+     $this->type("watermarkparamsxiText", "Profiletype4");
+    $this->type("watermarkparamsxiWidth", "100");
+    $this->type("watermarkparamsxiHeight", "40");
+    $this->type("watermarkparamsxiFontSize", "18");
+    $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
+    $this->select("watermarkparamsxiWatermarkPosition", "label=Right Bottom");
+    $this->click("resetAll1");
     $this->click("//td[@id='toolbar-save']/a");//4:png.png
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-4"));
@@ -189,10 +229,26 @@ class ProfiletypeTest extends XiSelTestCase
     $this->_DBO->addTable('#__xipt_profiletypes');
   	$this->_DBO->filterColumn('#__xipt_profiletypes','id');
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
     $this->_DBO->addTable('#__community_users');
     $this->_DBO->filterColumn('#__community_users','params');
   }
   
+  /*function testChangeAvatar()
+  {
+  	$this->adminLogin();
+  	$this->open(JOOMLA_LOCATION."index.php?option=com_xipt&view=profiletypes");
+  	$this->waitPageLoad();
+    $this->click("//span[@title='ProfileType1']");
+    $this->waitPageLoad();
+    $this->type("file-upload", JPATH_ROOT.DS."/var/www/jspt6305/test/test/com_xipt/admin/avatar_1.png");
+    $this->click("resetAll1");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
+    
+  }
+  */
   function testProfiletypeResetAll()
   {
   	$this->adminLogin();
@@ -202,6 +258,7 @@ class ProfiletypeTest extends XiSelTestCase
   	//edit 2nd profiletype
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=2");
     $this->waitPageLoad();
+    $this->select("jusertype", "label=Editor");
     $this->select("privacy", "label=Public");
     $this->select("template", "value=default");
     //previous was PNG, now adding GIF, so all users must be updated
@@ -238,6 +295,8 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->_DBO->addTable('#__core_acl_groups_aro_map');
 	$this->_DBO->filterColumn('#__users','lastvisitDate');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','tip');
+	$this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
+	$this->_DBO->filterColumn('#__xipt_profiletypes','wtermarkparams');
 	$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
   }
 }

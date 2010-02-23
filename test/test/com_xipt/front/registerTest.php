@@ -39,6 +39,106 @@ class RegisterTest extends XiSelTestCase
     $this->assertTrue($this->isTextPresent("Register new user"));
   }
   
+  
+  function testJoomlaRegistration()
+  {
+  		/*enable user account without email verification */
+  		$params = JComponentHelper::getParams('com_users');
+  		$params->set('useractivation',0);
+  		
+  		$config = $params->toString();
+  		
+  		$db			=& JFactory::getDBO();
+  		$query = "UPDATE `#__components` SET `params`='".$config."'"
+  				." WHERE `parent`='0' AND `option` ='com_users' LIMIT 1";	
+		$db->setQuery($query);
+		$db->query();
+  		
+		/*$configFilter = array();
+  		$configFilter['useractivation'] = 0;
+  		$this->updateJoomlaConfig($configFilter);*/
+  		
+  		$filter['aec_integrate']=0;
+  		$this->changeJSPTConfig($filter);
+  		
+  		/*we know that template must be default 
+  		 * for ptype 1 and etc.. */
+		$this->joomlaRegistrationForPT(1,'default');
+		$this->joomlaRegistrationForPT(2,'blueface');
+		$this->joomlaRegistrationForPT(2,'blueface');
+		$this->joomlaRegistrationForPT(3,'blackout');	
+  }
+
+  
+  function joomlaRegistrationForPT($ptype,$template)
+  {
+  	//Prerequiste = clean session + No AEC + Our system plugin is working
+  	//1. session cleaned via SQL
+    // go to register location 
+    $this->open(JOOMLA_LOCATION."/index.php?option=com_user&view=register");
+    $this->waitPageLoad();
+    $this->click("profiletypes".$ptype);
+    $this->click("ptypesavebtn");
+    
+    $this->waitPageLoad();
+    
+    // now fille reg + field information
+    
+    $username =  $this->fillJoomlaRrgistrationPT($ptype);
+    
+    $this->assertTrue($this->isTextPresent("You may now log in."));
+    
+    //verify users
+    $this->assertTrue($this->verifyJoomlaUser($username, $ptype, $template));
+  	
+  }
+  
+  
+   function fillJoomlaRrgistrationPT($ptype)
+  {
+  	$this->assertTrue($this->isTextPresent("Registration"));
+  	
+  	$randomNo  = rand(1234567,9234567);
+    $randomStr = "regtest".$randomNo;
+    
+    // fill some random values in register page
+    $this->type("name", $randomStr);
+    $this->type("username", $randomStr);
+    $this->type("email", $randomStr.'@gmail.com');
+    $this->type("password", $randomStr);
+    $this->type("password2", $randomStr);
+    $this->click("//button[@type='submit']");
+    $this->waitPageLoad();
+    return $randomStr;
+  }
+  
+  
+  function verifyJoomlaUser($username,$ptype,$template)
+  {
+  	$db	=& JFactory::getDBO();
+  	$query	= " SELECT `id` FROM #__users "
+  			." WHERE `username`='". $username ."' LIMIT 1";
+  	$db->setQuery($query);
+  	$userid = $db->loadResult();
+  	
+  	$jUser = JFactory::getUser($userid);
+  	$jUser->block=0;
+  	$jUser->save();
+  	$jUser = JFactory::getUser($userid);
+
+  	$query	= " SELECT * FROM #__xipt_users"
+  			." WHERE `userid`='". $userid ."'"
+  			." AND `profiletype`='".$ptype ."'"
+  			." AND `template`='".$template ."'"
+  			." LIMIT 1";
+  	$db->setQuery($query);
+  	$userPtypeInfo = $db->loadObject();
+  	
+  	if(empty($userPtypeInfo))
+  		return false;
+  		
+  	return true;
+  }
 
   //cross check fields exists
   function testRegisterProfileFieldPage()

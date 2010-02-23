@@ -10,17 +10,35 @@ function show_instruction()
 	if(strstr($siteURL,'localhost')==false)
 	{
 		$version  = get_js_version();
+		
 		$siteURL  = JURI::base();
-		echo '<img src="http://www.joomlaxi.com/index.php?option=ssv_url&task=ssv_add'
-				.'&url='.$siteURL
-				.'&version='.$version
-				.'" />';
 	}
 }
 
 
+function check_version()
+{
+	$version = get_js_version();
+	
+	if(Jstring::stristr($version,'1.5'))
+	{?>
+		<div>
+			ERROR : The JomSocial Version [<?php echo $version; ?>] used by you is not supported for ProfileTypes.
+			The JSPT 2.x.x release will only supports newer version of JomSocial since JomSocial 1.6.184.
+		</div>	
+		<?php
+		return false;
+	}
+	return true;
+}
+
+
 function com_install()
-{		
+{	
+	/*XITODO : check jomsocial version if it is less than 1.6 than show error message */
+	if(check_version() == false)
+		JError::raiseWarning('INSTERR', "XIPT Only support Jomsocial 1.6 or greater releases");
+		
 	if(setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 
@@ -42,9 +60,15 @@ function setup_database()
 	if($migrationRequired && migrate_tables() == false)
 		return false;
 
+	$migration2Required = isMigration2Required();
+
+	if($migration2Required && migration2() == false)
+		return false;
+
 	//TO migrate old data we need to add these fields after migration only.
 	add_column('watermark' , 'varchar(250) NOT NULL', '#__xipt_profiletypes');
 	add_column('params' , 'text NOT NULL', '#__xipt_profiletypes');
+	add_column('watermarkparams' , 'text NOT NULL', '#__xipt_profiletypes');
 	
 	//update global configuration data
 	if(isTableExist('xipt_temp_globalconfiguration')){
@@ -97,6 +121,7 @@ function create_tables()
 				PRIMARY KEY (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
 	
+
 	$allQueries[]	= 'CREATE TABLE IF NOT EXISTS `#__xipt_aclrules` (
 				`id` int(31) NOT NULL auto_increment,
 				`pid` int(31) NOT NULL,
@@ -109,7 +134,9 @@ function create_tables()
 				`otherpid` int(31) NOT NULL default -1,
 				PRIMARY KEY  (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-
+	
+	
+	
 	$allQueries[] = 'CREATE TABLE IF NOT EXISTS `#__xipt_users` (
 	 			 `userid` int(11) NOT NULL,
   				 `profiletype` int(10) NOT NULL default \'0\',
@@ -181,6 +208,7 @@ function copy_files()
 	return true;
 }
 
+
 function isMigrationRequired()
 {
 	$newTables = isTableExist('xipt_users');
@@ -196,6 +224,18 @@ function isMigrationRequired()
 	// no need of migration.
 	return false;
 }
+
+
+function isMigration2Required()
+{
+	if(isTableExist('xipt_aclrules')) {
+		if(!check_column_exist('#__xipt_aclrules','coreparams')) 
+			return true;
+	}
+
+	return false;
+}
+
 
 // we will migrate the old tables information to new tables
 // IMP : this function will remove all the previous table additions
@@ -328,6 +368,93 @@ function migrate_tables()
 	}
 	return true;
 }
+
+
+function migration2()
+{
+
+	$allQueries	= array();
+	
+	#1
+	$isContentMigrationRequired = false;
+	if(isTableExist('xipt_aclrules')){
+		if(!check_column_exist('#__xipt_aclrules','coreparams')) {
+			$allQueries[] = 'RENAME TABLE `#__xipt_aclrules`  TO `bak_#__xipt_aclrules`' ;
+			
+			$isContentMigrationRequired = true;
+		}
+	}
+	
+	$allQueries[]	= 'CREATE TABLE IF NOT EXISTS `#__xipt_aclrules` (
+				  `id` int(31) NOT NULL auto_increment,
+				  `rulename` varchar(250) NOT NULL,
+				  `aclname` varchar(128) NOT NULL,
+				  `coreparams` text NOT NULL,
+				  `aclparams` text NOT NULL,
+				  `published` tinyint(1) NOT NULL,
+				  PRIMARY KEY  (`id`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8' ;
+	
+			
+	$db	=& JFactory::getDBO();
+	foreach ( $allQueries as $query){
+
+		$db->setQuery($query);
+		$db->query();
+
+		if($db->getErrorNum()){
+			JError::raiseError( 500, $db->stderr());
+			return false;
+		}
+	}
+	
+	if($isContentMigrationRequired == true) {
+		$migrationQuery = 'SELECT * FROM '.$db->nameQuote('bak_#__xipt_aclrules');
+		$db->setQuery($migrationQuery);
+		$oldAclRules = $db->loadObjectList();
+		if(empty($oldAclRules))
+			return true;
+
+		$contentMigrationQuery = array();
+		foreach($oldAclRules as $oldAcl) {
+			$coreparams = array();
+			$coreparams['core_profiletype'] = $oldAcl->pid;
+			$coreparams['core_display_message'] = $oldAcl->message;
+			$coreparams['core_redirect_url'] = $oldAcl->redirecturl;
+
+			$coreparamsString = generateParamsString($coreparams);
+			
+			$aclName = calculateAclName($oldAcl->feature);
+			
+			$aclParams = generateAclParams($aclName,$oldAcl->taskcount,$oldAcl->otherpid);
+			
+			$contentMigrationQuery[] = 'INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `aclparams`,`coreparams`, `published`)'
+									.' VALUES ('
+									. $db->Quote($oldAcl->id).','
+									. $db->Quote($oldAcl->rulename).','
+									. $db->Quote($aclName).','
+									. $db->Quote($aclParams).','
+									. $db->Quote($coreparamsString).','
+									. $db->Quote($oldAcl->published)
+									. ' )';
+		}
+		
+		foreach ( $contentMigrationQuery as $cquery){
+	
+			$db->setQuery($cquery);
+			$db->query();
+	
+			if($db->getErrorNum()){
+				JError::raiseError( 500, $db->stderr());
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+
 
 
 function migrate_configuration()

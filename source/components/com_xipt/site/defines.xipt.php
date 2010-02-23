@@ -30,13 +30,18 @@ define('AVATAR_WIDTH',160);
 define('AVATAR_HEIGHT_THUMB',64);
 define('AVATAR_WIDTH_THUMB',64);
 
+define('PTYPE_POPUP_WINDOW_WIDTH_RADIO',250);
+define('PTYPE_POPUP_WINDOW_HEIGHT_RADIO',350);
+define('PTYPE_POPUP_WINDOW_WIDTH_SELECT',50);
+define('PTYPE_POPUP_WINDOW_HEIGHT_SELECT',100);
+
 define('DEFAULT_AVATAR','components/com_community/assets/default.jpg');
 define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg');
 
 //where to store profiletype avatars
 define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images' . DS . 'profiletype');
 define('PROFILETYPE_AVATAR_STORAGE_PATH', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH);
-
+define('USER_AVATAR_BACKUP', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'useravatar');
 
 
 //define some constant

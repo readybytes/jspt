@@ -26,18 +26,22 @@ if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
 require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php';
 
+//admin files
+require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+
 // include xipt files
 // common file to front and back
-require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
 
 //front end files required
-require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
-require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'acl.php';
-require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'acl.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'pluginhandler.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'utils.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'apps.php';
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aec.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'imagegenerator.php';
 
 /*Load Langauge file*/
 $lang =& JFactory::getLanguage();

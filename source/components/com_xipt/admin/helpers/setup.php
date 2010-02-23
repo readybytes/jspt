@@ -365,6 +365,14 @@ class XiPTHelperSetup
 	
 	function syncUpUserPTRequired()
 	{
+		$params = JComponentHelper::getParams('com_xipt');
+		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
+		if(!$defaultProfiletypeID){
+			global $mainframe;
+			$mainframe->enqueueMessage(JText::_("FIRST SELECT THE DEFAULT PROFILE TYPE"));
+			return false;
+		}
+
 		//for every user
 		$db 	=& JFactory::getDBO();
 		$query	= ' SELECT `id` FROM `#__community_fields` '
@@ -501,5 +509,21 @@ class XiPTHelperSetup
 		}
 		
 		return false;
+	}
+	
+	function get_js_version()
+	{	
+		$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
+	
+		$parser		=& JFactory::getXMLParser('Simple');
+		$xml		= $CMP_PATH_ADMIN . DS . 'community.xml';
+	
+		$parser->loadFile( $xml );
+	
+		$doc		=& $parser->document;
+		$element	=& $doc->getElementByPath( 'version' );
+		$version	= $element->data();
+	
+		return $version;
 	}
 }

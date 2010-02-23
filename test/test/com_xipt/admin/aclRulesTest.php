@@ -20,14 +20,18 @@ class AclRulesTest extends XiSelTestCase
 	// add Rule-1
     $this->click("//td[@id='toolbar-new']/a");
     $this->waitPageLoad();
-    $this->type("rulename", "RULE-1");
-    $this->select("profiletype", "value=1");
-    $this->type("taskcount", "5");
-    $this->type("message", "You are not allowed to access this resource ha ha hah");
-    $this->type("redirecturl", "index.php?option=com_community&view=profile");
-    $this->click("//td[@id='toolbar-save']/a");
+    
+    $this->select("//select[@id='acl']", "value=addalbums");
+    $this->click("//input[@type='submit']");
     $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("RULE-1"));
+    $this->type("rulename", "Can not Add Album more than 5");
+    $this->type("aclparamsaddalbums_limit", "5");
+    $this->select("coreparams[core_profiletype]", "label=PROFILETYPE-1");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Can not Add Album more than 5"));
+    $this->_DBO->addTable('#__xipt_aclrules');
+    $this->_DBO->filterColumn('#__xipt_aclrules','id');
   }
 }
 ?>

@@ -3,10 +3,10 @@ TRUNCATE TABLE `#__community_msg`;
 TRUNCATE TABLE `#__community_photos_albums`;
 
 TRUNCATE TABLE `#__xipt_aclrules`;
-INSERT INTO `#__xipt_aclrules` (`id`, `pid`, `rulename`, `feature`, `taskcount`, `redirecturl`, `message`, `published`, `otherpid`) VALUES
-(8, 1, 'RULE-8', 'aclFeatureCantVisitOtherProfile', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 2),
-(9, 2, 'RULE-8', 'aclFeatureCantVisitOtherProfile', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, -1),
-(10, 3, 'RULE-9', 'aclFeatureCantVisitOtherProfile', 0, 'index.php?option=com_community', 'You are not allowed to access this resource', 1, 3);
+INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
+(8, 'RULE-8', 'cantviewotherprofile', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\n\n', 1),
+(9, 'RULE-8', 'cantviewotherprofile', 'core_profiletype=2\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=0\n\n', 1),
+(10, 'RULE-9', 'cantviewotherprofile', 'core_profiletype=3\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=3\n\n', 1);
 
 
 TRUNCATE TABLE `#__community_fields` ;

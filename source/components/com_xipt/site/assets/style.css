@@ -1,22 +1,13 @@
 div.registerProfileType
 {
-
 	border-style:solid; 
-
 	border-width:1px; 
-
 	border-color: #DFDC8B;
-
 	background-color:#FDFCE5; 
-
 	padding: 6px 0 6px 6px;
-
 	padding-left:20px; 
-
 	padding-bottom:10px;
-
 }
-
 
 
 .registerProfileType h3#Title
@@ -28,7 +19,6 @@ div.registerProfileType
 	font-weight: bold;
 	padding-top:10px;
 }
-
 
 registerProfileType.singlePT
 {
@@ -69,4 +59,3 @@ registerProfileType.singlePT
 	color: #000000;
 	line-height: 10px;
 }
-

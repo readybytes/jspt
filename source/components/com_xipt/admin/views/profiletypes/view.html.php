@@ -40,6 +40,13 @@ class XiPTViewProfiletypes extends JView
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		$row->load( $id );	
 		
+		$watermarkxml = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'watermark.xml';
+		
+		$config = new JParameter('',$watermarkxml);
+		$config->bind($row->watermarkparams);
+		
+		$this->assign( 'config' , $config );
+		
 		$this->assign( 'row' , $row );
 		// Set the titlebar text
 		JToolBarHelper::title( JText::_( 'EDIT PROFILETYPE' ), 'profiletypes' );
@@ -47,10 +54,12 @@ class XiPTViewProfiletypes extends JView
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profiletypes');
 		JToolBarHelper::divider();
+		JToolBarHelper::apply('apply', JText::_('APPLY'));
 		JToolBarHelper::save('save',JText::_('SAVE'));
 		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 		parent::display($tpl);
 	}
+	
 	
 	/**
 	 * Private method to set the toolbar for this view

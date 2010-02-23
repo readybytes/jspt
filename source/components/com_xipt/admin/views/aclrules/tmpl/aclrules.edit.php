@@ -1,99 +1,101 @@
-<?php
-defined('_JEXEC') or die('Restricted access');
+<?php defined('_JEXEC') or die('Restricted access'); ?>
 
-$aModel	= XiFactory::getModel( 'applications' );
+<?php JHTML::_('behavior.tooltip'); ?>
+
+<?php 
+JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=aclrules');
+JToolBarHelper::divider();
+JToolBarHelper::apply('apply', JText::_('APPLY'));
+JToolBarHelper::save('save',JText::_('SAVE'));
+JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 ?>
 
 <script language="javascript" type="text/javascript">
-	function submitbutton(action) {
+	function submitbutton(pressbutton) {
+		if (pressbutton == "cancel") {
+			submitform(pressbutton);
+			return;
+		}
+		// validation
 		var form = document.adminForm;
-		switch(action)
-		{
-		case 'save':
-			if( form.rulename.value == '' )
-			{
-				alert( "<?php echo JText::_( 'You must provide a Rule name.', true ); ?>" );
-				//jQuery( '#name-message-error' ).html( "please provide name" ).css( 'color' , 'red' );
-				break;
-			}
-		case 'publish':
-		case 'unpublish':
-		case 'cancel':
-		default:
-			submitform( action );
+		if (form.rulename.value == "") {
+			alert( "<?php echo JText::_( 'RULE MUST HAVE A NAME', true ); ?>" );
+		} else {
+			submitform(pressbutton);
 		}
 	}
 </script>
 
-<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo JText::_('CREATE NEW RULE FOR YOUR SITE.');?>
+<form action="index.php" method="post" name="adminForm">
+<div>
+<div class="col width-40" style="width:40%; float:left;">
+	<fieldset class="adminform">
+	<legend><?php echo JText::_( 'Details' ); ?></legend>
+	<table class="admintable">
+		<tr>
+			<td width="100" class="key">
+				<label for="name">
+					<?php echo JText::_( 'NAME' ); ?>:
+				</label>
+			</td>
+			<td>
+				<?php echo JText::_($this->aclruleInfo['aclname']); ?>
+			</td>
+		</tr>
+		<tr>
+			<td width="100" class="key">
+				<label for="featurename">
+					<?php echo JText::_( 'RULE NAME' ); ?>:
+				</label>
+			</td>
+			<td>
+				<input class="text_area" type="text" name="rulename" id="rulename" size="35" value="<?php echo $this->aclruleInfo['rulename']; ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" class="key">
+				<?php echo JText::_( 'PUBLISHED' ); ?>:
+			</td>
+			<td>
+				<?php echo JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $this->aclruleInfo['published'] ); ?>
+			</td>
+		</tr>
+		</table>
+	</fieldset>
+	<br />
+	<br />
+	
+	<fieldset class="adminform">
+	<legend><?php echo JText::_( 'Rule Parameters' ); ?></legend>
+	<?php
+		jimport('joomla.html.pane');
+		$pane = &JPane::getInstance('sliders', array('allowAllClose' => true));
+		echo $pane->startPane('acl-pane');
+		echo $this->aclParamsHtml;
+	?>
+	</fieldset>
 </div>
-<div id="error-notice" style="color: red; font-weight:700;"></div>
-<div style="clear: both;"></div>
-<form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm" id="adminForm">
-<table cellspacing="0" class="admintable" border="0" width="100%">
-	<tbody>
-		<tr>
-			<td class="key"><?php echo JText::_('RULE NAME');?></td>
-			<td>:</td>
-			<td>
-				<input type="text" size="50" value="<?php echo $this->row->rulename;?>" name="rulename" />
-			</td>
-			<td class="key"><?php echo JText::_('PUBLISHED');?></td>
-			<td>:</td>
-			<td>
-				<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->row->published);?></span>
-			</td>
-		</tr>
-		<tr>
-			<td class="key"><?php echo JText::_('SELF PROFILETYPE');?></td>
-			<td>:</td>
-			<td>
-				<span><?php echo XiPTHelperAclRules::_buildTypesforaclrules($this->row->pid, 'profiletype');?></span>
-			</td>
-			<td class="key"><?php echo JText::_('OTHER PROFILETYPE');?></td>
-			<td>:</td>
-			<td>
-				<span><?php echo XiPTHelperAclRules::_buildTypesforaclrules($this->row->otherpid, 'otherprofiletype');?></span>
-			</td>
-			
-		</tr>
-		<tr>
-			<td class="key"><?php echo JText::_('CONTROL THE FEATURE');?></td>
-			<td>:</td>
-			<td>
-				<?php echo XiPTHelperAclRules::_buildTypesforaclrules($this->row->feature, 'feature');?>
-			</td >
-			
-			<td class="key"><?php echo JText::_('FEATURE LIMIT');?></td>
-			<td>:</td>
-			<td>
-				<input type="text" value="<?php echo $this->row->taskcount;?>" name="taskcount" />
-			</td>
-			
-		</tr>
-		<tr>
-			<td class="key" ><?php echo JText::_('MESSAGE TO DISPLAY WHEN USER VIOLATES THIS RULE');?></td>
-			<td>:</td>
-			<td colspan=4>
-				<input type="text" size="100" value="<?php echo $this->row->message;?>" name="message" />
-			</td>
-		</tr>
-		<tr>
-			<td class="key"><?php echo JText::_('REDIRECT URL WHEN USER VIOLATES THIS RULE');?></td>
-			<td>:</td>
-			<td colspan="4">
-			<input type="text" size="100" value="<?php echo $this->row->redirecturl;?>" name="redirecturl" />
-			</td>			
-		</tr>
-	</tbody>
-</table>
-
+<div class="col width-60" style="width:60%; float:right;">
+	<fieldset class="adminform">
+	<legend><?php echo JText::_( 'General Parameters' ); ?></legend>
+	<?php
+		jimport('joomla.html.pane');
+		$pane = &JPane::getInstance('sliders', array('allowAllClose' => true));
+		echo $pane->startPane('core-pane');
+		//echo $pane->startPanel(JText :: _('Core Fields Parameters'), 'coreparam-page');
+		echo $this->coreParamsHtml;
+		//echo $pane->endPanel();
+		?>
+	</fieldset>
+</div>
+</div>
 <div class="clr"></div>
 
 	<input type="hidden" name="option" value="com_xipt" />
+	<input type="hidden" name="id" value="<?php echo $this->aclruleInfo['id'];?>" />
+	<input type="hidden" name="aclname" value="<?php echo $this->aclruleInfo['aclname'];?>" />
+	<input type="hidden" name="cid[]" value="" />
 	<input type="hidden" name="view" value="<?php echo JRequest::getCmd( 'view' , 'aclrules' );?>" />
-	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

@@ -298,7 +298,7 @@ class XiPTLibraryProfiletypes
 	 * @param $what
 	 * @return unknown_type
 	 */
-	function getUserData($userid, $what='PROPFILETYPE')
+	function getUserData($userid, $what='PROFILETYPE')
 	{
 	    switch($what)
 	    {
@@ -576,18 +576,22 @@ class XiPTLibraryProfiletypes
 		return false;
 	}
 	
-	function getParams($id)
+	function getParams($id,$what='params')
 	{
 			$config = '';
 			$db			=& JFactory::getDBO();
-			$query		= 'SELECT '. $db->nameQuote('params') .' FROM '
+			$query		= 'SELECT '. $db->nameQuote($what) .' FROM '
 						. $db->nameQuote( '#__xipt_profiletypes' )
 						. ' WHERE '.$db->nameQuote('id').'='. $db->Quote($id);
 			
 			$db->setQuery( $query );
 			$pTypeConfig = $db->loadResult();
 			if($pTypeConfig)
-				$config	= new JParameter( $pTypeConfig );			
+				$config	= new JParameter( $pTypeConfig );
+			else {
+				// XITODO : What happen if config=blank
+				$config	= new JParameter('');
+			}
 			
 			// Load default configuration
 			$params	= $config;//new JParameter( $config->_raw );

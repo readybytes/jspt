@@ -125,10 +125,8 @@ class XiPTLibraryCore
 		// skip these calls from backend
 		global $mainframe;
 		$pID = '';
-		
 		if($mainframe->isAdmin())
 			return true;
-		
 		$loggedInUser = JFactory::getUser();
 
 		//if user is logged in then only we need to update configuration  
@@ -155,7 +153,7 @@ class XiPTLibraryCore
 					$instance->set($key,$value); 
 			}
 		}
-		
+
 		//means guest is looking user profile ,
 		// so we will show them default template
 		$visitingUser	= JRequest::getVar('userid',$loggedInUser->id);
