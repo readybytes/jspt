@@ -234,21 +234,24 @@ class ProfiletypeTest extends XiSelTestCase
     $this->_DBO->addTable('#__community_users');
     $this->_DBO->filterColumn('#__community_users','params');
   }
-  
-  /*function testChangeAvatar()
+
+  function testChangeAvatar()
   {
   	$this->adminLogin();
-  	$this->open(JOOMLA_LOCATION."index.php?option=com_xipt&view=profiletypes");
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
   	$this->waitPageLoad();
-    $this->click("//span[@title='ProfileType1']");
+  	$this->click("//span[@title='ProfileType1'][@id='name1']/a");
+  	$this->waitPageLoad();
+  	$this->type("file-upload", JOOMLA_FTP_LOCATION.'/test/test/com_xipt/admin/avatar_2.png');
+	$this->click("resetAll1");
+	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
-    $this->type("file-upload", JPATH_ROOT.DS."/var/www/jspt6305/test/test/com_xipt/admin/avatar_1.png");
-    $this->click("resetAll1");
-    $this->click("//td[@id='toolbar-save']/a/span");
-    $this->waitPageLoad();
-    
-  }
-  */
+     	
+  	$this->_DBO->addTable('#__xipt_profiletypes');
+  	$this->_DBO->addTable('#__community_users');
+  }  
+
+  
   function testProfiletypeResetAll()
   {
   	$this->adminLogin();
