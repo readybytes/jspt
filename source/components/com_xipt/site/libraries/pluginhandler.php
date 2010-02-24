@@ -422,14 +422,19 @@ class XiPTLibraryPluginHandler
 		 * do nothing for guest
 		 *
 		 */
-		$userid    = JFactory::getUser()->id;
+		$selfUserid    = JFactory::getUser()->id;
+		$othersUserid  = JRequest::getVar('userid',$selfUserid);
 
 		// restrict apps for logged in user only
-		if(!$userid)
+		if(!$selfUserid)
 		    return true;
 
-		$profiletype = XiPTLibraryProfiletypes::getUserData($userid, 'PROFILETYPE');
-		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $profiletype);
+		$selfProfiletype 	= XiPTLibraryProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
+		$othersProfiletype 	= XiPTLibraryProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
+
+		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $othersProfiletype, true);
+		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype,	  false);
+		
 	    return true;
 	}
 

@@ -5,7 +5,7 @@ defined('_JEXEC') or die('Restricted access');
 //TODO: we should store
 class XiPTLibraryApps
 {
-    function filterCommunityApps(&$apps, $profiletype)
+    function filterCommunityApps(&$apps, $profiletype, $blockProfileApps=true)
     {
         // $apps is array of objects
         $notAllowedApps =XiPTLibraryApps::getNotAllowedCommunityAppsArray($profiletype);
@@ -25,6 +25,9 @@ class XiPTLibraryApps
             if($app->_name == 'xipt_community')
                 continue;
                 
+			if(method_exists($app,'onProfileDisplay') != $blockProfileApps)
+				continue;
+			
             $appId    = XiPTLibraryApps::getPluginId($app->_name);
            // is it not allowed
            if(in_array($appId,$notAllowedApps))
