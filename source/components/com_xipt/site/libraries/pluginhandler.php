@@ -449,6 +449,17 @@ class XiPTLibraryPluginHandler
 	}
 	
 	
+	function event_com_community_profile_blank()
+	{
+		$isFromFacebook = $this->getDataInSession('FROM_FACEBOOK',false);
+		if($isFromFacebook == true) {
+			$link = JRoute::_('index.php?option=com_acctexp&task=subscribe',false);
+			$this->resetDataInSession('FROM_FACEBOOK');
+			$this->mainframe->redirect($link);
+		}
+	}
+	
+	
 	function event_com_user_register_blank()
 	{
 	    return $this->integrateRegistrationWithPType();
@@ -561,3 +572,4 @@ class XiPTLibraryPluginHandler
 	}
 
 }
+

@@ -1,7 +1,7 @@
 ../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:57:		$Cbackground	=	$this->_getColor($img, $this->background);
 ../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:58:		$Ctextcolor		=	$this->_getColor($img, $this->textcolor);
 ../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:88:	function _getColor($img , $hexcode)
-../../packages/tmp/components/com_xipt/site/libraries/utils.php:74:		$contents = ob_get_contents();
+../../packages/tmp/components/com_xipt/site/libraries/utils.php:81:		$contents = ob_get_contents();
 ../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:440:	function _getNotSelectedFieldForProfiletype($profiletypeId)
 ../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:462:	function _getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from)
 ../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:469:		$notSelectedFields = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID);

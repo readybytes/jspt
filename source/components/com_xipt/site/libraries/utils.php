@@ -14,6 +14,15 @@ class XiPTLibraryUtils
 	
 	function ajaxShowNewUserForm(&$args, &$response)
 	{
+		$mySess 	=& JFactory::getSession();
+		/*Set facebook variable is session so we can redirect user
+			 * to plan selection page after login
+			 * XITODO : we will remove this when aec support fbc
+			 */	
+		$aecExists = XiPTLibraryAEC::_checkAECExistance();
+		if($aecExists)
+			$mySess->set('FROM_FACEBOOK',true, 'XIPT');
+		
 		/*if ptype is not required during registration then return */
 		$show_ptype_during_reg = XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt', 0);
 		
@@ -23,7 +32,6 @@ class XiPTLibraryUtils
 		/*if aec is integrate with ptype then we don't want to display
 		 * ptype selection page during facebook integration so return
 		 */
-		$aecExists = XiPTLibraryAEC::_checkAECExistance();
 		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
 
 		// pType already selected
@@ -34,7 +42,6 @@ class XiPTLibraryUtils
 		 * if true means we have already gone through ptype selection process
 		 * no need to process again , return
 		 */
-		$mySess 	=& JFactory::getSession();
 		if($mySess->get('SELECTED_PROFILETYPE_ID',0,'XIPT'))
 			return true;
 
