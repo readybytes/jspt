@@ -67,12 +67,12 @@
 	        <exec command="pdepend  --summary-xml=${global.dir.root}/data/pdepend.summary.xml --jdepend-chart=${global.dir.root}/data/pdepend1.svg  --overview-pyramid=${global.dir.root}/data/pdepend2.svg  ${global.dir.root}/source" escape="false" />
 	
 	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni xitodo  > ${global.dir.root}/data/xitodo.txt " escape="false" />
-	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni JSITE_PATH  > ${global.dir.root}/data/jsite-path.txt " escape="false" />
-	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _REQUEST   > ${global.dir.root}/data/post-get-request.txt " escape="false" />
-	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _POST     >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
-	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _GET      >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
-	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _SESSION  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
-	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni _GLOBALS  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn JSITE_PATH  > ${global.dir.root}/data/jsite-path.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _REQUEST   > ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _POST     >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _GET      >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _SESSION  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _GLOBALS  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
 
 
 		<!-- gather stats phpcpd / phploc / test-count,assert-count, xitodo/codrev numbers / coverage numbers  -->

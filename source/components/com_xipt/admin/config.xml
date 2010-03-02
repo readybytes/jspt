@@ -19,6 +19,11 @@
 			<option value="0">Select Box</option>
 			<option value="1">Radio Options</option>
 		</param>
+		<param name="jspt_fb_show_radio" type="radio" default="0" label="DURING FACEBOOK CONNECTIVITY SHOW CHOOSE ACCOUNT TYPE AS" description="DURING FACEBOOK CONNECTIVITY SHOW CHOOSE ACCOUNT TYPE AS.DESC">
+			<option value="0">Select Box</option>
+			<option value="1">Radio Options</option>
+		</param>
+		
 		<param name="allow_templatechange" type="radio" default="1" label="ALLOW TEMPLATE SELECTION" description="ALLOW TEMPLATE SELECTION.DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>

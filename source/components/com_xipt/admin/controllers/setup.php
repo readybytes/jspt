@@ -319,4 +319,18 @@ class XiPTControllerSetup extends JController
 		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg); 
     }
     
+    function unhook()
+    {
+    	XiPTHelperUnhook::uncopyHackedFiles();
+		// disable plugins
+		XiPTHelperUnhook::disable_plugin('xipt_system');
+		XiPTHelperUnhook::disable_plugin('xipt_plugin');
+		
+		XiPTHelperUnhook::disable_custom_fields();
+		
+		global $mainframe;
+		$msg = JText::_('UNHOOKED SUCCESSFULLY');
+		$mainframe->enqueueMessage($msg);
+		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+    }    
 }

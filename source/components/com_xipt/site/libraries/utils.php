@@ -74,7 +74,7 @@ class XiPTLibraryUtils
 		$selectedProfileTypeID = $defaultPType;
 		
 		$params = JComponentHelper::getParams('com_xipt');
-		$showAsRadio = $params->get('jspt_show_radio',true);
+		$showAsRadio = $params->get('jspt_fb_show_radio',false);
 		
 		ob_start();
 		include(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views'.DS.'registration'.DS.'tmpl'.DS.'facebook.php');

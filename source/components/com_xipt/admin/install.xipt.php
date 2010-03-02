@@ -32,6 +32,16 @@ function check_version()
 	return true;
 }
 
+function copyAECfiles()
+{
+	$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';
+	$sourceMIFilename = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'mi_jomsocialjspt.php';
+
+	if(JFile::exists($miFilename))
+		return JFile::copy($sourceMIFilename , $miFilename);	
+	
+	return true;	
+}
 
 function com_install()
 {	
@@ -41,7 +51,10 @@ function com_install()
 		
 	if(setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
-
+	
+	if(copyAECfiles() == false)
+		JError::raiseError('INSTERR', "Not able to replace MI files, Check permissions.");
+		
 	show_instruction();
 	return true;
 }

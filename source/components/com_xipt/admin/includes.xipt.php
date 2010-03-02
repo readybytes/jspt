@@ -47,6 +47,7 @@ require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'profilefields.php';
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'aclrules.php';
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'helpers'.DS.'setup.php';
+require_once( JPATH_ADMINISTRATOR.DS.'components'.DS . 'com_xipt' . DS . 'helpers' . DS . 'unhook.php' );
 
 require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aclrules'.DS.'aclrule.php';
 

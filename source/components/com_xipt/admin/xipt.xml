@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="component" version="1.5.0">
+<install type="component" version="1.5.0" method="upgrade">
 	<name>XIPT</name>
 	<creationDate>2009-08-01</creationDate>
 	<author>Team JoomlaXi</author>
@@ -104,6 +104,7 @@
 			<filename>helpers/applications.php</filename>
 			<filename>helpers/xiptcore.php</filename>
 			<filename>helpers/setup.php</filename>
+			<filename>helpers/unhook.php</filename>
 			
 			<filename>libraries/index.html</filename>
 			<filename>libraries/aclrules/index.html</filename>
