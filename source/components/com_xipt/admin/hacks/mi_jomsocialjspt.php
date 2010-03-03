@@ -8,7 +8,7 @@
  */
 
 // Dont allow direct linking
-( defined('_JEXEC') || defined( '_VALID_MOS' ) ) or die( 'Direct Access to this location is not allowed.' );
+defined('_JEXEC') or die( 'Direct Access to this location is not allowed.' );
 
 define( '_AEC_MI_NAME_JOMSOCIALJSPT',		'JomSocial-JSPT' );
 define( '_AEC_MI_DESC_JOMSOCIALJSPT',		'Choose the default profile type for a user.' );
@@ -34,12 +34,10 @@ class mi_jomsocialjspt
 
 	function detect_application()
 	{
-		global $mosConfig_absolute_path;
-
-		if(!is_dir( $mosConfig_absolute_path . '/components/com_community' ))
+		if(!is_dir( JPATH_ROOT. DS . 'components'. DS .'com_community' ))
 			return false;
 			
-		if(!is_dir( $mosConfig_absolute_path . '/components/com_xipt' ))
+		if(!is_dir( JPATH_ROOT. DS . 'components'. DS .'com_xipt' ))
 			return false;
 
 		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
@@ -49,7 +47,7 @@ class mi_jomsocialjspt
 	function Settings()
 	{
 		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-		global $database;
+		
 		$database	=& JFactory::getDBO();
         $settings = array();
 		$settings['profiletype']				= array( 'list' );

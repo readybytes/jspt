@@ -424,15 +424,24 @@ class XiPTLibraryPluginHandler
 		 */
 		$selfUserid    = JFactory::getUser()->id;
 		$othersUserid  = JRequest::getVar('userid',$selfUserid);
-
+		
 		// restrict apps for logged in user only
 		if(!$selfUserid)
 		    return true;
 
 		$selfProfiletype 	= XiPTLibraryProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 		$othersProfiletype 	= XiPTLibraryProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
+		$blockDisplayAppOfSelf = XiPTLibraryUtils::getParams('jspt_block_dis_app_visit_pro','com_xipt', 0);
+		
+		/* #1: block the display application of logged in user if the above param is set to yes
+		   #2: otherwise block display application of user whose profile is being visited
+		   #3: block the functional application of logged in user
+		*/ 		
+		if($blockDisplayAppOfSelf)
+			XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype, true);
+		else
+			XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $othersProfiletype, true);
 
-		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $othersProfiletype, true);
 		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype,	  false);
 		
 	    return true;

@@ -19,6 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 					<?php require_once( $this->jsConfigPath . DS . 'videos.php' ); ?>
 					<?php require_once( $this->jsConfigPath . DS . 'photos.php' ); ?>
 					<?php require_once( $this->jsConfigPath . DS . 'myblog.php' ); ?>
+				
 				</td>
 			</tr>
 		</table>

@@ -158,6 +158,9 @@
 			<filename>libraries/aclrules/writemessages/index.html</filename>
 			<filename>libraries/aclrules/writemessages/writemessages.php</filename>
 			<filename>libraries/aclrules/writemessages/writemessages.xml</filename>
+
+			<filename>libraries/aclrules/redirect/index.html</filename>
+			<filename>libraries/aclrules/redirect/redirect.php</filename>
 			
 			<filename>elements/index.html</filename>
 			<filename>elements/profiletypes.php</filename>

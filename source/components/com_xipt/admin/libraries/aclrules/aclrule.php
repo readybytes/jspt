@@ -106,7 +106,7 @@ abstract class xiptAclRules
 		$this->debugMode = $debugMode;
 		$this->aclname = $className;
 		$aclxmlpath =  dirname(__FILE__) . DS . strtolower($className) . DS . strtolower($className).'.xml';
-		if(!$this->aclparams && JFile::exists($aclxmlpath))
+		if(!$this->aclparams)
 			$this->aclparams = new JParameter('',$aclxmlpath);
 
 		$corexmlpath = dirname(__FILE__) . DS . 'coreparams.xml';

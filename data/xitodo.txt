@@ -20,6 +20,7 @@
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addasfriends/addasfriends.php:30:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/writemessages/writemessages.php:75:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addphotos/addphotos.php:34:		/*XITODO : we will expect that view and task should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/redirect/redirect.php:22:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/changeprivacy/changeprivacy.php:28:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/joingroup/joingroup.php:42:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/cantviewotherprofile/cantviewotherprofile.php:30:		/*XITODO : we will expect that vie task and should be given

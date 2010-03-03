@@ -280,5 +280,35 @@ function testACLRules2()
   	  	$this->checkVisitProfile(84,80,True);
   	  	$this->checkVisitProfile(84,81,False);  	  	
 	  $this->frontLogout(); 
-  } 
+  }
+
+  function testACLRulesUpgradeRedirection()
+  {
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+	$user = JFactory::getUser(83); 
+  	
+  	$this->open(JOOMLA_LOCATION."/index.php");
+    $this->waitPageLoad();
+    $this->type("modlgn_username", $user->username);
+    $this->type("modlgn_passwd", $user->username);
+    $this->click("//form[@id='form-login']/fieldset/input");
+    $this->waitPageLoad();
+	//type 2 can not do any thing
+  	// should go to plan selection page
+  	$this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
+  	$this->click("submit");
+    $this->waitPageLoad();
+    $this->assertTrue($this->isTextPresent("Confirmation"));
+    $this->click("//input[@value='Continue']");
+    $this->waitForPageToLoad();
+    $this->assertTrue($this->isTextPresent("Thank You!"));
+    $this->assertTrue($this->isTextPresent("Subscription Complete!"));
+    
+	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=frontpage");
+	$this->waitPageLoad();  
+	$this->frontLogout(); 
+  }
 }
