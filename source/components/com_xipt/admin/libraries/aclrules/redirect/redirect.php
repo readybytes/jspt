@@ -42,4 +42,10 @@ class redirect extends xiptAclRules
 		return true;
 	}
 	
+	public function getRedirectUrl()
+	{
+		$redirectUrl  = 'index.php?option=com_acctexp&task=subscribe';
+		return $redirectUrl;
+	}
+	
 }

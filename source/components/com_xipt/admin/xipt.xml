@@ -161,6 +161,7 @@
 
 			<filename>libraries/aclrules/redirect/index.html</filename>
 			<filename>libraries/aclrules/redirect/redirect.php</filename>
+			<filename>libraries/aclrules/redirect/redirect.xml</filename>
 			
 			<filename>elements/index.html</filename>
 			<filename>elements/profiletypes.php</filename>

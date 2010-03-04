@@ -13,8 +13,8 @@
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/editselfprofile/editselfprofile.php:28:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:52:			//XITODO: err message
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:65:		//XITODO send debugmode
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:263:		/*XITODO : check according to addon params and core params
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:317:		/* XITODO : handle ajax case also */
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:265:		/*XITODO : check according to addon params and core params
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:319:		/* XITODO : handle ajax case also */
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addalbums/addalbums.php:39:		/*XITODO : we will expect that view and task should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/editselfprofiledetails/editselfprofiledetails.php:28:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addasfriends/addasfriends.php:30:		/*XITODO : we will expect that vie task and should be given

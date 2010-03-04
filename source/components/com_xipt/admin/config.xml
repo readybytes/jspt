@@ -32,7 +32,10 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		
+		<param name="jspt_block_dis_app_visit_pro" type="radio" default="0" label="BLOCK DISPLAY APPLICATION" description="BLOCK DISPLAY APPLICATION WHEN VISITING OTHERS PROFILE.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="@spacer" type="spacer" default="AEC Integration Settings" label="" description="" />
 			<param name="aec_integrate" type="radio" default="0" label="INTEGRATE AEC" description="INTEGRATE AEC.DESC">
@@ -63,10 +66,7 @@
 			
 			<param name="jspt_allowed_email" type="textarea" default="" label="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
 			<param name="jspt_prevent_email" type="textarea" default="" label="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
-			<param name="jspt_block_dis_app_visit_pro" type="radio" default="0" label="BLOCK DISPLAY APPLICATION" description="BLOCK DISPLAY APPLICATION WHEN VISITING OTHERS PROFILE.DESC">
-				<option value="0">No</option>
-				<option value="1">Yes</option>
-			</param>
+			
 	<!--
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="@spacer" type="spacer" default="Registration Configuration" label="Registration Configuration" description="" />

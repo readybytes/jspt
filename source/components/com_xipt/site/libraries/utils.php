@@ -475,7 +475,7 @@ class XiPTLibraryUtils
 		$watermarkSize=array();
 		$watermarkSize[0]=$watermarkWidth;
 		$watermarkSize[1]=$watermarkHeight;
-		self::setPosotion($size,&$watermarkSize,&$watermarkImage,$position,$xy);
+		self::setPosotion($size,$watermarkSize,$watermarkImage,$position,$xy);
 				
 		imagecopymerge($imageImage , $watermarkImage, $dest_x, $dest_y, 0, 0, $watermarkSize[0], $watermarkSize[1], 100);
 		
@@ -510,7 +510,7 @@ class XiPTLibraryUtils
 	 * imagesize array contain width at 0th index and height at 1st index in array
 	 * xy contain x pos at 0th index and y pos at 1st index
 	 * */
-	function setPosotion($imagesize,$watermarkSize,&$watermarkImage,$position,$xy)
+	function setPosotion($imagesize,&$watermarkSize,&$watermarkImage,$position,$xy)
 	{ 
 		/*reference of image is always top-left corener */
 		switch($position) {
