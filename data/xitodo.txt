@@ -1,5 +1,5 @@
 ../../packages/tmp/components/com_xipt/site/controllers/registration.php:43:		//@XITODO : do some validation for visibility and publish of ptype
-../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:592:				// XITODO : What happen if config=blank
+../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:600:				// XITODO : What happen if config=blank
 ../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:49:		/* XITODO : support for other image type */	
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:20:			 * XITODO : we will remove this when aec support fbc
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:69:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
@@ -8,6 +8,7 @@
 ../../packages/tmp/components/com_xipt/admin/install.xipt.php:48:	/*XITODO : check jomsocial version if it is less than 1.6 than show error message */
 ../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:130:				/*XITODO : send debug mode in second parameter */
 ../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:200:		//XITODO : also support other formats
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/deletegroup/deletegroup.php:16:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addvideos/addvideos.php:39:		/*XITODO : we will expect that view and task should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/creategroup/creategroup.php:38:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/editselfprofile/editselfprofile.php:28:		/*XITODO : we will expect that vie task and should be given

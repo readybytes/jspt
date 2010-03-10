@@ -466,9 +466,12 @@ class XiPTLibraryPluginHandler
 	function event_com_community_profile_blank()
 	{
 		$isFromFacebook = $this->getDataInSession('FROM_FACEBOOK',false);
-		if($isFromFacebook == true) {
+		$aec_integrate  = XiPTLibraryUtils::getParams('aec_integrate','com_xipt', 0);
+		if($isFromFacebook)		
+			$this->resetDataInSession('FROM_FACEBOOK');	
+	
+		if($isFromFacebook == true && $aec_integrate == true) {
 			$link = JRoute::_('index.php?option=com_acctexp&task=subscribe',false);
-			$this->resetDataInSession('FROM_FACEBOOK');
 			$this->mainframe->redirect($link);
 		}
 	}

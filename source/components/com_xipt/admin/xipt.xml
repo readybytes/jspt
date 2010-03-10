@@ -162,6 +162,10 @@
 			<filename>libraries/aclrules/redirect/index.html</filename>
 			<filename>libraries/aclrules/redirect/redirect.php</filename>
 			<filename>libraries/aclrules/redirect/redirect.xml</filename>
+
+			<filename>libraries/aclrules/deletegroup/index.html</filename>
+			<filename>libraries/aclrules/deletegroup/deletegroup.php</filename>
+			<filename>libraries/aclrules/deletegroup/deletegroup.xml</filename>
 			
 			<filename>elements/index.html</filename>
 			<filename>elements/profiletypes.php</filename>

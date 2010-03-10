@@ -36,8 +36,8 @@ class redirect extends xiptAclRules
 		if('com_acctexp' == $data['option'])// && 'atexp' != $data['option'])
 			return false;
 			
-		if($data['args'][0] != 0 && $data['task'] === 'ajaxconnect')
-				return false;
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+			return false;
 				
 		return true;
 	}

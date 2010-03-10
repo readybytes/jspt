@@ -198,7 +198,15 @@ class XiPTLibraryProfiletypes
 			$oldData['avatar'] = self::getProfiletypeData($prevProfiletype,'avatar');
 			$newData['avatar'] = self::getProfiletypeData($ptype,'avatar');
 		}
-			
+
+		//set user watermark
+		if($what == 'ALL'  || $what == 'watermark')
+		{
+			$feature[]='watermark';
+			$oldData['watermark'] = self::getProfiletypeData($prevProfiletype,'watermark');
+			$newData['watermark'] = self::getProfiletypeData($ptype,'watermark');
+		}
+		
 		//assign the default group
 		if($what == 'ALL'  || $what == 'group')
 		{
