@@ -310,5 +310,57 @@ function testACLRules2()
 	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=frontpage");
 	$this->waitPageLoad();  
 	$this->frontLogout(); 
+	$this->_DBO->addTable('#__xipt_users');
+  }
+  
+  function testACLRulesDeleteGroup()
+  {
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+	$user = JFactory::getUser(83); 
+  	
+  	$this->open(JOOMLA_LOCATION."/index.php");
+    $this->waitPageLoad();
+    $this->type("modlgn_username", $user->username);
+    $this->type("modlgn_passwd", $user->username);
+    $this->click("//form[@id='form-login']/fieldset/input");
+    $this->waitPageLoad();
+    $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=groups&task=viewgroup&groupid=3");
+    $this->waitPageLoad();
+    $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('3');\"]");
+	$this->waitForElement("cwin_tm");
+	sleep(1);
+	$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+	$this->click("//input[@type='button'][@onclick=\"jax.call('community', 'groups,ajaxDeleteGroup', '3', 1);\"]");
+	$this->waitForElement("cwin_tm");
+	sleep(1);
+    $this->assertTrue($this->isTextPresent("You are not allowed to delete groups"));    
+    $this->frontLogout();
+    
+    $user = JFactory::getUser(84); 
+  	
+  	$this->open(JOOMLA_LOCATION."/index.php");
+    $this->waitPageLoad();
+    $this->type("modlgn_username", $user->username);
+    $this->type("modlgn_passwd", $user->username);
+    $this->click("//form[@id='form-login']/fieldset/input");
+    $this->waitPageLoad();
+    $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=groups&task=viewgroup&groupid=4");
+    $this->waitPageLoad();
+    $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('4');\"]");
+	$this->waitForElement("cwin_tm");
+	sleep(2);
+	$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+	$this->click("//input[@onclick=\"jax.call('community', 'groups,ajaxDeleteGroup', '4', 1);\"]");
+	$this->waitForElement("cwin_tm");
+	sleep(3);
+	$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+	$this->click("//input[@id='groupDeleteDone']");
+    
+    $this->frontLogout();
+    $this->_DBO->addTable('#__community_groups');
+    $this->_DBO->addTable('#__community_groups_members');    
   }
 }

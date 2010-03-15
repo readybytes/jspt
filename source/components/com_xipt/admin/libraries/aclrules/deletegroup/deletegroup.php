@@ -9,12 +9,12 @@ class deletegroup extends xiptAclRules
 	{
 		parent::__construct(__CLASS__, $debugMode);
 	}
-
+	
 	public function checkAclViolatingRule($data)
 	{
 		return true;
 	}
-
+	
 	function checkAclAccesibility(&$data)
 	{
 		/*XITODO : we will expect that vie task and should be given

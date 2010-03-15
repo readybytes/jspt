@@ -42,12 +42,12 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 						<div id="Avatar">
 							<img src="<?php echo $pType->avatar; ?>" height="60px" width="60px"/>
 						</div>
-						
 						<p id="Description"> <?php echo JText::_($pType->tip); ?> </p>
+						
 					</div>
 				</div>
 				
-				<div class="clr">&nbsp;</div>
+				
 			<?php
 			}
 			else

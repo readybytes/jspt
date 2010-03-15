@@ -7,6 +7,7 @@ div.registerProfileType
 	padding: 6px 0 6px 6px;
 	padding-left:20px; 
 	padding-bottom:10px;
+	width:95%;
 }
 
 
@@ -20,14 +21,17 @@ div.registerProfileType
 	padding-top:10px;
 }
 
-registerProfileType.singlePT
+div.singlePT
 {
+	vertical-align: top;
 	margin-top:10px;
 	margin-bottom:10px;
+	display:inline-table;
+    margin-left:10px;
+    width:90%;
 }
 
-
-.registerProfileType #Name
+.singlePT #Name
 {
 	font-size: 12px;
 	font-weight:bold;
@@ -36,22 +40,21 @@ registerProfileType.singlePT
 	height: 14px;
 }
 
-.registerProfileType #Details
+.singlePT #Details
 {
 	padding-top:10px;
 	padding-left:25px;
-	display: inline-block;
-	width: 98%;
+	
 	/* Finish added fixes in this selector */
 }
 
-.registerProfileType #Avatar
+.singlePT #Avatar
 {
 	float:left;
 	padding-right:5px;
 }
 
-.registerProfileType #Description
+.singlePT #Description
 {
 	float:left;
 	font-size: 10px; 
@@ -59,3 +62,4 @@ registerProfileType.singlePT
 	color: #000000;
 	line-height: 10px;
 }
+

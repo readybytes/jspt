@@ -1,10 +1,12 @@
+	<link rel="stylesheet" href="<?php echo JURI::root().'/components/com_xipt/assets/style.css'; ?>" type="text/css"  />
 	<div class="registerProfileType">
 	<h3 id="Title"><?php
 	echo JText::_ ( 'CHOOSE PROFILE TYPE' );
 	?></h3>
 	<br />
 	<?php 
-	echo JText::_ ( 'PROFILE TYPE DESCRIPTION FOR SELECTBOX' );
+		// XITODO : remove break , use css div
+	echo JText::_ ( 'PROFILE TYPE DESCRIPTION FOR SELECTBOX' )."<br />";
 	//start select tag
 	if(!$showAsRadio){	
 	?>	
@@ -37,10 +39,11 @@
 						<div id="Avatar">
 							<img src="<?php echo $pType->avatar; ?>" height="60px" width="60px"/>
 						</div>
+						<p id="Description"> <?php echo JText::_($pType->tip); ?> </p>
 					</div>
 				</div>
 				
-				<div class="clr"></div>
+				
 			<?php
 			}
 			else
@@ -50,7 +53,7 @@
 				$id			= $pType->id;
 			    
 			    $selected	= ( JString::trim($id) == $selectedProfileTypeID ) ? ' selected="true"' : '';
-				echo '<option value="' . $id . '"' 
+				echo '<br />'.'<option value="' . $id . '"' 
 							. $selected . ' '
 							.  '>' 
 							. $option . '</option>';

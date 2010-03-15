@@ -113,7 +113,7 @@ defined('_JEXEC') or die('Restricted access');
 			</td>			
 		</tr>
 		<tr>
-			<td class="key"><?php echo JText::_('Tip for User During Signup');?></td>
+			<td class="key"><?php echo JText::_('DESCRIPTION OF PROFILE TYPE');?></td>
 			<td>:</td>
 			<td>
 			<?php 

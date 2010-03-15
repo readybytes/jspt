@@ -1,13 +1,11 @@
-TRUNCATE TABLE `#__community_msg_recepient`;
-TRUNCATE TABLE `#__community_msg`;
-TRUNCATE TABLE `#__community_photos_albums`;
-
 TRUNCATE TABLE `#__xipt_aclrules`;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(8, 'RULE-8', 'cantviewotherprofile', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\n\n', 1),
-(9, 'RULE-8', 'cantviewotherprofile', 'core_profiletype=2\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=0\n\n', 1),
-(10, 'RULE-9', 'cantviewotherprofile', 'core_profiletype=3\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=3\n\n', 1),
-(11, 'Redirect to Upgrade', 'redirect', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_acctexp&task=subscribe\n\n', '\n', 1);
+(8, 'RULE-8', 'cantviewotherprofile', 'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\n\n', 0),
+(9, 'RULE-8', 'cantviewotherprofile', 'core_profiletype=2\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=0\n\n', 0),
+(10, 'RULE-9', 'cantviewotherprofile', 'core_profiletype=3\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=3\n\n', 0),
+(11, 'Redirect to Upgrade', 'redirect', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_acctexp&task=subscribe\n\n', '\n', 0),
+(12, 'Can''t Delete Group', 'deletegroup', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', '\n', 1);
+
 
 
 TRUNCATE TABLE `#__community_fields` ;
@@ -23,6 +21,7 @@ INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`,
 (9, 'text', 9, 1, 5, 250, 'Hometown9', 'Hometown9', 1, 0, 0, 1, '', 'FIELD_HOMETOWN9'),
 (16, 'templates', 10, 1, 10, 100, 'Template', 'Template Of User', 1, 1, 1, 1, '', 'XIPT_TEMPLATE'),
 (17, 'profiletypes', 11, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');
+
 
 TRUNCATE TABLE  `#__community_fields_values`;
 INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) VALUES
@@ -45,8 +44,8 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (116, 79, 5, 'regtest7046025'),
 (135, 82, 5, 'regtest8774090'),
 (134, 82, 4, 'regtest8774090'),
-(139, 83, 17, '2'),
-(138, 83, 16, 'blueface'),
+(139, 83, 17, '1'),
+(138, 83, 16, 'default'),
 (137, 82, 9, 'regtest8774090'),
 (136, 82, 8, 'regtest8774090'),
 (168, 87, 9, 'regtest1674526'),
@@ -84,7 +83,10 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (129, 81, 5, 'regtest8635954'),
 (128, 81, 17, '3'),
 (127, 81, 16, 'blackout'),
-(126, 80, 9, 'regtest6208627');
+(126, 80, 9, 'regtest6208627'),
+(169, 62, 16, 'default'),
+(170, 62, 17, '1');
+
 
 -- --------------------------------------------------------
 
@@ -93,11 +95,19 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 --
 
 TRUNCATE TABLE `#__community_groups` ;
+DROP TABLE IF EXISTS `au_#__community_groups` ;
+CREATE TABLE IF NOT EXISTS `au_#__community_groups` SELECT * FROM `#__community_groups`;
+TRUNCATE TABLE `au_#__community_groups`;
 INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `name`, `description`, `email`, `website`, `approvals`, `created`, `avatar`, `thumb`, `discusscount`, `wallcount`, `membercount`, `params`) VALUES
 (1, 1, 62, 4, 'Groups PT 1', 'Groups PT 1', '', '', 0, '2009-12-03 07:37:15', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
-(2, 1, 62, 4, 'Groups PT 2', 'Groups PT 2', '', '', 0, '2009-12-03 07:37:36', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
-(3, 1, 62, 4, 'Groups PT 3', 'Groups PT 3', '', '', 0, '2009-12-03 07:37:50', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
-(4, 1, 62, 4, 'Private Group', 'Private Group', '', '', 1, '2009-12-03 07:38:07', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');
+(2, 1, 62, 4, 'Groups PT 2', 'Groups PT 2', '', '', 0, '2009-12-03 07:37:36', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
+(3, 1, 83, 4, 'Groups PT 3', 'Groups PT 3', '', '', 0, '2009-12-03 07:37:50', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
+(4, 1, 84, 4, 'Private Group', 'Private Group', '', '', 1, '2009-12-03 07:38:07', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');
+
+INSERT INTO `au_#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `name`, `description`, `email`, `website`, `approvals`, `created`, `avatar`, `thumb`, `discusscount`, `wallcount`, `membercount`, `params`) VALUES
+(1, 1, 62, 4, 'Groups PT 1', 'Groups PT 1', '', '', 0, '2009-12-03 07:37:15', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
+(2, 1, 62, 4, 'Groups PT 2', 'Groups PT 2', '', '', 0, '2009-12-03 07:37:36', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
+(3, 1, 83, 4, 'Groups PT 3', 'Groups PT 3', '', '', 0, '2009-12-03 07:37:50', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');
 
 -- --------------------------------------------------------
 
@@ -106,17 +116,28 @@ INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `
 --
 
 TRUNCATE TABLE `#__community_groups_members` ;
+DROP TABLE IF EXISTS `au_#__community_groups_members` ;
+CREATE TABLE IF NOT EXISTS `au_#__community_groups_members` SELECT * FROM `#__community_groups_members`;
+TRUNCATE TABLE `au_#__community_groups_members`;
 INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES
 (1, 62, 1, 1),
 (2, 62, 1, 1),
-(3, 62, 1, 1),
-(4, 62, 1, 1),
-(4, 81, 1, 0),
+(3, 83, 1, 1),
+(4, 84, 1, 1),
+(2, 81, 1, 0),
 (1, 79, 1, 0),
 (1, 82, 1, 0),
-(4, 84, 1, 0),
+(2, 85, 1, 0),
 (1, 85, 1, 0),
-(4, 87, 1, 0);
+(2, 87, 1, 0);
+
+INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES
+(1, 62, 1, 1),
+(2, 62, 1, 1),
+(3, 83, 1, 1),
+(1, 79, 1, 0),
+(1, 82, 1, 0),
+(1, 85, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -126,16 +147,18 @@ INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `p
 
 TRUNCATE TABLE `#__community_users`;
 INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
-(62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=0\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(83, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
+(62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
+(83, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (84, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (85, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(86, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
+(86, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.jpg', 'images/profiletype/avatar_2_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (87, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (79, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(80, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
+(80, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.jpg', 'images/profiletype/avatar_2_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (81, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);
+
+
 
 TRUNCATE TABLE `#__users`;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
@@ -172,29 +195,15 @@ INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
 
 
 TRUNCATE TABLE `#__xipt_profiletypes` ;
-INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`) VALUES
-(1, 'PROFILETYPE-1', 2, 1, 'PROFILETYPE-ONE-TIP', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 1, '', ''),
-(2, 'PROFILETYPE-2', 1, 1, 'PROFILETYPE-TWO-TIP', 'friends', 'blueface', 'Editor', 'components/com_community/assets/group.jpg', 0, 0, 0, '', ''),
-(3, 'PROFILETYPE-3', 3, 1, 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, '', ''),
-(4, 'PROFILETYPE-4', 4, 0, 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '');
+INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`, `watermarkparams`) VALUES
+(1, 'PROFILETYPE-1', 2, 1, '<p>PROFILETYPE-ONE-TIP</p>', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 1, '', '', 'enableWaterMark=0\nxiText=P1\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=1\n\n'),
+(2, 'PROFILETYPE-2', 1, 1, '<p>PROFILETYPE-TWO-TIP</p>', 'friends', 'blueface', 'Editor', 'images/profiletype/avatar_2.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=P2\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=2\n\n'),
+(3, 'PROFILETYPE-3', 3, 1, '<p>PROFILETYPE-THREE-TIP</p>', 'members', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, '', '', 'enableWaterMark=0\nxiText=P3\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=3\n\n'),
+(4, 'PROFILETYPE-4', 4, 0, '<p>PROFILETYPE-THREE-TIP</p>', 'members', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=P4\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=4\n\n');
+
 
 TRUNCATE TABLE `#__xipt_users`;
-DROP TABLE IF EXISTS `au_#__xipt_users`;
-CREATE TABLE IF NOT EXISTS `au_#__xipt_users` SELECT * FROM `#__xipt_users`;
-TRUNCATE TABLE `au_#__xipt_users`;
 INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 1, 'default'),
-(87, 3, 'blackout'),
-(86, 2, 'blueface'),
-(85, 1, 'default'),
-(84, 3, 'blackout'),
-(83, 2, 'blueface'),
-(82, 1, 'default'),
-(81, 3, 'blackout'),
-(80, 2, 'blueface'),
-(79, 1, 'default');
-
-INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (62, 1, 'default'),
 (87, 3, 'blackout'),
 (86, 2, 'blueface'),
@@ -232,3 +241,5 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 32),
 (21, '', 35),
 (25, '', 10);
+
+

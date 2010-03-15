@@ -30,13 +30,6 @@ class plgSystemxipt_system extends JPlugin
 	function onAfterRoute()
 	{
  		global $mainframe;
-		
-		// Dont run in admin
-		if ($mainframe->isAdmin())
-			return;
-		
-		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
-			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
 		//sometimes in SEF, value from GET might be blank		
 		$option = JRequest::getCmd('option','BLANK','GET');
@@ -49,6 +42,35 @@ class plgSystemxipt_system extends JPlugin
 			$task = JRequest::getVar('task','BLANK');
 			
 		$view = JRequest::getVar('view','BLANK');
+		$component=JRequest::getVar('component','BLANK');
+				
+		$this->mySess = & JFactory::getSession();
+			
+		if( $mainframe->isAdmin())
+		{	
+			if($option == 'com_config' && $component=='com_xipt' && $task=='save')
+			{
+				$this->mySess->set('saveXiptConfiguration',true);
+				return;
+			}
+			
+			if($this->mySess->has('saveXiptConfiguration') == false)
+				return;
+		}
+		
+
+		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		else
+			return;
+		// use factory to get any object
+		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		
+		if($this->mySess->get('saveXiptConfiguration',false) == true)
+		{	
+			$pluginHandler->onAfterConfigSave();
+			$this->mySess->set('saveXiptConfiguration',false);
+		}		
 		
 		/*
 		switch(trim($option))
@@ -61,8 +83,6 @@ class plgSystemxipt_system extends JPlugin
 		           return;
 		}*/
 		
-		// use factory to get any object
-		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
 
 		/*if($option == 'com_community')
 		{
@@ -89,6 +109,7 @@ class plgSystemxipt_system extends JPlugin
 			
 		return;
 	}
+		
 	
 	function onAfterStoreUser($properties,$isNew,$result,$error)
 	{

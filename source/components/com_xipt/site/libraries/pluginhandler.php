@@ -587,6 +587,11 @@ class XiPTLibraryPluginHandler
 	{
 	    return XiPTLibraryAcl::performACLCheck($ajax, $callArray, $args);
 	}
+	
+	function onAfterConfigSave()
+	{
+		XiPTHelperUnhook::store_globalconfiguration();
+	}
 
 }
 
