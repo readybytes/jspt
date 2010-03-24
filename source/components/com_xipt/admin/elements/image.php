@@ -29,7 +29,7 @@ class JElementImage extends JElement
 		
 		$html = '';
 		//$html = '<img src="'.JURI::root().DS.$watermark.'" width="64" alt="watermark" />';
-		$html .= '<img src="'.JURI::root().DS.$generatedImage.'" width="64" height="64" alt="generatedimage" border=10 />';
+		$html .= '<img src="'.JURI::root().'/'.$generatedImage.'" width="64" height="64" alt="generatedimage" border=10 />';
 		
 
 		return $html;
