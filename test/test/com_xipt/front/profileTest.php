@@ -546,4 +546,20 @@ enablephotos=1'
 	$this->waitPageLoad();
 	$this->assertTrue($this->isElementPresent($element));
   }
+  
+  function testAdvanceSearchField()
+  {
+  	$this->frontLogin('regtest8635954','regtest8635954');
+  	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=search&task=advancesearch');
+  	$this->waitPageLoad();
+  	$this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN2']"));
+	$this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN3']"));
+	$this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN4']"));
+	$this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN5']"));
+    $this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN7']"));
+    $this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN8']"));
+    $this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN9']"));
+	$this->assertTrue($this->isElementPresent("//option[@value='XIPT_PROFILETYPE']"));
+  	$this->assertTrue($this->isElementPresent("//option[@value='XIPT_TEMPLATE']"));	  	
+  }
 }

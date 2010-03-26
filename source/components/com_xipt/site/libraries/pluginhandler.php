@@ -577,9 +577,22 @@ class XiPTLibraryPluginHandler
 	 * @param $fields
 	 * @return true
 	 */
+	function isAdvanceSearch()
+	{
+		$view   = JRequest::getVar('view','','GET');
+		$task   = JRequest::getVar('task','','GET');
+		$option = JRequest::getVar('option','','GET');
+		if($option === 'com_community' && $view === 'search' && $task === 'advancesearch')
+			return true;
+
+		return false;
+	}
+	
 	function onProfileLoad(&$userid, &$fields, $from)
 	{
-	    XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
+	    if($this->isAdvanceSearch() === true)
+	    	return true;
+		XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
 	}
 
