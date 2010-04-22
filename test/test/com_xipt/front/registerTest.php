@@ -423,4 +423,36 @@ class RegisterTest extends XiSelTestCase
     }
     	
   }
+
+  function testDirectAECLinkRegistration()
+  {
+	$url = dirname(__FILE__).'/sql/RegisterTest/testAECRegisterPage.start.sql';
+  	$this->_DBO->loadSql($url);
+  	
+  	$filter['aec_integrate']=1;
+	$filter['defaultProfiletypeID']=2;
+	$filter['aec_message']='b';
+	$this->changeJSPTConfig($filter);
+  	  	
+	$data[2] = 1;
+    $data[4] = 3;
+  	//$data[5] = 2;
+    $data[13] = 2;
+  	   
+  	foreach($data as $usage => $profiletype)
+    {
+    	// go to register location 
+    	$this->open(JOOMLA_LOCATION.'index.php?option=com_acctexp&task=subscribe&usage='.$usage);
+  		$this->waitPageLoad();
+  		    	
+    	$this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));
+    	$this->assertTrue($this->isElementPresent("xipt_back_link"));
+    	$this->assertTrue($this->isTextPresent("PROFILETYPE-$profiletype"));
+    	
+    	$username = $this->fillDataPT($profiletype);
+    	$this->verifyUser($username, $profiletype);
+    }  	
+    $filter['aec_integrate']=1;
+    $this->changeJSPTConfig($filter);
+  }
 }

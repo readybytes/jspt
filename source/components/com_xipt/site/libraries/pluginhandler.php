@@ -541,6 +541,14 @@ class XiPTLibraryPluginHandler
 
 		return;
 	}
+		
+	/* get the plan id when the direct link of AEC are used */
+	function event_com_acctexp_blank_subscribe()
+	{
+		$mySess =& JFactory::getSession();
+		$usage  =  JRequest::getVar( 'usage', '0', 'REQUEST');
+		$mySess->set('AEC_REG_PLANID',$usage, 'XIPT');			
+	}
 
 	// we are on xipt registration page
 	function event_com_xipt_registration_blank()
