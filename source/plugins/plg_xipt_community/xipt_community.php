@@ -59,12 +59,12 @@ class plgCommunityxipt_community extends CApplications
 	}
 
 
-	function onBeforeProfileUpdate(&$userId, &$fieldValues)
+	function onBeforeProfileUpdate($userId, $fieldValues)
 	{
 		return $this->_pluginHandler->onBeforeProfileUpdate($userId, $fieldValues);
 	}
 	
-	function onAfterProfileUpdate(&$userId, &$saveSuccess)
+	function onAfterProfileUpdate($userId, $saveSuccess)
 	{
 		return $this->_pluginHandler->onAfterProfileUpdate($userId, $saveSuccess);
 	}
