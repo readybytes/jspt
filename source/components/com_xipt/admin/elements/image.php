@@ -26,7 +26,8 @@ class JElementImage extends JElement
 		
 		if(JFile::exists($imagePath) && JFile::exists($watermarkPath))
 			$generatedImage = XiPTLibraryUtils::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$value,$watermarkParams->get('xiWatermarkPosition'));
-		
+		if(DS== '\\') 
+			$generatedImage = str_replace('\\','/',$generatedImage);
 		$html = '';
 		//$html = '<img src="'.JURI::root().DS.$watermark.'" width="64" alt="watermark" />';
 		$html .= '<img src="'.JURI::root().'/'.$generatedImage.'" width="64" height="64" alt="generatedimage" border=10 />';

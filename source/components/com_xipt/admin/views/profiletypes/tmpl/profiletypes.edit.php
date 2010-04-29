@@ -46,6 +46,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td rowspan='3'>
 			<div>
 				<div>
+				<?php if(DS== '\\') $this->row->avatar = str_replace('\\','/',$this->row->avatar);?>
 			    	<img src="<?php echo JURI::root().$this->row->avatar;?>" width="64" height="64" border="0" alt="<?php echo $this->row->avatar; ?>" />
 			    </div>
 			    <br />
