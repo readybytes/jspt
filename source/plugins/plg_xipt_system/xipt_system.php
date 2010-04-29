@@ -21,7 +21,7 @@ class plgSystemxipt_system extends JPlugin
 	var $_debugMode = 1;
 	var $_eventPreText = 'event_';
 		
-	function plgSystemxipt_system( &$subject, $params )
+	function plgSystemxipt_system( $subject, $params )
 	{
 		parent::__construct( $subject, $params );
 	}
