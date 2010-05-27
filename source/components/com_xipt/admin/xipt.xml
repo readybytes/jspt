@@ -23,47 +23,19 @@
 		<filename>defines.xipt.php</filename>
 		<filename>license.txt</filename>
 
-		<filename>libraries/profiletypes.php</filename>
-		<filename>libraries/pluginhandler.php</filename>
-		<filename>libraries/core.php</filename>
-		<filename>libraries/acl.php</filename>
-		<filename>libraries/utils.php</filename>
-		<filename>libraries/apps.php</filename>
-		<filename>libraries/aec.php</filename>
-		<filename>libraries/imagegenerator.php</filename>
-		<filename>libraries/index.html</filename>
-		
-		<filename>controllers/registration.php</filename>
-		<filename>controllers/index.html</filename>
-		
-		<filename>models/user.php</filename>
-		<filename>models/index.html</filename>
+		<folder>controllers</folder>
+		<folder>models</folder>		
+		<folder>libraries</folder>
+		<folder>assets</folder>
+		<folder>views</folder>
 
-		<filename>assets/style.css</filename>
-		<filename>assets/index.html</filename>
-		<filename>assets/fonts/index.html</filename>
-		<filename>assets/fonts/monofont.ttf</filename>
-		<filename>assets/fonts/stilltim.ttf</filename>
-		<filename>assets/fonts/saysochic.ttf</filename>
-		<filename>assets/fonts/earwigfa.ttf</filename>
-		<filename>assets/fonts/cuomotyp.ttf</filename>
-		<filename>assets/fonts/primer.ttf</filename>
-		<filename>assets/fonts/primerb.ttf</filename>
-		<filename>assets/fonts/interpla.ttf</filename>
-		
-		<filename>views/index.html</filename>
-		<filename>views/registration/view.html.php</filename>
-		<filename>views/registration/index.html</filename>
-		<filename>views/registration/tmpl/default.php</filename>
-		<filename>views/registration/tmpl/facebook.php</filename>
-		<filename>views/registration/tmpl/index.html</filename>
-		
 	</files>
 	<administration>
 		<menu link="option=com_xipt" img="components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
 		<submenu>
 			<menu view="cpanel" img="components/com_xipt/images/icon-cpanel.png">Control Panel</menu>
-			<menu view="configuration" img="components/com_xipt/images/icon-jspt-config.gif">Configuration</menu>
+			<menu view="settings" img="components/com_xipt/images/icon-jspt-settings.png">Settings</menu>
+			<menu view="configuration" img="components/com_xipt/images/icon-jspt-config.gif">JS Configuration</menu>
 			<menu view="setup" img="components/com_xipt/images/icon-setup.gif">Setup</menu>
 			<menu view="profiletypes" img="components/com_xipt/images/icon-profiletypes.gif">Profile Types</menu>
 			<menu view="aclrules" img="components/com_xipt/images/icon-aclrules.gif">Access Control</menu>
@@ -82,191 +54,15 @@
 			<filename>jspt_functions.php</filename>
 			<filename>includes.xipt.php</filename>
 			
-			<filename>controllers/index.html</filename>
-			<filename>controllers/cpanel.php</filename>
-			<filename>controllers/setup.php</filename>
-			<filename>controllers/profiletypes.php</filename>
-			<filename>controllers/profilefields.php</filename>
-			<filename>controllers/aclrules.php</filename>
-			<filename>controllers/applications.php</filename>
-			<filename>controllers/configuration.php</filename>
-
-			<filename>models/index.html</filename>
-			<filename>models/profiletypes.php</filename>
-			<filename>models/aclrules.php</filename>
-			<filename>models/applications.php</filename>
-			<filename>models/configuration.php</filename>
-			
-			<filename>helpers/index.html</filename>
-			<filename>helpers/profiletypes.php</filename>
-			<filename>helpers/profilefields.php</filename>
-			<filename>helpers/aclrules.php</filename>
-			<filename>helpers/applications.php</filename>
-			<filename>helpers/xiptcore.php</filename>
-			<filename>helpers/setup.php</filename>
-			<filename>helpers/unhook.php</filename>
-			
-			<filename>libraries/index.html</filename>
-			<filename>libraries/aclrules/index.html</filename>
-			<filename>libraries/aclrules/aclrule.php</filename>
-			<filename>libraries/aclrules/coreparams.xml</filename>
-			
-			<filename>libraries/aclrules/joingroup/index.html</filename>
-			<filename>libraries/aclrules/joingroup/joingroup.php</filename>
-			<filename>libraries/aclrules/joingroup/joingroup.xml</filename>
-			
-			<filename>libraries/aclrules/addalbums/index.html</filename>
-			<filename>libraries/aclrules/addalbums/addalbums.php</filename>
-			<filename>libraries/aclrules/addalbums/addalbums.xml</filename>
-			
-			<filename>libraries/aclrules/addasfriends/index.html</filename>
-			<filename>libraries/aclrules/addasfriends/addasfriends.php</filename>
-			<filename>libraries/aclrules/addasfriends/addasfriends.xml</filename>
-
-			<filename>libraries/aclrules/addphotos/index.html</filename>
-			<filename>libraries/aclrules/addphotos/addphotos.php</filename>
-			<filename>libraries/aclrules/addphotos/addphotos.xml</filename>
-			
-			<filename>libraries/aclrules/addvideos/index.html</filename>
-			<filename>libraries/aclrules/addvideos/addvideos.php</filename>
-			<filename>libraries/aclrules/addvideos/addvideos.xml</filename>
-			
-			<filename>libraries/aclrules/cantviewotherprofile/index.html</filename>
-			<filename>libraries/aclrules/cantviewotherprofile/cantviewotherprofile.php</filename>
-			<filename>libraries/aclrules/cantviewotherprofile/cantviewotherprofile.xml</filename>
-			
-			<filename>libraries/aclrules/changeavatar/index.html</filename>
-			<filename>libraries/aclrules/changeavatar/changeavatar.php</filename>
-			<filename>libraries/aclrules/changeavatar/changeavatar.xml</filename>
-			
-			<filename>libraries/aclrules/changeprivacy/index.html</filename>
-			<filename>libraries/aclrules/changeprivacy/changeprivacy.php</filename>
-			<filename>libraries/aclrules/changeprivacy/changeprivacy.xml</filename>
-			
-			<filename>libraries/aclrules/creategroup/index.html</filename>
-			<filename>libraries/aclrules/creategroup/creategroup.php</filename>
-			<filename>libraries/aclrules/creategroup/creategroup.xml</filename>
-			
-			<filename>libraries/aclrules/editselfprofile/index.html</filename>
-			<filename>libraries/aclrules/editselfprofile/editselfprofile.php</filename>
-			<filename>libraries/aclrules/editselfprofile/editselfprofile.xml</filename>
-			
-			<filename>libraries/aclrules/editselfprofiledetails/index.html</filename>
-			<filename>libraries/aclrules/editselfprofiledetails/editselfprofiledetails.php</filename>
-			<filename>libraries/aclrules/editselfprofiledetails/editselfprofiledetails.xml</filename>
-			
-			<filename>libraries/aclrules/writemessages/index.html</filename>
-			<filename>libraries/aclrules/writemessages/writemessages.php</filename>
-			<filename>libraries/aclrules/writemessages/writemessages.xml</filename>
-
-			<filename>libraries/aclrules/redirect/index.html</filename>
-			<filename>libraries/aclrules/redirect/redirect.php</filename>
-			<filename>libraries/aclrules/redirect/redirect.xml</filename>
-
-			<filename>libraries/aclrules/deletegroup/index.html</filename>
-			<filename>libraries/aclrules/deletegroup/deletegroup.php</filename>
-			<filename>libraries/aclrules/deletegroup/deletegroup.xml</filename>
-			
-			<filename>elements/index.html</filename>
-			<filename>elements/profiletypes.php</filename>
-			<filename>elements/fonts.php</filename>
-			<filename>elements/image.php</filename>
-			<filename>elements/watermarkposition.php</filename>
-			<filename>elements/colorbox.php</filename>
-			<filename>elements/colorbox/index.html</filename>
-			<filename>elements/colorbox/arrow.gif</filename>
-			<filename>elements/colorbox/cross.gif</filename>
-			<filename>elements/colorbox/hs.png</filename>
-			<filename>elements/colorbox/hv.png</filename>
-			<filename>elements/colorbox/jscolor.js</filename>
-			
-			<filename>views/index.html</filename>
-			
-			<filename>views/cpanel/index.html</filename>
-			<filename>views/cpanel/view.html.php</filename>
-			<filename>views/cpanel/tmpl/index.html</filename>
-			<filename>views/cpanel/tmpl/default.php</filename>
-			<filename>views/cpanel/tmpl/aboutus.php</filename>
-			<filename>views/cpanel/tmpl/news.php</filename>
-			<filename>views/cpanel/tmpl/updates.php</filename>
-			<filename>views/cpanel/tmpl/welcome.php</filename>
-			
-			<filename>views/setup/index.html</filename>
-			<filename>views/setup/view.html.php</filename>
-			<filename>views/setup/tmpl/index.html</filename>
-			<filename>views/setup/tmpl/default.php</filename>
-			<filename>views/setup/tmpl/helpPanel.php</filename>
-			
-			<filename>views/profiletypes/index.html</filename>
-			<filename>views/profiletypes/view.html.php</filename>
-			<filename>views/profiletypes/tmpl/index.html</filename>
-			<filename>views/profiletypes/tmpl/default.php</filename>
-			<filename>views/profiletypes/tmpl/profiletypes.edit.php</filename>
-			
-			<filename>views/profilefields/index.html</filename>
-			<filename>views/profilefields/view.html.php</filename>
-			<filename>views/profilefields/tmpl/index.html</filename>
-			<filename>views/profilefields/tmpl/default.php</filename>
-			<filename>views/profilefields/tmpl/profilefields.edit.php</filename>
-			
-			<filename>views/configuration/index.html</filename>
-			<filename>views/configuration/view.html.php</filename>
-			<filename>views/configuration/tmpl/index.html</filename>
-			<filename>views/configuration/tmpl/default.php</filename>
-			<filename>views/configuration/tmpl/groups.php</filename>
-			<filename>views/configuration/tmpl/messaging.php</filename>
-			<filename>views/configuration/tmpl/photos.php</filename>
-			<filename>views/configuration/tmpl/privacy.php</filename>
-			<filename>views/configuration/tmpl/reportings.php</filename>
-			<filename>views/configuration/tmpl/videos.php</filename>
-			<filename>views/configuration/tmpl/walls.php</filename>
-			<filename>views/configuration/tmpl/configuration.edit.php</filename>
-			
-			<filename>views/aclrules/index.html</filename>
-			<filename>views/aclrules/view.html.php</filename>
-			<filename>views/aclrules/tmpl/index.html</filename>
-			<filename>views/aclrules/tmpl/default.php</filename>
-			<filename>views/aclrules/tmpl/acl.add.php</filename>
-			<filename>views/aclrules/tmpl/aclrules.edit.php</filename>
-			
-			<filename>views/applications/index.html</filename>
-			<filename>views/applications/view.html.php</filename>
-			<filename>views/applications/tmpl/index.html</filename>
-			<filename>views/applications/tmpl/default.php</filename>
-			<filename>views/applications/tmpl/applications.edit.php</filename>
-
-			<filename>tables/index.html</filename>
-			<filename>tables/profiletypes.php</filename>
-			<filename>tables/profilefields.php</filename>
-			<filename>tables/aclrules.php</filename>
-			<filename>tables/applications.php</filename>
-
-			<filename>hacks/front_libraries_fields_customfields.xml</filename>
-			<filename>hacks/front_libraries_fields_profiletypes.php</filename>
-			<filename>hacks/front_libraries_fields_templates.php</filename>
-			<filename>hacks/mi_jomsocialjspt.php</filename>
-			
-			<filename>images/index.html</filename>
-			<filename>images/setup.png</filename>
-			<filename>images/jspt-config.png</filename>
-			<filename>images/profiletypes.gif</filename>
-			<filename>images/profilefields.gif</filename>
-			<filename>images/aclrules.gif</filename>
-			<filename>images/applications.gif</filename>
-			<filename>images/download.png</filename>
-			<filename>images/documentation.png</filename>
-			<filename>images/support.png</filename>
-			<filename>images/gnugpl.png</filename>
-			<filename>images/twitter.jpg</filename>
-			
-			<filename>images/icon-setup.gif</filename>
-			<filename>images/icon-profiletypes.gif</filename>
-			<filename>images/icon-jspt-config.gif</filename>
-			<filename>images/icon-profilefields.gif</filename>
-			<filename>images/icon-aclrules.gif</filename>
-			<filename>images/icon-applications.gif</filename>
-			<filename>images/icon-cpanel.png</filename>
-			<filename>images/icon-aboutus.png</filename>
+			<folder>controllers</folder>
+			<folder>models</folder>
+			<folder>helpers</folder>			
+			<folder>libraries</folder>
+			<folder>elements</folder>
+			<folder>views</folder>
+			<folder>tables</folder>
+			<folder>hacks</folder>
+			<folder>images</folder>			
 		</files>
 	</administration>
 </install>

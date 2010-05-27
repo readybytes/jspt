@@ -140,7 +140,18 @@ class FrontAclRulesTest extends XiSelTestCase
 	$this->waitPageLoad();
 	$this->verifyRestrict($verify);     
   }
-  
+  function checkAccessVideo($from,$to,$vid,$verify)
+  {
+  	$this->open("index.php?option=com_community&view=videos&task=video&userid=$to&videoid=$vid&Itemid=53");
+  	$this->waitPageLoad();
+  	$this->verifyRestrict($verify);   
+  }
+  function checkAccessGroup($from,$groupid,$verify)
+  {
+  	 $this->open("index.php?option=com_community&view=groups&task=viewgroup&groupid=$groupid&Itemid=53");
+  	 $this->waitPageLoad();
+  	 $this->verifyRestrict($verify);   
+  }
   function testACLRules0()
   {
   	  $filter['floodLimit']=1;
@@ -288,6 +299,8 @@ function testACLRules2()
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
   	
+	$filter['aec_integrate']=1;
+	$this->changeJSPTConfig($filter);
 	$user = JFactory::getUser(83); 
   	
   	$this->open(JOOMLA_LOCATION."/index.php");
@@ -363,4 +376,75 @@ function testACLRules2()
     $this->_DBO->addTable('#__community_groups');
     $this->_DBO->addTable('#__community_groups_members');    
   }
+  
+  
+    function testAccessVideo()
+   {
+   	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+  	
+   	 $user = JFactory::getUser(82); // type1
+  	 $this->frontLogin($user->username,$user->username);
+  	  //pt1 can access video of pt2
+  	 $this->checkAccessVideo(82,85,1,True); 
+  	 $this->checkAccessVideo(82,86,2,False);
+  	 $this->checkAccessVideo(82,87,3,True);
+  	 $this->frontLogout();
+  	 
+  	 
+  	 $user = JFactory::getUser(83); // type2
+  	 $this->frontLogin($user->username,$user->username);
+  	  //pt2 cant  see video of pt3
+  	 $this->checkAccessVideo(83,85,1,True);
+  	 $this->checkAccessVideo(83,86,2,True);
+  	 $this->checkAccessVideo(83,87,3,False);
+  	 $this->frontLogout();
+  	  
+  	  
+  	 //pt3 cant see video of pt1
+  	 $user = JFactory::getUser(84); // type3
+  	 $this->frontLogin($user->username,$user->username);
+  	
+  	 $this->checkAccessVideo(84,85,1,False);
+  	 $this->checkAccessVideo(84,86,2,True);
+  	 $this->checkAccessVideo(84,87,3,True);
+  	 $this->frontLogout();
+  	  
+   }
+   function testAccessGroup()
+   {
+   	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+  	 // type1
+   	$user = JFactory::getUser(82);
+  	$this->frontLogin($user->username,$user->username);
+  	//pt1 cant access group from pt2
+  	$this->checkAccessGroup(82,6,True);
+  	$this->checkAccessGroup(82,5,False);
+  	$this->checkAccessGroup(82,7,True);
+  	$this->frontLogout();
+  	
+  	//type2
+  	$user = JFactory::getUser(83);
+  	$this->frontLogin($user->username,$user->username);
+  	//pt2 cant access group from pt3
+  	$this->checkAccessGroup(83,6,True);
+  	$this->checkAccessGroup(83,5,True);
+  	$this->checkAccessGroup(83,7,False);
+  	$this->frontLogout();
+  	
+  	//type3
+  		$user = JFactory::getUser(84);
+  	$this->frontLogin($user->username,$user->username);
+  	//pt3 cant access group from pt1
+  	$this->checkAccessGroup(84,6,False);
+  	$this->checkAccessGroup(84,5,True);
+  	$this->checkAccessGroup(84,7,True);
+  	$this->frontLogout();
+   }
+  	
 }
