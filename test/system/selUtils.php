@@ -48,7 +48,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   function adminLogin()
   {
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_login");
-    $this->waitForPageToLoad("30000");
+    $this->waitForPageToLoad("60000");
 
     $this->type("modlgn_username", JOOMLA_ADMIN_USERNAME);
     $this->type("modlgn_passwd", JOOMLA_ADMIN_PASSWORD);
@@ -61,7 +61,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   function frontLogin($username=JOOMLA_ADMIN_USERNAME, $password= JOOMLA_ADMIN_PASSWORD)
   {
     $this->open(JOOMLA_LOCATION."/index.php");
-    $this->waitForPageToLoad("30000");
+    $this->waitForPageToLoad("60000");
 
     $this->type("modlgn_username", $username);
     $this->type("modlgn_passwd", $password);
@@ -73,10 +73,10 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   function frontLogout()
   {
   	$this->open(JOOMLA_LOCATION."/index.php");
-    $this->waitForPageToLoad("30000");
+    $this->waitForPageToLoad("60000");
     $this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
     $this->click("//form[@id='form-login']/div[2]/input");
-    $this->waitForPageToLoad("30000");
+    $this->waitForPageToLoad("60000");
     $this->assertTrue($this->isElementPresent("modlgn_username"));
   }
   

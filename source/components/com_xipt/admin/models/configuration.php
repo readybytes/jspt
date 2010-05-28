@@ -1,9 +1,8 @@
 <?php
 /**
- * @package		JSPT 2.0
- * @copyright (C) 2009 by Slashes & Dots Sdn Bhd - All rights reserved!
- * @license http://www.joomlaxi.com Copyrighted Commercial Software
- */
+* @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
 
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');

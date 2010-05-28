@@ -25,7 +25,7 @@ class InstallTest extends XiSelTestCase
     
     // go to installation
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
-    $this->waitPageLoad("30000");
+    $this->waitPageLoad("60000");
       
 	// add profiletype-one
     $this->type("install_url", COM_XIPT_PKG);
@@ -66,7 +66,7 @@ class InstallTest extends XiSelTestCase
 	    
 	    // go to installation
 	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
-	    $this->waitPageLoad("30000");
+	    $this->waitPageLoad("60000");
 	      
 		// add profiletype-one
 	    $this->type("install_url", JOMSOCIAL_PKG);
@@ -74,28 +74,28 @@ class InstallTest extends XiSelTestCase
 	    $this->waitPageLoad();
 
 	  $this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
 	
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->click("//form[@id='installform']/div/div/input");
-	  $this->waitForPageToLoad("30000");
+	  $this->waitForPageToLoad("60000");
 	  $this->assertTrue($this->isTextPresent("Jom Social"));
   }
   
@@ -106,7 +106,7 @@ class InstallTest extends XiSelTestCase
     
     // go to installation
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
-    $this->waitPageLoad("30000");
+    $this->waitPageLoad("60000");
       
 	// add profiletype-one
     $this->type("install_url", JOMSOCIAL_APPS1);

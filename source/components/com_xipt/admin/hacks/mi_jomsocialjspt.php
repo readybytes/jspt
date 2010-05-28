@@ -1,11 +1,9 @@
 <?php
 /**
- * @version $Id: mi_jomsocialjspt.php 16 2007-07-01 12:07:07Z mic $
- * @subpackage Micro Integrations - Jomsocial-JSPT
- * @copyright 2009 Shyam Verma
- * @author Meenal Devpura <admin@joomlaxi.com> & Team Joomlaxi - http://www.joomlaxi.com
- *
- */
+* @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
+
 
 // Dont allow direct linking
 defined('_JEXEC') or die( 'Direct Access to this location is not allowed.' );

@@ -1,11 +1,8 @@
 <?php
 /**
-* @version      $Id$
-* @package      JomSocial Profile Types
-* @subpackage   API
-* @copyright    Copyright (C) 2009 - 2009 Ready Bytes Software Labs Pvt. Ltd. All rights reserved.
-* @license      GNU/GPL v2, see LICENSE.php
-*/
+* @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
 
 
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';

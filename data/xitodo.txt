@@ -1,30 +1,30 @@
-../../packages/tmp/components/com_xipt/admin/install.xipt.php:48:	/*XITODO : check jomsocial version if it is less than 1.6 than show error message */
-../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:130:				/*XITODO : send debug mode in second parameter */
-../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:200:		//XITODO : also support other formats
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/redirect/redirect.php:22:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:52:			//XITODO: err message
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:65:		//XITODO send debugmode
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:265:		/*XITODO : check according to addon params and core params
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:319:		/* XITODO : handle ajax case also */
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/creategroup/creategroup.php:38:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addvideos/addvideos.php:39:		/*XITODO : we will expect that view and task should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/deletegroup/deletegroup.php:20:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addalbums/addalbums.php:39:		/*XITODO : we will expect that view and task should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/editselfprofiledetails/editselfprofiledetails.php:28:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/editselfprofile/editselfprofile.php:28:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addphotos/addphotos.php:34:		/*XITODO : we will expect that view and task should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessvideo/accessvideo.php:37:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/cantviewotherprofile/cantviewotherprofile.php:30:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/writemessages/writemessages.php:75:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/changeprivacy/changeprivacy.php:28:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessgroup/accessgroup.php:36:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/joingroup/joingroup.php:42:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addasfriends/addasfriends.php:30:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/site/views/registration/tmpl/facebook.php:8:		// XITODO : remove break , use css div
-../../packages/tmp/components/com_xipt/site/controllers/registration.php:43:		//@XITODO : do some validation for visibility and publish of ptype
-../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:600:				// XITODO : What happen if config=blank
-../../packages/tmp/components/com_xipt/site/libraries/utils.php:20:			 * XITODO : we will remove this when aec support fbc
-../../packages/tmp/components/com_xipt/site/libraries/utils.php:69:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
-../../packages/tmp/components/com_xipt/site/libraries/utils.php:171:	/*XITODO : Add unit testing for this case */
-../../packages/tmp/components/com_xipt/site/libraries/utils.php:403:			//XITODO : here we need to trick as per the JomSocial
-../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:49:		/* XITODO : support for other image type */	
+../../packages/tmp/components/com_xipt/admin/install.xipt.php:52:	/*XITODO : check jomsocial version if it is less than 1.6 than show error message */
+../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:134:				/*XITODO : send debug mode in second parameter */
+../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:204:		//XITODO : also support other formats
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/redirect/redirect.php:26:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:55:			//XITODO: err message
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:68:		//XITODO send debugmode
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:268:		/*XITODO : check according to addon params and core params
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:322:		/* XITODO : handle ajax case also */
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/creategroup/creategroup.php:42:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addvideos/addvideos.php:43:		/*XITODO : we will expect that view and task should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/deletegroup/deletegroup.php:24:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addalbums/addalbums.php:43:		/*XITODO : we will expect that view and task should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/editselfprofiledetails/editselfprofiledetails.php:32:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/editselfprofile/editselfprofile.php:32:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addphotos/addphotos.php:38:		/*XITODO : we will expect that view and task should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessvideo/accessvideo.php:41:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/cantviewotherprofile/cantviewotherprofile.php:34:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/writemessages/writemessages.php:79:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/changeprivacy/changeprivacy.php:32:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessgroup/accessgroup.php:40:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/joingroup/joingroup.php:46:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/addasfriends/addasfriends.php:34:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/site/views/registration/tmpl/facebook.php:12:		// XITODO : remove break , use css div
+../../packages/tmp/components/com_xipt/site/controllers/registration.php:47:		//@XITODO : do some validation for visibility and publish of ptype
+../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:604:				// XITODO : What happen if config=blank
+../../packages/tmp/components/com_xipt/site/libraries/utils.php:24:			 * XITODO : we will remove this when aec support fbc
+../../packages/tmp/components/com_xipt/site/libraries/utils.php:73:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
+../../packages/tmp/components/com_xipt/site/libraries/utils.php:175:	/*XITODO : Add unit testing for this case */
+../../packages/tmp/components/com_xipt/site/libraries/utils.php:407:			//XITODO : here we need to trick as per the JomSocial
+../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:53:		/* XITODO : support for other image type */	
