@@ -1,7 +1,8 @@
-/**
+<?php /**
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
+?>
 <fieldset class="adminform">
 	<legend><?php echo JText::_( 'Groups' ); ?></legend>
 	<table class="admintable" cellspacing="1">

@@ -1,7 +1,8 @@
-/**
+<?php /**
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
+?>
 	<link rel="stylesheet" href="<?php echo JURI::root().'/components/com_xipt/assets/style.css'; ?>" type="text/css"  />
 	<div class="registerProfileType">
 	<h3 id="Title"><?php

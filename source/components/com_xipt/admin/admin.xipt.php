@@ -2,11 +2,8 @@
 /**
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+*@TODO : Include all helper files or other files in one common file and include that file
 **/
-/**
- *
- //@TODO : Include all helper files or other files in one common file and include that file
- */
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
