@@ -8,10 +8,19 @@ class ConfigurationTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
 
+  
 
   function testConfiguration()
   {
-    //setup default location 
+  //check js version
+    
+  	$version = XiSelTestCase::get_js_version();
+    if(Jstring::stristr($version,'1.7'))
+  	{
+  		$url =  dirname(__FILE__).'/sql/ConfigurationTest/testConfiguration.1.7.sql';
+    	$this->_DBO->loadSql($url);
+  	}  
+  	  //setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration");
     $this->waitPageLoad();
@@ -88,5 +97,33 @@ class ConfigurationTest extends XiSelTestCase
     //now verify tables
     $this->_DBO->addTable('#__xipt_profiletypes');
     $this->_DBO->filterOrder('#__xipt_profiletypes','id');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams'); 
+    $this->_DBO->filterColumn('#__xipt_profiletypes','visible'); 
+    
+    
+  }
+  
+  function testGlobalSettings()
+  {
+  	$this->_DBO->addTable('#__xipt_settings');
+  	$this->adminLogin();
+  	$this->open(JOOMLA_LOCATION.'/administrator/index.php?option=com_xipt&view=settings');
+  	$this->waitPageLoad();
+  	
+    $this->click("settingsshow_ptype_during_reg1");
+    $this->click("settingsallow_user_to_change_ptype_after_reg0");
+    $this->select("settings[defaultProfiletypeID]", "label=PROFILETYPE-1");
+    $this->select("settings[guestProfiletypeID]", "label=PROFILETYPE-3");
+    $this->click("settingsjspt_show_radio0");
+    $this->click("settingsjspt_fb_show_radio1");
+    $this->click("settingsallow_templatechange0");
+    $this->click("settingsshow_watermark1");
+    $this->click("settingsjspt_block_dis_app1");
+    $this->click("settingsaec_integrate1");
+    $this->click("settingsaec_messagepl");
+    $this->click("settingsjspt_restrict_reg_check1");
+  	
+  	$this->click("//td[@id='toolbar-save']/a");
+  	$this->waitPageLoad();
   }
 }
