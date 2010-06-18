@@ -57,7 +57,7 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage2']/img[contains(@src,'images/publish_x.png')]"));
     
     $this->click("//td[@id='setupMessage2']/a");
-	$this->waitForElement('sbox-window');
+	$this->waitPageLoad();
 
 	$filter['defaultProfiletypeID']=1;
 	$this->changeJSPTConfig($filter);
@@ -199,5 +199,58 @@ class SetupTest extends XiSelTestCase
     $this->_DBO->addTable('#__xipt_profiletypes');
     $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
     $this->_DBO->addTable('#__community_users');
+  }
+  
+  function testUnhook()
+  {
+	//XITODO : use changepluginState fn here  	
+	$sql = " UPDATE `#__plugins` SET `published` = '1' WHERE `element` ='xipt_system' LIMIT 1";
+  	$this->_DBO->execSql($sql);
+	$sql="UPDATE `#__plugins` SET `published` = '1' WHERE `element` ='xipt_community' LIMIT 1";
+    $this->_DBO->execSql($sql);
+  	// setup default location 
+    $this->adminLogin();
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup&task=display");
+    $this->waitPageLoad();
+    
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup&task=unhook");
+    $this->waitPageLoad();
+
+    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage3']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage3']/img[contains(@src,'images/publish_x.png')]"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage4']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/publish_x.png')]"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage6']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage6']/img[contains(@src,'images/publish_x.png')]"));
+    //check xipt_system plugin disabled or not
+	//XITODO : use verifyPluginState fn here
+	
+    $db	=& JFactory::getDBO();
+    $query	= " SELECT `published` FROM `#__plugins`"
+			." WHERE `element` ='xipt_system'"
+			." LIMIT 1";
+	$db->setQuery($query);
+	$result = $db->loadObject();
+	$this->assertEquals($result->published,0);
+	//check xipt_community plugin disabled or not
+	$query	= " SELECT `published` FROM `#__plugins`"
+			." WHERE `element` ='xipt_community'"
+			." LIMIT 1";
+	$db->setQuery($query);
+	$result = $db->loadObject();
+	$this->assertEquals($result->published,0);  	
+    $this->click("//td[@id='setupMessage3']/a");
+    $this->waitPageLoad();
+    $this->click("//td[@id='setupMessage4']/a");
+    $this->waitPageLoad();
+    $this->click("//td[@id='setupMessage6']/a");   
+    $this->waitPageLoad();
+    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage3']/a"));
+    $this->assertFalse($this->isElementPresent("//td[@id='setupImage3']/img[contains(@src,'images/publish_x.png')]"));
+    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage4']/a"));
+    $this->assertFalse($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/publish_x.png')]"));
+    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage6']/a"));
+    $this->assertFalse($this->isElementPresent("//td[@id='setupImage6']/img[contains(@src,'images/publish_x.png')]"));
+    
   }
 }

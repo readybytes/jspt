@@ -152,6 +152,47 @@ class FrontAclRulesTest extends XiSelTestCase
   	 $this->waitPageLoad();
   	 $this->verifyRestrict($verify);   
   }
+  function checkStatusBox()
+  {
+  	$this->open("index.php?option=com_community&view=profile&Itemid=53");
+  	$this->waitPageLoad();
+  	$this->type("statustext", "change status");
+    $this->click("save-status");     
+  }
+
+  function registeruser($pt,$restrictuploadavatar)
+  {
+  	$rand=rand('111','999');
+  	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=frontpage");
+  	$this->waitPageLoad();
+  	$this->click("//a[@id='joinButton']");
+  	$this->waitPageLoad();
+  	$this->click("//input[@id='$pt']");
+  	$this->click('ptypesavebtn');
+  	$this->waitPageLoad();
+  	$this->type("jsname","username$rand");
+	$this->type("jsusername","username$rand");
+	$this->type("jsemail","user$rand@email.com");
+	$this->type("jspassword","username");
+	$this->type("jspassword2","username");
+	sleep(2);
+	$this->click("//input[@type='submit']");
+	sleep(2);
+	$this->click("//input[@type='submit']");
+	$this->waitPageLoad();
+	$this->click('btnSubmit');
+	$this->waitPageLoad();
+	if($restrictuploadavatar==1)
+	{
+	 $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/front/images/avatar_3.gif");
+    $this->click("file-upload-submit");
+    $this->waitPageLoad();
+	}
+	$this->assertTrue($this->isTextPresent('User Registered.'));
+  }
+
+
+
   function testACLRules0()
   {
   	  $filter['floodLimit']=1;
@@ -302,7 +343,9 @@ function testACLRules2()
 	$filter['aec_integrate']=1;
 	$this->changeJSPTConfig($filter);
 	$user = JFactory::getUser(83); 
-  	
+  	$filter['aec_integrate']=1;
+	$this->changeJSPTConfig($filter);
+
   	$this->open(JOOMLA_LOCATION."/index.php");
     $this->waitPageLoad();
     $this->type("modlgn_username", $user->username);
@@ -328,6 +371,7 @@ function testACLRules2()
   
   function testACLRulesDeleteGroup()
   {
+  	$version = XiSelTestCase::get_js_version();
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -345,11 +389,12 @@ function testACLRules2()
     $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('3');\"]");
 	$this->waitForElement("cwin_tm");
 	sleep(1);
-	$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+	$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
 	$this->click("//input[@type='button'][@onclick=\"jax.call('community', 'groups,ajaxDeleteGroup', '3', 1);\"]");
 	$this->waitForElement("cwin_tm");
 	sleep(1);
-    $this->assertTrue($this->isTextPresent("You are not allowed to delete groups"));    
+	
+    $this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
     $this->frontLogout();
     
     $user = JFactory::getUser(84); 
@@ -365,15 +410,26 @@ function testACLRules2()
     $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('4');\"]");
 	$this->waitForElement("cwin_tm");
 	sleep(2);
-	$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+	if(Jstring::stristr($version,'1.7'))
+		$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+	else 
+		$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+	
 	$this->click("//input[@onclick=\"jax.call('community', 'groups,ajaxDeleteGroup', '4', 1);\"]");
 	$this->waitForElement("cwin_tm");
 	sleep(3);
-	$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+	
+	if(Jstring::stristr($version,'1.7'))
+		$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+	else
+		$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+
 	$this->click("//input[@id='groupDeleteDone']");
     
     $this->frontLogout();
     $this->_DBO->addTable('#__community_groups');
+    $this->_DBO->filterColumn('#__community_groups','thumb');
+    $this->_DBO->filterColumn('#__community_groups','avatar');
     $this->_DBO->addTable('#__community_groups_members');    
   }
   
@@ -447,4 +503,114 @@ function testACLRules2()
   	$this->frontLogout();
    }
   	
-}
+  function testCantChangeRegistrationAvatar()
+  {
+  	$filter['aec_integrate']=0;
+  	$filter['show_ptype_during_reg']=1;
+  	$filter['jspt_show_radio']=1;
+	$this->changeJSPTConfig($filter);
+    $this->registeruser('profiletypes1',0);
+  
+	//user can change avatar at registration time
+	$this->registeruser('profiletypes2',1);
+	}
+  
+  function testFreindsupportInCantViewProfile()
+  {
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+	$user = JFactory::getUser(82); 
+  	
+  	$this->frontLogin($user->name,$user->name);
+  	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=86');
+  	$this->waitPageLoad();
+  	$this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
+  	// view profile of friend
+  	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
+  	$this->waitPageLoad();
+  	$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+  } 
+  
+  function testCantSendMessage()
+  {
+  	$url = dirname(__FILE__).'/sql/FrontAclRulesTest/testACLRulesDeleteGroup.start.sql';
+  	$this->_DBO->loadSql($url);
+  	
+  	$db		= & JFactory::getDBO();
+  	$strSQL	= "INSERT INTO `#__xipt_aclrules` (`rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
+  			  ('P1 Cant write message to P2', 'writemessages', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\nwritemessage_limit=0\nacl_applicable_to_friend=1\n\n', 1)";
+  	$db->setQuery( $strSQL );
+	$db->query();
+  	$strSQL	= "INSERT INTO `#__xipt_aclrules` (`rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
+  			  ('P1 Cant write message to p3', 'writemessages', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=3\nwritemessage_limit=0\nacl_applicable_to_friend=0\n\n', 1)";
+  	$db->setQuery( $strSQL );
+  	$db->query();
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+	$user = JFactory::getUser(82); 
+  	
+  	$this->frontLogin($user->name,$user->name);
+  	$this->checkSendMessage(82,86,false);
+  	$this->checkSendMessage(82,84,false);
+  	$this->checkSendMessage(82,85,true);
+  	$this->frontLogout();
+  	
+  	$strSQL = 'TRUNCATE TABLE `#__community_connection`';
+  	$db->setQuery( $strSQL );
+  	$db->query();
+  	$strSQL	= "INSERT INTO `#__community_connection` (`connection_id`, `connect_from`, `connect_to`, `status`, `group`, `created`, `msg`) VALUES
+			  (1, 85, 84, 1, 0, NULL, ''),
+			  (2, 84, 82, 1, 0, NULL, '')";
+  	$db->setQuery( $strSQL );
+  	$db->query();
+  	$user = JFactory::getUser(85); 
+  	
+  	$this->frontLogin($user->name,$user->name);
+  	$this->checkSendMessage(85,86,false);
+  	$this->checkSendMessage(85,84,true);
+  	$this->checkSendMessage(85,82,true);
+  	$this->frontLogout();
+  	
+  	
+  }
+  
+ function testCantChangeStatus()
+ {
+ 	
+ 	
+   	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+  	
+   	$user = JFactory::getUser(82); // type1
+  	$this->frontLogin($user->username,$user->username);
+  	  //pt1 can change status
+  	$this->checkStatusBox(); 
+  	$this->frontLogout();
+  	 
+  	$user = JFactory::getUser(83); // type2
+  	$this->frontLogin($user->username,$user->username);
+  	  //pt1 can change status
+  	$this->checkStatusBox(); 
+  	$this->frontLogout();
+  	 
+  	
+  	$user = JFactory::getUser(84); // type3
+  	$this->frontLogin($user->username,$user->username);
+  	  //pt1 can change status
+  	$this->checkStatusBox(); 
+  	$this->frontLogout();
+  	$this->_DBO->addTable('#__community_users');
+  	$this->_DBO->filterColumn('#__community_users','posted_on');
+  	$this->_DBO->filterColumn('#__community_users','points');
+  	
+  
+  	
+ }
+  
+ }

@@ -11,13 +11,16 @@ class XiPTHelperProfileFields
 {
 
 //return all fields available in jomsocial
-function get_jomsocial_profile_fields()
+function get_jomsocial_profile_fields($fieldId=0)
 {
+	//XITODO: Use filter instead of $fieldID ---improve
 	$db		=& JFactory::getDBO();
-		
-	$query	= 'SELECT * FROM ' . $db->nameQuote( '#__community_fields' ) . ' '
+	if($fieldId==0)
+		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__community_fields' ) . ' '
 			. 'ORDER BY ordering';
-			
+	else
+		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__community_fields' ) . ' '
+			. 'WHERE ' . $db->nameQuote('id') .'=' .$db->Quote($fieldId);
 	$db->setQuery( $query );
 	
 	$result = $db->loadObjectlist();
@@ -47,12 +50,12 @@ function get_fieldname_from_fieldid($fieldId)
 }
 
 	// return row from row id of fields values table
-	function getProfileTypeNamesForFieldId($fid)
+	function getProfileTypeNamesForFieldId($fid,$for)
 	{
 		XiPTLibraryUtils::XAssert($fid);
 
 		$selected = array();
-		$selected = XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid);
+		$selected = XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid,$for);
 		
 		//if selected is empty means field is invisible, then return none
 		if(empty($selected))
@@ -75,7 +78,7 @@ function get_fieldname_from_fieldid($fieldId)
 		return $retVal;
 	}
 
-function getProfileTypeArrayForFieldId($fid)
+function getProfileTypeArrayForFieldId($fid,$for)
 {
 	XiPTLibraryUtils::XAssert($fid);
 		
@@ -83,7 +86,8 @@ function getProfileTypeArrayForFieldId($fid)
 	$db			=& JFactory::getDBO();
 	$query		= 'SELECT '.$db->nameQuote('pid')
 				. ' FROM ' . $db->nameQuote( '#__xipt_profilefields' ) 
-				. ' WHERE '.$db->nameQuote('fid').'='.$db->Quote($fid);
+				. ' WHERE '.$db->nameQuote('fid').'='.$db->Quote($fid)
+				. ' AND '.$db->nameQuote('category').'='.$db->Quote($for);
 	$db->setQuery( $query );
 	$results = $db->loadObjectList();
 	
@@ -108,7 +112,7 @@ function getProfileTypeArrayForFieldId($fid)
 	if($results)
 		foreach ($results as $result)
 			$notselected[]=$result->pid;
-
+	
 	foreach($allTypes as $pid) {
 		   //echo $pid;
 	     		if(!in_array($pid,$notselected)) 
@@ -119,20 +123,22 @@ function getProfileTypeArrayForFieldId($fid)
 }
 
 
-function buildProfileTypes( $fid )
+function buildProfileTypes( $fid ,$for)
 	{
-		$selectedTypes 	= XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid);		
+		$selectedTypes 	= XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid,$for);		
 		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray('ALL');
 		
-		$html	= '';
+		$html			= '';
+		$categories		= XiPTHelperProfileFields::getProfileFieldCategories();	
+		$name			= $categories[$for]['controlName'];
+		$html	   	   .= '<span>';
+		$count 			= count($allTypes)-1;
+		$html 	   	   .= '<input type="hidden" name="'.$name.'Count" value="'.$count.'" />';
 		
-		$html	.= '<span>';
-		$count = count($allTypes)-1;
-		$html .= '<input type="hidden" name="profileTypesCount" value="'.$count.'" />';
 		foreach( $allTypes as $option )
 		{
 		    $selected	= in_array($option , $selectedTypes ) ? ' checked="checked"' : '';
-			$html .= '<lable><input type="checkbox" name="profileTypes'.$option. '" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
+			$html .= '<br/><lable><input type="checkbox" name= "'.$name.'' .$option. '" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
 			$html .= XiPTHelperProfiletypes::getProfileTypeName($option).'</lable>';
 			$count--;
 		}
@@ -143,20 +149,24 @@ function buildProfileTypes( $fid )
 	
 /* 
 */
-function addFieldsProfileType($fid, $pid)
+function addFieldsProfileType($fid, $pid, $for)
 {
 	$row	=& JTable::getInstance( 'Profilefields' , 'XiPTTable' );
+	$data["fid"]=$fid;
+	$data["category"]=$for;
 	if(is_array($pid))
 	{
 		foreach($pid as $p)
-		{			
-			$row->bindValues($fid,$p);
+		{		
+			$data["pid"]=$p;	
+			$row->bindValues($data);
 			$row->store();
 		}
 	}
 	else
 	{
-		$row->bindValues($fid,$pid);
+		$data["pid"]=$pid;
+		$row->bindValues($data);
 		$row->store();
 	}
 }
@@ -169,5 +179,34 @@ function remFieldsProfileType($fid)
 	$row->resetFieldId($fid);
 }
 
+function getProfileFieldCategories()
+{
+	$categories[PROFILE_FIELD_CATEGORY_ALLOWED] = array(
+								'name'=> 'ALLOWED',
+								'controlName' => 'allowedProfileType'
+								);
+								
+	$categories[PROFILE_FIELD_CATEGORY_REQUIRED] = array(
+								'name'=> 'REQUIRED',
+								'controlName' => 'requiredProfileType'
+								);
+								
+	$categories[PROFILE_FIELD_CATEGORY_VISIBLE] = array(
+								'name'=> 'VISIBLE',
+								'controlName' => 'visibleProfileType'
+								);
+								
+	$categories[PROFILE_FIELD_CATEGORY_EDITABLE_AFTER_REG] = array(
+								'name'=> 'EDITABLE_AFTER_REG',
+								'controlName' => 'editableAfterRegProfileType'
+								);
+								
+	$categories[PROFILE_FIELD_CATEGORY_EDITABLE_DURING_REG] = array(
+								'name'=> 'EDITABLE_DURING_REG',
+								'controlName' => 'editableDuringRegProfileType'
+								);
+	
+	return $categories;
+}
 
 }

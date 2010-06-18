@@ -36,7 +36,7 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (135, 82, 5, 'regtest8774090'),
 (134, 82, 4, 'regtest8774090'),
 (139, 83, 17, '2'),
-(138, 83, 16, 'blueface'),
+(138, 83, 16, 'default'),
 (137, 82, 9, 'regtest8774090'),
 (136, 82, 8, 'regtest8774090'),
 (168, 87, 9, 'regtest1674526'),
@@ -110,7 +110,7 @@ INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `p
 TRUNCATE TABLE `#__xipt_profiletypes` ;
 INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`, `watermarkparams`) VALUES
 (1, 'PROFILETYPE-1', 2, 1, 'PROFILETYPE-ONE-TIP', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 1, 'images/profiletype/watermark_1.png', '', 'enableWaterMark=1\nxiText=Profiletype1\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
-(2, 'PROFILETYPE-2', 1, 1, 'PROFILETYPE-TWO-TIP', 'friends', 'blueface', 'Editor',   'components/com_community/assets/default.jpg', 0, 0, 0, 'images/profiletype/watermark_2.png', '', 'enableWaterMark=1\nxiText=Profiletype1\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
+(2, 'PROFILETYPE-2', 1, 1, 'PROFILETYPE-TWO-TIP', 'friends', 'default', 'Editor',   'components/com_community/assets/default.jpg', 0, 0, 0, 'images/profiletype/watermark_2.png', '', 'enableWaterMark=1\nxiText=Profiletype1\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
 (3, 'PROFILETYPE-3', 3, 1, 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, 'images/profiletype/watermark_3.png', '', 'enableWaterMark=1\nxiText=Profiletype1\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
 (4, 'PROFILETYPE-4', 4, 0, 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','enableWaterMark=1\nxiText=Profiletype1\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n');
 
@@ -172,7 +172,7 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (86, 2, 'blueface'),
 (85, 1, 'default'),
 (84, 3, 'blackout'),
-(83, 2, 'blueface'),
+(83, 2, 'default'),
 (82, 1, 'default'),
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),

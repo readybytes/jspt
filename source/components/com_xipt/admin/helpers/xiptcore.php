@@ -8,13 +8,17 @@ defined('_JEXEC') or die('Restricted access');
 
 class XiFactory
 {
-	function &getModel( $name = '')
+	function &getModel( $name = '', $from='admin')
 	{
 		static $modelInstances = null;
 		
 		if(!isset($modelInstances[$name]))
 		{
-			include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
+			if($from==='admin')
+				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
+							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
+			else
+				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
 							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
 			$classname = 'XiPTModel'.$name;
 			$modelInstances[$name] =& new $classname;

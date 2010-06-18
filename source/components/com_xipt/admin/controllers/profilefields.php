@@ -65,22 +65,27 @@ class XiPTControllerProfileFields extends JController
 		XiPTHelperProfileFields::remFieldsProfileType($post['id']);
 		
 		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
-
-		$count = 0;
-		if(!array_key_exists('profileTypes0',$post)) {
-			foreach($allTypes as $type) {
-				if($type) {
-					if(!array_key_exists('profileTypes'.$type,$post)) {
-						  XiPTHelperProfileFields::addFieldsProfileType($post['id'], $type);
-						  $msg = JText::_('FIELDS SAVED');
-						  $count++;
+		$categories		= XiPTHelperProfileFields::getProfileFieldCategories();
+		foreach($categories as $catIndex => $catInfo)
+		{
+			$controlName= $catInfo['controlName'];
+			$count = 0;
+			if(!array_key_exists($controlName."0",$post)) {
+				foreach($allTypes as $type) {
+					if($type) {
+						if(!array_key_exists($controlName.$type,$post)) {
+							  XiPTHelperProfileFields::addFieldsProfileType($post['id'], $type,$catIndex);
+							  $msg = JText::_('FIELDS SAVED');
+							  $count++;
+						}
 					}
 				}
+				/*if($count == 0) {
+				 XiPTHelperProfileFields::addFieldsProfileType($post['id'], 'XIPT_NONE','XIPT_NONE');
+			}*/
 			}
-			if($count == 0) {
-				 XiPTHelperProfileFields::addFieldsProfileType($post['id'], 'XIPT_NONE');
-			}
-		}	
+		}
+			
 		$msg = JText::_('FIELDS SAVED');	
 		$link = JRoute::_('index.php?option=com_xipt&view=profilefields', false);
 		$mainframe->redirect($link, $msg);

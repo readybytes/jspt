@@ -84,6 +84,9 @@ class XiPTImageGenerator
 		//header('Content-type: image/png');
 		$result	=	 imagepng($img,$storagename);
 		
+		//fix for permissions
+		chmod($storagename, 0744);
+		
 		imagedestroy($img);
 		// if file creation is successfull return filename , else false
 		return $result ? $filename :  false;

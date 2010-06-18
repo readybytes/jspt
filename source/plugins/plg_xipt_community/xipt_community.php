@@ -29,13 +29,13 @@ class plgCommunityxipt_community extends CApplications
 	
 	function onProfileCreate($cuser)
 	{
-		$this->_pluginHandler->onProfileCreate($cuser);
+		return $this->_pluginHandler->onProfileCreate($cuser);
 	}
 	
 	
 	function onProfileAvatarUpdate($userid, $old_avatar_path, $new_avatar_path)
 	{
-	    $this->_pluginHandler->onProfileAvatarUpdate($userid, $old_avatar_path, $new_avatar_path);
+	    return $this->_pluginHandler->onProfileAvatarUpdate($userid, $old_avatar_path, $new_avatar_path);
 	}
 
 	function onAjaxCall($func, $args , $response)

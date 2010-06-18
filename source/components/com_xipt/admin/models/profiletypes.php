@@ -108,4 +108,17 @@ class XiPTModelProfiletypes extends JModel
 		}
 	}
 	
+	function updateVisibility($id,$value)
+	{
+		$db 	=& JFactory::getDBO();
+		$query 	= 'UPDATE #__xipt_profiletypes'
+				. ' SET `visible` ='.$db->Quote($value).''
+				. ' WHERE `id`='. $db->Quote($id);
+		$db->setQuery( $query );
+		
+		if (!$db->query()) {
+			return JError::raiseWarning( 500, $db->getError() );
+		}
+	}
+	
 }

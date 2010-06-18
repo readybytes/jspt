@@ -27,7 +27,7 @@ class changeavatar extends xiptAclRules
 	}
 	
 	
-	function checkAclAccesibility($data)
+function checkAclAccesibility($data)
 	{
 		/*we will expect that view and task should be given
 		 * and from parsing we will find out that is this request for me
@@ -35,13 +35,46 @@ class changeavatar extends xiptAclRules
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
 			
-		if('profile' != $data['view'])
-			return false;
-			
-		if($data['task'] == 'uploadavatar')
+		$permission=$this->aclparams->get('restrict_user_at_registration',false);
+		//check whether to restrict at registration time or not
+		if('profile' == $data['view'] && $data['task'] == 'uploadavatar')	
+		 		return true;
+
+		if($permission==true)
+		{	
+			if('register'== $data['view'] && $data['task'] == 'registeravatar')
 				return true;
-				
+		}		
+		 
 		return false;
 	}
 	
+	public function getDisplayMessage()
+	{
+		$option	= JRequest::getVar('option','','GET');
+		$view	= JRequest::getVar('view','','GET');
+		$task 	= JRequest::getVar('task','','GET');
+		
+		// if user has to upload avatr then redirect him to registersuccess page otherwise
+		// get url from params
+		if($option=='com_community' && $view=='register' && $task=='registerAvatar')
+			return '';
+		else	
+			return parent::getDisplayMessage();
+	}
+	
+	
+	public function getRedirectUrl()
+	{
+		$option	= JRequest::getVar('option','','GET');
+		$view	= JRequest::getVar('view','','GET');
+		$task 	= JRequest::getVar('task','','GET');
+		
+		// if user has to upload avatr then redirect him to registersuccess page otherwise
+		// get url from params
+		if($option=='com_community' && $view=='register' && $task=='registerAvatar')
+			return "index.php?option=com_community&view=register&task=registerSucess";
+		else
+			return parent::getRedirectUrl();
+	}
 }

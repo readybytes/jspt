@@ -225,3 +225,21 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 32),
 (21, '', 35),
 (25, '', 10);
+
+DROP TABLE IF EXISTS `au_#__community_apps`;
+CREATE TABLE `au_#__community_apps` SELECT * FROM `#__community_apps`;
+
+
+INSERT INTO `au_#__community_apps` (`id`, `userid`, `apps`, `ordering`, `params`, `privacy`) VALUES
+(1, 82, 'walls', 0, '', ''),
+(2, 82, 'groups', 1, '', ''),
+(3, 82, 'latestphoto', 2, '', ''),
+(4, 82, 'myarticles', 3, '', ''),
+(5, 83, 'feeds', 0, '', ''),
+(6, 83, 'groups', 1, '', ''),
+(7, 83, 'latestphoto', 2, '', ''),
+(8, 83, 'myarticles', 3,'', ''),
+(9, 84, 'latestphoto', 0,'', ''),
+(10, 84, 'myarticles', 1, '', '');
+
+

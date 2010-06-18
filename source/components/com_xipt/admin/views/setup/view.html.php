@@ -33,11 +33,10 @@ class XiPTViewSetup extends JView
 		}
 			
 		//check default profiletype
-		$params = JComponentHelper::getParams('com_xipt');
-		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
-		$link = JRoute::_("index.php?option=com_config&controller=component&component=com_xipt",false);
-		if(!$defaultProfiletypeID) {
-			$requiredSetup['defaultprofiletype']['message'] = '<a  class="modal"  href="'.$link.'" rel="{handler: \'iframe\', size: {x: 600, y: 400}}">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';
+		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt', 0);
+		$link = JRoute::_("index.php?option=com_xipt&view=settings",false);
+		if(!$defaultProfiletypeID || XiPTLibraryProfiletypes::validateProfiletype($defaultProfiletypeID)==false) {
+			$requiredSetup['defaultprofiletype']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';
 			$requiredSetup['defaultprofiletype']['done']  = false;
 		}
 		else {
@@ -127,13 +126,42 @@ class XiPTViewSetup extends JView
 				$requiredSetup['patchAECfile']['done'] = true;
 			}
 		}
+		
+	/* display the link if admin approvel is installed but not enabled */
+	//XITODO : check if any profiletype have enbaled admin approval
+		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',false)){
+			if(XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',true)==false)
+				$warnings['enableAdminApproval']['message'] = JText::_("ADMIN APPROVAL PLUGIN IS INSTALLED BUT NOT ENABLE.");
+			}
+		
+		if(XiPTHelperSetup::isWaterMarkingRequired())
+				$warnings['enableWaterMarking']['message'] = JText::_("WATER MARKING IS NOT ENABLED IN SETTINGS BUT ENABLE FOR PROFILE TYPES.");
+			
+		// to check that setup screen is clean or not
+		$cleanUp=true;
+		$mysess = & JFactory::getSession();
+		foreach($requiredSetup as $req)
+		{
+			if($req["done"]==false)
+			{
+				$cleanUp=false;
+				$mysess->set('requireSetupCleanUp',true);
+				break;
+			}
+		}
+		if($cleanUp)
+		{
+			$mysess->set('requireSetupCleanUp',false);
+		}
+		
 		jimport('joomla.html.pane');
 		$pane	=& JPane::getInstance('sliders');
 		
 		$this->assignRef( 'pane', $pane );
 		
-		
 		$this->assign('requiredSetup',$requiredSetup);
+		if(isset($warnings))
+			$this->assign('warnings',$warnings);
 		
 		parent::display( $tpl );
     }
@@ -150,7 +178,6 @@ class XiPTViewSetup extends JView
 
 		// Set the titlebar text
 		JToolBarHelper::title( JText::_( 'Setup' ), 'setup' );
-		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	
 	

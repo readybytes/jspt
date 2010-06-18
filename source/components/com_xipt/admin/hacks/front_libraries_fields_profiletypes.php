@@ -22,7 +22,7 @@ class CFieldsProfiletypes
 		$this->_mainframe =& $mainframe;
 		$this->_task = JRequest::getVar('task','','GET');
 		$this->_view = JRequest::getVar('view','','GET');
-		$this->_params = JComponentHelper::getParams('com_xipt');
+		$this->_params = XiPTLibraryUtils::getParams('','com_xipt', 0);
 	}
 	
 	/* if data not available,
@@ -122,7 +122,11 @@ class CFieldsProfiletypes
 			return $html.$pName;
 		}
 		
-		$filter	= array('published'=>1);
+		global $mainframe;
+		if($mainframe->isAdmin()==true)
+			$filter	= array('published'=>1);
+		else
+			$filter	= array('published'=>1,'visible'=>1);
 		// user can change profiletype, add information
 		$pTypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
 		

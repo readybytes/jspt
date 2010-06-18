@@ -53,7 +53,6 @@ class XiPTViewCPanel extends JView
 		JToolBarHelper::title( JText::_( 'CONTROL PANEL' ), 'XiPT' );
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::custom('aboutus','aboutus','',JText::_('ABOUT US'),0,0);
-		JToolBarHelper::preferences( 'com_xipt','400','600');
 	}
 	
 	function addIcon( $image , $url , $text , $newWindow = false )

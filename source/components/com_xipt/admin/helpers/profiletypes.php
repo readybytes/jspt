@@ -451,4 +451,36 @@ function resetAllUsers($pid, $oldData, $newData)
 		}
 		return $fonts;
 	}
+	
+	
+	function checkSessionForProfileType()
+    {   	
+    	$mySess = & JFactory::getSession();
+    	if($mySess)
+			return true;
+
+		// session expired, redirect to community page
+		$redirectUrl	= JRoute::_('index.php?option=com_community&view=register',false);
+		$msg 			= JText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
+    	global $mainframe;
+		$mainframe->redirect($redirectUrl,$msg);
+    }
+        
+    function setProfileTypeInSession($selectedProfiletypeID)
+    {
+    	global $mainframe;
+    	$mySess = & JFactory::getSession();
+    	$redirectUrl = XiPTLibraryUtils::getReturnURL();
+
+			// validate values
+			if(!XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID)) {
+				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
+				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
+				return;
+			}
+			
+			//set value in session and redirect to destination url
+			$mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
+			$mainframe->redirect($redirectUrl);
+    }
 }

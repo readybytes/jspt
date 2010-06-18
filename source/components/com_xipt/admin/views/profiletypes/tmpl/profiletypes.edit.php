@@ -46,8 +46,8 @@ defined('_JEXEC') or die('Restricted access');
 				<input type="text" value="<?php echo $this->row->name;?>" name="name" />
 			</td>
 			
-			<td class="key" rowspan='3'><?php echo JText::_('Default avatar');?></td>
-			<td rowspan='3'>
+			<td class="key" rowspan='4'><?php echo JText::_('Default avatar');?></td>
+			<td rowspan='4'>
 			<div>
 				<div>
 				<?php if(DS== '\\') $this->row->avatar = str_replace('\\','/',$this->row->avatar);?>
@@ -65,6 +65,13 @@ defined('_JEXEC') or die('Restricted access');
 			<td>:</td>
 			<td>
 				<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->row->published);?></span>
+			</td>
+		</tr>
+		<tr>
+			<td class="key"><?php echo JText::_('Visible');?></td>
+			<td>:</td>
+			<td>
+				<span><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->row->visible);?></span>
 			</td>
 		</tr>
 		<tr>	
@@ -114,7 +121,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td class="key"><?php echo JText::_('Select default group to assign');?></td>
 			<td>:</td>
 			<td>
-				<span><?php echo XiPTHelperProfiletypes::buildTypes($this->row->group,'group');?><span>
+				<span><?php echo XiPTHelperProfiletypes::buildTypes($this->row->group,'group');?></span>
 			</td>			
 		</tr>
 		<tr>

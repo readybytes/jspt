@@ -3,7 +3,7 @@
 	<params addpath="/administrator/components/com_xipt/elements">
 	<param name="@spacer" type="spacer" default="" label="" description="" />
 	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="" description="" />
-		<param name="show_ptype_during_reg" type="radio" default="1" label="ALLOW USER TO SELECT PROFILE TYPE DURING REGISTRATION" description="ALLOW USER TO SELECT PROFILE TYPE DURING REGISTRATION.DESC">
+		<param name="show_ptype_during_reg" type="radio" default="1" label="INTEGRATE JSPT WITH REGISTRATION" description="INTEGRATE JSPT WITH REGISTRATION.DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
@@ -14,7 +14,7 @@
 
 		<!-- whenver change name of default ptype , change name in element as well as in library/profiletypes.php fn get field html also -->
 		<param name="defaultProfiletypeID" type="profiletypes" default="0" label="DEFAULT PROFILETYPE ID" description="DEFAULT PROFILETYPE ID.DESC" />
-		
+		<param name="guestProfiletypeID" type="profiletypes" default="0" label="GUEST PROFILETYPE ID" description="GUEST PROFILETYPE ID.DESC" />
 		<param name="jspt_show_radio" type="radio" default="1" label="DURING REGISTRATION SHOW CHOOSE ACCOUNT TYPE AS" description="DURING REGISTRATION SHOW CHOOSE ACCOUNT TYPE AS.DESC">
 			<option value="0">Select Box</option>
 			<option value="1">Radio Options</option>
@@ -32,9 +32,10 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="jspt_block_dis_app_visit_pro" type="radio" default="0" label="BLOCK DISPLAY APPLICATION" description="BLOCK DISPLAY APPLICATION WHEN VISITING OTHERS PROFILE.DESC">
-				<option value="0">No</option>
-				<option value="1">Yes</option>
+		<param name="jspt_block_dis_app" type="radio" default="0" label="BLOCK DISPLAY APPLICATION" description="BLOCK DISPLAY APPLICATION WHEN VISITING OTHERS PROFILE.DESC">
+				<option value="0">Owner</option>
+				<option value="1">Visitor</option>
+				<option value="2">Both</option>
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="@spacer" type="spacer" default="AEC Integration Settings" label="" description="" />

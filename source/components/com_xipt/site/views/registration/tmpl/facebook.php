@@ -8,9 +8,8 @@
 	<h3 id="Title"><?php
 	echo JText::_ ( 'CHOOSE PROFILE TYPE' );
 	?></h3>
-	<br />
-	<?php 
-		// XITODO : remove break , use css div
+	<div class='clr'></div>
+	<?php
 	echo JText::_ ( 'PROFILE TYPE DESCRIPTION FOR SELECTBOX' )."<br />";
 	//start select tag
 	if(!$showAsRadio){	
@@ -58,10 +57,13 @@
 				$id			= $pType->id;
 			    
 			    $selected	= ( JString::trim($id) == $selectedProfileTypeID ) ? ' selected="true"' : '';
-				echo '<br />'.'<option value="' . $id . '"' 
-							. $selected . ' '
-							.  '>' 
-							. $option . '</option>';
+				?>
+				<div class='clr'></div>
+				<?php 
+			    echo '<option value="' . $id . '"' 
+					 . $selected . ' '
+					 .  '>' 
+					 . $option . '</option>';
 			}
 		}
 		

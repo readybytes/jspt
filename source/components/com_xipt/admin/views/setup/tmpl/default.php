@@ -16,8 +16,9 @@ defined('_JEXEC') or die('Restricted access');
 			?>
 			<table>
 			<?php 
-			$complete = '<img src="images/tick.png" alt="done" />';
-			$notcomplete = '<img src="images/publish_x.png" alt="not complete" />';
+			$complete 		= '<img src="images/tick.png" alt="done" />';
+			$notcomplete 	= '<img src="images/publish_x.png" alt="not complete" />';
+			$warningImage	= '<img src="components/com_xipt/images/warning.png" alt="warning" />';
 			foreach($this->requiredSetup as $util) {
 				?>
 				<tr id="setup<?php echo $counter; ?>" >
@@ -39,6 +40,29 @@ defined('_JEXEC') or die('Restricted access');
 				 </tr>
 				 <?php 
 				 $counter++;
+			}
+			if(isset($this->warnings))
+			{
+				foreach($this->warnings as $warning)
+				{
+					?>
+					<tr>
+				 		<td>
+				 		<?php  echo $counter.". ";?>
+				 		</td>
+				 
+				 		<td id="warningMessage<?php echo $counter; ?>">
+				 			<?php  echo $warning['message'];?>
+				 		</td>
+				 
+						 <td id="warningImage<?php echo $counter; ?>" >
+						 	<?php  echo $warningImage; ?>
+						 </td>
+					 
+					 </tr>
+					 <?php 
+				 	$counter++;
+				}
 			}
 			?></table><?php 
 		}

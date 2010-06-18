@@ -17,11 +17,8 @@ function com_uninstall()
 	XiPTHelperUnhook::uncopyHackedFiles();
 	// disable plugins
 	XiPTHelperUnhook::disable_plugin('xipt_system');
-	XiPTHelperUnhook::disable_plugin('xipt_plugin');
+	XiPTHelperUnhook::disable_plugin('xipt_community');
 	
 	XiPTHelperUnhook::disable_custom_fields();
-	//insert configuration data into new table
-	//to preserve user global configuration settings
-	XiPTHelperUnhook::store_globalconfiguration();
 }
 

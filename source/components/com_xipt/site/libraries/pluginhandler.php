@@ -429,22 +429,21 @@ class XiPTLibraryPluginHandler
 		$selfUserid    = JFactory::getUser()->id;
 		$othersUserid  = JRequest::getVar('userid',$selfUserid);
 		
-		// restrict apps for logged in user only
-		if(!$selfUserid)
-		    return true;
+		// apply guest profile type for guest user
+		$selfProfiletype= XiPTLibraryProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 
-		$selfProfiletype 	= XiPTLibraryProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 		$othersProfiletype 	= XiPTLibraryProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
-		$blockDisplayAppOfSelf = XiPTLibraryUtils::getParams('jspt_block_dis_app_visit_pro','com_xipt', 0);
+		$blockDisplayApp    = XiPTLibraryUtils::getParams('jspt_block_dis_app','com_xipt', 0);
 		
 		/* #1: block the display application of logged in user if the above param is set to yes
 		   #2: otherwise block display application of user whose profile is being visited
 		   #3: block the functional application of logged in user
 		*/ 		
-		if($blockDisplayAppOfSelf)
-			XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype, true);
-		else
+		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_OWNER || $blockDisplayApp==BLOCK_DISPLAY_APP_OF_BOTH)
 			XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $othersProfiletype, true);
+			
+		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_VISITOR || $blockDisplayApp==BLOCK_DISPLAY_APP_OF_BOTH)
+			XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype, true);
 
 		XiPTLibraryApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype,	  false);
 		
@@ -525,7 +524,7 @@ class XiPTLibraryPluginHandler
 			}
 			else
 			{
-			    $url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo,false);
+			    $url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
 			    $selectedpTypeName = XiPTLibraryProfiletypes::getProfiletypeName($selectedProfiletypeID);
 			    $msg = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
 			}
@@ -589,22 +588,9 @@ class XiPTLibraryPluginHandler
 	 * @param $fields
 	 * @return true
 	 */
-	function isAdvanceSearch()
-	{
-		$view   = JRequest::getVar('view','','GET');
-		$task   = JRequest::getVar('task','','GET');
-		$option = JRequest::getVar('option','','GET');
-		if($option === 'com_community' && $view === 'search' && $task === 'advancesearch')
-			return true;
-
-		return false;
-	}
-	
 	function onProfileLoad(&$userid, &$fields, $from)
 	{
-	    if($this->isAdvanceSearch() === true)
-	    	return true;
-		XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
+	    XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
 	}
 
@@ -613,10 +599,59 @@ class XiPTLibraryPluginHandler
 	    return XiPTLibraryAcl::performACLCheck($ajax, $callArray, $args);
 	}
 	
-	function onAfterConfigSave()
+	// this is trigerred on registraion page of xipt 
+	function onBeforeProfileTypeSelection()
 	{
-		XiPTHelperUnhook::store_globalconfiguration();
+		// if user comes from genaral registration link then return
+		$ptypeid=JRequest::getVar('ptypeid',0,'GET');
+		if($ptypeid==0)
+			return true;
+		/* if user comes from a direct link (with profile type selected) 
+		 the reset will be false or does not exist	
+		 if user comes for selecting profile type again then reset is true */
+		$reset=JRequest::getVar('reset',false,'GET');
+		if($reset==false)
+		{
+			XiPTHelperProfiletypes::setProfileTypeInSession($ptypeid);			
+		}
+		return false;	
 	}
-
+	
+	// this is trigerred on after post on registration page of xipt
+	function onAfterProfileTypeSelection($ptypeid)
+	{
+		// set the profile type in session
+		XiPTHelperProfiletypes::setProfileTypeInSession($ptypeid);	
+	}
+	
+	function checkSetupRequired()
+	{
+		$mysess= & JFactory::getSession();
+		if($mysess->has('requireSetupCleanUp')==true 
+ 					&& $mysess->get('requireSetupCleanUp',false)==true)
+ 				return true;
+ 			
+ 		if(XiPTHelperProfiletypes::getProfileTypeArray()==false)
+ 			return true;
+ 		else if(XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt', 0)==false)
+ 			return true;
+ 		else if(XiPTHelperSetup::checkCustomfieldRequired())
+ 			return true;
+ 		else if(XiPTHelperSetup::checkFilePatchRequired())
+ 			return true;
+ 		else if(($msg = XiPTHelperSetup::checkPluginInstallationRequired()))
+ 			return true;
+ 		else if(XiPTHelperSetup::checkPluginEnableRequired())
+ 			return true;
+ 		else if(XiPTHelperSetup::migrateAvatarRequired())
+ 			return true;
+ 		else if(XiPTLibraryAEC::_checkAECExistance() && XiPTHelperSetup::isAECMIRequired())
+ 			return true;
+ 		else 
+ 		{
+ 			$mysess->get('requireSetupCleanUp',false);
+ 			return false;
+ 		}			 			
+	}
 }
 

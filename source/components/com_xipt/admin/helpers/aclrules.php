@@ -104,4 +104,15 @@ function _getDisplayNameofAclFeature($feature ="")
 		XiPTLibraryUtils::XAssert(0, "Unknown aclFeature was asked.");
 		return false;	
 	}
+	
+	function isFriend($userId, $viewUserId)
+	{
+		$db 		= & JFactory::getDBO();
+		$query		= 'SELECT '. $db->nameQuote('connection_id').'  FROM ' . $db->nameQuote( '#__community_connection')
+								.' WHERE '. $db->nameQuote('connect_from').'='.$db->Quote($userId)
+								.' AND '. $db->nameQuote('connect_to').'='.$db->Quote($viewUserId)
+								.' AND '. $db->nameQuote('status').'='.$db->Quote('1');
+		$db->setQuery( $query );
+		return $db->loadResult();		
+	}
 }

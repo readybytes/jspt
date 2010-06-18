@@ -130,30 +130,25 @@ class XiPTLibraryCore
 		if($mainframe->isAdmin())
 			return true;
 		$loggedInUser = JFactory::getUser();
-
-		//if user is logged in then only we need to update configuration  
-		if($loggedInUser->id)
+		$view = JRequest :: getVar('view');
+		if($view == 'register')
 		{
-			$view = JRequest :: getVar('view');
-			if($view == 'register')
-			{
-				$pluginHandler = XiPTFactory::getLibraryPluginHandler();
-				$pID = $pluginHandler->getRegistrationPType();
-			}
-						
-			// get params of user.
-			$pID = XiPTLibraryProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
-			
-			XiPTLibraryUtils::XAssert($pID);
-			$params = XiPTLibraryProfiletypes::getParams($pID);
-			
-			if($params)
-			{		
-				$allParams = $params->_registry['_default']['data']; 
-				//$params->getParams();
-				foreach($allParams as $key => $value)
-					$instance->set($key,$value); 
-			}
+			$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+			$pID = $pluginHandler->getRegistrationPType();
+		}
+					
+		// get params of user.
+		$pID = XiPTLibraryProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
+		
+		XiPTLibraryUtils::XAssert($pID);
+		$params = XiPTLibraryProfiletypes::getParams($pID);
+
+		if($params)
+		{		
+			$allParams = $params->_registry['_default']['data']; 
+			//$params->getParams();
+			foreach($allParams as $key => $value)
+				$instance->set($key,$value); 
 		}
 
 		//means guest is looking user profile ,
@@ -169,7 +164,7 @@ class XiPTLibraryCore
 				
 		//$visitingUser > 0 means a valid-user to visit profile
 		//so we will show them profile in user template
-		//so update the template in configuration				
+		//so update the template in configuration	
 		$template = XiPTLibraryProfiletypes::getUserData($visitingUser,'TEMPLATE');
 
 		//now update template @template
@@ -291,8 +286,10 @@ class XiPTLibraryCore
 		$userAvatar  = $user->_avatar;
 		
 		//We must enforce this as we never want to overwrite a custom avatar
-		$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true); 
-		if($isDefault==false)
+		$isDefault	= XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
+		$changeAvatarOnSyncUp= self::_changeAvatarOnSyncUp($userAvatar); 
+		
+		if($isDefault==false && $changeAvatarOnSyncUp==false)
 			return false;
 
 		// we can safely update avatar so perform the operation		
@@ -436,5 +433,17 @@ class XiPTLibraryCore
 		$cuser = array();
 		CFactory::getUser($userid);
 		return;	
+	}
+	
+	
+	function _changeAvatarOnSyncUp($userAvatar)
+	{
+		$task=JRequest::getVar('task','','GET');
+		if($task != 'syncUpUserPT')
+			return false;
+		$val=JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_');
+		if($val==true)
+			return true;
+		return false;
 	}
 }

@@ -23,9 +23,6 @@ class redirect extends xiptAclRules
 		
 	function checkAclAccesibility(&$data)
 	{
-		/*XITODO : we will expect that vie task and should be given
-		 * and from parsing we will find out that is this request for me
-		 */ 
 		$aecExists = XiPTLibraryAEC::_checkAECExistance();
 		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
 

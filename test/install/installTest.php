@@ -43,13 +43,18 @@ class InstallTest extends XiSelTestCase
     $this->_DBO->addTable('#__xipt_aec');
     $this->_DBO->addTable('#__xipt_applications');
     $this->_DBO->addTable('#__xipt_profilefields');
-    $this->_DBO->addTable('#__xipt_profiletypes'); 
+    $this->_DBO->addTable('#__xipt_profiletypes');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','visible');
+    $this->_DBO->filterColumn('#__xipt_profilefields','category');
     $this->_DBO->addTable('#__xipt_users');
     $this->_DBO->addTable('#__xipt_users');
     $this->_DBO->addTable('#__components');
     $this->_DBO->filterRow('#__components',"`parent`='0' AND `option` ='com_xipt'");
     $this->_DBO->filterColumn('#__components','id');
-    
+    $this->_DBO->filterColumn('#__community_register','profiletypes');
+    //$this->_DBO->filterColumn('#__community_users','template');
+    //$this->_DBO->filterColumn('#__community_users','profiletype');
     //now compare that AEC MI deleted or not
 	$this->assertFalse(JFile::exists($AEC_MI_FILE));
   }

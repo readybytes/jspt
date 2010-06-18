@@ -109,6 +109,7 @@ class XiPTControllerProfiletypes extends JController
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
 		$data['group'] 		= $post['group'];
+		$data['visible']	= $post['visible'];
 		
 		$registry	=& JRegistry::getInstance( 'xipt' );
 		$registry->loadArray($post['watermarkparams'],'xipt_watermarkparams');
@@ -205,7 +206,11 @@ class XiPTControllerProfiletypes extends JController
 		
 		
 		if(imagecopyresampled($dstimg,$srcimg,0,0,0,0,$watermarkThumbWidth,$watermarkThumbHeight,$config->get(xiWidth,64),$config->get(xiHeight,64)))
+		{
+			//fix for permissions
 			imagepng($dstimg,$storageThumbnail);
+			chmod($storageThumbnail, 0744);
+		}	
 		else
 			JError::raiseWarning('XIPT_THUMB_WAR','THUMBNAIL NOT SUPPORTED');
 		
@@ -232,7 +237,12 @@ class XiPTControllerProfiletypes extends JController
 			foreach( $ids as $id )
 			{
 				$row->load( $id );
-				
+				if($id == XiPTLibraryProfiletypes::getDefaultProfiletype())
+				{
+					$message= JText::_('CAN NOT DELETE DEFAULT PROFILE TYPE');
+					$mainframe->enqueueMessage($message);
+					continue;
+				}
 				if(!$row->delete( $id ))
 				{
 					// If there are any error when deleting, we just stop and redirect user with error.
@@ -302,7 +312,53 @@ class XiPTControllerProfiletypes extends JController
 		return true;
 	}
 	
+	function visible()
+	{
+		global $mainframe;
+		// Check for request forgeries
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+		// Initialize variables
+		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
+		$count			= count( $ids );
+
+		if (empty( $ids )) {
+			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+		}
+		
+		$pModel	= XiFactory::getModel( 'profiletypes' );
+		foreach($ids as $id)
+		{
+			$pModel->updateVisibility($id,1);
+		}
+		$msg = sprintf(JText::_('ITEMS VISIBLE'),$count);
+		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$mainframe->redirect($link, $msg);	
+		return true;
+	}
 	
+	function invisible()
+	{
+		global $mainframe;
+		// Check for request forgeries
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+		// Initialize variables
+		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
+		$count			= count( $ids );
+
+		if (empty( $ids )) {
+			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+		}
+		
+		$pModel	= XiFactory::getModel( 'profiletypes' );
+		foreach($ids as $id)
+		{
+			$pModel->updateVisibility($id,0);
+		}
+		$msg = sprintf(JText::_('ITEMS INVISIBLE'),$count);
+		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$mainframe->redirect($link, $msg);
+		return true;
+	}
 	
 /**	
 	 * Save the ordering of the entire records.

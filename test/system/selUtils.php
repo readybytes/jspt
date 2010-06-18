@@ -16,6 +16,35 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   	$this->parentSetup();
   }
   
+  function click($elem)
+  {
+  	$this->assertTrue($this->isElementPresent($elem));
+  	parent::click($elem);
+  }
+  
+  function type($elem, $data)
+  {
+  	$this->assertTrue($this->isElementPresent($elem));
+  	parent::type($elem, $data);
+  }
+  
+  
+  function get_js_version()
+  {	
+	$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
+
+	$parser		=& JFactory::getXMLParser('Simple');
+	$xml		= $CMP_PATH_ADMIN . DS . 'community.xml';
+
+	$parser->loadFile( $xml );
+
+	$doc		=& $parser->document;
+	$element	=& $doc->getElementByPath( 'version' );
+	$version	= $element->data();
+
+	return $version;
+  }
+
   function parentSetup()
   {
   	$this->setHost(SEL_RC_SERVER);
@@ -133,7 +162,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   	if(!$filters)
   		return;
   		
-	$query = "SELECT params FROM `#__components` WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1 ";
+	$query = "SELECT params FROM `#__xipt_settings` WHERE `name`='settings' ";
 	$db	=& JFactory::getDBO();
 	$db->setQuery($query);
 	$params=$db->loadResult();
@@ -148,7 +177,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
 	foreach ($allData as $key => $value)
 		$paraStr .= "$key=$value\n";
 		
-	$query = "UPDATE `#__components` SET `params`='".$paraStr."' WHERE `parent`='0' AND `option` ='com_xipt' LIMIT 1";
+	$query = "UPDATE `#__xipt_settings` SET `params`='".$paraStr."' WHERE `name`='settings' ";
 	$db	=& JFactory::getDBO();
 	$db->setQuery($query);
 	$db->query();

@@ -13,6 +13,9 @@ class RegisterTest extends XiSelTestCase
   function testRegisterPage()
   {
   	$filter['aec_integrate']=0;
+	$filter['jspt_allowed_email']='';
+  	$filter['jspt_prevent_email']='';
+  	$filter['jspt_show_radio']=1;
 	$this->changeJSPTConfig($filter);
 	
   	//Prerequiste = clean session + No AEC + Our system plugin is working
@@ -24,7 +27,8 @@ class RegisterTest extends XiSelTestCase
     $this->assertTrue($this->isTextPresent("PROFILETYPE-2"));
     $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));
     $this->assertFalse($this->isTextPresent("PROFILETYPE-4"));//unpublished
-
+	$this->assertFalse($this->isTextPresent("PROFILETYPE-5"));
+	
     //now click on next without selecting any profiletype
     $this->click("ptypesavebtn");
     $this->waitPageLoad();
@@ -217,7 +221,7 @@ class RegisterTest extends XiSelTestCase
   	
   	$randomNo  = rand(1234567,9234567);
     $randomStr = "regtest".$randomNo;
-    
+ 
     // fill some random values in register page
     $this->type("jsname", $randomStr);
     $this->type("jsusername", $randomStr);
@@ -374,6 +378,7 @@ class RegisterTest extends XiSelTestCase
   function testAECRegisterPage()
   {
   	$filter['aec_integrate']=1;
+  	$filter['aec_message']='b';
 	$this->changeJSPTConfig($filter);
 
     $data[2] = 1;
@@ -423,7 +428,91 @@ class RegisterTest extends XiSelTestCase
     }
     	
   }
-
+  
+  function testRegisterWithoutPTSelection()
+  {
+  	$filter['aec_integrate']=0;
+	$this->changeJSPTConfig($filter);
+	
+  	$this->open(JOOMLA_LOCATION.'/index.php');
+  	$this->waitPageLoad();
+  	$this->assertTrue($this->isElementPresent("//li[@class='item61']/a"));
+  	$this->click("//li[@class='item61']/a");
+  	$this->waitPageLoad();
+  		
+  	$this->assertFalse($this->isTextPresent("PROFILETYPE-1"));
+  	// the selected profile is PROFILETYPE-2 
+  	// $this->assertTrue($this->isTextPresent("PROFILETYPE-2"));
+    $this->assertFalse($this->isTextPresent("PROFILETYPE-3"));
+    $this->assertFalse($this->isTextPresent("PROFILETYPE-4"));//unpublished
+    $this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));
+    $this->assertTrue($this->isTextPresent("Register new user"));
+    
+  }
+  
+  function testRestrictUserRegistration()
+  {
+  	$random=rand(111,999);
+  	$filter['jspt_restrict_reg_check'] = 1;
+	$filter['aec_integrate']           = 0;
+	$filter['jspt_prevent_username']='moderator; admin; support; owner; employee';
+	$this->changeJSPTConfig($filter);
+	//restrict usernames to register
+	$this->fillDataForRestriction("moderator","moderator@email.com",true);
+	$this->isTextPresent("The username selected is not a vaild username.");
+	
+	//allow user to register frof the below domain's email
+	$filter['jspt_allowed_email']='gmail.com; yahoo.com';
+		$filter['jspt_prevent_email']='';
+	$this->changeJSPTConfig($filter);
+	$this->fillDataForRestriction("user$random","user$random@email.com",true);
+	$this->isTextPresent("The email is not allowed to register.");
+	$this->fillDataForRestriction("user$random","user$random@gmail.com",false);
+	
+  	//restrict user to regiser by email doman name
+  	$filter['jspt_allowed_email']='yahoo.com';
+  	$filter['jspt_prevent_email']='gmail.com';
+	$this->changeJSPTConfig($filter);
+	$this->fillDataForRestriction("user$random","user$random@gmail.com",true);
+	$this->isTextPresent("The email is not allowed to register.");
+	$this->fillDataForRestriction("user$random","user$random@yahoo.com",false);
+	
+	$filter['jspt_allowed_email']='';
+  	$filter['jspt_prevent_email']='';
+	$this->changeJSPTConfig($filter);
+  }
+  
+  function fillDataForRestriction($username, $email, $restrict=false)
+  {
+  	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=register');
+	$this->waitPageLoad();
+	if(!$this->isTextPresent("Your current profiletype is PROFILETYPE-2 , to change profiletype Click Here"))
+	{
+		$this->click('profiletypes2');
+		$this->click('ptypesavebtn');
+		$this->waitPageLoad();
+	}
+	$this->type("jsname",$username);
+	$this->type("jsusername",$username);
+	$this->type("jsemail",$email);
+	$this->type("jspassword",$username);
+	$this->type("jspassword2",$username);
+	sleep(2);
+	$this->click("//input[@type='submit']");
+	sleep(2);
+	$this->click("//input[@type='submit']");
+	if($restrict==true){
+		$this->waitForElement("cwin_tm");
+		$this->assertTrue($this->isTextPresent("A required entry is missing or it contains an invalid value!"));
+		$this->click("cwin_close_btn");
+	}
+	else
+	{
+		$this->waitPageLoad();
+		$this->assertTrue($this->isTextPresent("Register new user"));	
+	}
+  }
+  
   function testDirectAECLinkRegistration()
   {
 	$url = dirname(__FILE__).'/sql/RegisterTest/testAECRegisterPage.start.sql';
@@ -456,3 +545,4 @@ class RegisterTest extends XiSelTestCase
     $this->changeJSPTConfig($filter);
   }
 }
+

@@ -23,11 +23,37 @@ class plgSystemxipt_system extends JPlugin
 		parent::__construct( $subject, $params );
 	}
 	
+	function _includeXipt()
+	{
+		if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+ 			return false;
+ 			
+		$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');	
+ 		
+		if( isset($includeXipt) && $includeXipt == false)
+			return false;
+			
+		return true;
+	}
 	
 	function onAfterRoute()
 	{
- 		global $mainframe;
-
+		global $mainframe;
+		
+		if(!$this->_includeXipt())
+			return false;
+				
+		// use factory to get any object
+		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+					
+ 		if( $mainframe->isAdmin())
+ 		{	
+ 			if($pluginHandler->checkSetupRequired())
+ 				$mainframe->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'));
+ 		
+ 			return false;
+ 		} 		
+			
 		//sometimes in SEF, value from GET might be blank		
 		$option = JRequest::getCmd('option','BLANK','GET');
 		if($option == 'BLANK')
@@ -41,51 +67,7 @@ class plgSystemxipt_system extends JPlugin
 		$view = JRequest::getVar('view','BLANK');
 		$component=JRequest::getVar('component','BLANK');
 				
-		$this->mySess = & JFactory::getSession();
-			
-		if( $mainframe->isAdmin())
-		{	
-			if($option == 'com_config' && $component=='com_xipt' && $task=='save')
-			{
-				$this->mySess->set('saveXiptConfiguration',true);
-				return;
-			}
-			
-			if($this->mySess->has('saveXiptConfiguration') == false)
-				return;
-		}
-		
 
-		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
-			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-		else
-			return;
-		// use factory to get any object
-		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
-		
-		if($this->mySess->get('saveXiptConfiguration',false) == true)
-		{	
-			$pluginHandler->onAfterConfigSave();
-			$this->mySess->set('saveXiptConfiguration',false);
-		}		
-		
-		/*
-		switch(trim($option))
-		{		 
-		    case 'com_community':
-		    case 'com_xipt':
-		        break;
-		        
-		    default:
-		           return;
-		}*/
-		
-
-		/*if($option == 'com_community')
-		{
-			$nothing    = false;
-			$pluginHandler->performACLCheck($nothing,$nothing,$nothing);
-		}*/
 		$nothing    = false;
 		$pluginHandler->performACLCheck($nothing,$nothing,$nothing);
 
@@ -96,23 +78,18 @@ class plgSystemxipt_system extends JPlugin
 		$exist = method_exists($pluginHandler,$eventName);
 		if($exist)
 		{
-			/*
-			 * We will store only where we need
-			 * 			//store current url into session
-						XiPTLibraryUtils::setReturnURL();
-			*/			//call function
+			//call function
 			$pluginHandler->$eventName();
 		}
 			
-		return;
+		return false;
 	}
 		
 	
 	function onAfterStoreUser($properties,$isNew,$result,$error)
 	{
-		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
-			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-
+		if(!$this->_includeXipt())
+			return false;
 		// use factory to get any object
 		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterStoreUser(array($properties,$isNew,$result,$error));
@@ -120,11 +97,46 @@ class plgSystemxipt_system extends JPlugin
 	
 	function onAfterDeleteUser($properties,$result,$error)
 	{
-		if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
-			require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-
+		if(!$this->_includeXipt())
+			return false;
 		// use factory to get any object
 		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterDeleteUser(array($properties,$result,$error));
+	}
+	
+	function onBeforeProfileTypeSelection()
+	{
+		if(!$this->_includeXipt())
+			return false;
+			
+		// use factory to get any object
+		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		return $pluginHandler->onBeforeProfileTypeSelection();
+	
+	}
+	
+	function onAfterProfileTypeSelection($ptypeid)
+	{
+		if(!$this->_includeXipt())
+			return false;
+			
+		// use factory to get any object
+		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		return $pluginHandler->onAfterProfileTypeSelection($ptypeid);	
+	}
+	
+	
+	// $userInfo ia an array and contains contains
+	// userid
+	// oldPtype
+	// & newPtype
+	function onBeforeProfileTypeChange($userInfo)
+	{	    
+		return false;
+	}
+	
+	function onAfterProfileTypeChange($newPtype, $result)
+	{
+		return false;
 	}
 }

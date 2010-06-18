@@ -44,7 +44,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		
 					<div id="Details">
 						<div id="Avatar">
-							<img src="<?php echo $pType->avatar; ?>" height="60px" width="60px"/>
+							<img src="<?php echo $pType->avatar; ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"/>
 						</div>
 						<p id="Description"> <?php echo JText::_($pType->tip); ?> </p>
 						
@@ -85,4 +85,4 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 <input type="hidden" name="option" value="com_xipt" /> 
 <input type="hidden" name="boxchecked" value="0" />
 <?php  echo JHTML::_ ( 'form.token' ); ?>
-</form><?php 
+</form><?php

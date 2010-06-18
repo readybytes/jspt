@@ -16,12 +16,17 @@ defined('_JEXEC') or die('Restricted access');
 			<th width="29%" class="title">
 					<?php echo JText::_( 'FIELD NAME' ); ?>
 			</th>
+			<?php 
+			foreach($this->categories as $catIndex => $catInfo)
+			{
+				$catName = $catInfo['name'];	
+			?>
 			<th width="15%" class="title">
-					<?php echo JText::_( 'PROFILETYPES' ); ?>
+					<?php echo JText::_( $catName ); ?>
 			</th>
-			<th width="40%" class="title">
-					<?php echo ""; ?>
-			</th>
+			<?php 
+			}
+			?>
 		</tr>
 	</thead>
 		<?php
@@ -45,13 +50,22 @@ defined('_JEXEC') or die('Restricted access');
 						&nbsp;&nbsp;|_ <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>
-				<td align="center">
-				<span id="profiletype<?php echo $field->id;?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
 				<?php 
-					echo XiPTHelperProfileFields::getProfileTypeNamesForFieldId( $field->id); 
+				foreach($this->categories as $catIndex => $catInfo)
+				{		
+					$controlName = $catInfo['controlName'];	
+					?>
+					<td align="center">
+						<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
+						<?php 
+							echo XiPTHelperProfileFields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
+						?>
+						</span>
+					</td>
+					<?php 
+				}
 				?>
-				</span>
-			</td>
+				
 				</tr>
 				<?php
 			}
@@ -67,13 +81,21 @@ defined('_JEXEC') or die('Restricted access');
 						Group <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>
-				<td align="center">
-				<span id="profiletype<?php echo $field->id;?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
 				<?php 
-					echo XiPTHelperProfileFields::getProfileTypeNamesForFieldId( $field->id); 
+				foreach($this->categories as $catIndex => $catInfo)
+				{		
+					$controlName = $catInfo['controlName'];	
+					?>
+				<td align="center">
+					<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
+					<?php 
+						echo XiPTHelperProfileFields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
+					?>
+					</span>
+				</td>
+				<?php 
+				}
 				?>
-				</span>
-			</td>
 				</tr>
 			<?php
 			$i = 0;

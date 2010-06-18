@@ -242,7 +242,9 @@ class XiPTControllerSetup extends JController
     {
     	global $mainframe;    	   	
         //now check library field exist
-      	if(XiPTHelperSetup::syncUpUserPT())
+        $start=JRequest::getVar('start', 0, 'GET');
+		$limit=JRequest::getVar('limit',SYNCUP_USER_LIMIT, 'GET');
+      	if(XiPTHelperSetup::syncUpUserPT($start,$limit))
         	$msg = JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZED SUCCESSFULLY');
         else
         	$msg = JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZATION FAILED');
@@ -328,7 +330,7 @@ class XiPTControllerSetup extends JController
     	XiPTHelperUnhook::uncopyHackedFiles();
 		// disable plugins
 		XiPTHelperUnhook::disable_plugin('xipt_system');
-		XiPTHelperUnhook::disable_plugin('xipt_plugin');
+		XiPTHelperUnhook::disable_plugin('xipt_community');
 		
 		XiPTHelperUnhook::disable_custom_fields();
 		
@@ -336,5 +338,19 @@ class XiPTControllerSetup extends JController
 		$msg = JText::_('UNHOOKED SUCCESSFULLY');
 		$mainframe->enqueueMessage($msg);
 		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
-    }    
+    }
+    
+    function enableAdminApproval()
+    {
+    	global $mainframe;
+    	if(XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system')
+			&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',true))
+				$cEnabled = XiPTHelperSetup::enablePlugin('xi_adminapproval');
+				
+		if($sEnabled && $cEnabled)
+			$mainframe->enqueueMessage(JText::_("PLUGIN ENABLED SUCCESSFULLY"));
+			
+		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+    }
+    	
 }

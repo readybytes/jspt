@@ -368,7 +368,7 @@ class XiPTHelperSetup
 	
 	function syncUpUserPTRequired()
 	{
-		$params = JComponentHelper::getParams('com_xipt');
+		$params = XiPTLibraryUtils::getParams('','com_xipt', 0);
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		if(!$defaultProfiletypeID){
 			global $mainframe;
@@ -414,7 +414,8 @@ class XiPTHelperSetup
 		}
 		
 		foreach ($result as $r){
-			if(!($r->vptype && $r->profiletype && $r->vtemp && $r->template))
+			if(!($r->vptype && $r->profiletype && $r->vtemp && $r->template) 
+					|| XiPTLibraryProfiletypes::validateProfiletype($r->profiletype)==false)
 				return true;
 				
 			if($r->vptype != $r->profiletype)
@@ -426,7 +427,7 @@ class XiPTHelperSetup
 		return false;
 	}
 	
-	function syncUpUserPT()
+	function syncUpUserPT($start, $limit)
 	{
 		
 		//	for every user
@@ -452,16 +453,17 @@ class XiPTHelperSetup
 				.' LEFT JOIN `#__community_fields_values` AS vTM'
         		.' ON ( vTM.`user_id` = u.`userid` AND  vTM.`field_id`='.$db->Quote($TMFieldId).')'
 				.' LEFT JOIN `#__xipt_users` AS '.'xUser'
-        		.' ON ( xUser.`userid` = u.`userid` )';
+        		.' ON ( xUser.`userid` = u.`userid` ) '
+        		.' LIMIT '.$start.','.$limit;
         			
 		$db->setQuery($query);
 		$result = $db->loadObjectList();
-		
-		$i = 0;
+					
+		 $i=0;
 		foreach ($result as $r){
 			
 			//skip correct users
-			if($r->vptype && $r->profiletype && $r->vtemp && $r->template)
+			if($r->vptype && $r->profiletype && $r->vtemp && $r->template && XiPTLibraryProfiletypes::validateProfiletype($r->profiletype)==true)
 			{
 				if(($r->vptype == $r->profiletype) && ($r->vtemp == $r->template))
 					continue;
@@ -469,13 +471,25 @@ class XiPTHelperSetup
 			
 			//It ensure that system will pickup correct data
 			$profiletype = XiPTLibraryProfiletypes::getUserData($r->id,'PROFILETYPE');
-			$template	 = XiPTLibraryProfiletypes::getUserData($r->id,'TEMPLATE');
-			XiPTLibraryProfiletypes::updateUserProfiletypeData($r->id, $profiletype, $template, 'profiletype');
+			if(XiPTLibraryProfiletypes::validateProfiletype($profiletype)==true)
+			{
+				$template	 = XiPTLibraryProfiletypes::getUserData($r->id,'TEMPLATE');
+			}
+			else
+			{
+				$profiletype = XiPTLibraryProfiletypes::getDefaultProfiletype();
+				$template	 = XiPTLibraryProfiletypes::getProfileTypeData($profiletype,'template');;
+			}
+			XiPTLibraryProfiletypes::updateUserProfiletypeData($r->id, $profiletype, $template, 'ALL');
 			$i++;
 		}
-
-		$msg = 'Total '. $i . ' users '.JText::_('synchornized');
 		global $mainframe;
+		if(sizeof($result)== $limit){			
+			$start+=$limit;
+    		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+		}
+		
+		$msg = 'Total '. ($start+$i) . ' users '.JText::_('synchornized');
 		$mainframe->enqueueMessage($msg);
 		return true;
 	}
@@ -528,5 +542,23 @@ class XiPTHelperSetup
 		$version	= $element->data();
 	
 		return $version;
+	}
+	
+	function isWaterMarkingRequired()
+	{
+		$ptypeArray	= XiPTHelperProfiletypes::getProfileTypeArray();
+		$globalWM	= XiPTLibraryUtils::getParams('show_watermark','',0);
+		if($globalWM)
+			return false;
+		foreach($ptypeArray as $ptype)
+		{
+			$watermarkParams = XiPTLibraryProfiletypes::getParams($ptype,'watermarkparams');
+			if($watermarkParams == false)
+				continue;
+			if($watermarkParams->get('enableWaterMark',0) == true)
+				return true;
+		}
+		
+		return false;		
 	}
 }

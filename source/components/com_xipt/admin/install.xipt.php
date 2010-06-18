@@ -49,7 +49,6 @@ function copyAECfiles()
 
 function com_install()
 {	
-	/*XITODO : check jomsocial version if it is less than 1.6 than show error message */
 	if(check_version() == false)
 		JError::raiseWarning('INSTERR', "XIPT Only support Jomsocial 1.6 or greater releases");
 		
@@ -66,41 +65,35 @@ function com_install()
 
 function setup_database()
 {
+	
 	// check it before creating tables.
-	$migrationRequired = isMigrationRequired();
-
-	// now create tables
+	$migrationRequired14to20 = isMigrationRequired14to20();
+	
+	// now Init tables
 	if(create_tables() == false)
 		return false;
-
-	// do migrate if we need to migrate
-	if($migrationRequired && migrate_tables() == false)
+	
+	// do migrate from 1.4 to 2.0 if we need to migrate 
+	if($migrationRequired14to20 && migration14to20() == false)
+		return false;
+	
+	// migrate from 2.0 to 2.1
+	$migrationRequired20to21 = isMigrationRequired20to21();
+	if($migrationRequired20to21 && migration20to21() == false)
+		return false;
+	
+	// migrate from 2.1 to 2.2
+	$migrationRequired21to22 = isMigrationRequired21to22();
+	if($migrationRequired21to22 && migration21to22() == false)
 		return false;
 
-	$migration2Required = isMigration2Required();
-
-	if($migration2Required && migration2() == false)
-		return false;
-
-	//TO migrate old data we need to add these fields after migration only.
+	//	add column
 	add_column('watermark' , 'varchar(250) NOT NULL', '#__xipt_profiletypes');
 	add_column('params' , 'text NOT NULL', '#__xipt_profiletypes');
 	add_column('watermarkparams' , 'text NOT NULL', '#__xipt_profiletypes');
+	add_column('category' , 'int(10) NOT NULL default \'0\'', '#__xipt_profilefields');
+	add_column('visible' , 'tinyint(1) NOT NULL DEFAULT \'1\'', '#__xipt_profiletypes');
 	
-	//update global configuration data
-	if(isTableExist('xipt_temp_globalconfiguration')){
-		//insert data in #__component table
-		$db = JFactory::getDBO();
-		$query = 'SELECT `params` FROM `#__xipt_temp_globalconfiguration`';
-		$db->setQuery($query);
-		$params = $db->loadResult();
-		$query = 'UPDATE '.$db->nameQuote('#__components')
-				.' SET '.$db->nameQuote('params').'='.$db->Quote($params)
-				.' WHERE  '.$db->nameQuote('link').'='.$db->Quote('option=com_xipt');
-		$db->setQuery($query);
-		$db->query();
-	}
-	// everything fine
 	return true;
 }
 
@@ -111,7 +104,7 @@ function create_tables()
 	$allQueries[]	='CREATE TABLE IF NOT EXISTS `#__xipt_profilefields` (
 				`id` int(10) NOT NULL auto_increment,  
 				`fid` int(10) NOT NULL default \'0\',
-				`pid` int(10) NOT NULL default \'0\', 
+				`pid` int(10) NOT NULL default \'0\',
 				PRIMARY KEY  (`id`) 
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
 	
@@ -152,22 +145,19 @@ function create_tables()
 				PRIMARY KEY  (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
 	
-	
-	
-	$allQueries[] = 'CREATE TABLE IF NOT EXISTS `#__xipt_users` (
-	 			 `userid` int(11) NOT NULL,
-  				 `profiletype` int(10) NOT NULL default \'0\',
-  				 `template` varchar(80) NOT NULL default \'NOT_DEFINED\',
-  				  PRIMARY KEY  (`userid`),
-	  			  KEY `userid` (`userid`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8';
-	
 	$allQueries[] = 'CREATE TABLE IF NOT EXISTS `#__xipt_aec` (
 				  `id` int(11) NOT NULL auto_increment,
 				  `planid` int(11) NOT NULL,
 				  `profiletype` int(11) NOT NULL,
 				  PRIMARY KEY  (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
+	
+	$allQueries[] = 'CREATE TABLE IF NOT EXISTS `#__xipt_users` (
+	 			 `userid` int(11) NOT NULL,
+  				 `profiletype` int(10) NOT NULL default \'0\',
+  				 `template` varchar(80) NOT NULL default \'NOT_DEFINED\',
+  				  PRIMARY KEY  (`userid`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8';
 	
 	$db=& JFactory::getDBO();
 	foreach($allQueries as $query) {
@@ -226,7 +216,7 @@ function copy_files()
 }
 
 
-function isMigrationRequired()
+function isMigrationRequired14to20()
 {
 	$newTables = isTableExist('xipt_users');
 	$oldTables = isTableExist('community_profiletypes');
@@ -243,7 +233,7 @@ function isMigrationRequired()
 }
 
 
-function isMigration2Required()
+function isMigrationRequired20to21()
 {
 	if(isTableExist('xipt_aclrules')) {
 		if(!check_column_exist('#__xipt_aclrules','coreparams')) 
@@ -253,10 +243,17 @@ function isMigration2Required()
 	return false;
 }
 
+function isMigrationRequired21to22()
+{
+	if(isTableExist('xipt_settings')) 
+		return false;
+	
+	return true;	
+}
 
 // we will migrate the old tables information to new tables
 // IMP : this function will remove all the previous table additions
-function migrate_tables()
+function migration14to20()
 {
 /*
 	User have done it first--
@@ -292,6 +289,7 @@ function migrate_tables()
 	#6
 	$allQueries[]	= ' INSERT `#__xipt_users` ' 
 			. ' SELECT `userid`, `profiletype`, `template` FROM `#__community_users` ' ;
+
 			
 	$db	=& JFactory::getDBO();
 	foreach ( $allQueries as $query){
@@ -369,7 +367,7 @@ function migrate_tables()
 	$db->Query();
 	
 	//also migrate configuration
-	migrate_configuration();
+	migrate_configuration14to20();
 	
 	//also delete old MI of AEC if exist
 	$AEC_MI_PATH = JPATH_ROOT . DS. 'components' . DS . 'com_acctexp' . DS . 'micro_integration';
@@ -387,7 +385,7 @@ function migrate_tables()
 }
 
 
-function migration2()
+function migration20to21()
 {
 
 	$allQueries	= array();
@@ -467,14 +465,61 @@ function migration2()
 			}
 		}
 	}
+	//	2.1
+	
+	return true;
+}
 
+function migration21to22()
+{
+	//2.2
+	
+	$allQueries = array();
+	$db	=& JFactory::getDBO();	
+	$allQueries[]	= 'CREATE TABLE IF NOT EXISTS `#__xipt_settings` (
+  						`name` varchar(250) NOT NULL,
+  						`params` text NOT NULL,
+  						PRIMARY KEY (`name`)
+						) ENGINE=MyISAM DEFAULT CHARSET=utf8' ;
+	
+	$allQueries[]	= "INSERT INTO `#__xipt_settings` VALUES ('settings','')";
+		
+	foreach ( $allQueries as $query)
+	{
+		$db->setQuery($query);
+		$db->query();
+
+		if($db->getErrorNum())
+		{
+			JError::raiseError( 500, $db->stderr());
+			return false;
+		}
+	}
+	
+	//update global configuration data
+	if(isTableExist('xipt_temp_globalconfiguration')){
+		//insert data in #__xipt_settings table
+		$db     = JFactory::getDBO();
+		$query  = 'SELECT `params` FROM `#__xipt_temp_globalconfiguration`';
+		$db->setQuery($query);
+		$params = $db->loadResult();
+		$query  = 'UPDATE '.$db->nameQuote('#__xipt_settings')
+				.' SET '.$db->nameQuote('params').'='.$db->Quote($params)
+				.' WHERE  '.$db->nameQuote('name').'='.$db->Quote('settings');
+		$db->setQuery($query);
+		$db->query();
+		
+		//delete the #xipt_temp_globalconfiguration
+		$query	= 'DROP TABLE '.$db->nameQuote('#__xipt_temp_globalconfiguration');
+		$db->setQuery($query);
+		$db->query();		
+	}
+	// everything fine
 	return true;
 }
 
 
-
-
-function migrate_configuration()
+function migrate_configuration14to20()
 {
 	//
 	$query = "SELECT params FROM `#__community_config` WHERE `name`='config'";

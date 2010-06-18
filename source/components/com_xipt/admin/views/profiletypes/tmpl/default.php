@@ -64,6 +64,9 @@ function submitbutton( action )
 			<th width="5%">
 				<?php echo JText::_( 'PUBLISHED' ); ?>
 			</th>
+			<th width="5%">
+				<?php echo JText::_( 'VISIBLE' ); ?>
+			</th>
 			<th width="5%" align="center">
 				<?php echo JText::_( 'ORDERING' ); ?>
 			</th>
@@ -132,6 +135,20 @@ function submitbutton( action )
 							} //echo $published;
 						?>
 			</td>
+			<td align="center" id="visible<?php echo $field->id;?>">
+				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->visible ? 'invisible' : 'visible' ?>')">
+							<?php if($field->visible)
+							{ ?>
+								<img src="images/tick.png" width="16" height="16" border="0" alt="Visible" /></a>
+							<?php 
+							}
+							else 
+							{ ?>
+								<img src="images/publish_x.png" width="16" height="16" border="0" alt="Invisible" /></a>
+						<?php 
+							} //echo $published;
+						?>
+			</td>
 			<td align="right">
 				<span><?php echo $this->pagination->orderUpIcon( $count , true, 'orderup', 'Move Up'); ?></span>
 				<span><?php echo $this->pagination->orderDownIcon( $count , count($this->fields), true , 'orderdown', 'Move Down', true ); ?></span>
@@ -157,3 +174,4 @@ function submitbutton( action )
 <input type="hidden" name="boxchecked" value="0" />
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>	
+

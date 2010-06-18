@@ -27,6 +27,7 @@ class XiPTTableProfiletypes extends JTable
 	var $group 				= null;
 	var $params 			= null;
 	var $watermarkparams 	= null;
+	var $visible			= null;
 	
 	function __construct(&$db)
 	{
@@ -61,6 +62,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->group 		= 0;
 			$this->params 		= '';
 			$this->watermarkparams 		= '';
+			$this->visible		= 1;
 			return true;
 		}
 		else
@@ -152,6 +154,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->allowt		= $data['allowt'];
 			$this->group 		= $data['group'];
 			$this->watermarkparams 		= $data['watermarkparams'];
+			$this->visible		= $data['visible'];
 			//$this->ordering		= $data['ordering'];
 	}
 }

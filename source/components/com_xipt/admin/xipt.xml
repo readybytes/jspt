@@ -34,7 +34,8 @@
 		<menu link="option=com_xipt" img="components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
 		<submenu>
 			<menu view="cpanel" img="components/com_xipt/images/icon-cpanel.png">Control Panel</menu>
-			<menu view="configuration" img="components/com_xipt/images/icon-jspt-config.gif">Global Configuration</menu>
+			<menu view="settings" img="components/com_xipt/images/icon-jspt-settings.png">Settings</menu>
+			<menu view="configuration" img="components/com_xipt/images/icon-jspt-config.gif">JS Configuration</menu>
 			<menu view="setup" img="components/com_xipt/images/icon-setup.gif">Setup</menu>
 			<menu view="profiletypes" img="components/com_xipt/images/icon-profiletypes.gif">Profile Types</menu>
 			<menu view="aclrules" img="components/com_xipt/images/icon-aclrules.gif">Access Control</menu>
@@ -48,10 +49,12 @@
 		<files folder="admin">
 			<filename>index.html</filename>
 			<filename>admin.xipt.php</filename>
-			<filename>config.xml</filename>
+			<filename>settings.xml</filename>
+			<filename>settings.ini</filename>
 			<filename>watermark.xml</filename>
 			<filename>jspt_functions.php</filename>
 			<filename>includes.xipt.php</filename>
+			<filename>loader.php</filename>
 			
 			<folder>controllers</folder>
 			<folder>models</folder>

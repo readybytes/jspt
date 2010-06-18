@@ -40,9 +40,6 @@ class addalbums extends xiptAclRules
 	
 	function checkAclAccesibility($data)
 	{
-		/*XITODO : we will expect that view and task should be given
-		 * and from parsing we will find out that is this request for me
-		 */ 
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
 			

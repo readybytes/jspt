@@ -78,43 +78,6 @@ class XiPTHelperUnhook
 		return;
 	}
 	
-	function store_globalconfiguration()
-	{
-		$db = JFactory::getDBO();
-		//create global configuration table
-		$query = 'CREATE TABLE IF NOT EXISTS `#__xipt_temp_globalconfiguration` (
-					`params` text NOT NULL  
-				) ENGINE=MyISAM  DEFAULT CHARSET=utf8';
-		
-		$db->setQuery($query);
-		if(!$db->query())
-			JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to create global configuration table') ;
-			
-		$query = 'TRUNCATE TABLE `#__xipt_temp_globalconfiguration`';
-		$db->setQuery($query);
-		if(!$db->query())
-			JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to truncate table') ;
-		
-		//insert data in table
-		//$jsite = new JSite();
-		$params			= JComponentHelper::getParams('com_xipt');
-		//$db->insertObject('#__xipt_temp_globalconfiguration',$data);
-		$query = 'INSERT INTO '.$db->nameQuote('#__xipt_temp_globalconfiguration')
-				.'('
-				. $db->nameQuote('params').' '
-				.') '
-				.'VALUES('
-				.$db->Quote($params->_raw)
-				.') ';
-		
-		$db->setQuery( $query );
-		$db->query();
-				
-		if($db->getErrorNum())
-			JError::raiseError( 500, $db->stderr());
-		
-		return true;
-	}
 		
 	
 }

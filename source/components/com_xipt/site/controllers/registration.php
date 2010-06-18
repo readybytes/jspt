@@ -8,8 +8,6 @@ defined('_JEXEC') or die('Restricted access');
 
 class XiPTControllerRegistration extends JController {
 
-	var $mySess;
-
 	function __construct($config = array())
 	{
 		$this->mySess 	=& JFactory::getSession();
@@ -18,49 +16,31 @@ class XiPTControllerRegistration extends JController {
 
     function display()
 	{
-		global $mainframe;
-		$redirectUrl = XiPTLibraryUtils::getReturnURL();
+		//trigger event
+		$dispatcher =& JDispatcher::getInstance();
+		$dispatcher->trigger( 'onBeforeProfileTypeSelection');
 
-		// 	check for session, if does not exist redirect user to community page
-		if(!$this->mySess){
-			// session expired, redirect to community page
-			$redirectUrl	= JRoute::_('index.php?option=com_community&view=register',false);
-			$msg = JText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
-			$mainframe->redirect($redirectUrl,$msg);
-		}
+		// 	check for session
+        //  if does not exist redirect user to community page
+		XiPTHelperProfiletypes::checkSessionForProfileType();
 
 		//If not allowed to select PT for user then return
 		if(XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt')==0){
-
-		    // we need to set default things
 			$selectedProfiletypeID= XiPTLibraryProfiletypes::getDefaultProfiletype();
-			$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
-
-			// redirect to correct page
-			//$redirectUrl = XiPTLibraryUtils::getReturnURL();
-			$msg = JText::_('USERS ARE NOT ALLOWED TO SELECT PROFILETYPES');
-			$mainframe->redirect($redirectUrl,$msg);
+			XiPTHelperProfiletypes::setProfileTypeInSession($selectedProfiletypeID);
 		}
 
-
-
-		//@XITODO : do some validation for visibility and publish of ptype
+		// do some validation for visibility and publish of ptype
 		if(JRequest::getVar('save', '', 'POST') != ''){
-
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
-
-			// validate values
-			if(!XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID)) {
-				//$redirectUrl = XiPTLibraryUtils::getReturnURL();
-				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
-				$mainframe->redirect($redirectUrl,$msg);
-				return;
+			if(XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID,array('published'=>1,'visible'=>1)) == false)
+			{
+				global $mainframe;
+				$msg = sprintf(JText::_('INVALID PROFILE TYPE SELECTED'),$count);
+				$link = JRoute::_('index.php?option=com_xipt&view=registration', false);
+				$mainframe->redirect($link, $msg);	
 			}
-			
-			//set value in session and redirect to destination url
-			$this->mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
-			//$retURL  = XiPTLibraryUtils::getReturnURL();
-			$mainframe->redirect($redirectUrl);
+			$dispatcher->trigger( 'onAfterProfileTypeSelection',array(&$selectedProfiletypeID));			
 		}
 
 		$css		= JURI::root() . 'components/com_xipt/assets/style.css';

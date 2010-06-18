@@ -52,7 +52,6 @@ class aclFactory
 		jimport( 'joomla.filesystem.file' );
 		if(!JFile::exists($path))
 		{
-			//XITODO: err message
 			JError::raiseError(400,JText::_("INVALID ACL FILE"));
 			return false;
 		}
@@ -250,6 +249,7 @@ abstract class xiptAclRules
 			
 		//else check user profiletype
 		$userPtype = XiPTLibraryProfiletypes::getUserData($data['userid']);
+		
 		if($userPtype == $ptype)
 			return true;
 			
@@ -265,12 +265,6 @@ abstract class xiptAclRules
 	
 	function isViolatingRule($data)
 	{
-		/*XITODO : check according to addon params and core params
-		 * we will give profiletype facility in core params
-		 * user accesibility option
-		 * for ex :- if some fields are not available to user 
-		 * according to fields disable
-		 * then this fn should return false*/
 		$isViolateAccToAcl = $this->checkAclViolatingRule($data);
 
 		$isViolateAccToCore =  $this->checkCoreViolatingRule($data);
@@ -319,7 +313,7 @@ abstract class xiptAclRules
 	
 	public function handleViolation($info)
 	{
-		/* XITODO : handle ajax case also */
+		/* handle ajax case also */
 		global $mainframe;
 		$msg 			= $this->getDisplayMessage();
 		if($info['ajax']) {

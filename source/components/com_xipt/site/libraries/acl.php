@@ -42,6 +42,16 @@ class XiPTLibraryAcl
 		$info['view'] 			= $feature;
 		$info['task'] 			= strtolower($task);
 		$info['userid'] 		= $userId;
+
+		// if user is uploading avatar at the time of registration then
+		// the user id will be availabale from tmpuser
+		if($option=='com_community' && $feature=='register' && 
+			 ($task=='registerAvatar' || $task=='registerSucess'))
+		{
+			$mySess =& JFactory::getSession();
+        	$user   = $mySess->get('tmpUser','');
+        	$info['userid'] 		= $user->id;
+		}
 		$info['viewuserid'] 	= $viewuserid;
 		$info['ajax'] 			= $ajax;
 		$info['args'] 			= $args;
@@ -60,8 +70,10 @@ class XiPTLibraryAcl
 			if(false == $aclObject->isApplicable($info))
 				continue;
 			
-			if(false == $aclObject->isViolatingRule($info))
+			if(false == $aclObject->isViolatingRule($info)){
+				$info['viewuserid'] 	= $viewuserid;
 				continue;
+			}
 			
 			$aclObject->handleViolation($info);
 			break;

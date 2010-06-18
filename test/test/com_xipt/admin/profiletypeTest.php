@@ -12,6 +12,13 @@ class ProfiletypeTest extends XiSelTestCase
 
   function testAddProfileType()
   {
+  	$version = XiSelTestCase::get_js_version();
+  	if(Jstring::stristr($version,'1.7'))
+  	{
+  		$url =  dirname(__FILE__).'/sql/ProfiletypeTest/testAddProfileType.1.7.sql';
+  		$this->_DBO->loadSql($url);
+  	}  
+  	
   	$this->_DBO->addTable('#__xipt_profiletypes');
     $this->_DBO->filterColumn('#__xipt_profiletypes','id');
   	
@@ -48,6 +55,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
     $this->_DBO->filterColumn('#__xipt_profiletypes','params');
     $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','visible');
   }
 	
 	function testOrderProfileType()
@@ -65,13 +73,13 @@ class ProfiletypeTest extends XiSelTestCase
 	    // 1-> down , 3 -> down , 5-> up
     	    
 		// 1-> down //id('rowid1')/td[12]/span[2]/a/img
-		$this->click("//tr[@id='rowid1']/td[12]/span[2]/a");
+		$this->click("//tr[@id='rowid1']/td[13]/span[2]/a");
 		$this->waitForPageToLoad();
 		//3 -> down  id('rowid3')/td[12]/span[2]/a/img
-		$this->click("//tr[@id='rowid3']/td[12]/span[2]/a");
+		$this->click("//tr[@id='rowid3']/td[13]/span[2]/a");
 		$this->waitForPageToLoad();
 		//5-> up
-		$this->click("//tr[@id='rowid5']/td[12]/span[1]/a");
+		$this->click("//tr[@id='rowid5']/td[13]/span[1]/a");
 		$this->waitForPageToLoad();
 		
 		$this->_DBO->filterOrder('#__xipt_profiletypes','ordering');
@@ -115,7 +123,8 @@ class ProfiletypeTest extends XiSelTestCase
 	{
 		$this->_DBO->addTable('#__xipt_profiletypes');
 		$this->_DBO->filterColumn('#__xipt_profiletypes','id');
-		
+		$filter['defaultProfiletypeID']=2;
+		$this->changeJSPTConfig($filter);
     
 	    //setup default location 
         $this->adminLogin();
@@ -301,5 +310,30 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','wtermarkparams');
 	$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
+  }
+  
+  function testCantDeleteDefaultProfileType()
+  {
+	$this->_DBO->addTable('#__xipt_profiletypes');
+	$this->_DBO->filterColumn('#__xipt_profiletypes','id');
+	$filter['defaultProfiletypeID']=1;
+	$this->changeJSPTConfig($filter);
+    //setup default location 
+    $this->adminLogin();
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
+    $this->waitPageLoad();
+     
+    $this->click("//input[@id='cb0']");
+    $this->click("//input[@id='cb1']");
+    $this->click("//input[@id='cb2']");
+    $this->click("//input[@id='cb3']");
+    $this->click("//input[@id='cb4']");
+    $this->click("//td[@id='toolbar-trash']/a");
+    
+    
+    $this->waitPageLoad();
+      
+      // we can check for ordering also
+    $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
   }
 }

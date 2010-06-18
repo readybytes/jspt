@@ -78,7 +78,7 @@ class XiPTLibraryUtils
 	    $defaultPType = XiPTLibraryProfiletypes::getDefaultProfiletype();
 		$selectedProfileTypeID = $defaultPType;
 		
-		$params = JComponentHelper::getParams('com_xipt');
+		$params = XiPTLibraryUtils::getParams('','com_xipt', 0);
 		$showAsRadio = $params->get('jspt_fb_show_radio',false);
 		
 		ob_start();
@@ -176,7 +176,7 @@ class XiPTLibraryUtils
 	/*XITODO : Add unit testing for this case */
 	function checkIfEmailAllowed($testEmail)
 	{
-		$config = JComponentHelper::getParams('com_xipt');
+		$config = XiPTLibraryUtils::getParams('','com_xipt', 0);
 		
 		$jspt_restrict_reg_check = $config->get('jspt_restrict_reg_check',false);
 		if($jspt_restrict_reg_check == false)
@@ -225,7 +225,7 @@ class XiPTLibraryUtils
 	function checkIfUsernameAllowed($testUsername)
 	{
 		//jspt_prevent_username
-		$config = JComponentHelper::getParams('com_xipt');
+		$config = XiPTLibraryUtils::getParams('','com_xipt', 0);
 		
 		$jspt_restrict_reg_check = $config->get('jspt_restrict_reg_check',false);
 		if($jspt_restrict_reg_check == false)
@@ -703,8 +703,16 @@ class XiPTLibraryUtils
 	//get params data from xipt component or any
 	function getParams($paramName='', $comName='com_xipt', $defaultValue=0)
 	{
-		$params = JComponentHelper::getParams($comName);
-		
+		$sModel = XiFactory :: getModel('settings');
+		$params  = $sModel->getParams();
+		if($params)
+			$config	= new JParameter( $params );
+		else
+			/* XITODO : default paramsa are not loaded properly.*/
+			$config	= new JParameter('');
+
+		// Load default configuration
+			$params	= $config;
 		if(!$params)
 		{
 		    JError::raiseWarning('XIPT-SYSTEM-ERROR','JSPT PARAMS ARE NULL');

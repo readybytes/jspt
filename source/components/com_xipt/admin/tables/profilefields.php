@@ -12,6 +12,7 @@ class XiPTTableProfileFields extends JTable
 	var $id			= null;
 	var $fid		= null;
 	var $pid		= null;
+	var $category	= null;
 	
 	function __construct(&$db)
 	{
@@ -25,6 +26,7 @@ class XiPTTableProfileFields extends JTable
 			$this->id			= 0;
 			$this->fid			= 0;
 			$this->pid			= 0;
+			$this->category		= 0;
 			return true;
 		}
 		else
@@ -52,7 +54,8 @@ class XiPTTableProfileFields extends JTable
 		$query	= ' SELECT COUNT(' . $db->nameQuote('id') . ') FROM ' 
 		        . $db->nameQuote('#__xipt_profilefields')
 				. ' WHERE '.$db->nameQuote('fid').'='.$db->Quote($this->fid)
-				. ' AND '.$db->nameQuote('pid').'='.$db->Quote($this->pid);			
+				. ' AND '.$db->nameQuote('pid').'='.$db->Quote($this->pid)
+				. ' AND '.$db->nameQuote('category').'='.$db->Quote($this->category);
 		$db->setQuery( $query );
 		$count	= $db->loadResult();
 		if($count)
@@ -94,10 +97,11 @@ class XiPTTableProfileFields extends JTable
 	 * Bind AJAX data into object's property
 	 * @param	array	data	The data for this field
 	 **/
-	function bindValues($fid, $pid, $id='')
+	function bindValues($data)
 	{
 			$this->id			= $id;
-			$this->fid			= $fid;
-			$this->pid			= $pid;
+			$this->fid			= $data['fid'];
+			$this->pid			= $data['pid'];
+			$this->category		= $data['category'];
 	}
 }

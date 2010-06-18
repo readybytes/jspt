@@ -20,15 +20,21 @@ class XiPTLibraryProfiletypes
 	function saveXiPTUser($userid,$profiletype,$template)
 	{
 		XiPTLibraryUtils::XAssert($userid);
+
+		/*XITODO : Remove the require_once, class should be auto loaded*/
 		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
-		
+
+		/*XITODO : validate ptype before save*/
 		$data             = new stdClass();
 		$data->userid     = $userid;
 		$data->profiletype= $profiletype;
 		$data->template   = $template;
-		
-		//TODO: call model through object.
-		XiPTModelUser::setUserData($data);
+				
+		/*call model through object. */
+		$uModel = XiFactory :: getModel('User','site');
+		$uModel->setUserData($data);
+		XiPTLibraryProfiletypes::getUserData($userid, $what='PROFILETYPE', true);
+		//XiPTModelUser::setUserData($data);
 	}
 	
     function saveXiPTUserField($userId,$value,$what)
@@ -57,41 +63,7 @@ class XiPTLibraryProfiletypes
 			$db->query();
 	}
 	
-    /*
-	 * Lots of Testing Required here : Done 
-	 * */
-	function updateProfileFieldsEvent($userId, $fields)
-	{
-		if(!$fields || $userId <= 0)
-			return true;
-			
-		$profileType	= 0;
-		$template		= '';
-		
-		// collect template and profiletype specified
-		foreach($fields as $id => $value){
-			$fieldInfo = XiPTLibraryProfiletypes::getFieldObject($id);
-			if($fieldInfo->type == PROFILETYPE_FIELD_NAME)
-				$profileType = $value;
-		
-			if($fieldInfo->type == TEMPLATE_FIELD_NAME)
-				$template 	= $value;
-		}
-		
-		// if profiletype is different then set profiletype
-		$oldPTypeId = XiPTLibraryProfiletypes::getUserProfiletypeFromUserID($userId);
-		if($profileType && $oldPTypeId != $profileType)
-				XiPTLibraryCore::setProfileDataForUserID($userId,$value,'ALL');
-				
-		// set template as per his choice
-		$oldTemplate = XiPTLibraryProfiletypes::getTemplateOfuser($userId);
-		if($template && $template != $oldTemplate)
-			XiPTLibraryProfiletypes::saveFieldForUser($userId,$template,TEMPLATE_FIELD_NAME);
-
-		return true;
-	}
-    
-	
+   	
 	/**
 	 * This function will not change user's profiletype
 	 * It only updates user's data, do not add profiletypes
@@ -172,15 +144,35 @@ class XiPTLibraryProfiletypes
 		
 		if($what == 'profiletype' || $what == 'ALL')
 		{
+			// trigger an API for before profile type updation
+			$dispatcher =& JDispatcher::getInstance();
+			$userInfo['userid'] 	= $userid;
+			$userInfo['oldPtype']	= $prevProfiletype;
+			$userInfo['newPtype']	= &$ptype;
+			
+			echo $userInfo['oldPtype']." AND ".$userInfo['newPtype'];
+			/* we are sending refrence of new ptype
+			* this should be validate before save 
+			*/
+			$dispatcher->trigger( 'onBeforeProfileTypeChange',array($userInfo));
+			// validate profile type, may be changed in event triggered
+			if(XiPTLibraryProfiletypes::validateProfiletype($ptype)==false)
+				$ptype  = XiPTLibraryProfiletypes::getDefaultProfiletype();
+		
 			//set profiletype and template for user in #__xipt_users table
 			if(!$template) 
 				$template = XiPTLibraryProfiletypes::getProfileTypeData($ptype,'template');
-			XiPTLibraryProfiletypes::saveXiPTUser($userid,$ptype,$template);
+			$result=XiPTLibraryProfiletypes::saveXiPTUser($userid,$ptype,$template);
 
 			//set profiletype and template field in #__community_fields_values table
 			// also change the user's type in profiletype field.
 			XiPTLibraryCore::updateCommunityCustomField($userid,$template,TEMPLATE_CUSTOM_FIELD_CODE);
 			XiPTLibraryCore::updateCommunityCustomField($userid,$ptype,PROFILETYPE_CUSTOM_FIELD_CODE);
+			
+			// trigger an API for after profile type updation
+			/* send success result */
+			//send the result as true
+			$dispatcher->trigger( 'onAfterProfileTypeChange',array($ptype,$result));
 		}
 
 		$feature=array();
@@ -235,9 +227,12 @@ class XiPTLibraryProfiletypes
 	}
 	
 
-	// get default profiletype from config
 	function getDefaultProfiletype()
 	{
+		static $defaultProfiletypeID = null;
+		if($defaultProfiletypeID)
+			return $defaultProfiletypeID;
+			 
 		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt');
 		
 		if(!$defaultProfiletypeID)
@@ -249,15 +244,14 @@ class XiPTLibraryProfiletypes
 		return  $defaultProfiletypeID;
 	}
 	
+	
 	function getDefaultTemplate()
 	{
-        $config	        =& CFactory::getConfig();
+		$config	        =& CFactory::getConfig();
 	    $defaultValue   =  $config->get('template');
 	    return $defaultValue;
 	}
-	
-	
-	//return ptype name from id
+			
 	function getProfiletypeName( $id = 0)
 	{
 	    // in Custom field and XiPT table they can have pID=0
@@ -310,12 +304,27 @@ class XiPTLibraryProfiletypes
 	 * @param $what
 	 * @return unknown_type
 	 */
-	function getUserData($userid, $what='PROFILETYPE')
-	{
-	    switch($what)
+	function getUserData($userid, $what='PROFILETYPE', $clean=false)
+	{	
+		static $counter=0;
+		
+		static $result=array();
+		if($clean)
+		{
+			unset($result[$userid]);
+			return;
+		}
+		
+		if(array_key_exists($userid,$result))
+			return $result[$userid][strtolower($what)];
+	    
+		//echo "counter ".(++$counter);
+		switch($what)
 	    {
 	        case 'PROFILETYPE':
-                $getMe	       = PROFILETYPE_FIELD_IN_USER_TABLE;
+	        	if($userid == 0 )
+					return XiPTLibraryUtils::getParams('guestProfiletypeID','com_xipt', XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt', 0));
+		        $getMe	       = PROFILETYPE_FIELD_IN_USER_TABLE;
                 $defaultValue  = XiPTLibraryProfiletypes::getDefaultProfiletype();
                 break;
                 
@@ -335,25 +344,26 @@ class XiPTLibraryProfiletypes
 	            JError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
 	    }
 
+	    
 	    $db		=& JFactory::getDBO();
-		$query	= 'SELECT ' . $db->nameQuote($getMe) . ' FROM '
+		$query	= 'SELECT * FROM '
 				. $db->nameQuote( '#__xipt_users') . ' WHERE '
 				. $db->nameQuote( 'userid') . '=' . $db->Quote( $userid );
 		$db->setQuery( $query );
 		
-		$result	= $db->loadResult();
+		$result[$userid]	= $db->loadAssoc();
 		
+		//print_r($result);
 		if($db->getErrorNum()) {
 				JError::raiseError( 500, $db->stderr());
 		}
 		
 		// not a valid result OR value not set
 		if(!$result){
-		    //TODO: set ProfileType is nothing exist
-		    $result = $defaultValue;
+		    return $defaultValue;
 		}
-		    
-		return $result;
+	
+		return $result[$userid][strtolower($what)];
 	}
 	
 	/**
@@ -361,6 +371,12 @@ class XiPTLibraryProfiletypes
 	 * @param $what : attribute required, default is name
 	 * @return unknown_type
 	 */
+	/*function getProfiletypeData($id=0, $what='name')
+	{
+		$cache =  JFactory::getCache('com_xipt');
+		return $cache->call(array('XiPTLibraryProfiletypes','_getProfiletypeData'),$id=0, $what);
+	}*/
+	
 	function getProfiletypeData($id=0, $what='name')
 	{
 
@@ -449,7 +465,7 @@ class XiPTLibraryProfiletypes
     //    assuming that by default all fields are available to all profiletype
 	//if any info is stored in table means that field is not available to that profiletype
 	//we store info in opposite form
-	function _getNotSelectedFieldForProfiletype($profiletypeId)
+	function _getNotSelectedFieldForProfiletype($profiletypeId,$category)
 	{
 		//XIPT_NONE means none , means not visible to any body
 		
@@ -457,7 +473,8 @@ class XiPTLibraryProfiletypes
 		//Load all fields for profiletype
 		$db			=& JFactory::getDBO();
 		$query		= 'SELECT * FROM ' . $db->nameQuote( '#__xipt_profilefields' )
-					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId);
+					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId)
+					. ' AND '.$db->nameQuote('category').'='.$db->Quote($category);
 		$db->setQuery( $query );
 		$results = $db->loadObjectList();
 		
@@ -473,13 +490,18 @@ class XiPTLibraryProfiletypes
 	//call fn to update fields during registration
 	function _getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from)
 	{
+		global $mainframe;
 		if(empty($selectedProfiletypeID)){
 		    JError::raiseError('XIPT_ERROR','XIPT SYSTEM ERROR');
 			return false;
 		}
-			
-		$notSelectedFields = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID);
-
+		$categories=XiPTHelperProfileFields::getProfileFieldCategories();
+		
+		foreach($categories as $catIndex => $catInfo)
+		{
+			$catName 			 = $catInfo['name'];
+			$notSelectedFields[$catName] = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID,$catIndex);
+		}
 		$fieldCount=count($fields);
 		for($i=0 ; $i < $fieldCount ; $i++){
 		    $field =& $fields[$i];
@@ -489,10 +511,30 @@ class XiPTLibraryProfiletypes
 		    else
 		        $fieldId   = $field['id'];
 		        
-			if(in_array($fieldId, $notSelectedFields))
+			if(in_array($fieldId, $notSelectedFields['ALLOWED']))
 			{
 			    unset($fields[$i]);
+			    continue;
 			}
+			
+			if(in_array($fieldId, $notSelectedFields['REQUIRED']))
+			{
+				if(is_object($field))
+				    $field->required=0;
+				else
+					$field['required']=0;
+			}
+			
+			if(in_array($fieldId, $notSelectedFields['VISIBLE']) &&  $from==='getViewableProfile')
+				unset($fields[$i]);
+						
+			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && $mainframe->isAdmin()==false)
+				unset($fields[$i]);
+
+			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile')
+				unset($fields[$i]);
+				
+			
 		}
 		$fields = array_values($fields);
 		return true;
@@ -570,12 +612,12 @@ class XiPTLibraryProfiletypes
      * @param $profileTypeID
      * @return boolean
      */
-    function validateProfiletype($profileTypeID)
+    function validateProfiletype($profileTypeID, $filter=array('published'=>1))
 	{
 		if(empty($profileTypeID))
 			return false;
 		
-		$allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray(array('published'=>1));
+		$allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
 		
 		if(empty($allProfileTypes))
 			return false;
@@ -600,10 +642,9 @@ class XiPTLibraryProfiletypes
 			$pTypeConfig = $db->loadResult();
 			if($pTypeConfig)
 				$config	= new JParameter( $pTypeConfig );
-			else {
-				// XITODO : What happen if config=blank
-				$config	= new JParameter('');
-			}
+			else
+				$config=null;
+			
 			
 			// Load default configuration
 			$params	= $config;//new JParameter( $config->_raw );

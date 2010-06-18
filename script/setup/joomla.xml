@@ -22,7 +22,7 @@
 		<exec command="tar -xvzf ${pkg.location}/Joomla_${pkg.version}.tar.gz -C ${joomla.rootpath}/${joomla.folder}" />
 		<exec command="mv -f ${joomla.rootpath}/${joomla.folder}/Joomla_${pkg.version}/* ${joomla.rootpath}/${joomla.folder}" passthru="true" />
 
-		<copy file="./data/database_${pkg.version}.sql" tofile="${joomla.rootpath}/${joomla.folder}/database.sql" overwrite="true"/>
+		<copy file="${pkg.location}/database_${pkg.version}.sql" tofile="${joomla.rootpath}/${joomla.folder}/database.sql" overwrite="true"/>
 		<copy file="./data/configuration.php" tofile="${joomla.rootpath}/${joomla.folder}/configuration.php" overwrite="true"/>
 
 		<!-- replace configuration-->
