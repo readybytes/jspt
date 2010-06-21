@@ -608,6 +608,9 @@ function testACLRules2()
   	$this->_DBO->addTable('#__community_users');
   	$this->_DBO->filterColumn('#__community_users','posted_on');
   	$this->_DBO->filterColumn('#__community_users','points');
+  	$this->_DBO->filterColumn('#__community_users','alias');
+  	$this->_DBO->filterColumn('#__community_users','latitude');
+  	$this->_DBO->filterColumn('#__community_users','longitude');
   	
   
   	

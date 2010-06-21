@@ -153,7 +153,7 @@ class SetupTest extends XiSelTestCase
   /**
    * @depends testCreateCustomFields
    */
-  function testSyncUpUserPT()
+ /* function testSyncUpUserPT()
   {
   	//A silly assumption, in joomla test we always have uuser 62
   	// so we will drop all fields of user 62 
@@ -176,7 +176,7 @@ class SetupTest extends XiSelTestCase
     //link should not be present     //image is correct
     $this->assertFalse($this->isElementPresent("//td[@id='setupMessage7']/a"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage7']/img[contains(@src,'images/tick.png')]"));
-  }
+  }*/
   
   function testMigrateAvatar()
   {
