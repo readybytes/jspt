@@ -150,7 +150,7 @@ class XiPTLibraryProfiletypes
 			$userInfo['oldPtype']	= $prevProfiletype;
 			$userInfo['newPtype']	= &$ptype;
 			
-			echo $userInfo['oldPtype']." AND ".$userInfo['newPtype'];
+			//echo $userInfo['oldPtype']." AND ".$userInfo['newPtype'];
 			/* we are sending refrence of new ptype
 			* this should be validate before save 
 			*/
