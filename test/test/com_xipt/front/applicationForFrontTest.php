@@ -85,12 +85,11 @@ class ApplicationForFrontTest extends XiSelTestCase
   	if($appPresent==true)
   	{
     	foreach($apps as $k=>$v)
-    	{
-    	
-        if(Jstring::stristr($version,'1.7'))
-        	$this->assertTrue($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
-    	else 
-       	 	$this->assertTrue($this->isElementPresent("//a[@name='app-$appsNames[$k]']"));
+    	{    	
+	        if(Jstring::stristr($version,'1.8'))
+    	    	$this->assertTrue($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
+    		else 
+    	   	 	$this->assertTrue($this->isElementPresent("//a[@name='app-$appsNames[$k]']"));
   	     }
      }
      else
@@ -98,11 +97,11 @@ class ApplicationForFrontTest extends XiSelTestCase
          foreach($apps as $k=>$v)
     	 {
     	
-          if(Jstring::stristr($version,'1.7'))
-        	$this->assertFalse($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
-    	  else 
-       	  	$this->assertFalse($this->isElementPresent("//a[@name='app-$appsNames[$k]']"));
-  	       }
+         	if(Jstring::stristr($version,'1.8'))
+        		$this->assertFalse($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
+    	  	else 
+       	  		$this->assertFalse($this->isElementPresent("//a[@name='app-$appsNames[$k]']"));
+  	     }
      }	
   	// Test core applications
   	// testing001 have been selected for ptype=1

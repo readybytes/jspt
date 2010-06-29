@@ -484,6 +484,7 @@ class RegisterTest extends XiSelTestCase
   
   function fillDataForRestriction($username, $email, $restrict=false)
   {
+  	$version = XiSelTestCase::get_js_version();
   	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=register');
 	$this->waitPageLoad();
 	if(!$this->isTextPresent("Your current profiletype is PROFILETYPE-2 , to change profiletype Click Here"))
@@ -503,7 +504,11 @@ class RegisterTest extends XiSelTestCase
 	$this->click("//input[@type='submit']");
 	if($restrict==true){
 		$this->waitForElement("cwin_tm");
-		$this->assertTrue($this->isTextPresent("A required entry is missing or it contains an invalid value!"));
+		if(Jstring::stristr($version,'1.8'))
+			$this->assertTrue($this->isTextPresent("info is required. Make sure it contains a valid value!"));
+		else
+			$this->assertTrue($this->isTextPresent("A required entry is missing or it contains an invalid value!"));
+		
 		$this->click("cwin_close_btn");
 	}
 	else

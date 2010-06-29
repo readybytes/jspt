@@ -197,7 +197,7 @@ class ProfileTest extends XiSelTestCase
   	{
   		$this->click("//a[@onclick=\"joms.apps.add('".$appsNames[$a]."')\"]");
 	  	//wait for ajax window
-	  	if(Jstring::stristr($version,'1.7')){  	    
+	  	if(Jstring::stristr($version,'1.8')){  	    
            sleep(1);
            continue;
 	  	}

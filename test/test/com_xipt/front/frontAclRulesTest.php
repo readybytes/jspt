@@ -24,6 +24,29 @@ class FrontAclRulesTest extends XiSelTestCase
 	$this->waitPageLoad();
     $this->verifyRestrict($verify);   
   }
+ function checkCreateEvent($verify,$starttime,$endtime)
+  {
+	static $counter=1;	
+	$this->open("index.php?option=com_community&view=events&task=create&Itemid=53");
+	$this->waitPageLoad();
+	
+	if($verify)
+	{
+		$this->type("title", "myevent$counter");
+		$this->type("description", "myevent");
+		$this->type("location", "india");
+		$this->select("starttime-hour", "label=$starttime");
+		$this->select("starttime-ampm", "label=pm");
+		$this->select("endtime-hour", "label=$endtime");
+		$this->select("endtime-ampm", "label=pm");
+		$this->click("//input[@value='Create Event']");
+		$this->waitPageLoad();
+		$this->assertTrue($this->isTextPresent("New event myevent$counter created"));
+		//$this->assertTrue(($this->isTextPresent("New event myevent$counter created"));
+	}
+	$counter++;
+
+  }
   
   function checkJoinGroup($from, $groupid, $verify)
   {
@@ -46,18 +69,28 @@ class FrontAclRulesTest extends XiSelTestCase
   
   function checkCreateAlbum($from, $verify)
   {
-  	static $counter=1;
+  	$version = XiSelTestCase::get_js_version();
+    static $counter=1;
   	
     $this->open("index.php?option=com_community&view=photos&task=newalbum&userid=$from&Itemid=53");
 	$this->waitPageLoad();
 	$this->verifyRestrict($verify);
 	
     if($verify)
-    {	
-	    $this->type("//form[@id='newalbum']/table/tbody/tr[1]/td[2]/input", "Album$counter");
-		$this->type("//textarea[@id='description']", "Album$counter");
-		$this->click("//form[@id='newalbum']/table/tbody/tr[3]/td[2]/input[2]");
-		$this->waitPageLoad();
+    {
+       	if(Jstring::stristr($version,'1.8'))	
+       	{
+   			$this->type("name", "Album$counter");
+   			$this->type("description", "Album$counter");
+		    $this->click("//input[@value='Create Album']");
+       	}
+       	else
+       	{
+	   		$this->type("//form[@id='newalbum']/table/tbody/tr[1]/td[2]/input", "Album$counter");
+       		$this->type("//textarea[@id='description']", "Album$counter");
+	   		$this->click("//form[@id='newalbum']/table/tbody/tr[3]/td[2]/input[2]");
+       	}	
+        $this->waitPageLoad();
 		$this->assertTrue($this->isTextPresent("New album created."));
 		$counter++;
     }	
@@ -191,7 +224,12 @@ class FrontAclRulesTest extends XiSelTestCase
 	$this->assertTrue($this->isTextPresent('User Registered.'));
   }
 
-
+  function checkAccessEvent($id,$verify)
+  {
+  	 $this->open("index.php?option=com_community&view=events&task=viewevent&eventid=$id&Itemid=53");
+  	 $this->waitPageLoad();
+  	 $this->verifyRestrict($verify);
+  }
 
   function testACLRules0()
   {
@@ -410,7 +448,7 @@ function testACLRules2()
     $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('4');\"]");
 	$this->waitForElement("cwin_tm");
 	sleep(2);
-	if(Jstring::stristr($version,'1.7'))
+	if(Jstring::stristr($version,'1.8'))
 		$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
 	else 
 		$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
@@ -419,7 +457,7 @@ function testACLRules2()
 	$this->waitForElement("cwin_tm");
 	sleep(3);
 	
-	if(Jstring::stristr($version,'1.7'))
+	if(Jstring::stristr($version,'1.8'))
 		$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
 	else
 		$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
@@ -611,9 +649,104 @@ function testACLRules2()
   	$this->_DBO->filterColumn('#__community_users','alias');
   	$this->_DBO->filterColumn('#__community_users','latitude');
   	$this->_DBO->filterColumn('#__community_users','longitude');
+  }
+
+  function testCreateEvent()
+  {
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
   	
-  
+  	$user = JFactory::getUser(82); // type1
+  	$this->frontLogin($user->username,$user->username);
+  	  //pt1 can create atmost 2 events
+  	$this->checkCreateEvent(true,9,10);
+  	$this->checkCreateEvent(true,10,11);
+  	$this->checkCreateEvent(false,11,12);
+    $this->frontLogout();
+    
+    $user = JFactory::getUser(83); // type2
+  	$this->frontLogin($user->username,$user->username);
+  	  //pt2 can't create events
+  	$this->checkCreateEvent(false,7,8);
+  	$this->frontLogout();
+  	$this->_DBO->addTable('#__community_events');
+  	$this->_DBO->filterColumn('#__community_events','created');
+ 	$this->_DBO->filterColumn('#__community_events','startdate');
+  	$this->_DBO->filterColumn('#__community_events','enddate');
+  }
+  function testAccessEvent()
+  {
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
   	
- }
+  	$user = JFactory::getUser(82); // type1
+  	$this->frontLogin($user->username,$user->username);
+  	//pt1 can't access event of pt2
+  	$this->checkAccessEvent(1,true);
+  	$this->checkAccessEvent(3,false);
+  	$this->checkAccessEvent(4,true);
+  	$this->frontLogout();
+
+  	$user = JFactory::getUser(83); // type1
+  	$this->frontLogin($user->username,$user->username);
+  	//pt2 can't access event of pt3
+  	$this->checkAccessEvent(1,true);
+  	$this->checkAccessEvent(3,true);
+  	$this->checkAccessEvent(4,false);
+  	$this->frontLogout();
+
+  	$user = JFactory::getUser(84); // type1
+  	$this->frontLogin($user->username,$user->username);
+  	//pt3 can't access event of pt1
+  	$this->checkAccessEvent(1,false);
+  	$this->checkAccessEvent(3,true);
+  	$this->checkAccessEvent(4,true);
+  	$this->frontLogout();
+  }	
+
+  function testDeleteEvent()
+  {
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+  	$user = JFactory::getUser(82); // type1
+  	$this->frontLogin($user->username,$user->username);
+  	$this->open("index.php?option=com_community&view=events&task=viewevent&eventid=11&Itemid=53");
+  	$this->waitPageLoad();
+  	$this->click("//a[@onclick=\"javascript:joms.events.deleteEvent('11');\"]");
+  	$this->waitForElement("cwin_tm");
+	sleep(1);
+    $this->assertTrue($this->isTextPresent("Are you sure want to delete this event?"));
+	$this->click("//input[@onclick=\"jax.call('community', 'events,ajaxDeleteEvent', '11', 1);\"]");
+    $this->waitForElement("cwin_tm");
+    sleep(2);
+    $this->assertTrue($this->isTextPresent("Event deleted"));
+    $this->frontLogout();
+    
+    $user = JFactory::getUser(83); // type2
+  	$this->frontLogin($user->username,$user->username);
+  	//pt2 cant delete event
+  	$this->open("index.php?option=com_community&view=events&task=viewevent&eventid=12&Itemid=53");
+  	$this->waitPageLoad();
+  	$this->click("//a[@onclick=\"javascript:joms.events.deleteEvent('12');\"]");
+  	$this->waitForElement("cwin_tm");
+	sleep(1);
+    $this->assertTrue($this->isTextPresent("Are you sure want to delete this event?"));
+	$this->click("//input[@onclick=\"jax.call('community', 'events,ajaxDeleteEvent', '12', 1);\"]");
+    $this->waitForElement("cwin_tm");
+    sleep(2);
+    $this->assertTrue($this->isTextPresent("You are not allowed to access this resource "));
+    $this->frontLogout();
+    
+    $this->_DBO->addTable('#__community_events');
+  	$this->_DBO->filterColumn('#__community_events','created');
+ 	$this->_DBO->filterColumn('#__community_events','startdate');
+  	$this->_DBO->filterColumn('#__community_events','enddate');
+  	$this->_DBO->filterColumn('#__community_events','hits');
+  }
   
- }
+}  
+  

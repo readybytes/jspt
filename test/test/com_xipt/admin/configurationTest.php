@@ -15,7 +15,7 @@ class ConfigurationTest extends XiSelTestCase
   //check js version
     
   	$version = XiSelTestCase::get_js_version();
-    if(Jstring::stristr($version,'1.7'))
+    if(Jstring::stristr($version,'1.8'))
   	{
   		$url =  dirname(__FILE__).'/sql/ConfigurationTest/testConfiguration.1.7.sql';
     	$this->_DBO->loadSql($url);
