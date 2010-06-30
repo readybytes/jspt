@@ -29,6 +29,7 @@ class FrontAclRulesTest extends XiSelTestCase
 	static $counter=1;	
 	$this->open("index.php?option=com_community&view=events&task=create&Itemid=53");
 	$this->waitPageLoad();
+	$this->verifyRestrict($verify);
 	
 	if($verify)
 	{
@@ -472,6 +473,7 @@ function testACLRules2()
   }
   
   
+ 
     function testAccessVideo()
    {
    	$users[1]=array(79,82,85);
@@ -505,6 +507,26 @@ function testACLRules2()
   	 $this->checkAccessVideo(84,86,2,True);
   	 $this->checkAccessVideo(84,87,3,True);
   	 $this->frontLogout();
+  	 //check friend support
+  	 $user = JFactory::getUser(79); // type1
+  	 $this->frontLogin($user->username,$user->username);
+  	 $this->checkAccessVideo(79,80,5,True); 
+  	 $this->checkAccessVideo(79,95,7,False); 
+  	 $this->frontLogout();
+  	 
+  	 $user = JFactory::getUser(80); // type2
+  	 $this->frontLogin($user->username,$user->username);
+  	 $this->checkAccessVideo(80,81,6,True); 
+  	 $this->checkAccessVideo(80,96,8,False); 
+  	 $this->frontLogout();
+  	 
+  	 
+  	 $user = JFactory::getUser(81); // type2
+  	 $this->frontLogin($user->username,$user->username);
+  	 $this->checkAccessVideo(81,79,4,True); 
+  	 $this->checkAccessVideo(81,97,9,False); 
+  	 $this->frontLogout();
+  	 
   	  
    }
    function testAccessGroup()
@@ -539,7 +561,34 @@ function testACLRules2()
   	$this->checkAccessGroup(84,5,True);
   	$this->checkAccessGroup(84,7,True);
   	$this->frontLogout();
+  	
+  	//check for friend support
+    $user = JFactory::getUser(79);
+  	$this->frontLogin($user->username,$user->username);
+  	//pt1 can access friend's group from pt2
+  	$this->checkAccessGroup(79,9,True);
+  	//pt1 cant access friend's group from pt4
+  	$this->checkAccessGroup(79,11,False);
+    $this->frontLogout();
+    
+     $user = JFactory::getUser(80);
+  	$this->frontLogin($user->username,$user->username);
+  	//pt2 can access friend's group from pt3
+  	$this->checkAccessGroup(80,10,True);
+  	 //pt2 can't access friend's group from pt5
+  	$this->checkAccessGroup(80,12,False);
+  	$this->frontLogout();
+    
+     $user = JFactory::getUser(81);
+  	$this->frontLogin($user->username,$user->username);
+  	//pt3 can access friend's group from pt1
+  	$this->checkAccessGroup(81,8,True);
+  	//pt3 can't access friend's group from pt6
+  	$this->checkAccessGroup(81,13,False);
+    $this->frontLogout();
+  	
    }
+  	
   	
   function testCantChangeRegistrationAvatar()
   {
@@ -633,14 +682,14 @@ function testACLRules2()
   	 
   	$user = JFactory::getUser(83); // type2
   	$this->frontLogin($user->username,$user->username);
-  	  //pt1 can change status
+  	  //pt2 can't change status
   	$this->checkStatusBox(); 
   	$this->frontLogout();
   	 
   	
   	$user = JFactory::getUser(84); // type3
   	$this->frontLogin($user->username,$user->username);
-  	  //pt1 can change status
+  	  //pt3 can change status
   	$this->checkStatusBox(); 
   	$this->frontLogout();
   	$this->_DBO->addTable('#__community_users');
@@ -674,6 +723,7 @@ function testACLRules2()
   	$this->_DBO->filterColumn('#__community_events','created');
  	$this->_DBO->filterColumn('#__community_events','startdate');
   	$this->_DBO->filterColumn('#__community_events','enddate');
+  	$this->_DBO->filterColumn('#__community_events','confirmedcount');
   }
   function testAccessEvent()
   {
@@ -748,5 +798,23 @@ function testACLRules2()
   	$this->_DBO->filterColumn('#__community_events','hits');
   }
   
+  function testFriendSupportInAccessEvent()
+  {
+  	$users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+	$user = JFactory::getUser(82); 
+  	
+  	$this->frontLogin($user->name,$user->name);
+  	//pt1 can't access event by pt2
+  	$this->checkAccessEvent(14,true);
+  	//access event of friend
+  	$this->checkAccessEvent(13,false);
+  	$this->frontLogout();
+  	
+  }
+  
 }  
   
+
