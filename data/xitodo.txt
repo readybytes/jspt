@@ -4,6 +4,8 @@
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessgroup/accessgroup.php:40:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessvideo/accessvideo.php:41:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:67:		//XITODO send debugmode
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessevent/accessevent.php:25:		// XITODO : give friend support also
 ../../packages/tmp/components/com_xipt/admin/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:25:			 * XITODO : we will remove this when aec support fbc
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:74:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array

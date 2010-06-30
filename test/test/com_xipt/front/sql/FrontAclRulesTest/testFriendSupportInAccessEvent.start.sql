@@ -19,7 +19,6 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 (95, '', 6, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 1, 1),
 (97, '', 6, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 1);
 
-
 TRUNCATE TABLE `#__users`;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
 (62, 'Administrator', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'Super Administrator', 0, 1, 25, '2009-10-27 14:21:57', '2010-06-15 10:40:57', '', '\n'),
@@ -40,7 +39,6 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (93, 'username485', 'username485', 'user485@email.com', 'b054795be7981651aa185286ccffa2d2:gYcHaOQMnVIWZjHOi3aetrs67xMlZLmu', 'Editor', 1, 0, 20, '2010-06-15 08:07:18', '0000-00-00 00:00:00', 'e3fb3e0c5be96b9c677134cb56b3c059', '\n'),
 (95, 'test444', 'test444', 'cxbcx@dssdf.com', '9cdc24982774f07b82847fcc933c6515:I75CA1rx9qFsVYbb7KeyiMMajxi608iJ', 'Registered', 0, 0, 18, '2010-06-15 10:08:56', '2010-06-15 10:23:36', 'e6d0ca855bc46503790881daa46f1331', '\n'),
 (97, 'test666', 'test666', 'hjlhjl@hffch.com', 'f0598f10cc9617d3aeea2fedb2e0d75a:ztfZVlJ470J3pu8YAlxMk6Om7p0huWJ7', 'Registered', 0, 0, 18, '2010-06-15 10:18:48', '2010-06-15 10:21:51', 'fc98b56e72ebc0cb08af5be76d154949', '\n');
-
 
 TRUNCATE TABLE `#__xipt_profiletypes` ;
 INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`,`watermarkparams`,`visible`) VALUES
@@ -72,8 +70,6 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (96, 5, 'default'),
 (97, 6, 'default');
 
-
-
 TRUNCATE TABLE `#__core_acl_aro`;
 INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
 (10, 'users', '62', 0, 'Administrator', 0),
@@ -88,42 +84,54 @@ INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `n
 (30, 'users', '82', 0, 'regtest8774090', 0);
 
 
+
+TRUNCATE TABLE `#__core_acl_groups_aro_map`;
+INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
+(18, '', 27),
+(18, '', 30),
+(18, '', 33),
+(20, '', 28),
+(20, '', 31),
+(20, '', 34),
+(21, '', 29),
+(21, '', 32),
+(21, '', 35),
+(25, '', 10);
+
 TRUNCATE TABLE `#__xipt_aclrules`;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(10, 'access video', 'accessvideo', 'core_profiletype=3\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=1\nacl_applicable_to_friend=0\n\n', 1),
-(11, 'access video', 'accessvideo', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=3\nacl_applicable_to_friend=0\n\n', 1),
-(12, 'access video', 'accessvideo', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\nacl_applicable_to_friend=0\n\n', 1),
-(13, 'access video', 'accessvideo', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=4\nacl_applicable_to_friend=1\n\n', 1),
-(14, 'access video', 'accessvideo', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=5\nacl_applicable_to_friend=1\n\n', 1),
-(15, 'access video', 'accessvideo', 'core_profiletype=3\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=6\nacl_applicable_to_friend=1\n\n', 1);
+(8, 'access event', 'accessevent', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\nacl_applicable_to_friend=0\n\n', 1);
+
+TRUNCATE TABLE `#__community_events`;
+INSERT INTO `#__community_events` (`id`, `catid`, `contentid`, `type`, `title`, `location`, `description`, `creator`, `startdate`, `enddate`, `permission`, `avatar`, `thumb`, `invitedcount`, `confirmedcount`, `declinedcount`, `maybecount`, `wallcount`, `ticket`, `allowinvite`, `created`, `hits`, `published`, `latitude`, `longitude`) VALUES
+(1, 2, 0, 'profile', 'myevent1', 'india', 'myevent', 82, '2010-06-24 21:00:00', '2010-06-24 22:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:11', 3, 1, 20.5937, 78.9629),
+(2, 2, 0, 'profile', 'myevent2', 'india', 'myevent', 82, '2010-06-24 22:00:00', '2010-06-24 23:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:18', 1, 1, 20.5937, 78.9629),
+(3, 2, 0, 'profile', 'My event12', 'Bhilwara', 'cgd', 83, '2010-06-30 04:00:00', '2010-07-02 04:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:40:27', 3, 1, 25.3463, 74.6364),
+(4, 2, 0, 'profile', 'My event13', 'Bhilwara', 'fft', 84, '2010-06-29 04:00:00', '2010-06-30 04:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:42:08', 4, 1, 25.3463, 74.6364),
+(12, 2, 0, 'profile', 'delete pt2', 'India', 'delete pt2', 83, '2010-06-29 22:00:00', '2010-06-30 08:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 08:58:50', 2, 1, 20.5937, 78.9629),
+(13, 2, 0, 'profile', 'eventuser86', 'India', 'eventuser86', 86, '2010-06-30 12:00:00', '2010-06-30 12:00:00', 0, NULL, NULL, 0, 2, 0, 0, 0, 0, 0, '2010-06-29 12:28:07', 2, 1, 20.5937, 78.9629),
+(14, 2, 0, 'profile', 'eventuser83', 'India', 'eventuser83', 83, '2010-06-30 12:00:00', '2010-06-30 12:00:00', 0, NULL, NULL, 0, 2, 0, 0, 0, 0, 0, '2010-06-29 12:34:15', 1, 1, 20.5937, 78.9629);
+
+
+TRUNCATE TABLE `#__community_connection`;
+INSERT INTO `#__community_connection` (`connection_id`, `connect_from`, `connect_to`, `status`, `group`, `msg`, `created`) VALUES
+(1, 85, 84, 1, 0, '', NULL),
+(2, 84, 82, 1, 0, '', NULL),
+(13, 79, 81, 1, 0, '', '2010-06-15 09:30:42'),
+(8, 79, 80, 1, 0, '', '2010-06-15 09:29:15'),
+(9, 80, 79, 1, 0, '', '2010-06-15 09:29:15'),
+(11, 80, 81, 1, 0, '', '2010-06-15 09:30:40'),
+(12, 81, 80, 1, 0, '', '2010-06-15 09:30:40'),
+(14, 81, 79, 1, 0, '', '2010-06-15 09:30:42'),
+(20, 96, 80, 1, 0, '', '2010-06-15 10:24:25'),
+(22, 97, 81, 1, 0, '', '2010-06-15 10:25:01'),
+(18, 79, 95, 1, 0, '', '2010-06-15 10:23:19'),
+(19, 95, 79, 1, 0, '', '2010-06-15 10:23:19'),
+(21, 80, 96, 1, 0, '', '2010-06-15 10:24:25'),
+(23, 81, 97, 1, 0, '', '2010-06-15 10:25:01'),
+(25, 82, 83, 1, 0, '', '2010-06-29 10:08:06'),
+(26, 83, 82, 1, 0, '', '2010-06-29 10:08:06');
 
 
 
-TRUNCATE TABLE `#__community_videos`;
-INSERT INTO `#__community_videos` (`id`, `title`, `type`, `video_id`, `description`, `creator`, `creator_type`, `created`, `permissions`, `category_id`, `hits`, `published`, `featured`, `duration`, `status`, `thumb`, `path`, `groupid`, `filesize`, `storage`) VALUES
-(1, 'Kites Song Fire |  Kites Fire  |  Hrithik Roshan Fire  |  Kites Song Promo  Fire  |  Fire |', 'youtube', 'PN626ZXD204', 'Kites Song Promo -  Fire  \r\nChoreographer - Flexy        Music - Rajesh Roshan\r\n\r\nKITES Releasing Worldwide on 21st May (2010)', 85, 'user', '2010-05-25 11:57:38', '0', 1, 3, 1, 0, 62, 'ready', 'images/videos/88/thumbs/BeYcKnpwhj9.jpg', 'http://www.youtube.com/watch?v=PN626ZXD204', 0, 0, 'file'),
-(2, 'PHP Tutorial: Installation and The Basics', 'youtube', 'afgyNp5HueQ', 'PHP', 86, 'user', '2010-05-25 12:19:16', '0', 1, 6, 1, 0, 654, 'ready', 'images/videos/89/thumbs/RyQFKAMfQuS.jpg', 'http://www.youtube.com/watch?v=afgyNp5HueQ', 0, 0, 'file'),
-(3, 'Hrithik Roshan''s Superb Dancing in Kites (2010) *HD*', 'youtube', 'luXxeIlOoKU', 'Hrithik Roshan, Dance, Kites, Hindi Movie, Watch Online, SominalTv, Kangana Ranawat, Fire, Full Song, Music Video', 87, 'user', '2010-05-25 12:28:01', '0', 1, 4, 1, 0, 189, 'ready', 'images/videos/90/thumbs/gQ1sAuG34du.jpg', 'http://www.youtube.com/watch?v=luXxeIlOoKU', 0, 0, 'file'),
-(4, 'Build a Joomla Website', 'youtube', 'lGub1u8v8i8', 'http:www.buildajoomlawebsite.com\r\nIf you have ever wanted to build a Joomla website...you need to see this', 79, 'user', '2010-06-15 09:21:24', '0', 1, 0, 1, 0, 298, 'ready', 'images/videos/79/thumbs/O6iK9kZPqFt.jpg', 'http://www.youtube.com/watch?v=lGub1u8v8i8&feature=related', 0, 0, 'file'),
-(5, 'Build easy websites using Joomla tutorials', 'youtube', 'fVr7huePbIA', 'Its a clip that shows you ways to build a website using joomla..a powerful open source...\r\n\r\nYou can create websites in 10 mins..that too with features and a database that supports..and gives you access to admin..enjoy!!\r\n\r\nfind more information from joomlasuccess.com', 80, 'user', '2010-06-15 09:23:09', '0', 1, 0, 1, 0, 15, 'ready', 'images/videos/80/thumbs/SsnDTqPD89x.jpg', 'http://www.youtube.com/watch?v=fVr7huePbIA&feature=related', 0, 0, 'file'),
-(6, 'How to Build and Manage Your Own Website - (Joomla Editors)', 'youtube', 'ESEU8XqyrZE', 'http:www.MakeYourWebsite123.com\r\n\r\nEasily Edit, Design And Format Your Pages Using WYSIWYG Editor, Without Ever Messing With HTML And Other Programming Languages\r\nMake you own website\r\nmake a website\r\nhow to make a website\r\nhow to make your own website for free', 81, 'user', '2010-06-15 09:25:14', '0', 1, 0, 1, 0, 272, 'ready', 'images/videos/81/thumbs/rSG2g8pNIYc.jpg', 'http://www.youtube.com/watch?v=ESEU8XqyrZE&feature=related', 0, 0, 'file'),
-(7, 'How to createmake your own website 4 free', 'youtube', 'qB6zTgMWcDA', 'this is how to create youre own website first: go to www.freeservers.com and then click the box with the free on the top. and then follow the steps and fill the blanks and in no time you have you''re website!\r\n\r\n AXLPOGI Productions-MADE IN PHILIPPINES', 95, 'user', '2010-06-15 10:11:53', '0', 1, 0, 1, 0, 226, 'ready', 'images/videos/95/thumbs/HW82lNd9oWo.jpg', 'http://www.youtube.com/watch?v=qB6zTgMWcDA&feature=related', 0, 0, 'file'),
-(8, 'Make a free website!!', 'youtube', '8aaNngwsY3c', 'its cool free and fast!! great for gamers, for clans yada yada yada\r\nmy site: www.valenciascape.ucoz.com\r\nto register for a site:www.ucoz.com', 96, 'user', '2010-06-15 10:15:12', '0', 1, 1, 1, 0, 220, 'ready', 'images/videos/96/thumbs/BN4EaRT8955.jpg', 'http://www.youtube.com/watch?v=8aaNngwsY3c&feature=related', 0, 0, 'file'),
-(9, 'Best Free Website Hosting: With FTP, PHP, and MySQL!', 'youtube', 'whPYvGuqviI', 'Free website hosting.\r\nhttp:www.podserver.info\r\nHost your own message board forum, blog, CMS, image gallery, Commerce, wiki, and more. Unlike other free hosting plans, this includes full access to FTP, PHP, MySQL, Apache and Control Panel.\r\n\r\nFree web hosting services:\r\n• 300 MB disk space\r\n• 10 GB monthly transfer\r\n• 7 MySQL databases\r\n• Free 247 tech support and instant activation\r\n• FTP, file manager, MySQL, Ion Cube, Zend Optimizer, and Apache\r\n• PHP with ''safe_mode'' off and GD enabled\r\n• Password protect directories\r\n• Control panel and Fantastico® like automatic script installer\r\n• 6 Addon domains, 6 parked domains, and 6 sub-domains\r\n• Webmail, sendmail and POP email\r\n• Quad Xeon grid servers with multiple fiber optic connections\r\n\r\nMusic: Kevin MacLeod', 97, 'user', '2010-06-15 10:20:07', '0', 1, 1, 1, 0, 32, 'ready', 'images/videos/97/thumbs/gNRmYbqgB33.jpg', 'http://www.youtube.com/watch?v=whPYvGuqviI&feature=related', 0, 0, 'file');
 
-TRUNCATE TABLE  `#__community_connection` ;
-INSERT INTO `#__community_connection` (`connection_id`, `connect_from`, `connect_to`, `status`, `group`, `created`, `msg`) VALUES
-(1, 85, 84, 1, 0, NULL, ''),
-(2, 84, 82, 1, 0, NULL, ''),
-(13, 79, 81, 1, 0, '2010-06-15 09:30:42', ''),
-(8, 79, 80, 1, 0, '2010-06-15 09:29:15', ''),
-(9, 80, 79, 1, 0, '2010-06-15 09:29:15', ''),
-(11, 80, 81, 1, 0, '2010-06-15 09:30:40', ''),
-(12, 81, 80, 1, 0, '2010-06-15 09:30:40', ''),
-(14, 81, 79, 1, 0, '2010-06-15 09:30:42', ''),
-(20, 96, 80, 1, 0, '2010-06-15 10:24:25', ''),
-(22, 97, 81, 1, 0, '2010-06-15 10:25:01', ''),
-(18, 79, 95, 1, 0, '2010-06-15 10:23:19', ''),
-(19, 95, 79, 1, 0, '2010-06-15 10:23:19', ''),
-(21, 80, 96, 1, 0, '2010-06-15 10:24:25', ''),
-(23, 81, 97, 1, 0, '2010-06-15 10:25:01', '');

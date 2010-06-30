@@ -31,6 +31,14 @@ class accessgroup extends xiptAclRules
 				 && ($otherpid != $otherptype))
 			return false;
 			
+		
+		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
+		{
+			$isFriend = XiPTHelperAclRules::isFriend($data['userid'],$ownerid);
+			if($isFriend)
+			 return false;
+		}	
+			
 		return true;
 	}
 	
