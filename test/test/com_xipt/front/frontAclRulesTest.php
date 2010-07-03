@@ -692,10 +692,12 @@ function testACLRules2()
   	  //pt3 can change status
   	$this->checkStatusBox(); 
   	$this->frontLogout();
+  	sleep(1);
   	$this->_DBO->addTable('#__community_users');
   	$this->_DBO->filterColumn('#__community_users','posted_on');
   	$this->_DBO->filterColumn('#__community_users','points');
   	$this->_DBO->filterColumn('#__community_users','alias');
+  	$this->_DBO->filterColumn('#__community_users','params');
   	$this->_DBO->filterColumn('#__community_users','latitude');
   	$this->_DBO->filterColumn('#__community_users','longitude');
   }

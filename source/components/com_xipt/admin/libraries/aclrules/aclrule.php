@@ -337,9 +337,10 @@ abstract class xiptAclRules
 	}
 	
 	
-	function aclAjaxBlock($msg)
+	function aclAjaxBlock($msg, $objResponse=null)
 	{
-		$objResponse   	= new JAXResponse();
+		if($objResponse === null)
+			$objResponse   	= new JAXResponse();
 
 		$html 	= $msg;
 

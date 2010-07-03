@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class accessevent extends xiptAclRules
+class accessprofilevideo extends xiptAclRules
 {
 
 	function __construct($debugMode)
@@ -18,22 +18,22 @@ class accessevent extends xiptAclRules
 	public function checkAclViolatingRule($data)
 	{	
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
-		$eventId	= JRequest::getVar( 'eventid' , 0 , 'GET' );
-		$ownerid	= $this->getownerId($eventId);
+		$videoid	= $data['args'][0];
+		$ownerid	= $this->getownerId($videoid);
 		$otherpid	= XiPTLibraryProfiletypes::getUserData($ownerid,'PROFILETYPE');
 		
-		
-		if((0 != $otherptype)
-			&& (-1 != $otherptype)
-				 && ($otherpid != $otherptype))
-			return false;
+	   if((0 != $otherptype) && (-1 != $otherptype))
+	    {	
+			if($otherpid != $otherptype)
+   			    return false;
+	    }
 		
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
 		{
 			$isFriend = XiPTHelperAclRules::isFriend($data['userid'],$ownerid);
 			if($isFriend)
 			 return false;
-		}	
+		}
 			
 		return true;
 	}
@@ -44,23 +44,32 @@ class accessevent extends xiptAclRules
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
 			
-		if('events' != $data['view'])
+		if('profile' != $data['view'])
 			return false;
 			
-		if($data['task'] === 'viewevent')
+		if($data['task'] === 'ajaxplayprofilevideo')
 				return true;
 				
 		return false;
 	}
 	
-    function getownerId($id)
+	   function getownerId($id)
     {
 		$db		=& JFactory::getDBO();
 		$query	= 'SELECT `creator` '
-				. ' FROM ' . $db->nameQuote( '#__community_events' )
+				. ' FROM ' . $db->nameQuote( '#__community_videos' )
 				. ' WHERE '.$db->nameQuote('id').'=' . $db->Quote( $id );
 		$db->setQuery( $query );
 		return $db->loadResult();
     }	
+	
+    
+	function aclAjaxBlock($msg)
+	{
+		$objResponse   	= new JAXResponse();
+		$title		= JText::_('CC PROFILE VIDEO');
+		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
+		return parent::aclAjaxBlock($msg, $objResponse);
+	}  
 	
 }
