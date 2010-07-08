@@ -23,7 +23,7 @@ class JElementImage extends JElement
 		$watermark = XiPTHelperProfiletypes::getProfileTypeData($value,'watermark'); 
 		$generatedImage = '';
 		/*generate image from watermark */
-		$imagePath = JPATH_ROOT.DS.DEFAULT_AVATAR;
+		$imagePath = JPATH_ROOT.DS.DEFAULT_DEMOAVATAR;
 		$watermarkPath = JPATH_ROOT.DS.$watermark;
 		
 		$watermarkParams = XiPTLibraryProfiletypes::getParams($value,'watermarkparams');
@@ -34,6 +34,9 @@ class JElementImage extends JElement
 			$generatedImage = str_replace('\\','/',$generatedImage);
 		
 		$html = '';
+		if ($generatedImage==false || $generatedImage=='')
+			$generatedImage=DEFAULT_DEMOAVATAR;
+
 		//$html = '<img src="'.JURI::root().DS.$watermark.'" width="64" alt="watermark" />';
 		$html .= '<img src="'.JURI::root().'/'.$generatedImage.'" width="64" height="64" alt="generatedimage" border=10 />';
 		

@@ -46,6 +46,9 @@ define('SYNCUP_USER_LIMIT',1000);
 define('DEFAULT_AVATAR','components/com_community/assets/default.jpg');
 define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg');
 
+define('DEFAULT_DEMOAVATAR','administrator/components/com_xipt/images/default_avatar.png');
+define('DEFAULT_DEMOAVATAR_THUMB','administrator/components/com_xipt/images/default_thumb.png');
+
 //where to store profiletype avatars
 define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images' . DS . 'profiletype');
 define('PROFILETYPE_AVATAR_STORAGE_PATH', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH);
