@@ -73,7 +73,7 @@ class XiPTLibraryUtils
 	{
 		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 		// e.g. : I want to patch description. with some extra information
-		$filter = array('published'=>1);
+		$filter = array('published'=>1,'visible'=>1);
 	    $allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
 	    $defaultPType = XiPTLibraryProfiletypes::getDefaultProfiletype();
 		$selectedProfileTypeID = $defaultPType;
