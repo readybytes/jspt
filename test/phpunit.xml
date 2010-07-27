@@ -7,8 +7,10 @@
 		stopOnFailure="true" >
 
 	<testsuite name="AllTest">
-		<file>install/installTest.php</file>
-		<file>setup/setupTest.php</file>
+	    <file>install/installTest.php</file>
+		<file>setup/setupTest.php</file>		 
+		<file>test/unit/front/profileFieldPrivacyTest.php</file>
+		<file>test/unit/front/profileFieldControlTest.php</file>
 		<file>test/com_xipt/admin/profiletypeTest.php</file>
 		<file>test/com_xipt/admin/editUserTest.php</file>
 		<file>test/com_xipt/admin/applicationTest.php</file>
@@ -19,11 +21,11 @@
 		<file>test/com_xipt/admin/walkThroughTest.php</file>
 		<file>test/com_xipt/front/registerTest.php</file>
 		<file>test/com_xipt/front/profileTest.php</file>
-		<file>test/com_xipt/front/frontAclRulesTest.php</file>
+        <file>test/com_xipt/front/frontAclRulesTest.php</file>
 		<file>test/com_xipt/front/aclRuleTest.php</file>
 		<file>test/com_xipt/front/applicationForFrontTest.php</file>
-		<file>test/unit/front/profileFieldControlTest.php</file>
-	</testsuite>
+		
+	 </testsuite>
 	
 	<listeners>
 		<listener class="XiTestListener" file="./system/XiTestListener.php" />

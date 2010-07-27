@@ -1,4 +1,4 @@
-TRUNCATE TABLE `#__community_users`;
+TRUNCATE TABLE `#__community_users`;;
 INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
 (62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=0\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 
@@ -12,10 +12,10 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 
 (85, '', 2, '0000-00-00 00:00:00', 'images/avatar/slfkdlfjl.gif', 'images/avatar/thumb_slfkdlfjl.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (86, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(87, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);
+(87, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
 
-CREATE TABLE IF NOT EXISTS `au_#__community_users` SELECT * FROM `#__community_users`;
-TRUNCATE TABLE `au_#__community_users`;
+CREATE TABLE IF NOT EXISTS `au_#__community_users` SELECT * FROM `#__community_users`;;
+TRUNCATE TABLE `au_#__community_users`;;
 INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
 (62, '', 12, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.gif', 'images/profiletype/avatar_1_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=0\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 
@@ -29,26 +29,26 @@ INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, 
 
 (85, '', 2, '0000-00-00 00:00:00', 'images/avatar/slfkdlfjl.gif', 'images/avatar/thumb_slfkdlfjl.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (86, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.png', 'images/profiletype/avatar_2_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(87, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_3.png', 'images/profiletype/avatar_3_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);
+(87, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_3.png', 'images/profiletype/avatar_3_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
 
-TRUNCATE TABLE `#__xipt_profiletypes`;
+TRUNCATE TABLE `#__xipt_profiletypes`;;
 INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`, `watermarkparams`) VALUES
 (1, 'PROFILETYPE-1', 1, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=Profiletype\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
 (2, 'PROFILETYPE-2', 2, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=Profiletype\nxiWidth=160\nxiHeight=40\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=2\n\n'),
-(3, 'PROFILETYPE-3', 3, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=Profiletype\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=3\n\n');
-ALTER TABLE `#__xipt_profiletypes` AUTO_INCREMENT = 4;
+(3, 'PROFILETYPE-3', 3, 1, '', 'friends', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=Profiletype\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=3\n\n');;
+ALTER TABLE `#__xipt_profiletypes` AUTO_INCREMENT = 4;;
 
 
-CREATE TABLE IF NOT EXISTS `au_#__xipt_profiletypes` SELECT * FROM `#__xipt_profiletypes`;
-TRUNCATE TABLE `au_#__xipt_profiletypes`;
+CREATE TABLE IF NOT EXISTS `au_#__xipt_profiletypes` SELECT * FROM `#__xipt_profiletypes`;;
+TRUNCATE TABLE `au_#__xipt_profiletypes`;;
 INSERT INTO `au_#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`, `watermarkparams`) VALUES
 (1, 'PROFILETYPE-1', 1, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_1.gif', 0, 0, 0, 'images/profiletype/watermark_1.png', '', 'enableWaterMark=1\nxiText=Profiletype1\nxiWidth=150\nxiHeight=30\nxiFontName=monofont\nxiFontSize=24\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=tr\ndemo=1\n\n'),
 (2, 'PROFILETYPE-2', 2, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_2.png', 0, 0, 0, 'images/profiletype/watermark_2.png', '', 'enableWaterMark=1\nxiText=Profiletype2\nxiWidth=160\nxiHeight=40\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=2\n\n'),
 (3, 'PROFILETYPE-3', 3, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_3.png', 0, 0, 0, 'images/profiletype/watermark_3.png', '', 'enableWaterMark=1\nxiText=Profiletype3\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=3\n\n'),
-(4, 'PROFILETYPE-4', 4, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_4.png', 0, 0, 0, 'images/profiletype/watermark_4.png', '', 'enableWaterMark=1\nxiText=Profiletype4\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=4\n\n');
+(4, 'PROFILETYPE-4', 4, 1, '', 'friends', 'default', 'Registered', 'images/profiletype/avatar_4.png', 0, 0, 0, 'images/profiletype/watermark_4.png', '', 'enableWaterMark=1\nxiText=Profiletype4\nxiWidth=100\nxiHeight=40\nxiFontName=monofont\nxiFontSize=18\nxiTextColor=FFFFFF\nxiBackgroundColor=0F15D0\nxiWatermarkPosition=rb\ndemo=4\n\n');;
 
 
-TRUNCATE TABLE `#__xipt_users`;
+TRUNCATE TABLE `#__xipt_users`;;
 INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (62, 1, 'default'),
 (87, 3, 'blackout'),
@@ -59,10 +59,10 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (82, 1, 'default'),
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
-(79, 1, 'default');
+(79, 1, 'default');;
 
 
-TRUNCATE TABLE `#__core_acl_aro`;
+TRUNCATE TABLE `#__core_acl_aro`;;
 INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
 (10, 'users', '62', 0, 'Administrator', 0),
 (31, 'users', '83', 0, 'regtest1789672', 0),
@@ -73,10 +73,10 @@ INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `n
 (34, 'users', '86', 0, 'regtest1504555', 0),
 (29, 'users', '81', 0, 'regtest8635954', 0),
 (27, 'users', '79', 0, 'regtest7046025', 0),
-(30, 'users', '82', 0, 'regtest8774090', 0);
+(30, 'users', '82', 0, 'regtest8774090', 0);;
 
 
-TRUNCATE TABLE `#__core_acl_groups_aro_map`;
+TRUNCATE TABLE `#__core_acl_groups_aro_map`;;
 INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
 (18, '', 27),
 (18, '', 30),
@@ -87,9 +87,9 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 29),
 (21, '', 32),
 (21, '', 35),
-(25, '', 10);
+(25, '', 10);;
 
-TRUNCATE TABLE `#__xipt_profilefields` ;
+TRUNCATE TABLE `#__xipt_profilefields` ;;
 INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
 (1, 2, 1),
 (2, 2, 3),
@@ -106,10 +106,10 @@ INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
 (13, 7, 3),
 (14, 7, 4),
 (15, 8, 3),
-(16, 8, 4);
+(16, 8, 4);;
 
 
-TRUNCATE TABLE `#__users`;
+TRUNCATE TABLE `#__users`;;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
 (62, 'Administrator', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'Super Administrator', 0, 1, 25, '2009-10-27 14:21:57', '2009-12-03 08:11:53', '', '\n'),
 (82, 'regtest8774090', 'regtest8774090', 'regtest8774090@gmail.com', 'f478ff7ef92fcb7a7cb62d4c1f08e43a:7rptUeQifMIkdyqE59fnxb0o74NE4sk8', 'Registered', 0, 0, 18, '2009-12-03 08:16:35', '0000-00-00 00:00:00', 'a3a9fc5ff08868ee458cda29142e6e36', '\n'),
@@ -120,11 +120,11 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (87, 'regtest1674526', 'regtest1674526', 'regtest1674526@gmail.com', '948b72e649363975c49ba818d6880843:PezoDwP9dbIXQETtPbG0IfkpE0jogLi2', 'Publisher', 0, 0, 21, '2009-12-03 08:17:17', '0000-00-00 00:00:00', '51bcf29e8ec7bbaf00dc2160257b8987', '\n'),
 (79, 'regtest7046025', 'regtest7046025', 'regtest7046025@gmail.com', '64d5a5a65e0433fefad4d52255857f59:rBhZVyCqDIKioTNuCNBkpQNhRXsCHb1t', 'Registered', 0, 0, 18, '2009-12-03 08:16:09', '0000-00-00 00:00:00', 'd45373ce0b2c4bfa6065235a5c353add', '\n'),
 (80, 'regtest6208627', 'regtest6208627', 'regtest6208627@gmail.com', '73e7830c01e705a5adeaaa3e278fbdec:uQb0sUh0KdTyybJuHnYHAtpOmtfVNxr2', 'Editor', 0, 0, 20, '2009-12-03 08:16:18', '0000-00-00 00:00:00', '0e24ede794209ad6de9624f89077daed', '\n'),
-(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');
+(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');;
 
 
 
-TRUNCATE TABLE `#__community_fields` ;
+TRUNCATE TABLE `#__community_fields` ;;
 INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES
 (1, 'group', 1, 1, 10, 100, 'Basic Information', 'Basicr', 1, 1, 1, 1, '', ''),
 (2, 'text', 2, 1, 5, 250, 'Hometown2', 'Hometown2', 1, 1, 1, 1, '', 'FIELD_HOMETOWN2'),
@@ -136,9 +136,9 @@ INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`,
 (8, 'text', 8, 1, 5, 250, 'Hometown8', 'Hometown8', 1, 0, 1, 1, '', 'FIELD_HOMETOWN8'),
 (9, 'text', 9, 1, 5, 250, 'Hometown9', 'Hometown9', 1, 0, 0, 1, '', 'FIELD_HOMETOWN9'),
 (16, 'templates', 10, 1, 10, 100, 'Template', 'Template Of User', 1, 1, 1, 1, '', 'XIPT_TEMPLATE'),
-(17, 'profiletypes', 11, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');
+(17, 'profiletypes', 11, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');;
 
-TRUNCATE TABLE  `#__community_fields_values`;
+TRUNCATE TABLE  `#__community_fields_values`;;
 INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) VALUES
 (22, 62, 3, 'default'),
 (130, 81, 9, 'regtest8635954'),
@@ -198,6 +198,6 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (129, 81, 5, 'regtest8635954'),
 (128, 81, 17, '3'),
 (127, 81, 16, 'blackout'),
-(126, 80, 9, 'regtest6208627');
+(126, 80, 9, 'regtest6208627');;
 
 

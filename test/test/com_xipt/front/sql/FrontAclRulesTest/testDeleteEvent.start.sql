@@ -1,9 +1,9 @@
-TRUNCATE TABLE `#__xipt_aclrules`;
+TRUNCATE TABLE `#__xipt_aclrules`;;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(7, 'delete event', 'deletevent', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', '\n', 1);
+(7, 'delete event', 'deletevent', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', '\n', 1);;
 
 
-TRUNCATE TABLE `#__community_users`;
+TRUNCATE TABLE `#__community_users`;;
 INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
 (62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (83, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
@@ -14,11 +14,11 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 (79, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (80, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.jpg', 'images/profiletype/avatar_2_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (81, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);
+(82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
 
 
 
-TRUNCATE TABLE `#__users`;
+TRUNCATE TABLE `#__users`;;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
 (62, 'Administrator', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'Super Administrator', 0, 1, 25, '2009-10-27 14:21:57', '2009-12-03 08:11:53', '', '\n'),
 (82, 'regtest8774090', 'regtest8774090', 'regtest8774090@gmail.com', 'f478ff7ef92fcb7a7cb62d4c1f08e43a:7rptUeQifMIkdyqE59fnxb0o74NE4sk8', 'Registered', 0, 0, 18, '2009-12-03 08:16:35', '0000-00-00 00:00:00', 'a3a9fc5ff08868ee458cda29142e6e36', '\n'),
@@ -29,11 +29,11 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (87, 'regtest1674526', 'regtest1674526', 'regtest1674526@gmail.com', '948b72e649363975c49ba818d6880843:PezoDwP9dbIXQETtPbG0IfkpE0jogLi2', 'Publisher', 0, 0, 21, '2009-12-03 08:17:17', '0000-00-00 00:00:00', '51bcf29e8ec7bbaf00dc2160257b8987', '\n'),
 (79, 'regtest7046025', 'regtest7046025', 'regtest7046025@gmail.com', '64d5a5a65e0433fefad4d52255857f59:rBhZVyCqDIKioTNuCNBkpQNhRXsCHb1t', 'Registered', 0, 0, 18, '2009-12-03 08:16:09', '0000-00-00 00:00:00', 'd45373ce0b2c4bfa6065235a5c353add', '\n'),
 (80, 'regtest6208627', 'regtest6208627', 'regtest6208627@gmail.com', '73e7830c01e705a5adeaaa3e278fbdec:uQb0sUh0KdTyybJuHnYHAtpOmtfVNxr2', 'Editor', 0, 0, 20, '2009-12-03 08:16:18', '0000-00-00 00:00:00', '0e24ede794209ad6de9624f89077daed', '\n'),
-(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');
+(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');;
 
 
 
-TRUNCATE TABLE `#__xipt_users`;
+TRUNCATE TABLE `#__xipt_users`;;
 INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (62, 1, 'default'),
 (87, 3, 'blackout'),
@@ -44,9 +44,9 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (82, 1, 'default'),
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
-(79, 1, 'default');
+(79, 1, 'default');;
 
-TRUNCATE TABLE `#__core_acl_aro`;
+TRUNCATE TABLE `#__core_acl_aro`;;
 INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
 (10, 'users', '62', 0, 'Administrator', 0),
 (31, 'users', '83', 0, 'regtest1789672', 0),
@@ -57,10 +57,10 @@ INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `n
 (34, 'users', '86', 0, 'regtest1504555', 0),
 (29, 'users', '81', 0, 'regtest8635954', 0),
 (27, 'users', '79', 0, 'regtest7046025', 0),
-(30, 'users', '82', 0, 'regtest8774090', 0);
+(30, 'users', '82', 0, 'regtest8774090', 0);;
 
 
-TRUNCATE TABLE `#__core_acl_groups_aro_map`;
+TRUNCATE TABLE `#__core_acl_groups_aro_map`;;
 INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
 (18, '', 27),
 (18, '', 30),
@@ -71,24 +71,24 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 29),
 (21, '', 32),
 (21, '', 35),
-(25, '', 10);
+(25, '', 10);;
 
-TRUNCATE TABLE `#__community_events`;
+TRUNCATE TABLE `#__community_events`;;
 INSERT INTO `#__community_events` (`id`, `catid`, `contentid`, `type`, `title`, `location`, `description`, `creator`, `startdate`, `enddate`, `permission`, `avatar`, `thumb`, `invitedcount`, `confirmedcount`, `declinedcount`, `maybecount`, `wallcount`, `ticket`, `allowinvite`, `created`, `hits`, `published`, `latitude`, `longitude`) VALUES
 (1, 2, 0, 'profile', 'myevent1', 'india', 'myevent', 82, '2010-06-24 21:00:00', '2010-06-24 22:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:11', 3, 1, 20.5937, 78.9629),
 (2, 2, 0, 'profile', 'myevent2', 'india', 'myevent', 82, '2010-06-24 22:00:00', '2010-06-24 23:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:18', 1, 1, 20.5937, 78.9629),
 (3, 2, 0, 'profile', 'My event12', 'Bhilwara', 'cgd', 83, '2010-06-30 04:00:00', '2010-07-02 04:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:40:27', 3, 1, 25.3463, 74.6364),
 (4, 2, 0, 'profile', 'My event13', 'Bhilwara', 'fft', 84, '2010-06-29 04:00:00', '2010-06-30 04:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:42:08', 3, 1, 25.3463, 74.6364),
 (12, 2, 0, 'profile', 'delete pt2', 'India', 'delete pt2', 83, '2010-06-29 22:00:00', '2010-06-30 08:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 08:58:50', 1, 1, 20.5937, 78.9629),
-(11, 2, 0, 'profile', 'delete pt1', 'India', 'delete pt1', 82, '2010-06-24 20:00:00', '2010-06-24 21:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 08:57:04', 0, 1, 20.5937, 78.9629);
+(11, 2, 0, 'profile', 'delete pt1', 'India', 'delete pt1', 82, '2010-06-24 20:00:00', '2010-06-24 21:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 08:57:04', 0, 1, 20.5937, 78.9629);;
 
 
-DROP TABLE IF EXISTS `au_#__community_events` ;
-CREATE TABLE IF NOT EXISTS `au_#__community_events` SELECT * FROM `#__community_events`;
-TRUNCATE TABLE `au_#__community_events`;
+DROP TABLE IF EXISTS `au_#__community_events` ;;
+CREATE TABLE IF NOT EXISTS `au_#__community_events` SELECT * FROM `#__community_events`;;
+TRUNCATE TABLE `au_#__community_events`;;
 INSERT INTO `au_#__community_events` (`id`, `catid`, `contentid`, `type`, `title`, `location`, `description`, `creator`, `startdate`, `enddate`, `permission`, `avatar`, `thumb`, `invitedcount`, `confirmedcount`, `declinedcount`, `maybecount`, `wallcount`, `ticket`, `allowinvite`, `created`, `hits`, `published`, `latitude`, `longitude`) VALUES
 (1, 2, 0, 'profile', 'myevent1', 'india', 'myevent', 82, '2010-06-24 21:00:00', '2010-06-24 22:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:11', 3, 1, 20.5937, 78.9629),
 (2, 2, 0, 'profile', 'myevent2', 'india', 'myevent', 82, '2010-06-24 22:00:00', '2010-06-24 23:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:18', 1, 1, 20.5937, 78.9629),
 (3, 2, 0, 'profile', 'My event12', 'Bhilwara', 'cgd', 83, '2010-06-30 04:00:00', '2010-07-02 04:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:40:27', 3, 1, 25.3463, 74.6364),
 (4, 2, 0, 'profile', 'My event13', 'Bhilwara', 'fft', 84, '2010-06-29 04:00:00', '2010-06-30 04:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:42:08', 3, 1, 25.3463, 74.6364),
-(12, 2, 0, 'profile', 'delete pt2', 'India', 'delete pt2', 83, '2010-06-29 22:00:00', '2010-06-30 08:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 08:58:50', 1, 1, 20.5937, 78.9629);
+(12, 2, 0, 'profile', 'delete pt2', 'India', 'delete pt2', 83, '2010-06-29 22:00:00', '2010-06-30 08:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 08:58:50', 1, 1, 20.5937, 78.9629);;

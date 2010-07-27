@@ -1,15 +1,15 @@
-DROP TABLE IF EXISTS `bak_#__xipt_profilefields`;
-CREATE TABLE `bak_#__xipt_profilefields` SELECT * FROM `#__xipt_profilefields`;
+DROP TABLE IF EXISTS `bak_#__xipt_profilefields`;;
+CREATE TABLE `bak_#__xipt_profilefields` SELECT * FROM `#__xipt_profilefields`;;
 
-TRUNCATE TABLE `#__xipt_profilefields`;
+TRUNCATE TABLE `#__xipt_profilefields`;;
 
-DROP TABLE IF EXISTS `au_#__xipt_profilefields`;
-CREATE TABLE `au_#__xipt_profilefields` SELECT * FROM `#__xipt_profilefields`;
+DROP TABLE IF EXISTS `au_#__xipt_profilefields`;;
+CREATE TABLE `au_#__xipt_profilefields` SELECT * FROM `#__xipt_profilefields`;;
 
-DROP TABLE IF EXISTS `bak_#__community_fields`;
-CREATE TABLE `bak_#__community_fields` SELECT * FROM `#__community_fields`;
+DROP TABLE IF EXISTS `bak_#__community_fields`;;
+CREATE TABLE `bak_#__community_fields` SELECT * FROM `#__community_fields`;;
 
-DROP TABLE IF EXISTS `#__community_fields`;
+DROP TABLE IF EXISTS `#__community_fields`;;
 
 CREATE TABLE IF NOT EXISTS `#__community_fields` (
   `id` int(10) NOT NULL auto_increment,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `#__community_fields` (
   `fieldcode` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fieldcode` (`fieldcode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;;
 
 --
 -- Dumping data for table `#__community_fields`
@@ -51,5 +51,5 @@ INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`,
 (14, 'text', 17, 1, 10, 200, 'College / University', 'College / University', 1, 1, 1, 1, '', 'FIELD_COLLEGE'),
 (15, 'text', 18, 1, 5, 100, 'Graduation Year', 'Graduation year', 1, 1, 1, 1, '', 'FIELD_GRADUATION'),
 (16, 'templates', 3, 1, 10, 100, 'Template', 'Template Of User', 1, 1, 1, 1, '', 'XIPT_TEMPLATE'),
-(17, 'profiletypes', 2, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');
+(17, 'profiletypes', 2, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');;
 

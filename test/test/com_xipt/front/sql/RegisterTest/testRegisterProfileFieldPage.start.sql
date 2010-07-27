@@ -1,13 +1,13 @@
-TRUNCATE TABLE `#__session`; /* Clean session */
+TRUNCATE TABLE `#__session`;; /* Clean session */
 
-TRUNCATE TABLE `#__xipt_profiletypes`; /* Create various types */
+TRUNCATE TABLE `#__xipt_profiletypes`;; /* Create various types */
 INSERT INTO `#__xipt_profiletypes`  (`id`,`name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`)   VALUES 
 (1,'PROFILETYPE-1', 2, '1', 'PROFILETYPE-ONE-TIP', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', '0', '0', '1'),
 (2, 'PROFILETYPE-2', 1, '1', 'PROFILETYPE-TWO-TIP', 'friends', 'blueface', 'Editor', 'components/com_community/assets/group.jpg', '0', '0', '0'),
 (3, 'PROFILETYPE-3', 3, '1', 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', '0', '0', '4'),
-(4, 'PROFILETYPE-4', 4, '0', 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', '0', '0', '0');
+(4, 'PROFILETYPE-4', 4, '0', 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', '0', '0', '0');;
 
-DROP TABLE IF EXISTS `#__community_fields`; /*Create fields*/
+DROP TABLE IF EXISTS `#__community_fields`;; /*Create fields*/
 
 CREATE TABLE IF NOT EXISTS `#__community_fields` (
   `id` int(10) NOT NULL auto_increment,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `#__community_fields` (
   `fieldcode` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `fieldcode` (`fieldcode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;;
 
 --
 -- Dumping data for table `#__community_fields`
@@ -44,11 +44,11 @@ INSERT INTO `#__community_fields`
 (8, 'text', 8, 1, 5, 250, 'Hometown8', 'Hometown8', 1, 0, 1, 1, '', 'FIELD_HOMETOWN8'),
 (9, 'text', 9, 1, 5, 250, 'Hometown9', 'Hometown9', 1, 0, 0, 1, '', 'FIELD_HOMETOWN9'),
 (16, 'templates', 10, 1, 10, 100, 'Template', 'Template Of User', 1, 1, 1, 1, '', 'XIPT_TEMPLATE'),
-(17, 'profiletypes', 11, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');
+(17, 'profiletypes', 11, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');;
 
 
 /*store profiletype v/s fields */
-TRUNCATE TABLE `#__xipt_profilefields`;
+TRUNCATE TABLE `#__xipt_profilefields`;;
 
 INSERT INTO `#__xipt_profilefields` 
 (`fid`, `pid`) VALUES
@@ -58,12 +58,12 @@ INSERT INTO `#__xipt_profilefields`
 						/*5 is for all*/
 (6, 1),(6, 3),(6, 4), 	/*field 6 is for pt2*/
 (7, 2),(7, 3),(7, 4), 	/*field 7 is for pt1*/
-(8, 3),(8, 4);			/*field 8 is for pt1,2*/
+(8, 3),(8, 4);;			/*field 8 is for pt1,2*/
 /*9 is for all*/
 
-TRUNCATE TABLE `#__community_groups`;
+TRUNCATE TABLE `#__community_groups`;;
 INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `name`, `description`, `email`, `website`, `approvals`, `created`, `avatar`, `thumb`, `discusscount`, `wallcount`, `membercount`, `params`) VALUES
 (1, 1, 62, 4, 'Groups PT 1', 'Groups PT 1', '', '', 0, '2009-12-03 07:37:15', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
 (2, 1, 62, 4, 'Groups PT 2', 'Groups PT 2', '', '', 0, '2009-12-03 07:37:36', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
 (3, 1, 62, 4, 'Groups PT 3', 'Groups PT 3', '', '', 0, '2009-12-03 07:37:50', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
-(4, 1, 62, 4, 'Private Group', 'Private Group', '', '', 1, '2009-12-03 07:38:07', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');
+(4, 1, 62, 4, 'Private Group', 'Private Group', '', '', 1, '2009-12-03 07:38:07', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');;

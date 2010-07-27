@@ -590,6 +590,10 @@ class XiPTLibraryPluginHandler
 	 */
 	function onProfileLoad(&$userid, &$fields, $from)
 	{
+		$none = false;
+		$args['from']    = 'onprofileload';
+		$args['field']   =  &$fields      ;
+		$this->performACLCheck($none,$none, $args);
 	    XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
 	}

@@ -1,4 +1,4 @@
-TRUNCATE TABLE `#__community_users`;
+TRUNCATE TABLE `#__community_users`;;
 INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
 (62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (83, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
@@ -17,9 +17,9 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 (92, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (93, '', 2, '0000-00-00 00:00:00', 'images/avatar/795ac503753aaf891e6391ad.gif', 'images/avatar/thumb_795ac503753aaf891e6391ad.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (95, '', 6, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 1, 1),
-(97, '', 6, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 1);
+(97, '', 6, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 1);;
 
-TRUNCATE TABLE `#__users`;
+TRUNCATE TABLE `#__users`;;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
 (62, 'Administrator', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'Super Administrator', 0, 1, 25, '2009-10-27 14:21:57', '2010-06-15 10:40:57', '', '\n'),
 (82, 'regtest8774090', 'regtest8774090', 'regtest8774090@gmail.com', 'f478ff7ef92fcb7a7cb62d4c1f08e43a:7rptUeQifMIkdyqE59fnxb0o74NE4sk8', 'Registered', 0, 0, 18, '2009-12-03 08:16:35', '2010-06-15 08:36:29', 'a3a9fc5ff08868ee458cda29142e6e36', '\n'),
@@ -38,18 +38,18 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (92, 'username143', 'username143', 'user143@email.com', 'aa8db121f86af9751321737ac1d64f0f:lWt1YtOfLHAD6CmSjjcWQzGUSFA4VcA6', 'Registered', 1, 0, 18, '2010-06-15 08:07:03', '0000-00-00 00:00:00', '6d4e19e01fdda2a70ae01edd1a4e7368', '\n'),
 (93, 'username485', 'username485', 'user485@email.com', 'b054795be7981651aa185286ccffa2d2:gYcHaOQMnVIWZjHOi3aetrs67xMlZLmu', 'Editor', 1, 0, 20, '2010-06-15 08:07:18', '0000-00-00 00:00:00', 'e3fb3e0c5be96b9c677134cb56b3c059', '\n'),
 (95, 'test444', 'test444', 'cxbcx@dssdf.com', '9cdc24982774f07b82847fcc933c6515:I75CA1rx9qFsVYbb7KeyiMMajxi608iJ', 'Registered', 0, 0, 18, '2010-06-15 10:08:56', '2010-06-15 10:23:36', 'e6d0ca855bc46503790881daa46f1331', '\n'),
-(97, 'test666', 'test666', 'hjlhjl@hffch.com', 'f0598f10cc9617d3aeea2fedb2e0d75a:ztfZVlJ470J3pu8YAlxMk6Om7p0huWJ7', 'Registered', 0, 0, 18, '2010-06-15 10:18:48', '2010-06-15 10:21:51', 'fc98b56e72ebc0cb08af5be76d154949', '\n');
+(97, 'test666', 'test666', 'hjlhjl@hffch.com', 'f0598f10cc9617d3aeea2fedb2e0d75a:ztfZVlJ470J3pu8YAlxMk6Om7p0huWJ7', 'Registered', 0, 0, 18, '2010-06-15 10:18:48', '2010-06-15 10:21:51', 'fc98b56e72ebc0cb08af5be76d154949', '\n');;
 
-TRUNCATE TABLE `#__xipt_profiletypes` ;
+TRUNCATE TABLE `#__xipt_profiletypes` ;;
 INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`,`watermarkparams`,`visible`) VALUES
 (1, 'PROFILETYPE-1', 2, 1, '<p>PROFILETYPE-ONE-TIP</p>', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 1, '', '', 'enableWaterMark=0\nxiText=P1\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=1\n\n', 1),
 (2, 'PROFILETYPE-2', 1, 1, '<p>PROFILETYPE-TWO-TIP</p>', 'friends', 'blueface', 'Editor', 'images/profiletype/avatar_2.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=P2\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=2\n\n', 1),
 (3, 'PROFILETYPE-3', 3, 1, '<p>PROFILETYPE-THREE-TIP</p>', 'members', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, '', '', 'enableWaterMark=0\nxiText=P3\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=3\n\n', 1),
 (4, 'PROFILETYPE-4', 4, 0, '<p>PROFILETYPE-FOUR-TIP</p>', 'public', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, 'images/profiletype/watermark_4.png', '', 'enableWaterMark=0\nxiText=P4\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=4\n\n', 1),
 (5, 'PROFILETYPE-5', 5, 1, '<p>PROFILETYPE-FIVE-TIP</p>', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, 'images/profiletype/watermark_5.png', '', 'enableWaterMark=0\nxiText=P\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=5\n\n', 1),
-(6, 'PROFILETYPE-6', 6, 1, '<p>PROFILETYOE-SIX-TIP</p>', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, 'images/profiletype/watermark_6.png', '', 'enableWaterMark=0\nxiText=P\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=6\n\n', 1);
+(6, 'PROFILETYPE-6', 6, 1, '<p>PROFILETYOE-SIX-TIP</p>', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, 'images/profiletype/watermark_6.png', '', 'enableWaterMark=0\nxiText=P\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=6\n\n', 1);;
 
-TRUNCATE TABLE `#__xipt_users`;
+TRUNCATE TABLE `#__xipt_users`;;
 INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (62, 1, 'default'),
 (87, 3, 'blackout'),
@@ -68,9 +68,9 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (92, 1, 'default'),
 (93, 2, 'blueface'),
 (96, 5, 'default'),
-(97, 6, 'default');
+(97, 6, 'default');;
 
-TRUNCATE TABLE `#__core_acl_aro`;
+TRUNCATE TABLE `#__core_acl_aro`;;
 INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
 (10, 'users', '62', 0, 'Administrator', 0),
 (31, 'users', '83', 0, 'regtest1789672', 0),
@@ -81,11 +81,11 @@ INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `n
 (34, 'users', '86', 0, 'regtest1504555', 0),
 (29, 'users', '81', 0, 'regtest8635954', 0),
 (27, 'users', '79', 0, 'regtest7046025', 0),
-(30, 'users', '82', 0, 'regtest8774090', 0);
+(30, 'users', '82', 0, 'regtest8774090', 0);;
 
 
 
-TRUNCATE TABLE `#__core_acl_groups_aro_map`;
+TRUNCATE TABLE `#__core_acl_groups_aro_map`;;
 INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
 (18, '', 27),
 (18, '', 30),
@@ -96,13 +96,13 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 29),
 (21, '', 32),
 (21, '', 35),
-(25, '', 10);
+(25, '', 10);;
 
-TRUNCATE TABLE `#__xipt_aclrules`;
+TRUNCATE TABLE `#__xipt_aclrules`;;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(8, 'access event', 'accessevent', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\nacl_applicable_to_friend=0\n\n', 1);
+(8, 'access event', 'accessevent', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\nacl_applicable_to_friend=0\n\n', 1);;
 
-TRUNCATE TABLE `#__community_events`;
+TRUNCATE TABLE `#__community_events`;;
 INSERT INTO `#__community_events` (`id`, `catid`, `contentid`, `type`, `title`, `location`, `description`, `creator`, `startdate`, `enddate`, `permission`, `avatar`, `thumb`, `invitedcount`, `confirmedcount`, `declinedcount`, `maybecount`, `wallcount`, `ticket`, `allowinvite`, `created`, `hits`, `published`, `latitude`, `longitude`) VALUES
 (1, 2, 0, 'profile', 'myevent1', 'india', 'myevent', 82, '2010-06-24 21:00:00', '2010-06-24 22:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:11', 3, 1, 20.5937, 78.9629),
 (2, 2, 0, 'profile', 'myevent2', 'india', 'myevent', 82, '2010-06-24 22:00:00', '2010-06-24 23:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:32:18', 1, 1, 20.5937, 78.9629),
@@ -110,10 +110,10 @@ INSERT INTO `#__community_events` (`id`, `catid`, `contentid`, `type`, `title`, 
 (4, 2, 0, 'profile', 'My event13', 'Bhilwara', 'fft', 84, '2010-06-29 04:00:00', '2010-06-30 04:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 04:42:08', 4, 1, 25.3463, 74.6364),
 (12, 2, 0, 'profile', 'delete pt2', 'India', 'delete pt2', 83, '2010-06-29 22:00:00', '2010-06-30 08:00:00', 0, NULL, NULL, 0, 1, 0, 0, 0, 0, 0, '2010-06-24 08:58:50', 2, 1, 20.5937, 78.9629),
 (13, 2, 0, 'profile', 'eventuser86', 'India', 'eventuser86', 86, '2010-06-30 12:00:00', '2010-06-30 12:00:00', 0, NULL, NULL, 0, 2, 0, 0, 0, 0, 0, '2010-06-29 12:28:07', 2, 1, 20.5937, 78.9629),
-(14, 2, 0, 'profile', 'eventuser83', 'India', 'eventuser83', 83, '2010-06-30 12:00:00', '2010-06-30 12:00:00', 0, NULL, NULL, 0, 2, 0, 0, 0, 0, 0, '2010-06-29 12:34:15', 1, 1, 20.5937, 78.9629);
+(14, 2, 0, 'profile', 'eventuser83', 'India', 'eventuser83', 83, '2010-06-30 12:00:00', '2010-06-30 12:00:00', 0, NULL, NULL, 0, 2, 0, 0, 0, 0, 0, '2010-06-29 12:34:15', 1, 1, 20.5937, 78.9629);;
 
 
-TRUNCATE TABLE `#__community_connection`;
+TRUNCATE TABLE `#__community_connection`;;
 INSERT INTO `#__community_connection` (`connection_id`, `connect_from`, `connect_to`, `status`, `group`, `msg`, `created`) VALUES
 (1, 85, 84, 1, 0, '', NULL),
 (2, 84, 82, 1, 0, '', NULL),
@@ -130,7 +130,7 @@ INSERT INTO `#__community_connection` (`connection_id`, `connect_from`, `connect
 (21, 80, 96, 1, 0, '', '2010-06-15 10:24:25'),
 (23, 81, 97, 1, 0, '', '2010-06-15 10:25:01'),
 (25, 82, 83, 1, 0, '', '2010-06-29 10:08:06'),
-(26, 83, 82, 1, 0, '', '2010-06-29 10:08:06');
+(26, 83, 82, 1, 0, '', '2010-06-29 10:08:06');;
 
 
 

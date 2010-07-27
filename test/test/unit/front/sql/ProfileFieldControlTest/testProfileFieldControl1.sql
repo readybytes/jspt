@@ -1,4 +1,4 @@
-TRUNCATE TABLE `#__xipt_profilefields`;
+TRUNCATE TABLE `#__xipt_profilefields`;;
 INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`, `category`) VALUES
 (426, 5, 4, 4),
 (425, 5, 3, 4),
@@ -44,5 +44,5 @@ INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`, `category`) VALUES
 (368, 2, 4, 2),
 (367, 2, 2, 2),
 (366, 2, 4, 1),
-(365, 2, 2, 1);
+(365, 2, 2, 1);;
 

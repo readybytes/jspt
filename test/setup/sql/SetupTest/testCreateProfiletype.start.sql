@@ -1,1 +1,1 @@
-TRUNCATE TABLE `#__xipt_profiletypes`;
+TRUNCATE TABLE `#__xipt_profiletypes`;;

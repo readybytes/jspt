@@ -1,6 +1,6 @@
-TRUNCATE TABLE `#__xipt_profiletypes`;
-DROP TABLE IF EXISTS `au_#__xipt_profiletypes`;
-CREATE TABLE `au_#__xipt_profiletypes` SELECT * FROM `#__xipt_profiletypes`;
+TRUNCATE TABLE `#__xipt_profiletypes`;;
+DROP TABLE IF EXISTS `au_#__xipt_profiletypes`;;
+CREATE TABLE `au_#__xipt_profiletypes` SELECT * FROM `#__xipt_profiletypes`;;
 
 INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `parent`) VALUES
 (1, 'PROFILETYPE-1', 1, 1, 0),
@@ -14,7 +14,7 @@ INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `pare
 (9, 'PROFILETYPE-9-CHILD-of-5', 4, 1,  5),
 (10, 'PROFILETYPE-10-CHILD-of-1', 5, 1,  1),
 (11, 'PROFILETYPE-11-CHILD-of-10', 6, 1,  10),
-(12, 'PROFILETYPE-12-CHILD-of-10', 7, 1,  10);
+(12, 'PROFILETYPE-12-CHILD-of-10', 7, 1,  10);;
 
 INSERT INTO `au_#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `parent`) VALUES
 (1, 'PROFILETYPE-1', 2, 1,  0),
@@ -28,6 +28,6 @@ INSERT INTO `au_#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `p
 (9, 'PROFILETYPE-9-CHILD-of-5', 4, 1,  5),
 (10, 'PROFILETYPE-10-CHILD-of-1', 6, 0,  1),
 (11, 'PROFILETYPE-11-CHILD-of-10', 7, 1,  10),
-(12, 'PROFILETYPE-12-CHILD-of-10', 8, 0,  10);
+(12, 'PROFILETYPE-12-CHILD-of-10', 8, 0,  10);;
 
 

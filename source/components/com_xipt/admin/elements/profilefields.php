@@ -14,7 +14,8 @@ class JElementProfilefields extends JElement
 	var	$_name = 'Profilefields';
 
 	function fetchElement($name, $value, &$node, $control_name)
-	{		
+	{
+		$value      = unserialize($value);		
 		$feildsHtml = $this->getFieldsHtml($name, $value, $control_name);
 
 		return $feildsHtml;
@@ -93,13 +94,16 @@ class JElementProfilefields extends JElement
 	{
 		//$selectedTypes 	= XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid,$for);		
 		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray('ALL');
-		
 		$html			= '';
 		$html .= '<select id="'.$control_name.'['.$name.']['.$fid.'][]" name="'.$control_name.'['.$name.']['.$fid.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';	
 		foreach( $allTypes as $option )
 		{
 			$ptypeName       = XiPTHelperProfiletypes::getProfileTypeName($option);
-			$html .= '<option name="'.$name.'_'.$option.'" value="'.$option.'">' ;  
+			$selected       ='';
+		 	if (is_array($value) && array_key_exists($fid, $value) && in_array($option, $value[$fid]))
+		  		$selected        ='SELECTED';
+		  			
+		 	$html .= '<option name="'.$name.'_'.$option.'" "'.$selected.'" value="'.$option.'">' ;  
 			$html .= XiPTHelperProfiletypes::getProfileTypeName($option).'</option>';
 		}
 		$html	.= '</select>';		

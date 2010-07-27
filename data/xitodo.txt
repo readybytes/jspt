@@ -3,6 +3,7 @@
 ../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:205:		//XITODO : also support other formats
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/profilefield/profilefield.php:66:   		//xitodo : write test case for this	
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:67:		//XITODO send debugmode
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
 ../../packages/tmp/components/com_xipt/admin/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve

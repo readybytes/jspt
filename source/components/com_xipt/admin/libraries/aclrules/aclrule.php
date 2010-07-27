@@ -228,16 +228,24 @@ abstract class xiptAclRules
 	 * in case of writemessages
 	 */
 	function isApplicable(&$data)
-	{
-		$isApplicableAccToAcl = $this->checkAclAccesibility($data);
-		$isApplicableAccToCore =  $this->checkCoreAccesibility($data);
-		
-		if($isApplicableAccToAcl && $isApplicableAccToCore)
+	{    
+	    $isAclApplicableOnProfile  =     $this->checkAclOnProfile($data);
+		$isApplicableAccToAcl      =     $this->checkAclAccesibility($data);
+		$isApplicableAccToCore     =     $this->checkCoreAccesibility($data);
+		//XITODO : Conditions should be OR ED
+		if($isApplicableAccToAcl && $isApplicableAccToCore && $isAclApplicableOnProfile)
 			return true;
 			
 		return false;
 	}
 	
+  public function checkAclOnProfile($data)
+    {
+	  if(is_array($data['args']) && array_key_exists('from',$data['args']) && 'onprofileload' == $data['args']['from'])
+	    return false;
+	    
+	  return true;
+    }
 	
 	public function checkCoreAccesibility($data)
 	{

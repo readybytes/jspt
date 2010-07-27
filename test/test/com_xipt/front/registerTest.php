@@ -147,7 +147,8 @@ class RegisterTest extends XiSelTestCase
   //cross check fields exists
   function testRegisterProfileFieldPage()
   {
-  		$filter['aec_integrate']=0;
+  		$filter['aec_integrate']   = 0;
+  		$filter['jspt_show_radio'] = 1;
   		$this->changeJSPTConfig($filter);
   		
 		$this->userRegistrationForPT(1);
