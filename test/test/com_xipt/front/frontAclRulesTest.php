@@ -704,6 +704,13 @@ function testACLRules2()
 
   function testCreateEvent()
   {
+  	
+  	$version = XiSelTestCase::get_js_version();
+  	if(!Jstring::stristr('1.8',$version))
+    	return true;
+   	
+    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testCreateEvent.1.8.sql';
+    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -726,9 +733,18 @@ function testACLRules2()
  	$this->_DBO->filterColumn('#__community_events','startdate');
   	$this->_DBO->filterColumn('#__community_events','enddate');
   	$this->_DBO->filterColumn('#__community_events','confirmedcount');
-  }
+
+  } 
+ 
   function testAccessEvent()
   {
+
+  	$version = XiSelTestCase::get_js_version();
+    if(!Jstring::stristr($version,'1.8'))
+    	return true;
+
+    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testAccessEvent.1.8.sql';
+    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -756,10 +772,18 @@ function testACLRules2()
   	$this->checkAccessEvent(3,true);
   	$this->checkAccessEvent(4,true);
   	$this->frontLogout();
+
   }	
 
   function testDeleteEvent()
   {
+
+  	$version = XiSelTestCase::get_js_version();
+    if(!Jstring::stristr($version,'1.8'))
+     	return true;
+
+    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testDeleteEvent.1.8.sql';
+    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -798,10 +822,17 @@ function testACLRules2()
  	$this->_DBO->filterColumn('#__community_events','startdate');
   	$this->_DBO->filterColumn('#__community_events','enddate');
   	$this->_DBO->filterColumn('#__community_events','hits');
+
   }
   
   function testFriendSupportInAccessEvent()
   {
+  	$version = XiSelTestCase::get_js_version();
+    if(!Jstring::stristr($version,'1.8'))
+     	return true;
+
+    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testFriendSupportInAccessEvent.1.8.sql';
+    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -814,9 +845,7 @@ function testACLRules2()
   	//access event of friend
   	$this->checkAccessEvent(13,false);
   	$this->frontLogout();
-  	
+
   }
   
 }  
-  
-

@@ -10,7 +10,14 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 	
 	
  function testProfileFieldPrivacy()
-  {		
+  {	
+
+  	$version = XiSelTestCase::get_js_version();
+    if(Jstring::stristr($version,'1.8'))
+  	{
+  		$url =  dirname(__FILE__).'/sql/ProfileFieldPrivacyTest/testProfileFieldPrivacy.1.8.sql';
+    	$this->_DBO->loadSql($url);
+  	}  
 	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
   	// ptofile type 3 visits profiletype 1
   		

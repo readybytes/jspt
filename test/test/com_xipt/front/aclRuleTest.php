@@ -49,6 +49,12 @@ class AclRuleTest extends XiSelTestCase
   }
   function testAddProfileVideo()
   {
+  	$version = XiSelTestCase::get_js_version();
+    if(!Jstring::stristr($version,'1.8'))
+     	return true;
+
+    $url =  dirname(__FILE__).'/sql/AclRuleTest/testAddProfileVideo.1.8.sql';
+    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -71,10 +77,19 @@ class AclRuleTest extends XiSelTestCase
   	//pt1 can't add profile video
   	$this->checkAddProfileVideo(84,4,true);
     $this->frontLogout();
+
   }
   
   function testDeleteProfileVideo()
   {
+  	
+  	$version = XiSelTestCase::get_js_version();
+    if(!Jstring::stristr($version,'1.8'))
+     	return true;
+  
+    	
+   $url =  dirname(__FILE__).'/sql/AclRuleTest/testDeleteProfileVideo.1.8.sql';
+    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -100,11 +115,19 @@ class AclRuleTest extends XiSelTestCase
   	$this->checkDeleteProfileVideo(84,4,true);
   	$this->frontLogout();
   	$this->_DBO->addTable('#__community_users');
+
   	
   }
   
   function testAccessProfileVideo()
   {
+  	$version = XiSelTestCase::get_js_version();
+    if(!Jstring::stristr($version,'1.8'))
+     	return true;
+
+    $url =  dirname(__FILE__).'/sql/AclRuleTest/testAccessProfileVideo.1.8.sql';
+    $this->_DBO->loadSql($url);
+    
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -129,6 +152,13 @@ class AclRuleTest extends XiSelTestCase
   
   function testFriendSupportInAccessProfileVideo()
   {
+  	
+   $version = XiSelTestCase::get_js_version();
+    if(!Jstring::stristr($version,'1.8'))
+     	return true;
+   	
+   $url =  dirname(__FILE__).'/sql/AclRuleTest/testFriendSupportInAccessProfileVideo.1.8.sql';
+    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -149,6 +179,7 @@ class AclRuleTest extends XiSelTestCase
      $this->checkAccessProfileVideo(84,false);
      $this->checkAccessProfileVideo(87,false);
      $this->frontLogout();
+
   }
   
   
