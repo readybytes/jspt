@@ -51,4 +51,10 @@ class XiFactory
 		
 		return $html;
 	}
+	
+	function getUrlpathFromFilePath($filepath)
+	{
+		$urlpath = preg_replace('#[/\\\\]+#', '/', $filepath);
+		return $urlpath;
+	}
 }

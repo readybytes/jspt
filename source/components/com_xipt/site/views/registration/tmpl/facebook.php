@@ -41,7 +41,7 @@
 		
 					<div id="Details">
 						<div id="Avatar">
-							<img src="<?php echo $pType->avatar; ?>" height="60px" width="60px"/>
+							<img src="<?php echo JURI::root().XiFactory::getUrlpathFromFilePath($pType->avatar); ?>" height="60px" width="60px"/>
 						</div>
 						<p id="Description"> <?php echo JText::_($pType->tip); ?> </p>
 					</div>

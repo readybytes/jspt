@@ -44,7 +44,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		
 					<div id="Details">
 						<div id="Avatar">
-							<img src="<?php echo $pType->avatar; ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"/>
+							<img src="<?php echo JURI::root().XiFactory::getUrlpathFromFilePath($pType->avatar); ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"/>
 						</div>
 						<p id="Description"> <?php echo JText::_($pType->tip); ?> </p>
 						

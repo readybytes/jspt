@@ -96,12 +96,13 @@ function submitbutton( action )
 				</span>
 			</td>
 			<td align="center" id="avatar<?php echo $field->id;?>">
-				<?php if(DS== '\\') $field->avatar = str_replace('\\','/',$field->avatar);?>
-				<img src="<?php echo JURI::root().$field->avatar;?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
+			
+							
+				<img src="<?php echo JURI::root().XiFactory::getUrlpathFromFilePath($field->avatar);?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
 			<td align="center" id="watermark<?php echo $field->id;?>">
-				<?php if(DS== '\\') $field->watermark = str_replace('\\','/',$field->watermark);?>
-				<img src="<?php echo JURI::root().$field->watermark;?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
+				
+				<img src="<?php echo JURI::root().XiFactory::getUrlpathFromFilePath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
 			</td>
 			<td align="center" id="template<?php echo $field->id;?>">
 				<?php echo $field->template; ?>
