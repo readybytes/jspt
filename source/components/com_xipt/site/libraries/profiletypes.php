@@ -227,10 +227,10 @@ class XiPTLibraryProfiletypes
 	}
 	
 
-	function getDefaultProfiletype()
+	function getDefaultProfiletype($refresh=false)
 	{
 		static $defaultProfiletypeID = null;
-		if($defaultProfiletypeID)
+		if($defaultProfiletypeID && $refresh===false)
 			return $defaultProfiletypeID;
 			 
 		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt');
@@ -335,7 +335,7 @@ class XiPTLibraryProfiletypes
        		    $defaultValue = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
 
         		//else get system template
-        		if(in_array($defaultValue,$allTemplates)==false)
+        		if(in_array($defaultValue,$allTemplates)===false)
 			        $defaultValue   =  XiPTLibraryProfiletypes::getDefaultTemplate();
 
                 break;
@@ -359,7 +359,7 @@ class XiPTLibraryProfiletypes
 		}
 		
 		// not a valid result OR value not set
-		if(!$result){
+		if(!$result || isset ($result[$userid])===false){
 		    return $defaultValue;
 		}
 	
@@ -443,6 +443,7 @@ class XiPTLibraryProfiletypes
 		$db	=& JFactory::getDBO();
 		
 		$defaultPtype = self::getDefaultProfiletype();
+		
 		if($defaultPtype == $pid)
 			$defaultPtypeCheck = ' OR `profiletype`='.$db->Quote(0);
 		else
@@ -472,45 +473,53 @@ class XiPTLibraryProfiletypes
 		$notselected = array();
 		//Load all fields for profiletype
 		$db			=& JFactory::getDBO();
-		$query		= 'SELECT * FROM ' . $db->nameQuote( '#__xipt_profilefields' )
+		$query		= 'SELECT `fid` FROM ' . $db->nameQuote( '#__xipt_profilefields' )
 					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId)
 					. ' AND '.$db->nameQuote('category').'='.$db->Quote($category);
 		$db->setQuery( $query );
-		$results = $db->loadObjectList();
+		$results = $db->loadResultArray();
 		
-		if(!empty($results)) {
-		//create array of result profile type
-			foreach($results as $result) {
-		      $notselected[] = $result->fid;
-		 	 }
-		}
- 		return $notselected;
+		//this has been handled by loadResultArray.
+//		if(!empty($results)) {
+//		//create array of result profile type
+//			foreach($results as $result) {
+//		      $notselected[] = $result->fid;
+//		 	 }
+//		}
+// 		return $notselected;
+		return $results;
 	}
 	
 	//call fn to update fields during registration
-	function _getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from)
+	function _getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from, $notSelectedFields= null)
 	{
 		global $mainframe;
 		if(empty($selectedProfiletypeID)){
 		    JError::raiseError('XIPT_ERROR','XIPT SYSTEM ERROR');
 			return false;
 		}
-		$categories=XiPTHelperProfileFields::getProfileFieldCategories();
 		
-		foreach($categories as $catIndex => $catInfo)
+		if($notSelectedFields===null)
 		{
-			$catName 			 = $catInfo['name'];
-			$notSelectedFields[$catName] = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID,$catIndex);
+			$categories=XiPTHelperProfileFields::getProfileFieldCategories();
+			
+			foreach($categories as $catIndex => $catInfo)
+			{
+				$catName 			 = $catInfo['name'];
+				$notSelectedFields[$catName] = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID,$catIndex);
+			}
 		}
+		
 		$fieldCount=count($fields);
 		for($i=0 ; $i < $fieldCount ; $i++){
 		    $field =& $fields[$i];
+		    
 		    
 		    if(is_object($field))
 		        $fieldId   = $field->id;
 		    else
 		        $fieldId   = $field['id'];
-		        
+
 			if(in_array($fieldId, $notSelectedFields['ALLOWED']))
 			{
 			    unset($fields[$i]);

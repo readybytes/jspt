@@ -64,7 +64,7 @@
 
 			<exec command="phploc  ${global.dir.tmp} > loc.source.txt " escape="false" />
 	        <exec command="phploc  --count-tests ${global.dir.root}/test > loc.test.txt " escape="false" />
-	        <exec command="pdepend  --summary-xml=${global.dir.root}/data/pdepend.summary.xml --jdepend-chart=${global.dir.root}/data/pdepend1.svg  --overview-pyramid=${global.dir.root}/data/pdepend2.svg  ${global.dir.root}/source" escape="false" />
+<!--	        <exec command="pdepend  - -summary-xml=${global.dir.root}/data/pdepend.summary.xml - -jdepend-chart=${global.dir.root}/data/pdepend1.svg  - -overview-pyramid=${global.dir.root}/data/pdepend2.svg  ${global.dir.root}/source" escape="false" / > -->
 	
 	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hni xitodo  > ${global.dir.root}/data/xitodo.txt " escape="false" />
 	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn JSITE_PATH  > ${global.dir.root}/data/jsite-path.txt " escape="false" />

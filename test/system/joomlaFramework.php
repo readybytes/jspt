@@ -21,3 +21,6 @@ require_once JPATH_BASE .DS.'libraries'.DS.'joomla'.DS.'factory.php';
 // Initalize frontend framework
 $mainframe =& JFactory::getApplication('site');
 $mainframe->initialise();
+
+if(file_exists(JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+	require_once JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';

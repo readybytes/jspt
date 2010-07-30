@@ -56,12 +56,12 @@ class XiPTLibraryApps
 		return $results;
     }
     
-	function getPluginId( $element )
+	function getPluginId( $element, $folder = 'community' )
 	{
 		$db		=& JFactory::getDBO();
 		$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' ' 
 				. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
-				. 'WHERE ' . $db->nameQuote( 'element' ) . '=' . $db->Quote( $element );
+				. 'WHERE ' . $db->nameQuote( 'element' ) . '=' . $db->Quote( $element ) . ' AND ' .$db->nameQuote( 'folder' ) . '=' . $db->Quote( $folder );
 
 		$db->setQuery( $query );
 		$result = $db->loadResult();
