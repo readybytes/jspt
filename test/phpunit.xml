@@ -9,7 +9,6 @@
 	<testsuite name="AllTest">
 	    <file>install/installTest.php</file>
 		<file>setup/setupTest.php</file>		 
-		<file>test/unit/front/profileFieldPrivacyTest.php</file>
 		<file>test/unit/front/profileFieldControlTest.php</file>
 		<file>test/com_xipt/admin/profiletypeTest.php</file>
 		<file>test/com_xipt/admin/editUserTest.php</file>
