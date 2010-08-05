@@ -30,7 +30,7 @@ class plgSystemxipt_system extends JPlugin
  			
 		$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');	
  		
-		if( isset($includeXipt) && $includeXipt == false)
+		if( isset($includeXipt) && $includeXipt === false)
 			return false;
 			
 		return true;
@@ -39,6 +39,7 @@ class plgSystemxipt_system extends JPlugin
 	function onAfterRoute()
 	{
 		global $mainframe;
+		 $oldTablePath = JTable::addIncludePath();
 		
 		if(!$this->_includeXipt())
 			return false;
@@ -50,7 +51,8 @@ class plgSystemxipt_system extends JPlugin
  		{	
  			if($pluginHandler->checkSetupRequired())
  				$mainframe->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'));
- 		
+ 		     	
+			JTable::addIncludePath($oldTablePath);
  			return false;
  		} 		
 			
@@ -81,7 +83,7 @@ class plgSystemxipt_system extends JPlugin
 			//call function
 			$pluginHandler->$eventName();
 		}
-			
+		JTable::addIncludePath($oldTablePath);	
 		return false;
 	}
 		

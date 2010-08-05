@@ -8,7 +8,7 @@ class ProfileFieldControlTest extends XiUnitTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
 	
-  function xtestProfileFieldControl()
+  function testProfileFieldControl()
   {		
 	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
   	// ptofile type 1 when all categories are set to all
