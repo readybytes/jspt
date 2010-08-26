@@ -24,6 +24,26 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
          $this->assertTrue($this->_DBO->verify());
   }
   
+  function updateJoomlaConfig($filter)
+  {
+	  	$config =& JFactory::getConfig();		
+  		foreach($filter as $key=>$value)
+  			$config->setValue($key,$value);
+  		
+		jimport('joomla.filesystem.file');
+		$fname = JPATH_CONFIGURATION.DS.'configuration.php';
+		
+		system("sudo chmod 777 $fname");
+		
+  		if (!JFile::write($fname, 
+  				$config->toString('PHP', 'config', array('class' => 'JConfig')) )
+  		    ) 
+		{
+			echo JText::_('ERRORCONFIGFILE');
+		}
+  		
+  }
+  
   function changeJomSocialConfig($filters)
   {
 	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );

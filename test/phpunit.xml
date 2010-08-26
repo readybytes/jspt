@@ -8,8 +8,7 @@
 
 	<testsuite name="AllTest">
 	    <file>install/installTest.php</file>
-		<file>setup/setupTest.php</file>		 
-		<file>test/unit/front/profileFieldControlTest.php</file>
+		<file>setup/setupTest.php</file>	
 		<file>test/com_xipt/admin/profiletypeTest.php</file>
 		<file>test/com_xipt/admin/editUserTest.php</file>
 		<file>test/com_xipt/admin/applicationTest.php</file>
@@ -25,6 +24,8 @@
 		<file>test/com_xipt/front/applicationForFrontTest.php</file>
 		<file>test/unit/front/profiletypeUnitTest.php</file>
 		<file>test/unit/front/appsTest.php</file>
+		<file>test/unit/front/profileFieldControlTest.php</file>
+		<file>test/unit/front/routeTest.php</file>
 		
 	
 	 </testsuite>

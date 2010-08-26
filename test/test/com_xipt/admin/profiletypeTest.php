@@ -308,7 +308,7 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->_DBO->filterColumn('#__users','lastvisitDate');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','tip');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
-	$this->_DBO->filterColumn('#__xipt_profiletypes','wtermarkparams');
+	$this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
 	$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
   }
   
