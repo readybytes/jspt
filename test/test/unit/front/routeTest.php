@@ -45,9 +45,6 @@ class RouterTest extends XiUnitTestCase
 		foreach($urls as $url => $seoUrl)
 			$this->assertEquals($seoUrl,JRoute::_($url,false), " Input URL was $url");
 
-		$filter['sef'] = 0;
-   		$filter['sef_suffix'] = 0;
-   		$this->updateJoomlaConfig($filter);
 	}
 
 	function getSEOURLs()
@@ -82,6 +79,9 @@ class RouterTest extends XiUnitTestCase
 			foreach($data as $key=> $value)
 				$this->assertEquals($value, @$output[$key], " Parsing this $url => Output is ". var_export($output,true). " Expected was :".var_export($data, true));
 		}
+		$filter['sef'] = 0;
+  		$filter['sef_suffix'] = 0;
+   		$this->updateJoomlaConfig($filter);
 	}
 
 	function getNoMenuURLs()

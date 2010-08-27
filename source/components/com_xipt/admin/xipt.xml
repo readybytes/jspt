@@ -22,6 +22,7 @@
 		<filename>api.xipt.php</filename>
 		<filename>defines.xipt.php</filename>
 		<filename>license.txt</filename>
+		<filename>router.php</filename>
 
 		<folder>controllers</folder>
 		<folder>models</folder>		
