@@ -17,7 +17,21 @@ class redirect extends xiptAclRules
 
 	public function checkAclViolatingRule($data)
 	{
-		return true;
+			
+		$redirectUrl  	= JRoute::_($this->getRedirectUrl());
+		$redirectURI 	= new JURI($redirectUrl);
+		$redirectVar = $redirectURI->getQuery(true);		
+					
+		foreach($redirectVar as $key=> $value)
+		{
+			if(array_key_exists($key, $data))
+			{
+				if($value !=  $data[$key])
+					return true;
+			}
+		}
+		
+		return false;
 	}
 	
 		
@@ -34,6 +48,9 @@ class redirect extends xiptAclRules
 		if(!$user->id)
 			return false;
 			
+		if ('com_user' == $data['option'])
+			return false;
+
 		if('com_acctexp' == $data['option'])// && 'atexp' != $data['option'])
 			return false;
 			

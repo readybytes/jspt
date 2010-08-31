@@ -35,7 +35,7 @@ class RouterTest extends XiUnitTestCase
 		return $url;
 	}
 
-	function testRoute()
+	function xtestRoute()
 	{
 		$filter['sef'] = 1;
    		$filter['sef_suffix'] = 1;
@@ -69,7 +69,7 @@ class RouterTest extends XiUnitTestCase
 		return $url;
 	}
 
-	function testParse()
+	function xtestParse()
 	{
 		$urls = $this->getSEOURLs();
 		foreach($urls as $url => $data)
