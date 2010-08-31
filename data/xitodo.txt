@@ -1,17 +1,17 @@
-../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:53:		/* XITODO : support for other image type */	
+../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:135:				/*XITODO : send debug mode in second parameter */
+../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:205:		//XITODO : also support other formats
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:67:		//XITODO send debugmode
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:235:		//XITODO : Conditions should be OR ED
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
+../../packages/tmp/components/com_xipt/admin/views/setup/view.html.php:131:	//XITODO : check if any profiletype have enbaled admin approval
+../../packages/tmp/components/com_xipt/admin/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
 ../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:24:		/*XITODO : Remove the require_once, class should be auto loaded*/
 ../../packages/tmp/components/com_xipt/site/libraries/profiletypes.php:27:		/*XITODO : validate ptype before save*/
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:25:			 * XITODO : we will remove this when aec support fbc
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:74:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:176:	/*XITODO : Add unit testing for this case */
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:408:			//XITODO : here we need to trick as per the JomSocial
-../../packages/tmp/components/com_xipt/site/libraries/utils.php:711:			/* XITODO : default paramsa are not loaded properly.*/
-../../packages/tmp/components/com_xipt/admin/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
-../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:135:				/*XITODO : send debug mode in second parameter */
-../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:205:		//XITODO : also support other formats
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:67:		//XITODO send debugmode
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aclrule.php:235:		//XITODO : Conditions should be OR ED
-../../packages/tmp/components/com_xipt/admin/views/setup/view.html.php:131:	//XITODO : check if any profiletype have enbaled admin approval
+../../packages/tmp/components/com_xipt/site/libraries/utils.php:717:			/* XITODO : default paramsa are not loaded properly.*/
+../../packages/tmp/components/com_xipt/site/libraries/imagegenerator.php:53:		/* XITODO : support for other image type */	

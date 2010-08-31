@@ -238,10 +238,7 @@ class XiPTLibraryCore
 	 */
 	function updateCommunityUserWatermark($userid,$watermark)
 	{
-		//no watermark
-		if($watermark == '')
-			return false;
-			
+		
 		//check if watermark is enable
 		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')==false)
 			return false;
@@ -250,6 +247,13 @@ class XiPTLibraryCore
 		$pTypeAvatar  	   = XiPTLibraryCore::getUserDataFromCommunity($userid, 'avatar');
 		$pTypeThumbAvatar  = XiPTLibraryCore::getUserDataFromCommunity($userid, 'thumb');
 		$isDefault		   = XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true);
+		
+		//no watermark
+		if($watermark=='')	
+		{
+			XiPTLibraryCore::replaceAvatar($pTypeAvatar);
+			XiPTLibraryCore::replaceAvatar($pTypeThumbAvatar);
+		}
 		
 		// no watermark on default avatars
 		if($isDefault)
@@ -266,6 +270,12 @@ class XiPTLibraryCore
 		return true;
 	}
 	
+	function replaceAvatar($imagepath)
+	{
+		    $avatarFileName = JFile::getName($imagepath);
+			if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName))
+			JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$imagepath);
+	}
 	/**
 	 * It updates user's oldAvtar to newAvatars
 	 * @param $userid

@@ -572,11 +572,40 @@ class ProfileTest extends XiSelTestCase
 	$this->assertTrue($this->isElementPresent($element));
   }
   
-  function xxxxxtestAdvanceSearchField()
+  function testAdvanceSearchField()
   {
-  	$this->frontLogin('regtest8635954','regtest8635954');
-  	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=search&task=advancesearch');
-  	$this->waitPageLoad();
+    $users[1]=array(79,82,85);
+  	$users[2]=array(80,83,86);
+  	$users[3]=array(81,84,87);
+  	
+	$user = JFactory::getUser(82); 
+  	//login as profiletype 1
+  	 $this->frontLogin($user->name,$user->name);
+  	 $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=search&task=advancesearch');
+  	 $this->waitPageLoad();
+  	 $this->verifyAdvanceSearchField();
+  	 $this->frontLogout();
+  	 
+  	 $user = JFactory::getUser(83); 
+  	//login as profiletype 2
+  	 $this->frontLogin($user->name,$user->name);
+  	 $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=search&task=advancesearch');
+  	 $this->waitPageLoad();
+  	 $this->verifyAdvanceSearchField();
+  	 $this->frontLogout();
+  	 
+  	 $user = JFactory::getUser(84); 
+  	//login as profiletype 3
+  	 $this->frontLogin($user->name,$user->name);
+  	 $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=search&task=advancesearch');
+  	 $this->waitPageLoad();
+  	 $this->verifyAdvanceSearchField();
+  	 $this->frontLogout();
+  }
+
+  
+  function verifyAdvanceSearchField()
+  {
   	$this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN2']"));
 	$this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN3']"));
 	$this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN4']"));
@@ -585,7 +614,7 @@ class ProfileTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN8']"));
     $this->assertTrue($this->isElementPresent("//option[@value='FIELD_HOMETOWN9']"));
 	$this->assertTrue($this->isElementPresent("//option[@value='XIPT_PROFILETYPE']"));
-  	$this->assertTrue($this->isElementPresent("//option[@value='XIPT_TEMPLATE']"));	  	
+  	$this->assertTrue($this->isElementPresent("//option[@value='XIPT_TEMPLATE']"));	  
   }
 
   function testGuestProfileType()
