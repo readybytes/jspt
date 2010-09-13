@@ -96,4 +96,9 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
 	$done=true;
   }
   
+  function resetCacheData()
+  {
+  	 $sModel = XiFactory :: getModel('settings');
+	 $params  = $sModel->getParams(true);
+  }
 }

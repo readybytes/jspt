@@ -15,22 +15,10 @@ class XiPTViewSettings extends JView
     
 	function display($tpl = null)
 	{
-		$sModel = XiFactory :: getModel('settings');
-		$params  = $sModel->getParams();
-				
-		$this->assign( 'params'	, $params );
+		$sModel 		 = XiFactory :: getModel('settings');
+		$settingsParams  = $sModel->getParams();
 		
-		// import view for settings from xml file
-		jimport( 'joomla.filesystem.files' );
-		$settingsxmlpath = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'settings.xml';
-		if(JFile::exists($settingsxmlpath))
-			$settingsParams = new JParameter('',$settingsxmlpath);
-		else 
-			$settingsParams = new JParameter('','');
-		$settingsParams->bind($params);
-		$settingParamsHtml = $settingsParams->render('settings');
-		
-			
+		$settingParamsHtml = $settingsParams->render('settings');	
 		
 		$this->assignRef('settingsParamsHtml',$settingParamsHtml);
 		

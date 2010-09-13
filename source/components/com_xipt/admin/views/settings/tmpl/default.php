@@ -19,10 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 <form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm">
 <div>
 <?php 
-jimport('joomla.html.pane');
-		$pane = &JPane::getInstance('sliders', array('allowAllClose' => true));
-		echo $pane->startPane('settings-pane');
-		echo $this->settingsParamsHtml;?>
+	echo $this->settingsParamsHtml;?>
 </div>
 <div class="clr"></div>
 	<input type="hidden" name="option" value="com_xipt" />

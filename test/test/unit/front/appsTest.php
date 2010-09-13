@@ -59,7 +59,7 @@ class AppsTest extends XiUnitTestCase
   
   function testFilterAjaxAddApps()
   {
-  	$element = 'joomla';
+  	$element = 'feeds';
   	$profiletype = 1; 
   	$objResponse = 'joomla';
  	$this->assertEquals(XiPTLibraryApps::filterAjaxAddApps($element, $profiletype, $objResponse),true);

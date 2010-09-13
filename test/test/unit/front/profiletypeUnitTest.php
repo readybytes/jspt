@@ -13,18 +13,22 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	
 	$filter['defaultProfiletypeID']=1;
 	$this->changeJSPTConfig($filter);
+	$this->resetCacheData();
     $this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(true),1);
     
     $filter['defaultProfiletypeID']=5;
 	$this->changeJSPTConfig($filter);
+	$this->resetCacheData();
     $this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(true),5);
     
     $filter['defaultProfiletypeID']=7;
 	$this->changeJSPTConfig($filter);
+	$this->resetCacheData();
     $this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(),5);
     
     $filter['defaultProfiletypeID']=2;
 	$this->changeJSPTConfig($filter);
+	$this->resetCacheData();
 	$this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(true),2);
   }
   function testProfiletypeName()

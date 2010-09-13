@@ -705,14 +705,7 @@ class XiPTLibraryUtils
 	{
 		$sModel = XiFactory :: getModel('settings');
 		$params  = $sModel->getParams();
-		if($params)
-			$config	= new JParameter( $params );
-		else
-			/* XITODO : default paramsa are not loaded properly.*/
-			$config	= new JParameter('');
 
-		// Load default configuration
-			$params	= $config;
 		if(!$params)
 		{
 		    JError::raiseWarning('XIPT-SYSTEM-ERROR','JSPT PARAMS ARE NULL');

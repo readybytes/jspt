@@ -17,16 +17,27 @@ class XiPTModelSettings extends JModel
 	}	
 
 	
-	function getParams()
+	function getParams($reset = false)
 	{
-		$name='settings';
-			$db			=& JFactory::getDBO();
-			$query		= 'SELECT '. $db->nameQuote('params') .' FROM '
-						. $db->nameQuote( '#__xipt_settings' )
-						. ' WHERE '.$db->nameQuote('name').'='. $db->Quote($name);
+		static $settingsParams = null;
+		if($settingsParams !== null && $reset === false)
+			return $settingsParams;
 			
-			$db->setQuery( $query );
-			return $db->loadResult();	
+		$row             =& JTable::getInstance( 'settings' , 'XiPTTable' );
+		$row->load('settings');
+		
+		$settingspath    = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'settings';
+		$settingsxmlpath = $settingspath.'.xml';
+		$settingsini     = $settingspath.'.ini';
+		$settingsdata    = JFile::read($settingsini);
+		
+		if(JFile::exists($settingsxmlpath))
+			$settingsParams = new JParameter($settingsdata,$settingsxmlpath);
+		else 
+			$settingsParams = new JParameter('','');
+		$settingsParams->bind($row->params);
+		
+		return $settingsParams;
 		
 	}
 }

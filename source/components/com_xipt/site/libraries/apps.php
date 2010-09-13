@@ -58,18 +58,22 @@ class XiPTLibraryApps
     
 	function getPluginId( $element, $folder = 'community' )
 	{
-		$db		=& JFactory::getDBO();
-		$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' ' 
-				. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
-				. 'WHERE ' . $db->nameQuote( 'element' ) . '=' . $db->Quote( $element ) . ' AND ' .$db->nameQuote( 'folder' ) . '=' . $db->Quote( $folder );
-
-		$db->setQuery( $query );
-		$result = $db->loadResult();
-		
-		if($db->getErrorNum())
-			JError::raiseError( 500, $db->stderr());
-		
-		return $result;
+		static $result = null;
+		if($result === null || isset($result[$folder])===false)
+		{
+			$db		=& JFactory::getDBO();
+			$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' , ' . $db->nameQuote( 'element' ) . ' '
+					. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
+					. 'WHERE ' .$db->nameQuote( 'folder' ) . '=' . $db->Quote( $folder );
+	
+			$db->setQuery( $query );
+			$result[$folder] = $db->loadAssocList('element');
+			
+			if($db->getErrorNum())
+				JError::raiseError( 500, $db->stderr());
+		}
+			
+		return $result[$folder][$element]['id'];
 	}
 	
 	
