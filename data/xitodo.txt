@@ -5,7 +5,6 @@
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:74:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:176:	/*XITODO : Add unit testing for this case */
 ../../packages/tmp/components/com_xipt/site/libraries/utils.php:408:			//XITODO : here we need to trick as per the JomSocial
-../../packages/tmp/components/com_xipt/site/libraries/utils.php:711:			/* XITODO : default paramsa are not loaded properly.*/
 ../../packages/tmp/components/com_xipt/admin/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
 ../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:135:				/*XITODO : send debug mode in second parameter */
 ../../packages/tmp/components/com_xipt/admin/controllers/profiletypes.php:205:		//XITODO : also support other formats
