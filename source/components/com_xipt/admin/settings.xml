@@ -68,6 +68,10 @@
 			<param name="jspt_allowed_email" type="textarea" default="" label="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
 			<param name="jspt_prevent_email" type="textarea" default="" label="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
 			
+			<param name="restrict_advancesearchfield" type="radio" default="1" label="ENABLE RESTRICT PROFILEFIELD IN ADVANCE SEARCH" description="ENABLE RESTRICT ADVANCE SEARCH FIELD.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
 	<!--
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="@spacer" type="spacer" default="Registration Configuration" label="Registration Configuration" description="" />

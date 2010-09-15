@@ -80,6 +80,13 @@ class writemessages extends xiptAclRules
 		return $count;
 	}
 	
+	function aclAjaxBlock($msg)
+	{
+		$objResponse   	= new JAXResponse();
+		$title		= JText::_('CC WRITE MESSAGE');
+		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
+		return parent::aclAjaxBlock($msg, $objResponse);
+	}  
 	
 	function checkAclAccesibility(&$data)
 	{
@@ -89,7 +96,7 @@ class writemessages extends xiptAclRules
 		if('inbox' != $data['view'])
 			return false;
 			
-		if($data['task'] == 'ajaxcompose') {
+		if($data['task'] == 'ajaxcompose' || $data['task'] == 'ajaxaddreply' ) {
 			//modify whom we are sending msg
 			$data['viewuserid'] = $data['args'][0];
 			return  true;

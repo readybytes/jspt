@@ -182,5 +182,25 @@ class AclRuleTest extends XiSelTestCase
 
   }
   
+  function testCantReplyMessage()
+  {
+  	 $user = JFactory::getUser(82); 
+     $this->frontLogin($user->name,$user->name);
+     $this->open("index.php?option=com_community&view=inbox&Itemid=53");
+     $this->waitPageLoad();
+     $this->click("link=Inbox");
+  	 $this->waitPageLoad();
+   	 $this->click("link=testmessage");
+  	 $this->waitPageLoad();
+   	 $this->type("replybox", "testreply");
+   	 $this->click("replybutton");
+   	  sleep(2);
+     $this->verifyRestrict(false);
+     $this->frontLogout();
+     
+  }
+   
+  
+  
   
  } 

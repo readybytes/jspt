@@ -595,12 +595,18 @@ class XiPTLibraryPluginHandler
 		$args['field']   =  &$fields      ;
 		$this->performACLCheck($none,$none, $args);
 
-		//do not filter fields if comes from advanced search
+		//do not filter fields in  advanced search if user do not want to restrict
+		// field according to profiletype
+		
+		$restrict_advancesearchfield = XiPTLibraryUtils::getParams('restrict_advancesearchfield','com_xipt', 0);
 		$view	= JRequest::getVar('view','','GET');
 		$task 	= JRequest::getVar('task','','GET');
-		if($view === 'search' && $task === 'advancesearch')
-			return true;
-
+		
+		if(!$restrict_advancesearchfield)
+		 {
+			if($view === 'search' && $task === 'advancesearch')
+				return true;
+		 }
 	    XiPTLibraryProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
 	}

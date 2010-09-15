@@ -1,2 +1,2 @@
-../../packages/tmp/components/com_xipt/admin/libraries/aclrules/redirect/redirect.php:57:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 ../../packages/tmp/components/com_xipt/admin/libraries/aclrules/aecredirect/aecredirect.php:72:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+../../packages/tmp/components/com_xipt/admin/libraries/aclrules/redirect/redirect.php:57:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')

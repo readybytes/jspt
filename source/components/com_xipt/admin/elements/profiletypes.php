@@ -23,7 +23,7 @@ class JElementProfiletypes extends JElement
 		if(isset($node->_attributes->addnone) || isset($node->_attributes['addnone']))
 			$reqnone = true;
 			
-		if(isset($node->_attributes->addall) || isset($node->_attributes['addnall']))
+		if(isset($node->_attributes->addall) || isset($node->_attributes['addall']))
 			$reqall = true;
 			
 		$ptypeHtml = $this->getProfiletypeFieldHTML($name,$value,$control_name,$reqnone,$reqall);
