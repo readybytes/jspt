@@ -116,4 +116,7 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 35),
 (25, '', 10);;
 
+TRUNCATE TABLE `#__xipt_settings`;;
 
+INSERT INTO `#__xipt_settings` (`name`, `params`) VALUES
+('settings', 'show_ptype_during_reg=1\nallow_user_to_change_ptype_after_reg=0\ndefaultProfiletypeID=1\nguestProfiletypeID=3\njspt_show_radio=0\njspt_fb_show_radio=1\nallow_templatechange=0\nshow_watermark=1\njspt_block_dis_app=1\naec_integrate=1\naec_message=pl\njspt_restrict_reg_check=1\njspt_prevent_username=moderator; admin; support; owner; employee\njspt_allowed_email=\njspt_prevent_email=\nrestrict_advancesearchfield=0\n\n');;

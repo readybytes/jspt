@@ -18,7 +18,7 @@ class XiPTViewRegistration extends JView
 		if($userId)
 		{
 			global $mainframe;
-			$redirectUrl	= JRoute::_('index.php?option=com_community&view=profile',false);
+			$redirectUrl	= CRoute::_('index.php?option=com_community&view=profile',false);
 			$msg = JText::_('YOU ARE ALREADY REGISTERED, NEED NOT TO REGISTER AGAIN');
 			$mainframe->redirect($redirectUrl,$msg);
 		}

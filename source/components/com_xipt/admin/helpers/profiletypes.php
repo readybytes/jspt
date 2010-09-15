@@ -460,7 +460,7 @@ function resetAllUsers($pid, $oldData, $newData)
 			return true;
 
 		// session expired, redirect to community page
-		$redirectUrl	= JRoute::_('index.php?option=com_community&view=register',false);
+		$redirectUrl	= CRoute::_('index.php?option=com_community&view=register',false);
 		$msg 			= JText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
     	global $mainframe;
 		$mainframe->redirect($redirectUrl,$msg);

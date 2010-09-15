@@ -73,6 +73,7 @@
 	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _GET      >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
 	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _SESSION  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
 	        <exec command="find  ${global.dir.tmp} | xargs -l1 grep -Hn _GLOBALS  >> ${global.dir.root}/data/post-get-request.txt " escape="false" />
+		<exec command="find  ${global.dir.tmp} -name '*.php' | xargs -l1 grep -Hn 'index.php' | grep -v 'JRoute'  > ${global.dir.root}/data/usejroute.txt " escape="false" />
 
 
 		<!-- gather stats phpcpd / phploc / test-count,assert-count, xitodo/codrev numbers / coverage numbers  -->
