@@ -33,7 +33,7 @@ class XiPTViewSetup extends JView
 		}
 			
 		//check default profiletype
-		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt', 0);
+		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID', 0);
 		$link = JRoute::_("index.php?option=com_xipt&view=settings",false);
 		if(!$defaultProfiletypeID || XiPTLibraryProfiletypes::validateProfiletype($defaultProfiletypeID)==false) {
 			$requiredSetup['defaultprofiletype']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';

@@ -94,7 +94,7 @@ class XiPTLibraryCore
     function updateJoomlaUserType($userid, $newUsertype='')
 	{
 	    //do not change usertypes for admins
-		if(XiPTLibraryUtils::isAdmin($userid)==true || (0 == $userid ))
+		if(XiPTLibraryUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === 'None')
 		    return false;
 
 		self::reloadCUser($userid);
@@ -240,7 +240,7 @@ class XiPTLibraryCore
 	{
 		
 		//check if watermark is enable
-		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')==false)
+		if(XiPTLibraryUtils::getParams('show_watermark')=== false)
 			return false;
 		
 		//update watermark on user's avatar

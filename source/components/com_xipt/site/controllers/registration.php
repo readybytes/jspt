@@ -25,7 +25,7 @@ class XiPTControllerRegistration extends JController {
 		XiPTHelperProfiletypes::checkSessionForProfileType();
 
 		//If not allowed to select PT for user then return
-		if(XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt')==0){
+		if(XiPTLibraryUtils::getParams('show_ptype_during_reg')==0){
 			$selectedProfiletypeID= XiPTLibraryProfiletypes::getDefaultProfiletype();
 			XiPTHelperProfiletypes::setProfileTypeInSession($selectedProfiletypeID);
 		}

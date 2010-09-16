@@ -140,7 +140,7 @@ class XiPTLibraryAEC
 	function getAecMessage()
 	{
 	    $data   = XiPTLibraryAEC::getProfiletypeInfoFromAEC();
-	    $msgOption = XiPTLibraryUtils::getParams('aec_message','com_xipt','b');
+	    $msgOption = XiPTLibraryUtils::getParams('aec_message','b');
 	    
     	switch($msgOption)
     	{

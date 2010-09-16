@@ -29,7 +29,7 @@ class XiPTLibraryUtils
 			$mySess->set('FROM_FACEBOOK',true, 'XIPT');
 		
 		/*if ptype is not required during registration then return */
-		$show_ptype_during_reg = XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt', 0);
+		$show_ptype_during_reg = XiPTLibraryUtils::getParams('show_ptype_during_reg', 0);
 		
 		if(!$show_ptype_during_reg)
 			return true;
@@ -37,7 +37,7 @@ class XiPTLibraryUtils
 		/*if aec is integrate with ptype then we don't want to display
 		 * ptype selection page during facebook integration so return
 		 */
-		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
+		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate',0);
 
 		// pType already selected
 		if($integrateAEC && $aecExists)
@@ -78,7 +78,7 @@ class XiPTLibraryUtils
 	    $defaultPType = XiPTLibraryProfiletypes::getDefaultProfiletype();
 		$selectedProfileTypeID = $defaultPType;
 		
-		$params = XiPTLibraryUtils::getParams('','com_xipt', 0);
+		$params = XiPTLibraryUtils::getParams('', 0);
 		$showAsRadio = $params->get('jspt_fb_show_radio',false);
 		
 		ob_start();
@@ -176,7 +176,7 @@ class XiPTLibraryUtils
 	/*XITODO : Add unit testing for this case */
 	function checkIfEmailAllowed($testEmail)
 	{
-		$config = XiPTLibraryUtils::getParams('','com_xipt', 0);
+		$config = XiPTLibraryUtils::getParams('', 0);
 		
 		$jspt_restrict_reg_check = $config->get('jspt_restrict_reg_check',false);
 		if($jspt_restrict_reg_check == false)
@@ -225,7 +225,7 @@ class XiPTLibraryUtils
 	function checkIfUsernameAllowed($testUsername)
 	{
 		//jspt_prevent_username
-		$config = XiPTLibraryUtils::getParams('','com_xipt', 0);
+		$config = XiPTLibraryUtils::getParams('', 0);
 		
 		$jspt_restrict_reg_check = $config->get('jspt_restrict_reg_check',false);
 		if($jspt_restrict_reg_check == false)
@@ -701,7 +701,7 @@ class XiPTLibraryUtils
 	
 	
 	//get params data from xipt component or any
-	function getParams($paramName='', $comName='com_xipt', $defaultValue=0)
+	function getParams($paramName='', $defaultValue=0)
 	{
 		$sModel = XiFactory :: getModel('settings');
 		$params  = $sModel->getParams();

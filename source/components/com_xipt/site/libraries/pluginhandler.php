@@ -35,7 +35,7 @@ class XiPTLibraryPluginHandler
 	function isPTypeExistInSession()
 	{
 		$aecExists 		= XiPTLibraryAEC::_checkAECExistance();
-		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
+		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate',0);
 		if($aecExists && $integrateAEC)
 		{
 			$data  = XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
@@ -287,8 +287,8 @@ class XiPTLibraryPluginHandler
 			return true;
 
 		// user is allowed or not.
-        $allowToChangePType    = XiPTLibraryUtils::getParams('allow_user_to_change_ptype_after_reg','com_xipt',0);
-        $allowToChangeTemplate = XiPTLibraryUtils::getParams('allow_templatechange','com_xipt',0);
+        $allowToChangePType    = XiPTLibraryUtils::getParams('allow_user_to_change_ptype_after_reg',0);
+        $allowToChangeTemplate = XiPTLibraryUtils::getParams('allow_templatechange',0);
 
         // not changing anything get data from table and set it
 		if(0 == $allowToChangeTemplate || $templateValue==''){
@@ -384,7 +384,7 @@ class XiPTLibraryPluginHandler
 		
 		//Now apply watermark to images
 		//	for that we don't require to add watermark
-		if(XiPTLibraryUtils::getParams('show_watermark','com_xipt')==false)
+		if(XiPTLibraryUtils::getParams('show_watermark')==false)
 			return true;
 					
 		//check if uploadable avatar is not default ptype avatar
@@ -433,7 +433,7 @@ class XiPTLibraryPluginHandler
 		$selfProfiletype= XiPTLibraryProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 
 		$othersProfiletype 	= XiPTLibraryProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
-		$blockDisplayApp    = XiPTLibraryUtils::getParams('jspt_block_dis_app','com_xipt', 0);
+		$blockDisplayApp    = XiPTLibraryUtils::getParams('jspt_block_dis_app', 0);
 		
 		/* #1: block the display application of logged in user if the above param is set to yes
 		   #2: otherwise block display application of user whose profile is being visited
@@ -469,7 +469,7 @@ class XiPTLibraryPluginHandler
 	function event_com_community_profile_blank()
 	{
 		$isFromFacebook = $this->getDataInSession('FROM_FACEBOOK',false);
-		$aec_integrate  = XiPTLibraryUtils::getParams('aec_integrate','com_xipt', 0);
+		$aec_integrate  = XiPTLibraryUtils::getParams('aec_integrate', 0);
 		if($isFromFacebook)		
 			$this->resetDataInSession('FROM_FACEBOOK');	
 	
@@ -492,7 +492,7 @@ class XiPTLibraryPluginHandler
 	    XiPTLibraryUtils::setReturnURL();
 	    XiPTLibraryAEC::getProfiletypeInfoFromAEC() ;
 
-		$show_ptype_during_reg = XiPTLibraryUtils::getParams('show_ptype_during_reg','com_xipt', 0);
+		$show_ptype_during_reg = XiPTLibraryUtils::getParams('show_ptype_during_reg', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 
 		if($show_ptype_during_reg){
@@ -514,7 +514,7 @@ class XiPTLibraryPluginHandler
 
 
 			$aecExists = XiPTLibraryAEC::_checkAECExistance();
-			$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
+			$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate',0);
 
 			// pType already selected
 			if($integrateAEC && $aecExists)
@@ -557,8 +557,8 @@ class XiPTLibraryPluginHandler
 	function event_com_xipt_registration_blank()
 	{
 	    global $mainframe;
-	    $integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt');
-	    //$forcePtypePage = XiPTLibraryUtils::getParams('aec_force_ptype_page','com_xipt');
+	    $integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate');
+	    //$forcePtypePage = XiPTLibraryUtils::getParams('aec_force_ptype_page');
 
 	    // if we do not want to integrate AEC then simply return
 	    if(!$integrateAEC)
@@ -598,7 +598,7 @@ class XiPTLibraryPluginHandler
 		//do not filter fields in  advanced search if user do not want to restrict
 		// field according to profiletype
 		
-		$restrict_advancesearchfield = XiPTLibraryUtils::getParams('restrict_advancesearchfield','com_xipt', 0);
+		$restrict_advancesearchfield = XiPTLibraryUtils::getParams('restrict_advancesearchfield', 0);
 		$view	= JRequest::getVar('view','','GET');
 		$task 	= JRequest::getVar('task','','GET');
 		
@@ -650,7 +650,7 @@ class XiPTLibraryPluginHandler
  			
  		if(XiPTHelperProfiletypes::getProfileTypeArray()==false)
  			return true;
- 		else if(XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt', 0)==false)
+ 		else if(XiPTLibraryUtils::getParams('defaultProfiletypeID', 0)==false)
  			return true;
  		else if(XiPTHelperSetup::checkCustomfieldRequired())
  			return true;

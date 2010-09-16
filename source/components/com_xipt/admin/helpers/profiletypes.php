@@ -217,6 +217,7 @@ function getJUserTypes()
 	$db->setQuery( $query );
 	$val = $db->loadObjectList();
 	
+    //XITODO : remove this loop
 	if($val)
 		foreach ($val as $v)
 		{
@@ -228,7 +229,7 @@ function getJUserTypes()
 			
 			$values[]=$v->name;
 		}
-	
+	      $values[] = 'None';
 	return $values;	
 }
 

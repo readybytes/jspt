@@ -35,7 +35,7 @@ class XiPTViewRegistration extends JView
 		
 		$this->assign( 'allProfileTypes' , $allProfileTypes );
 		$this->assign( 'selectedProfileTypeID' , $seletedPTypeID );
-		$params = XiPTLibraryUtils::getParams('','com_xipt', 0);
+		$params = XiPTLibraryUtils::getParams('', 0);
 		$this->assign( 'showAsRadio' , $params->get('jspt_show_radio',true));
 		
 		parent::display( $tpl );

@@ -368,7 +368,7 @@ class XiPTHelperSetup
 	
 	function syncUpUserPTRequired()
 	{
-		$params = XiPTLibraryUtils::getParams('','com_xipt', 0);
+		$params = XiPTLibraryUtils::getParams('', 0);
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		if(!$defaultProfiletypeID){
 			global $mainframe;
@@ -547,7 +547,7 @@ class XiPTHelperSetup
 	function isWaterMarkingRequired()
 	{
 		$ptypeArray	= XiPTHelperProfiletypes::getProfileTypeArray();
-		$globalWM	= XiPTLibraryUtils::getParams('show_watermark','',0);
+		$globalWM	= XiPTLibraryUtils::getParams('show_watermark',0);
 		if($globalWM)
 			return false;
 		foreach($ptypeArray as $ptype)

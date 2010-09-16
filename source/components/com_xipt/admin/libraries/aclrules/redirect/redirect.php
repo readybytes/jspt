@@ -38,7 +38,7 @@ class redirect extends xiptAclRules
 	function checkAclAccesibility(&$data)
 	{
 		$aecExists = XiPTLibraryAEC::_checkAECExistance();
-		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate','com_xipt',0);
+		$integrateAEC   = XiPTLibraryUtils::getParams('aec_integrate',0);
 
 		// pType already selected
 		if(!$integrateAEC || !$aecExists)

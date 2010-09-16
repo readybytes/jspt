@@ -22,7 +22,7 @@ class CFieldsProfiletypes
 		$this->_mainframe =& $mainframe;
 		$this->_task = JRequest::getVar('task','','GET');
 		$this->_view = JRequest::getVar('view','','GET');
-		$this->_params = XiPTLibraryUtils::getParams('','com_xipt', 0);
+		$this->_params = XiPTLibraryUtils::getParams('', 0);
 	}
 	
 	/* if data not available,

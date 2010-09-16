@@ -233,7 +233,7 @@ class XiPTLibraryProfiletypes
 		if($defaultProfiletypeID && $refresh===false)
 			return $defaultProfiletypeID;
 			 
-		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt');
+		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID');
 		
 		if(!$defaultProfiletypeID)
 		{
@@ -323,7 +323,7 @@ class XiPTLibraryProfiletypes
 	    {
 	        case 'PROFILETYPE':
 	        	if($userid == 0 )
-					return XiPTLibraryUtils::getParams('guestProfiletypeID','com_xipt', XiPTLibraryUtils::getParams('defaultProfiletypeID','com_xipt', 0));
+					return XiPTLibraryUtils::getParams('guestProfiletypeID', XiPTLibraryUtils::getParams('defaultProfiletypeID', 0));
 		        $getMe	       = PROFILETYPE_FIELD_IN_USER_TABLE;
                 $defaultValue  = XiPTLibraryProfiletypes::getDefaultProfiletype();
                 break;
