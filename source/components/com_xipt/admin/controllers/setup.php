@@ -43,20 +43,20 @@ class XiPTControllerSetup extends JController
 			&& $pFieldEnabled && $tFieldEnabled)
 			$mainframe->enqueueMessage(JText::_("CUSTOM FIELD CREATED AND ENABLED SUCCESSFULLY"));
 			
-		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
     
     
     function createprofiletypes()
     {
     	global $mainframe;
-    	$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false));
+    	$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false));
     }
     
     function installplugin()
     {
     	global $mainframe;
-    	$mainframe->redirect(JRoute::_("index.php?option=com_installer",false));
+    	$mainframe->redirect(XiPTRoute::_("index.php?option=com_installer",false));
     }
     
     
@@ -77,7 +77,7 @@ class XiPTControllerSetup extends JController
 		if($sEnabled && $cEnabled)
 			$mainframe->enqueueMessage(JText::_("PLUGIN ENABLED SUCCESSFULLY"));
 			
-		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
     	
     
@@ -86,7 +86,7 @@ class XiPTControllerSetup extends JController
     	global $mainframe;
     	
     	if(!XiPTHelperSetup::checkFilePatchRequired())
-    		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
 
     	if(XiPTHelperSetup::isModelFilePatchRequired()){
     		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
@@ -218,7 +218,7 @@ class XiPTControllerSetup extends JController
         	}
         }
         $msg = JText::_('FILES PATCHED SUCCESSFULLY');
-        $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+        $mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     	return true;
     }
     
@@ -235,7 +235,7 @@ class XiPTControllerSetup extends JController
         else
         	$msg = JText::_('AEC MI ALREADY EXIST');
         
-        $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+        $mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     }
     
 	function syncUpUserPT()
@@ -249,7 +249,7 @@ class XiPTControllerSetup extends JController
         else
         	$msg = JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZATION FAILED');
         	        
-        $mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+        $mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     }
     
     /**
@@ -322,7 +322,7 @@ class XiPTControllerSetup extends JController
 		
 		global $mainframe;
 		$msg = JText::_('AVATARS MIGRATED');
-		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg); 
+		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg); 
     }
     
     function unhook()
@@ -337,7 +337,7 @@ class XiPTControllerSetup extends JController
 		global $mainframe;
 		$msg = JText::_('UNHOOKED SUCCESSFULLY');
 		$mainframe->enqueueMessage($msg);
-		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     }
     
     function enableAdminApproval()
@@ -350,7 +350,7 @@ class XiPTControllerSetup extends JController
 		if($sEnabled && $cEnabled)
 			$mainframe->enqueueMessage(JText::_("PLUGIN ENABLED SUCCESSFULLY"));
 			
-		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
     	
 }

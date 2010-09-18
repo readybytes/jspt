@@ -22,6 +22,7 @@
         <file>test/com_xipt/front/frontAclRulesTest.php</file>
 		<file>test/com_xipt/front/aclRuleTest.php</file>
 		<file>test/com_xipt/front/applicationForFrontTest.php</file>
+		<file>test/unit/front/routeTest.php</file>
 		<file>test/unit/front/profiletypeUnitTest.php</file>
 		<file>test/unit/front/appsTest.php</file>
 		<file>test/unit/front/profileFieldControlTest.php</file>

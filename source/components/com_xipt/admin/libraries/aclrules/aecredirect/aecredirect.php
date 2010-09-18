@@ -37,7 +37,7 @@ class aecredirect extends xiptAclRules
 			
 		$currentURI  	= JURI::getInstance();
 	
-		$redirectUrl  	= JRoute::_($this->getRedirectUrl());
+		$redirectUrl  	= XiPTRoute::_($this->getRedirectUrl());
 		$redirectURI 	= new JURI($redirectUrl);
 		
 		$currVar     = $currentURI->getQuery(true);

@@ -66,14 +66,14 @@ function submitbutton( action )
 			</td>			
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = JRoute::_('index.php?option=com_xipt&view=configuration&task=edit&name='.$field->name.'&editId='.$field->id, false); ?>
+					<?php $link = XiPTRoute::_('index.php?option=com_xipt&view=configuration&task=edit&name='.$field->name.'&editId='.$field->id, false); ?>
 						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
 				</span>
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo "Reset Configuration of ".$field->name." to JomSocial"; ?>" id="name<?php echo $field->id;?>">
 					<?php if($this->reset[$field->id]=='true'){
-					 $link = JRoute::_('index.php?option=com_xipt&view=configuration&task=reset&profileId='.$field->id, false); ?>
+					 $link = XiPTRoute::_('index.php?option=com_xipt&view=configuration&task=reset&profileId='.$field->id, false); ?>
 						<a href="<?php echo $link; ?>">Reset</a>
 					<?php } else
 								echo "Reset";?>	

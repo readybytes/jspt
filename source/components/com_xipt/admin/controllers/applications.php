@@ -76,7 +76,7 @@ class XiPTControllerApplications extends JController
 			}
 		}
 		$msg = JText::_('APPLICATION SAVED');
-		$link = JRoute::_('index.php?option=com_xipt&view=Applications', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=Applications', false);
 		$mainframe->redirect($link, $msg);
 	}
 }

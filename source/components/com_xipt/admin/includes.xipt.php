@@ -60,6 +60,7 @@ XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY,'Library');
 XiPTLoader::addAutoLoadFile('XiPTFactory', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php');
 XiPTLoader::addAutoLoadFile('XiPTLibraryCore', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php');
 XiPTLoader::addAutoLoadFile('XiPTImageGenerator',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'imagegenerator.php');
+XiPTLoader::addAutoLoadFile('XiPTRoute',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'route.php');
 
 // libray file of backend
 XiPTLoader::addAutoLoadFile('aclFactory',JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aclrules'.DS.'aclrule.php');

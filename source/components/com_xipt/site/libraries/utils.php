@@ -732,7 +732,7 @@ class XiPTLibraryUtils
 	{
 	    $mySess    = JFactory::getSession();
 	    $retURL     = $mySess->get('RETURL', 'XIPT_NOT_DEFINED', 'XIPT');
-	    $defaultURL	= JRoute::_('index.php?option=com_community&view=register',false);
+	    $defaultURL	= XiPTRoute::_('index.php?option=com_community&view=register',false);
 	    
 		if($retURL == 'XIPT_NOT_DEFINED')
 		    $redirectURL = $defaultURL;

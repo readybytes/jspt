@@ -18,7 +18,7 @@ class redirect extends xiptAclRules
 	public function checkAclViolatingRule($data)
 	{
 			
-		$redirectUrl  	= JRoute::_($this->getRedirectUrl());
+		$redirectUrl  	= XiPTRoute::_($this->getRedirectUrl());
 		$redirectURI 	= new JURI($redirectUrl);
 		$redirectVar = $redirectURI->getQuery(true);		
 					

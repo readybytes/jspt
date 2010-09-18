@@ -37,7 +37,7 @@ class XiPTControllerRegistration extends JController {
 			{
 				global $mainframe;
 				$msg = sprintf(JText::_('INVALID PROFILE TYPE SELECTED'),$count);
-				$link = JRoute::_('index.php?option=com_xipt&view=registration', false);
+				$link = XiPTRoute::_('index.php?option=com_xipt&view=registration', false);
 				$mainframe->redirect($link, $msg);	
 			}
 			$dispatcher->trigger( 'onAfterProfileTypeSelection',array(&$selectedProfiletypeID));			

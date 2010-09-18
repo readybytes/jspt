@@ -486,7 +486,7 @@ class XiPTHelperSetup
 		global $mainframe;
 		if(sizeof($result)== $limit){			
 			$start+=$limit;
-    		$mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
 		}
 		
 		$msg = 'Total '. ($start+$i) . ' users '.JText::_('synchornized');

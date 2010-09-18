@@ -47,7 +47,7 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = JRoute::_('index.php?option=com_xipt&view=applications&task=edit&editId='.$field->id, false); ?>
+					<?php $link = XiPTRoute::_('index.php?option=com_xipt&view=applications&task=edit&editId='.$field->id, false); ?>
 						<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 				</span>
 			</td>

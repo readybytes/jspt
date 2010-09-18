@@ -22,7 +22,7 @@ class XiPTViewSetup extends JView
 		$requiredSetup = array();
 		//check profiletype existance
 		$ptypes = XiPTHelperProfiletypes::getProfileTypeArray();
-		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
+		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
 		if(!$ptypes) {
 			$requiredSetup['profiletypes']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE PROFILETYPES").'</a>';
 			$requiredSetup['profiletypes']['done']  = false;
@@ -34,7 +34,7 @@ class XiPTViewSetup extends JView
 			
 		//check default profiletype
 		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID', 0);
-		$link = JRoute::_("index.php?option=com_xipt&view=settings",false);
+		$link = XiPTRoute::_("index.php?option=com_xipt&view=settings",false);
 		if(!$defaultProfiletypeID || XiPTLibraryProfiletypes::validateProfiletype($defaultProfiletypeID)==false) {
 			$requiredSetup['defaultprofiletype']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';
 			$requiredSetup['defaultprofiletype']['done']  = false;
@@ -46,7 +46,7 @@ class XiPTViewSetup extends JView
 		
 			
 		//validate custom field
-		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
+		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
 		if(XiPTHelperSetup::checkCustomfieldRequired()) {
 			$requiredSetup['customfields']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE AND ENABLE CUSTOM FIELDS").'</a>';
 			$requiredSetup['customfields']['done'] = false;
@@ -58,7 +58,7 @@ class XiPTViewSetup extends JView
 		
 		
 		//check file patch up required or not
-		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
+		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
 		if(XiPTHelperSetup::checkFilePatchRequired()) {
 			$requiredSetup['filepatch']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO PATCH FILES").'</a>';
 			$requiredSetup['filepatch']['done'] = false;
@@ -69,7 +69,7 @@ class XiPTViewSetup extends JView
 		}
 		
 		//check plugins( community and system ) are installed
-		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);
+		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);
 		if(($msg = XiPTHelperSetup::checkPluginInstallationRequired())) {
 			$requiredSetup['plugininstalled']['message'] = '<a href="'.$link.'">'.$msg.'</a>';
 			$requiredSetup['plugininstalled']['done'] = false;
@@ -81,7 +81,7 @@ class XiPTViewSetup extends JView
 		
 		
 		//check plugins( community and system ) are enabled
-		$link = JRoute::_("index.php?option=com_xipt&view=setup&task=enableplugin",false);
+		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=enableplugin",false);
 		if(XiPTHelperSetup::checkPluginEnableRequired()) {
 			$requiredSetup['pluginenabled']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO ENABLE PLUGIN").'</a>';
 			$requiredSetup['pluginenabled']['done'] = false;
@@ -92,7 +92,7 @@ class XiPTViewSetup extends JView
 		}
 
 		
-			$link = JRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
+			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
 			if(XiPTHelperSetup::syncUpUserPTRequired()) {
 				$requiredSetup['syncUpUserPT']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SYNC UP USERS PROFILETYPES").'</a>';
 				$requiredSetup['syncUpUserPT']['done'] = false;
@@ -102,7 +102,7 @@ class XiPTViewSetup extends JView
 				$requiredSetup['syncUpUserPT']['done'] = true;
 			}
 		
-			$link = JRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
+			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
 			if(XiPTHelperSetup::migrateAvatarRequired()) {
 				$requiredSetup['migrateAvatar']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO MIGRATE AVATARS").'</a>';
 				$requiredSetup['migrateAvatar']['done'] = false;
@@ -116,7 +116,7 @@ class XiPTViewSetup extends JView
 		/*Display only if user have AEC installed*/
 		if(XiPTLibraryAEC::_checkAECExistance()){
 			
-			$link = JRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
+			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
 			if(XiPTHelperSetup::isAECMIRequired()) {
 				$requiredSetup['patchAECfile']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO INSTALL JSPT MI INTO AEC").'</a>';
 				$requiredSetup['patchAECfile']['done'] = false;

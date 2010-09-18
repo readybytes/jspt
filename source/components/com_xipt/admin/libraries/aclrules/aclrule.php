@@ -341,7 +341,7 @@ abstract class xiptAclRules
 		}
 		
 		$redirectUrl 	= $this->getRedirectUrl();
-		$mainframe->redirect(JRoute::_($redirectUrl,false),$msg);
+		$mainframe->redirect(XiPTRoute::_($redirectUrl,false),$msg);
 	}
 	
 	

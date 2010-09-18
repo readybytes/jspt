@@ -87,7 +87,7 @@ class XiPTControllerProfileFields extends JController
 		}
 			
 		$msg = JText::_('FIELDS SAVED');	
-		$link = JRoute::_('index.php?option=com_xipt&view=profilefields', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profilefields', false);
 		$mainframe->redirect($link, $msg);
 		return;
 	}

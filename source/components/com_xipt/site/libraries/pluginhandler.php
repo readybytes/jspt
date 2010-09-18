@@ -474,7 +474,7 @@ class XiPTLibraryPluginHandler
 			$this->resetDataInSession('FROM_FACEBOOK');	
 	
 		if($isFromFacebook == true && $aec_integrate == true) {
-			$link = JRoute::_('index.php?option=com_acctexp&task=subscribe',false);
+			$link = XiPTRoute::_('index.php?option=com_acctexp&task=subscribe',false);
 			$this->mainframe->redirect($link);
 		}
 	}
@@ -507,8 +507,8 @@ class XiPTLibraryPluginHandler
 				$itemInfo .= "&Itemid=".$itemid[0]->id;
 								
 			// pType not selected : send to select profiletype
-			if(!$selectedProfiletypeID){
-				$this->mainframe->redirect(JRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
+				if(!$selectedProfiletypeID){
+				$this->mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
 				return;
 			}
 
@@ -519,12 +519,12 @@ class XiPTLibraryPluginHandler
 			// pType already selected
 			if($integrateAEC && $aecExists)
 			{
-			    $url = JRoute::_('index.php?option=com_acctexp&task=subscribe',false);
+			    $url = XiPTRoute::_('index.php?option=com_acctexp&task=subscribe',false);
 			    $msg = XiPTLibraryAEC::getAecMessage();
 			}
 			else
 			{
-			    $url = JRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
+			    $url = XiPTRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
 			    $selectedpTypeName = XiPTLibraryProfiletypes::getProfiletypeName($selectedProfiletypeID);
 			    $msg = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
 			}
@@ -575,7 +575,7 @@ class XiPTLibraryPluginHandler
 	    // as user want to integrate the AEC so a plan must be selected
         // send user to profiletype selection page
 	    if($aecData['planSelected']==false)
-	        $mainframe->redirect(JRoute::_('index.php?option=com_acctexp&task=subscribe',false),JText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
+	        $mainframe->redirect(XiPTRoute::_('index.php?option=com_acctexp&task=subscribe',false),JText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
 
 	    // set selected profiletype in session
 	    $this->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');

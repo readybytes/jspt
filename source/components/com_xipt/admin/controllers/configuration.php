@@ -75,7 +75,7 @@ class XiPTControllerConfiguration extends JController
 		{
 			JError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
 		}
-		$link = JRoute::_('index.php?option=com_xipt&view=configuration', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -105,7 +105,7 @@ class XiPTControllerConfiguration extends JController
 		{
 			JError::raiseWarning( 100 , JText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
 		}
-		$link = JRoute::_('index.php?option=com_xipt&view=configuration', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -141,7 +141,7 @@ class XiPTControllerConfiguration extends JController
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
 		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $message);
 	}
 	

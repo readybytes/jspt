@@ -108,4 +108,50 @@ class RouterTest extends XiUnitTestCase
 		
 	}
 	
+
+
+
+
+
+
+     function getMenuURL()
+		{
+			$url =
+			array(
+		
+				// if option= com_community return CRoute
+				
+				"index.php?option=com_community&view=frontpage"
+		   		 => "/usr/bin/index.php?option=com_community&view=frontpage&Itemid=53" ,
+			     
+			    // if option != com_xipt return URL
+			    
+			    "administrator/index.php?option=com_xipt"
+			   => "administrator/index.php?option=com_xipt",
+			   
+			   // if option=com_xipt & itemid exist ,return url
+			   
+			   "index.php?option=com_xipt&view=registration&Itemid=57"
+			   =>"/usr/bin/index.php?option=com_xipt&view=registration&Itemid=57",
+			   
+			   // if option=com_xipt & itemid does not exist ,return url
+			   
+			   "index.php?option=com_xipt&view=registration"
+			   =>"/usr/bin/index.php?option=com_xipt&view=registration"
+			   
+				);
+
+			return $url;
+	   }
+	   
+	   
+		function testXiPTRoute()
+		{
+			$filter['sef'] = 0;
+			$this->updateJoomlaConfig($filter);
+			$urls = $this->getMenuURL();
+			foreach($urls as $url => $seoUrl)
+			$this->assertEquals($seoUrl,XiPTRoute::_($url,false));
+		}
+	
 }

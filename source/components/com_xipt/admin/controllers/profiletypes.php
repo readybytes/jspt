@@ -52,7 +52,7 @@ class XiPTControllerProfiletypes extends JController
 		jimport('joomla.utilities.utility');
 
 		$info = $this->_processSave();
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
 		$mainframe->redirect($link, $info['msg']);
 	}
 	
@@ -68,7 +68,7 @@ class XiPTControllerProfiletypes extends JController
 		jimport('joomla.utilities.utility');
 		
 		$info = $this->_processSave();
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $info['msg']);
 	}
 	
@@ -259,7 +259,7 @@ class XiPTControllerProfiletypes extends JController
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
 		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -283,7 +283,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updatePublish($id,1);
 		}
 		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);	
 		return true;
 	}
@@ -307,7 +307,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updatePublish($id,0);
 		}
 		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);
 		return true;
 	}
@@ -331,7 +331,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updateVisibility($id,1);
 		}
 		$msg = sprintf(JText::_('ITEMS VISIBLE'),$count);
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);	
 		return true;
 	}
@@ -355,7 +355,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updateVisibility($id,0);
 		}
 		$msg = sprintf(JText::_('ITEMS INVISIBLE'),$count);
-		$link = JRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);
 		return true;
 	}
