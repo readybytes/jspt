@@ -21,7 +21,7 @@ class XiFactory
 				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
 							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
 			$classname = 'XiPTModel'.$name;
-			$modelInstances[$name] =& new $classname;
+			$modelInstances[$name] = new $classname;
 		}
 		
 		return $modelInstances[$name];
