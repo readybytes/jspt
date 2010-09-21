@@ -1,0 +1,70 @@
+/**
+* @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
+
+div.registerProfileType
+{
+	border-style:solid; 
+	border-width:1px; 
+	border-color: #DFDC8B;
+	background-color:#FDFCE5; 
+	padding: 6px 0 6px 6px;
+	padding-left:20px; 
+	padding-bottom:10px;
+	width:95%;
+}
+
+
+.registerProfileType h3#Title
+{
+	font-size: 14px; 
+	color: #000000;
+	line-height: 16px;
+	height: 16px;						
+	font-weight: bold;
+	padding-top:10px;
+}
+
+div.singlePT
+{
+	vertical-align: top;
+	margin-top:10px;
+	margin-bottom:10px;
+	display:inline-table;
+    margin-left:10px;
+    width:90%;
+}
+
+.singlePT #Name
+{
+	font-size: 12px;
+	font-weight:bold;
+	color: #000000;
+	line-height: 12px;
+	height: 14px;
+}
+
+.singlePT #Details
+{
+	padding-top:10px;
+	padding-left:25px;
+	
+	/* Finish added fixes in this selector */
+}
+
+.singlePT #Avatar
+{
+	float:left;
+	padding-right:5px;
+}
+
+.singlePT #Description
+{
+	float:left;
+	font-size: 10px; 
+	font-style:italic;
+	color: #000000;
+	line-height: 10px;
+}
+
