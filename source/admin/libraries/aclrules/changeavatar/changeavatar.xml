@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+<params>
+<param name="restrict_user_at_registration" type="radio" default="0" label="RESTRICT USER AT REGISTRATION TIME" description="">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</param>
+</params>
+
+
+</config>

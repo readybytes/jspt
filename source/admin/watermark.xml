@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<params addpath="/administrator/components/com_xipt/elements" >
+		<param name="demo" type="image" default="" label="Demo" description="" />
+		<param name="enableWaterMark" type="radio" label="Enable Water Marking" default="0" description="Enable watermarking">
+			<option value="0">No</option>
+  			<option value="1">Yes</option>		
+		</param>
+		<param name="xiText" type="text" default="P" label="Display Text" description="Write watermark display text here" />		
+		<param name="xiWidth" type="text" default="40" label="Width of Watermark in Pixel" description=""/>
+		<param name="xiHeight" type="text" default="40" label="Height of Watermark in Pixel" description=""/>
+		<param name="xiThumbWidth" type="text" default="20" label="Width of Thumb of Watermark in Pixel" description=""/>
+		<param name="xiThumbHeight" type="text" default="20" label="Height of Thumb of Watermark in Pixel" description=""/>
+						
+		<param name="xiFontName" type="fonts" default="monofont"  label="Font" description=""/>
+		<param name="xiFontSize" type="text" default="26" label="Font Size of text" description="" />
+		<param name="xiTextColor" type="colorbox" default="FFFFFF"  label="Text Color" description=""/>
+		<param name="xiBackgroundColor"  type="colorbox" default="9CD052"  label="Fill Bar Color" description=""/>
+		<param name="xiWatermarkPosition"  type="watermarkposition" default="rightbottom"  label="Watermark Position" description=""/>
+	</params>
+</config>

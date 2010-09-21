@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<params addpath="/administrator/components/com_xipt/elements">
+	<param name="@spacer" type="spacer" default="" label="" description="" />
+	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="" description="" />
+		<param name="show_ptype_during_reg" type="radio" default="1" label="INTEGRATE JSPT WITH REGISTRATION" description="INTEGRATE JSPT WITH REGISTRATION.DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="allow_user_to_change_ptype_after_reg" type="radio" default="1" label="ALLOW USER TO CHANGE PROFILE TYPE AFTER REGISTRATION" description="ALLOW USER TO CHANGE PROFILE TYPE AFTER REGISTRATION.DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+
+		<!-- whenver change name of default ptype , change name in element as well as in library/profiletypes.php fn get field html also -->
+		<param name="defaultProfiletypeID" type="profiletypes" default="0" label="DEFAULT PROFILETYPE ID" description="DEFAULT PROFILETYPE ID.DESC" />
+		<param name="guestProfiletypeID" type="profiletypes" default="0" label="GUEST PROFILETYPE ID" description="GUEST PROFILETYPE ID.DESC" />
+		<param name="jspt_show_radio" type="radio" default="1" label="DURING REGISTRATION SHOW CHOOSE ACCOUNT TYPE AS" description="DURING REGISTRATION SHOW CHOOSE ACCOUNT TYPE AS.DESC">
+			<option value="0">Select Box</option>
+			<option value="1">Radio Options</option>
+		</param>
+		<param name="jspt_fb_show_radio" type="radio" default="0" label="DURING FACEBOOK CONNECTIVITY SHOW CHOOSE ACCOUNT TYPE AS" description="DURING FACEBOOK CONNECTIVITY SHOW CHOOSE ACCOUNT TYPE AS.DESC">
+			<option value="0">Select Box</option>
+			<option value="1">Radio Options</option>
+		</param>
+		
+		<param name="allow_templatechange" type="radio" default="1" label="ALLOW TEMPLATE SELECTION" description="ALLOW TEMPLATE SELECTION.DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="show_watermark" type="radio" default="0" label="ENABLE WATERMARK" description="DISPLAY WATERMARK ON AVATAR.DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="jspt_block_dis_app" type="radio" default="0" label="BLOCK DISPLAY APPLICATION" description="BLOCK DISPLAY APPLICATION WHEN VISITING OTHERS PROFILE.DESC">
+				<option value="0">Owner</option>
+				<option value="1">Visitor</option>
+				<option value="2">Both</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="@spacer" type="spacer" default="AEC Integration Settings" label="" description="" />
+			<param name="aec_integrate" type="radio" default="0" label="INTEGRATE AEC" description="INTEGRATE AEC.DESC">
+				<option value="1">Yes</option>
+				<option value="0">No</option>
+			</param>
+			
+			<!--<param name="aec_force_ptype_page" type="radio" default="0" label="FORCE PROFILETYPE PAGE" description="FORCE PROFILETYPE PAGE.DESC">
+				<option value="1">Yes</option>
+				<option value="0">No</option>
+			</param>
+			
+			-->
+			<param name="aec_message" type="radio" default="b" label="DISPLAY MESSAGE AFTER PLAN SELECTION" description="DISPLAY MESSAGE AFTER PLAN SELECTION.DESC">
+				<option value="b">Both, Plan and Profiletype</option>
+				<option value="pl">Only Plan</option>
+				<option value="pt">Only Profiletype</option>
+			</param>
+			
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="@spacer" type="spacer" default="Restrict Registration" label="Restrict Registration" description="" />
+		
+			<param name="jspt_restrict_reg_check" type="radio" default="0" label="ENABLE RESTRICT REGISTRATION CHECK" description="ENABLE RESTRICT REGISTRATION CHECK.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="jspt_prevent_username" type="textarea" default="" label="PREVENT THESE USERNAMES FROM GETTING REGISTERED" rows="3" cols="30" description="PREVENT THESE USERNAMES FROM GETTING REGISTERED.DESC" />
+			
+			<param name="jspt_allowed_email" type="textarea" default="" label="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
+			<param name="jspt_prevent_email" type="textarea" default="" label="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
+			
+			<param name="restrict_advancesearchfield" type="radio" default="1" label="ENABLE RESTRICT PROFILEFIELD IN ADVANCE SEARCH" description="ENABLE RESTRICT ADVANCE SEARCH FIELD.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+	<!--
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="@spacer" type="spacer" default="Registration Configuration" label="Registration Configuration" description="" />
+			<param name="jspt_reg_page2" type="radio" default="0" label="HIDE PROFILE EDITING (SECOND PAGE) DURING REGISTRATION" description="HIDE PROFILE EDITING (SECOND PAGE) DURING REGISTRATION.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="jspt_reg_avatar" type="radio" default="0" label="HIDE AVATAR-SELECTION-PAGE DURING REGISTRATION" description="HIDE AVATAR-SELECTION-PAGE DURING REGISTRATION.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+	-->
+	</params>
+</config>
