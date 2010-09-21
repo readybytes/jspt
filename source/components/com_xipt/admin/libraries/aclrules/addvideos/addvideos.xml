@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-<params>
-	<param name="addvideos_limit" type="text" default="" label="TOTAL VIDEOS LIMIT.LABEL" description="NO OF TOTAL VIDEOS MAXIMUM LIMIT.DESC" />
-</params>
-</config>

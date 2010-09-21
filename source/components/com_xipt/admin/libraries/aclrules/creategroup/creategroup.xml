@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-<params>
-	<param name="creategroup_limit" type="text" default="" label="TOTAL GROUP JOIN LIMIT.LABEL" description="NO OF TOTAL GROUP JOIN MAXIMUM LIMIT.DESC" />
-</params>
-</config>

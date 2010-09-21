@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-<params>
-	<param name="addalbums_limit" type="text" default="" label="TOTAL CREATE ALBUM LIMIT.LABEL" description="NO OF TOTAL ALBUM CREATE MAXIMUM LIMIT.DESC" />
-</params>
-</config>

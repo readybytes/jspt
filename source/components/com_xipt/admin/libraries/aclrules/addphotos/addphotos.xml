@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-<params>
-	<param name="addphotos_limit" type="text" default="" label="TOTAL PHOTOS LIMIT.LABEL" description="NO OF TOTAL PHOTOS MAXIMUM LIMIT.DESC" />
-</params>
-</config>

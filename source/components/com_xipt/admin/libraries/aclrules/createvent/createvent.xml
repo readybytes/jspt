@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-<params>
-	<param name="createvent_limit" type="text" default="" label="TOTAL EVENT CREATE LIMIT.LABEL" description="NO OF TOTAL EVENT CREATE MAXIMUM LIMIT.DESC" />
-</params>
-</config>
