@@ -1,0 +1,67 @@
+../packages/tmp/admin/views/configuration/view.html.php:11:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:15:					<?php require_once( $this->jsConfigPath . DS . 'registrations.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:16:					<?php require_once( $this->jsConfigPath . DS . 'reportings.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:17:					<?php require_once( $this->jsConfigPath  . DS . 'privacy.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:18:					<?php require_once( $this->jsConfigPath  . DS . 'messaging.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:19:					<?php require_once( $this->jsConfigPath  . DS . 'walls.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:22:					<?php require_once( $this->jsConfigPath . DS . 'groups.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:23:					<?php require_once( $this->jsConfigPath . DS . 'videos.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:24:					<?php require_once( $this->jsConfigPath . DS . 'photos.php' ); ?>
+../packages/tmp/admin/views/configuration/tmpl/configuration.edit.php:25:					<?php require_once( $this->jsConfigPath . DS . 'myblog.php' ); ?>
+../packages/tmp/admin/views/settings/view.html.php:11:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+../packages/tmp/admin/views/cpanel/tmpl/aboutus.php:11:				require_once 'welcome.php';
+../packages/tmp/admin/views/cpanel/tmpl/aboutus.php:20:				require_once 'news.php';
+../packages/tmp/admin/views/cpanel/tmpl/aboutus.php:28:				require_once 'updates.php';
+../packages/tmp/admin/views/setup/tmpl/default.php:74:				require_once 'helpPanel.php';
+../packages/tmp/admin/views/setup/tmpl/helpPanel.php:13:		  <li> JSPT system require at least one profile type to be added </li>
+../packages/tmp/admin/hacks/front_libraries_fields_templates.php:10:require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/admin/hacks/mi_jomsocialjspt.php:41:		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/admin/hacks/mi_jomsocialjspt.php:47:		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:9:require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/admin/helpers/xiptcore.php:18:				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
+../packages/tmp/admin/helpers/xiptcore.php:21:				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
+../packages/tmp/admin/helpers/unhook.php:12:require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
+../packages/tmp/admin/helpers/unhook.php:13:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'jspt_functions.php';
+../packages/tmp/admin/includes.xipt.php:19:// include JomSocial files
+../packages/tmp/admin/includes.xipt.php:30:// require loader.php of xipt backend
+../packages/tmp/admin/includes.xipt.php:31:require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'loader.php');
+../packages/tmp/admin/includes.xipt.php:34:require_once  JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
+../packages/tmp/admin/includes.xipt.php:45:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
+../packages/tmp/admin/includes.xipt.php:47:// define our include paths to joomla
+../packages/tmp/admin/install.xipt.php:9:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';
+../packages/tmp/admin/uninstall.xipt.php:13:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'helpers' .DS. 'unhook.php';
+../packages/tmp/admin/controllers/setup.php:109:	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/admin/controllers/setup.php:128:			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/admin/controllers/setup.php:164:			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/admin/controllers/profiletypes.php:191:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+../packages/tmp/admin/admin.xipt.php:5:*@TODO : Include all helper files or other files in one common file and include that file
+../packages/tmp/admin/admin.xipt.php:15:// add include files
+../packages/tmp/admin/admin.xipt.php:16:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+../packages/tmp/admin/admin.xipt.php:30:			require_once( $path );
+../packages/tmp/admin/libraries/aclrules/aclrule.php:59:		require_once $path;
+../packages/tmp/admin/elements/colorbox/jscolor.js:826:		// require images
+../packages/tmp/admin/elements/profiletypes.php:37:		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
+../packages/tmp/site/includes.xipt.php:14:// include JomSocial files
+../packages/tmp/site/includes.xipt.php:19:// include JomSocial files
+../packages/tmp/site/includes.xipt.php:31:require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+../packages/tmp/site/includes.xipt.php:34:// require_once defines.xipt.php
+../packages/tmp/site/includes.xipt.php:35:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
+../packages/tmp/site/api.xipt.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+../packages/tmp/site/xipt.php:10:require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+../packages/tmp/site/xipt.php:26:			require_once( $path );
+../packages/tmp/site/libraries/route.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt' .DS. 'router.php';
+../packages/tmp/site/libraries/utils.php:365:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+../packages/tmp/site/libraries/utils.php:456:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+../packages/tmp/site/libraries/pluginhandler.php:12:// include files, as we are here from plugin
+../packages/tmp/site/libraries/pluginhandler.php:14:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+../packages/tmp/site/libraries/pluginhandler.php:342:	 * This function require to protect deletion of
+../packages/tmp/site/libraries/pluginhandler.php:386:		//	for that we don't require to add watermark
+../packages/tmp/site/libraries/profiletypes.php:8:require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/site/libraries/profiletypes.php:24:		/*XITODO : Remove the require_once, class should be auto loaded*/
+../packages/tmp/site/libraries/profiletypes.php:25:		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
+../packages/tmp/site/libraries/acl.php:217:		//is this require to check if viewuserid and userid is same
+../packages/tmp/site/libraries/core.php:43:        require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
+../packages/tmp/install/extensions/xipt_system/xipt_system.php:31:		$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');	
+../packages/tmp/install/extensions/xipt_community/xipt_community.php:9:// include joomla plugin framework
+../packages/tmp/install/extensions/xipt_community/xipt_community.php:18:	require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+../packages/tmp/install/install.php:9:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';

@@ -60,6 +60,9 @@ function com_install()
 		return false;
 	}	
 	show_instruction();
+	
+	changePluginState('xipt_system',true);
+	changePluginState('xipt_community',true);
 	return true;
 }
 
@@ -146,5 +149,21 @@ function installExtensions($extPath=null)
 
 	return true;
 }	
+
+function changePluginState($pluginname, $action=1)
+{
+  
+	$db			=& JFactory::getDBO();
+	$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
+			. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
+	          .' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
+	
+	$db->setQuery($query);		
+	
+	if(!$db->query())
+		return false;
+		
+	return true;
+}
 
 

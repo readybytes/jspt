@@ -9,12 +9,7 @@
 	<license>GNU GPL v2.0</license>
 	<version>@global.version@.@svn.lastrevision@</version>
 	<description>JSPT (code name is XIPT) is a component to setup multiple user profile types in JomSocial</description>
-	<installfile>install.xipt.php</installfile>
-	<uninstallfile>uninstall.xipt.php</uninstallfile>
-
-	<languages folder="site">
-		<language tag="en-GB">en-GB.com_xipt.ini</language>
-	</languages>
+	
 	<files folder="site">
 		<filename>index.html</filename>
 		<filename>xipt.php</filename>
@@ -31,6 +26,11 @@
 		<folder>views</folder>
 
 	</files>
+
+	<languages>
+		<language tag="en-GB">languages/site/en-GB.com_xipt.ini</language>
+	</languages>
+
 	<administration>
 		<menu link="option=com_xipt" img="components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
 		<submenu>
@@ -43,9 +43,6 @@
 			<menu view="applications" img="components/com_xipt/images/icon-applications.gif">Applications</menu>
 			<menu view="profilefields" img="components/com_xipt/images/icon-profilefields.gif">Profile Fields</menu>
 		</submenu>
-		<languages folder="admin">
-			<language tag="en-GB">en-GB.com_xipt.ini</language>
-		</languages>
 	
 		<files folder="admin">
 			<filename>index.html</filename>
@@ -67,5 +64,32 @@
 			<folder>hacks</folder>
 			<folder>images</folder>			
 		</files>
+		
+		<files>
+			<folder>install</folder>
+		</files>
+
+		<languages>
+			<language tag="en-GB">languages/admin/en-GB.com_xipt.ini</language>
+		</languages>
 	</administration>
+	
+	<installfile>install/install.php</installfile>
+	<uninstallfile>install/uninstall.php</uninstallfile>
+
+	<install>
+                <sql>
+                        <file driver="mysql" charset="utf8">install/install.sql</file>
+                </sql>
+        </install>
+
+	 <uninstall>
+                <sql>
+                        <file driver="mysql" charset="utf8">install/uninstall.sql</file>
+                </sql>
+        </uninstall>
+
+	<plugins>
+		<plugin plugin="xipt_system" publish="true" group="system" />
+	</plugins>
 </install>
