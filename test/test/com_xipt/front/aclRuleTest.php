@@ -49,10 +49,6 @@ class AclRuleTest extends XiSelTestCase
   }
   function testAddProfileVideo()
   {
-  	$version = XiSelTestCase::get_js_version();
-    if(!Jstring::stristr($version,'1.8'))
-     	return true;
-
     $url =  dirname(__FILE__).'/sql/AclRuleTest/testAddProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
@@ -82,12 +78,6 @@ class AclRuleTest extends XiSelTestCase
   
   function testDeleteProfileVideo()
   {
-  	
-  	$version = XiSelTestCase::get_js_version();
-    if(!Jstring::stristr($version,'1.8'))
-     	return true;
-  
-    	
    $url =  dirname(__FILE__).'/sql/AclRuleTest/testDeleteProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
@@ -121,10 +111,6 @@ class AclRuleTest extends XiSelTestCase
   
   function testAccessProfileVideo()
   {
-  	$version = XiSelTestCase::get_js_version();
-    if(!Jstring::stristr($version,'1.8'))
-     	return true;
-
     $url =  dirname(__FILE__).'/sql/AclRuleTest/testAccessProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
     
@@ -152,11 +138,6 @@ class AclRuleTest extends XiSelTestCase
   
   function testFriendSupportInAccessProfileVideo()
   {
-  	
-   $version = XiSelTestCase::get_js_version();
-    if(!Jstring::stristr($version,'1.8'))
-     	return true;
-   	
    $url =  dirname(__FILE__).'/sql/AclRuleTest/testFriendSupportInAccessProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);

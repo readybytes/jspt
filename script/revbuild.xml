@@ -43,8 +43,7 @@
 
 		<copy   file="${source}/plugins/community/xipt_community.xml" 
                         tofile="${target}/source/install/extensions/xipt_community/xipt_community.xml" 
-                         />
-        </copy>                     
+                         />                  
             
                  
                                               
@@ -71,7 +70,7 @@
                 </copy>
 
 		<copy   file="${source}/build.xml" 
-                        tofile="${target}/scripts/revbuild.xml" 
+                        tofile="${target}/script/revbuild.xml" 
                          />
         </target>
 </project>

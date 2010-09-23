@@ -26,13 +26,7 @@ class SyncUpTest extends XiSelTestCase
   }
   
   function testSyncUp()
-  {
-  	$version = XiSelTestCase::get_js_version();
-  	if(Jstring::stristr($version,'1.8'))
-  	{
-  		$url =  dirname(__FILE__).'/sql/ProfiletypeTest/testAddProfileType.1.7.sql';
-  		$this->_DBO->loadSql($url);
-  	}  
+  { 
   	$this->_DBO->addTable('#__community_users');
   	$this->_DBO->addTable('#__xipt_users');
   	$this->adminLogin();

@@ -667,8 +667,6 @@ function testACLRules2()
   
  function testCantChangeStatus()
  {
- 	
- 	
    	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -704,11 +702,6 @@ function testACLRules2()
 
   function testCreateEvent()
   {
-  	
-  	$version = XiSelTestCase::get_js_version();
-  	if(!Jstring::stristr('1.8',$version))
-    	return true;
-   	
     $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testCreateEvent.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
@@ -738,11 +731,6 @@ function testACLRules2()
  
   function testAccessEvent()
   {
-
-  	$version = XiSelTestCase::get_js_version();
-    if(!Jstring::stristr($version,'1.8'))
-    	return true;
-
     $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testAccessEvent.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
@@ -777,11 +765,6 @@ function testACLRules2()
 
   function testDeleteEvent()
   {
-
-  	$version = XiSelTestCase::get_js_version();
-    if(!Jstring::stristr($version,'1.8'))
-     	return true;
-
     $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testDeleteEvent.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
@@ -827,10 +810,6 @@ function testACLRules2()
   
   function testFriendSupportInAccessEvent()
   {
-  	$version = XiSelTestCase::get_js_version();
-    if(!Jstring::stristr($version,'1.8'))
-     	return true;
-
     $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testFriendSupportInAccessEvent.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);

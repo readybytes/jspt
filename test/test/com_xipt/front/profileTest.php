@@ -173,10 +173,10 @@ class ProfileTest extends XiSelTestCase
   	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=apps&task=browse&Itemid=53");
 	$this->waitPageLoad();
   	
-	$allApps=array(42,43,44,45,46);
-  	$allowedApps[1]=array(42,44,45,46);
-  	$allowedApps[2]=array(43,44,45,46);
-  	$allowedApps[3]=array(45,46);
+	$allApps=array(44,45,46,47,48);
+  	$allowedApps[1]=array(44,45,47,48);
+  	$allowedApps[2]=array(45,46,47,48);
+  	$allowedApps[3]=array(47,48);
 
 /*  	
   	$appsNames[42]='Walls';
@@ -185,11 +185,11 @@ class ProfileTest extends XiSelTestCase
   	$appsNames[45]='Latest Photos';  	
   	$appsNames[46]='My Articles';
 */  
-	$appsNames[42]='walls'; 
-        $appsNames[43]='feeds'; 
-        $appsNames[44]='groups'; 
-        $appsNames[45]='latestphoto'; 
-        $appsNames[46]='myarticles'; 
+	$appsNames[44]='walls'; 
+        $appsNames[45]='feeds'; 
+        $appsNames[46]='groups'; 
+        $appsNames[47]='latestphoto'; 
+        $appsNames[48]='myarticles'; 
 	
   	// now check for every links
   	$version = XiSelTestCase::get_js_version();

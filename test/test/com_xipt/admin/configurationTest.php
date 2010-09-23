@@ -11,15 +11,7 @@ class ConfigurationTest extends XiSelTestCase
   
 
   function testConfiguration()
-  {
-  //check js version
-    
-  	$version = XiSelTestCase::get_js_version();
-    if(Jstring::stristr($version,'1.8'))
-  	{
-  		$url =  dirname(__FILE__).'/sql/ConfigurationTest/testConfiguration.1.7.sql';
-    	$this->_DBO->loadSql($url);
-  	}  
+  {  
   	  //setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration");
