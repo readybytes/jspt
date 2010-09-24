@@ -42,9 +42,6 @@
 ../packages/tmp/admin/views/setup/view.html.php:105:			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
 ../packages/tmp/admin/views/setup/view.html.php:119:			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
 ../packages/tmp/admin/views/setup/tmpl/default.php:10:<form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
-../packages/tmp/admin/helpers/setup.php:489:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
-../packages/tmp/admin/helpers/profiletypes.php:341:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
-../packages/tmp/admin/helpers/profiletypes.php:479:				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
 ../packages/tmp/admin/controllers/setup.php:46:		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
 ../packages/tmp/admin/controllers/setup.php:53:    	$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false));
 ../packages/tmp/admin/controllers/setup.php:80:		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
@@ -78,6 +75,9 @@
 ../packages/tmp/admin/controllers/aclrules.php:199:		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules', false);
 ../packages/tmp/admin/controllers/aclrules.php:223:		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules', false);
 ../packages/tmp/admin/controllers/aclrules.php:247:		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules', false);
+../packages/tmp/site/helpers/setup.php:489:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+../packages/tmp/site/helpers/profiletypes.php:341:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
+../packages/tmp/site/helpers/profiletypes.php:479:				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
 ../packages/tmp/site/controllers/registration.php:40:				$link = XiPTRoute::_('index.php?option=com_xipt&view=registration', false);
 ../packages/tmp/site/libraries/pluginhandler.php:500:			$link = "index.php?option=com_xipt&view=registration";
 ../packages/tmp/site/libraries/pluginhandler.php:511:				$this->mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));

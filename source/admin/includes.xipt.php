@@ -50,21 +50,21 @@ JModel::addIncludePath(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xip
 JTable::addIncludePath( JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' . DS . 'tables' );
 
 //bakcend helper files required
-XiPTLoader::addAutoLoadFolder(XIPT_ADMIN_PATH_HELPER,'Helper');
-XiPTLoader::addAutoLoadFile('XiPTHelperAclRules', XIPT_ADMIN_PATH_HELPER.DS.'aclrules.php');
-XiPTLoader::addAutoLoadFile('XiPTHelperProfileFields', XIPT_ADMIN_PATH_HELPER.DS.'profilefields.php');
-XiPTLoader::addAutoLoadFile('XiFactory', XIPT_ADMIN_PATH_HELPER.DS.'xiptcore.php');
+XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
+XiPTLoader::addAutoLoadFile('XiPTHelperAclRules', 		XIPT_FRONT_PATH_HELPER.DS.'aclrules.php');
+XiPTLoader::addAutoLoadFile('XiPTHelperProfileFields', 	XIPT_FRONT_PATH_HELPER.DS.'profilefields.php');
+XiPTLoader::addAutoLoadFile('XiFactory', 				XIPT_FRONT_PATH_HELPER.DS.'xiptcore.php');
 
 // auto load front libraries files
 XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY,'Library');
-XiPTLoader::addAutoLoadFile('XiPTFactory', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php');
-XiPTLoader::addAutoLoadFile('XiPTLibraryCore', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'core.php');
-XiPTLoader::addAutoLoadFile('XiPTImageGenerator',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'imagegenerator.php');
-XiPTLoader::addAutoLoadFile('XiPTRoute',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'route.php');
+XiPTLoader::addAutoLoadFile('XiPTFactory', 			XIPT_FRONT_PATH_LIBRARY.DS.'core.php');
+XiPTLoader::addAutoLoadFile('XiPTLibraryCore', 		XIPT_FRONT_PATH_LIBRARY.DS.'core.php');
+XiPTLoader::addAutoLoadFile('XiPTImageGenerator',	XIPT_FRONT_PATH_LIBRARY.DS.'imagegenerator.php');
+XiPTLoader::addAutoLoadFile('XiPTRoute',			XIPT_FRONT_PATH_LIBRARY.DS.'route.php');
 
 // libray file of backend
-XiPTLoader::addAutoLoadFile('aclFactory',JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aclrules'.DS.'aclrule.php');
-XiPTLoader::addAutoLoadFile('xiptAclRules',JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'aclrules'.DS.'aclrule.php');
+XiPTLoader::addAutoLoadFile('aclFactory',	XIPT_FRONT_PATH_LIBRARY.DS.'aclrules'.DS.'aclrule.php');
+XiPTLoader::addAutoLoadFile('xiptAclRules',	XIPT_FRONT_PATH_LIBRARY.DS.'aclrules'.DS.'aclrule.php');
 
 /*Load Langauge file*/
 $lang =& JFactory::getLanguage();

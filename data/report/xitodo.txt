@@ -1,13 +1,13 @@
 ../packages/tmp/admin/views/setup/view.html.php:131:	//XITODO : check if any profiletype have enbaled admin approval
-../packages/tmp/admin/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
-../packages/tmp/admin/helpers/profiletypes.php:220:    //XITODO : remove this loop
 ../packages/tmp/admin/controllers/profiletypes.php:135:				/*XITODO : send debug mode in second parameter */
 ../packages/tmp/admin/controllers/profiletypes.php:205:		//XITODO : also support other formats
-../packages/tmp/admin/libraries/aclrules/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
-../packages/tmp/admin/libraries/aclrules/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
-../packages/tmp/admin/libraries/aclrules/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
-../packages/tmp/admin/libraries/aclrules/aclrule.php:67:		//XITODO send debugmode
-../packages/tmp/admin/libraries/aclrules/aclrule.php:235:		//XITODO : Conditions should be OR ED
+../packages/tmp/site/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
+../packages/tmp/site/helpers/profiletypes.php:220:    //XITODO : remove this loop
+../packages/tmp/site/libraries/aclrules/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
+../packages/tmp/site/libraries/aclrules/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
+../packages/tmp/site/libraries/aclrules/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
+../packages/tmp/site/libraries/aclrules/aclrule.php:67:		//XITODO send debugmode
+../packages/tmp/site/libraries/aclrules/aclrule.php:235:		//XITODO : Conditions should be OR ED
 ../packages/tmp/site/libraries/utils.php:25:			 * XITODO : we will remove this when aec support fbc
 ../packages/tmp/site/libraries/utils.php:74:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 ../packages/tmp/site/libraries/utils.php:176:	/*XITODO : Add unit testing for this case */

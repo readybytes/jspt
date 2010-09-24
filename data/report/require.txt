@@ -18,10 +18,6 @@
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:41:		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:47:		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:9:require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-../packages/tmp/admin/helpers/xiptcore.php:18:				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
-../packages/tmp/admin/helpers/xiptcore.php:21:				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
-../packages/tmp/admin/helpers/unhook.php:12:require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
-../packages/tmp/admin/helpers/unhook.php:13:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'jspt_functions.php';
 ../packages/tmp/admin/includes.xipt.php:19:// include JomSocial files
 ../packages/tmp/admin/includes.xipt.php:30:// require loader.php of xipt backend
 ../packages/tmp/admin/includes.xipt.php:31:require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'loader.php');
@@ -38,9 +34,12 @@
 ../packages/tmp/admin/admin.xipt.php:15:// add include files
 ../packages/tmp/admin/admin.xipt.php:16:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 ../packages/tmp/admin/admin.xipt.php:30:			require_once( $path );
-../packages/tmp/admin/libraries/aclrules/aclrule.php:59:		require_once $path;
 ../packages/tmp/admin/elements/colorbox/jscolor.js:826:		// require images
 ../packages/tmp/admin/elements/profiletypes.php:37:		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
+../packages/tmp/site/helpers/xiptcore.php:18:				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
+../packages/tmp/site/helpers/xiptcore.php:21:				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
+../packages/tmp/site/helpers/unhook.php:12:require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
+../packages/tmp/site/helpers/unhook.php:13:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'jspt_functions.php';
 ../packages/tmp/site/includes.xipt.php:14:// include JomSocial files
 ../packages/tmp/site/includes.xipt.php:19:// include JomSocial files
 ../packages/tmp/site/includes.xipt.php:31:require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
@@ -49,6 +48,7 @@
 ../packages/tmp/site/api.xipt.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 ../packages/tmp/site/xipt.php:10:require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 ../packages/tmp/site/xipt.php:26:			require_once( $path );
+../packages/tmp/site/libraries/aclrules/aclrule.php:59:		require_once $path;
 ../packages/tmp/site/libraries/route.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt' .DS. 'router.php';
 ../packages/tmp/site/libraries/utils.php:365:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 ../packages/tmp/site/libraries/utils.php:456:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';

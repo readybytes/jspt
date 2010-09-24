@@ -18,7 +18,7 @@
 		<filename>defines.xipt.php</filename>
 		<filename>license.txt</filename>
 		<filename>router.php</filename>
-
+		<folder>helpers</folder>			
 		<folder>controllers</folder>
 		<folder>models</folder>		
 		<folder>libraries</folder>
@@ -56,8 +56,6 @@
 			
 			<folder>controllers</folder>
 			<folder>models</folder>
-			<folder>helpers</folder>			
-			<folder>libraries</folder>
 			<folder>elements</folder>
 			<folder>views</folder>
 			<folder>tables</folder>
