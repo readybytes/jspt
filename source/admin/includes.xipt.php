@@ -46,10 +46,12 @@ require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
 
 // define our include paths to joomla
 jimport( 'joomla.application.component.model' );
-JModel::addIncludePath(JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'models');
-JTable::addIncludePath( JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' . DS . 'tables' );
+//JModel::addIncludePath(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models');
+//JTable::addIncludePath( JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables' );
 
 //bakcend helper files required
+XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models','Model');
+XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
 XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
 XiPTLoader::addAutoLoadFile('XiPTHelperAclRules', 		XIPT_FRONT_PATH_HELPER.DS.'aclrules.php');
 XiPTLoader::addAutoLoadFile('XiPTHelperProfileFields', 	XIPT_FRONT_PATH_HELPER.DS.'profilefields.php');

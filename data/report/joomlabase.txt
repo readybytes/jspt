@@ -146,50 +146,6 @@
 ../packages/tmp/admin/controllers/aclrules.php:224:		$mainframe->redirect($link, $msg);
 ../packages/tmp/admin/controllers/aclrules.php:230:		global $mainframe;
 ../packages/tmp/admin/controllers/aclrules.php:248:		$mainframe->redirect($link, $msg);
-../packages/tmp/admin/tables/profilefields.php:9:class XiPTTableProfileFields extends JTable
-../packages/tmp/admin/tables/profilefields.php:44:	 * Overrides Joomla's JTable store method so that we can define proper values
-../packages/tmp/admin/tables/settings.php:9:class XiPTTableSettings extends JTable
-../packages/tmp/admin/tables/profiletypes.php:12:class XiPTTableProfiletypes extends JTable
-../packages/tmp/admin/tables/profiletypes.php:94:	 * Overrides Joomla's JTable store method so that we can define proper values
-../packages/tmp/admin/tables/applications.php:9:class XiPTTableApplications extends JTable
-../packages/tmp/admin/tables/applications.php:49:	 * Overrides Joomla's JTable store method so that we can define proper values
-../packages/tmp/admin/tables/aclrules.php:9:class XiPTTableAclRules extends JTable
-../packages/tmp/admin/tables/aclrules.php:51:	 * Overrides Joomla's JTable store method so that we can define proper values
-../packages/tmp/admin/models/settings.php:26:		$row             =& JTable::getInstance( 'settings' , 'XiPTTable' );
-../packages/tmp/admin/models/profiletypes.php:20:		global $mainframe;
-../packages/tmp/admin/models/profiletypes.php:26:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-../packages/tmp/admin/models/profiletypes.php:27:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
-../packages/tmp/admin/models/profiletypes.php:57:		global $mainframe;
-../packages/tmp/admin/models/profiletypes.php:67:		$db			=& JFactory::getDBO();
-../packages/tmp/admin/models/profiletypes.php:70:		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-../packages/tmp/admin/models/profiletypes.php:71:		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
-../packages/tmp/admin/models/profiletypes.php:100:		$db 	=& JFactory::getDBO();
-../packages/tmp/admin/models/profiletypes.php:113:		$db 	=& JFactory::getDBO();
-../packages/tmp/admin/models/applications.php:20:		global $mainframe;
-../packages/tmp/admin/models/applications.php:26:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-../packages/tmp/admin/models/applications.php:27:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
-../packages/tmp/admin/models/applications.php:57:		global $mainframe;
-../packages/tmp/admin/models/applications.php:67:		$db			=& JFactory::getDBO();
-../packages/tmp/admin/models/applications.php:70:		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-../packages/tmp/admin/models/applications.php:71:		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
-../packages/tmp/admin/models/applications.php:101:		$db		=& JFactory::getDBO();
-../packages/tmp/admin/models/configuration.php:40:		$mainframe	=& JFactory::getApplication();
-../packages/tmp/admin/models/configuration.php:58:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-../packages/tmp/admin/models/configuration.php:59:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_community.limitstart', 'limitstart', 0, 'int' );
-../packages/tmp/admin/models/configuration.php:78:			$db			=& JFactory::getDBO();
-../packages/tmp/admin/models/configuration.php:94:			$profiletype		=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-../packages/tmp/admin/models/configuration.php:121:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-../packages/tmp/admin/models/configuration.php:122:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-../packages/tmp/admin/models/configuration.php:165:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-../packages/tmp/admin/models/configuration.php:166:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-../packages/tmp/admin/models/aclrules.php:24:		global $mainframe;
-../packages/tmp/admin/models/aclrules.php:30:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-../packages/tmp/admin/models/aclrules.php:31:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
-../packages/tmp/admin/models/aclrules.php:61:		global $mainframe;
-../packages/tmp/admin/models/aclrules.php:71:		$db			=& JFactory::getDBO();
-../packages/tmp/admin/models/aclrules.php:74:		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-../packages/tmp/admin/models/aclrules.php:75:		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
-../packages/tmp/admin/models/aclrules.php:100:		$db 	=& JFactory::getDBO();
 ../packages/tmp/admin/admin.xipt.php:54:	global $mainframe;
 ../packages/tmp/admin/admin.xipt.php:59:		$mainframe->enqueueMessage($msg,false);
 ../packages/tmp/admin/elements/profilefields.php:30:			$db	=& JFactory::getDBO();
@@ -257,10 +213,54 @@
 ../packages/tmp/site/controllers/registration.php:38:				global $mainframe;
 ../packages/tmp/site/controllers/registration.php:41:				$mainframe->redirect($link, $msg);	
 ../packages/tmp/site/controllers/registration.php:48:		$document	=& JFactory::getDocument();
+../packages/tmp/site/tables/profilefields.php:9:class XiPTTableProfileFields extends JTable
+../packages/tmp/site/tables/profilefields.php:44:	 * Overrides Joomla's JTable store method so that we can define proper values
+../packages/tmp/site/tables/settings.php:9:class XiPTTableSettings extends JTable
+../packages/tmp/site/tables/profiletypes.php:12:class XiPTTableProfiletypes extends JTable
+../packages/tmp/site/tables/profiletypes.php:94:	 * Overrides Joomla's JTable store method so that we can define proper values
+../packages/tmp/site/tables/applications.php:9:class XiPTTableApplications extends JTable
+../packages/tmp/site/tables/applications.php:49:	 * Overrides Joomla's JTable store method so that we can define proper values
+../packages/tmp/site/tables/aclrules.php:9:class XiPTTableAclRules extends JTable
+../packages/tmp/site/tables/aclrules.php:51:	 * Overrides Joomla's JTable store method so that we can define proper values
 ../packages/tmp/site/router.php:16:	$dbo = JFactory::getDBO();
+../packages/tmp/site/models/settings.php:26:		$row             =& JTable::getInstance( 'settings' , 'XiPTTable' );
 ../packages/tmp/site/models/user.php:14:		$db		=& JFactory::getDBO();
 ../packages/tmp/site/models/user.php:34:		$db		=& JFactory::getDBO();
 ../packages/tmp/site/models/user.php:55:class XiPTTableUser extends JTable
+../packages/tmp/site/models/profiletypes.php:20:		global $mainframe;
+../packages/tmp/site/models/profiletypes.php:26:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
+../packages/tmp/site/models/profiletypes.php:27:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
+../packages/tmp/site/models/profiletypes.php:57:		global $mainframe;
+../packages/tmp/site/models/profiletypes.php:67:		$db			=& JFactory::getDBO();
+../packages/tmp/site/models/profiletypes.php:70:		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+../packages/tmp/site/models/profiletypes.php:71:		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
+../packages/tmp/site/models/profiletypes.php:100:		$db 	=& JFactory::getDBO();
+../packages/tmp/site/models/profiletypes.php:113:		$db 	=& JFactory::getDBO();
+../packages/tmp/site/models/applications.php:20:		global $mainframe;
+../packages/tmp/site/models/applications.php:26:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
+../packages/tmp/site/models/applications.php:27:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
+../packages/tmp/site/models/applications.php:57:		global $mainframe;
+../packages/tmp/site/models/applications.php:67:		$db			=& JFactory::getDBO();
+../packages/tmp/site/models/applications.php:70:		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+../packages/tmp/site/models/applications.php:71:		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
+../packages/tmp/site/models/applications.php:101:		$db		=& JFactory::getDBO();
+../packages/tmp/site/models/configuration.php:40:		$mainframe	=& JFactory::getApplication();
+../packages/tmp/site/models/configuration.php:58:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
+../packages/tmp/site/models/configuration.php:59:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_community.limitstart', 'limitstart', 0, 'int' );
+../packages/tmp/site/models/configuration.php:78:			$db			=& JFactory::getDBO();
+../packages/tmp/site/models/configuration.php:94:			$profiletype		=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+../packages/tmp/site/models/configuration.php:121:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
+../packages/tmp/site/models/configuration.php:122:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+../packages/tmp/site/models/configuration.php:165:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
+../packages/tmp/site/models/configuration.php:166:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+../packages/tmp/site/models/aclrules.php:24:		global $mainframe;
+../packages/tmp/site/models/aclrules.php:30:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
+../packages/tmp/site/models/aclrules.php:31:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
+../packages/tmp/site/models/aclrules.php:61:		global $mainframe;
+../packages/tmp/site/models/aclrules.php:71:		$db			=& JFactory::getDBO();
+../packages/tmp/site/models/aclrules.php:74:		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+../packages/tmp/site/models/aclrules.php:75:		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
+../packages/tmp/site/models/aclrules.php:100:		$db 	=& JFactory::getDBO();
 ../packages/tmp/site/libraries/aclrules/accessevent/accessevent.php:58:		$db		=& JFactory::getDBO();
 ../packages/tmp/site/libraries/aclrules/redirect/redirect.php:47:		$user=JFactory::getUser();
 ../packages/tmp/site/libraries/aclrules/writemessages/writemessages.php:61:		$db			=& JFactory::getDBO();

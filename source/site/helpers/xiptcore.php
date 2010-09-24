@@ -14,12 +14,12 @@ class XiFactory
 		
 		if(!isset($modelInstances[$name]))
 		{
-			if($from==='admin')
-				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
-							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
-			else
-				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
-							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
+//			if($from==='admin')
+//				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
+//							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
+//			else
+//				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
+//							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
 			$classname = 'XiPTModel'.$name;
 			$modelInstances[$name] = new $classname;
 		}
