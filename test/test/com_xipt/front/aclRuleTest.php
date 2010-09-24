@@ -17,16 +17,18 @@ class AclRuleTest extends XiSelTestCase
   	$this->assertTrue($verify != $present);
   }
   
-  function checkAddProfileVideo($id,$vid,$verify)
+  function checkAddProfileVideo($vid,$verify)
   {
-  	$this->open("index.php?option=com_community&view=videos&task=video&userid=$id&videoid=$vid&Itemid=53");
-	$this->waitPageLoad();
-	$this->click("link=Set as profile video");
-	sleep(2);
-    $this->click("//button[@onclick='joms.videos.linkProfileVideo($vid);']");
-	$this->waitForElement("cwin_tm");
-	//sleep(1);
-    $this->verifyRestrict($verify);
+     $this->open("index.php?option=com_community&view=profile&task=linkVideo&Itemid=53");
+     $this->waitPageLoad();
+     $this->click("link=Change profile video");
+     sleep(2);
+     $this->click("//div[@id='video-$vid']/div/div[2]/div[3]/a/span");
+     sleep(2);
+     $this->click("//button[@onclick='joms.videos.linkProfileVideo($vid);']");
+     sleep(2);
+     $this->verifyRestrict($verify);
+     $this->click("cwin_close_btn");   
   }
   
   function checkDeleteProfileVideo($id,$vid,$verify)
@@ -47,33 +49,37 @@ class AclRuleTest extends XiSelTestCase
      $this->click("link=My Profile Video");
      $this->verifyRestrict($verify); 
   }
+
   function testAddProfileVideo()
   {
-    $url =  dirname(__FILE__).'/sql/AclRuleTest/testAddProfileVideo.1.8.sql';
-    $this->_DBO->loadSql($url);
-  	$users[1]=array(79,82,85);
-  	$users[2]=array(80,83,86);
-  	$users[3]=array(81,84,87);
-  	
-	$user = JFactory::getUser(82); 
-  	
-  	$this->frontLogin($user->name,$user->name);
-  	//pt1 can't add profile video
-  	$this->checkAddProfileVideo(82,2,false);
-    $this->frontLogout();
-  	$user = JFactory::getUser(83); 
-  	
-  	$this->frontLogin($user->name,$user->name);
-  	//pt1 can't add profile video
-  	$this->checkAddProfileVideo(82,3,true);
-    $this->frontLogout();
-    $user = JFactory::getUser(84); 
-  	
-  	$this->frontLogin($user->name,$user->name);
-  	//pt1 can't add profile video
-  	$this->checkAddProfileVideo(84,4,true);
-    $this->frontLogout();
+     $version = XiSelTestCase::get_js_version();
+     if(!Jstring::stristr($version,'1.8'))
+     	return true;
 
+   	 $url =  dirname(__FILE__).'/sql/AclRuleTest/testAddProfileVideo.1.8.sql';
+     $this->_DBO->loadSql($url);
+     $users[1]=array(79,82,85);
+     $users[2]=array(80,83,86);
+     $users[3]=array(81,84,87);
+         
+     $user = JFactory::getUser(82);
+         
+     $this->frontLogin($user->name,$user->name);
+     //pt1 can't add profile video
+     $this->checkAddProfileVideo(2,false);
+     $this->frontLogout();
+     $user = JFactory::getUser(83);
+         
+     $this->frontLogin($user->name,$user->name);
+     //pt1 can't add profile video
+     $this->checkAddProfileVideo(3,true);
+     $this->frontLogout();
+     $user = JFactory::getUser(84);
+         
+     $this->frontLogin($user->name,$user->name);
+         //pt1 can't add profile video
+     $this->checkAddProfileVideo(4,true);
+     $this->frontLogout();
   }
   
   function testDeleteProfileVideo()

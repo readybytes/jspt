@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `#__xipt_settings` (
 --
 -- Dumping data for table `#__xipt_settings`
 --
-TRUNCATE TABLE `#__xipt_settings`;
-INSERT INTO `#__xipt_settings` (`name`, `params`) VALUES
+
+INSERT IGNORE INTO `#__xipt_settings` (`name`, `params`) VALUES
 ('settings', '');
 
 

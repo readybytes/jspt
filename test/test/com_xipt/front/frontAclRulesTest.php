@@ -24,6 +24,7 @@ class FrontAclRulesTest extends XiSelTestCase
 	$this->waitPageLoad();
     $this->verifyRestrict($verify);   
   }
+  
  function checkCreateEvent($verify,$starttime,$endtime)
   {
 	static $counter=1;	
@@ -34,6 +35,8 @@ class FrontAclRulesTest extends XiSelTestCase
 	if($verify)
 	{
 		$this->type("title", "myevent$counter");
+		$this->click("link=Toggle editor");
+		sleep(1);
 		$this->type("description", "myevent");
 		$this->type("location", "india");
 		$this->select("starttime-hour", "label=$starttime");

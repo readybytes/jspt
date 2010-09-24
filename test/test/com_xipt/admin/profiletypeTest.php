@@ -11,14 +11,7 @@ class ProfiletypeTest extends XiSelTestCase
   
 
   function testAddProfileType()
-  {
-  	$version = XiSelTestCase::get_js_version();
-  	if(Jstring::stristr($version,'1.8'))
-  	{
-  		$url =  dirname(__FILE__).'/sql/ProfiletypeTest/testAddProfileType.1.7.sql';
-  		$this->_DBO->loadSql($url);
-  	}  
-  	
+  { 	
   	$this->_DBO->addTable('#__xipt_profiletypes');
     $this->_DBO->filterColumn('#__xipt_profiletypes','id');
   	
