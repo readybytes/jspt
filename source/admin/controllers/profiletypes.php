@@ -105,16 +105,21 @@ class XiPTControllerProfiletypes extends JController
 		$data['published'] 	= $post['published']; 
 		$data['template'] 	= $post['template'];
 		$data['jusertype'] 	= $post['jusertype'];
-		$data['privacy'] 	= $post['privacy'];
 		$data['approve'] 	= $post['approve'];
 		$data['allowt'] 	= $post['allowt'];
-		$data['group'] 		= $post['group'];
+		$data['group'] 		= implode(',',$post['group']);
 		$data['visible']	= $post['visible'];
 		
 		$registry	=& JRegistry::getInstance( 'xipt' );
 		$registry->loadArray($post['watermarkparams'],'xipt_watermarkparams');
 		$data['watermarkparams'] =  $registry->toString('INI' , 'xipt_watermarkparams' );
 		//$data['ordering']	= 0;
+		
+		$registry->loadArray($post['config'],'xipt_config');
+		$data['config'] =  $registry->toString('INI' , 'xipt_config' );
+		
+		$registry->loadArray($post['privacy'],'xipt_params');
+		$data['privacy']  =  $registry->toString('INI' , 'xipt_params' );
 		
 		$row->bindAjaxPost($data);
 
@@ -132,6 +137,12 @@ class XiPTControllerProfiletypes extends JController
 				/* generate watermark image */
 				$config = new JParameter('','');
 				$config->bind($row->watermarkparams);
+				
+				$ptypesetting = new JParameter('','');
+				$ptypesetting->bind($row->config);
+				
+				$privacysetting = new JParameter('','');
+				$privacysetting->bind($row->privacy);
 				/*XITODO : send debug mode in second parameter */
 				$imageGenerator = new XiPTImageGenerator($config,0);
 				$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
@@ -146,7 +157,18 @@ class XiPTControllerProfiletypes extends JController
 					/*generate thumnail */
 				    $this->generateThumbnail($imageName,$filename,$storage,$row,$config);
 				    
-					}				    
+					}	
+
+				if($ptypesetting)
+				{
+					$this->saveConfig($row, $ptypesetting,'config');
+				}
+				
+			   if($privacysetting)
+			   {
+					$this->saveConfig($row, $privacysetting,'privacy');
+			   }
+				
 				/* Reset existing user's */
 				if($post['resetAll']) {
 					//If not uploaded data then by default save the previous values 
@@ -162,13 +184,15 @@ class XiPTControllerProfiletypes extends JController
 		return $info;
 	}
 	
-	function saveWatermarkparams($filename,$row,$config)
+	function saveWatermarkparams($filename,$row,$config,$test=false)
 	{
 		$image = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$filename;
 		
 		/*assign ptype id in  demo so we can generate data in element itself */ 
-		
-		$params = $config->toString('INI');
+		if($test==false)
+			$params = $config->toString('INI');
+		else
+			$params = $config;
 		//now update profiletype with new watermark
 		$db =& JFactory::getDBO();
 		$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
@@ -219,6 +243,28 @@ class XiPTControllerProfiletypes extends JController
 		return;
 	}
 	
+	function saveConfig($row,$ptypesetting,$what,$test=false)
+	{
+		if($test===false)
+			$params = $ptypesetting->toString('INI');
+		else
+		{
+			$params = $ptypesetting;	
+		}
+		//now update profiletype with new watermark
+		$db =& JFactory::getDBO();
+		$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
+    			. 'SET ' . ' '.$db->nameQuote( $what ) . '=' . $db->Quote( $params ) . ' '
+    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $row->id );
+    	$db->setQuery( $query );
+    	$db->query( $query );
+
+		if($db->getErrorNum())
+		{
+			JError::raiseError( 500, $db->stderr());
+	    }
+	}
+
 	function remove()
 	{
 		global $mainframe;
@@ -391,4 +437,21 @@ class XiPTControllerProfiletypes extends JController
 		}
 	}
 	
+	function removeAvatar()
+	{
+		global $mainframe;
+		
+		//get id and old avatar.
+		$id        = JRequest::getVar('editId', 0 , 'GET');
+		$oldAvatar = JRequest::getVar('oldAvatar', 0 , 'GET');
+		
+		$newavatar 		= DEFAULT_AVATAR ;
+		$newavatarthumb	= DEFAULT_AVATAR_THUMB;
+		$profiletype	=XiFactory::getModel( 'Profiletypes' );
+		
+		$profiletype->removeCustomAvatar($id, $newavatar);
+		
+		$profiletype->resetUserAvatar($id, $newavatar, $oldAvatar, $newavatarthumb);
+		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');
+	}
 }

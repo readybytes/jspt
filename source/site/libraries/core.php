@@ -126,19 +126,17 @@ class XiPTLibraryCore
 	{
 		// skip these calls from backend
 		global $mainframe;
-		$pID = '';
 		if($mainframe->isAdmin())
 			return true;
+			
 		$loggedInUser = JFactory::getUser();
-		$view = JRequest :: getVar('view');
-		if($view == 'register')
-		{
+		$pID = XiPTLibraryProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
+		
+		if(JRequest :: getVar('view') === 'register'){
 			$pluginHandler = XiPTFactory::getLibraryPluginHandler();
 			$pID = $pluginHandler->getRegistrationPType();
 		}
 					
-		// get params of user.
-		$pID = XiPTLibraryProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
 		
 		XiPTLibraryUtils::XAssert($pID);
 		$params = XiPTLibraryProfiletypes::getParams($pID);
@@ -236,9 +234,12 @@ class XiPTLibraryCore
 	 * @param $watermarkInfo
 	 * @return unknown_type
 	 */
-	function updateCommunityUserWatermark($userid,$watermark)
+	function updateCommunityUserWatermark($userid,$watermark='')
 	{
-		
+		//no watermark
+		if($watermark === '')
+			return false;
+			
 		//check if watermark is enable
 		if(XiPTLibraryUtils::getParams('show_watermark')=== false)
 			return false;
@@ -332,14 +333,17 @@ class XiPTLibraryCore
 		
 		$cuser    =& CFactory::getUser($userid);
 		$myparams =  $cuser->getParams();
-		$myparams->set('privacyProfileView',$myprivacy);
+		foreach( $myprivacy as $key => $val ){
+			$myparams->set( $key , $val );
+		}
+
+		if(!$cuser->save( 'params' ))
+			return false ;
+
+		 //enforce JomSocial to clean cached user
+   		self::reloadCUser($userid);	
+		return true;
 		
-        if(!$cuser->save())
-            return false;
-        
-        //enforce JomSocial to clean cached user
-        self::reloadCUser($userid);
- 		return true;
 	}
 	
 	function updateCommunityUserGroup($userId,$oldGroup, $newGroup)
@@ -360,7 +364,7 @@ class XiPTLibraryCore
 	{
 		$db		=& JFactory::getDBO();
 		$query	= " SELECT `memberid` FROM `#__community_groups_members` "
-  				. " WHERE `memberid`='".$userid."'   AND `groupid`='".$groupid."'" 
+  				. " WHERE `memberid`='".$userid."'   AND `groupid` IN ({$groupid})" 
   				. " LIMIT 1";
   		$db->setQuery($query);
   		return $db->loadResult() ? true : false ;
@@ -368,19 +372,22 @@ class XiPTLibraryCore
 	
 	function _addUserToGroup( $userId , $groupId)
 	{
+		$groupId=explode(',',$groupId);
 		$groupModel	=& CFactory::getModel( 'groups' );
 		//$userModel	=& CFactory::getModel( 'user' );
 	
-		if(!$groupId)
+        //if user has selected "none" jst exit
+		if(!is_array($groupId) || !count($groupId)>0 || in_array(0,$groupId))
 			return false;
 	
-		if( $groupModel->isMember( $userId , $groupId ) )
-			return false;
-		else
-		{
+	    foreach($groupId as $k=>$gid)
+	    {
+			if( $groupModel->isMember( $userId , $gid ) )
+				return false;
+			
 			$group		=& JTable::getInstance( 'Group' , 'CTable' );
 			$member		=& JTable::getInstance( 'GroupMembers' , 'CTable' );
-			$group->load( $groupId );
+			$group->load( $gid );
 			
 			// Set the properties for the members table
 			$member->groupid	= $group->id;
@@ -397,40 +404,45 @@ class XiPTLibraryCore
 			XiPTLibraryUtils::XAssert( $store );
 	
 			if($member->approved)
-				$groupModel->addMembersCount($groupId);
+				$groupModel->addMembersCount($gid);
+			   
+	        }
 			return true;
-		}
 	}
 	    
 	function _removeUserFromGroup($userId , $groupId)
 	{
+		$groupId=explode(',',$groupId);
 		$model		= & CFactory::getModel( 'groups' );
 		$group		=& JTable::getInstance( 'Group' , 'CTable' );
 		
-		if(!$groupId)
-			return;
+		//if(!$groupId)
+		if((!is_array($groupId) )&& (!count($groupId)>0))
+			return false;
+
+	    foreach($groupId as $k=>$gid)
+	    {
+			$group->load( $gid );
 		
-		$group->load( $groupId );
-		
-		// do not remove owner
-		if($group->ownerid == $userId)
-			return;
+			// do not remove owner
+			if($group->ownerid == $userId)
+				return;
 			
-		// is not already a member
-		if(!$model->isMember($userId , $groupId))
-			return;
+			// is not already a member
+			if(!$model->isMember($userId , $gid))
+				return;
 			
-		// remove
-		$groupMember	=& JTable::getInstance( 'GroupMembers' , 'CTable' );
-		$groupMember->load( $userId , $groupId );
+			// remove
+			$groupMember	=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+			$groupMember->load( $userId , $gid );
 	
-		$data		= new stdClass();
-		$data->groupid	= $groupId;
-		$data->memberid	= $userId;
+			$data		= new stdClass();
+			$data->groupid	= $gid;
+			$data->memberid	= $userId;
 	
-		$model->removeMember($data);
-		$model->substractMembersCount( $groupId );
-		
+			$model->removeMember($data);
+			$model->substractMembersCount( $gid );
+	    }
 		return;
 	}
 	

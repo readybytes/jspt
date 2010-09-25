@@ -56,33 +56,5 @@
 				<option value="pt">Only Profiletype</option>
 			</param>
 			
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="@spacer" type="spacer" default="Restrict Registration" label="Restrict Registration" description="" />
-		
-			<param name="jspt_restrict_reg_check" type="radio" default="0" label="ENABLE RESTRICT REGISTRATION CHECK" description="ENABLE RESTRICT REGISTRATION CHECK.DESC">
-				<option value="0">No</option>
-				<option value="1">Yes</option>
-			</param>
-			<param name="jspt_prevent_username" type="textarea" default="" label="PREVENT THESE USERNAMES FROM GETTING REGISTERED" rows="3" cols="30" description="PREVENT THESE USERNAMES FROM GETTING REGISTERED.DESC" />
-			
-			<param name="jspt_allowed_email" type="textarea" default="" label="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
-			<param name="jspt_prevent_email" type="textarea" default="" label="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
-			
-			<param name="restrict_advancesearchfield" type="radio" default="1" label="ENABLE RESTRICT PROFILEFIELD IN ADVANCE SEARCH" description="ENABLE RESTRICT ADVANCE SEARCH FIELD.DESC">
-				<option value="0">No</option>
-				<option value="1">Yes</option>
-			</param>
-	<!--
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="@spacer" type="spacer" default="Registration Configuration" label="Registration Configuration" description="" />
-			<param name="jspt_reg_page2" type="radio" default="0" label="HIDE PROFILE EDITING (SECOND PAGE) DURING REGISTRATION" description="HIDE PROFILE EDITING (SECOND PAGE) DURING REGISTRATION.DESC">
-				<option value="0">No</option>
-				<option value="1">Yes</option>
-			</param>
-			<param name="jspt_reg_avatar" type="radio" default="0" label="HIDE AVATAR-SELECTION-PAGE DURING REGISTRATION" description="HIDE AVATAR-SELECTION-PAGE DURING REGISTRATION.DESC">
-				<option value="0">No</option>
-				<option value="1">Yes</option>
-			</param>
-	-->
 	</params>
 </config>

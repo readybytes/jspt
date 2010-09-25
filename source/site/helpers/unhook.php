@@ -46,7 +46,7 @@ class XiPTHelperUnhook
 	
 	function uncopyHackedFiles()
 	{
-		$filestoreplace = XiPTHelperInstall::getJSPTFileList();
+		$filestoreplace = XiPTHelperInstall::_getJSPTFileList();
 	   
 		if($filestoreplace) 
 		foreach($filestoreplace AS $sourceFile => $targetFile)

@@ -31,6 +31,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparamsxiThumbWidth", "20");
     $this->type("watermarkparamsxiThumbHeight", "20");
     $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
+    $this->click("//h3[@id='resetall-page']/span");
     $this->click("resetAll1");
         
     $this->click("//td[@id='toolbar-save']/a/span");
@@ -49,6 +50,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->_DBO->filterColumn('#__xipt_profiletypes','params');
     $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
     $this->_DBO->filterColumn('#__xipt_profiletypes','visible');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','config');
   }
 	
 	function testOrderProfileType()
@@ -134,6 +136,7 @@ class ProfiletypeTest extends XiSelTestCase
     	  
     	  // we can check for ordering also
     	$this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    	$this->_DBO->filterColumn('#__xipt_profiletypes','id');
 	}
 
   function testAddProfileTypeAvatar()
@@ -233,6 +236,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
     $this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
     $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','config');
     $this->_DBO->addTable('#__community_users');
     $this->_DBO->filterColumn('#__community_users','params');
   }
@@ -251,6 +255,7 @@ class ProfiletypeTest extends XiSelTestCase
      	
   	$this->_DBO->addTable('#__xipt_profiletypes');
   	$this->_DBO->addTable('#__community_users');
+  	$this->_DBO->filterColumn('#__xipt_profiletypes','config');
   }  
 
   
@@ -264,7 +269,8 @@ class ProfiletypeTest extends XiSelTestCase
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=2");
     $this->waitPageLoad();
     $this->select("jusertype", "label=Editor");
-    $this->select("privacy", "label=Public");
+    $this->click("//h3[@id='xiprivacysettings-page']/span");
+    $this->click("privacyprivacyProfileView10");
     $this->select("template", "value=default");
     //previous was PNG, now adding GIF, so all users must be updated
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
@@ -285,7 +291,9 @@ class ProfiletypeTest extends XiSelTestCase
 	//edit 3rd profiletype 
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
     $this->waitPageLoad();
-    $this->select("group", "value=2"); // from 4 to 2
+   // $this->select("group", "value=2"); // from 4 to 2
+    $this->removeSelection("group[]", "value=4");
+    $this->addSelection("group[]", "value=2");
     $this->click("resetAll1");
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
@@ -302,6 +310,7 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->_DBO->filterColumn('#__xipt_profiletypes','tip');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
+	$this->_DBO->filterColumn('#__xipt_profiletypes','config');
 	$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
   }
   
@@ -328,5 +337,26 @@ class ProfiletypeTest extends XiSelTestCase
       
       // we can check for ordering also
     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','config');
+  }
+  
+  function testChangeConfiguration()
+  {
+  	//setup default location
+  	$this->adminLogin();
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
+    $this->waitPageLoad();
+    
+    // Edit profiletype-one
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+    $this->waitPageLoad(); 
+   // $this->click("//h3[@id='xiconfiguration-page']/span");
+    $this->click("configjspt_restrict_reg_check1");
+    $this->type("configjspt_prevent_username", "admin;moderator;");
+    $this->click("//td[@id='toolbar-save']/a/span");
+    $this->waitPageLoad();
+    
+    $this->_DBO->addTable('#__xipt_profiletypes');
+  	$this->_DBO->filterColumn('#__xipt_profiletypes','config');
   }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<params addpath="/administrator/components/com_xipt/elements" >
+		<param name="jspt_restrict_reg_check" type="radio" default="0" label="ENABLE RESTRICT REGISTRATION CHECK" description="ENABLE RESTRICT REGISTRATION CHECK.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="jspt_prevent_username" type="textarea" default="" label="PREVENT THESE USERNAMES FROM GETTING REGISTERED" rows="3" cols="30" description="PREVENT THESE USERNAMES FROM GETTING REGISTERED.DESC" />
+			
+			<param name="jspt_allowed_email" type="textarea" default="" label="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="ALLOW ONLY THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
+			<param name="jspt_prevent_email" type="textarea" default="" label="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED" rows="3" cols="30" description="BLOCK THESE EMAIL ADDRESSES TO GET REGISTERED.DESC" />
+	</params>
+</config>

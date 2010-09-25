@@ -28,6 +28,7 @@ class XiPTTableProfiletypes extends JTable
 	var $params 			= null;
 	var $watermarkparams 	= null;
 	var $visible			= null;
+	var $config             = null;
 	
 	function __construct(&$db)
 	{
@@ -52,7 +53,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->ordering		= true;
 			$this->published	= true;
 			$this->ordering		= 0;
-			$this->privacy 		= "friends";
+			$this->privacy 		= '';
 			$this->template		= "default";
 			$this->jusertype	= "Registered";
 			$this->allowt		= false;
@@ -63,6 +64,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->params 		= '';
 			$this->watermarkparams 		= '';
 			$this->visible		= 1;
+			$this->config 		= '';
 			return true;
 		}
 		else
@@ -155,6 +157,7 @@ class XiPTTableProfiletypes extends JTable
 			$this->group 		= $data['group'];
 			$this->watermarkparams 		= $data['watermarkparams'];
 			$this->visible		= $data['visible'];
+			$this->config		= $data['config'];
 			//$this->ordering		= $data['ordering'];
 	}
 }

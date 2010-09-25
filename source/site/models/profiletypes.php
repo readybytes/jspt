@@ -121,4 +121,51 @@ class XiPTModelProfiletypes extends JModel
 		}
 	}
 	
+	function removeCustomAvatar($id, $newavatar)
+	{
+		//replace current avatar by default avatar.
+		$db 	=& JFactory::getDBO();
+		$query 	= 'UPDATE #__xipt_profiletypes'
+				. ' SET `avatar` ='.$db->Quote($newavatar).''
+				. ' WHERE `id`='. $db->Quote($id);
+		$db->setQuery( $query );
+		
+		if (!$db->query()) {
+			return JError::raiseWarning( 500, $db->getError() );
+		}
+	}
+	
+	function resetUserAvatar($pid, $newavatar, $oldavatar, $newavatarthumb)
+	{
+		//get all users for profiletype
+		$users = XiPTLibraryProfiletypes::getAllUsers($pid);
+		
+		$cnt = count($users);
+		for($i=0; $i < $cnt; $i++)
+		{
+			//if user is admin unset value
+			if(XiPTLibraryUtils::isAdmin($users[$i]))
+				unset($users[$i]);
+		}
+		
+		$users = array_values($users);
+		
+		$cnt = count($users);
+		if($cnt>0)
+		{
+			//update user avatar and thumb of all users who doesn't have custom avatar 
+			$db 	=& JFactory::getDBO();
+			$query 	= 'UPDATE #__community_users'
+					. ' SET `avatar` ='.$db->Quote($newavatar).''
+					.', `thumb` =' .$db->Quote($newavatarthumb).''
+					. ' WHERE `avatar` ='.$db->Quote($oldavatar)
+					."AND `userid` IN (" .implode(",", $users).")";
+			$db->setQuery( $query );
+					
+			if (!$db->query()) {
+						return JError::raiseWarning( 500, $db->getError() );
+					}	
+		}
+	}
+	
 }

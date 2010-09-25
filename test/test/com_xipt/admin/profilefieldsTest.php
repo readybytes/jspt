@@ -1,6 +1,6 @@
 <?php
 
-class ProfileFieldsTest extends XiSelTestCase 
+class ProfilefieldsTest extends XiSelTestCase 
 {  
   function getSqlPath()
   {
@@ -24,4 +24,3 @@ class ProfileFieldsTest extends XiSelTestCase
   }
 	
 }
-?>

@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Restricted access');
 class XiPTHelperProfiletypes 
 {
 	
-	function buildTypes($value, $what)
+	function buildTypes($value, $what,$multiselect=false)
 	{
 		$allValues	= array();
 		switch($what)
@@ -52,14 +52,26 @@ class XiPTHelperProfiletypes
 				XiPTLibraryUtils::XAssert(0);
 		}
 	
-		$html	= '<span>';
-		
-		$html	.= '<select  name="'.$what.'"  id="'.$what.'">';
+		$html   	= '<span>';
+		$multiple   ='';
+		$size ='';
+		if($multiselect==true)
+		{
+			$multiple ='multiple';
+			$what.='[]';
+			$value=explode(',',$value);
+			$size="size=3";
+		}
+		$html	.= '<select '.$multiple.' name="'.$what.'"  id="'.$what.'"'.$size.'>';
 		
 		// we need to check here key=>value
 		foreach($allValues as $key=>$val)
-		{		
-			$selected	= ( trim($value) == $key ) ? 'selected="true"' : '';
+		{	
+			if(is_array($value))
+				$selected	= ( in_array($key, $value) ) ? 'selected="true"' : '';
+			else
+				$selected	= ( trim($value) == $key ) ? 'selected="true"' : '';
+			
 			$html		.= '<option value="' . $key . '"' . $selected . '>' . ucfirst($val) . '</option>';
 		}
 		
@@ -190,7 +202,7 @@ function getProfileTypeName($id,$isNoneReq=false)
 
 
 
-function getProfileTypeArray($all = '')
+function getProfileTypeArray($all = '',$none= '')
 {
 	$db			=& JFactory::getDBO();
 	$query		= 'SELECT '.$db->nameQuote('id').' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
@@ -203,7 +215,10 @@ function getProfileTypeArray($all = '')
 	
 	//add all value also
 	if($all == 'ALL')
-		$retVal[] = 0;
+		$retVal[] = XIPT_PROFILETYPE_ALL;
+		
+	if($none == 'NONE')
+		$retVal[] = XIPT_PROFILETYPE_NONE;
 		
 	return $retVal;
 }	
@@ -461,7 +476,7 @@ function resetAllUsers($pid, $oldData, $newData)
 			return true;
 
 		// session expired, redirect to community page
-		$redirectUrl	= CRoute::_('index.php?option=com_community&view=register',false);
+		$redirectUrl	= XiptRoute::_('index.php?option=com_community&view=register',false);
 		$msg 			= JText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
     	global $mainframe;
 		$mainframe->redirect($redirectUrl,$msg);

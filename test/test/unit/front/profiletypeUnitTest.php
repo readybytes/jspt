@@ -31,6 +31,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
 	$this->resetCacheData();
 	$this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(true),2);
   }
+  
   function testProfiletypeName()
   {		
 	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
@@ -74,6 +75,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	$obj1->params = '';
   	$obj1->watermarkparams = '';
   	$obj1->visible = 1;
+  	$obj1->config = '';
   	
   	
   	$obj2 = new stdClass();
@@ -93,6 +95,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	$obj2->params = '';
   	$obj2->watermarkparams = '';
   	$obj2->visible = 1;
+  	$obj2->config = '';
   	
   	
   	$obj3 = new stdClass();
@@ -112,6 +115,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	$obj3->params = '';
   	$obj3->watermarkparams = '';
   	$obj3->visible = 1;
+  	$obj3->config = '';
   	
   	
   	$obj4 = new stdClass();
@@ -131,6 +135,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	$obj4->params = '';
   	$obj4->watermarkparams = '';
   	$obj4->visible = 1;
+  	$obj4->config = '';
   	
   	
   	$result = array($obj1,$obj2,$obj3,$obj4);
@@ -468,17 +473,64 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  	{
  		//get value of params by default.
  		$params = XiPTLibraryProfiletypes::getParams(1);
- 		$this->assertEquals($params, null);
+ 		$this->assertNotEquals($params, null);
  		
  		$params = XiPTLibraryProfiletypes::getParams(4);
- 		$this->assertEquals($params, null);
+ 		$this->assertNotEquals($params, null);
  		
  		
  		$params = XiPTLibraryProfiletypes::getParams(2);
 		
  		$strconfig = "enableterms=0\nregistrationTerms=\nrecaptcha=0\nrecaptchapublic=\nrecaptchaprivate=\nrecaptchatheme=red\nrecaptchalang=en\nenablereporting=1\nmaxReport=50\nnotifyMaxReport=\nenableguestreporting=0\npredefinedreports=Spamming / Advertisement\nprivacyprofile=0\nprivacyfriends=0\nprivacyphotos=0\nprivacyemail=1\nprivacyapps=1\nprivacywallcomment=0\nenablepm=1\npmperday=30\nwallediting=1\nlockprofilewalls=1\nlockvideoswalls=1\nlockgroupwalls=1\nenablegroups=0\nmoderategroupcreation=1\ncreategroups=0\ngroupcreatelimit=1\ngroupphotouploadlimit=500\ngroupvideouploadlimit=500\ncreatediscussion=1\ngroupphotos=1\ngroupvideos=1\ngroupdiscussnotification=0\ngroupdiscussionmaxlist=5\nenablevideos=1\nenablevideosupload=0\nvideouploadlimit=1\ndeleteoriginalvideos=0\nvideofolder=images\nmaxvideouploadsize=8\nffmpegPath=\nflvtool2=\nqscale=11\nvideosSize=400x300\ncustomCommandForVideo=\nenablevideopseudostream=0\nvideodebug=0\nfolderpermissionsvideo=0755\nenablephotos=1\nphotouploadlimit=1\nmaxuploadsize=8\ndeleteoriginalphotos=0\nmagickPath=\nflashuploader=0\nfolderpermissionsphoto=0755\nautoalbumcover=1\nenablemyblogicon=0\n\n";
-		$config	= new JParameter( $strconfig );
+ 		$watermarkxml = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'watermark.xml';
+		$config	= new JParameter( $strconfig,$watermarkxml);
 		$this->assertEquals($params,$config);
  	}
-}
+ 	
+ 	function testSaveConfig()
+ 	{
+ 		jimport('joomla.application.component.controller');
+ 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.'profiletypes.php');
+ 		$obj = new XiPTControllerProfiletypes;
+ 		$xiconfig = "jspt_restrict_reg_check=1\njspt_prevent_username=admin;moderator;\njspt_allowed_email=\njspt_prevent_email=\n\n";
+ 		JTable::addIncludePath(JPATH_COMPONENT_SITE.DS.'tables');
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row->load(1);
+ 		$obj->saveConfig($row,$xiconfig,'config',true);
+ 		$this->_DBO->addTable('#__xipt_profiletypes');
+ 	}
+ 	
+ 	function testSaveWatermarkparams()
+ 	{
+ 		jimport('joomla.application.component.controller');
+ 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.'profiletypes.php');
+ 		$obj = new XiPTControllerProfiletypes;
+ 		$config = "enableWaterMark=0\nxiText=P\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=5\n\n";
+ 		$filename = 'watermark_2.png';
+ 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row->load(1);
+		$obj->saveWatermarkparams($filename, $row, $config, true);
+ 		$this->_DBO->addTable('#__xipt_profiletypes');
+ 	}
+ 	
+ 	function testRemoveCustomAvatar()
+ 	{
+ 		$profiletype	=XiFactory::getModel( 'Profiletypes' );
+ 		$newavatar 		= DEFAULT_AVATAR ;
+ 		
+ 		//remove custom avatar for pid 2
+		$profiletype->removeCustomAvatar(2, $newavatar);
+		$this->_DBO->addTable('#__xipt_profiletypes');
+ 	}
+ 	
+ 	function testResetUserAvatar()
+ 	{
+ 		$profiletype	= XiFactory::getModel( 'Profiletypes' );
+		$newavatar 		= DEFAULT_AVATAR ;
+		$newavatarthumb	= DEFAULT_AVATAR_THUMB;
+		$oldAvatar      = 'components/com_community/assets/group.jpg';
 
+		$profiletype->resetUserAvatar(2, $newavatar, $oldAvatar, $newavatarthumb);
+		$this->_DBO->addTable('#__community_users');
+ 	}
+}

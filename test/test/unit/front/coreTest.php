@@ -106,7 +106,7 @@ class CoreTest extends XiUnitTestCase
   	$this->_DBO->addTable('#__community_users');
   }
   
-  function testUpdateCommunityUserPrivacy()
+  function xtestUpdateCommunityUserPrivacy()
   {
         XiPTLibraryCore::updateCommunityUserPrivacy(84, 10);
         $this->_DBO->addTable('#__community_users');

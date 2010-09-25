@@ -8,6 +8,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
+jimport('joomla.html.pane');
 class XiPTViewProfiletypes extends JView 
 {
     function display($tpl = null)
@@ -40,14 +41,52 @@ class XiPTViewProfiletypes extends JView
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		$row->load( $id );	
 		
-		$watermarkxml = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'watermark.xml';
-		
-		$config = new JParameter('',$watermarkxml);
+		$wmxmlpath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'watermark.xml';
+		$wmini		= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'watermark.ini';
+		$wmdata		= JFile::read($wmini);
+
+		if(JFile::exists($wmxmlpath))
+			$config = new JParameter($wmdata,$wmxmlpath);
+		else
+			$config = new JParameter('','');
+
 		$config->bind($row->watermarkparams);
 		
 		$this->assign( 'config' , $config );
 		
 		$this->assign( 'row' , $row );
+               
+        	$paramsxmlpath         = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'ptypesetting.xml';
+        	$ini                   = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'ptypesetting.ini';
+        	$data                  = JFile::read($ini);                
+               
+	       if(JFile::exists($paramsxmlpath))
+        		$ptypesetting  = new JParameter($data,$paramsxmlpath);
+        	else
+        		$ptypesetting  = new JParameter('','');
+                               
+	        $ptypesetting->bind($row->config);
+		
+		$this->assign( 'configuration' , $ptypesetting );
+		
+		$this->assign( 'row' , $row );
+		              
+	        $psettingsxmlpath      = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'privacysettings.xml';
+        	$ini                   = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'privacysettings.ini';
+        	$psdata                = JFile::read($ini);                
+               
+    	       if(JFile::exists($paramsxmlpath))
+        		$privacysetting  = new JParameter($psdata,$psettingsxmlpath);
+               else
+        		$privacysetting  = new JParameter('','');
+                               
+	        $privacysetting->bind($row->privacy);
+		
+		$this->assign( 'privacy' , $privacysetting );
+		
+		$this->assign( 'row' , $row );
+
+
 		// Set the titlebar text
 		JToolBarHelper::title( JText::_( 'EDIT PROFILETYPE' ), 'profiletypes' );
 
@@ -57,6 +96,10 @@ class XiPTViewProfiletypes extends JView
 		JToolBarHelper::apply('apply', JText::_('APPLY'));
 		JToolBarHelper::save('save',JText::_('SAVE'));
 		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+
+		$pane = &JPane::getInstance('sliders', array('allowAllClose' => true));
+		$this->assignRef('pane', $pane);
+
 		parent::display($tpl);
 	}
 	

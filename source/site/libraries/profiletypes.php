@@ -110,7 +110,9 @@ class XiPTLibraryProfiletypes
 				
 				case 'privacy':
 					$newPrivacy = $newData['privacy'];
-					$newPrivacy = XiPTLibraryUtils::getPTPrivacyValue($newPrivacy);
+					$registry	=& JRegistry::getInstance( 'xipt' );
+					$registry->loadINI($newPrivacy,'xipt-privacyparams');
+					$newPrivacy = $registry->toArray('xipt-privacyparams');
 					XiPTLibraryCore::updateCommunityUserPrivacy($userid,$newPrivacy);
 					break;
 					
@@ -312,7 +314,6 @@ class XiPTLibraryProfiletypes
 		if($clean)
 		{
 			unset($result[$userid]);
-			return;
 		}
 		
 		if(array_key_exists($userid,$result))
@@ -343,20 +344,23 @@ class XiPTLibraryProfiletypes
 	        default :
 	            JError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
 	    }
-
-	    
-	    $db		=& JFactory::getDBO();
-		$query	= 'SELECT * FROM '
-				. $db->nameQuote( '#__xipt_users') . ' WHERE '
-				. $db->nameQuote( 'userid') . '=' . $db->Quote( $userid );
-		$db->setQuery( $query );
-		
-		$result[$userid]	= $db->loadAssoc();
+			
+		if($userid >= 62){
+		    $db		=& JFactory::getDBO();
+			$query	= 'SELECT * FROM '
+					. $db->nameQuote( '#__xipt_users') . ' WHERE '
+					. $db->nameQuote( 'userid') . '=' . $db->Quote( $userid );
+			$db->setQuery( $query );
+			
+			$result[$userid]	= $db->loadAssoc();
+			
+			if($db->getErrorNum()) {
+				JError::raiseError( 500, $db->stderr());
+			}
+		}
 		
 		//print_r($result);
-		if($db->getErrorNum()) {
-				JError::raiseError( 500, $db->stderr());
-		}
+		
 		
 		// not a valid result OR value not set
 		if(!$result || isset ($result[$userid])===false){
@@ -649,10 +653,11 @@ class XiPTLibraryProfiletypes
 			
 			$db->setQuery( $query );
 			$pTypeConfig = $db->loadResult();
-			if($pTypeConfig)
-				$config	= new JParameter( $pTypeConfig );
-			else
-				$config=null;
+
+			//xitodo : build an INI file
+			$watermarkxml = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'watermark.xml';
+			$config	= new JParameter($pTypeConfig,$watermarkxml);
+
 			
 			
 			// Load default configuration

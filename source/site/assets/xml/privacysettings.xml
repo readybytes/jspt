@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<params>
+	
+		<param name="privacyProfileView" type="radio" label="Default Profile Privacy" default="30" description="Default Profile Privacy">
+			<option value="10">public</option>
+  			<option value="20">member</option>
+  			<option value="30">friend</option>	
+		</param>
+	
+		<param name="privacyFriendsView" type="radio" label="Default Friends Privacy" default="0" description="Default Friends Privacy">
+			<option value="0">public</option>
+  			<option value="20">member</option>
+  			<option value="30">friend</option>	
+  			<option value="40">self</option>		
+		</param>
+	
+		<param name="privacyPhotoView" type="radio" label="Default Photos Privacy" default="0" description="Default Photos Privacy">
+			<option value="0">public</option>
+  			<option value="20">member</option>
+  			<option value="30">friend</option>	
+  			<option value="40">self</option>		
+		</param>
+	
+		<param name="notifyEmailSystem" type="radio" label="Receive system e-mails" default="0" description="Receive system e-mails">
+			<option value="0">No</option>
+  			<option value="1">Yes</option>		
+		</param>
+	
+		<param name="notifyEmailApps" type="radio" label="Allow Applications" default="0" description="Allow Applications">
+			<option value="0">No</option>
+  			<option value="1">Yes</option>		
+		</param>
+	
+		<param name="notifyWallComment" type="radio" label="Receive wall comment notification" default="0" description="Receive wall comment notification">
+			<option value="0">No</option>
+  			<option value="1">Yes</option>		
+		</param>
+	
+	
+	</params>
+</config>

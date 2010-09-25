@@ -23,7 +23,7 @@ class XiPTModelSettings extends JModel
 		if($settingsParams !== null && $reset === false)
 			return $settingsParams;
 			
-		$row             =& JTable::getInstance( 'settings' , 'XiPTTable' );
+		$row   =& JTable::getInstance( 'settings' , 'XiPTTable' );
 		$row->load('settings');
 		
 		$settingsxmlpath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'settings.xml';
@@ -32,11 +32,14 @@ class XiPTModelSettings extends JModel
 		
 		if(JFile::exists($settingsxmlpath))
 			$settingsParams = new JParameter($settingsdata,$settingsxmlpath);
-		else 
-			$settingsParams = new JParameter('','');
+		else{ 
+			$tmpParams = new JParameter('','');
+			$tmpParams->bind($row->params);
+			//raise warning
+			return $tmpParams;
+		}
+		
 		$settingsParams->bind($row->params);
-		
 		return $settingsParams;
-		
 	}
 }

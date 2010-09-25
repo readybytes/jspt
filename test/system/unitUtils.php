@@ -7,6 +7,7 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   function setUp()
   {
   	//$this->parentSetup();
+  	$this->resetCacheData();
   }
   
   

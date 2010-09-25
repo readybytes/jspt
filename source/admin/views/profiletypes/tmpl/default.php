@@ -175,4 +175,3 @@ function submitbutton( action )
 <input type="hidden" name="boxchecked" value="0" />
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>	
-

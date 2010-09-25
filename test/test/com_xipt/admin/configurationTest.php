@@ -113,7 +113,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("settingsjspt_block_dis_app1");
     $this->click("settingsaec_integrate1");
     $this->click("settingsaec_messagepl");
-    $this->click("settingsjspt_restrict_reg_check1");
+    
   	
   	$this->click("//td[@id='toolbar-save']/a");
   	$this->waitPageLoad();
