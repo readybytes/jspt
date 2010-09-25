@@ -21,11 +21,10 @@
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:102:		$user    =& JFactory::getUser();
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:125:		global $mainframe;
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:126:		if($mainframe->isAdmin()==true)
-../packages/tmp/admin/jspt_functions.php:15:	$parser		=& JFactory::getXMLParser('Simple');
 ../packages/tmp/admin/includes.xipt.php:22:	global $mainframe;
 ../packages/tmp/admin/includes.xipt.php:25:		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
-../packages/tmp/admin/includes.xipt.php:50:JTable::addIncludePath( JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' . DS . 'tables' );
-../packages/tmp/admin/includes.xipt.php:70:$lang =& JFactory::getLanguage();
+../packages/tmp/admin/includes.xipt.php:50://JTable::addIncludePath( JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables' );
+../packages/tmp/admin/includes.xipt.php:72:$lang =& JFactory::getLanguage();
 ../packages/tmp/admin/install.xipt.php:144:		JFactory::getApplication()->enqueueMessage($msg);
 ../packages/tmp/admin/controllers/setup.php:9:class XiPTControllerSetup extends JController 
 ../packages/tmp/admin/controllers/setup.php:25:    	global $mainframe;
@@ -148,7 +147,6 @@
 ../packages/tmp/admin/controllers/aclrules.php:248:		$mainframe->redirect($link, $msg);
 ../packages/tmp/admin/admin.xipt.php:54:	global $mainframe;
 ../packages/tmp/admin/admin.xipt.php:59:		$mainframe->enqueueMessage($msg,false);
-../packages/tmp/admin/elements/profilefields.php:30:			$db	=& JFactory::getDBO();
 ../packages/tmp/site/views/registration/view.html.php:17:		$userId = JFactory::getUser()->id;
 ../packages/tmp/site/views/registration/view.html.php:20:			global $mainframe;
 ../packages/tmp/site/views/registration/view.html.php:23:			$mainframe->redirect($redirectUrl,$msg);
@@ -356,12 +354,13 @@
 ../packages/tmp/site/libraries/core.php:382:			$member		=& JTable::getInstance( 'GroupMembers' , 'CTable' );
 ../packages/tmp/site/libraries/core.php:408:		$group		=& JTable::getInstance( 'Group' , 'CTable' );
 ../packages/tmp/site/libraries/core.php:424:		$groupMember	=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/elements/profilefields.php:30:			$db	=& JFactory::getDBO();
+../packages/tmp/install/helper.php:17:		$parser		=& JFactory::getXMLParser('Simple');
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:41:		global $mainframe;
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:42:		 $oldTablePath = JTable::addIncludePath();
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:50: 		if( $mainframe->isAdmin())
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:53: 				$mainframe->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'));
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:55:			JTable::addIncludePath($oldTablePath);
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:86:		JTable::addIncludePath($oldTablePath);	
-../packages/tmp/install/uninstall.php:18:	$db			=& JFactory::getDBO();		
 ../packages/tmp/install/install.php:147:		JFactory::getApplication()->enqueueMessage($msg);
 ../packages/tmp/install/install.php:156:	$db			=& JFactory::getDBO();

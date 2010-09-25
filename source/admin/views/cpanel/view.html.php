@@ -43,7 +43,7 @@ class XiPTViewCPanel extends JView
 		<style type="text/css">
 		#toolbar-aboutus
 		{
-	 		background-image:  url(../administrator/components/com_xipt/images/icon-aboutus.png);
+	 		background-image:  url(../components/com_xipt/assets/images/icon-aboutus.png);
 	 		background-repeat:no-repeat;
 	 		background-position: top center;
 	 	}
@@ -64,7 +64,7 @@ class XiPTViewCPanel extends JView
 		<div style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
 			<div class="icon">
 				<a href="<?php echo $url; ?>"<?php echo $newWindow; ?>>
-					<?php echo JHTML::_('image', 'administrator/components/com_xipt/images/' . $image , NULL, NULL, $text ); ?>
+					<?php echo JHTML::_('image', 'components/com_xipt/assets/images/' . $image , NULL, NULL, $text ); ?>
 					<span><?php echo $text; ?></span></a>
 			</div>
 		</div>

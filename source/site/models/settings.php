@@ -26,9 +26,8 @@ class XiPTModelSettings extends JModel
 		$row             =& JTable::getInstance( 'settings' , 'XiPTTable' );
 		$row->load('settings');
 		
-		$settingspath    = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'settings';
-		$settingsxmlpath = $settingspath.'.xml';
-		$settingsini     = $settingspath.'.ini';
+		$settingsxmlpath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'settings.xml';
+		$settingsini     = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'settings.ini';
 		$settingsdata    = JFile::read($settingsini);
 		
 		if(JFile::exists($settingsxmlpath))

@@ -6,14 +6,14 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';
-
+require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'install' .DS. 'helper.php';
+//XITODO : except com_install, move all function to helper file
 function show_instruction()
 {
 	$siteURL  = JURI::base();
 	if(strstr($siteURL,'localhost')==false)
 	{
-		$version  = get_js_version();
+		$version  = XiPTHelperInstall::get_js_version();
 		
 		$siteURL  = JURI::base();
 	}
@@ -22,7 +22,7 @@ function show_instruction()
 
 function check_version()
 {
-	$version = get_js_version();
+	$version = XiPTHelperInstall::get_js_version();
 	
 	if(Jstring::stristr($version,'1.5'))
 	{?>
@@ -86,7 +86,7 @@ function check_jomsocial_existance()
 
 function copy_files() 
 {
-	$filestoreplace = getJSPTFileList();
+	$filestoreplace = XiPTHelperInstall::getJSPTFileList();
 	$MY_PATH_ADMIN	  = JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_xipt';
 	
 	foreach($filestoreplace AS $key => $val)

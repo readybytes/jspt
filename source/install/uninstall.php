@@ -4,24 +4,21 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 // Check to ensure this file is within the rest of the framework
-if(!defined('_JEXEC')) die('Restricted access');
+defined('_JEXEC') or die();
+
+jimport( 'joomla.filesystem.folder' );
+jimport('joomla.filesystem.file');
+
+
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers' .DS. 'unhook.php';
 
 function com_uninstall()
 {
+	XiPTHelperUnhook::uncopyHackedFiles();
+	
 	// disable plugins
-	disable_plugin('xipt_system');
-	disable_plugin('xipt_community');
-}
-
-function disable_plugin($pluginname)
-{
-	$db			=& JFactory::getDBO();		
-	$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
-			. ' SET '.$db->nameQuote('published').'='.$db->Quote('0')
-          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
-
-	$db->setQuery($query);		
-	if(!$db->query())
-		return false;
-	return true;
+	XiPTHelperUnhook::disable_plugin('xipt_system');
+	XiPTHelperUnhook::disable_plugin('xipt_community');
+	
+	XiPTHelperUnhook::disable_custom_fields();
 }

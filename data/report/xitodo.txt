@@ -15,3 +15,5 @@
 ../packages/tmp/site/libraries/profiletypes.php:24:		/*XITODO : Remove the require_once, class should be auto loaded*/
 ../packages/tmp/site/libraries/profiletypes.php:27:		/*XITODO : validate ptype before save*/
 ../packages/tmp/site/libraries/imagegenerator.php:53:		/* XITODO : support for other image type */	
+../packages/tmp/install/helper.php:50:	// XITODO : chek if function is usabel
+../packages/tmp/install/install.php:10://XITODO : except com_install, move all function to helper file

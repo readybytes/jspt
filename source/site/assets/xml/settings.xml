@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<params addpath="/administrator/components/com_xipt/elements">
+	<params addpath="/components/com_xipt/elements">
 	<param name="@spacer" type="spacer" default="" label="" description="" />
 	<param name="@spacer" type="spacer" default="Profile Type Configuration" label="" description="" />
 		<param name="show_ptype_during_reg" type="radio" default="1" label="INTEGRATE JSPT WITH REGISTRATION" description="INTEGRATE JSPT WITH REGISTRATION.DESC">

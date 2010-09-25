@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('XIPT_VERSION','2.0');
+define('XIPT_VERSION','@global.version@.@svn.lastrevision@');
 define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
 define('XIPT_NONE','XIPT_NONE');
 
@@ -46,8 +46,8 @@ define('SYNCUP_USER_LIMIT',1000);
 define('DEFAULT_AVATAR','components/com_community/assets/default.jpg');
 define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg');
 
-define('DEFAULT_DEMOAVATAR','administrator/components/com_xipt/images/default_avatar.png');
-define('DEFAULT_DEMOAVATAR_THUMB','administrator/components/com_xipt/images/default_thumb.png');
+define('DEFAULT_DEMOAVATAR','components/com_xipt/assets/images/default_avatar.png');
+define('DEFAULT_DEMOAVATAR_THUMB','components/com_xipt/assets/images/default_thumb.png');
 
 //where to store profiletype avatars
 define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images' . DS . 'profiletype');
@@ -77,3 +77,4 @@ define('ALL',-1); //required in admin in ACL rules only ,
 
 define('XIPT_FRONT_PATH_LIBRARY',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries');
 define('XIPT_FRONT_PATH_HELPER', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers');
+define('XIPT_FRONT_PATH_ASSETS',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'assets');

@@ -40,7 +40,7 @@ class XiPTViewProfiletypes extends JView
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
 		$row->load( $id );	
 		
-		$watermarkxml = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'watermark.xml';
+		$watermarkxml = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'watermark.xml';
 		
 		$config = new JParameter('',$watermarkxml);
 		$config->bind($row->watermarkparams);

@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php 
 			$complete 		= '<img src="images/tick.png" alt="done" />';
 			$notcomplete 	= '<img src="images/publish_x.png" alt="not complete" />';
-			$warningImage	= '<img src="components/com_xipt/images/warning.png" alt="warning" />';
+			$warningImage	= '<img src="../components/com_xipt/assets/images/warning.png" alt="warning" />';
 			foreach($this->requiredSetup as $util) {
 				?>
 				<tr id="setup<?php echo $counter; ?>" >

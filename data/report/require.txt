@@ -34,12 +34,10 @@
 ../packages/tmp/admin/admin.xipt.php:15:// add include files
 ../packages/tmp/admin/admin.xipt.php:16:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
 ../packages/tmp/admin/admin.xipt.php:30:			require_once( $path );
-../packages/tmp/admin/elements/colorbox/jscolor.js:826:		// require images
-../packages/tmp/admin/elements/profiletypes.php:37:		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
-../packages/tmp/site/helpers/xiptcore.php:18:				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
-../packages/tmp/site/helpers/xiptcore.php:21:				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
+../packages/tmp/site/helpers/xiptcore.php:18://				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
+../packages/tmp/site/helpers/xiptcore.php:21://				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
 ../packages/tmp/site/helpers/unhook.php:12:require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
-../packages/tmp/site/helpers/unhook.php:13:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'jspt_functions.php';
+../packages/tmp/site/helpers/unhook.php:13:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'install'.DS.'helper.php';
 ../packages/tmp/site/includes.xipt.php:14:// include JomSocial files
 ../packages/tmp/site/includes.xipt.php:19:// include JomSocial files
 ../packages/tmp/site/includes.xipt.php:31:require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
@@ -61,7 +59,10 @@
 ../packages/tmp/site/libraries/profiletypes.php:25:		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
 ../packages/tmp/site/libraries/acl.php:217:		//is this require to check if viewuserid and userid is same
 ../packages/tmp/site/libraries/core.php:43:        require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
+../packages/tmp/site/elements/colorbox/jscolor.js:826:		// require images
+../packages/tmp/site/elements/profiletypes.php:37:		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php';
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:31:		$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');	
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:9:// include joomla plugin framework
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:18:	require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
-../packages/tmp/install/install.php:9:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'jspt_functions.php';
+../packages/tmp/install/uninstall.php:13:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers' .DS. 'unhook.php';
+../packages/tmp/install/install.php:9:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'install' .DS. 'helper.php';
