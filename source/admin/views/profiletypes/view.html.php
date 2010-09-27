@@ -6,10 +6,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import Joomla! libraries
-jimport( 'joomla.application.component.view');
-jimport('joomla.html.pane');
-class XiPTViewProfiletypes extends JView 
+
+class XiptViewProfiletypes extends XiptView 
 {
     function display($tpl = null)
     {
@@ -18,7 +16,7 @@ class XiPTViewProfiletypes extends JView
 		$fields		=& $profiletype->getFields();
 		$pagination	=& $profiletype->getPagination();
 		$profiletypes = array();
-		$allTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		$allTypes = XiptLibProfiletypes::getProfiletypeArray();
 		if ($allTypes)
 				foreach ($allTypes as $ptype){
 					$profiletypes[$ptype->id]	= $ptype->name;
@@ -38,7 +36,7 @@ class XiPTViewProfiletypes extends JView
 	
 	function edit($id,$tpl = null )
 	{
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$row->load( $id );	
 		
 		$wmxmlpath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'watermark.xml';

@@ -6,7 +6,7 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTTableApplications extends JTable
+class XiptTableApplications extends XiptTable
 {
 
 	var $id			= null;

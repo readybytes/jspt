@@ -7,9 +7,7 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.model' );
-
-class XiPTModelConfiguration extends JModel
+class XiptModelConfiguration extends XiptModel
 {
 	/**
 	 * Configuration data
@@ -91,7 +89,7 @@ class XiPTModelConfiguration extends JModel
 			$this->_params	= $config;//new JParameter( $config->_raw );
 
 			/*
-			$profiletype		=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+			$profiletype		=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 			$profiletype->load( $id );
 			
 			// Bind the user saved configuration.
@@ -119,7 +117,7 @@ class XiPTModelConfiguration extends JModel
 		}	
 		
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		
 		$row->load( $id );
 		
@@ -163,7 +161,7 @@ class XiPTModelConfiguration extends JModel
 		}	
 		
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		
 		$row->load( $id );
 

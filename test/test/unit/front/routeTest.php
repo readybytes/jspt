@@ -145,13 +145,13 @@ class RouterTest extends XiUnitTestCase
 	   }
 	   
 	   
-		function testXiPTRoute()
+		function testXiptRoute()
 		{
 			$filter['sef'] = 0;
 			$this->updateJoomlaConfig($filter);
 			$urls = $this->getMenuURL();
 			foreach($urls as $url => $seoUrl)
-			$this->assertEquals($seoUrl,XiPTRoute::_($url,false));
+			$this->assertEquals($seoUrl,XiptRoute::_($url,false));
 		}
 	
 }

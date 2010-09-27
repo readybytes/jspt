@@ -10,7 +10,7 @@ class CoreTest extends XiUnitTestCase
   
   function testFieldObject()
   {
-  	$fieldobj = XiPTLibraryCore::getFieldObject(1);
+  	$fieldobj = XiptLibJomsocial::getFieldObject(1);
   	$result = new stdClass();
   	$result->id = 1;
     $result->type = 'group';
@@ -29,7 +29,7 @@ class CoreTest extends XiUnitTestCase
 
   	$this->assertEquals($fieldobj, $result);
   	
-  	$fieldobj = XiPTLibraryCore::getFieldObject(4);
+  	$fieldobj = XiptLibJomsocial::getFieldObject(4);
   	$result = new stdClass();
   	$result->id = 4;
     $result->type = 'text';
@@ -51,26 +51,26 @@ class CoreTest extends XiUnitTestCase
   
   function testUserDataFromCommunity()
   {
-  	$this->assertEquals(XiPTLibraryCore::getUserDataFromCommunity(62, 'points'), 12);
+  	$this->assertEquals(XiptLibJomsocial::getUserDataFromCommunity(62, 'points'), 12);
   	
-  	$this->assertEquals(XiPTLibraryCore::getUserDataFromCommunity(83, 'status'), null);
+  	$this->assertEquals(XiptLibJomsocial::getUserDataFromCommunity(83, 'status'), null);
   	
-  	$this->assertEquals(XiPTLibraryCore::getUserDataFromCommunity(87, 'avatar'), 'components/com_community/assets/default.jpg');
+  	$this->assertEquals(XiptLibJomsocial::getUserDataFromCommunity(87, 'avatar'), 'components/com_community/assets/default.jpg');
   	
-  	$this->assertEquals(XiPTLibraryCore::getUserDataFromCommunity(82, 'invite'), 0);
+  	$this->assertEquals(XiptLibJomsocial::getUserDataFromCommunity(82, 'invite'), 0);
   }
   
   function testUpdateJoomlaUserType()
   {
   	//no updates for admin
-  	$this->assertEquals(XiPTLibraryCore::updateJoomlaUserType(62), false);
+  	$this->assertEquals(XiptLibJomsocial::updateJoomlaUserType(62), false);
   	//no updates for nonuser
-  	$this->assertEquals(XiPTLibraryCore::updateJoomlaUserType(0), false);
+  	$this->assertEquals(XiptLibJomsocial::updateJoomlaUserType(0), false);
   	
   	//no updates where JUser is none
-  	$this->assertEquals(XiPTLibraryCore::updateJoomlaUserType(82, 'None'), false);
+  	$this->assertEquals(XiptLibJomsocial::updateJoomlaUserType(82, 'None'), false);
   	// test actually it is applying or not 
-  	$this->assertTrue(XiPTLibraryCore::updateJoomlaUserType(83, 'Registered'));
+  	$this->assertTrue(XiptLibJomsocial::updateJoomlaUserType(83, 'Registered'));
   	
 	$this->_DBO->addTable('#__users');
 	$this->_DBO->filterColumn('#__users','lastvisitDate');
@@ -79,15 +79,15 @@ class CoreTest extends XiUnitTestCase
   
   function testUpdateCommunityCustomField()
   {
-  	XiPTLibraryCore::updateCommunityCustomField(82, 'blueface', 'XIPT_TEMPLATE');
+  	XiptLibJomsocial::updateCommunityCustomField(82, 'blueface', 'XIPT_TEMPLATE');
   	
   	$this->_DBO->addTable('#__community_fields_values');
   	
-  	XiPTLibraryCore::updateCommunityCustomField(83, 3, 'XIPT_PROFILETYPE');
+  	XiptLibJomsocial::updateCommunityCustomField(83, 3, 'XIPT_PROFILETYPE');
   	
   	$this->_DBO->addTable('#__community_fields_values');
   	
-  	XiPTLibraryCore::updateCommunityCustomField(85, 1, 'XIPT_PROFILETYPE');
+  	XiptLibJomsocial::updateCommunityCustomField(85, 1, 'XIPT_PROFILETYPE');
   	
   	$this->_DBO->addTable('#__community_fields_values');
   	
@@ -95,57 +95,57 @@ class CoreTest extends XiUnitTestCase
   
   function testUpdateCommunityUserWatermark()
   {
-  	$this->assertEquals(XiPTLibraryCore::updateCommunityUserWatermark(87, 'test/test/com_xipt/front/images/watermark_2.png'), false);
-    $this->assertEquals(XiPTLibraryCore::updateCommunityUserWatermark(82, 'test/test/com_xipt/front/images/watermark_2.png'), true);
+  	$this->assertEquals(XiptLibJomsocial::updateCommunityUserWatermark(87, 'test/test/com_xipt/front/images/watermark_2.png'), false);
+    $this->assertEquals(XiptLibJomsocial::updateCommunityUserWatermark(82, 'test/test/com_xipt/front/images/watermark_2.png'), true);
 
   }
   
   function testUpdateCommunityUserAvatar()
   {
-  	XiPTLibraryCore::updateCommunityUserAvatar(83, 'test/test/unit/front/images/avatar.jpg');
+  	XiptLibJomsocial::updateCommunityUserAvatar(83, 'test/test/unit/front/images/avatar.jpg');
   	$this->_DBO->addTable('#__community_users');
   }
   
   function xtestUpdateCommunityUserPrivacy()
   {
-        XiPTLibraryCore::updateCommunityUserPrivacy(84, 10);
+        XiptLibJomsocial::updateCommunityUserPrivacy(84, 10);
         $this->_DBO->addTable('#__community_users');
   }
   
   function testUpdateCommunityUserGroup()
   {
-  	XiPTLibraryCore::updateCommunityUserGroup(82, 1, 2);
+  	XiptLibJomsocial::updateCommunityUserGroup(82, 1, 2);
   	$this->_DBO->addTable('#__community_groups_members');
   }
   
   function testIsMemberOfGroup()
   {
-  	$this->assertEquals(XiPTLibraryCore:: _isMemberOfGroup(82, 1), true);
+  	$this->assertEquals(XiptLibJomsocial:: _isMemberOfGroup(82, 1), true);
   	
-  	$this->assertEquals(XiPTLibraryCore:: _isMemberOfGroup(84, 1), false);
+  	$this->assertEquals(XiptLibJomsocial:: _isMemberOfGroup(84, 1), false);
   }
   
   function testAddUserToGroup()
   {
   	//not a groupId
-  	$this->assertEquals(XiPTLibraryCore:: _addUserToGroup(83, 0),false);
+  	$this->assertEquals(XiptLibJomsocial:: _addUserToGroup(83, 0),false);
   	
   	//already a member of this group
-  	$this->assertEquals(XiPTLibraryCore:: _addUserToGroup(84, 4),false);
+  	$this->assertEquals(XiptLibJomsocial:: _addUserToGroup(84, 4),false);
   	
-  	XiPTLibraryCore:: _addUserToGroup(83, 2);
+  	XiptLibJomsocial:: _addUserToGroup(83, 2);
   	$this->_DBO->addTable('#__community_groups_members');
   }
   
   function testRemoveUserFromGroup()
   {
-  	XiPTLibraryCore:: _removeUserFromGroup(83, 2);
+  	XiptLibJomsocial:: _removeUserFromGroup(83, 2);
   	$this->_DBO->addTable('#__community_groups_members');
   }
   
   function testReloadCUser()
   {
-  	$this->assertEquals(XiPTLibraryCore::reloadCUser(88), false);
-  	$this->assertEquals(XiPTLibraryCore::reloadCUser(83), null);
+  	$this->assertEquals(XiptLibJomsocial::reloadCUser(88), false);
+  	$this->assertEquals(XiptLibJomsocial::reloadCUser(83), null);
   }
 }

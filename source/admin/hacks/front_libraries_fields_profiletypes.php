@@ -22,7 +22,7 @@ class CFieldsProfiletypes
 		$this->_mainframe =& $mainframe;
 		$this->_task = JRequest::getVar('task','','GET');
 		$this->_view = JRequest::getVar('view','','GET');
-		$this->_params = XiPTLibraryUtils::getParams('', 0);
+		$this->_params = XiptLibUtils::getParams('', 0);
 	}
 	
 	/* if data not available,
@@ -38,7 +38,7 @@ class CFieldsProfiletypes
 		if(!$pID){
 			//get value from profiletype field from xipt_users table
 			$userid = JRequest::getVar('userid',0,'GET');
-			$pID = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		return $pID;
 	}
@@ -55,11 +55,11 @@ class CFieldsProfiletypes
 			//not required to get data from getUser() fn b'coz we call this fn in 
 			//getViewableprofile only.
 			$userid = JRequest::getVar('userid',0,'GET');
-			XiPTLibraryUtils::XAssert($userid);
-			$pID = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+			XiptLibUtils::XAssert($userid);
+			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		
-		$pName = XiPTLibraryProfiletypes::getProfiletypeName($pID);
+		$pName = XiptLibProfiletypes::getProfiletypeName($pID);
 		
 		/*
 		// add search link
@@ -85,14 +85,14 @@ class CFieldsProfiletypes
 		if($this->_view ==='register') {
     
 		    // get pType from registration session OR defaultPType
-		    $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
+		    $pID = XiptFactory::getLibraryPluginHandler()->getRegistrationPType();
 				 
 			$html = '<input type="hidden"
 							id="field'.$field->id.'"
 							name="field' . $field->id.'"
 							value="'.$pID.'" />';
 			
-			$pName = XiPTLibraryProfiletypes::getProfiletypeName($pID);
+			$pName = XiptLibProfiletypes::getProfiletypeName($pID);
 			$html .= JText::_($pName);
 			
 			return $html;
@@ -103,17 +103,17 @@ class CFieldsProfiletypes
 		$userid  = $user->id;
 		
 		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
-		$allowToChangePType = $allowToChangePType || XiPTLibraryUtils::isAdmin($user->id);
+		$allowToChangePType = $allowToChangePType || XiptLibUtils::isAdmin($user->id);
 		
 		//if not allowed then show disabled view of ptype
 		if($allowToChangePType == false){
 
 			if(!(int)$pID){
-			    $pID = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
-				XiPTLibraryUtils::XAssert($pID);
+			    $pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
+				XiptLibUtils::XAssert($pID);
 			}
 			
-			$pName = XiPTLibraryProfiletypes::getProfileTypeName($pID);
+			$pName = XiptLibProfiletypes::getProfileTypeName($pID);
 			$pName =JText::_($pName);
 			$html = '<input type="hidden"
 							id="field'.$field->id.'"
@@ -128,7 +128,7 @@ class CFieldsProfiletypes
 		else
 			$filter	= array('published'=>1,'visible'=>1);
 		// user can change profiletype, add information
-		$pTypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
+		$pTypes = XiptLibProfiletypes::getProfiletypeArray($filter);
 		
 		$html	= '<select id="field'.$field->id.'" name="field' . $field->id  . '" '.$disabled.' class="hasTip select'.$class.' inputbox" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
 		
@@ -156,7 +156,7 @@ class CFieldsProfiletypes
 	    if(!$value)
 			return false;
 			
-		if(!XiPTLibraryProfiletypes::validateProfiletype($value))
+		if(!XiptLibProfiletypes::validateProfiletype($value))
 			return false;
 		    
 		return true;

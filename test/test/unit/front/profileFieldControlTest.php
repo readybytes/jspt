@@ -10,24 +10,23 @@ class ProfileFieldControlTest extends XiUnitTestCase
 	
   function testProfileFieldControl()
   {		
-	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
   	// ptofile type 1 when all categories are set to all
 		$fields 	= $this->getProfileFields(82);
 		$compare=array();
 		$require=array();
-	        $pTypeID = XiPTLibraryProfiletypes::getUserData(0,'PROFILETYPE',true);	
-		XiPTLibraryProfiletypes::filterCommunityFields(82,$fields,'getEditableProfile');
+	        $pTypeID = XiptLibProfiletypes::getUserData(0,'PROFILETYPE',true);	
+		XiptLibProfiletypes::filterCommunityFields(82,$fields,'getEditableProfile');
 		$this->compareProfileFields($fields,$compare,$require);
 		
   	  // profile type 2 , set to all		
 		$fields 	= $this->getProfileFields(83);
 
-		XiPTLibraryProfiletypes::filterCommunityFields(83,$fields,'getViewableProfile');
+		XiptLibProfiletypes::filterCommunityFields(83,$fields,'getViewableProfile');
 		$this->compareProfileFields($fields,$compare,$require);
 		
 		// profile type 3 , set to all		
 		$fields 	= $this->getProfileFields(84);
-		XiPTLibraryProfiletypes::filterCommunityFields(84,$fields,'getViewableProfile');
+		XiptLibProfiletypes::filterCommunityFields(84,$fields,'getViewableProfile');
 		$this->compareProfileFields($fields,$compare,$require);
 		
 		
@@ -39,7 +38,7 @@ class ProfileFieldControlTest extends XiUnitTestCase
 		$compare[4]=1;
 		$require[5]=0;
 		$fields 	= $this->getProfileFields(82);
-		XiPTLibraryProfiletypes::filterCommunityFields(82,$fields,'getViewableProfile');
+		XiptLibProfiletypes::filterCommunityFields(82,$fields,'getViewableProfile');
 		$this->compareProfileFields($fields,$compare,$require);
 
 		// profile type 1 at editable, when some conditions are applied
@@ -53,7 +52,7 @@ class ProfileFieldControlTest extends XiUnitTestCase
 		$compare[5]=1;
 		$require[3]=1;
 		$fields 	= $this->getProfileFields(85);
-		XiPTLibraryProfiletypes::filterCommunityFields(85,$fields,'getEditableProfile');
+		XiptLibProfiletypes::filterCommunityFields(85,$fields,'getEditableProfile');
 		$this->compareProfileFields($fields,$compare,$require);
 	
 		// profile type 1 at registration, when some conditions are applied
@@ -66,7 +65,7 @@ class ProfileFieldControlTest extends XiUnitTestCase
 		$compare[4]=1;
 		$require[5]=0;
 		$fields 	= $this->getProfileFields(85);
-		XiPTLibraryProfiletypes::_getFieldsForProfiletype($fields,1,'registration');
+		XiptLibProfiletypes::_getFieldsForProfiletype($fields,1,'registration');
 		$this->compareProfileFields($fields,$compare,$require);
 	
   }

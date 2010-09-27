@@ -10,22 +10,22 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'i
 
 function com_install()
 {	
-	if(XiPTHelperInstall::check_version() == false)
+	if(XiptHelperInstall::check_version() == false)
 		JError::raiseWarning('INSTERR', "XIPT Only support Jomsocial 1.8 or greater releases");
 	
-	if(XiPTHelperInstall::setup_database() == false)
+	if(XiptHelperInstall::setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 		
-	if(XiPTHelperInstall::copyAECfiles() == false)
+	if(XiptHelperInstall::copyAECfiles() == false)
 		JError::raiseError('INSTERR', "Not able to replace MI files, Check permissions.");
 	
-	if(XiPTHelperInstall::installExtensions() == false){
+	if(XiptHelperInstall::installExtensions() == false){
 		JError::raiseError('INSTERR', XiptText::_("NOT ABLE TO INSTALL EXTENSIONS"));
 		return false;
 	}	
-	XiPTHelperInstall::show_instruction();
+	XiptHelperInstall::show_instruction();
 	
-	XiPTHelperInstall::changePluginState('xipt_system',true);
-	XiPTHelperInstall::changePluginState('xipt_community',true);
+	XiptHelperInstall::changePluginState('xipt_system',true);
+	XiptHelperInstall::changePluginState('xipt_community',true);
 	return true;
 }

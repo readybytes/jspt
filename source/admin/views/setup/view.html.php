@@ -8,8 +8,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Import Joomla! libraries
-jimport( 'joomla.application.component.view');
-class XiPTViewSetup extends JView 
+class XiptViewSetup extends XiptView 
 {
     function display($tpl = null)
 	{
@@ -21,8 +20,8 @@ class XiPTViewSetup extends JView
 			
 		$requiredSetup = array();
 		//check profiletype existance
-		$ptypes = XiPTHelperProfiletypes::getProfileTypeArray();
-		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
+		$ptypes = XiptHelperProfiletypes::getProfileTypeArray();
+		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
 		if(!$ptypes) {
 			$requiredSetup['profiletypes']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE PROFILETYPES").'</a>';
 			$requiredSetup['profiletypes']['done']  = false;
@@ -33,9 +32,9 @@ class XiPTViewSetup extends JView
 		}
 			
 		//check default profiletype
-		$defaultProfiletypeID = XiPTLibraryUtils::getParams('defaultProfiletypeID', 0);
-		$link = XiPTRoute::_("index.php?option=com_xipt&view=settings",false);
-		if(!$defaultProfiletypeID || XiPTLibraryProfiletypes::validateProfiletype($defaultProfiletypeID)==false) {
+		$defaultProfiletypeID = XiptLibUtils::getParams('defaultProfiletypeID', 0);
+		$link = XiptRoute::_("index.php?option=com_xipt&view=settings",false);
+		if(!$defaultProfiletypeID || XiptLibProfiletypes::validateProfiletype($defaultProfiletypeID)==false) {
 			$requiredSetup['defaultprofiletype']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';
 			$requiredSetup['defaultprofiletype']['done']  = false;
 		}
@@ -46,8 +45,8 @@ class XiPTViewSetup extends JView
 		
 			
 		//validate custom field
-		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
-		if(XiPTHelperSetup::checkCustomfieldRequired()) {
+		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
+		if(XiptHelperSetup::checkCustomfieldRequired()) {
 			$requiredSetup['customfields']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE AND ENABLE CUSTOM FIELDS").'</a>';
 			$requiredSetup['customfields']['done'] = false;
 		}
@@ -58,8 +57,8 @@ class XiPTViewSetup extends JView
 		
 		
 		//check file patch up required or not
-		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
-		if(XiPTHelperSetup::checkFilePatchRequired()) {
+		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
+		if(XiptHelperSetup::checkFilePatchRequired()) {
 			$requiredSetup['filepatch']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO PATCH FILES").'</a>';
 			$requiredSetup['filepatch']['done'] = false;
 		}
@@ -69,8 +68,8 @@ class XiPTViewSetup extends JView
 		}
 		
 		//check plugins( community and system ) are installed
-		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);
-		if(($msg = XiPTHelperSetup::checkPluginInstallationRequired())) {
+		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);
+		if(($msg = XiptHelperSetup::checkPluginInstallationRequired())) {
 			$requiredSetup['plugininstalled']['message'] = '<a href="'.$link.'">'.$msg.'</a>';
 			$requiredSetup['plugininstalled']['done'] = false;
 		}
@@ -81,8 +80,8 @@ class XiPTViewSetup extends JView
 		
 		
 		//check plugins( community and system ) are enabled
-		$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=enableplugin",false);
-		if(XiPTHelperSetup::checkPluginEnableRequired()) {
+		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=enableplugin",false);
+		if(XiptHelperSetup::checkPluginEnableRequired()) {
 			$requiredSetup['pluginenabled']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO ENABLE PLUGIN").'</a>';
 			$requiredSetup['pluginenabled']['done'] = false;
 		}
@@ -92,8 +91,8 @@ class XiPTViewSetup extends JView
 		}
 
 		
-			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
-			if(XiPTHelperSetup::syncUpUserPTRequired()) {
+			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
+			if(XiptHelperSetup::syncUpUserPTRequired()) {
 				$requiredSetup['syncUpUserPT']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SYNC UP USERS PROFILETYPES").'</a>';
 				$requiredSetup['syncUpUserPT']['done'] = false;
 			}
@@ -102,8 +101,8 @@ class XiPTViewSetup extends JView
 				$requiredSetup['syncUpUserPT']['done'] = true;
 			}
 		
-			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
-			if(XiPTHelperSetup::migrateAvatarRequired()) {
+			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
+			if(XiptHelperSetup::migrateAvatarRequired()) {
 				$requiredSetup['migrateAvatar']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO MIGRATE AVATARS").'</a>';
 				$requiredSetup['migrateAvatar']['done'] = false;
 			}
@@ -114,10 +113,10 @@ class XiPTViewSetup extends JView
 			
 			
 		/*Display only if user have AEC installed*/
-		if(XiPTLibraryAEC::_checkAECExistance()){
+		if(XiptLibAec::_checkAECExistance()){
 			
-			$link = XiPTRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
-			if(XiPTHelperSetup::isAECMIRequired()) {
+			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
+			if(XiptHelperSetup::isAECMIRequired()) {
 				$requiredSetup['patchAECfile']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO INSTALL JSPT MI INTO AEC").'</a>';
 				$requiredSetup['patchAECfile']['done'] = false;
 			}
@@ -129,12 +128,12 @@ class XiPTViewSetup extends JView
 		
 	/* display the link if admin approvel is installed but not enabled */
 	//XITODO : check if any profiletype have enbaled admin approval
-		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',false)){
-			if(XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',true)==false)
+		if(XiptHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',false)){
+			if(XiptHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',true)==false)
 				$warnings['enableAdminApproval']['message'] = JText::_("ADMIN APPROVAL PLUGIN IS INSTALLED BUT NOT ENABLE.");
 			}
 		
-		if(XiPTHelperSetup::isWaterMarkingRequired())
+		if(XiptHelperSetup::isWaterMarkingRequired())
 				$warnings['enableWaterMarking']['message'] = JText::_("WATER MARKING IS NOT ENABLED IN SETTINGS BUT ENABLE FOR PROFILE TYPES.");
 			
 		// to check that setup screen is clean or not

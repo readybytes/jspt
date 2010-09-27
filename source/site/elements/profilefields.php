@@ -49,7 +49,7 @@ class JElementProfilefields extends JElement
 	    	
 	   // $xipt_exists = JspcHelper::checkXiptExists();
 	    
-	    	//$result  = XiPTLibraryProfiletypes::_getFieldsForProfiletype($fields,$ptype,null);
+	    	//$result  = XiptLibProfiletypes::_getFieldsForProfiletype($fields,$ptype,null);
 	    
 		return $fields;
 		
@@ -92,19 +92,19 @@ class JElementProfilefields extends JElement
 	
 	function buildProfileTypes($name, $value, $control_name, $fid)
 	{
-		//$selectedTypes 	= XiPTHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);		
-		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray('ALL');
+		//$selectedTypes 	= XiptHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);		
+		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray('ALL');
 		$html			= '';
 		$html .= '<select id="'.$control_name.'['.$name.']['.$fid.'][]" name="'.$control_name.'['.$name.']['.$fid.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';	
 		foreach( $allTypes as $option )
 		{
-			$ptypeName       = XiPTHelperProfiletypes::getProfileTypeName($option);
+			$ptypeName       = XiptHelperProfiletypes::getProfileTypeName($option);
 			$selected       ='';
 		 	if (is_array($value) && array_key_exists($fid, $value) && in_array($option, $value[$fid]))
 		  		$selected        ='SELECTED';
 		  			
 		 	$html .= '<option name="'.$name.'_'.$option.'" "'.$selected.'" value="'.$option.'">' ;  
-			$html .= XiPTHelperProfiletypes::getProfileTypeName($option).'</option>';
+			$html .= XiptHelperProfiletypes::getProfileTypeName($option).'</option>';
 		}
 		$html	.= '</select>';		
 		

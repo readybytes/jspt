@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * Jom Social Table Model
  */
-class XiPTTableProfiletypes extends JTable
+class XiptTableProfiletypes extends XiptTable
 {
 
 	var $id					= null;

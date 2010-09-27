@@ -45,7 +45,7 @@ class plgSystemxipt_system extends JPlugin
 			return false;
 				
 		// use factory to get any object
-		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 					
  		if( $mainframe->isAdmin())
  		{	
@@ -93,7 +93,7 @@ class plgSystemxipt_system extends JPlugin
 		if(!$this->_includeXipt())
 			return false;
 		// use factory to get any object
-		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterStoreUser(array($properties,$isNew,$result,$error));
 	}
 	
@@ -102,7 +102,7 @@ class plgSystemxipt_system extends JPlugin
 		if(!$this->_includeXipt())
 			return false;
 		// use factory to get any object
-		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterDeleteUser(array($properties,$result,$error));
 	}
 	
@@ -112,7 +112,7 @@ class plgSystemxipt_system extends JPlugin
 			return false;
 			
 		// use factory to get any object
-		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onBeforeProfileTypeSelection();
 	
 	}
@@ -123,7 +123,7 @@ class plgSystemxipt_system extends JPlugin
 			return false;
 			
 		// use factory to get any object
-		$pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterProfileTypeSelection($ptypeid);	
 	}
 	

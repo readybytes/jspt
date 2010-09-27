@@ -28,7 +28,7 @@ require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 			JError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );
 	}
 	
-	$class	= 'XiPTController'. JString::ucfirst( $controller ) ;
+	$class	= 'XiptController'. JString::ucfirst( $controller ) ;
 	
 	// Test if the object really exists in the current context
 	if(class_exists($class))

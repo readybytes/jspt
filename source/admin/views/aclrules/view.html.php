@@ -6,10 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import Joomla! libraries
-jimport( 'joomla.application.component.view');
-
-class XiPTViewAclRules extends JView 
+class XiptViewAclRules extends XiptView 
 {
 	function display($tpl = null)
 	{
@@ -28,7 +25,7 @@ class XiPTViewAclRules extends JView
 				$aclObject = aclFactory::getAclObject($rule->aclname);
 				$aclObject->bind($rule);
 				$ptype = $aclObject->getCoreParams('core_profiletype',0);
-				$ruleProfiletype[$rule->id] = XiPTHelperProfiletypes::getProfiletypeName($ptype,true);
+				$ruleProfiletype[$rule->id] = XiptHelperProfiletypes::getProfiletypeName($ptype,true);
 			}
 		}
 		

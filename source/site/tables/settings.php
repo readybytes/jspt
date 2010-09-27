@@ -6,7 +6,7 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * Jom Social Table Model
  */
-class XiPTTableSettings extends JTable
+class XiptTableSettings extends XiptTable
 {
 
 	var $name				= null;

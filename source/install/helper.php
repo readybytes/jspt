@@ -8,7 +8,7 @@ defined('_JEXEC') or die();
 jimport( 'joomla.filesystem.folder' );
 jimport( 'joomla.filesystem.file' );
 
-class XiPTHelperInstall
+class XiptHelperInstall
 {
 	function show_instruction()
 	{

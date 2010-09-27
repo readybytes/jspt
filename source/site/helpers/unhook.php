@@ -12,7 +12,7 @@ jimport('joomla.filesystem.file');
 require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
 require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'install'.DS.'helper.php';
 
-class XiPTHelperUnhook 
+class XiptHelperUnhook 
 {
 	
 	function disable_plugin($pluginname)
@@ -46,7 +46,7 @@ class XiPTHelperUnhook
 	
 	function uncopyHackedFiles()
 	{
-		$filestoreplace = XiPTHelperInstall::_getJSPTFileList();
+		$filestoreplace = XiptHelperInstall::_getJSPTFileList();
 	   
 		if($filestoreplace) 
 		foreach($filestoreplace AS $sourceFile => $targetFile)

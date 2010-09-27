@@ -6,7 +6,7 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTControllerAclRules extends JController 
+class XiptControllerAclRules extends XiptController 
 {
    
 	function __construct($config = array())
@@ -110,7 +110,7 @@ class XiPTControllerAclRules extends JController
 		
 		jimport('joomla.filesystem.file');
 
-		$aclTable	=& JTable::getInstance( 'aclrules' , 'XiPTTable' );
+		$aclTable	=& JTable::getInstance( 'aclrules' , 'XiptTable' );
 		$aclTable->load($post['id']);
 				
 		$data = array();
@@ -149,7 +149,7 @@ class XiPTControllerAclRules extends JController
 	function save()
 	{
 		$data = $this->processSave();
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe	=& JFactory::getApplication();
 		$mainframe->redirect($link, $data['msg']);		
 		
@@ -158,7 +158,7 @@ class XiPTControllerAclRules extends JController
 	function apply()
 	{
 		$data = $this->processSave();
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules&task=renderacl&editId='.$data['id'], false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=renderacl&editId='.$data['id'], false);
 		$mainframe	=& JFactory::getApplication();
 		$mainframe->redirect($link, $data['msg']);				
 	}
@@ -175,7 +175,7 @@ class XiPTControllerAclRules extends JController
 		//$post['id'] = (int) $cid[0];
 		$count	= count($ids);
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'aclrules' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'aclrules' , 'XiptTable' );
 		$i = 1;
 		if(!empty($ids))
 		{
@@ -196,7 +196,7 @@ class XiPTControllerAclRules extends JController
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
 		$message	= $count.' '.JText::_('RULE REMOVED');		
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -220,7 +220,7 @@ class XiPTControllerAclRules extends JController
 			$aclModel->updatePublish($id,1);
 		}
 		$msg = JText::sprintf( $count.' ITEMS PUBLISHED' );
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
 		return true;
 	}
@@ -244,7 +244,7 @@ class XiPTControllerAclRules extends JController
 			$aclModel->updatePublish($id,0);
 		}
 		$msg = JText::sprintf( $count.' ITEMS UNPUBLISHED' );
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=aclrules', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$mainframe->redirect($link, $msg);
 		return true;
 	}

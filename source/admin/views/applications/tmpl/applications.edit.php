@@ -29,7 +29,7 @@ $aModel			= XiFactory::getModel( 'applications' );
 		<tr>
 			<td class="key"><?php echo JText::_('FOR PROFILETYPES');?></td>
 			<td>:</td>
-			<td colspan="4"> <?php echo XiPTHelperApplications::buildProfileTypesforApplication($this->applicationId);?></td>			
+			<td colspan="4"> <?php echo XiptHelperApplications::buildProfileTypesforApplication($this->applicationId);?></td>			
 		</tr>
 	</tbody>
 </table>

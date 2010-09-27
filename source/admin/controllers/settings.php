@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerSettings extends JController 
+class XiptControllerSettings extends XiptController 
 {
     
 	function __construct($config = array())
@@ -22,7 +22,7 @@ class XiPTControllerSettings extends JController
 		
 		jimport('joomla.filesystem.file');
 
-		$settingsTable	=& JTable::getInstance( 'settings' , 'XiPTTable' );
+		$settingsTable	=& JTable::getInstance( 'settings' , 'XiptTable' );
 		$settingsTable->load('settings');
 				
 		$data = array();

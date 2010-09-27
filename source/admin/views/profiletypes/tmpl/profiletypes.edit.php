@@ -86,14 +86,14 @@ defined('_JEXEC') or die('Restricted access');
 							<td>:</td>
 							<!--<td colspan="4"> -->
 							<td>
-								<?php echo XiPTHelperProfiletypes::buildTypes($this->row->jusertype,'jusertype');?>
+								<?php echo XiptHelperProfiletypes::buildTypes($this->row->jusertype,'jusertype');?>
 							</td>
 						</tr>
 						<tr>	
 							<td class="key"><?php echo JText::_('Default Template Settings for Profile');?></td>
 							<td>:</td>
 							<td>
-								<?php echo XiPTHelperProfiletypes::buildTypes($this->row->template, 'template');?>
+								<?php echo XiptHelperProfiletypes::buildTypes($this->row->template, 'template');?>
 							</td>
 						</tr>
 						<tr>
@@ -101,7 +101,7 @@ defined('_JEXEC') or die('Restricted access');
 							<td class="key"><?php echo JText::_('Select default group to assign');?></td>
 							<td>:</td>
 							<td>
-								<span><?php echo XiPTHelperProfiletypes::buildTypes($this->row->group,'group',true);?></span>
+								<span><?php echo XiptHelperProfiletypes::buildTypes($this->row->group,'group',true);?></span>
 							</td>			
 						</tr>
 						<tr>

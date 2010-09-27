@@ -27,11 +27,13 @@ if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
 	return false;
 }
 
-require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'loader.php');
-require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-//XICODREV : 
 // require_once defines.php
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
+
+require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
+require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.php');
+//XICODREV : 
+
 
 /*Load Langauge file*/
 $lang =& JFactory::getLanguage();
@@ -39,8 +41,30 @@ if($lang)
 	$lang->load( 'com_xipt' );
 
 //files required
-XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models','Model');
-XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
-XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
-XiPTLoader::addAutoLoadFile('XiFactory', XIPT_FRONT_PATH_HELPER.DS.'xiptcore.php');
+XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models','Model');
+XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
+XiptLoader::addAutoLoadFile('XiFactory', XIPT_FRONT_PATH_HELPER.DS.'xiptcore.php');
 	
+// auto load community classes
+require_once  JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
+XiptLoader::addAutoLoadFile('CFactory' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CAssets' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CConfig' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CApplications' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CUser' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+
+// auto load front libraries files
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY,'Library');
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_BASE,'');
+
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_LIB,'Lib');
+XiptLoader::addAutoLoadFile('XiptFactory', 			XIPT_FRONT_PATH_LIBRARY_LIB.DS.'jomsocial.php');
+XiptLoader::addAutoLoadFile('XiptRoute',			XIPT_FRONT_PATH_LIBRARY_BASE.DS.'route.php');
+
+
+// libray file of backend
+XiptLoader::addAutoLoadFile('aclFactory',	XIPT_FRONT_PATH_LIBRARY_ACL.DS.'aclrule.php');
+XiptLoader::addAutoLoadFile('xiptAclRules',	XIPT_FRONT_PATH_LIBRARY_ACL.DS.'aclrule.php');
+

@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerSetup extends JController 
+class XiptControllerSetup extends XiptController 
 {
     
 	function __construct($config = array())
@@ -26,37 +26,37 @@ class XiPTControllerSetup extends JController
     	$pFieldCreated = true;
     	$tFieldCreated = true;
 		 
-		if(!XiPTHelperSetup::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE))
-				$tFieldCreated = XiPTHelperSetup::createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
+		if(!XiptHelperSetup::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE))
+				$tFieldCreated = XiptHelperSetup::createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
 				
-		if(!XiPTHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE))
-				$pFieldCreated = XiPTHelperSetup::createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
+		if(!XiptHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE))
+				$pFieldCreated = XiptHelperSetup::createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
 
 		//now check field enable required then enable field
-		if(!XiPTHelperSetup::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE,true))
-				$tFieldEnabled = XiPTHelperSetup::enableField(TEMPLATE_CUSTOM_FIELD_CODE);
+		if(!XiptHelperSetup::checkExistanceOfCustomFields(TEMPLATE_CUSTOM_FIELD_CODE,true))
+				$tFieldEnabled = XiptHelperSetup::enableField(TEMPLATE_CUSTOM_FIELD_CODE);
 				
-		if(!XiPTHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE,true))
-				$pFieldEnabled = XiPTHelperSetup::enableField(PROFILETYPE_CUSTOM_FIELD_CODE);
+		if(!XiptHelperSetup::checkExistanceOfCustomFields(PROFILETYPE_CUSTOM_FIELD_CODE,true))
+				$pFieldEnabled = XiptHelperSetup::enableField(PROFILETYPE_CUSTOM_FIELD_CODE);
 				
 		if($pFieldCreated && $tFieldCreated
 			&& $pFieldEnabled && $tFieldEnabled)
 			$mainframe->enqueueMessage(JText::_("CUSTOM FIELD CREATED AND ENABLED SUCCESSFULLY"));
 			
-		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
     
     
     function createprofiletypes()
     {
     	global $mainframe;
-    	$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false));
+    	$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false));
     }
     
     function installplugin()
     {
     	global $mainframe;
-    	$mainframe->redirect(XiPTRoute::_("index.php?option=com_installer",false));
+    	$mainframe->redirect(XiptRoute::_("index.php?option=com_installer",false));
     }
     
     
@@ -66,18 +66,18 @@ class XiPTControllerSetup extends JController
     	$sEnabled = true;
     	$cEnabled = true;
 		 
-		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_system','system')
-			&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_system','system',true))
-				$sEnabled = XiPTHelperSetup::enablePlugin('xipt_system');
+		if(XiptHelperSetup::isPluginInstalledAndEnabled('xipt_system','system')
+			&& !XiptHelperSetup::isPluginInstalledAndEnabled('xipt_system','system',true))
+				$sEnabled = XiptHelperSetup::enablePlugin('xipt_system');
 				
-		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_community','community')
-			&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_community','community',true))
-				$cEnabled = XiPTHelperSetup::enablePlugin('xipt_community');
+		if(XiptHelperSetup::isPluginInstalledAndEnabled('xipt_community','community')
+			&& !XiptHelperSetup::isPluginInstalledAndEnabled('xipt_community','community',true))
+				$cEnabled = XiptHelperSetup::enablePlugin('xipt_community');
 				
 		if($sEnabled && $cEnabled)
 			$mainframe->enqueueMessage(JText::_("PLUGIN ENABLED SUCCESSFULLY"));
 			
-		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
     	
     
@@ -85,10 +85,10 @@ class XiPTControllerSetup extends JController
     {
     	global $mainframe;
     	
-    	if(!XiPTHelperSetup::checkFilePatchRequired())
-    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+    	if(!XiptHelperSetup::checkFilePatchRequired())
+    		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
 
-    	if(XiPTHelperSetup::isModelFilePatchRequired()){
+    	if(XiptHelperSetup::isModelFilePatchRequired()){
     		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
     		
 	    	//	create a backup file first
@@ -107,7 +107,7 @@ class XiPTControllerSetup extends JController
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
 	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-	    	$pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+	    	$pluginHandler=& XiptFactory::getLibraryPluginHandler();
 	    	$userId = 0;
 	    	$pluginHandler->onProfileLoad($userId, $fields, __FUNCTION__);
 	    	/*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
@@ -116,7 +116,7 @@ class XiPTControllerSetup extends JController
 	        $replaceString = ob_get_contents();
 	        ob_end_clean();
 	        
-	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+	        $success = XiptHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
 	        
 	        //2. Replace data in getViewableProfile fn
 	        $funcName =  'function getViewableProfile';
@@ -126,7 +126,7 @@ class XiPTControllerSetup extends JController
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
 			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-		    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+		    $pluginHandler=& XiptFactory::getLibraryPluginHandler();
 		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
 		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
 	        <?php 
@@ -134,17 +134,17 @@ class XiPTControllerSetup extends JController
 	        $replaceString = ob_get_contents();
 	        ob_end_clean();
 	        
-	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+	        $success = XiptHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
 	        
 	        
 	        //3. Replace data in getEditablePRofile function
 	        $funcName =  'function getEditableProfile';
-	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+	        $success = XiptHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
 	        
     	}
 
     	// we need to patch Model:User in backend also for editing
-    	if(XiPTHelperSetup::isAdminUserModelPatchRequired()){
+    	if(XiptHelperSetup::isAdminUserModelPatchRequired()){
     		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
     		
     		//	create a backup file first
@@ -162,7 +162,7 @@ class XiPTControllerSetup extends JController
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
 			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-		    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
+		    $pluginHandler=& XiptFactory::getLibraryPluginHandler();
 		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
 		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
 	        <?php 
@@ -170,18 +170,18 @@ class XiPTControllerSetup extends JController
 	        $replaceString = ob_get_contents();
 	        ob_end_clean();
 	        
-	        $success = XiPTHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
+	        $success = XiptHelperSetup::patchData($searchString,$replaceString,$filename,$funcName);
     	}
         
         //now check library field exist
-        if(XiPTHelperSetup::isCustomLibraryFieldRequired()){
+        if(XiptHelperSetup::isCustomLibraryFieldRequired()){
         	//copy library field files into community // libraries // fields folder
-        	XiPTHelperSetup::copyLibraryfiles();
+        	XiptHelperSetup::copyLibraryfiles();
         }
         
         
         //now check XML File patch required
-        if(XiPTHelperSetup::isXMLFilePatchRequired()) {
+        if(XiptHelperSetup::isXMLFilePatchRequired()) {
         	//give patch data fn file to patch
         	$filename	= JPATH_ROOT . DS. 'components' . DS . 'com_community'
         					.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
@@ -218,7 +218,7 @@ class XiPTControllerSetup extends JController
         	}
         }
         $msg = JText::_('FILES PATCHED SUCCESSFULLY');
-        $mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+        $mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     	return true;
     }
     
@@ -226,8 +226,8 @@ class XiPTControllerSetup extends JController
     {
     	global $mainframe;    	   	
         //now check library field exist
-        if(XiPTHelperSetup::isAECMIRequired()){
-        	if(XiPTHelperSetup::copyAECfiles())
+        if(XiptHelperSetup::isAECMIRequired()){
+        	if(XiptHelperSetup::copyAECfiles())
         		$msg = JText::_('AEC MI COPIED SUCCESSFULLY');
         	else
         		$msg = JText::_('AEC MI COPY FAILED');
@@ -235,7 +235,7 @@ class XiPTControllerSetup extends JController
         else
         	$msg = JText::_('AEC MI ALREADY EXIST');
         
-        $mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+        $mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     }
     
 	function syncUpUserPT()
@@ -244,12 +244,12 @@ class XiPTControllerSetup extends JController
         //now check library field exist
         $start=JRequest::getVar('start', 0, 'GET');
 		$limit=JRequest::getVar('limit',SYNCUP_USER_LIMIT, 'GET');
-      	if(XiPTHelperSetup::syncUpUserPT($start,$limit))
+      	if(XiptHelperSetup::syncUpUserPT($start,$limit))
         	$msg = JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZED SUCCESSFULLY');
         else
         	$msg = JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZATION FAILED');
         	        
-        $mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+        $mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     }
     
     /**
@@ -266,7 +266,7 @@ class XiPTControllerSetup extends JController
 		if(JFolder::exists($storage)==false)
 			JFolder::create($storage);
 		
-		$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		$profiletypes = XiptLibProfiletypes::getProfiletypeArray();
 		
 		if(!$profiletypes)		
 			return;
@@ -290,14 +290,14 @@ class XiPTControllerSetup extends JController
 			if($avatar == $image)
 				continue;
 						
-			$avatarThumb = XiPTLibraryUtils::getThumbAvatarFromFull($avatar);
+			$avatarThumb = XiptLibUtils::getThumbAvatarFromFull($avatar);
 	
 			//copy absolute files to new locations
 			JFile::copy(JPATH_ROOT.DS.$avatar, 	  $storageImage);
 			JFile::copy(JPATH_ROOT.DS.$avatarThumb,  $storageThumbnail);
 			
 			//IMP : First we need to update users. update all users of that profiletype
-			$allUsers = XiPTLibraryProfiletypes::getAllUsers($pId);
+			$allUsers = XiptLibProfiletypes::getAllUsers($pId);
 			if(!$allUsers)
 				continue;
 
@@ -305,7 +305,7 @@ class XiPTControllerSetup extends JController
 			$newData['avatar'] = $image;
 			$oldData['avatar'] = $avatar;  
 			foreach ($allUsers as $userid)
-				XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
+				XiptLibProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
 				
 				
 			//update database xipt_profiletypes
@@ -322,35 +322,35 @@ class XiPTControllerSetup extends JController
 		
 		global $mainframe;
 		$msg = JText::_('AVATARS MIGRATED');
-		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg); 
+		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg); 
     }
     
     function unhook()
     {
-    	XiPTHelperUnhook::uncopyHackedFiles();
+    	XiptHelperUnhook::uncopyHackedFiles();
 		// disable plugins
-		XiPTHelperUnhook::disable_plugin('xipt_system');
-		XiPTHelperUnhook::disable_plugin('xipt_community');
+		XiptHelperUnhook::disable_plugin('xipt_system');
+		XiptHelperUnhook::disable_plugin('xipt_community');
 		
-		XiPTHelperUnhook::disable_custom_fields();
+		XiptHelperUnhook::disable_custom_fields();
 		
 		global $mainframe;
 		$msg = JText::_('UNHOOKED SUCCESSFULLY');
 		$mainframe->enqueueMessage($msg);
-		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
     }
     
     function enableAdminApproval()
     {
     	global $mainframe;
-    	if(XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system')
-			&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',true))
-				$cEnabled = XiPTHelperSetup::enablePlugin('xi_adminapproval');
+    	if(XiptHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system')
+			&& !XiptHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',true))
+				$cEnabled = XiptHelperSetup::enablePlugin('xi_adminapproval');
 				
 		if($sEnabled && $cEnabled)
 			$mainframe->enqueueMessage(JText::_("PLUGIN ENABLED SUCCESSFULLY"));
 			
-		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
     }
     	
 }

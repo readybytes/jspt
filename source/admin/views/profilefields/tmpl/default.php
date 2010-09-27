@@ -46,7 +46,7 @@ defined('_JEXEC') or die('Restricted access');
 				<td><?php echo $i;?></td>
 				<td>
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiPTRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
 						&nbsp;&nbsp;|_ <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>
@@ -58,7 +58,7 @@ defined('_JEXEC') or die('Restricted access');
 					<td align="center">
 						<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
 						<?php 
-							echo XiPTHelperProfilefields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
+							echo XiptHelperProfilefields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
 						?>
 						</span>
 					</td>
@@ -77,7 +77,7 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 				<td>
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiPTRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
 						Group <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>
@@ -89,7 +89,7 @@ defined('_JEXEC') or die('Restricted access');
 				<td align="center">
 					<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
 					<?php 
-						echo XiPTHelperProfilefields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
+						echo XiptHelperProfilefields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
 					?>
 					</span>
 				</td>

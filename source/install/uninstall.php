@@ -14,11 +14,11 @@ require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers' .DS. 'unhook.
 
 function com_uninstall()
 {
-	XiPTHelperUnhook::uncopyHackedFiles();
+	XiptHelperUnhook::uncopyHackedFiles();
 	
 	// disable plugins
-	XiPTHelperUnhook::disable_plugin('xipt_system');
-	XiPTHelperUnhook::disable_plugin('xipt_community');
+	XiptHelperUnhook::disable_plugin('xipt_system');
+	XiptHelperUnhook::disable_plugin('xipt_community');
 	
-	XiPTHelperUnhook::disable_custom_fields();
+	XiptHelperUnhook::disable_custom_fields();
 }

@@ -50,7 +50,6 @@
 			<filename>index.html</filename>
 			<filename>xipt.php</filename>
 			<filename>includes.php</filename>
-			<filename>loader.php</filename>
 			
 			<folder>controllers</folder>
 			<folder>views</folder>

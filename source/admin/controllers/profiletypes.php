@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerProfiletypes extends JController 
+class XiptControllerProfiletypes extends XiptController 
 {
     
 	function __construct($config = array())
@@ -52,7 +52,7 @@ class XiPTControllerProfiletypes extends JController
 		jimport('joomla.utilities.utility');
 
 		$info = $this->_processSave();
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
 		$mainframe->redirect($link, $info['msg']);
 	}
 	
@@ -68,7 +68,7 @@ class XiPTControllerProfiletypes extends JController
 		jimport('joomla.utilities.utility');
 		
 		$info = $this->_processSave();
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $info['msg']);
 	}
 	
@@ -92,7 +92,7 @@ class XiPTControllerProfiletypes extends JController
 		
 		// Load the JTable Object.
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$row->load( $cid[0] );	
 		$isValid	= true;
 		
@@ -132,7 +132,7 @@ class XiPTControllerProfiletypes extends JController
 				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
 		
 				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) )
-					XiPTHelperProfiletypes::uploadAndSetImage($fileAvatar,$row->id,'avatar');
+					XiptHelperProfiletypes::uploadAndSetImage($fileAvatar,$row->id,'avatar');
 
 				/* generate watermark image */
 				$config = new JParameter('','');
@@ -144,7 +144,7 @@ class XiPTControllerProfiletypes extends JController
 				$privacysetting = new JParameter('','');
 				$privacysetting->bind($row->privacy);
 				/*XITODO : send debug mode in second parameter */
-				$imageGenerator = new XiPTImageGenerator($config,0);
+				$imageGenerator = new XiptLibImage($config,0);
 				$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
 				$imageName = 'watermark_'. $row->id;
 				$filename	= $imageGenerator->genImage($storage,$imageName);
@@ -172,9 +172,9 @@ class XiPTControllerProfiletypes extends JController
 				/* Reset existing user's */
 				if($post['resetAll']) {
 					//If not uploaded data then by default save the previous values 
-					$data['avatar'] 	= XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'avatar');
-					$data['watermark'] 	= $image; //XiPTLibraryProfiletypes::getProfiletypeData($cid[0],'watermark');
-					XiPTHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);	
+					$data['avatar'] 	= XiptLibProfiletypes::getProfiletypeData($cid[0],'avatar');
+					$data['watermark'] 	= $image; //XiptLibProfiletypes::getProfiletypeData($cid[0],'watermark');
+					XiptHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);	
 				}
 					
 				$info['id'] = $row->id;
@@ -224,7 +224,7 @@ class XiPTControllerProfiletypes extends JController
 		$dstimg 			= 	ImageCreateTrueColor($watermarkThumbWidth,$watermarkThumbHeight) 
 					or die('Cannot initialize GD Image');
 
-		$watermarkType = XiPTLibraryUtils::getImageType($watermarkPath);
+		$watermarkType = XiptLibUtils::getImageType($watermarkPath);
 		$srcimg	 = cImageOpen( $watermarkPath , $watermarkType);
 		//XITODO : also support other formats
 		
@@ -238,7 +238,7 @@ class XiPTControllerProfiletypes extends JController
 		else
 			JError::raiseWarning('XIPT_THUMB_WAR','THUMBNAIL NOT SUPPORTED');
 		
-		/*if(!cImageCreateThumb( $watermarkPath , $storageThumbnail , XiPTLibraryUtils::getImageType($watermarkPath),$config->get(xiWidth,64)/2,$config->get(xiHeight,64)/2));
+		/*if(!cImageCreateThumb( $watermarkPath , $storageThumbnail , XiptLibUtils::getImageType($watermarkPath),$config->get(xiWidth,64)/2,$config->get(xiHeight,64)/2));
 			$info['msg'] .= sprintf(JText::_('ERROR MOVING UPLOADED FILE') , $storageThumbnail);*/
 		return;
 	}
@@ -275,7 +275,7 @@ class XiPTControllerProfiletypes extends JController
 	
 		//$post['id'] = (int) $cid[0];
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$i = 1;
 
 		if(!empty($ids))
@@ -283,7 +283,7 @@ class XiPTControllerProfiletypes extends JController
 			foreach( $ids as $id )
 			{
 				$row->load( $id );
-				if($id == XiPTLibraryProfiletypes::getDefaultProfiletype())
+				if($id == XiptLibProfiletypes::getDefaultProfiletype())
 				{
 					$message= JText::_('CAN NOT DELETE DEFAULT PROFILE TYPE');
 					$mainframe->enqueueMessage($message);
@@ -305,7 +305,7 @@ class XiPTControllerProfiletypes extends JController
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
 		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -329,7 +329,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updatePublish($id,1);
 		}
 		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);	
 		return true;
 	}
@@ -353,7 +353,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updatePublish($id,0);
 		}
 		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);
 		return true;
 	}
@@ -377,7 +377,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updateVisibility($id,1);
 		}
 		$msg = sprintf(JText::_('ITEMS VISIBLE'),$count);
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);	
 		return true;
 	}
@@ -401,7 +401,7 @@ class XiPTControllerProfiletypes extends JController
 			$pModel->updateVisibility($id,0);
 		}
 		$msg = sprintf(JText::_('ITEMS INVISIBLE'),$count);
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $msg);
 		return true;
 	}
@@ -427,7 +427,7 @@ class XiPTControllerProfiletypes extends JController
 			$id		= (int) $id[0];
 			
 			// Load the JTable Object.
-			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+			$table	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		
 			$table->load( $id );
 			$table->move( $direction );

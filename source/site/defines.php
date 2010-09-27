@@ -78,6 +78,10 @@ define('ALL',-1); //required in admin in ACL rules only ,
 define('XIPT_FRONT_PATH_LIBRARY',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries');
 define('XIPT_FRONT_PATH_HELPER', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers');
 define('XIPT_FRONT_PATH_ASSETS',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'assets');
+define('XIPT_FRONT_PATH_LIBRARY_BASE',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'base');
+define('XIPT_FRONT_PATH_LIBRARY_LIB',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'lib');
+define('XIPT_FRONT_PATH_LIBRARY_ACL',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'acl');
+
 
 // define constant   for privacy value
 define('XI_PRIVACY_PUBLIC',10);

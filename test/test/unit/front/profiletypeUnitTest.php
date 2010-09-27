@@ -14,41 +14,40 @@ class ProfiletypeUnitTest extends XiUnitTestCase
 	$filter['defaultProfiletypeID']=1;
 	$this->changeJSPTConfig($filter);
 	$this->resetCacheData();
-    $this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(true),1);
+    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(true),1);
     
     $filter['defaultProfiletypeID']=5;
 	$this->changeJSPTConfig($filter);
 	$this->resetCacheData();
-    $this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(true),5);
+    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(true),5);
     
     $filter['defaultProfiletypeID']=7;
 	$this->changeJSPTConfig($filter);
 	$this->resetCacheData();
-    $this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(),5);
+    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(),5);
     
     $filter['defaultProfiletypeID']=2;
 	$this->changeJSPTConfig($filter);
 	$this->resetCacheData();
-	$this->assertEquals(XiPTLibraryProfiletypes::getDefaultProfiletype(true),2);
+	$this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(true),2);
   }
   
   function testProfiletypeName()
   {		
-	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
   
-	$name = XiPTLibraryProfiletypes::getProfiletypeName(1);
+	$name = XiptLibProfiletypes::getProfiletypeName(1);
 	$this->assertEquals($name,'PROFILETYPE-1');
 	
-	$name = XiPTLibraryProfiletypes::getProfiletypeName(2);
+	$name = XiptLibProfiletypes::getProfiletypeName(2);
 	$this->assertEquals($name,'PROFILETYPE-2');
 	
-	$name = XiPTLibraryProfiletypes::getProfiletypeName(3);
+	$name = XiptLibProfiletypes::getProfiletypeName(3);
 	$this->assertEquals($name,'PROFILETYPE-3');
 	
-	$name = XiPTLibraryProfiletypes::getProfiletypeName(4);
+	$name = XiptLibProfiletypes::getProfiletypeName(4);
 	$this->assertEquals($name,'PROFILETYPE-4');
 	
-	$name = XiPTLibraryProfiletypes::getProfiletypeName(0);
+	$name = XiptLibProfiletypes::getProfiletypeName(0);
 	$this->assertEquals($name,'PROFILETYPE-2');
 	       
   }
@@ -56,7 +55,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   {
   	
   	//this will return array of stdClass objects. 
-  	$array = XiPTLibraryProfiletypes::getProfiletypeArray();
+  	$array = XiptLibProfiletypes::getProfiletypeArray();
   	
   	$obj1 = new stdClass();
   	$obj1->id = 2;
@@ -146,97 +145,97 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   function testUserData()
   {
   	//this will return Profiletype of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(62);
+  	$userData = XiptLibProfiletypes::getUserData(62);
   	$this->assertEquals($userData,1);
   	
   	//this will return template of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(62,'TEMPLATE');
+  	$userData = XiptLibProfiletypes::getUserData(62,'TEMPLATE');
   	$this->assertEquals($userData,'default');
   	
   	//this will return Profiletype of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(80);
+  	$userData = XiptLibProfiletypes::getUserData(80);
   	$this->assertEquals($userData,2);
   	
   	//this will return template of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(80,'TEMPLATE');
+  	$userData = XiptLibProfiletypes::getUserData(80,'TEMPLATE');
   	$this->assertEquals($userData,'blueface');
   	
   	//this will return Profiletype of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(81);
+  	$userData = XiptLibProfiletypes::getUserData(81);
   	$this->assertEquals($userData,3);
   	
   	//this will return template of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(81,'TEMPLATE');
+  	$userData = XiptLibProfiletypes::getUserData(81,'TEMPLATE');
   	$this->assertEquals($userData,'blackout');
   	
   	//this will return Profiletype of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(0);
+  	$userData = XiptLibProfiletypes::getUserData(0);
   	$this->assertEquals($userData,2);
   	
   	//this will return template of user.
-  	$userData = XiPTLibraryProfiletypes::getUserData(0,'TEMPLATE');
+  	$userData = XiptLibProfiletypes::getUserData(0,'TEMPLATE');
   	$this->assertEquals($userData,'blueface');
   }
   
   function testProfiletypeData()
   {
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(1);
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(1);
   	$this->assertEquals($profileData,'PROFILETYPE-1');
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(2,'privacy');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(2,'privacy');
   	$this->assertEquals($profileData,'friends');
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(3,'template');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(3,'template');
   	$this->assertEquals($profileData,'blackout');
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(4,'jusertype');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(4,'jusertype');
   	$this->assertEquals($profileData,'Registered');
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(1,'avatar');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(1,'avatar');
   	$this->assertEquals($profileData,'components/com_community/assets/default.jpg');
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(2,'watermark');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(2,'watermark');
   	$this->assertEquals($profileData,'');
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(3,'approve');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(3,'approve');
   	$this->assertEquals($profileData,0);
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(4,'allowt');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(4,'allowt');
   	$this->assertEquals($profileData,0);
   	
   	//this will return Profiletype name.
-  	$profileData = XiPTLibraryProfiletypes::getProfiletypeData(1,'group');
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(1,'group');
   	$this->assertEquals($profileData,1);
   }
   
   function testAllUser()
   {
   	//this will return userId of all users of Profiletype 1.
-  	$userid = XiPTLibraryProfiletypes::getAllUsers(1);
+  	$userid = XiptLibProfiletypes::getAllUsers(1);
   	$result =array(62,85,82,79);
   	$this->assertEquals($userid,$result);
   	
 	
   	//this will return userId of all users of Profiletype 2.
-  	$userid = XiPTLibraryProfiletypes::getAllUsers(2);
+  	$userid = XiptLibProfiletypes::getAllUsers(2);
   	$result =array(86,83,80,99);
   	$this->assertEquals($userid,$result);
   	
   	//this will return userId of all users of Profiletype 3.
-  	$userid = XiPTLibraryProfiletypes::getAllUsers(3);
+  	$userid = XiptLibProfiletypes::getAllUsers(3);
   	$result =array(87,84,81);
   	$this->assertEquals($userid,$result);
   	
   	//this will return userId of all users of Profiletype 4.
-  	$userid = XiPTLibraryProfiletypes::getAllUsers(4);
+  	$userid = XiptLibProfiletypes::getAllUsers(4);
   	$result =array();
   	$this->assertEquals($userid,$result);
  
@@ -245,102 +244,102 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   function testNotSelectedFieldForProfiletype()
   {
   	//this will return fid for allowed category and Profiletype1.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(1, 0);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(1, 0);
   	$result = array(4);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for allowed category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(2, 0);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(2, 0);
   	$result = array(3);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for allowed category and Profiletype3.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(3, 0);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(3, 0);
   	$result = array();
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for allowed category and Profiletype4.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(4, 0);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(4, 0);
   	$result = array(4,3);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for required category and Profiletype1.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(1, 1);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(1, 1);
   	$result = array(5,4);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for required category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(2, 1);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(2, 1);
   	$result = array(4,3,2);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for required category and Profiletype3.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(3, 1);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(3, 1);
   	$result = array(5,3);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for required category and Profiletype4.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(4, 1);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(4, 1);
   	$result = array(5,4,3,2);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for visible category and Profiletype1.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(1, 2);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(1, 2);
   	$result = array(4,3);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for visible category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(2, 2);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(2, 2);
   	$result = array(5,4,3,2);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for visible category and Profiletype3.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(3, 2);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(3, 2);
   	$result = array();
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for visible category and Profiletype4.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(4, 2);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(4, 2);
   	$result = array(5,4,3,2);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable after reg category and Profiletype1.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(1, 3);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(1, 3);
   	$result = array(5,4,2);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable after reg category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(2, 3);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(2, 3);
   	$result = array(4,3);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable after reg category and Profiletype3.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(3, 3);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(3, 3);
   	$result = array(3,2);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable after reg category and Profiletype4.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(4, 3);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(4, 3);
   	$result = array(5,4,3);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable during reg category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(1, 4);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(1, 4);
   	$result = array(4,3);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable during reg category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(2, 4);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(2, 4);
   	$result = array(4,3,2);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable during reg category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(3, 4);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(3, 4);
   	$result = array(5);
   	$this->assertEquals($fid,$result);
   	
   	//this will return fid for editable during reg category and Profiletype2.
-  	$fid = XiPTLibraryProfiletypes::_getNotSelectedFieldForProfiletype(4, 4);
+  	$fid = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype(4, 4);
   	$result = array(5,4,3,2);
   	$this->assertEquals($fid,$result);
   }
@@ -359,7 +358,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   		"EDITABLE_DURING_REG" 	=> array()
   		);
   		
-  	$result = XiPTLibraryProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
+  	$result = XiptLibProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
   	$this->assertEquals($inputfields,$outputfields);
   	
   	//test allowed
@@ -373,7 +372,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   		"EDITABLE_DURING_REG" 	=> array()
   		);
   		
-  	$result = XiPTLibraryProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
+  	$result = XiptLibProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
   	$this->assertEquals($inputfields,$outputfields);
   	
   	//test required
@@ -387,7 +386,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   		"EDITABLE_DURING_REG" 	=> array()
   		);
   		
-  	$result = XiPTLibraryProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
+  	$result = XiptLibProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
   	$this->assertEquals($inputfields,$outputfields);
   	
   	//test visible
@@ -401,7 +400,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   		"EDITABLE_DURING_REG" 	=> array()
   		);
   		
-  	$result = XiPTLibraryProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
+  	$result = XiptLibProfiletypes::_getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
   	$this->assertEquals($inputfields,$outputfields);
   	
   	//test EDITABLE_AFTER_REG
@@ -415,7 +414,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   		"EDITABLE_DURING_REG" 	=> array()
   		);
   		
-  	$result = XiPTLibraryProfiletypes::_getFieldsForProfiletype($inputfields,2,'getEditableProfile', $notSelectedFields);
+  	$result = XiptLibProfiletypes::_getFieldsForProfiletype($inputfields,2,'getEditableProfile', $notSelectedFields);
   	$this->assertEquals($inputfields,$outputfields);
   	
   	//test EDITABLE_DURING_REG
@@ -429,7 +428,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   		"EDITABLE_DURING_REG" 	=> array(1)
   		);
   		
-  	$result = XiPTLibraryProfiletypes::_getFieldsForProfiletype($inputfields,2,'', $notSelectedFields);
+  	$result = XiptLibProfiletypes::_getFieldsForProfiletype($inputfields,2,'', $notSelectedFields);
   	$this->assertEquals($inputfields,$outputfields);
   	
   	}
@@ -437,49 +436,49 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	function testIsDefaultAvatarOfProfileType()
   	{
   		
-  		$this->assertEquals(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default.jpg'),'components/com_community/assets/default.jpg');
+  		$this->assertEquals(XiptLibProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default.jpg'),'components/com_community/assets/default.jpg');
   		
-  		$this->assertEquals(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default.jpg',true),'components/com_community/assets/default.jpg');
+  		$this->assertEquals(XiptLibProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default.jpg',true),'components/com_community/assets/default.jpg');
   		
-  		$this->assertEquals(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/group.jpg'),'components/com_community/assets/group.jpg');
+  		$this->assertEquals(XiptLibProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/group.jpg'),'components/com_community/assets/group.jpg');
   		
-  		$this->assertEquals(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default_thumb.jpg'),'components/com_community/assets/default_thumb.jpg');
+  		$this->assertEquals(XiptLibProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default_thumb.jpg'),'components/com_community/assets/default_thumb.jpg');
   		
-  		$this->assertEquals(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/group_thumb.jpg'),'components/com_community/assets/group_thumb.jpg');
+  		$this->assertEquals(XiptLibProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/group_thumb.jpg'),'components/com_community/assets/group_thumb.jpg');
   		
-  		$this->assertEquals(XiPTLibraryProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default_thumb.jpg',true),'components/com_community/assets/default_thumb.jpg');
+  		$this->assertEquals(XiptLibProfiletypes::isDefaultAvatarOfProfileType('components/com_community/assets/default_thumb.jpg',true),'components/com_community/assets/default_thumb.jpg');
   		
   	}
   	
   	function testValidateProfiletype()
  	{
  		//validate published Profiletypes
- 		$this->assertEquals(XiPTLibraryProfiletypes::validateProfiletype(1),true);
+ 		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(1),true);
  		
- 		$this->assertEquals(XiPTLibraryProfiletypes::validateProfiletype(2),true);
+ 		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(2),true);
  		
- 		$this->assertEquals(XiPTLibraryProfiletypes::validateProfiletype(3),true);
+ 		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(3),true);
  		
- 		$this->assertEquals(XiPTLibraryProfiletypes::validateProfiletype(4),false);
+ 		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(4),false);
  		
  		$filter=array('published'=>0);
  		//validate unpublished Profiletypes
- 		$this->assertEquals(XiPTLibraryProfiletypes::validateProfiletype(4, $filter),true);
- 		$this->assertEquals(XiPTLibraryProfiletypes::validateProfiletype(1, $filter),false);
+ 		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(4, $filter),true);
+ 		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(1, $filter),false);
  		
  	}
  	
  	function testParams()
  	{
  		//get value of params by default.
- 		$params = XiPTLibraryProfiletypes::getParams(1);
+ 		$params = XiptLibProfiletypes::getParams(1);
  		$this->assertNotEquals($params, null);
  		
- 		$params = XiPTLibraryProfiletypes::getParams(4);
+ 		$params = XiptLibProfiletypes::getParams(4);
  		$this->assertNotEquals($params, null);
  		
  		
- 		$params = XiPTLibraryProfiletypes::getParams(2);
+ 		$params = XiptLibProfiletypes::getParams(2);
 		
  		$strconfig = "enableterms=0\nregistrationTerms=\nrecaptcha=0\nrecaptchapublic=\nrecaptchaprivate=\nrecaptchatheme=red\nrecaptchalang=en\nenablereporting=1\nmaxReport=50\nnotifyMaxReport=\nenableguestreporting=0\npredefinedreports=Spamming / Advertisement\nprivacyprofile=0\nprivacyfriends=0\nprivacyphotos=0\nprivacyemail=1\nprivacyapps=1\nprivacywallcomment=0\nenablepm=1\npmperday=30\nwallediting=1\nlockprofilewalls=1\nlockvideoswalls=1\nlockgroupwalls=1\nenablegroups=0\nmoderategroupcreation=1\ncreategroups=0\ngroupcreatelimit=1\ngroupphotouploadlimit=500\ngroupvideouploadlimit=500\ncreatediscussion=1\ngroupphotos=1\ngroupvideos=1\ngroupdiscussnotification=0\ngroupdiscussionmaxlist=5\nenablevideos=1\nenablevideosupload=0\nvideouploadlimit=1\ndeleteoriginalvideos=0\nvideofolder=images\nmaxvideouploadsize=8\nffmpegPath=\nflvtool2=\nqscale=11\nvideosSize=400x300\ncustomCommandForVideo=\nenablevideopseudostream=0\nvideodebug=0\nfolderpermissionsvideo=0755\nenablephotos=1\nphotouploadlimit=1\nmaxuploadsize=8\ndeleteoriginalphotos=0\nmagickPath=\nflashuploader=0\nfolderpermissionsphoto=0755\nautoalbumcover=1\nenablemyblogicon=0\n\n";
  		$watermarkxml = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'watermark.xml';
@@ -491,10 +490,10 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  	{
  		jimport('joomla.application.component.controller');
  		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.'profiletypes.php');
- 		$obj = new XiPTControllerProfiletypes;
+ 		$obj = new XiptControllerProfiletypes;
  		$xiconfig = "jspt_restrict_reg_check=1\njspt_prevent_username=admin;moderator;\njspt_allowed_email=\njspt_prevent_email=\n\n";
  		JTable::addIncludePath(JPATH_COMPONENT_SITE.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$row->load(1);
  		$obj->saveConfig($row,$xiconfig,'config',true);
  		$this->_DBO->addTable('#__xipt_profiletypes');
@@ -504,10 +503,10 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  	{
  		jimport('joomla.application.component.controller');
  		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.'profiletypes.php');
- 		$obj = new XiPTControllerProfiletypes;
+ 		$obj = new XiptControllerProfiletypes;
  		$config = "enableWaterMark=0\nxiText=P\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=5\n\n";
  		$filename = 'watermark_2.png';
- 		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+ 		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$row->load(1);
 		$obj->saveWatermarkparams($filename, $row, $config, true);
  		$this->_DBO->addTable('#__xipt_profiletypes');

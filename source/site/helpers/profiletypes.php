@@ -6,16 +6,16 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTHelperProfiletypes 
+class XiptHelperProfiletypes 
 {
-	
+	//XITODO : Clean the function. Remove Switch
 	function buildTypes($value, $what,$multiselect=false)
 	{
 		$allValues	= array();
 		switch($what)
 		{
 			case 'profiletype':
-				$allTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+				$allTypes = XiptLibProfiletypes::getProfiletypeArray();
 				if ($allTypes)
 						foreach ($allTypes as $ptype)
 							$allValues[$ptype->id]=$ptype->name;
@@ -28,20 +28,20 @@ class XiPTHelperProfiletypes
 				break;
 					
 			case 'template' :
-					$templates = XiPTHelperProfiletypes::getBackendTemplatesList();
+					$templates = XiptHelperProfiletypes::getBackendTemplatesList();
 					if($templates)
 						foreach ($templates as $t)
 							$allValues[$t]=$t;
 					break;
 			case 'jusertype' :
-					$usertypes= XiPTHelperProfiletypes::getJUserTypes();
+					$usertypes= XiptHelperProfiletypes::getJUserTypes();
 					if ($usertypes) 
 						foreach ($usertypes as $u)
 							$allValues[$u]=$u;
 					
 					break;
 			case 'group' :
-					$groups = XiPTHelperProfiletypes::getGroups();
+					$groups = XiptHelperProfiletypes::getGroups();
 					if ($groups)
 						foreach ($groups as $g)
 							$allValues[$g->id]=$g->name;
@@ -49,9 +49,10 @@ class XiPTHelperProfiletypes
 					$allValues['0']='None';
 					break;
 			default:
-				XiPTLibraryUtils::XAssert(0);
+				XiptLibUtils::XAssert(0);
 		}
 	
+		//XITODO : Uset JHTML to build html
 		$html   	= '<span>';
 		$multiple   ='';
 		$size ='';
@@ -106,7 +107,7 @@ class XiPTHelperProfiletypes
 
 	function getBackendTemplatesList()
 	{
-		return XiPTLibraryUtils::getTemplatesList();
+		return XiptLibUtils::getTemplatesList();
 		/*$path	= JPATH_ROOT . DS . 'components' . DS . 'com_community' . DS . 'templates';
 	
 		$handle = @opendir($path);
@@ -124,6 +125,7 @@ class XiPTHelperProfiletypes
 	
 function getProfileTypeData($id,$what='name')
 {
+	//XITODO : Caching can be added
 	$searchFor 		= 'name';
 	$defaultValue	= 'NONE';
 	
@@ -168,7 +170,7 @@ function getProfileTypeData($id,$what='name')
 				$defaultValue	=  '0';
 				break;
 		default	:
-				XiPTLibraryUtils::XAssert(0);
+				XiptLibUtils::XAssert(0);
 	}
 
 	if($id==0)
@@ -184,7 +186,7 @@ function getProfileTypeData($id,$what='name')
 	
 function getProfileTypeName($id,$isNoneReq=false)
 {
-			
+		//XITODO : Clean ALL / NONE, and cache results
 		if($id==0 || empty($id))
 			return JText::_("All");
 			
@@ -223,7 +225,7 @@ function getProfileTypeArray($all = '',$none= '')
 	return $retVal;
 }	
 
-
+//XITODO : move to joomla library
 function getJUserTypes()
 {
 	$values=array();
@@ -236,6 +238,7 @@ function getJUserTypes()
 	if($val)
 		foreach ($val as $v)
 		{
+			//XITODO : improve performance use, array_diff
 			if($v->name == 'ROOT' || $v->name == 'USERS'
 				|| $v->name == 'Public Frontend' || $v->name == 'Public Backend'
 				|| $v->name == 'Administrator' || $v->name == 'Super Administrator'
@@ -248,7 +251,7 @@ function getJUserTypes()
 	return $values;	
 }
 
-
+//XITODO : rename function, clean it
 function addProfileTypeInfroForAll($fID)
 {
 	// read community_user table
@@ -279,7 +282,8 @@ function addProfileTypeInfroForAll($fID)
 				$v->profiletype= $myparams->get('profiletypes','0');
 			}
 			$obj->value		= getProfileTypeData($v->profiletype,'name');
-			
+
+			//XITODO : why we are insterting again n again
 			$db->insertObject( '#__community_fields_values' , $obj );
 		}
 }
@@ -297,7 +301,7 @@ function addProfileTypeInfroForAll($fID)
  */
 function resetAllUsers($pid, $oldData, $newData)
 {
-	$allUsers = XiPTLibraryProfiletypes::getAllUsers($pid);
+	$allUsers = XiptLibProfiletypes::getAllUsers($pid);
 	
 	if(!$allUsers)
 		return;
@@ -314,7 +318,7 @@ function resetAllUsers($pid, $oldData, $newData)
 	
 	foreach ($allUsers as $user)
 	{
-		XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
+		XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
 	}
 }
 
@@ -323,7 +327,7 @@ function resetAllUsers($pid, $oldData, $newData)
 		$required			='1';
 		$html				= '';
 		$class				= ($required == 1) ? ' required' : '';
-		$options			= XiPTLibraryProfiletypes::getProfiletypeArray();
+		$options			= XiptLibProfiletypes::getProfiletypeArray();
 		
 		$html	.= '<select id="params[defaultProfiletypeID]" name="params[defaultProfiletypeID]" class="hasTip select'.$class.'" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
 		for( $i = 0; $i < count( $options ); $i++ )
@@ -399,7 +403,7 @@ function resetAllUsers($pid, $oldData, $newData)
 				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
 			}			
 
-			$oldFile = XiPTLibraryProfiletypes::getProfiletypeData($id,$what);
+			$oldFile = XiptLibProfiletypes::getProfiletypeData($id,$what);
 
 			// If old file is default_thumb or default, we should not remove it.
 			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR ) 
@@ -419,17 +423,17 @@ function resetAllUsers($pid, $oldData, $newData)
 			{
 				$newAvatar	= $image;
 				/* No need to update thumb here , script will update both avatar and thumb */
-				//$newThumb   = XiPTLibraryUtils::getThumbAvatarFromFull($newAvatar);
-				$oldAvatar  = XiPTLibraryProfiletypes::getProfiletypeData($id,'avatar');
+				//$newThumb   = XiptLibUtils::getThumbAvatarFromFull($newAvatar);
+				$oldAvatar  = XiptLibProfiletypes::getProfiletypeData($id,'avatar');
 					
-				$allUsers = XiPTLibraryProfiletypes::getAllUsers($id);
+				$allUsers = XiptLibProfiletypes::getAllUsers($id);
 				if($allUsers) {
 					
 					$filter[] = 'avatar';
 					$newData['avatar'] = $newAvatar;
 					$oldData['avatar'] = $oldAvatar;  
 					foreach ($allUsers as $userid)
-						XiPTLibraryProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
+						XiptLibProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
 
 				}		    			
 			}
@@ -449,7 +453,7 @@ function resetAllUsers($pid, $oldData, $newData)
 		}
 	}
 	
-	
+	//XITODO  : move to HelperUtils
 	function getFonts()
 	{
 		$path	= JPATH_ROOT  . DS . 'components' . DS . 'com_xipt' . DS . 'assets' . DS . 'fonts';
@@ -482,14 +486,15 @@ function resetAllUsers($pid, $oldData, $newData)
 		$mainframe->redirect($redirectUrl,$msg);
     }
         
+	//XITODO : Remove funda of return url, use configuration
     function setProfileTypeInSession($selectedProfiletypeID)
     {
     	global $mainframe;
     	$mySess = & JFactory::getSession();
-    	$redirectUrl = XiPTLibraryUtils::getReturnURL();
+    	$redirectUrl = XiptLibUtils::getReturnURL();
 
 			// validate values
-			if(!XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID)) {
+			if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {
 				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
 				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
 				return;

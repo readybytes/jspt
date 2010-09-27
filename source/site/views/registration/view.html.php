@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Restricted access');
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
 
-class XiPTViewRegistration extends JView
+class XiptViewRegistration extends XiptView
 {
 	function display($tpl = null)
 	{
@@ -30,12 +30,12 @@ class XiPTViewRegistration extends JView
 		//TODO : trigger an API Event to add something to templates, or modify $profiletypes array
 		// e.g. : I want to patch description. with some extra information
 		$filter = array('published'=>1,'visible'=>1);
-	    $allProfileTypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
+	    $allProfileTypes = XiptLibProfiletypes::getProfiletypeArray($filter);
 	    
 		
 		$this->assign( 'allProfileTypes' , $allProfileTypes );
 		$this->assign( 'selectedProfileTypeID' , $seletedPTypeID );
-		$params = XiPTLibraryUtils::getParams('', 0);
+		$params = XiptLibUtils::getParams('', 0);
 		$this->assign( 'showAsRadio' , $params->get('jspt_show_radio',true));
 		
 		parent::display( $tpl );

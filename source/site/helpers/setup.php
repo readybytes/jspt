@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTHelperSetup 
+class XiptHelperSetup 
 {
 
 
@@ -57,7 +57,7 @@ class XiPTHelperSetup
 						$data['tips']			= 'Template Of User';
 						break;
 			default :
-						XiPTLibraryUtils::XAssert(0);
+						XiptLibUtils::XAssert(0);
 						break;
 		}
 		$data['fieldcode']		= $what;
@@ -130,7 +130,7 @@ class XiPTHelperSetup
 			
 			$file = JFile::read($filename);
 			
-			$searchString = '$pluginHandler=& XiPTFactory::getLibraryPluginHandler()';
+			$searchString = '$pluginHandler=& XiptFactory::getLibraryPluginHandler()';
 			$count = substr_count($file,$searchString);
 			if($count >= 3)
 				return false;
@@ -220,12 +220,12 @@ class XiPTHelperSetup
 		$sEnable = false;
 		$cEnable = false;
 		
-		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_system','system')
-				&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_system','system',true))
+		if(XiptHelperSetup::isPluginInstalledAndEnabled('xipt_system','system')
+				&& !XiptHelperSetup::isPluginInstalledAndEnabled('xipt_system','system',true))
 			$sEnable = true;
 
-		if(XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_community','community')
-				&& !XiPTHelperSetup::isPluginInstalledAndEnabled('xipt_community','community',true))
+		if(XiptHelperSetup::isPluginInstalledAndEnabled('xipt_community','community')
+				&& !XiptHelperSetup::isPluginInstalledAndEnabled('xipt_community','community',true))
 			$cEnable = true;
 		
 		if($sEnable || $cEnable)
@@ -345,7 +345,7 @@ class XiPTHelperSetup
 	}
 	
 	function isAECMIRequired(){
-		if(!XiPTLibraryAEC::_checkAECExistance())
+		if(!XiptLibAec::_checkAECExistance())
 			return false;
 		
 		$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';
@@ -368,7 +368,7 @@ class XiPTHelperSetup
 	
 	function syncUpUserPTRequired()
 	{
-		$params = XiPTLibraryUtils::getParams('', 0);
+		$params = XiptLibUtils::getParams('', 0);
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		if(!$defaultProfiletypeID){
 			global $mainframe;
@@ -406,16 +406,16 @@ class XiPTHelperSetup
 
 		if(empty($result))
 		{
-			//not required XiPTLibraryUtils::XAssert b'coz from backend fisrt time admin will not have entry in community table
-			//and that time it will XiPTLibraryUtils::XAssert
+			//not required XiptLibUtils::XAssert b'coz from backend fisrt time admin will not have entry in community table
+			//and that time it will XiptLibUtils::XAssert
 			//when admin login from front-end commuity create entry for admin in community_users table
-			//XiPTLibraryUtils::XAssert(0);
+			//XiptLibUtils::XAssert(0);
 			return false;
 		}
 		
 		foreach ($result as $r){
 			if(!($r->vptype && $r->profiletype && $r->vtemp && $r->template) 
-					|| XiPTLibraryProfiletypes::validateProfiletype($r->profiletype)==false)
+					|| XiptLibProfiletypes::validateProfiletype($r->profiletype)==false)
 				return true;
 				
 			if($r->vptype != $r->profiletype)
@@ -463,30 +463,30 @@ class XiPTHelperSetup
 		foreach ($result as $r){
 			
 			//skip correct users
-			if($r->vptype && $r->profiletype && $r->vtemp && $r->template && XiPTLibraryProfiletypes::validateProfiletype($r->profiletype)==true)
+			if($r->vptype && $r->profiletype && $r->vtemp && $r->template && XiptLibProfiletypes::validateProfiletype($r->profiletype)==true)
 			{
 				if(($r->vptype == $r->profiletype) && ($r->vtemp == $r->template))
 					continue;
 			}
 			
 			//It ensure that system will pickup correct data
-			$profiletype = XiPTLibraryProfiletypes::getUserData($r->id,'PROFILETYPE');
-			if(XiPTLibraryProfiletypes::validateProfiletype($profiletype)==true)
+			$profiletype = XiptLibProfiletypes::getUserData($r->id,'PROFILETYPE');
+			if(XiptLibProfiletypes::validateProfiletype($profiletype)==true)
 			{
-				$template	 = XiPTLibraryProfiletypes::getUserData($r->id,'TEMPLATE');
+				$template	 = XiptLibProfiletypes::getUserData($r->id,'TEMPLATE');
 			}
 			else
 			{
-				$profiletype = XiPTLibraryProfiletypes::getDefaultProfiletype();
-				$template	 = XiPTLibraryProfiletypes::getProfileTypeData($profiletype,'template');;
+				$profiletype = XiptLibProfiletypes::getDefaultProfiletype();
+				$template	 = XiptLibProfiletypes::getProfileTypeData($profiletype,'template');;
 			}
-			XiPTLibraryProfiletypes::updateUserProfiletypeData($r->id, $profiletype, $template, 'ALL');
+			XiptLibProfiletypes::updateUserProfiletypeData($r->id, $profiletype, $template, 'ALL');
 			$i++;
 		}
 		global $mainframe;
 		if(sizeof($result)== $limit){			
 			$start+=$limit;
-    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+    		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
 		}
 		
 		$msg = 'Total '. ($start+$i) . ' users '.JText::_('synchornized');
@@ -499,7 +499,7 @@ class XiPTHelperSetup
 	{
 		//check for avatar
 		$imgPrefix 			= 'avatar_';
-		$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		$profiletypes = XiptLibProfiletypes::getProfiletypeArray();
 		
 		if(!$profiletypes)
 			return false;
@@ -546,13 +546,13 @@ class XiPTHelperSetup
 	
 	function isWaterMarkingRequired()
 	{
-		$ptypeArray	= XiPTHelperProfiletypes::getProfileTypeArray();
-		$globalWM	= XiPTLibraryUtils::getParams('show_watermark',0);
+		$ptypeArray	= XiptHelperProfiletypes::getProfileTypeArray();
+		$globalWM	= XiptLibUtils::getParams('show_watermark',0);
 		if($globalWM)
 			return false;
 		foreach($ptypeArray as $ptype)
 		{
-			$watermarkParams = XiPTLibraryProfiletypes::getParams($ptype,'watermarkparams');
+			$watermarkParams = XiptLibProfiletypes::getParams($ptype,'watermarkparams');
 			if($watermarkParams == false)
 				continue;
 			if($watermarkParams->get('enableWaterMark',0) == true)

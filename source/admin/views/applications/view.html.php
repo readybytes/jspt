@@ -6,10 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import Joomla! libraries
-jimport( 'joomla.application.component.view');
-
-class XiPTViewApplications extends JView 
+class XiptViewApplications extends XiptView 
 {
 	function display($tpl = null){
 		$aModel	= XiFactory::getModel( 'Applications' );

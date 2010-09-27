@@ -47,12 +47,12 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiPTRoute::_('index.php?option=com_xipt&view=applications&task=edit&editId='.$field->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&editId='.$field->id, false); ?>
 						<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 				</span>
 			</td>
 			<td align="center" id="profiletype<?php echo $field->id;?>">
-				<?php echo XiPTHelperApplications::getProfileTypeNamesForApplicationId($field->id); ?>
+				<?php echo XiptHelperApplications::getProfileTypeNamesForApplicationId($field->id); ?>
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">

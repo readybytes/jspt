@@ -455,7 +455,7 @@ class ProfileTest extends XiSelTestCase
   function verifyUploadAvatar($userid, $ptype, $newAvatar, $newAvatarAU)
   {
   		//check first if default avavatr exist or not
-  		$defaultAvatar	= XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
+  		$defaultAvatar	= XiptLibProfiletypes::getProfiletypeData($ptype,'avatar');
   		//echo "\nDefault avavtar is $defaultAvatar";
   		$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$defaultAvatar));
   		
@@ -490,7 +490,7 @@ class ProfileTest extends XiSelTestCase
 	  	$md5_avatar = md5(JFile::read(JPATH_ROOT.DS.$cuser->avatar));
 	  	$md5_thumb  = md5(JFile::read(JPATH_ROOT.DS.$cuser->thumb));
 	  	$md5_avatar_gold = md5(JFile::read(JPATH_ROOT.DS.$newAvatarAU));
-	  	$md5_thumb_gold = md5(JFile::read(XiPTLibraryUtils::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
+	  	$md5_thumb_gold = md5(JFile::read(XiptLibUtils::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
 	  	
 		//XITODO : Change image here for comparision , i think it's system specific
 	  /*	$this->assertEquals($md5_avatar, $md5_avatar_gold);
@@ -499,8 +499,8 @@ class ProfileTest extends XiSelTestCase
   
   function verifyRemovePicture($userid, $ptype)
   {
-  		$defaultAvatar	= XiPTLibraryProfiletypes::getProfiletypeData($ptype,'avatar');
-  		$defaultThumb	= XiPTLibraryUtils::getThumbAvatarFromFull($defaultAvatar);
+  		$defaultAvatar	= XiptLibProfiletypes::getProfiletypeData($ptype,'avatar');
+  		$defaultThumb	= XiptLibUtils::getThumbAvatarFromFull($defaultAvatar);
 
   		$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=$userid");
 	  	$this->waitPageLoad();

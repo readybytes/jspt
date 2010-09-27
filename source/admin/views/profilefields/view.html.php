@@ -6,16 +6,14 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import Joomla! libraries
-jimport( 'joomla.application.component.view');
-class XiPTViewProfileFields extends JView 
+class XiptViewProfileFields extends XiptView 
 {
     function display($tpl = null)
     {
 		//define all categories
-		$categories	= XiPTHelperProfilefields::getProfileFieldCategories();
+		$categories	= XiptHelperProfilefields::getProfileFieldCategories();
 								
-		$fields		= XiPTHelperProfilefields::get_jomsocial_profile_fields();
+		$fields		= XiptHelperProfilefields::get_jomsocial_profile_fields();
 		
 		// Load tooltips
 		JHTML::_('behavior.tooltip', '.hasTip');
@@ -28,9 +26,9 @@ class XiPTViewProfileFields extends JView
 	
 	function edit($fieldId, $tpl = null)
 	{
-		$field		= XiPTHelperProfilefields::get_jomsocial_profile_fields($fieldId);
+		$field		= XiptHelperProfilefields::get_jomsocial_profile_fields($fieldId);
 		$this->assign('fields', $field);
-		$categories	= XiPTHelperProfilefields::getProfileFieldCategories();
+		$categories	= XiptHelperProfilefields::getProfileFieldCategories();
 		$this->assignRef('categories', $categories);
 		$this->assign('fieldid', $fieldId);
 		// Set the titlebar text

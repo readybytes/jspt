@@ -20,16 +20,16 @@ class JElementImage extends JElement
 	function fetchElement($name, $value, &$node, $control_name)
 	{
 		/*value contain profiletype id so get watermark from function */
-		$watermark = XiPTHelperProfiletypes::getProfileTypeData($value,'watermark'); 
+		$watermark = XiptHelperProfiletypes::getProfileTypeData($value,'watermark'); 
 		$generatedImage = '';
 		/*generate image from watermark */
 		$imagePath = JPATH_ROOT.DS.DEFAULT_DEMOAVATAR;
 		$watermarkPath = JPATH_ROOT.DS.$watermark;
 		
-		$watermarkParams = XiPTLibraryProfiletypes::getParams($value,'watermarkparams');
+		$watermarkParams = XiptLibProfiletypes::getParams($value,'watermarkparams');
 		
 		if(JFile::exists($imagePath) && JFile::exists($watermarkPath))
-			$generatedImage = XiPTLibraryUtils::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$value,$watermarkParams->get('xiWatermarkPosition'));
+			$generatedImage = XiptLibUtils::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$value,$watermarkParams->get('xiWatermarkPosition'));
 		if(DS== '\\')
 			$generatedImage = str_replace('\\','/',$generatedImage);
 		

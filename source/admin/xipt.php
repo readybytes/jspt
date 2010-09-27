@@ -32,7 +32,7 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'inc
 			JError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );
 	}
 	
-	$class	= 'XiPTController' . JString::ucfirst( $controller );
+	$class	= 'XiptController' . JString::ucfirst( $controller );
 	
 	// Test if the object really exists in the current context
 	if( class_exists( $class ) )
@@ -49,7 +49,7 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'inc
 		$task='display';
 	}
 	
-	$version = XiPTHelperSetup::get_js_version();
+	$version = XiptHelperSetup::get_js_version();
 	
 	global $mainframe;
 	if(Jstring::stristr($version,'1.5'))

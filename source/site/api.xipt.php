@@ -19,12 +19,12 @@ class XiptAPI
 	 */
 	function getUserProfiletype($userid, $what='id')
 	{
-	    $pID = XiPTLibraryProfiletypes::getUserData($userid,'PROFILETYPE');
+	    $pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 	    if($what == 'id')
 	        return $pID;
 
 	    //else
-        return XiPTLibraryProfiletypes::getProfiletypeName($pID);
+        return XiptLibProfiletypes::getProfiletypeName($pID);
 	}
 	
 	/**
@@ -37,7 +37,7 @@ class XiptAPI
 	 */
 	function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')
 	{
-		return XiPTLibraryProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $reset);
+		return XiptLibProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $reset);
 	}
 
 	/**
@@ -52,7 +52,7 @@ class XiptAPI
 	function getProfiletypeInfo($id=0, $filter=array())
 	{
 		//$filter = array('published'=>$onlypublished);
-	    $allPT = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
+	    $allPT = XiptLibProfiletypes::getProfiletypeArray($filter);
 
 	    //no profiletype available
 	    if(!$allPT)
@@ -80,7 +80,7 @@ class XiptAPI
 	 */
 	function getDefaultProfiletype()
 	{
-		return XiPTLibraryProfiletypes::getDefaultProfiletype();
+		return XiptLibProfiletypes::getDefaultProfiletype();
 	}
 	
 	/**
@@ -92,8 +92,8 @@ class XiptAPI
 	function getUserInfo($userid, $what='PROFILETYPE')
 	{
 		//Resetting getuserdata fn result
-		XiPTLibraryProfiletypes::getUserData($userid, $what, true);
-		return XiPTLibraryProfiletypes::getUserData($userid,$what);		
+		XiptLibProfiletypes::getUserData($userid, $what, true);
+		return XiptLibProfiletypes::getUserData($userid,$what);		
 		
 	}
 	
@@ -109,6 +109,6 @@ class XiptAPI
 		if($paramName === '')
 			return null;
 			
-		return XiPTLibraryUtils::getParams($paramName ,$defaultValue);
+		return XiptLibUtils::getParams($paramName ,$defaultValue);
 	}
 }

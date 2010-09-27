@@ -7,9 +7,7 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.view' );
-
-class XiPTViewCPanel extends JView
+class XiptViewCPanel extends XiptView
 {
 	/**
 	 * The default method that will display the output of this view which is called by
@@ -50,7 +48,7 @@ class XiPTViewCPanel extends JView
 		</style>
 		<?php 
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'CONTROL PANEL' ), 'XiPT' );
+		JToolBarHelper::title( JText::_( 'CONTROL PANEL' ), 'Xipt' );
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::custom('aboutus','aboutus','',JText::_('ABOUT US'),0,0);
 	}

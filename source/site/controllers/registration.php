@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTControllerRegistration extends JController {
+class XiptControllerRegistration extends XiptController {
 
 	function __construct($config = array())
 	{
@@ -22,22 +22,22 @@ class XiPTControllerRegistration extends JController {
 
 		// 	check for session
         //  if does not exist redirect user to community page
-		XiPTHelperProfiletypes::checkSessionForProfileType();
+		XiptHelperProfiletypes::checkSessionForProfileType();
 
 		//If not allowed to select PT for user then return
-		if(XiPTLibraryUtils::getParams('show_ptype_during_reg')==0){
-			$selectedProfiletypeID= XiPTLibraryProfiletypes::getDefaultProfiletype();
-			XiPTHelperProfiletypes::setProfileTypeInSession($selectedProfiletypeID);
+		if(XiptLibUtils::getParams('show_ptype_during_reg')==0){
+			$selectedProfiletypeID= XiptLibProfiletypes::getDefaultProfiletype();
+			XiptHelperProfiletypes::setProfileTypeInSession($selectedProfiletypeID);
 		}
 
 		// do some validation for visibility and publish of ptype
 		if(JRequest::getVar('save', '', 'POST') != ''){
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
-			if(XiPTLibraryProfiletypes::validateProfiletype($selectedProfiletypeID,array('published'=>1,'visible'=>1)) == false)
+			if(XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID,array('published'=>1,'visible'=>1)) == false)
 			{
 				global $mainframe;
 				$msg = sprintf(JText::_('INVALID PROFILE TYPE SELECTED'),$count);
-				$link = XiPTRoute::_('index.php?option=com_xipt&view=registration', false);
+				$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
 				$mainframe->redirect($link, $msg);	
 			}
 			$dispatcher->trigger( 'onAfterProfileTypeSelection',array(&$selectedProfiletypeID));			

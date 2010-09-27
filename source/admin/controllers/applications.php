@@ -7,7 +7,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerApplications extends JController 
+class XiptControllerApplications extends XiptController 
 {
     
 	function __construct($config = array())
@@ -58,9 +58,9 @@ class XiPTControllerApplications extends JController
 
 		//remove all rows related to specific plugin id 
 		// cleaning all data for storing new profiletype with application
-		XiPTHelperApplications::remMyApplicationProfileType($post['id']);
+		XiptHelperApplications::remMyApplicationProfileType($post['id']);
 		
-		$allTypes		= XiPTHelperApplications::getProfileTypeArrayforApplication();
+		$allTypes		= XiptHelperApplications::getProfileTypeArrayforApplication();
 		
 		if(!array_key_exists('profileTypes0',$post))
 		{
@@ -70,13 +70,13 @@ class XiPTControllerApplications extends JController
 				{
 					if(!array_key_exists('profileTypes'.$type,$post))
 					{
-						  XiPTHelperApplications::addApplicationProfileType($post['id'], $type);
+						  XiptHelperApplications::addApplicationProfileType($post['id'], $type);
 					}
 				}
 			}
 		}
 		$msg = JText::_('APPLICATION SAVED');
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=Applications', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=Applications', false);
 		$mainframe->redirect($link, $msg);
 	}
 }

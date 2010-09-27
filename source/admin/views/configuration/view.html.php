@@ -6,10 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Import Joomla! libraries
-jimport( 'joomla.application.component.view');
-
-class XiPTViewConfiguration extends JView 
+class XiptViewConfiguration extends XiptView 
 {
     
 	function display($tpl = null){
@@ -97,7 +94,7 @@ class XiPTViewConfiguration extends JView
 	function getResetLinkArray()
 	{
 		$resetArray = array();
-		$allPTypes = XiPTLibraryProfiletypes::getProfiletypeArray();
+		$allPTypes = XiptLibProfiletypes::getProfiletypeArray();
 		if(!empty($allPTypes)) {
 			foreach($allPTypes as $ptype) {
 				if($ptype->params)

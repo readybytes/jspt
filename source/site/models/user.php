@@ -4,17 +4,16 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 defined('_JEXEC') or die('Restricted access');
-jimport('joomla.application.component.model');
 
-class XiPTModelUser extends JModel
+class XiptModelUser extends XiptModel
 {
 	function updateIndividualData( $userid,$what,$value )
 	{
 		
 		$db		=& JFactory::getDBO();
 	
-		XiPTLibraryUtils::XAssert($what);
-		XiPTLibraryUtils::XAssert($value);
+		XiptLibUtils::XAssert($what);
+		XiptLibUtils::XAssert($value);
 		$query		= ' UPDATE '. $db->nameQuote('#__xipt_users')
                		 	. ' SET '.$db->nameQuote($what).'='. $db->Quote($value)
                		 	. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
@@ -52,7 +51,7 @@ class XiPTModelUser extends JModel
 	}
 }
 
-class XiPTTableUser extends JTable
+class XiptTableUser extends XiptTable
 {
 	var $userid 		= null;
 	var $profiletype	= null;

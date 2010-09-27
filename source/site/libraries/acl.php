@@ -7,7 +7,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTLibraryAcl
+class XiptLibraryAcl
 {
 	
 	function performACLCheck($ajax=false, $callArray, $args)
@@ -32,7 +32,7 @@ class XiPTLibraryAcl
 		$userId 		= JFactory::getUser()->id;
 		$viewuserid 	= JRequest::getVar('userid', 0 , 'GET');
 			
-		if(XiPTLibraryUtils::isAdmin($userId))
+		if(XiptLibUtils::isAdmin($userId))
 			return false;
 		
 		/*if(($feature && ($task || $viewuserid) && $userId)== false)
@@ -83,6 +83,7 @@ class XiPTLibraryAcl
 		return false;
 	}
 	
+//XITODO : Clean function
 	function resolvePararmeters(&$feature, &$task, &$viewuserid = 0, &$args)
 	{
 		$task	= strtolower($task);
@@ -160,7 +161,7 @@ class XiPTLibraryAcl
 		$db->setQuery( $query );
 		$result	= $db->loadObject();
 		
-		XiPTLibraryUtils::XAssert($result);
+		XiptLibUtils::XAssert($result);
 		
 		//foreach($results as $result)
 		//{
@@ -170,7 +171,7 @@ class XiPTLibraryAcl
 		
 		//TODO replace few KEYS in message - e.g. __TASKCOUNT__
 		if($ajax)
-			XiPTLibraryAcl::aclAjaxBlock($message,$redirect);
+			XiptLibraryAcl::aclAjaxBlock($message,$redirect);
 		else
 		{
 			// one special case
@@ -209,15 +210,15 @@ class XiPTLibraryAcl
 	function aclMicroCheck($userID , $feature , $viewuserid = 0,$objectID = 0)
 	{
 		// get profiletype
-		XiPTLibraryUtils::XAssert($feature && $userID);
+		XiptLibUtils::XAssert($feature && $userID);
 		
-		$myPID	 = XiPTLibraryProfiletypes::getUserData($userID,'PROFILETYPE');
+		$myPID	 = XiptLibProfiletypes::getUserData($userID,'PROFILETYPE');
 		$db		 = JFactory::getDBO();
 		
 		//is this require to check if viewuserid and userid is same
 		//then user can visit their own profile or not
 		if($viewuserid)
-			$otherpid	= XiPTLibraryProfiletypes::getUserData($viewuserid,'PROFILETYPE');
+			$otherpid	= XiptLibProfiletypes::getUserData($viewuserid,'PROFILETYPE');
 		else
 			$otherpid 	= 0;
 		
@@ -248,7 +249,7 @@ class XiPTLibraryAcl
 			return false;
 		
 		// get the user's count for this feature
-		$owns		= XiPTLibraryAcl::aclGetUsersFeatureCounts($userID, $feature,$otherpid);
+		$owns		= XiptLibraryAcl::aclGetUsersFeatureCounts($userID, $feature,$otherpid);
 		
 		// check for all possible given rules,
 		// if any rule is violating, return the rules ID
@@ -312,7 +313,7 @@ class XiPTLibraryAcl
 				return self::getTotalMessageSent($userid,$otherpid);
 			
 			default :
-				XiPTLibraryUtils::XAssert(0);
+				XiptLibUtils::XAssert(0);
 				
 		}
 		return 0;

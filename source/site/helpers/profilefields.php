@@ -7,7 +7,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class XiPTHelperProfilefields 
+class XiptHelperProfilefields 
 {
 
 //return all fields available in jomsocial
@@ -52,10 +52,10 @@ function get_fieldname_from_fieldid($fieldId)
 	// return row from row id of fields values table
 	function getProfileTypeNamesForFieldId($fid,$for)
 	{
-		XiPTLibraryUtils::XAssert($fid);
+		XiptLibUtils::XAssert($fid);
 
 		$selected = array();
-		$selected = XiPTHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);
+		$selected = XiptHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);
 		
 		//if selected is empty means field is invisible, then return none
 		if(empty($selected))
@@ -63,14 +63,14 @@ function get_fieldname_from_fieldid($fieldId)
 		
 		//if 0 exist in selected ptype means , field is available to all
 		if(in_array('0',$selected))
-			return XiPTHelperProfiletypes::getProfileTypeName(0);
+			return XiptHelperProfiletypes::getProfileTypeName(0);
 			
 		$retVal = '';
 		
 		foreach($selected as $pid) {
 		   //echo $pid;
 	     		if(in_array($pid,$selected)) {
-			        $retVal .= XiPTHelperProfiletypes::getProfileTypeName($pid);
+			        $retVal .= XiptHelperProfiletypes::getProfileTypeName($pid);
 			        $retVal .=','; 
 			    }
 		}
@@ -80,7 +80,7 @@ function get_fieldname_from_fieldid($fieldId)
 
 function getProfileTypeArrayForFieldId($fid,$for)
 {
-	XiPTLibraryUtils::XAssert($fid);
+	XiptLibUtils::XAssert($fid);
 		
 	//Load all profiletypes for the field
 	$db			=& JFactory::getDBO();
@@ -91,7 +91,7 @@ function getProfileTypeArrayForFieldId($fid,$for)
 	$db->setQuery( $query );
 	$results = $db->loadObjectList();
 	
-	$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
+	$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
 	
 	$notselected = array();
 	$selected = array();
@@ -125,11 +125,11 @@ function getProfileTypeArrayForFieldId($fid,$for)
 
 function buildProfileTypes( $fid ,$for)
 	{
-		$selectedTypes 	= XiPTHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);		
-		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray('ALL');
+		$selectedTypes 	= XiptHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);		
+		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray('ALL');
 		
 		$html			= '';
-		$categories		= XiPTHelperProfilefields::getProfileFieldCategories();	
+		$categories		= XiptHelperProfilefields::getProfileFieldCategories();	
 		$name			= $categories[$for]['controlName'];
 		$html	   	   .= '<span>';
 		$count 			= count($allTypes)-1;
@@ -139,7 +139,7 @@ function buildProfileTypes( $fid ,$for)
 		{
 		    $selected	= in_array($option , $selectedTypes ) ? ' checked="checked"' : '';
 			$html .= '<br/><lable><input type="checkbox" name= "'.$name.'' .$option. '" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
-			$html .= XiPTHelperProfiletypes::getProfileTypeName($option).'</lable>';
+			$html .= XiptHelperProfiletypes::getProfileTypeName($option).'</lable>';
 			$count--;
 		}
 		$html	.= '</span>';		
@@ -151,7 +151,7 @@ function buildProfileTypes( $fid ,$for)
 */
 function addFieldsProfileType($fid, $pid, $for)
 {
-	$row	=& JTable::getInstance( 'Profilefields' , 'XiPTTable' );
+	$row	=& JTable::getInstance( 'Profilefields' , 'XiptTable' );
 	$data["fid"]=$fid;
 	$data["category"]=$for;
 	if(is_array($pid))
@@ -175,7 +175,7 @@ function remFieldsProfileType($fid)
 {
 	if(empty($fid))
 		return;
-	$row	=& JTable::getInstance( 'Profilefields' , 'XiPTTable' );
+	$row	=& JTable::getInstance( 'Profilefields' , 'XiptTable' );
 	$row->resetFieldId($fid);
 }
 

@@ -24,7 +24,7 @@ class CFieldsTemplates
 		$this->_mySess =& JFactory::getSession();
 		$this->_task = JRequest::getVar('task',0,'GET');
 		$this->_view = JRequest::getVar('view',0,'GET');
-		$this->_params = XiPTLibraryUtils::getParams('', 0);
+		$this->_params = XiptLibUtils::getParams('', 0);
 		
 	}
 
@@ -52,13 +52,13 @@ class CFieldsTemplates
 		$user    =& JFactory::getUser();
 		
 		$tName	= $field->value;
-		$templates = XiPTLibraryUtils::getTemplatesList();
+		$templates = XiptLibUtils::getTemplatesList();
 		$class	= ($required == 1) ? ' required' : '';
 		
 		$selectedValue = JText::_(CFieldsTemplates::getTemplateValue($tName,$user->id));
 		
 		$allowToChangeTemplate = $this->_params->get('allow_templatechange',0);
-		$allowToChangeTemplate = $allowToChangeTemplate || XiPTLibraryUtils::isAdmin($user->id);
+		$allowToChangeTemplate = $allowToChangeTemplate || XiptLibUtils::isAdmin($user->id);
 		
 		if(!$allowToChangeTemplate) {
 			$html = '<input type="hidden" id="field'.$field->id.'"
@@ -91,8 +91,8 @@ class CFieldsTemplates
 	{
 		// during registration
         if($this->_view =='register'){
-            $pID = XiPTFactory::getLibraryPluginHandler()->getRegistrationPType();
-		    $tName = XiPTLibraryProfiletypes::getProfileTypeData($pID,'template');
+            $pID = XiptFactory::getLibraryPluginHandler()->getRegistrationPType();
+		    $tName = XiptLibProfiletypes::getProfileTypeData($pID,'template');
 		    return $tName;
         }
 		
@@ -101,7 +101,7 @@ class CFieldsTemplates
         else
         {
 	        //a valid or default value
-	        $tName = XiPTLibraryProfiletypes::getUserData($userid,'TEMPLATE');
+	        $tName = XiptLibProfiletypes::getUserData($userid,'TEMPLATE');
         }
         return $tName;
 	}

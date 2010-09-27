@@ -6,9 +6,7 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.model' );
-
-class XiPTModelProfiletypes extends JModel
+class XiptModelProfiletypes extends XiptModel
 {
 	var $_pagination;
 
@@ -24,7 +22,7 @@ class XiPTModelProfiletypes extends JModel
 
 		// Get the pagination request variables
 		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
+		$limitstart	= $mainframe->getUserStateFromRequest( 'com_Xipt.limitstart', 'limitstart', 0, 'int' );
 
 		// In case limit has been changed, adjust limitstart accordingly
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
@@ -68,7 +66,7 @@ class XiPTModelProfiletypes extends JModel
 
 		// Get the limit / limitstart
 		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
+		$limitstart	= $mainframe->getUserStateFromRequest('com_Xiptlimitstart', 'limitstart', 0, 'int');
 
 		// In case limit has been changed, adjust limitstart accordingly
 		$limitstart	= ($limit != 0) ? ($limitstart / $limit ) * $limit : 0;
@@ -138,13 +136,13 @@ class XiPTModelProfiletypes extends JModel
 	function resetUserAvatar($pid, $newavatar, $oldavatar, $newavatarthumb)
 	{
 		//get all users for profiletype
-		$users = XiPTLibraryProfiletypes::getAllUsers($pid);
+		$users = XiptLibProfiletypes::getAllUsers($pid);
 		
 		$cnt = count($users);
 		for($i=0; $i < $cnt; $i++)
 		{
 			//if user is admin unset value
-			if(XiPTLibraryUtils::isAdmin($users[$i]))
+			if(XiptLibUtils::isAdmin($users[$i]))
 				unset($users[$i]);
 		}
 		

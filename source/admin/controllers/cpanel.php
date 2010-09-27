@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerCPanel extends JController 
+class XiptControllerCPanel extends XiptController 
 {
   
 	function __construct($config = array())

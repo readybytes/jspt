@@ -52,7 +52,7 @@ class mi_jomsocialjspt
 		$settings['profiletype_after_exp'] 		= array( 'list' );
 
 		$filter = array ('published'=>1);
-	 	$profiletypes = XiPTLibraryProfiletypes::getProfiletypeArray($filter);
+	 	$profiletypes = XiptLibProfiletypes::getProfiletypeArray($filter);
 
 		$spt = array();
 		$spte = array();
@@ -105,10 +105,10 @@ class mi_jomsocialjspt
 			
 		//IMP : if MI are attached but aec_integrate is set to false
 		// then dont apply any action 
-		$aec_integrate =  XiPTLibraryUtils::getParams('aec_integrate');
+		$aec_integrate =  XiptLibUtils::getParams('aec_integrate');
 		if($aec_integrate == 0)
 			return;
-		XiPTLibraryProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
+		XiptLibProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
 	}
 
 	function saveparams( $request )

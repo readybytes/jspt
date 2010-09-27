@@ -6,9 +6,7 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.model' );
-
-class XiPTModelApplications extends JModel
+class XiptModelApplications extends XiptModel
 {
 	var $_pagination;
 
@@ -24,7 +22,7 @@ class XiPTModelApplications extends JModel
 
 		// Get the pagination request variables
 		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
+		$limitstart	= $mainframe->getUserStateFromRequest( 'com_Xipt.limitstart', 'limitstart', 0, 'int' );
 
 		// In case limit has been changed, adjust limitstart accordingly
 		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
@@ -68,7 +66,7 @@ class XiPTModelApplications extends JModel
 
 		// Get the limit / limitstart
 		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
+		$limitstart	= $mainframe->getUserStateFromRequest('com_Xiptlimitstart', 'limitstart', 0, 'int');
 
 		// In case limit has been changed, adjust limitstart accordingly
 		$limitstart	= ($limit != 0) ? ($limitstart / $limit ) * $limit : 0;

@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
  
-class XiPTControllerConfiguration extends JController 
+class XiptControllerConfiguration extends XiptController 
 {
     
 	function __construct($config = array())
@@ -75,7 +75,7 @@ class XiPTControllerConfiguration extends JController
 		{
 			JError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
 		}
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=configuration', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -105,7 +105,7 @@ class XiPTControllerConfiguration extends JController
 		{
 			JError::raiseWarning( 100 , JText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
 		}
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=configuration', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -120,7 +120,7 @@ class XiPTControllerConfiguration extends JController
 		//$post['id'] = (int) $cid[0];
 		$count	= count($ids);
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$i = 1;
 		if(!empty($ids))
 		{
@@ -141,7 +141,7 @@ class XiPTControllerConfiguration extends JController
 		$cache = & JFactory::getCache('com_content');
 		$cache->clean();
 		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
-		$link = XiPTRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$mainframe->redirect($link, $message);
 	}
 	
@@ -166,7 +166,7 @@ class XiPTControllerConfiguration extends JController
 			$id		= (int) $id[0];
 
 			// Load the JTable Object.
-			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+			$table	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 			
 			$table->load( $id );
 			$table->move( $direction );

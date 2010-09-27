@@ -1,10 +1,14 @@
 <?php
+
+/**
+* @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
+
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-jimport( 'joomla.application.component.model' );
-
-class XiPTModelSettings extends JModel
+class XiptModelSettings extends XiptModel
 {
 	
 	/**
@@ -23,7 +27,7 @@ class XiPTModelSettings extends JModel
 		if($settingsParams !== null && $reset === false)
 			return $settingsParams;
 			
-		$row   =& JTable::getInstance( 'settings' , 'XiPTTable' );
+		$row   =& JTable::getInstance( 'settings' , 'XiptTable' );
 		$row->load('settings');
 		
 		$settingsxmlpath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'settings.xml';

@@ -24,7 +24,7 @@ class plgCommunityxipt_community extends CApplications
 	function plgCommunityxipt_community( $subject, $params )
 	{
 		parent::__construct( $subject, $params );
-		$this->_pluginHandler = XiPTFactory::getLibraryPluginHandler();
+		$this->_pluginHandler = XiptFactory::getLibraryPluginHandler();
 	}
 	
 	function onProfileCreate($cuser)

@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTHelperAclrules 
+class XiptHelperAclrules 
 {
 	function _buildTypesforAclRules($value, $what)
 	{
@@ -14,7 +14,7 @@ class XiPTHelperAclrules
 		switch($what)
 		{
 			case 'feature':
-				$allValues = XiPTHelperAclrules::_getDisplayNameofAclFeature();
+				$allValues = XiptHelperAclrules::_getDisplayNameofAclFeature();
 				break;
 			
 			case 'profiletype' :
@@ -34,7 +34,7 @@ class XiPTHelperAclrules
 				$allValues[] = ALL;
 				break;
 			default:
-				XiPTLibraryUtils::XAssert(0, "Unknown build type was asked.");
+				XiptLibUtils::XAssert(0, "Unknown build type was asked.");
 		}
 		
 		if(!strcmp(strtolower($what),strtolower('profiletype')) || !strcmp(strtolower($what),strtolower('otherprofiletype')))
@@ -45,7 +45,7 @@ class XiPTHelperAclrules
 			foreach($allValues as $vals)
 			{	
 				$selected	= ( trim($value) == $vals ) ? 'selected="true"' : '';
-				$html		.= '<option value="' . $vals . '"' . $selected . '>' . XiPTHelperAclrules::getProfileTypeNameforAclRules($vals) . '</option>';
+				$html		.= '<option value="' . $vals . '"' . $selected . '>' . XiptHelperAclrules::getProfileTypeNameforAclRules($vals) . '</option>';
 			}
 			
 			$html	.= '</span>';	
@@ -75,7 +75,7 @@ class XiPTHelperAclrules
 		if($id == ALL)
 			return "ALL";
 		
-		return XiPTHelperProfiletypes::getProfileTypeName($id);
+		return XiptHelperProfiletypes::getProfileTypeName($id);
 	}
 
 function _getDisplayNameofAclFeature($feature ="")
@@ -99,7 +99,7 @@ function _getDisplayNameofAclFeature($feature ="")
 		if(array_key_exists($feature,$allValues))
 				return ($allValues[$feature]);
 
-		XiPTLibraryUtils::XAssert(0, "Unknown aclFeature was asked.");
+		XiptLibUtils::XAssert(0, "Unknown aclFeature was asked.");
 		return false;	
 	}
 	
