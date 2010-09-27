@@ -11,7 +11,7 @@ class XiptViewProfiletypes extends XiptView
 {
     function display($tpl = null)
     {
-    	$profiletype	=XiFactory::getModel( 'Profiletypes' );
+    	$profiletype	=XiptFactory::getModel( 'Profiletypes' );
 		
 		$fields		=& $profiletype->getFields();
 		$pagination	=& $profiletype->getPagination();

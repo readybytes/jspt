@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class deletegroup extends xiptAclRules
+class deletegroup extends XiptAclBase
 {
 
 	function __construct($debugMode)

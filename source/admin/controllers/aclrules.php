@@ -66,7 +66,7 @@ class XiptControllerAclRules extends XiptController
 		$data['id'] = $id;
 		
 		if($acl) {
-			$aclObject = aclFactory::getAclObject($acl);
+			$aclObject = XiptAclFactory::getAclObject($acl);
 			$aclObject->load($id);
 			$data = $aclObject->getObjectInfoArray();
 		}
@@ -74,7 +74,7 @@ class XiptControllerAclRules extends XiptController
 		
 		if($id){
 			
-			$aclObject = aclFactory::getAclObjectFromId($id);
+			$aclObject = XiptAclFactory::getAclObjectFromId($id);
 			if(!$aclObject) {
 				$layout		= JRequest::getCmd( 'layout' , 'acl.add' );
 				$view->setLayout( $layout );
@@ -131,7 +131,7 @@ class XiptControllerAclRules extends XiptController
 		unset($post['published']);
 		unset($post['coreparams']);
 		
-		$aclObject = aclFactory::getAclObject($data['aclname']);
+		$aclObject = XiptAclFactory::getAclObject($data['aclname']);
 		$data['aclparams'] = $aclObject->collectParamsFromPost($post);
 		
 		
@@ -214,7 +214,7 @@ class XiptControllerAclRules extends XiptController
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$aclModel	= XiFactory::getModel( 'aclrules' );
+		$aclModel	= XiptFactory::getModel( 'aclrules' );
 		foreach($ids as $id)
 		{
 			$aclModel->updatePublish($id,1);
@@ -238,7 +238,7 @@ class XiptControllerAclRules extends XiptController
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$aclModel	= XiFactory::getModel( 'aclrules' );
+		$aclModel	= XiptFactory::getModel( 'aclrules' );
 		foreach($ids as $id)
 		{
 			$aclModel->updatePublish($id,0);

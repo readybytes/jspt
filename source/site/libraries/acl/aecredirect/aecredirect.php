@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class aecredirect extends xiptAclRules
+class aecredirect extends XiptAclBase
 {
 
 	function __construct($debugMode)

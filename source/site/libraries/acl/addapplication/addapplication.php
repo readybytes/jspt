@@ -2,7 +2,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class addapplication extends xiptAclRules
+class addapplication extends XiptAclBase
 {
 
 	function __construct($debugMode)

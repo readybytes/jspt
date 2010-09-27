@@ -58,9 +58,9 @@ class XiptControllerApplications extends XiptController
 
 		//remove all rows related to specific plugin id 
 		// cleaning all data for storing new profiletype with application
-		XiptHelperApplications::remMyApplicationProfileType($post['id']);
+		XiptHelperApps::remMyApplicationProfileType($post['id']);
 		
-		$allTypes		= XiptHelperApplications::getProfileTypeArrayforApplication();
+		$allTypes		= XiptHelperApps::getProfileTypeArrayforApplication();
 		
 		if(!array_key_exists('profileTypes0',$post))
 		{
@@ -70,7 +70,7 @@ class XiptControllerApplications extends XiptController
 				{
 					if(!array_key_exists('profileTypes'.$type,$post))
 					{
-						  XiptHelperApplications::addApplicationProfileType($post['id'], $type);
+						  XiptHelperApps::addApplicationProfileType($post['id'], $type);
 					}
 				}
 			}

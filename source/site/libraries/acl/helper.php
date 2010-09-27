@@ -3,14 +3,36 @@
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
-
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiptLibraryAcl
+class XiptAclHelper 
 {
+	//difference in getProfileTypeName()  and getProfileTypeNameforAclRules is that in this we will return "NONE" if profiletype is 0
+	function getProfileTypeNameforAclRules($id)
+	{
+		if($id==0 || empty($id))
+			return "NONE";
+
+		if($id == ALL)
+			return "ALL";
+		
+		return XiptHelperProfiletypes::getProfileTypeName($id);
+	}
+
 	
-	function performACLCheck($ajax=false, $callArray, $args)
+	function isFriend($userId, $viewUserId)
+	{
+		$db 		= & JFactory::getDBO();
+		$query		= 'SELECT '. $db->nameQuote('connection_id').'  FROM ' . $db->nameQuote( '#__community_connection')
+								.' WHERE '. $db->nameQuote('connect_from').'='.$db->Quote($userId)
+								.' AND '. $db->nameQuote('connect_to').'='.$db->Quote($viewUserId)
+								.' AND '. $db->nameQuote('status').'='.$db->Quote('1');
+		$db->setQuery( $query );
+		return $db->loadResult();		
+	}
+	
+    function performACLCheck($ajax=false, $callArray, $args)
 	{
 		$feature ='';
 		$task	 ='';
@@ -58,13 +80,13 @@ class XiptLibraryAcl
 		
 		$filter = array();
 		$filter['published'] = 1;
-		$rules = aclFactory::getAclRulesInfo($filter);
+		$rules = XiptAclFactory::getAclRulesInfo($filter);
 		if(empty($rules))
 			return false;
 
 			
 		foreach($rules as $rule) {
-			$aclObject = aclFactory::getAclObject($rule->aclname);
+			$aclObject = XiptAclFactory::getAclObject($rule->aclname);
 			$aclObject->bind($rule);
 			
 			if(false == $aclObject->isApplicable($info))
@@ -171,7 +193,7 @@ class XiptLibraryAcl
 		
 		//TODO replace few KEYS in message - e.g. __TASKCOUNT__
 		if($ajax)
-			XiptLibraryAcl::aclAjaxBlock($message,$redirect);
+			XiptAclHelper::aclAjaxBlock($message,$redirect);
 		else
 		{
 			// one special case
@@ -249,7 +271,7 @@ class XiptLibraryAcl
 			return false;
 		
 		// get the user's count for this feature
-		$owns		= XiptLibraryAcl::aclGetUsersFeatureCounts($userID, $feature,$otherpid);
+		$owns		= XiptAclHelper::aclGetUsersFeatureCounts($userID, $feature,$otherpid);
 		
 		// check for all possible given rules,
 		// if any rule is violating, return the rules ID
@@ -350,5 +372,4 @@ class XiptLibraryAcl
 		$count		= $db->loadResult();
 		return $count;
 	}
-	
 }

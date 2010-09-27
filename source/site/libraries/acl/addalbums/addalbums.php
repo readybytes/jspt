@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class addalbums extends xiptAclRules
+class addalbums extends XiptAclBase
 {
 
 	function __construct($debugMode)

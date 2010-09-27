@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class accessgroup extends xiptAclRules
+class accessgroup extends XiptAclBase
 {
 
 	function __construct($debugMode)
@@ -34,7 +34,7 @@ class accessgroup extends xiptAclRules
 		
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
 		{
-			$isFriend = XiptHelperAclrules::isFriend($data['userid'],$ownerid);
+			$isFriend = XiptAclHelper::isFriend($data['userid'],$ownerid);
 			if($isFriend)
 			 return false;
 		}	

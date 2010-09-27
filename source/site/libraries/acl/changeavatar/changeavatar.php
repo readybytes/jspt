@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class changeavatar extends xiptAclRules
+class changeavatar extends XiptAclBase
 {
 
 	function __construct($debugMode)

@@ -613,7 +613,7 @@ class XiptLibPluginhandler
 
 	function performACLCheck(&$ajax, &$callArray, &$args)
 	{
-	    return XiptLibraryAcl::performACLCheck($ajax, $callArray, $args);
+	    return XiptAclHelper::performACLCheck($ajax, $callArray, $args);
 	}
 	
 	// this is trigerred on registraion page of xipt 

@@ -7,46 +7,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiptFactory
-{
-    /* This classes required a object to be created first.*/
-    function getLibraryPluginHandler()
-    {
-        static $instance =null;
-        
-        if($instance==null)
-            $instance = new XiptLibPluginhandler();
-        
-        return $instance;
-    }
-    
-    function getLibraryAEC()
-    {
-        static $instance =null;
-        
-        if($instance==null)
-            $instance = new XiptLibAec();
-        
-        return $instance;
-    }
-    
-    function getXiptUser($userid)
-    {
-        static $instance = array();
-        
-        if(!$userid)
-            return null;
-        
-        if($instance[$userid])
-            return $instance[$userid];
-        
-        require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
-        
-        $instance[$userid] = new XiptModelUser($userid);
-        return $instance[$userid];
-    }
-}
-
 
 /*
  * This class contains all logic for XIPT & JomSocial & Joomla Table Communication

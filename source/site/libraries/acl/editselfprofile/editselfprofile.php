@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class editselfprofile extends xiptAclRules
+class editselfprofile extends XiptAclBase
 {
 
 	function __construct($debugMode)

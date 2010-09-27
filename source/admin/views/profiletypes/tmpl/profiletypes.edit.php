@@ -130,7 +130,7 @@ defined('_JEXEC') or die('Restricted access');
 									<div>
 									<?php 
 									?>
-								    	<img src="<?php echo JURI::root().XiFactory::getUrlpathFromFilePath($this->row->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->row->avatar; ?>" />
+								    	<img src="<?php echo JURI::root().XiptFactory::getUrlpathFromFilePath($this->row->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->row->avatar; ?>" />
 								    </div>
 								    <br />
 									<div>

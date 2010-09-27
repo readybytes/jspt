@@ -30,7 +30,7 @@ class XiptLibProfiletypes
 		$data->template   = $template;
 				
 		/*call model through object. */
-		$uModel = XiFactory :: getModel('User','site');
+		$uModel = XiptFactory :: getModel('User','site');
 		$uModel->setUserData($data);
 		XiptLibProfiletypes::getUserData($userid, $what='PROFILETYPE', true);
 		//XiptModelUser::setUserData($data);

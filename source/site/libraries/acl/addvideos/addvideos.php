@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class addvideos extends xiptAclRules
+class addvideos extends XiptAclBase
 {
 
 	function __construct($debugMode)

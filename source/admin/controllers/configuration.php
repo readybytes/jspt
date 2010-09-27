@@ -64,7 +64,7 @@ class XiptControllerConfiguration extends XiptController
 		
 		$mainframe	=& JFactory::getApplication();		
 
-		$cModel	=& XiFactory::getModel( 'configuration' );
+		$cModel	=& XiptFactory::getModel( 'configuration' );
 		
 		// Try to save configurations
 		if( $cModel->save() )
@@ -94,7 +94,7 @@ class XiptControllerConfiguration extends XiptController
 		
 		$mainframe	=& JFactory::getApplication();		
 
-		$cModel	=& XiFactory::getModel( 'configuration' );
+		$cModel	=& XiptFactory::getModel( 'configuration' );
 		
 		// Try to save configurations
 		if( $cModel->reset($id) )

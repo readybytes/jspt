@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class createvent extends xiptAclRules
+class createvent extends XiptAclBase
 {
 
 	function __construct($debugMode)

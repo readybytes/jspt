@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Restricted access');
 class XiptViewApplications extends XiptView 
 {
 	function display($tpl = null){
-		$aModel	= XiFactory::getModel( 'Applications' );
+		$aModel	= XiptFactory::getModel( 'Applications' );
 		
 		$fields		=& $aModel->getFields();
 		$pagination	=& $aModel->getPagination();

@@ -10,7 +10,7 @@ class XiptViewAclRules extends XiptView
 {
 	function display($tpl = null)
 	{
-		$aclModel	= XiFactory::getModel( 'AclRules' );
+		$aclModel	= XiptFactory::getModel( 'AclRules' );
 		
 		$rules		=& $aclModel->getRules();
 		$pagination	=& $aclModel->getPagination();
@@ -22,7 +22,7 @@ class XiptViewAclRules extends XiptView
 		$ruleProfiletype = array();
 		if(!empty($rules)) {
 			foreach($rules as $rule) {
-				$aclObject = aclFactory::getAclObject($rule->aclname);
+				$aclObject = XiptAclFactory::getAclObject($rule->aclname);
 				$aclObject->bind($rule);
 				$ptype = $aclObject->getCoreParams('core_profiletype',0);
 				$ruleProfiletype[$rule->id] = XiptHelperProfiletypes::getProfiletypeName($ptype,true);
@@ -54,7 +54,7 @@ class XiptViewAclRules extends XiptView
 
 	function add($tpl = null)
 	{
-		$acl = aclFactory::getAcl();
+		$acl = XiptAclFactory::getAcl();
 		$this->assign( 'acl' , $acl );
 		parent::display($tpl);
 	}
@@ -66,7 +66,7 @@ class XiptViewAclRules extends XiptView
 		$aclParamsHtml = '';
 		
 		//call htmlrender fn
-		$aclObject = aclFactory::getAclObject($data['aclname']);
+		$aclObject = XiptAclFactory::getAclObject($data['aclname']);
 		
 		$aclObject->bind($data);
 		$aclObject->getHtml($coreParamsHtml,$aclParamsHtml);

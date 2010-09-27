@@ -20,7 +20,7 @@ class XiptLoader
                                                 . JString::ucfirst(JFile::stripExt($file));
                         
                         if($file===strtolower('xiptcore.php'))
-                        	$className='XiFactory';
+                        	$className='XiptFactory';
                         JLoader::register($className, $folder.DS.$file);
                 }
         }

@@ -26,8 +26,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '1';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  82     ;
@@ -41,8 +41,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '2';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  83     ;
@@ -56,8 +56,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '3';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  84     ;
@@ -72,8 +72,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '4';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  82     ;
@@ -87,8 +87,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '4';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  83     ;
@@ -101,8 +101,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '4';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  84    ;
@@ -118,8 +118,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '5';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  82     ;
@@ -133,8 +133,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '5';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  83     ;
@@ -148,8 +148,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '5';
 		$filter['published'] = 1;
 		
-		$rule=aclFactory::getAclRulesInfo($filter);
-		$aclObject = aclFactory::getAclObject($rule[0]->aclname);
+		$rule=XiptAclFactory::getAclRulesInfo($filter);
+		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
 		$aclObject->bind($rule[0]);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  84     ;

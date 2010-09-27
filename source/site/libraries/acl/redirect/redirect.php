@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class redirect extends xiptAclRules
+class redirect extends XiptAclBase
 {
 
 	function __construct($debugMode)

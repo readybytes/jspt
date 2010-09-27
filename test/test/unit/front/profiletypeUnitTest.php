@@ -514,7 +514,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  	
  	function testRemoveCustomAvatar()
  	{
- 		$profiletype	=XiFactory::getModel( 'Profiletypes' );
+ 		$profiletype	=XiptFactory::getModel( 'Profiletypes' );
  		$newavatar 		= DEFAULT_AVATAR ;
  		
  		//remove custom avatar for pid 2
@@ -524,7 +524,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  	
  	function testResetUserAvatar()
  	{
- 		$profiletype	= XiFactory::getModel( 'Profiletypes' );
+ 		$profiletype	= XiptFactory::getModel( 'Profiletypes' );
 		$newavatar 		= DEFAULT_AVATAR ;
 		$newavatarthumb	= DEFAULT_AVATAR_THUMB;
 		$oldAvatar      = 'components/com_community/assets/group.jpg';

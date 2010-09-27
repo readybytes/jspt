@@ -10,7 +10,7 @@ class XiptViewConfiguration extends XiptView
 {
     
 	function display($tpl = null){
-    	$profiletype	=XiFactory::getModel( 'Profiletypes' );		
+    	$profiletype	=XiptFactory::getModel( 'Profiletypes' );		
 		
     	$fields		=& $profiletype->getFields();
 		$pagination	=& $profiletype->getPagination();
@@ -30,7 +30,7 @@ class XiptViewConfiguration extends XiptView
 	{		
 		$name = JRequest :: getVar('name');
 		
-		$cModel = XiFactory :: getModel('configuration');
+		$cModel = XiptFactory :: getModel('configuration');
 		$params  = $cModel->getParams($id);
 		$lists = array();
 		for ($i=1; $i<=31; $i++) {

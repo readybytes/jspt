@@ -323,7 +323,7 @@ class XiptControllerProfiletypes extends XiptController
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$pModel	= XiFactory::getModel( 'profiletypes' );
+		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
 			$pModel->updatePublish($id,1);
@@ -347,7 +347,7 @@ class XiptControllerProfiletypes extends XiptController
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$pModel	= XiFactory::getModel( 'profiletypes' );
+		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
 			$pModel->updatePublish($id,0);
@@ -371,7 +371,7 @@ class XiptControllerProfiletypes extends XiptController
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$pModel	= XiFactory::getModel( 'profiletypes' );
+		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
 			$pModel->updateVisibility($id,1);
@@ -395,7 +395,7 @@ class XiptControllerProfiletypes extends XiptController
 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
-		$pModel	= XiFactory::getModel( 'profiletypes' );
+		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
 			$pModel->updateVisibility($id,0);
@@ -447,7 +447,7 @@ class XiptControllerProfiletypes extends XiptController
 		
 		$newavatar 		= DEFAULT_AVATAR ;
 		$newavatarthumb	= DEFAULT_AVATAR_THUMB;
-		$profiletype	=XiFactory::getModel( 'Profiletypes' );
+		$profiletype	=XiptFactory::getModel( 'Profiletypes' );
 		
 		$profiletype->removeCustomAvatar($id, $newavatar);
 		

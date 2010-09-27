@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class creategroup extends xiptAclRules
+class creategroup extends XiptAclBase
 {
 
 	function __construct($debugMode)

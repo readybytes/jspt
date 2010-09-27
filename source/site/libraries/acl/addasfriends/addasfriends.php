@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class addasfriends extends xiptAclRules
+class addasfriends extends XiptAclBase
 {
 
 	function __construct($debugMode)

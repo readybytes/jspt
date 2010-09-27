@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class accessvideo extends xiptAclRules
+class accessvideo extends XiptAclBase
 {
 
 	function __construct($debugMode)
@@ -35,7 +35,7 @@ class accessvideo extends xiptAclRules
 		
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
 		{
-			$isFriend = XiptHelperAclrules::isFriend($data['userid'],$data['viewuserid']);
+			$isFriend = XiptAclHelper::isFriend($data['userid'],$data['viewuserid']);
 			if($isFriend)
 			 return false;
 		}	

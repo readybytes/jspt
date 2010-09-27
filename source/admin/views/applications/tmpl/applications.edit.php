@@ -5,7 +5,7 @@
 **/
 defined('_JEXEC') or die('Restricted access');
 
-$aModel			= XiFactory::getModel( 'applications' );
+$aModel			= XiptFactory::getModel( 'applications' );
 ?>
 
 	
@@ -29,7 +29,7 @@ $aModel			= XiFactory::getModel( 'applications' );
 		<tr>
 			<td class="key"><?php echo JText::_('FOR PROFILETYPES');?></td>
 			<td>:</td>
-			<td colspan="4"> <?php echo XiptHelperApplications::buildProfileTypesforApplication($this->applicationId);?></td>			
+			<td colspan="4"> <?php echo XiptHelperApps::buildProfileTypesforApplication($this->applicationId);?></td>			
 		</tr>
 	</tbody>
 </table>
@@ -42,3 +42,4 @@ $aModel			= XiFactory::getModel( 'applications' );
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
+<?php 

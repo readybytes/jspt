@@ -6,7 +6,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class changeprivacy extends xiptAclRules
+class changeprivacy extends XiptAclBase
 {
 
 	function __construct($debugMode)

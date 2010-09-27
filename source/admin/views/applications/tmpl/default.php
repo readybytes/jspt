@@ -52,7 +52,7 @@ defined('_JEXEC') or die('Restricted access');
 				</span>
 			</td>
 			<td align="center" id="profiletype<?php echo $field->id;?>">
-				<?php echo XiptHelperApplications::getProfileTypeNamesForApplicationId($field->id); ?>
+				<?php echo XiptHelperApps::getProfileTypeNamesForApplicationId($field->id); ?>
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">
@@ -78,3 +78,4 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="boxchecked" value="0" />
 </form>	
+<?php 
