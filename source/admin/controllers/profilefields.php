@@ -62,10 +62,10 @@ class XiPTControllerProfileFields extends JController
 			
 		//remove all rows related to specific field id 
 		// cleaning all data for storing new profiletype with fields
-		XiPTHelperProfileFields::remFieldsProfileType($post['id']);
+		XiPTHelperProfilefields::remFieldsProfileType($post['id']);
 		
 		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray();
-		$categories		= XiPTHelperProfileFields::getProfileFieldCategories();
+		$categories		= XiPTHelperProfilefields::getProfileFieldCategories();
 		foreach($categories as $catIndex => $catInfo)
 		{
 			$controlName= $catInfo['controlName'];
@@ -74,14 +74,14 @@ class XiPTControllerProfileFields extends JController
 				foreach($allTypes as $type) {
 					if($type) {
 						if(!array_key_exists($controlName.$type,$post)) {
-							  XiPTHelperProfileFields::addFieldsProfileType($post['id'], $type,$catIndex);
+							  XiPTHelperProfilefields::addFieldsProfileType($post['id'], $type,$catIndex);
 							  $msg = JText::_('FIELDS SAVED');
 							  $count++;
 						}
 					}
 				}
 				/*if($count == 0) {
-				 XiPTHelperProfileFields::addFieldsProfileType($post['id'], 'XIPT_NONE','XIPT_NONE');
+				 XiPTHelperProfilefields::addFieldsProfileType($post['id'], 'XIPT_NONE','XIPT_NONE');
 			}*/
 			}
 		}

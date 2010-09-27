@@ -305,7 +305,7 @@ class RegisterTest extends XiSelTestCase
   	$jUser = JFactory::getUser($userid);
   	
   	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );
-  	require_once (JPATH_BASE . '/components/com_xipt/defines.xipt.php' );
+  	require_once (JPATH_BASE . '/components/com_xipt/defines.php' );
   	
   	$cUser = CFactory::getUser($userid);
   	$privacy= $cUser->getParams()->get('privacyProfileView');

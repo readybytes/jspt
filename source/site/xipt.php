@@ -7,7 +7,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controller');
-require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 
 	if(JRequest::getCmd('view') == '') {

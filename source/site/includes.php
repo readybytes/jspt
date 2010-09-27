@@ -27,15 +27,20 @@ if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
 	return false;
 }
 
-//include admin's includes.xipt.php files
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
-
+require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'loader.php');
+require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 //XICODREV : 
-// require_once defines.xipt.php
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
+// require_once defines.php
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
 
 /*Load Langauge file*/
 $lang =& JFactory::getLanguage();
 if($lang)
 	$lang->load( 'com_xipt' );
 
+//files required
+XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models','Model');
+XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
+XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
+XiPTLoader::addAutoLoadFile('XiFactory', XIPT_FRONT_PATH_HELPER.DS.'xiptcore.php');
+	

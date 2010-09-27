@@ -58,7 +58,7 @@ defined('_JEXEC') or die('Restricted access');
 					<td align="center">
 						<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
 						<?php 
-							echo XiPTHelperProfileFields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
+							echo XiPTHelperProfilefields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
 						?>
 						</span>
 					</td>
@@ -89,7 +89,7 @@ defined('_JEXEC') or die('Restricted access');
 				<td align="center">
 					<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
 					<?php 
-						echo XiPTHelperProfileFields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
+						echo XiPTHelperProfilefields::getProfileTypeNamesForFieldId( $field->id,$catIndex); 
 					?>
 					</span>
 				</td>

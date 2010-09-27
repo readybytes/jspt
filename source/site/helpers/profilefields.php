@@ -7,7 +7,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class XiPTHelperProfileFields 
+class XiPTHelperProfilefields 
 {
 
 //return all fields available in jomsocial
@@ -55,7 +55,7 @@ function get_fieldname_from_fieldid($fieldId)
 		XiPTLibraryUtils::XAssert($fid);
 
 		$selected = array();
-		$selected = XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid,$for);
+		$selected = XiPTHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);
 		
 		//if selected is empty means field is invisible, then return none
 		if(empty($selected))
@@ -125,11 +125,11 @@ function getProfileTypeArrayForFieldId($fid,$for)
 
 function buildProfileTypes( $fid ,$for)
 	{
-		$selectedTypes 	= XiPTHelperProfileFields::getProfileTypeArrayForFieldId($fid,$for);		
+		$selectedTypes 	= XiPTHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);		
 		$allTypes		= XiPTHelperProfiletypes::getProfileTypeArray('ALL');
 		
 		$html			= '';
-		$categories		= XiPTHelperProfileFields::getProfileFieldCategories();	
+		$categories		= XiPTHelperProfilefields::getProfileFieldCategories();	
 		$name			= $categories[$for]['controlName'];
 		$html	   	   .= '<span>';
 		$count 			= count($allTypes)-1;

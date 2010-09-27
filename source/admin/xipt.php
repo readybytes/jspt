@@ -13,7 +13,7 @@ jimport( 'joomla.application.component.controller' );
 jimport('joomla.application.component.model');
 
 // add include files
-require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 	if(JRequest::getCmd('view') == '') {
 	            JRequest::setVar('view', 'cpanel');

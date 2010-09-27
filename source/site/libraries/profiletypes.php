@@ -5,7 +5,6 @@
 **/
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
 
 class XiPTLibraryProfiletypes
 {
@@ -505,7 +504,7 @@ class XiPTLibraryProfiletypes
 		
 		if($notSelectedFields===null)
 		{
-			$categories=XiPTHelperProfileFields::getProfileFieldCategories();
+			$categories=XiPTHelperProfilefields::getProfileFieldCategories();
 			
 			foreach($categories as $catIndex => $catInfo)
 			{

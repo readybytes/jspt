@@ -25,10 +25,10 @@ class plgSystemxipt_system extends JPlugin
 	
 	function _includeXipt()
 	{
-		if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
+		if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
  			return false;
  			
-		$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');	
+		$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
  		
 		if( isset($includeXipt) && $includeXipt === false)
 			return false;

@@ -1,9 +1,10 @@
-../packages/tmp/admin/views/configuration/view.html.php:82:		$lang =& JFactory::getLanguage();
-../packages/tmp/admin/views/configuration/view.html.php:141:		$db			=& JFactory::getDBO();
-../packages/tmp/admin/views/settings/view.html.php:25:		$lang =& JFactory::getLanguage();
-../packages/tmp/admin/views/profiletypes/view.html.php:40:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-../packages/tmp/admin/views/profiletypes/view.html.php:91:		$db			=& JFactory::getDBO();
+../packages/tmp/admin/views/configuration/view.html.php:81:		$lang =& JFactory::getLanguage();
+../packages/tmp/admin/views/configuration/view.html.php:140:		$db			=& JFactory::getDBO();
+../packages/tmp/admin/views/settings/view.html.php:24:		$lang =& JFactory::getLanguage();
+../packages/tmp/admin/views/profiletypes/view.html.php:41:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+../packages/tmp/admin/views/profiletypes/view.html.php:134:		$db			=& JFactory::getDBO();
 ../packages/tmp/admin/views/profiletypes/tmpl/profiletypes.edit.php:21:	                $editor =& JFactory::getEditor();
+../packages/tmp/admin/views/profiletypes/tmpl/profiletypes.edit.php:145:									<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&editId='.$this->row->id.'&oldAvatar='.$this->row->avatar, false); ?>
 ../packages/tmp/admin/views/cpanel/view.html.php:60:		$lang		=& JFactory::getLanguage();
 ../packages/tmp/admin/views/setup/view.html.php:142:		$mysess = & JFactory::getSession();
 ../packages/tmp/admin/hacks/front_libraries_fields_templates.php:14:	var $_mainframe;
@@ -21,11 +22,6 @@
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:102:		$user    =& JFactory::getUser();
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:125:		global $mainframe;
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:126:		if($mainframe->isAdmin()==true)
-../packages/tmp/admin/includes.xipt.php:22:	global $mainframe;
-../packages/tmp/admin/includes.xipt.php:25:		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
-../packages/tmp/admin/includes.xipt.php:50://JTable::addIncludePath( JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables' );
-../packages/tmp/admin/includes.xipt.php:72:$lang =& JFactory::getLanguage();
-../packages/tmp/admin/install.xipt.php:144:		JFactory::getApplication()->enqueueMessage($msg);
 ../packages/tmp/admin/controllers/setup.php:9:class XiPTControllerSetup extends JController 
 ../packages/tmp/admin/controllers/setup.php:25:    	global $mainframe;
 ../packages/tmp/admin/controllers/setup.php:44:			$mainframe->enqueueMessage(JText::_("CUSTOM FIELD CREATED AND ENABLED SUCCESSFULLY"));
@@ -78,26 +74,29 @@
 ../packages/tmp/admin/controllers/profiletypes.php:93:		// Load the JTable Object.
 ../packages/tmp/admin/controllers/profiletypes.php:94:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 ../packages/tmp/admin/controllers/profiletypes.php:95:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-../packages/tmp/admin/controllers/profiletypes.php:173:		$db =& JFactory::getDBO();
-../packages/tmp/admin/controllers/profiletypes.php:224:		global $mainframe;
-../packages/tmp/admin/controllers/profiletypes.php:231:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-../packages/tmp/admin/controllers/profiletypes.php:232:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-../packages/tmp/admin/controllers/profiletypes.php:243:					$mainframe->enqueueMessage($message);
-../packages/tmp/admin/controllers/profiletypes.php:250:					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
-../packages/tmp/admin/controllers/profiletypes.php:259:		$cache = & JFactory::getCache('com_content');
-../packages/tmp/admin/controllers/profiletypes.php:263:		$mainframe->redirect($link, $message);
-../packages/tmp/admin/controllers/profiletypes.php:269:		global $mainframe;
-../packages/tmp/admin/controllers/profiletypes.php:287:		$mainframe->redirect($link, $msg);	
-../packages/tmp/admin/controllers/profiletypes.php:293:		global $mainframe;
-../packages/tmp/admin/controllers/profiletypes.php:311:		$mainframe->redirect($link, $msg);
-../packages/tmp/admin/controllers/profiletypes.php:317:		global $mainframe;
-../packages/tmp/admin/controllers/profiletypes.php:335:		$mainframe->redirect($link, $msg);	
-../packages/tmp/admin/controllers/profiletypes.php:341:		global $mainframe;
-../packages/tmp/admin/controllers/profiletypes.php:359:		$mainframe->redirect($link, $msg);
-../packages/tmp/admin/controllers/profiletypes.php:371:		global $mainframe;
-../packages/tmp/admin/controllers/profiletypes.php:383:			// Load the JTable Object.
-../packages/tmp/admin/controllers/profiletypes.php:384:			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
-../packages/tmp/admin/controllers/profiletypes.php:390:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
+../packages/tmp/admin/controllers/profiletypes.php:197:		$db =& JFactory::getDBO();
+../packages/tmp/admin/controllers/profiletypes.php:255:		$db =& JFactory::getDBO();
+../packages/tmp/admin/controllers/profiletypes.php:270:		global $mainframe;
+../packages/tmp/admin/controllers/profiletypes.php:277:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
+../packages/tmp/admin/controllers/profiletypes.php:278:		$row	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+../packages/tmp/admin/controllers/profiletypes.php:289:					$mainframe->enqueueMessage($message);
+../packages/tmp/admin/controllers/profiletypes.php:296:					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
+../packages/tmp/admin/controllers/profiletypes.php:305:		$cache = & JFactory::getCache('com_content');
+../packages/tmp/admin/controllers/profiletypes.php:309:		$mainframe->redirect($link, $message);
+../packages/tmp/admin/controllers/profiletypes.php:315:		global $mainframe;
+../packages/tmp/admin/controllers/profiletypes.php:333:		$mainframe->redirect($link, $msg);	
+../packages/tmp/admin/controllers/profiletypes.php:339:		global $mainframe;
+../packages/tmp/admin/controllers/profiletypes.php:357:		$mainframe->redirect($link, $msg);
+../packages/tmp/admin/controllers/profiletypes.php:363:		global $mainframe;
+../packages/tmp/admin/controllers/profiletypes.php:381:		$mainframe->redirect($link, $msg);	
+../packages/tmp/admin/controllers/profiletypes.php:387:		global $mainframe;
+../packages/tmp/admin/controllers/profiletypes.php:405:		$mainframe->redirect($link, $msg);
+../packages/tmp/admin/controllers/profiletypes.php:417:		global $mainframe;
+../packages/tmp/admin/controllers/profiletypes.php:429:			// Load the JTable Object.
+../packages/tmp/admin/controllers/profiletypes.php:430:			$table	=& JTable::getInstance( 'profiletypes' , 'XiPTTable' );
+../packages/tmp/admin/controllers/profiletypes.php:436:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
+../packages/tmp/admin/controllers/profiletypes.php:442:		global $mainframe;
+../packages/tmp/admin/controllers/profiletypes.php:455:		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');
 ../packages/tmp/admin/controllers/cpanel.php:9:class XiPTControllerCPanel extends JController 
 ../packages/tmp/admin/controllers/cpanel.php:26:		$document	=& JFactory::getDocument();
 ../packages/tmp/admin/controllers/applications.php:10:class XiPTControllerApplications extends JController 
@@ -145,8 +144,12 @@
 ../packages/tmp/admin/controllers/aclrules.php:224:		$mainframe->redirect($link, $msg);
 ../packages/tmp/admin/controllers/aclrules.php:230:		global $mainframe;
 ../packages/tmp/admin/controllers/aclrules.php:248:		$mainframe->redirect($link, $msg);
-../packages/tmp/admin/admin.xipt.php:54:	global $mainframe;
-../packages/tmp/admin/admin.xipt.php:59:		$mainframe->enqueueMessage($msg,false);
+../packages/tmp/admin/includes.php:22:	global $mainframe;
+../packages/tmp/admin/includes.php:25:		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
+../packages/tmp/admin/includes.php:51://JTable::addIncludePath( JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables' );
+../packages/tmp/admin/includes.php:65:$lang =& JFactory::getLanguage();
+../packages/tmp/admin/xipt.php:54:	global $mainframe;
+../packages/tmp/admin/xipt.php:59:		$mainframe->enqueueMessage($msg,false);
 ../packages/tmp/site/views/registration/view.html.php:17:		$userId = JFactory::getUser()->id;
 ../packages/tmp/site/views/registration/view.html.php:20:			global $mainframe;
 ../packages/tmp/site/views/registration/view.html.php:23:			$mainframe->redirect($redirectUrl,$msg);
@@ -173,27 +176,27 @@
 ../packages/tmp/site/helpers/profilefields.php:154:	$row	=& JTable::getInstance( 'Profilefields' , 'XiPTTable' );
 ../packages/tmp/site/helpers/profilefields.php:178:	$row	=& JTable::getInstance( 'Profilefields' , 'XiPTTable' );
 ../packages/tmp/site/helpers/profiletypes.php:37:					$usertypes= XiPTHelperProfiletypes::getJUserTypes();
-../packages/tmp/site/helpers/profiletypes.php:74:		$db			=& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:165:	$db			=& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:182:		$db		=& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:195:	$db			=& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:212:function getJUserTypes()
-../packages/tmp/site/helpers/profiletypes.php:215:	$db			=& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:240:	$db			=& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:331:		global $mainframe;
-../packages/tmp/site/helpers/profiletypes.php:340:			$mainframe->enqueueMessage( JText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
-../packages/tmp/site/helpers/profiletypes.php:341:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
-../packages/tmp/site/helpers/profiletypes.php:346:			$mainframe->enqueueMessage(JText::_('IMAGE FILE NOT SUPPORTED'), 'error');
-../packages/tmp/site/helpers/profiletypes.php:378:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
-../packages/tmp/site/helpers/profiletypes.php:384:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
-../packages/tmp/site/helpers/profiletypes.php:423:			$db =& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:459:    	$mySess = & JFactory::getSession();
-../packages/tmp/site/helpers/profiletypes.php:466:    	global $mainframe;
-../packages/tmp/site/helpers/profiletypes.php:467:		$mainframe->redirect($redirectUrl,$msg);
-../packages/tmp/site/helpers/profiletypes.php:472:    	global $mainframe;
-../packages/tmp/site/helpers/profiletypes.php:473:    	$mySess = & JFactory::getSession();
-../packages/tmp/site/helpers/profiletypes.php:479:				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
-../packages/tmp/site/helpers/profiletypes.php:485:			$mainframe->redirect($redirectUrl);
+../packages/tmp/site/helpers/profiletypes.php:86:		$db			=& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:177:	$db			=& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:194:		$db		=& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:207:	$db			=& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:227:function getJUserTypes()
+../packages/tmp/site/helpers/profiletypes.php:230:	$db			=& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:255:	$db			=& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:346:		global $mainframe;
+../packages/tmp/site/helpers/profiletypes.php:355:			$mainframe->enqueueMessage( JText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
+../packages/tmp/site/helpers/profiletypes.php:356:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
+../packages/tmp/site/helpers/profiletypes.php:361:			$mainframe->enqueueMessage(JText::_('IMAGE FILE NOT SUPPORTED'), 'error');
+../packages/tmp/site/helpers/profiletypes.php:393:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
+../packages/tmp/site/helpers/profiletypes.php:399:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
+../packages/tmp/site/helpers/profiletypes.php:438:			$db =& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:474:    	$mySess = & JFactory::getSession();
+../packages/tmp/site/helpers/profiletypes.php:481:    	global $mainframe;
+../packages/tmp/site/helpers/profiletypes.php:482:		$mainframe->redirect($redirectUrl,$msg);
+../packages/tmp/site/helpers/profiletypes.php:487:    	global $mainframe;
+../packages/tmp/site/helpers/profiletypes.php:488:    	$mySess = & JFactory::getSession();
+../packages/tmp/site/helpers/profiletypes.php:494:				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
+../packages/tmp/site/helpers/profiletypes.php:500:			$mainframe->redirect($redirectUrl);
 ../packages/tmp/site/helpers/unhook.php:20:		$db			=& JFactory::getDBO();		
 ../packages/tmp/site/helpers/unhook.php:34:		$db			=& JFactory::getDBO();		
 ../packages/tmp/site/helpers/applications.php:17:		$db			=& JFactory::getDBO();
@@ -201,11 +204,8 @@
 ../packages/tmp/site/helpers/applications.php:98:	$db			=& JFactory::getDBO();
 ../packages/tmp/site/helpers/applications.php:138:	$row	=& JTable::getInstance( 'Applications' , 'XiPTTable' );
 ../packages/tmp/site/helpers/applications.php:158:	$row	=& JTable::getInstance( 'Applications' , 'XiPTTable' );
-../packages/tmp/site/helpers/aclrules.php:24:				$db			=& JFactory::getDBO();
-../packages/tmp/site/helpers/aclrules.php:110:		$db 		= & JFactory::getDBO();
-../packages/tmp/site/includes.xipt.php:22:	global $mainframe;
-../packages/tmp/site/includes.xipt.php:25:		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
-../packages/tmp/site/includes.xipt.php:38:$lang =& JFactory::getLanguage();
+../packages/tmp/site/helpers/aclrules.php:22:				$db			=& JFactory::getDBO();
+../packages/tmp/site/helpers/aclrules.php:108:		$db 		= & JFactory::getDBO();
 ../packages/tmp/site/controllers/registration.php:9:class XiPTControllerRegistration extends JController {
 ../packages/tmp/site/controllers/registration.php:13:		$this->mySess 	=& JFactory::getSession();
 ../packages/tmp/site/controllers/registration.php:38:				global $mainframe;
@@ -215,13 +215,16 @@
 ../packages/tmp/site/tables/profilefields.php:44:	 * Overrides Joomla's JTable store method so that we can define proper values
 ../packages/tmp/site/tables/settings.php:9:class XiPTTableSettings extends JTable
 ../packages/tmp/site/tables/profiletypes.php:12:class XiPTTableProfiletypes extends JTable
-../packages/tmp/site/tables/profiletypes.php:94:	 * Overrides Joomla's JTable store method so that we can define proper values
+../packages/tmp/site/tables/profiletypes.php:96:	 * Overrides Joomla's JTable store method so that we can define proper values
 ../packages/tmp/site/tables/applications.php:9:class XiPTTableApplications extends JTable
 ../packages/tmp/site/tables/applications.php:49:	 * Overrides Joomla's JTable store method so that we can define proper values
 ../packages/tmp/site/tables/aclrules.php:9:class XiPTTableAclRules extends JTable
 ../packages/tmp/site/tables/aclrules.php:51:	 * Overrides Joomla's JTable store method so that we can define proper values
+../packages/tmp/site/includes.php:22:	global $mainframe;
+../packages/tmp/site/includes.php:25:		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
+../packages/tmp/site/includes.php:37:$lang =& JFactory::getLanguage();
 ../packages/tmp/site/router.php:16:	$dbo = JFactory::getDBO();
-../packages/tmp/site/models/settings.php:26:		$row             =& JTable::getInstance( 'settings' , 'XiPTTable' );
+../packages/tmp/site/models/settings.php:26:		$row   =& JTable::getInstance( 'settings' , 'XiPTTable' );
 ../packages/tmp/site/models/user.php:14:		$db		=& JFactory::getDBO();
 ../packages/tmp/site/models/user.php:34:		$db		=& JFactory::getDBO();
 ../packages/tmp/site/models/user.php:55:class XiPTTableUser extends JTable
@@ -234,6 +237,8 @@
 ../packages/tmp/site/models/profiletypes.php:71:		$limitstart	= $mainframe->getUserStateFromRequest('com_XiPTlimitstart', 'limitstart', 0, 'int');
 ../packages/tmp/site/models/profiletypes.php:100:		$db 	=& JFactory::getDBO();
 ../packages/tmp/site/models/profiletypes.php:113:		$db 	=& JFactory::getDBO();
+../packages/tmp/site/models/profiletypes.php:127:		$db 	=& JFactory::getDBO();
+../packages/tmp/site/models/profiletypes.php:157:			$db 	=& JFactory::getDBO();
 ../packages/tmp/site/models/applications.php:20:		global $mainframe;
 ../packages/tmp/site/models/applications.php:26:		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
 ../packages/tmp/site/models/applications.php:27:		$limitstart	= $mainframe->getUserStateFromRequest( 'com_XiPT.limitstart', 'limitstart', 0, 'int' );
@@ -318,18 +323,18 @@
 ../packages/tmp/site/libraries/pluginhandler.php:646:		$mysess= & JFactory::getSession();
 ../packages/tmp/site/libraries/apps.php:48:        $db		=& JFactory::getDBO();
 ../packages/tmp/site/libraries/apps.php:64:			$db		=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:42:		$db		=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:261:		$db			=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:273:		$db			=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:348:	    $db		=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:376:		$cache =  JFactory::getCache('com_xipt');
-../packages/tmp/site/libraries/profiletypes.php:430:		$db			=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:443:		$db	=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:475:		$db			=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:496:		global $mainframe;
-../packages/tmp/site/libraries/profiletypes.php:540:			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && $mainframe->isAdmin()==false)
-../packages/tmp/site/libraries/profiletypes.php:587:			$db			=& JFactory::getDBO();
-../packages/tmp/site/libraries/profiletypes.php:645:			$db			=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:41:		$db		=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:262:		$db			=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:274:		$db			=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:348:		    $db		=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:379:		$cache =  JFactory::getCache('com_xipt');
+../packages/tmp/site/libraries/profiletypes.php:433:		$db			=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:446:		$db	=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:478:		$db			=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:499:		global $mainframe;
+../packages/tmp/site/libraries/profiletypes.php:543:			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && $mainframe->isAdmin()==false)
+../packages/tmp/site/libraries/profiletypes.php:590:			$db			=& JFactory::getDBO();
+../packages/tmp/site/libraries/profiletypes.php:648:			$db			=& JFactory::getDBO();
 ../packages/tmp/site/libraries/acl.php:32:		$userId 		= JFactory::getUser()->id;
 ../packages/tmp/site/libraries/acl.php:51:			$mySess =& JFactory::getSession();
 ../packages/tmp/site/libraries/acl.php:154:		$db		 =& JFactory::getDBO();
@@ -345,22 +350,30 @@
 ../packages/tmp/site/libraries/core.php:76:		$db			=& JFactory::getDBO();
 ../packages/tmp/site/libraries/core.php:103:		$authorize		=& JFactory::getACL();
 ../packages/tmp/site/libraries/core.php:128:		global $mainframe;
-../packages/tmp/site/libraries/core.php:130:		if($mainframe->isAdmin())
+../packages/tmp/site/libraries/core.php:129:		if($mainframe->isAdmin())
 ../packages/tmp/site/libraries/core.php:132:		$loggedInUser = JFactory::getUser();
-../packages/tmp/site/libraries/core.php:183:		$db		=& JFactory::getDBO();
-../packages/tmp/site/libraries/core.php:194:		$db		=& JFactory::getDBO();
-../packages/tmp/site/libraries/core.php:361:		$db		=& JFactory::getDBO();
-../packages/tmp/site/libraries/core.php:381:			$group		=& JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/core.php:382:			$member		=& JTable::getInstance( 'GroupMembers' , 'CTable' );
-../packages/tmp/site/libraries/core.php:408:		$group		=& JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/core.php:424:		$groupMember	=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/core.php:181:		$db		=& JFactory::getDBO();
+../packages/tmp/site/libraries/core.php:192:		$db		=& JFactory::getDBO();
+../packages/tmp/site/libraries/core.php:365:		$db		=& JFactory::getDBO();
+../packages/tmp/site/libraries/core.php:388:			$group		=& JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/core.php:389:			$member		=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/core.php:417:		$group		=& JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/core.php:436:			$groupMember	=& JTable::getInstance( 'GroupMembers' , 'CTable' );
 ../packages/tmp/site/elements/profilefields.php:30:			$db	=& JFactory::getDBO();
-../packages/tmp/install/helper.php:17:		$parser		=& JFactory::getXMLParser('Simple');
+../packages/tmp/install/helper.php:56:		$parser		=& JFactory::getXMLParser('Simple');
+../packages/tmp/install/helper.php:164:			JFactory::getApplication()->enqueueMessage($msg);
+../packages/tmp/install/helper.php:173:		$db			=& JFactory::getDBO();
+../packages/tmp/install/helper.php:224:	    $db	=& JFactory::getDBO();
+../packages/tmp/install/helper.php:246:	    	$db     = JFactory::getDBO();
+../packages/tmp/install/helper.php:319:		$db		=& JFactory::getDBO();
+../packages/tmp/install/helper.php:348:		$db	=& JFactory::getDBO();
+../packages/tmp/install/helper.php:364:		global $mainframe;
+../packages/tmp/install/helper.php:368:		$database = &JFactory::getDBO();
+../packages/tmp/install/helper.php:371:		return in_array( $mainframe->getCfg( 'dbprefix' ) . $tableName, $tables );
+../packages/tmp/install/helper.php:379:		$db	=& JFactory::getDBO();
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:41:		global $mainframe;
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:42:		 $oldTablePath = JTable::addIncludePath();
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:50: 		if( $mainframe->isAdmin())
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:53: 				$mainframe->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'));
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:55:			JTable::addIncludePath($oldTablePath);
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:86:		JTable::addIncludePath($oldTablePath);	
-../packages/tmp/install/install.php:147:		JFactory::getApplication()->enqueueMessage($msg);
-../packages/tmp/install/install.php:156:	$db			=& JFactory::getDBO();

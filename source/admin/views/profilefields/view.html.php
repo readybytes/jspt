@@ -13,9 +13,9 @@ class XiPTViewProfileFields extends JView
     function display($tpl = null)
     {
 		//define all categories
-		$categories	= XiPTHelperProfileFields::getProfileFieldCategories();
+		$categories	= XiPTHelperProfilefields::getProfileFieldCategories();
 								
-		$fields		= XiPTHelperProfileFields::get_jomsocial_profile_fields();
+		$fields		= XiPTHelperProfilefields::get_jomsocial_profile_fields();
 		
 		// Load tooltips
 		JHTML::_('behavior.tooltip', '.hasTip');
@@ -28,9 +28,9 @@ class XiPTViewProfileFields extends JView
 	
 	function edit($fieldId, $tpl = null)
 	{
-		$field		= XiPTHelperProfileFields::get_jomsocial_profile_fields($fieldId);
+		$field		= XiPTHelperProfilefields::get_jomsocial_profile_fields($fieldId);
 		$this->assign('fields', $field);
-		$categories	= XiPTHelperProfileFields::getProfileFieldCategories();
+		$categories	= XiPTHelperProfilefields::getProfileFieldCategories();
 		$this->assignRef('categories', $categories);
 		$this->assign('fieldid', $fieldId);
 		// Set the titlebar text

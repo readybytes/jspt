@@ -41,7 +41,7 @@ class writemessages extends xiptAclRules
 
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
 		{
-			$isFriend = XiPTHelperAclRules::isFriend($data['userid'],$data['viewuserid']);
+			$isFriend = XiPTHelperAclrules::isFriend($data['userid'],$data['viewuserid']);
 			if($isFriend)
 			 return false;
 		}

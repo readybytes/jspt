@@ -369,7 +369,7 @@ class ProfileTest extends XiSelTestCase
      	return true;
      else{
   	  //ensure we have watermarks in place
-  	  require_once (JPATH_ROOT . '/components/com_xipt/includes.xipt.php' );
+  	  require_once (JPATH_ROOT . '/components/com_xipt/includes.php' );
   	  if(JFolder::exists(JPATH_ROOT.DS.'images/profiletype')==false)
 			JFolder::create(JPATH_ROOT.DS.'images/profiletype');
   	  

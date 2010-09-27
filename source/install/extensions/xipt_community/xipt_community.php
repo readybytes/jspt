@@ -14,8 +14,8 @@ jimport('joomla.filesystem.folder');
 if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
 	return;
 
-if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
-	require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
+	require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 
 class plgCommunityxipt_community extends CApplications
 {

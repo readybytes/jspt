@@ -11,7 +11,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // include files, as we are here from plugin
 // so files might not be included for non-component events
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 //@TODO: Write language file
 //@TODO : check ptypeid in session in registerProfile fn also

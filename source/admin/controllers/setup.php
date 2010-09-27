@@ -106,7 +106,7 @@ class XiPTControllerSetup extends JController
 	    	?>$fields = $db->loadObjectList();
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
-	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 	    	$pluginHandler=& XiPTFactory::getLibraryPluginHandler();
 	    	$userId = 0;
 	    	$pluginHandler->onProfileLoad($userId, $fields, __FUNCTION__);
@@ -125,7 +125,7 @@ class XiPTControllerSetup extends JController
 	    	?>$result	= $db->loadAssocList();
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
-			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 		    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
 		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
 		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
@@ -161,7 +161,7 @@ class XiPTControllerSetup extends JController
 	    	?>$result	= $db->loadAssocList();
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
-			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 		    $pluginHandler=& XiPTFactory::getLibraryPluginHandler();
 		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
 		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/

@@ -6,17 +6,15 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class XiPTHelperAclRules 
+class XiPTHelperAclrules 
 {
-
-
 	function _buildTypesforAclRules($value, $what)
 	{
 		$allValues	= array();
 		switch($what)
 		{
 			case 'feature':
-				$allValues = XiPTHelperAclRules::_getDisplayNameofAclFeature();
+				$allValues = XiPTHelperAclrules::_getDisplayNameofAclFeature();
 				break;
 			
 			case 'profiletype' :
@@ -47,7 +45,7 @@ class XiPTHelperAclRules
 			foreach($allValues as $vals)
 			{	
 				$selected	= ( trim($value) == $vals ) ? 'selected="true"' : '';
-				$html		.= '<option value="' . $vals . '"' . $selected . '>' . XiPTHelperAclRules::getProfileTypeNameforAclRules($vals) . '</option>';
+				$html		.= '<option value="' . $vals . '"' . $selected . '>' . XiPTHelperAclrules::getProfileTypeNameforAclRules($vals) . '</option>';
 			}
 			
 			$html	.= '</span>';	

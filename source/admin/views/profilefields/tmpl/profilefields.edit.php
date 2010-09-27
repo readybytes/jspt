@@ -25,7 +25,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_( 'FIELD NAME' ); ?> :
 			</td>
 			<td style="width:60%;">
-					<?php echo XiPTHelperProfileFields::get_fieldname_from_fieldid($this->fieldid); ?>
+					<?php echo XiPTHelperProfilefields::get_fieldname_from_fieldid($this->fieldid); ?>
 			</td>
 		</tr>
 		</thead>
@@ -39,7 +39,7 @@ defined('_JEXEC') or die('Restricted access');
 						<?php echo JText::_($catName);?> :
 					</td>
 					<td colspan="4"> 
-						<?php echo XiPTHelperProfileFields::buildProfileTypes($this->fieldid,$catIndex);?>
+						<?php echo XiPTHelperProfilefields::buildProfileTypes($this->fieldid,$catIndex);?>
 					</td>			
 				</tr>
 				<?php 

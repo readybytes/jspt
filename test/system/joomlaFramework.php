@@ -22,5 +22,5 @@ require_once JPATH_BASE .DS.'libraries'.DS.'joomla'.DS.'factory.php';
 $mainframe =& JFactory::getApplication('site');
 $mainframe->initialise();
 
-if(file_exists(JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php'))
-	require_once JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php';
+if(file_exists(JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php'))
+	require_once JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php';

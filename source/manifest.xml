@@ -13,9 +13,9 @@
 	<files folder="site">
 		<filename>index.html</filename>
 		<filename>xipt.php</filename>
-		<filename>includes.xipt.php</filename>
+		<filename>includes.php</filename>
 		<filename>api.xipt.php</filename>
-		<filename>defines.xipt.php</filename>
+		<filename>defines.php</filename>
 		<filename>license.txt</filename>
 		<filename>router.php</filename>
 		<folder>helpers</folder>			
@@ -48,8 +48,8 @@
 	
 		<files folder="admin">
 			<filename>index.html</filename>
-			<filename>admin.xipt.php</filename>
-			<filename>includes.xipt.php</filename>
+			<filename>xipt.php</filename>
+			<filename>includes.php</filename>
 			<filename>loader.php</filename>
 			
 			<folder>controllers</folder>

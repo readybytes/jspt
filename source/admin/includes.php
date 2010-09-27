@@ -29,6 +29,7 @@ if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
 
 // require loader.php of xipt backend
 require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'loader.php');
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 // auto load community classes
 require_once  JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
@@ -42,20 +43,12 @@ XiPTLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_commun
 
 
 // common file to front and back
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.xipt.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
 
 // define our include paths to joomla
 jimport( 'joomla.application.component.model' );
 //JModel::addIncludePath(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models');
 //JTable::addIncludePath( JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables' );
-
-//bakcend helper files required
-XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models','Model');
-XiPTLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
-XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
-XiPTLoader::addAutoLoadFile('XiPTHelperAclRules', 		XIPT_FRONT_PATH_HELPER.DS.'aclrules.php');
-XiPTLoader::addAutoLoadFile('XiPTHelperProfileFields', 	XIPT_FRONT_PATH_HELPER.DS.'profilefields.php');
-XiPTLoader::addAutoLoadFile('XiFactory', 				XIPT_FRONT_PATH_HELPER.DS.'xiptcore.php');
 
 // auto load front libraries files
 XiPTLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY,'Library');

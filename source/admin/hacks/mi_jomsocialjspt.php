@@ -38,13 +38,13 @@ class mi_jomsocialjspt
 		if(!is_dir( JPATH_ROOT. DS . 'components'. DS .'com_xipt' ))
 			return false;
 
-		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 		return true;
 	}
 
 	function Settings()
 	{
-		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.xipt.php');
+		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 		
 		$database	=& JFactory::getDBO();
         $settings = array();
