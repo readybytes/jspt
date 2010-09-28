@@ -159,14 +159,14 @@ function addFieldsProfileType($fid, $pid, $for)
 		foreach($pid as $p)
 		{		
 			$data["pid"]=$p;	
-			$row->bindValues($data);
+			$row->bind($data);
 			$row->store();
 		}
 	}
 	else
 	{
 		$data["pid"]=$pid;
-		$row->bindValues($data);
+		$row->bind($data);
 		$row->store();
 	}
 }

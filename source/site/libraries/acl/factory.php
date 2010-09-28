@@ -51,7 +51,7 @@ class XiptAclFactory
 		jimport( 'joomla.filesystem.file' );
 		if(!JFile::exists($path))
 		{
-			JError::raiseError(400,JText::_("INVALID ACL FILE"));
+			XiptError::raiseError(400,JText::_("INVALID ACL FILE"));
 			return false;
 		}
 

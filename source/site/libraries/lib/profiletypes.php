@@ -73,7 +73,7 @@ class XiptLibProfiletypes
 	 */
 	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
 	{
-		XiptLibUtils::XAssert($userid) || JError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
+		XiptLibUtils::XAssert($userid) || XiptError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
 		
 		foreach($filter as $feature)
 		{
@@ -117,7 +117,7 @@ class XiptLibProfiletypes
 					
 				default:
 					XiptLibUtils::XAssert(0);
-					JError::raiseWarning('XIPT',"Not a valid filter options  ".__FUNCTION__);
+					XiptError::raiseWarning('XIPT',"Not a valid filter options  ".__FUNCTION__);
 					break;
 			}
 		}
@@ -239,7 +239,7 @@ class XiptLibProfiletypes
 		if(!$defaultProfiletypeID)
 		{
 			echo XiptLibUtils::getParams()->render();
-		    JError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
+		    XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 		}
 		    
 		return  $defaultProfiletypeID;
@@ -341,7 +341,7 @@ class XiptLibProfiletypes
                 break;
                 
 	        default :
-	            JError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
+	            XiptError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
 	    }
 			
 		if($userid >= 62){
@@ -354,7 +354,7 @@ class XiptLibProfiletypes
 			$result[$userid]	= $db->loadAssoc();
 			
 			if($db->getErrorNum()) {
-				JError::raiseError( 500, $db->stderr());
+				XiptError::raiseError( 500, $db->stderr());
 			}
 		}
 		
@@ -424,7 +424,7 @@ class XiptLibProfiletypes
 					$defaultValue	= false;
 					break;
 			default	:
-					JError::raiseError('XIPT_ERR','XIPT System Error');
+					XiptError::raiseError('XIPT_ERR','XIPT System Error');
 		}
 	
 		if($id==0)
@@ -460,7 +460,7 @@ class XiptLibProfiletypes
 		$result = $db->loadResultArray();
 		
 		if($db->getErrorNum()){
-					JError::raiseError( 500, $db->stderr());
+					XiptError::raiseError( 500, $db->stderr());
 		}
 		
 		return $result;
@@ -498,7 +498,7 @@ class XiptLibProfiletypes
 	{
 		global $mainframe;
 		if(empty($selectedProfiletypeID)){
-		    JError::raiseError('XIPT_ERROR','XIPT SYSTEM ERROR');
+		    XiptError::raiseError('XIPT_ERROR','XIPT SYSTEM ERROR');
 			return false;
 		}
 		

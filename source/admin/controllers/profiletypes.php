@@ -81,7 +81,7 @@ class XiptControllerProfiletypes extends XiptController
 		$user	=& JFactory::getUser();
 
 		if ( $user->get('guest')) {
-			JError::raiseError( 403, JText::_('Access Forbidden') );
+			XiptError::raiseError( 403, JText::_('Access Forbidden') );
 			return;
 		}
 
@@ -121,7 +121,7 @@ class XiptControllerProfiletypes extends XiptController
 		$registry->loadArray($post['privacy'],'xipt_params');
 		$data['privacy']  =  $registry->toString('INI' , 'xipt_params' );
 		
-		$row->bindAjaxPost($data);
+		$row->bind($data);
 
 		if( $isValid )
 		{
@@ -204,7 +204,7 @@ class XiptControllerProfiletypes extends XiptController
 
 		if($db->getErrorNum())
 		{
-			JError::raiseError( 500, $db->stderr());
+			XiptError::raiseError( 500, $db->stderr());
 	    }
 	    return $image;
 	}
@@ -236,7 +236,7 @@ class XiptControllerProfiletypes extends XiptController
 			chmod($storageThumbnail, 0744);
 		}	
 		else
-			JError::raiseWarning('XIPT_THUMB_WAR','THUMBNAIL NOT SUPPORTED');
+			XiptError::raiseWarning('XIPT_THUMB_WAR','THUMBNAIL NOT SUPPORTED');
 		
 		/*if(!cImageCreateThumb( $watermarkPath , $storageThumbnail , XiptLibUtils::getImageType($watermarkPath),$config->get(xiWidth,64)/2,$config->get(xiHeight,64)/2));
 			$info['msg'] .= sprintf(JText::_('ERROR MOVING UPLOADED FILE') , $storageThumbnail);*/
@@ -261,7 +261,7 @@ class XiptControllerProfiletypes extends XiptController
 
 		if($db->getErrorNum())
 		{
-			JError::raiseError( 500, $db->stderr());
+			XiptError::raiseError( 500, $db->stderr());
 	    }
 	}
 
@@ -320,7 +320,7 @@ class XiptControllerProfiletypes extends XiptController
 		$count			= count( $ids );
 
 		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
@@ -344,7 +344,7 @@ class XiptControllerProfiletypes extends XiptController
 		$count			= count( $ids );
 
 		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
@@ -368,7 +368,7 @@ class XiptControllerProfiletypes extends XiptController
 		$count			= count( $ids );
 
 		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
@@ -392,7 +392,7 @@ class XiptControllerProfiletypes extends XiptController
 		$count			= count( $ids );
 
 		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
 		$pModel	= XiptFactory::getModel( 'profiletypes' );

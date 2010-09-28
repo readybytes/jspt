@@ -70,7 +70,7 @@ class XiptLibApps
 			$result[$folder] = $db->loadAssocList('element');
 			
 			if($db->getErrorNum())
-				JError::raiseError( 500, $db->stderr());
+				XiptError::raiseError( 500, $db->stderr());
 		}
 			
 		return $result[$folder][$element]['id'];

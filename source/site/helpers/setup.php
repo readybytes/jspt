@@ -126,7 +126,7 @@ class XiptHelperSetup
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			
@@ -149,7 +149,7 @@ class XiptHelperSetup
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
 			$file =JFile::read($filename);
 			
@@ -282,7 +282,7 @@ class XiptHelperSetup
 		if (JFile::exists($filename)) {
 		
 			if(!is_readable($filename)) 
-				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			if(!$file)
@@ -310,7 +310,7 @@ class XiptHelperSetup
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			
@@ -336,11 +336,11 @@ class XiptHelperSetup
 		
 		$sourceFile = $XIPT_PATH_ADMIN.DS.'hacks'.DS.'front_libraries_fields_profiletypes.php';
 		$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'profiletypes.php';
-		JFile::copy($sourceFile, $targetFile) || JError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
+		JFile::copy($sourceFile, $targetFile) || XiptError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
 		
 		$sourceFile = $XIPT_PATH_ADMIN.DS.'hacks'.DS.'front_libraries_fields_templates.php';
 		$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'templates.php';
-		JFile::copy($sourceFile, $targetFile) || JError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
+		JFile::copy($sourceFile, $targetFile) || XiptError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
 		return;
 	}
 	

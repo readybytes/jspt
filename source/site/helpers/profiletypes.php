@@ -448,7 +448,7 @@ function resetAllUsers($pid, $oldData, $newData)
 
 			if($db->getErrorNum())
 			{
-				JError::raiseError( 500, $db->stderr());
+				XiptError::raiseError( 500, $db->stderr());
 		    }
 		}
 	}

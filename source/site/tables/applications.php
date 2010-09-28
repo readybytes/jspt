@@ -7,27 +7,11 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiptTableApplications extends XiptTable
-{
-
+{	
 	var $id			= null;
 	var $applicationid		= null;
 	var $profiletype		= null;
 	
-	
-	function __construct(&$db)
-	{
-		parent::__construct('#__xipt_applications','id', $db);
-	}
-	
-	/**
-	 * Overrides Joomla's load method so that we can define proper values
-	 * upon loading a new entry
-	 * 
-	 * @param	int	id	The id of the field
-	 * @param	boolean isGroup	Whether the field is a group
-	 * 	 
-	 * @return boolean true on success
-	 **/
 	function load( $id)
 	{
 		if( $id ){
@@ -39,11 +23,12 @@ class XiptTableApplications extends XiptTable
 		$this->profiletype		= '';
 		return true;
 	}
-
-	function delete()
+	
+	function __construct(&$db)
 	{
-		return parent::delete();
+		parent::__construct('#__xipt_applications','id');
 	}
+	
 	
 	/**
 	 * Overrides Joomla's JTable store method so that we can define proper values
@@ -69,66 +54,14 @@ class XiptTableApplications extends XiptTable
  		  
        	return 	parent::store();
 	}
-
-	/**
-	 * Tests the specific field if value exists
-	 * 
-	 * @param	string	
-	 **/
-	function _exists( $field , $value )
-	{
-		$db		=& $this->getDBO();
-		$query	= 'SELECT COUNT(*) FROM '
-				. $db->nameQuote( '#__xipt_applications' )
-				. ' WHERE ' . $db->nameQuote( $field ) . '=' . $db->Quote( $value );
-		
-		$db->setQuery( $query );
-
-		$result	= ( $db->loadResult() > 0 ) ? true : false ;
-		
-		return $result;
-	}
-
-	/**
-	 * Bind AJAX data into object's property
-	 * 
-	 * @param	array	data	The data for this field
-	 **/
-	function bindAjaxPost( $data )
-	{
-			$this->applicationid			= $data['applicationid'];
-			$this->profiletype		= $data['profiletype'];
-	}
-	
-	function bindValues($applicationid, $profiletypeid, $id='')
-	{
-			$this->id			= $id;
-			$this->applicationid			= $applicationid;
-			$this->profiletype			= $profiletypeid;
-	}
 	
 	function resetApplicationId( $aid )
 	{
-		$db		=& $this->getDBO();
-		$query	= 'SELECT COUNT(*) FROM '
-				. $db->nameQuote( '#__xipt_applications' )
-				. ' WHERE '.$db->nameQuote('applicationid').'=' . $db->Quote( $aid );		
-		$db->setQuery( $query );
-
-		if($db->loadResult() < 1 ) 
-			return;
-		
-		$query	= 'SELECT '.$db->nameQuote('id')
+		$db		=& $this->getDBO();		
+		$query	= 'DELETE '
 				. ' FROM '. $db->nameQuote( '#__xipt_applications' )
 				. ' WHERE '.$db->nameQuote('applicationid').'=' . $db->Quote( $aid );	
 		$db->setQuery( $query );
-		$results= $db->loadObjectList();
-		
-		foreach($results as $result)
-		{
-				$this->load($result->id);
-				$this->delete();
-		}		
-		return;
+		return  $db->query();		
 	}
 }

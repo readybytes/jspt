@@ -101,7 +101,7 @@ class XiptModelAclRules extends XiptModel
 				. ' WHERE `id`='. $db->Quote($id);
 		$db->setQuery( $query );
 		if (!$db->query())
-			return JError::raiseWarning( 500, $db->getError() );
+			return XiptError::raiseWarning( 500, $db->getError() );
 			
 		return true;
 	}

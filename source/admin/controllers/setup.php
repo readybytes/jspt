@@ -188,7 +188,7 @@ class XiptControllerSetup extends XiptController
         	if (JFile::exists($filename)) {
 		
 				if(!is_readable($filename)) 
-					JError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+					XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 				
 				$file =JFile::read($filename);				
 			    $searchString = '</fields>';
@@ -317,7 +317,7 @@ class XiptControllerSetup extends XiptController
 	    	$db->setQuery( $query );
 	    	$db->query( $query );
 			if($db->getErrorNum())
-				JError::raiseError( 500, $db->stderr());
+				XiptError::raiseError( 500, $db->stderr());
 		}
 		
 		global $mainframe;

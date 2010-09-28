@@ -7,17 +7,11 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiptTableProfileFields extends XiptTable
-{
-
+{	
 	var $id			= null;
 	var $fid		= null;
 	var $pid		= null;
 	var $category	= null;
-	
-	function __construct(&$db)
-	{
-		parent::__construct('#__xipt_profilefields','id', $db);
-	}
 	
 	function load( $id)
 	{
@@ -34,10 +28,11 @@ class XiptTableProfileFields extends XiptTable
 			return parent::load( $id );
 		}
 	}
-
-	function delete()
-	{		
-		return parent::delete();
+	
+	
+	function __construct(&$db)
+	{
+		parent::__construct('#__xipt_profilefields','id');
 	}
 	
 	/**
@@ -60,6 +55,7 @@ class XiptTableProfileFields extends XiptTable
 		$count	= $db->loadResult();
 		if($count)
 			return false;
+			
  		return parent::store();
 	}
 
@@ -70,38 +66,11 @@ class XiptTableProfileFields extends XiptTable
 	 **/
 	function resetFieldId( $fid)
 	{
-		$db		=& $this->getDBO();
-		$query	= 'SELECT COUNT(*) FROM '
-				. $db->nameQuote( '#__xipt_profilefields' )
-				. ' WHERE '.$db->nameQuote('fid').'=' . $db->Quote( $fid );		
-		$db->setQuery( $query );
-
-		if($db->loadResult() < 1 ) 
-			return;
-		
-		$query	= 'SELECT '.$db->nameQuote('id')
+		$db		=& $this->getDBO();		
+		$query	= 'DELETE '
 				. ' FROM '. $db->nameQuote( '#__xipt_profilefields' )
 				. ' WHERE '.$db->nameQuote('fid').'=' . $db->Quote( $fid );	
 		$db->setQuery( $query );
-		$results= $db->loadObjectList();
-		
-		foreach($results as $result)
-		{
-				$this->load($result->id);
-				$this->delete();
-		}		
-		return;
-	}
-
-	/**
-	 * Bind AJAX data into object's property
-	 * @param	array	data	The data for this field
-	 **/
-	function bindValues($data)
-	{
-			$this->id			= $id;
-			$this->fid			= $data['fid'];
-			$this->pid			= $data['pid'];
-			$this->category		= $data['category'];
+		return $db->query();
 	}
 }

@@ -18,7 +18,7 @@ class XiptTableAclRules extends XiptTable
 	
 	function __construct(&$db)
 	{
-		parent::__construct('#__xipt_aclrules','id', $db);
+		parent::__construct('#__xipt_aclrules','id');
 	}
 	
 	/**

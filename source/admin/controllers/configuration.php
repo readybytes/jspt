@@ -51,14 +51,14 @@ class XiptControllerConfiguration extends XiptController
 		$user	=& JFactory::getUser();
 
 		if ( $user->get('guest')) {
-			JError::raiseError( 403, JText::_('Access Forbidden') );
+			XiptError::raiseError( 403, JText::_('Access Forbidden') );
 			return;
 		}
 		$method	= JRequest::getMethod();
 		
 		if( $method == 'GET' )
 		{
-			JError::raiseError( 500 , JText::_('Access Method not allowed') );
+			XiptError::raiseError( 500 , JText::_('Access Method not allowed') );
 			return;
 		}
 		
@@ -73,7 +73,7 @@ class XiptControllerConfiguration extends XiptController
 		}
 		else
 		{
-			JError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
+			XiptError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
 		}
 		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$mainframe->redirect($link, $message);
@@ -88,7 +88,7 @@ class XiptControllerConfiguration extends XiptController
 		$user	=& JFactory::getUser();
 
 		if ( $user->get('guest')) {
-			JError::raiseError( 403, JText::_('Access Forbidden') );
+			XiptError::raiseError( 403, JText::_('Access Forbidden') );
 			return;
 		}
 		
@@ -103,7 +103,7 @@ class XiptControllerConfiguration extends XiptController
 		}
 		else
 		{
-			JError::raiseWarning( 100 , JText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
+			XiptError::raiseWarning( 100 , JText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
 		}
 		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$mainframe->redirect($link, $message);

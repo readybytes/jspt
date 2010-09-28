@@ -29,7 +29,7 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'inc
 		if(JFile::exists($path))
 			require_once( $path );
 		else
-			JError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );
+			XiptError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );
 	}
 	
 	$class	= 'XiptController' . JString::ucfirst( $controller );
@@ -38,7 +38,7 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'inc
 	if( class_exists( $class ) )
 		$controller	= new $class();
 	else
-		JError::raiseError( 500 , 'Invalid Controller Object. Class definition does not exists in this context.' );
+		XiptError::raiseError( 500 , 'Invalid Controller Object. Class definition does not exists in this context.' );
 	
 	// Perform the Request task
 	$task = JRequest::getCmd('task');

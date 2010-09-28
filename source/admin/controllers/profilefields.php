@@ -55,7 +55,7 @@ class XiptControllerProfileFields extends XiptController
 		$user	=& JFactory::getUser();
 
 		if ( $user->get('guest')) {
-			JError::raiseError( 403, JText::_('Access Forbidden') );
+			XiptError::raiseError( 403, JText::_('Access Forbidden') );
 			return;
 		}
 		

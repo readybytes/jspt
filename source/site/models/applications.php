@@ -104,7 +104,7 @@ class XiptModelApplications extends XiptModel
 
 		//print_r("query = ".$query);
 		if($db->getErrorNum()){
-		     JError::raiseError( 500, $db->stderr());
+		     XiptError::raiseError( 500, $db->stderr());
 		     return false;
 		}
       

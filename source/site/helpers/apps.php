@@ -10,8 +10,8 @@ defined('_JEXEC') or die('Restricted access');
 class XiptHelperApps 
 {
 
-function getProfileTypeNameforApplication($id)
-{
+	function getProfileTypeNameforApplication($id)
+	{
 		if($id==0 || empty($id))
 			return "ALL";
 
@@ -21,12 +21,12 @@ function getProfileTypeNameforApplication($id)
 					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id);
 		$db->setQuery( $query );
 		return $db->loadResult();
-}
+	}
 
-function getProfileTypeNamesForApplicationId($aid)
-{
+	function getProfileTypeNamesForApplicationId($aid)
+	{
 	
-	XiptLibUtils::XAssert($aid, "Application Id cannot be null.");
+		XiptLibUtils::XAssert($aid, "Application Id cannot be null.");
 
 		$selected = array();
 		$selected = XiptHelperApps::getProfileTypeArrayForApplicationId($aid);
@@ -50,69 +50,69 @@ function getProfileTypeNamesForApplicationId($aid)
 		}
 		       
 		return $retVal;
-}   
+	}   
 
 
-function getProfileTypeArrayForApplicationId($aid)
-{
+	function getProfileTypeArrayForApplicationId($aid)
+	{
 	
-	XiptLibUtils::XAssert($aid, "Application ID cannot be NULL.");
-		
-	//Load all profiletypes for the field
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('profiletype')
-				. ' FROM ' . $db->nameQuote( '#__xipt_applications' ) 
-				. ' WHERE '.$db->nameQuote('applicationid').'='.$db->Quote($aid);
-	$db->setQuery( $query );
-	$results = $db->loadObjectList();
-	
-	$allTypes		= XiptHelperApps::getProfileTypeArrayforApplication();
-	
-	$notselected = array();
-	$selected = array();
-	//means there is no bound ptype , so we will retrun all ptypes
-	//we store ptype that is not required for that application
-	//so empty results means field is applicable to all.
-	if(empty($results)) {
-		$selected[] = 0;
-		return $selected;
-		//return $allTypes;
-	}
-		
-	
-	if($results)
-		foreach ($results as $result)
-			$notselected[]=$result->profiletype;
-
-	foreach($allTypes as $pid) {
-		   //echo $pid;
-	     		if(!in_array($pid,$notselected)) 
-			        $selected[] = $pid;
-	}
-	
-	return $selected;
-}
-
-
-function getProfileTypeArrayforApplication($all = '')
-{
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('id')
-				. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
-	$db->setQuery( $query );
-	$results = $db->loadObjectList();
-	$retVal	= array();
-	if($results)
-		foreach ($results as $result)
-			$retVal[]=$result->id;
+		XiptLibUtils::XAssert($aid, "Application ID cannot be NULL.");
 			
-	if($all == 'ALL')
-		$retVal[] = 0;
+		//Load all profiletypes for the field
+		$db			=& JFactory::getDBO();
+		$query		= 'SELECT '.$db->nameQuote('profiletype')
+					. ' FROM ' . $db->nameQuote( '#__xipt_applications' ) 
+					. ' WHERE '.$db->nameQuote('applicationid').'='.$db->Quote($aid);
+		$db->setQuery( $query );
+		$results = $db->loadObjectList();
 		
-	return $retVal;
-}	
+		$allTypes		= XiptHelperApps::getProfileTypeArrayforApplication();
+		
+		$notselected = array();
+		$selected = array();
+		//means there is no bound ptype , so we will retrun all ptypes
+		//we store ptype that is not required for that application
+		//so empty results means field is applicable to all.
+		if(empty($results)) {
+			$selected[] = 0;
+			return $selected;
+			//return $allTypes;
+		}
+			
+		
+		if($results)
+			foreach ($results as $result)
+				$notselected[]=$result->profiletype;
+	
+		foreach($allTypes as $pid) {
+			   //echo $pid;
+		     		if(!in_array($pid,$notselected)) 
+				        $selected[] = $pid;
+		}
+		
+		return $selected;
+	}
 
-function buildProfileTypesforApplication( $aid )
+
+	function getProfileTypeArrayforApplication($all = '')
+	{
+		$db			=& JFactory::getDBO();
+		$query		= 'SELECT '.$db->nameQuote('id')
+					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
+		$db->setQuery( $query );
+		$results = $db->loadObjectList();
+		$retVal	= array();
+		if($results)
+			foreach ($results as $result)
+				$retVal[]=$result->id;
+				
+		if($all == 'ALL')
+			$retVal[] = 0;
+			
+		return $retVal;
+	}	
+
+	function buildProfileTypesforApplication( $aid )
 	{
 		$selectedTypes 	= XiptHelperApps::getProfileTypeArrayForApplicationId($aid);		
 		$allTypes		= XiptHelperApps::getProfileTypeArrayforApplication('ALL');
@@ -133,31 +133,31 @@ function buildProfileTypesforApplication( $aid )
 		return $html;
 	}
 
-
-function addApplicationProfileType($aid, $pid)
-{
-	$row	=& JTable::getInstance( 'Applications' , 'XiptTable' );
-	if(is_array($pid))
+	//XITODO : Clean Code
+	function addApplicationProfileType($aid, $pid)
 	{
-		foreach($pid as $p)
-		{			
-			$row->bindValues($aid,$p);
+		$row	=& JTable::getInstance( 'Applications' , 'XiptTable' );
+		if(is_array($pid))
+		{
+			foreach($pid as $p)
+			{			
+				$row->bind(array('applicationid'=>$aid,'profiletype'=>$p));
+				$row->store();
+			}
+		}
+		else
+		{
+			$row->bind(array('applicationid'=>$aid,'profiletype'=>$pid));
 			$row->store();
 		}
 	}
-	else
-	{
-		$row->bindValues($aid,$pid);
-		$row->store();
-	}
-}
 
-function remMyApplicationProfileType($aid)
-{
-	if(empty($aid))
-		return;
-	$row	=& JTable::getInstance( 'Applications' , 'XiptTable' );
-	$row->resetApplicationId($aid);
-}
+	function remMyApplicationProfileType($aid)
+	{
+		if(empty($aid))
+			return;
+		$row	=& JTable::getInstance( 'Applications' , 'XiptTable' );
+		$row->resetApplicationId($aid);
+	}
 
 }

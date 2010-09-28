@@ -57,7 +57,7 @@ class XiptHelperUnhook
 			if(JFile::exists($targetFile) && JFile::exists($targetFileBackup))
 			{
 				JFile::delete($targetFile);
-				JFile::move($targetFileBackup,$targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
+				JFile::move($targetFileBackup,$targetFile) || XiptError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
 			}		
 		}
 		// TODO : also remove previous profiletypes and template library fields files
@@ -70,11 +70,11 @@ class XiptHelperUnhook
 		
 		$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'profiletypes.php';
 		if(JFile::exists($targetFile))
-			JFile::delete($targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup:' .__LINE__) ;
+			JFile::delete($targetFile) || XiptError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup:' .__LINE__) ;
 		
 		$targetFile = $COMMUNITY_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'templates.php';
 		if(JFile::exists($targetFile))
-			JFile::delete($targetFile) || JError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
+			JFile::delete($targetFile) || XiptError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
 		return;
 	}
 	

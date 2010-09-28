@@ -102,7 +102,7 @@ class XiptModelProfiletypes extends XiptModel
 		$db->setQuery( $query );
 		
 		if (!$db->query()) {
-			return JError::raiseWarning( 500, $db->getError() );
+			return XiptError::raiseWarning( 500, $db->getError() );
 		}
 	}
 	
@@ -115,7 +115,7 @@ class XiptModelProfiletypes extends XiptModel
 		$db->setQuery( $query );
 		
 		if (!$db->query()) {
-			return JError::raiseWarning( 500, $db->getError() );
+			return XiptError::raiseWarning( 500, $db->getError() );
 		}
 	}
 	
@@ -129,7 +129,7 @@ class XiptModelProfiletypes extends XiptModel
 		$db->setQuery( $query );
 		
 		if (!$db->query()) {
-			return JError::raiseWarning( 500, $db->getError() );
+			return XiptError::raiseWarning( 500, $db->getError() );
 		}
 	}
 	
@@ -161,7 +161,7 @@ class XiptModelProfiletypes extends XiptModel
 			$db->setQuery( $query );
 					
 			if (!$db->query()) {
-						return JError::raiseWarning( 500, $db->getError() );
+						return XiptError::raiseWarning( 500, $db->getError() );
 					}	
 		}
 	}

@@ -708,7 +708,7 @@ class XiptLibUtils
 
 		if(!$params)
 		{
-		    JError::raiseWarning('XIPT-SYSTEM-ERROR','JSPT PARAMS ARE NULL');
+		    XiptError::raiseWarning('XIPT-SYSTEM-ERROR','JSPT PARAMS ARE NULL');
 		}
 		
 		if(empty($paramName))
@@ -770,46 +770,18 @@ class XiptLibUtils
 		switch($severity)
 		{
 			case 'ERROR':
-				JError::raiseError($xiptErrorCode, $errMsg);
+				XiptError::raiseError($xiptErrorCode, $errMsg);
 				break;
 				
 			case 'WARNING':
-				JError::raiseWarning($xiptErrorCode, $errMsg);
+				XiptError::raiseWarning($xiptErrorCode, $errMsg);
 				break;
 				
 			case 'NOTICE':
 			default:
-				JError::raiseNotice($xiptErrorCode, $errMsg);
+				XiptError::raiseNotice($xiptErrorCode, $errMsg);
 				break;
 		}
 		return false;
 	}
-
-
-
-
-/* =====   Currently Not Required  ====
- *
- * function getEditInfo()
-	{
-     $editor =& JFactory::getUser();
-       
-	   $editDataOf = JRequest::getVar('editDataOf', 0 , 'GET');
-	   
-	   if($editDataOf == '')
-	       $editDataOf = $editor->id;
-	   
-		
-		$editInfo = new stdClass();
-		 
-		 // setting object with actual values
-	     $editInfo->editDataOf = $editDataOf;
-	     $editInfo->editDataOfName = JFactory::getUser($editDataOf)->name;
-	     $editInfo->editorName = JFactory::getUser($editor->id)->name;
-	     $editInfo->profiletypeId = XiptLibProfiletypes::getUserProfiletypeFromUserID($editDataOf);
-	     $editInfo->editorId = $editor->id;
-	     $editInfo->canEdit = XiptLibJomsocial::checkEditAccessRight($editor->id , $editDataOf );
-      
-      return $editInfo;
-  }*/
 }

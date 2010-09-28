@@ -11,7 +11,6 @@ defined('_JEXEC') or die('Restricted access');
  */
 class XiptTableProfiletypes extends XiptTable
 {
-
 	var $id					= null;
 	var $name				= null;
 	var $tip				= null;
@@ -30,19 +29,6 @@ class XiptTableProfiletypes extends XiptTable
 	var $visible			= null;
 	var $config             = null;
 	
-	function __construct(&$db)
-	{
-		parent::__construct('#__xipt_profiletypes','id', $db);
-	}
-	
-	/**
-	 * Overrides Joomla's load method so that we can define proper values
-	 * upon loading a new entry
-	 * 
-	 * @param	int	id	The id of the field
-	 * 	 
-	 * @return boolean true on success
-	 **/
 	function load( $id)
 	{
 		if( $id == 0 )
@@ -72,92 +58,10 @@ class XiptTableProfiletypes extends XiptTable
 			return parent::load( $id );
 		}
 	}
-
-	function delete()
-	{
 	
-		$db		=& $this->getDBO();
-		
-		if(empty($this->ordering))
-			$this->ordering='0';
-			
-		$query	= "UPDATE " . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
-				. 'SET ordering = (ordering -1 ) '
-				. 'WHERE ' . $db->nameQuote( 'ordering' ) . '>' . $this->ordering;
-				
-		$db->setQuery( $query );
-		//print_r($query);
-		$db->query();
-		
-		return parent::delete();
-	}
-	
-	/**
-	 * Overrides Joomla's JTable store method so that we can define proper values
-	 * upon saving a new entry
-	 * 
-	 * @return boolean true on success
-	 **/
-	function store( )
+	function __construct(&$db)
 	{
-		$db		=& $this->getDBO();
-		//For new records need to update the ordering.
- 		if( $this->id == 0 )
- 		{
- 			$query	= 'SELECT COUNT(' . $db->nameQuote('ordering') . ') FROM ' . $db->nameQuote('#__xipt_profiletypes');
-				
- 			$db->setQuery( $query );
- 			$this->ordering	= $db->loadResult() + 1;
-			//print_r("ordering is ".$this->ordering);
- 		}
-		else
-		{
-			//print_r("updating record ". $this->id);		
-		}
-		
- 		return parent::store();
+		parent::__construct('#__xipt_profiletypes','id');
 	}
 
-	/**
-	 * Tests the specific field if value exists
-	 * 
-	 * @param	string	
-	 **/
-	function _exists( $field , $value )
-	{
-		$db		=& $this->getDBO();
-		$query	= 'SELECT COUNT(*) FROM '
-				. $db->nameQuote( '#__xipt_profiletypes' )
-				. 'WHERE ' . $db->nameQuote( $field ) . '=' . $db->Quote( $value );
-		
-		$db->setQuery( $query );
-
-		$result	= ( $db->loadResult() > 0 ) ? true : false ;
-		
-		return $result;
-	}
-
-	/**
-	 * Bind AJAX data into object's property
-	 * 
-	 * @param	array	data	The data for this field
-	 **/
-	function bindAjaxPost( $data )
-	{
-			$this->name			= $data['name'];
-			$this->tip			= $data['tip'];
-			$this->published	= $data['published'];
-			$this->template		= $data['template'];
-			$this->jusertype	= $data['jusertype'];
-			$this->privacy		= $data['privacy'];
-			//$this->avatar		= $data['avatar'];
-			//$this->watermark	= $data['watermark'];
-			$this->approve		= $data['approve'];
-			$this->allowt		= $data['allowt'];
-			$this->group 		= $data['group'];
-			$this->watermarkparams 		= $data['watermarkparams'];
-			$this->visible		= $data['visible'];
-			$this->config		= $data['config'];
-			//$this->ordering		= $data['ordering'];
-	}
 }

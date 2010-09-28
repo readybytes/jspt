@@ -23,7 +23,7 @@ class XiptModelUser extends XiptModel
 
 		if($db->getErrorNum())
 		{
-			JError::raiseError( 500, $db->stderr());
+			XiptError::raiseError( 500, $db->stderr());
 		}
 	}
 	
@@ -46,7 +46,7 @@ class XiptModelUser extends XiptModel
 		if(!$db->getErrorNum())
 		    return true;
 		
-		JError::raiseError( 500, $db->stderr());
+		XiptError::raiseError( 500, $db->stderr());
 		return false;
 	}
 }

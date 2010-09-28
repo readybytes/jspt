@@ -1,20 +1,47 @@
-../packages/tmp/site/helpers/profiletypes.php:360:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
-../packages/tmp/site/helpers/profiletypes.php:499:				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
-../packages/tmp/site/helpers/setup.php:489:    		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
-../packages/tmp/site/controllers/registration.php:40:				$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
-../packages/tmp/site/libraries/lib/pluginhandler.php:500:			$link = "index.php?option=com_xipt&view=registration";
-../packages/tmp/site/libraries/lib/pluginhandler.php:511:				$this->mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
-../packages/tmp/site/libraries/lib/pluginhandler.php:527:			    $url = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
-../packages/tmp/admin/controllers/profiletypes.php:55:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
-../packages/tmp/admin/controllers/profiletypes.php:71:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-../packages/tmp/admin/controllers/profiletypes.php:296:					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
-../packages/tmp/admin/controllers/profiletypes.php:308:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-../packages/tmp/admin/controllers/profiletypes.php:332:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-../packages/tmp/admin/controllers/profiletypes.php:356:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-../packages/tmp/admin/controllers/profiletypes.php:380:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-../packages/tmp/admin/controllers/profiletypes.php:404:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-../packages/tmp/admin/controllers/profiletypes.php:436:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
-../packages/tmp/admin/controllers/profiletypes.php:455:		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');
+../packages/tmp/admin/views/configuration/view.html.php:87:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
+../packages/tmp/admin/views/configuration/view.html.php:124:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/configuration/tmpl/default.php:30:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+../packages/tmp/admin/views/configuration/tmpl/default.php:69:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=edit&name='.$field->name.'&editId='.$field->id, false); ?>
+../packages/tmp/admin/views/configuration/tmpl/default.php:76:					 $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=reset&profileId='.$field->id, false); ?>
+../packages/tmp/admin/views/applications/view.html.php:36:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
+../packages/tmp/admin/views/applications/view.html.php:50:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/applications/tmpl/default.php:10:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+../packages/tmp/admin/views/applications/tmpl/default.php:50:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&editId='.$field->id, false); ?>
+../packages/tmp/admin/views/aclrules/view.html.php:44:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/aclrules/tmpl/default.php:35:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+../packages/tmp/admin/views/aclrules/tmpl/default.php:78:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=renderacl&editId='.$rule->id, false); ?>
+../packages/tmp/admin/views/aclrules/tmpl/aclrules.edit.php:12:JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=aclrules');
+../packages/tmp/admin/views/aclrules/tmpl/acl.add.php:10:JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=aclrules');
+../packages/tmp/admin/views/aclrules/tmpl/acl.add.php:48:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm" onSubmit="return checkForm();" >
+../packages/tmp/admin/views/settings/view.html.php:27:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/profiletypes/view.html.php:92:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profiletypes');
+../packages/tmp/admin/views/profiletypes/view.html.php:119:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/profiletypes/tmpl/default.php:30:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+../packages/tmp/admin/views/profiletypes/tmpl/default.php:94:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$field->id, false); ?>
+../packages/tmp/admin/views/cpanel/view.html.php:52:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/cpanel/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+../packages/tmp/admin/views/cpanel/tmpl/default.php:14:				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', JText::_('SETTINGS'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:15:				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', JText::_('JSCONFIGURATION'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:16:				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', JText::_('SETUP'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:17:				<?php echo $this->addIcon('profiletypes.gif','index.php?option=com_xipt&view=profiletypes', JText::_('PROFILETYPES'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:18:				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', JText::_('ACCESS CONTROL'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:19:				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', JText::_('APPLICATIONS'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:20:				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', JText::_('PROFILE FIELDS'));?>
+../packages/tmp/admin/views/profilefields/view.html.php:42:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profilefields');
+../packages/tmp/admin/views/profilefields/view.html.php:63:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/profilefields/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
+../packages/tmp/admin/views/profilefields/tmpl/default.php:49:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
+../packages/tmp/admin/views/profilefields/tmpl/default.php:80:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
+../packages/tmp/admin/views/setup/view.html.php:24:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
+../packages/tmp/admin/views/setup/view.html.php:36:		$link = XiptRoute::_("index.php?option=com_xipt&view=settings",false);
+../packages/tmp/admin/views/setup/view.html.php:48:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
+../packages/tmp/admin/views/setup/view.html.php:60:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
+../packages/tmp/admin/views/setup/view.html.php:71:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);
+../packages/tmp/admin/views/setup/view.html.php:83:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=enableplugin",false);
+../packages/tmp/admin/views/setup/view.html.php:94:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
+../packages/tmp/admin/views/setup/view.html.php:104:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
+../packages/tmp/admin/views/setup/view.html.php:118:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
+../packages/tmp/admin/views/setup/tmpl/default.php:10:<form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
 ../packages/tmp/admin/controllers/setup.php:46:		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
 ../packages/tmp/admin/controllers/setup.php:53:    	$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false));
 ../packages/tmp/admin/controllers/setup.php:80:		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
@@ -25,61 +52,34 @@
 ../packages/tmp/admin/controllers/setup.php:325:		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg); 
 ../packages/tmp/admin/controllers/setup.php:340:		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
 ../packages/tmp/admin/controllers/setup.php:353:		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false));
+../packages/tmp/admin/controllers/profilefields.php:90:		$link = XiptRoute::_('index.php?option=com_xipt&view=profilefields', false);
+../packages/tmp/admin/controllers/settings.php:46:		$mainframe->redirect("index.php?option=com_xipt&view=settings",$data['msg']);
+../packages/tmp/admin/controllers/profiletypes.php:55:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
+../packages/tmp/admin/controllers/profiletypes.php:71:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+../packages/tmp/admin/controllers/profiletypes.php:296:					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
+../packages/tmp/admin/controllers/profiletypes.php:308:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+../packages/tmp/admin/controllers/profiletypes.php:332:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+../packages/tmp/admin/controllers/profiletypes.php:356:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+../packages/tmp/admin/controllers/profiletypes.php:380:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+../packages/tmp/admin/controllers/profiletypes.php:404:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+../packages/tmp/admin/controllers/profiletypes.php:436:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
+../packages/tmp/admin/controllers/profiletypes.php:455:		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');
+../packages/tmp/admin/controllers/applications.php:79:		$link = XiptRoute::_('index.php?option=com_xipt&view=Applications', false);
+../packages/tmp/admin/controllers/configuration.php:78:		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
+../packages/tmp/admin/controllers/configuration.php:108:		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
+../packages/tmp/admin/controllers/configuration.php:134:					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
+../packages/tmp/admin/controllers/configuration.php:144:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+../packages/tmp/admin/controllers/configuration.php:177:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
 ../packages/tmp/admin/controllers/aclrules.php:152:		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 ../packages/tmp/admin/controllers/aclrules.php:161:		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=renderacl&editId='.$data['id'], false);
 ../packages/tmp/admin/controllers/aclrules.php:189:					$mainframe->redirect( 'index.php?option=com_xipt&view=aclrules' , $message);
 ../packages/tmp/admin/controllers/aclrules.php:199:		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 ../packages/tmp/admin/controllers/aclrules.php:223:		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 ../packages/tmp/admin/controllers/aclrules.php:247:		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
-../packages/tmp/admin/controllers/settings.php:46:		$mainframe->redirect("index.php?option=com_xipt&view=settings",$data['msg']);
-../packages/tmp/admin/controllers/profilefields.php:90:		$link = XiptRoute::_('index.php?option=com_xipt&view=profilefields', false);
-../packages/tmp/admin/controllers/configuration.php:78:		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-../packages/tmp/admin/controllers/configuration.php:108:		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-../packages/tmp/admin/controllers/configuration.php:134:					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
-../packages/tmp/admin/controllers/configuration.php:144:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-../packages/tmp/admin/controllers/configuration.php:177:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
-../packages/tmp/admin/controllers/applications.php:79:		$link = XiptRoute::_('index.php?option=com_xipt&view=Applications', false);
-../packages/tmp/admin/views/settings/view.html.php:27:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-../packages/tmp/admin/views/profiletypes/tmpl/default.php:30:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
-../packages/tmp/admin/views/profiletypes/tmpl/default.php:94:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$field->id, false); ?>
-../packages/tmp/admin/views/profiletypes/view.html.php:92:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profiletypes');
-../packages/tmp/admin/views/profiletypes/view.html.php:119:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-../packages/tmp/admin/views/cpanel/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
-../packages/tmp/admin/views/cpanel/tmpl/default.php:14:				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', JText::_('SETTINGS'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:15:				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', JText::_('JSCONFIGURATION'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:16:				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', JText::_('SETUP'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:17:				<?php echo $this->addIcon('profiletypes.gif','index.php?option=com_xipt&view=profiletypes', JText::_('PROFILETYPES'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:18:				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', JText::_('ACCESS CONTROL'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:19:				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', JText::_('APPLICATIONS'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:20:				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', JText::_('PROFILE FIELDS'));?>
-../packages/tmp/admin/views/cpanel/view.html.php:52:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-../packages/tmp/admin/views/applications/tmpl/default.php:10:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
-../packages/tmp/admin/views/applications/tmpl/default.php:50:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&editId='.$field->id, false); ?>
-../packages/tmp/admin/views/applications/view.html.php:36:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
-../packages/tmp/admin/views/applications/view.html.php:50:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-../packages/tmp/admin/views/profilefields/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
-../packages/tmp/admin/views/profilefields/tmpl/default.php:49:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
-../packages/tmp/admin/views/profilefields/tmpl/default.php:80:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
-../packages/tmp/admin/views/profilefields/view.html.php:42:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profilefields');
-../packages/tmp/admin/views/profilefields/view.html.php:63:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-../packages/tmp/admin/views/aclrules/tmpl/acl.add.php:10:JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=aclrules');
-../packages/tmp/admin/views/aclrules/tmpl/acl.add.php:48:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm" onSubmit="return checkForm();" >
-../packages/tmp/admin/views/aclrules/tmpl/default.php:35:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
-../packages/tmp/admin/views/aclrules/tmpl/default.php:78:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=renderacl&editId='.$rule->id, false); ?>
-../packages/tmp/admin/views/aclrules/tmpl/aclrules.edit.php:12:JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=aclrules');
-../packages/tmp/admin/views/aclrules/view.html.php:44:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-../packages/tmp/admin/views/setup/tmpl/default.php:10:<form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
-../packages/tmp/admin/views/setup/view.html.php:24:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
-../packages/tmp/admin/views/setup/view.html.php:36:		$link = XiptRoute::_("index.php?option=com_xipt&view=settings",false);
-../packages/tmp/admin/views/setup/view.html.php:48:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
-../packages/tmp/admin/views/setup/view.html.php:60:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
-../packages/tmp/admin/views/setup/view.html.php:71:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);
-../packages/tmp/admin/views/setup/view.html.php:83:		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=enableplugin",false);
-../packages/tmp/admin/views/setup/view.html.php:94:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
-../packages/tmp/admin/views/setup/view.html.php:104:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
-../packages/tmp/admin/views/setup/view.html.php:118:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
-../packages/tmp/admin/views/configuration/tmpl/default.php:30:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
-../packages/tmp/admin/views/configuration/tmpl/default.php:69:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=edit&name='.$field->name.'&editId='.$field->id, false); ?>
-../packages/tmp/admin/views/configuration/tmpl/default.php:76:					 $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=reset&profileId='.$field->id, false); ?>
-../packages/tmp/admin/views/configuration/view.html.php:87:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
-../packages/tmp/admin/views/configuration/view.html.php:124:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/site/helpers/setup.php:489:    		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+../packages/tmp/site/helpers/profiletypes.php:360:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
+../packages/tmp/site/helpers/profiletypes.php:499:				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
+../packages/tmp/site/controllers/registration.php:40:				$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
+../packages/tmp/site/libraries/lib/pluginhandler.php:500:			$link = "index.php?option=com_xipt&view=registration";
+../packages/tmp/site/libraries/lib/pluginhandler.php:511:				$this->mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
+../packages/tmp/site/libraries/lib/pluginhandler.php:527:			    $url = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);

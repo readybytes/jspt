@@ -72,7 +72,7 @@ class XiptLibJomsocial
 		}
 		
 		// With CUSER->save() nothing is returned
-		//JError::raiseError('XIPTERR', JText::_( $user->getError()));
+		//XiptError::raiseError('XIPTERR', JText::_( $user->getError()));
 		self::reloadCUser($userid);
 		return true;
 	}
@@ -146,7 +146,7 @@ class XiptLibJomsocial
 		
 		$field_id = $res->id;
 		// skip these calls from backend
-		XiptLibUtils::XAssert($res) || JError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
+		XiptLibUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
 		
 		//if row does not exist
 		$db		=& JFactory::getDBO();
@@ -166,7 +166,7 @@ class XiptLibJomsocial
 			$db->insertObject('#__community_fields_values',$res,'id');
 			
 			if($db->getErrorNum()){
-					JError::raiseError( 500, $db->stderr());
+					XiptError::raiseError( 500, $db->stderr());
 			}
 			
 			return true;
@@ -179,7 +179,7 @@ class XiptLibJomsocial
 		$db->updateObject( '#__community_fields_values', $res, 'id');
 		
 		if($db->getErrorNum()){
-				JError::raiseError( 500, $db->stderr());
+				XiptError::raiseError( 500, $db->stderr());
 		}
 		
 		return true;

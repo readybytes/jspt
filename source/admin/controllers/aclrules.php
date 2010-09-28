@@ -100,7 +100,7 @@ class XiptControllerAclRules extends XiptController
 		$id = JRequest::getVar('editId', 0 );
 		if( $method == 'GET' )
 		{
-			JError::raiseError( 500 , JText::_('ACCESS METHOD NOT ALLOWED') );
+			XiptError::raiseError( 500 , JText::_('ACCESS METHOD NOT ALLOWED') );
 			return;
 		}
 		
@@ -211,7 +211,7 @@ class XiptControllerAclRules extends XiptController
 		$count			= count( $ids );
 
 		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
 		$aclModel	= XiptFactory::getModel( 'aclrules' );
@@ -235,7 +235,7 @@ class XiptControllerAclRules extends XiptController
 		$count			= count( $ids );
 
 		if (empty( $ids )) {
-			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
 		}
 		
 		$aclModel	= XiptFactory::getModel( 'aclrules' );
