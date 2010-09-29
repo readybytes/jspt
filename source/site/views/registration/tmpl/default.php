@@ -6,7 +6,7 @@
 // Disallow direct access to this file
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
 ?>
-<form action="<?php echo JRoute::_( 'index.php?option=com_xipt&view=registration',false ); ?>" method="post" name="ptypeForm">
+<form action="<?php echo XiptRoute::_( 'index.php?option=com_xipt&view=registration&reset=true',false ); ?>" method="post" name="ptypeForm">
  
 	<div class="registerProfileType">
 	<h3 id="Title"><?php

@@ -27,6 +27,7 @@
 		<file>test/unit/front/appsTest.php</file>
 		<file>test/unit/front/profileFieldControlTest.php</file>
 		<file>test/unit/front/coreTest.php</file>
+		<file>test/unit/front/aecTest.php</file>
 		
 	
 	 </testsuite>

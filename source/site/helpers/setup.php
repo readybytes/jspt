@@ -345,7 +345,7 @@ class XiptHelperSetup
 	}
 	
 	function isAECMIRequired(){
-		if(!XiptLibAec::_checkAECExistance())
+		if(!XiptLibAec::isAecExists())
 			return false;
 		
 		$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';

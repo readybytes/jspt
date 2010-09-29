@@ -37,7 +37,7 @@ class redirect extends XiptAclBase
 		
 	function checkAclAccesibility(&$data)
 	{
-		$aecExists = XiptLibAec::_checkAECExistance();
+		$aecExists = XiptLibAec::isAecExists();
 		$integrateAEC   = XiptLibUtils::getParams('aec_integrate',0);
 
 		// pType already selected

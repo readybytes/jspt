@@ -34,7 +34,7 @@ class XiptLibPluginhandler
 	//if value exist in session then return ptype else return false
 	function isPTypeExistInSession()
 	{
-		$aecExists 		= XiptLibAec::_checkAECExistance();
+		$aecExists 		= XiptLibAec::isAecExists();
 		$integrateAEC   = XiptLibUtils::getParams('aec_integrate',0);
 		if($aecExists && $integrateAEC)
 		{
@@ -488,8 +488,6 @@ class XiptLibPluginhandler
 	/*Get decision to show ptype on registration session or not */
 	function integrateRegistrationWithPType()
 	{
-		//set up return url to return user to registration page again
-	    XiptLibUtils::setReturnURL();
 	    XiptLibAec::getProfiletypeInfoFromAEC() ;
 
 		$show_ptype_during_reg = XiptLibUtils::getParams('show_ptype_during_reg', 0);
@@ -513,7 +511,7 @@ class XiptLibPluginhandler
 			}
 
 
-			$aecExists = XiptLibAec::_checkAECExistance();
+			$aecExists = XiptLibAec::isAecExists();
 			$integrateAEC   = XiptLibUtils::getParams('aec_integrate',0);
 
 			// pType already selected
@@ -565,7 +563,7 @@ class XiptLibPluginhandler
 	        return;
 
 	    // aec not installed.
-	    $aecExists = XiptLibAec::_checkAECExistance();
+	    $aecExists = XiptLibAec::isAecExists();
 	    if(!$aecExists)
 	        return;
 
@@ -662,7 +660,7 @@ class XiptLibPluginhandler
  			return true;
  		else if(XiptHelperSetup::migrateAvatarRequired())
  			return true;
- 		else if(XiptLibAec::_checkAECExistance() && XiptHelperSetup::isAECMIRequired())
+ 		else if(XiptLibAec::isAecExists() && XiptHelperSetup::isAECMIRequired())
  			return true;
  		else 
  		{

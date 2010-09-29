@@ -37,6 +37,10 @@
 				<option value="1">Visitor</option>
 				<option value="2">Both</option>
 		</param>
+		<param name="user_reg" type="radio" default="jomsocial" label="AFTER PROFILETYPE SELECTION GO TO REGISTRATION" description="AFTER PROFILETYPE SELECTION GO TO REGISTRATION.DESC">
+               <option value="jomsocial">JomSocial</option>
+               <option value="joomla">Joomla</option>
+       </param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="@spacer" type="spacer" default="AEC Integration Settings" label="" description="" />
 			<param name="aec_integrate" type="radio" default="0" label="INTEGRATE AEC" description="INTEGRATE AEC.DESC">

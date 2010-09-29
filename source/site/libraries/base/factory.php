@@ -19,16 +19,6 @@ class XiptFactory
         return $instance;
     }
     
-    function getLibraryAEC()
-    {
-        static $instance =null;
-        
-        if($instance==null)
-            $instance = new XiptLibAec();
-        
-        return $instance;
-    }
-    
     function getXiptUser($userid)
     {
         static $instance = array();

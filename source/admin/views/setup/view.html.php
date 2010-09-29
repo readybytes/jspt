@@ -113,7 +113,7 @@ class XiptViewSetup extends XiptView
 			
 			
 		/*Display only if user have AEC installed*/
-		if(XiptLibAec::_checkAECExistance()){
+		if(XiptLibAec::isAecExists()){
 			
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
 			if(XiptHelperSetup::isAECMIRequired()) {

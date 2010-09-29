@@ -24,7 +24,7 @@ class XiptLibUtils
 			 * to plan selection page after login
 			 * XITODO : we will remove this when aec support fbc
 			 */	
-		$aecExists = XiptLibAec::_checkAECExistance();
+		$aecExists = XiptLibAec::isAecExists();
 		if($aecExists)
 			$mySess->set('FROM_FACEBOOK',true, 'XIPT');
 		
@@ -719,42 +719,17 @@ class XiptLibUtils
 		return $result;
 	}
 	
-	
-	function getCurrentURL()
-	{
-		// TO DO : Get url
-		$url = JFactory::getURI()->toString( array('scheme', 'user', 'pass', 'host', 'port', 'path', 'query', 'fragment'));
-		return $url;
-	}
-
-	//use it everywhere. 
-	function getReturnURL()
-	{
-	    $mySess    = JFactory::getSession();
-	    $retURL     = $mySess->get('RETURL', 'XIPT_NOT_DEFINED', 'XIPT');
-	    $defaultURL	= XiptRoute::_('index.php?option=com_community&view=register',false);
-	    
-		if($retURL == 'XIPT_NOT_DEFINED')
-		    $redirectURL = $defaultURL;
-		else
-			$redirectURL = base64_decode($retURL);
-
-		if($redirectURL == self::getCurrentURL())
-		    XiptLibUtils::XAssert(0);
-		    
-		return $redirectURL;
-	}
-	
-	function setReturnURL()
-	{
-	    
-	    $mySess    = JFactory::getSession();
-	    if($mySess->get('RETURL',false ,'XIPT'))
-	        return;
-	    
-	    $mySess->set('RETURL', base64_encode(self::getCurrentURL()), 'XIPT');
-	    return;
-	}
+   function getReturnURL()
+   {
+          $regType = self::getParams('user_reg');
+         
+          if($regType === 'jomsocial')
+             $redirectURL = XiPTRoute::_('index.php?option=com_community&view=register', false);
+          else
+              $redirectURL = XiPTRoute::_('index.php?option=com_user&view=register', false);
+                 
+          return $redirectURL;
+      }
 	
 	function XAssert($condition, $errMsg="", $severity="ERROR" ,$file=__FILE__, $function=__FUNCTION__,$line=__LINE__)
 	{
