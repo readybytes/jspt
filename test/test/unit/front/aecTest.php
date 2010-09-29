@@ -8,22 +8,94 @@ class AecTest extends XiUnitTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
+  function testGetProfiletypeInfoFromAEC()
+  {
+  		//default params
+  		$param 					= array();
+		$param['hidden'] 		= false;
+		$param['profiletype'] 	= 1;
+		$param['plan'] 			= '';
+		$param['planid'] 		= 0;
+		$param['planSelected'] 	= false;
+		
+		//when session and usages are not set.
+	  	$this->assertEquals(XiptLibAec::getProfiletypeInfoFromAEC(), $param);
+	  	
+	  	$mySess = JFactory::getSession();
+	  	$mySess->set('AEC_REG_PLANID', 4 ,'XIPT');
+  	
+  	    $param 					= array();
+		$param['hidden'] 		= false;
+		$param['profiletype'] 	= 3;
+		$param['plan'] 			= 'AEC Plan 002 (ID 4)';
+		$param['planid'] 		= 4;
+		$param['planSelected'] 	= true;
+		
+		//when session is set and usages is not set.
+		$this->assertEquals(XiptLibAec::getProfiletypeInfoFromAEC(), $param);
+		
+		//default params
+  		$param 					= array();
+		$param['hidden'] 		= false;
+		$param['profiletype'] 	= 3;
+		$param['plan'] 			= 'AEC Plan 002 (ID 4)';
+		$param['planid'] 		= 4;
+		$param['planSelected'] 	= true;
+		
+		//when session is not set and usage is set.
+	  	$this->assertEquals(XiptLibAec::getProfiletypeInfoFromAEC(4), $param);
+	  	
+	  	$mySess = JFactory::getSession();
+	  	$mySess->set('AEC_REG_PLANID', 2 ,'XIPT');
+  		
+  	    $param 					= array();
+		$param['hidden'] 		= false;
+		$param['profiletype'] 	= 3;
+		$param['plan'] 			= 'AEC Plan 002 (ID 4)';
+		$param['planid'] 		= 4;
+		$param['planSelected'] 	= true;
+		
+		//when session and usages are set.
+		$this->assertEquals(XiptLibAec::getProfiletypeInfoFromAEC(4), $param);
+  }
+  
   function testGetPlanName()
   {
-  	//get Aec plan name of plan id 2
-  	$this->assertEquals(XiptLibAec::getPlanName(2), 'AEC Plan 001 (ID 2)');
+  	$planid   = array(1, 2, 4, 5, 13);
+  	$planName = array('INVALID PLAN', 'AEC Plan 001 (ID 2)',
+  	 				'AEC Plan 002 (ID 4)', 'AEC Plan 003 (ID 5)', 
+  	 				'AEC Plan 004 (ID 13)');
   	
-  	//get Aec plan name of plan id 4
-  	$this->assertEquals(XiptLibAec::getPlanName(4), 'AEC Plan 002 (ID 4)');
+  	foreach($planid as $key=>$value)
+  	{
+  		$result = self::checkGetPlanName($value);
+  		$this->assertEquals($result, $planName[$key]);
+  	}
+  		
+  }
+  
+  function checkGetPlanName($planid)
+  {
+  	$result = XiptLibAec::getPlanName($planid);
+  	return $result;
   }
   
   function testGetProfiletype()
   {
-  	//get assigned profiletype to plan of plan id 2
-  	$this->assertEquals(XiptLibAec::getProfiletype(2), 1);
+    $planid      = array(1, 2, 4, 5, 13);
+  	$profiletype = array(1, 3, 3, 4, 2);
   	
-  	//get assigned profiletype to plan of plan id 4
-  	$this->assertEquals(XiptLibAec::getProfiletype(4), 3);
+  	foreach($planid as $key=>$value)
+  	{
+  		$result = self::checkGetProfiletype($value);
+  		$this->assertEquals($result, $profiletype[$key]);
+  	}
+  }
+  
+  function checkGetProfiletype($planid)
+  {
+  	$result = XiptLibAec::getProfiletype($planid);
+  	return $result;
   }
   
   function testGetMIntegration()
@@ -33,6 +105,16 @@ class AecTest extends XiUnitTestCase
   	
   	//get microintegration of planid 13
   	$this->assertEquals(XiptLibAec::getMIntegration(13), array(8));
+  	
+  	//return blank array if plan id does not exist
+  	$this->assertEquals(XiptLibAec::getMIntegration(1), array());
+  }
+  
+  function testGetAecMessage()
+  {
+  	$mySess = JFactory::getSession();
+  	$mySess->set('AEC_REG_PLANID', 4 ,'XIPT');
+  	$this->assertEquals(XiptLibAec::getAecMessage(),'Your current profiletype is PROFILETYPE-3 , to change profiletype');
   }
   
   function testIsPlanExists()
@@ -40,49 +122,59 @@ class AecTest extends XiUnitTestCase
   	//return true if plan exists
   	$this->assertTrue(XiptLibAec::isPlanExists(2));
   	
+  	//return true if plan exists
+  	$this->assertTrue(XiptLibAec::isPlanExists(4));
+  	
   	//return false if plan does not exist
   	$this->assertFalse(XiptLibAec::isPlanExists(1));
   }
   
+  function testIsAecExists()
+  {
+  	JFolder::move('com_acctexp', 'com_acctexp11', JPATH_ROOT . DS . 'components');
+  	$this->assertFalse(XiptLibAec::isAecExists());
+  	
+  	JFolder::move('com_acctexp11', 'com_acctexp', JPATH_ROOT . DS . 'components');
+  	$this->assertTrue(XiptLibAec::isAecExists());
+  	
+  	
+  }
+  
   function testGetExistingMI()
   {
-  		$this->assertEquals(XiptLibAec::getExistingMI(array(6, 8)), array(6, 8));
+  	//this will return MIs present in MI table
+  	$this->assertEquals(XiptLibAec::getExistingMI(array(1, 6, 8)), array(6, 8));
   }
   
   function testGetPlan()
   {
   	$plan = XiptLibAec::getPlan(2);
   	
+  	$plan->micro_integrations 	= unserialize(base64_decode($plan->micro_integrations));
+  	
   	$result = new stdClass();
   	$result->id 				= 2;
-  	$result->active 			= 1;
-  	$result->visible 			= 1;
-  	$result->ordering 			= 1;
   	$result->name 				= 'AEC Plan 001 (ID 2)';
-  	$result->desc 				= "<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>";
-  	$result->email_desc 		= '';
-  	$result->params 			= 'YToyMzp7czo5OiJmdWxsX2ZyZWUiO2k6MTtzOjExOiJmdWxsX2Ftb3VudCI7czo0OiIwLjAwIjtzOjExOiJmdWxsX3BlcmlvZCI7czoxOiIzIjtzOjE1OiJmdWxsX3BlcmlvZHVuaXQiO3M6MToiRCI7czoxMDoidHJpYWxfZnJlZSI7czoxOiIwIjtzOjEyOiJ0cmlhbF9hbW91bnQiO3M6MDoiIjtzOjEyOiJ0cmlhbF9wZXJpb2QiO3M6MDoiIjtzOjE2OiJ0cmlhbF9wZXJpb2R1bml0IjtzOjE6IkQiO3M6MTE6ImdpZF9lbmFibGVkIjtzOjE6IjEiO3M6MzoiZ2lkIjtzOjI6IjE4IjtzOjg6ImxpZmV0aW1lIjtzOjE6IjAiO3M6MTU6InN0YW5kYXJkX3BhcmVudCI7czoxOiIwIjtzOjg6ImZhbGxiYWNrIjtzOjE6IjAiO3M6MTE6Im1ha2VfYWN0aXZlIjtzOjE6IjEiO3M6MTI6Im1ha2VfcHJpbWFyeSI7czoxOiIxIjtzOjE1OiJ1cGRhdGVfZXhpc3RpbmciO3M6MToiMSI7czoxMjoiY3VzdG9tdGhhbmtzIjtzOjA6IiI7czozMDoiY3VzdG9tdGV4dF90aGFua3Nfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTg6ImN1c3RvbWFtb3VudGZvcm1hdCI7czozNzM6InthZWNqc29ufXsiY21kIjoiY29uZGl0aW9uIiwidmFycyI6W3siY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50LmZyZWV0cmlhbCJ9LHsiY21kIjoiY29uY2F0IiwidmFycyI6W3siY21kIjoiY29uc3RhbnQiLCJ2YXJzIjoiX0NPTkZJUk1fRlJFRVRSSUFMIn0sIsKgIix7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5tZXRob2RfbmFtZSJ9XX0seyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuYW1vdW50In0seyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuY3VycmVuY3lfc3ltYm9sIn0sIsKgIix7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5tZXRob2RfbmFtZSJ9XX1dfXsvYWVjanNvbn0iO3M6MTc6ImN1c3RvbXRleHRfdGhhbmtzIjtzOjA6IiI7czoxOToib3ZlcnJpZGVfYWN0aXZhdGlvbiI7czoxOiIwIjtzOjE2OiJvdmVycmlkZV9yZWdtYWlsIjtzOjE6IjAiO3M6MTA6InByb2Nlc3NvcnMiO3M6MDoiIjt9';
-  	$result->custom_params 		= 'YToxOntzOjk6ImFkZF9ncm91cCI7czoxOiIwIjt9';
-  	$result->restrictions 		= 'YTo0NDp7czoxNDoibWluZ2lkX2VuYWJsZWQiO3M6MToiMCI7czo2OiJtaW5naWQiO3M6MjoiMTgiO3M6MTQ6ImZpeGdpZF9lbmFibGVkIjtzOjE6IjAiO3M6NjoiZml4Z2lkIjtzOjI6IjE5IjtzOjE0OiJtYXhnaWRfZW5hYmxlZCI7czoxOiIwIjtzOjY6Im1heGdpZCI7czoyOiIyMSI7czoyNDoicHJldmlvdXNwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTY6InByZXZpb3VzcGxhbl9yZXEiO2E6MTp7aTowO3M6MToiMCI7fXM6MjM6ImN1cnJlbnRwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTU6ImN1cnJlbnRwbGFuX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czoyMzoib3ZlcmFsbHBsYW5fcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNToib3ZlcmFsbHBsYW5fcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJwcmV2aW91c3BsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToicHJldmlvdXNwbGFuX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czozMjoiY3VycmVudHBsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNDoiY3VycmVudHBsYW5fcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjMyOiJvdmVyYWxscGxhbl9yZXFfZW5hYmxlZF9leGNsdWRlZCI7czoxOiIwIjtzOjI0OiJvdmVyYWxscGxhbl9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjE6InVzZWRfcGxhbl9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIwOiJ1c2VkX3BsYW5fbWluX2Ftb3VudCI7czoxOiIwIjtzOjEzOiJ1c2VkX3BsYW5fbWluIjthOjE6e2k6MDtzOjE6IjAiO31zOjIxOiJ1c2VkX3BsYW5fbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMDoidXNlZF9wbGFuX21heF9hbW91bnQiO3M6MToiMCI7czoxMzoidXNlZF9wbGFuX21heCI7YToxOntpOjA7czoxOiIwIjt9czoyNzoiY3VzdG9tX3Jlc3RyaWN0aW9uc19lbmFibGVkIjtzOjE6IjAiO3M6MTk6ImN1c3RvbV9yZXN0cmljdGlvbnMiO3M6MDoiIjtzOjI1OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTc6InByZXZpb3VzZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjM0OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjY6InByZXZpb3VzZ3JvdXBfcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjI0OiJjdXJyZW50Z3JvdXBfcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNjoiY3VycmVudGdyb3VwX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czozMzoiY3VycmVudGdyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjU6ImN1cnJlbnRncm91cF9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjQ6Im92ZXJhbGxncm91cF9yZXFfZW5hYmxlZCI7czoxOiIwIjtzOjE2OiJvdmVyYWxsZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJvdmVyYWxsZ3JvdXBfcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToib3ZlcmFsbGdyb3VwX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czoyMjoidXNlZF9ncm91cF9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIxOiJ1c2VkX2dyb3VwX21pbl9hbW91bnQiO3M6MToiMCI7czoxNDoidXNlZF9ncm91cF9taW4iO2E6MTp7aTowO3M6MToiMCI7fXM6MjI6InVzZWRfZ3JvdXBfbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMToidXNlZF9ncm91cF9tYXhfYW1vdW50IjtzOjE6IjAiO3M6MTQ6InVzZWRfZ3JvdXBfbWF4IjthOjE6e2k6MDtzOjE6IjAiO319';
-  	$result->micro_integrations = null;
+  	$result->micro_integrations = array(2);
   	
-  	$this->assertEquals($plan, $result);
+  	$this->assertEquals($plan->id, $result->id);
+  	$this->assertEquals($plan->name, $result->name);
+  	$this->assertEquals($plan->micro_integrations, $result->micro_integrations);
   	
   	$plan = XiptLibAec::getPlan(5);
   	
+  	$plan->micro_integrations 	= unserialize(base64_decode($plan->micro_integrations));
+  	
   	$result = new stdClass();
   	$result->id 				= 5;
-  	$result->active 			= 1;
-  	$result->visible 			= 1;
-  	$result->ordering 			= 3;
   	$result->name 				= 'AEC Plan 003 (ID 5)';
-  	$result->desc 				= "<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>\r\n<p>AEC PLAN 001</p>";
-  	$result->email_desc 		= '';
-  	$result->params 			= 'YToyMzp7czo5OiJmdWxsX2ZyZWUiO2k6MTtzOjExOiJmdWxsX2Ftb3VudCI7czo0OiIwLjAwIjtzOjExOiJmdWxsX3BlcmlvZCI7czowOiIiO3M6MTU6ImZ1bGxfcGVyaW9kdW5pdCI7czoxOiJEIjtzOjEwOiJ0cmlhbF9mcmVlIjtzOjE6IjAiO3M6MTI6InRyaWFsX2Ftb3VudCI7czowOiIiO3M6MTI6InRyaWFsX3BlcmlvZCI7czowOiIiO3M6MTY6InRyaWFsX3BlcmlvZHVuaXQiO3M6MToiRCI7czoxMToiZ2lkX2VuYWJsZWQiO3M6MToiMSI7czozOiJnaWQiO3M6MjoiMTgiO3M6ODoibGlmZXRpbWUiO3M6MToiMCI7czoxNToic3RhbmRhcmRfcGFyZW50IjtzOjE6IjAiO3M6ODoiZmFsbGJhY2siO3M6MToiMCI7czoxMToibWFrZV9hY3RpdmUiO3M6MToiMSI7czoxMjoibWFrZV9wcmltYXJ5IjtzOjE6IjEiO3M6MTU6InVwZGF0ZV9leGlzdGluZyI7czoxOiIxIjtzOjEyOiJjdXN0b210aGFua3MiO3M6MDoiIjtzOjMwOiJjdXN0b210ZXh0X3RoYW5rc19rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tYW1vdW50Zm9ybWF0IjtzOjM3Mzoie2FlY2pzb259eyJjbWQiOiJjb25kaXRpb24iLCJ2YXJzIjpbeyJjbWQiOiJkYXRhIiwidmFycyI6InBheW1lbnQuZnJlZXRyaWFsIn0seyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJjb25zdGFudCIsInZhcnMiOiJfQ09ORklSTV9GUkVFVFJJQUwifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfSx7ImNtZCI6ImNvbmNhdCIsInZhcnMiOlt7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5hbW91bnQifSx7ImNtZCI6ImRhdGEiLCJ2YXJzIjoicGF5bWVudC5jdXJyZW5jeV9zeW1ib2wifSwiwqAiLHsiY21kIjoiZGF0YSIsInZhcnMiOiJwYXltZW50Lm1ldGhvZF9uYW1lIn1dfV19ey9hZWNqc29ufSI7czoxNzoiY3VzdG9tdGV4dF90aGFua3MiO3M6MDoiIjtzOjE5OiJvdmVycmlkZV9hY3RpdmF0aW9uIjtzOjE6IjAiO3M6MTY6Im92ZXJyaWRlX3JlZ21haWwiO3M6MToiMCI7czoxMDoicHJvY2Vzc29ycyI7czowOiIiO30=';
-  	$result->custom_params 		= 'YToxOntzOjk6ImFkZF9ncm91cCI7czoxOiIwIjt9';
-  	$result->restrictions 		= 'YTo0NDp7czoxNDoibWluZ2lkX2VuYWJsZWQiO3M6MToiMCI7czo2OiJtaW5naWQiO3M6MjoiMTgiO3M6MTQ6ImZpeGdpZF9lbmFibGVkIjtzOjE6IjAiO3M6NjoiZml4Z2lkIjtzOjI6IjE5IjtzOjE0OiJtYXhnaWRfZW5hYmxlZCI7czoxOiIwIjtzOjY6Im1heGdpZCI7czoyOiIyMSI7czoyNDoicHJldmlvdXNwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTY6InByZXZpb3VzcGxhbl9yZXEiO2E6MTp7aTowO3M6MToiMCI7fXM6MjM6ImN1cnJlbnRwbGFuX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTU6ImN1cnJlbnRwbGFuX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czoyMzoib3ZlcmFsbHBsYW5fcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNToib3ZlcmFsbHBsYW5fcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJwcmV2aW91c3BsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToicHJldmlvdXNwbGFuX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czozMjoiY3VycmVudHBsYW5fcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNDoiY3VycmVudHBsYW5fcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjMyOiJvdmVyYWxscGxhbl9yZXFfZW5hYmxlZF9leGNsdWRlZCI7czoxOiIwIjtzOjI0OiJvdmVyYWxscGxhbl9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjE6InVzZWRfcGxhbl9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIwOiJ1c2VkX3BsYW5fbWluX2Ftb3VudCI7czoxOiIwIjtzOjEzOiJ1c2VkX3BsYW5fbWluIjthOjE6e2k6MDtzOjE6IjAiO31zOjIxOiJ1c2VkX3BsYW5fbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMDoidXNlZF9wbGFuX21heF9hbW91bnQiO3M6MToiMCI7czoxMzoidXNlZF9wbGFuX21heCI7YToxOntpOjA7czoxOiIwIjt9czoyNzoiY3VzdG9tX3Jlc3RyaWN0aW9uc19lbmFibGVkIjtzOjE6IjAiO3M6MTk6ImN1c3RvbV9yZXN0cmljdGlvbnMiO3M6MDoiIjtzOjI1OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkIjtzOjE6IjAiO3M6MTc6InByZXZpb3VzZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjM0OiJwcmV2aW91c2dyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjY6InByZXZpb3VzZ3JvdXBfcmVxX2V4Y2x1ZGVkIjthOjE6e2k6MDtzOjE6IjAiO31zOjI0OiJjdXJyZW50Z3JvdXBfcmVxX2VuYWJsZWQiO3M6MToiMCI7czoxNjoiY3VycmVudGdyb3VwX3JlcSI7YToxOntpOjA7czoxOiIwIjt9czozMzoiY3VycmVudGdyb3VwX3JlcV9lbmFibGVkX2V4Y2x1ZGVkIjtzOjE6IjAiO3M6MjU6ImN1cnJlbnRncm91cF9yZXFfZXhjbHVkZWQiO2E6MTp7aTowO3M6MToiMCI7fXM6MjQ6Im92ZXJhbGxncm91cF9yZXFfZW5hYmxlZCI7czoxOiIwIjtzOjE2OiJvdmVyYWxsZ3JvdXBfcmVxIjthOjE6e2k6MDtzOjE6IjAiO31zOjMzOiJvdmVyYWxsZ3JvdXBfcmVxX2VuYWJsZWRfZXhjbHVkZWQiO3M6MToiMCI7czoyNToib3ZlcmFsbGdyb3VwX3JlcV9leGNsdWRlZCI7YToxOntpOjA7czoxOiIwIjt9czoyMjoidXNlZF9ncm91cF9taW5fZW5hYmxlZCI7czoxOiIwIjtzOjIxOiJ1c2VkX2dyb3VwX21pbl9hbW91bnQiO3M6MToiMCI7czoxNDoidXNlZF9ncm91cF9taW4iO2E6MTp7aTowO3M6MToiMCI7fXM6MjI6InVzZWRfZ3JvdXBfbWF4X2VuYWJsZWQiO3M6MToiMCI7czoyMToidXNlZF9ncm91cF9tYXhfYW1vdW50IjtzOjE6IjAiO3M6MTQ6InVzZWRfZ3JvdXBfbWF4IjthOjE6e2k6MDtzOjE6IjAiO319';
-  	$result->micro_integrations = null;
+  	$result->micro_integrations = array(6);
   	
-  	$this->assertEquals($plan, $result);
+  	$this->assertEquals($plan->id, $result->id);
+  	$this->assertEquals($plan->name, $result->name);
+  	$this->assertEquals($plan->micro_integrations, $result->micro_integrations);
+  	
+  	//will return null if plan does not exist
+  	$this->assertEquals(XiptLibAec::getPlan(1), null);
   }
 }

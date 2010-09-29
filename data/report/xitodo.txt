@@ -1,8 +1,3 @@
-../packages/tmp/admin/views/setup/view.html.php:130:	//XITODO : check if any profiletype have enbaled admin approval
-../packages/tmp/admin/controllers/profiletypes.php:146:				/*XITODO : send debug mode in second parameter */
-../packages/tmp/admin/controllers/profiletypes.php:229:		//XITODO : also support other formats
-../packages/tmp/site/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
-../packages/tmp/site/helpers/apps.php:9://XITODO : apps
 ../packages/tmp/site/helpers/profiletypes.php:11:	//XITODO : Clean the function. Remove Switch
 ../packages/tmp/site/helpers/profiletypes.php:55:		//XITODO : Uset JHTML to build html
 ../packages/tmp/site/helpers/profiletypes.php:128:	//XITODO : Caching can be added
@@ -14,19 +9,26 @@
 ../packages/tmp/site/helpers/profiletypes.php:286:			//XITODO : why we are insterting again n again
 ../packages/tmp/site/helpers/profiletypes.php:456:	//XITODO  : move to HelperUtils
 ../packages/tmp/site/helpers/profiletypes.php:489:	//XITODO : Remove funda of return url, use configuration
+../packages/tmp/site/helpers/apps.php:9://XITODO : apps
+../packages/tmp/site/helpers/apps.php:136:	//XITODO : Clean Code
+../packages/tmp/site/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
 ../packages/tmp/site/includes.php:38:/*XITODO : Cleant IT Load Langauge file*/
-../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
-../packages/tmp/site/libraries/acl/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
-../packages/tmp/site/libraries/acl/helper.php:108://XITODO : Clean function
-../packages/tmp/site/libraries/acl/base.php:150:		//XITODO : Conditions should be OR ED
-../packages/tmp/site/libraries/acl/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
-../packages/tmp/site/libraries/acl/factory.php:66:		//XITODO send debugmode
-../packages/tmp/site/libraries/lib/image.php:53:		/* XITODO : support for other image type */	
+../packages/tmp/site/libraries/lib/profiletypes.php:23:		/*XITODO : Remove the require_once, class should be auto loaded*/
+../packages/tmp/site/libraries/lib/profiletypes.php:26:		/*XITODO : validate ptype before save*/
+../packages/tmp/site/libraries/lib/profiletypes.php:656:			//xitodo : build an INI file
 ../packages/tmp/site/libraries/lib/utils.php:25:			 * XITODO : we will remove this when aec support fbc
 ../packages/tmp/site/libraries/lib/utils.php:74:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 ../packages/tmp/site/libraries/lib/utils.php:176:	/*XITODO : Add unit testing for this case */
 ../packages/tmp/site/libraries/lib/utils.php:408:			//XITODO : here we need to trick as per the JomSocial
-../packages/tmp/site/libraries/lib/profiletypes.php:23:		/*XITODO : Remove the require_once, class should be auto loaded*/
-../packages/tmp/site/libraries/lib/profiletypes.php:26:		/*XITODO : validate ptype before save*/
-../packages/tmp/site/libraries/lib/profiletypes.php:656:			//xitodo : build an INI file
+../packages/tmp/site/libraries/lib/image.php:53:		/* XITODO : support for other image type */	
+../packages/tmp/site/libraries/acl/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
+../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
+../packages/tmp/site/libraries/acl/factory.php:66:		//XITODO send debugmode
+../packages/tmp/site/libraries/acl/base.php:150:		//XITODO : Conditions should be OR ED
+../packages/tmp/site/libraries/acl/helper.php:108://XITODO : Clean function
+../packages/tmp/site/libraries/acl/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
+../packages/tmp/site/libraries/base/table.php:93:	//XITODO : Cache it
 ../packages/tmp/install/helper.php:186:	// XITODO : chek if function is usabel
+../packages/tmp/admin/controllers/profiletypes.php:146:				/*XITODO : send debug mode in second parameter */
+../packages/tmp/admin/controllers/profiletypes.php:229:		//XITODO : also support other formats
+../packages/tmp/admin/views/setup/view.html.php:130:	//XITODO : check if any profiletype have enbaled admin approval

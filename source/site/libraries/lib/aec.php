@@ -9,7 +9,7 @@ defined('_JEXEC') or die('Restricted access');
 class XiptLibAec
 {
 	//
-	static public function getProfiletypeInfoFromAEC()
+	static public function getProfiletypeInfoFromAEC($usage=0)
 	{
 		if(!self::isAecExists())
 			return false;
@@ -25,8 +25,7 @@ class XiptLibAec
 		$planSetInSess 	= $mySess->has('AEC_REG_PLANID','XIPT');
 
 		//if user is requesting to change plan then prefer it
-		$planid  = $usage = JRequest::getInt( 'usage', 0, 'REQUEST');
-
+		$planid  = $usage = JRequest::getInt( 'usage', $usage, 'REQUEST');
 		// if no prefered plan, then use saved in session
 		if($usage===0  && $planSetInSess){
 			$planid = $mySess->get('AEC_REG_PLANID',0,'XIPT');
