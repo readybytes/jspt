@@ -8,130 +8,54 @@ defined('_JEXEC') or die('Restricted access');
 
 class XiptModelProfiletypes extends XiptModel
 {
-	var $_pagination;
-
-	/**
-	 * Constructor
-	 */
-	function __construct()
-	{
-		global $mainframe;
-
-		// Call the parents constructor
-		parent::__construct();
-
-		// Get the pagination request variables
-		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-		$limitstart	= $mainframe->getUserStateFromRequest( 'com_Xipt.limitstart', 'limitstart', 0, 'int' );
-
-		// In case limit has been changed, adjust limitstart accordingly
-		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
-
-		$this->setState('limit', $limit);
-		$this->setState('limitstart', $limitstart);
-	}
-
-	/**
-	 * Retrieves the JPagination object
-	 *
-	 * @return object	JPagination object	 	 
-	 **/	 	
-	function &getPagination()
-	{
-		if ($this->_pagination == null)
-		{
-			$this->getFields();
-		}
-		return $this->_pagination;
-	}
-	
 	/**
 	 * Returns the Fields
-	 *
 	 * @return object	JParameter object
 	 **/
-	function &getFields()
+	function getFields()
 	{
-		global $mainframe;
-
-		static $fields;
-		
-		if( isset( $fields ) )
-		{
-			return $fields;
-		}
-
-		// Initialize variables
-		$db			=& JFactory::getDBO();
-
-		// Get the limit / limitstart
-		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart	= $mainframe->getUserStateFromRequest('com_Xiptlimitstart', 'limitstart', 0, 'int');
-
-		// In case limit has been changed, adjust limitstart accordingly
-		$limitstart	= ($limit != 0) ? ($limitstart / $limit ) * $limit : 0;
-
-		// Get the total number of records for pagination
-		$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__xipt_profiletypes' );
-		$db->setQuery( $query );
-		$total	= $db->loadResult();
-
-
-		jimport('joomla.html.pagination');
-		
-		// Get the pagination object
-		$this->_pagination	= new JPagination( $total , $limitstart , $limit );
-
-		$query	= ' SELECT * FROM ' 
-				. $db->nameQuote('#__xipt_profiletypes')
-				. ' ORDER BY '. $db->nameQuote('ordering');
-
-		$db->setQuery( $query , $this->_pagination->limitstart , $this->_pagination->limit );		
-		$fields	= $db->loadObjectList();
-		
-		return $fields;
+		return $this->loadRecords();
 	}
 	
+	/**
+	 * Returns the Query Object if exist
+	 * else It builds the object
+	 * @return XiQuery
+	 */
+	public function getQuery()
+	{
+		//query already exist
+		if($this->_query)
+			return $this->_query;
+
+		//create a new query
+		$this->_query = new XiptQuery();
+		
+		$this->_query->select('*'); 
+		$this->_query->from('#__xipt_profiletypes');
+		$this->_query->order('ordering');
+		
+		return $this->_query;
+	}
 	
 	function updatePublish($id,$value)
 	{
-		$db 	=& JFactory::getDBO();
-		$query 	= 'UPDATE #__xipt_profiletypes'
-				. ' SET `published` ='.$db->Quote($value).''
-				. ' WHERE `id`='. $db->Quote($id);
-		$db->setQuery( $query );
-		
-		if (!$db->query()) {
-			return XiptError::raiseWarning( 500, $db->getError() );
-		}
+		$data = array('published'=>$value);
+		return $this->save($data,$id);		
 	}
 	
 	function updateVisibility($id,$value)
 	{
-		$db 	=& JFactory::getDBO();
-		$query 	= 'UPDATE #__xipt_profiletypes'
-				. ' SET `visible` ='.$db->Quote($value).''
-				. ' WHERE `id`='. $db->Quote($id);
-		$db->setQuery( $query );
-		
-		if (!$db->query()) {
-			return XiptError::raiseWarning( 500, $db->getError() );
-		}
+		$data = array('visible' => $value);
+		return $this->save($data,$id);		
 	}
 	
 	function removeCustomAvatar($id, $newavatar)
 	{
-		//replace current avatar by default avatar.
-		$db 	=& JFactory::getDBO();
-		$query 	= 'UPDATE #__xipt_profiletypes'
-				. ' SET `avatar` ='.$db->Quote($newavatar).''
-				. ' WHERE `id`='. $db->Quote($id);
-		$db->setQuery( $query );
-		
-		if (!$db->query()) {
-			return XiptError::raiseWarning( 500, $db->getError() );
-		}
+		$data = array('avatar' => $newavatar);
+		return $this->save($data,$id);
 	}
+	
 	
 	function resetUserAvatar($pid, $newavatar, $oldavatar, $newavatarthumb)
 	{
@@ -152,6 +76,12 @@ class XiptModelProfiletypes extends XiptModel
 		if($cnt>0)
 		{
 			//update user avatar and thumb of all users who doesn't have custom avatar 
+//			$this->_query = new XiptQuery();
+//			$this->_query->update('#__xipt_profiletypes');
+//			$this->_query->set('avatar',$newavatar);
+//			$this->_query->set('thumb',$newavatarthumb);
+//			$this->_query->where('avatar',$oldavatar);
+			// XITODO : need to improve
 			$db 	=& JFactory::getDBO();
 			$query 	= 'UPDATE #__community_users'
 					. ' SET `avatar` ='.$db->Quote($newavatar).''

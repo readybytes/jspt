@@ -11,25 +11,12 @@ defined('_JEXEC') or die('Restricted access');
  */
 class XiptTableProfiletypes extends XiptTable
 {
-	var $id					= null;
-	var $name				= null;
-	var $tip				= null;
-	var $ordering			= null;
-	var $published  		= null;
-	var $privacy			= null;
-	var $template			= null;
-	var $jusertype			= null;
-	var $avatar				= null;
-	var $watermark			= null;
-	var $approve			= null;
-	var $allowt				= null;
-	var $group 				= null;
-	var $params 			= null;
-	var $watermarkparams 	= null;
-	var $visible			= null;
-	var $config             = null;
-	
-	function load( $id)
+	function __construct()
+	{
+		parent::__construct('#__xipt_profiletypes','id');
+	}
+
+	function load($id)
 	{
 		if( $id == 0 )
 		{
@@ -58,10 +45,4 @@ class XiptTableProfiletypes extends XiptTable
 			return parent::load( $id );
 		}
 	}
-	
-	function __construct(&$db)
-	{
-		parent::__construct('#__xipt_profiletypes','id');
-	}
-
 }

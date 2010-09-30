@@ -6,17 +6,9 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-class XiptTableAclRules extends XiptTable
-{
-
-	var $id					= null;
-	var $rulename			= null;
-	var $aclname			= null;
-	var $aclparams			= null;
-	var $coreparams			= null;
-	var $published			= null;
-	
-	function __construct(&$db)
+class XiptTableAclrules extends XiptTable
+{	
+	function __construct()
 	{
 		parent::__construct('#__xipt_aclrules','id');
 	}

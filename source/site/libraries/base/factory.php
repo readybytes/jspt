@@ -35,25 +35,40 @@ class XiptFactory
         return $instance[$userid];
     }
 
-	function &getModel( $name = '', $from='admin')
+	function getModel( $name = '', $from='admin')
 	{
-		static $modelInstances = null;
-		
-		if(!isset($modelInstances[$name]))
-		{
-//			if($from==='admin')
-//				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
-//							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
-//			else
-//				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
-//							.DS.'models'.DS. JString::strtolower( $name ) .'.php');
-			$classname = 'XiptModel'.$name;
-			$modelInstances[$name] = new $classname;
-		}
-		
-		return $modelInstances[$name];
+		return XiptFactory::getInstance($name,'model');
 	}
 
+	static function getInstance($name, $type, $prefix='Xipt', $refresh=false)
+	{
+		static $instance=array();
+
+		//generate class name
+		$className	= JString::ucfirst($prefix)
+					. JString::ucfirst($type)
+					. JString::ucfirst($name);
+
+		// Clean the name
+		$className	= preg_replace( '/[^A-Z0-9_]/i', '', $className );
+
+		//if already there is an object
+		if($refresh===false && isset($instance[$className]))
+			return $instance[$className];
+
+		//class_exists function checks if class exist,
+		// and also try auto-load class if it can
+		if(class_exists($className, true)===false)
+		{
+			self::getErrorObject()->setError("Class $className not found");
+			return false;
+		}
+
+		//create new object, class must be autoloaded
+		$instance[$className]= new $className();
+
+		return $instance[$className];
+	}
 
 	function buildRadio($status, $fieldname, $values)
 	{

@@ -7,12 +7,8 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiptTableApplications extends XiptTable
-{	
-	var $id			= null;
-	var $applicationid		= null;
-	var $profiletype		= null;
-	
-	function load( $id)
+{
+	function load($id)
 	{
 		if( $id ){
 			return parent::load( $id );
@@ -24,7 +20,7 @@ class XiptTableApplications extends XiptTable
 		return true;
 	}
 	
-	function __construct(&$db)
+	function __construct()
 	{
 		parent::__construct('#__xipt_applications','id');
 	}

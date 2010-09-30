@@ -15,18 +15,16 @@ class XiptTable extends JTable
 	//apply caching
     public function getName()
 	{
-		$name = $this->_name;
-
-		if(empty($name))
-		{
-			$r = null;
-			if (!preg_match('/Table(.*)/i', get_class($this), $r)) {
-				JError::raiseError (500, "XiTable : Can't get or parse class name.");
-			}
-			$name = strtolower( $r[1] );
+		if(isset($this->_name))
+			return $this->_name;
+			
+		$r = null;
+		if (!preg_match('/Table(.*)/i', get_class($this), $r)) {
+			XiptError::raiseError (500, "XiTable : Can't get or parse class name.");
 		}
-
-		return $name;
+		$this->_name = strtolower( $r[1] );
+		
+		return $this->_name;
 	}
 
 	/*
@@ -48,15 +46,6 @@ class XiptTable extends JTable
 
 	function __construct($tblFullName=null, $tblPrimaryKey=null, $db=null)
 	{
-		//Create full name e.g. #__ + xiec + products
-		if($tblFullName===null)
-			$tblFullName	= "#__".JString::strtolower($this->getPrefix())
-							. "_" . $this->getName();
-
-//		//create primary key name e.g. products + _ + id
-//		if($tblPrimaryKey===null)
-//			$tblPrimaryKey	= $this->getName().'_id';
-
 		if($db===null)
 			$db	=&	JFactory::getDBO();
 
@@ -90,23 +79,27 @@ class XiptTable extends JTable
 	/**
 	 * Get structure of table from db table
 	 */
-	//XITODO : Cache it
 	public function getColumns()
 	{
+		if(isset($this->_columns))
+			return $this->_columns;
+			
 		$tableName 	= $this->getTableName();
 		if(XiptHelperTable::isTableExist($tableName)===FALSE)
 			return XiptError::raiseError("Table $this->_tbl does not exist");
 
-		$fields 	= $this->_db->getTableFields($tableName);
-		$columns 	= $fields[$tableName];
+		$fields 		= $this->_db->getTableFields($tableName);
+		$this->_columns = $fields[$tableName];
 
-		return $columns;
+		return $this->_columns;
 	}
 	
-	function bind( $data )
+	function bind($data =array())
 	{
 		foreach($data as $key => $value)
 			$this->$key = $value;
+			
+		return true;
 	}
 }
 

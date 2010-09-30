@@ -9,95 +9,36 @@ defined('_JEXEC') or die('Restricted access');
 
 class XiptModelConfiguration extends XiptModel
 {
-	/**
-	 * Configuration data
-	 * 
-	 * @var object
-	 **/	 	 	 
-	var $_params;
 
-	/**
-	 * Configuration for ini path
-	 * 
-	 * @var string
-	 **/	 	 	 
-// 	var $_ini	= '';
-
-	/**
-	 * Configuration for xml path
-	 * 
-	 * @var string
-	 **/	 	 	 
-	var $_xml	= '';
-	
-	/**
-	 * Constructor
-	 */
-	function __construct()
-	{
-		$mainframe	=& JFactory::getApplication();
-
-		// Test if ini path is set
-// 		if( empty( $this->_ini ) )
-// 		{
-// 			$this->_ini	= JPATH_COMPONENT . DS . 'config.ini';
-// 		}
-
-		// Test if ini path is set
-		if( empty( $this->_xml ) )
-		{
-			$this->_xml	= JPATH_COMPONENT . DS . 'config.xml';
-		}
-		
-		// Call the parents constructor
-		parent::__construct();
-
-		// Get the pagination request variables
-		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-		$limitstart	= $mainframe->getUserStateFromRequest( 'com_community.limitstart', 'limitstart', 0, 'int' );
-
-		// In case limit has been changed, adjust limitstart accordingly
-		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
-
-		$this->setState('limit', $limit);
-		$this->setState('limitstart', $limitstart);
-	}
-	
 	/**
 	 * Returns the configuration object
-	 *
 	 * @return object	JParameter object
 	 **/	 
 	function getParams($id)
 	{
 		// Test if the config is already loaded.
-		if( !$this->_params )
-		{
-			$db			=& JFactory::getDBO();
-			$query		= 'SELECT '. $db->nameQuote('params') .' FROM '
-						. $db->nameQuote( '#__xipt_profiletypes' )
-						. ' WHERE '.$db->nameQuote('id').'='. $db->Quote($id);
-			
-			$db->setQuery( $query );
-			$pTypeConfig = $db->loadResult();
-			$config =& CFactory::getConfig();
-			if($pTypeConfig)
-				$config	= new JParameter( $pTypeConfig );			
-			
-			// Load default configuration
-			//$registry = $config->_registry;
-			$this->_params	= $config;//new JParameter( $config->_raw );
-
-			/*
-			$profiletype		=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-			$profiletype->load( $id );
-			
-			// Bind the user saved configuration.
-			$this->_params->bind( $profiletype->params );
-			*/
-		}
-		return $this->_params;
+		static $params=null;
+		if( isset($params) && array_key_exists($id,$params))
+			return $params;
 		
+		$db = & JFactory::getDBO();
+ 		$this->_query = new XiptQuery();
+		
+		$this->_query->select('params'); 
+		$this->_query->from('#__xipt_profiletypes');
+		$this->_query->where("`id` = $id");
+		
+		$db->setQuery((string) $this->_query);
+		$pTypeConfig = $db->loadResult();
+		
+		// if config not found from tabale then load default config of jom social
+		if(!$pTypeConfig)
+			$config = & CFactory::getConfig();
+		else
+			$config	= new JParameter( $pTypeConfig );
+			
+		$params[$id] = $config;
+		return $params[$id];		
 	}
 	
 	/**
@@ -105,74 +46,34 @@ class XiptModelConfiguration extends XiptModel
 	 * 
 	 * @return boolean	True on success false on failure.
 	 **/
-	function save()
+	function save($postData,$id)
 	{
-		jimport('joomla.filesystem.file');
+		//XITODO : Assert THIS $id should be valid
+		//XiptError:assert($id);
 		
-		$id	= JRequest::getVar( 'id','0','post');
+		unset($postData[JUtility::getToken()]);
+		unset($postData['option']);
+		unset($postData['task']);
+		unset($postData['view']);
+		unset($postData['id']);
 		
-		//$id should be valid
-		if(!$id){
-			return false;
-		}	
-		
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-		
-		$row->load( $id );
-		
-		$registry	=& JRegistry::getInstance( '' );
-		//$registry->loadINI( $row->params , 'xipt' );
-
-		$postData	= JRequest::get( 'post' , 2 );
-		
-		$token		= JUtility::getToken();
-		unset($postData[$token]);
-
-		
-		foreach( $postData as $key => $value )
-		{
-			
-			if( $key != 'task' && $key != 'option' && $key != 'view' && $key != $token && $key != id )
-			{
-				$registry->setValue( 'xipt.' . $key , $value );
-			}
-				
-		}
+		$registry	= JRegistry::getInstance('xipt');
+		$registry->loadArray($postData,'xipt');
 		
 		// Get the complete INI string
-		$row->params	= $registry->toString( 'INI' , 'xipt' );
-		
+		$data = array();
+		$data['params']	= $registry->toString( 'INI' , 'xipt' );
+
+		// get model of profile type
+		$row	= XiptFactory::getInstance('profiletypes','model');
 		// Save it
-		if(!$row->store() )
-		{
-			return false;
-		}
-		return true;
+		return $row->save($data,$id);
 	}
 	
 	function reset($id)
-	{
-		jimport('joomla.filesystem.file');
-		
-		//$id should be valid
-		if(!$id){
-			return false;
-		}	
-		
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-		
-		$row->load( $id );
-
-		// Get the complete INI string
-		$row->params = '';
-		
-		// Save it
-		if(!$row->store() )
-		{
-			return false;
-		}
-		return true;
+	{		
+		//XITODO : assert for $id should be valid
+		$row = XiptFactory::getInstance('profiletypes','model');	
+		return $row->save(array('params'=>''),$id);
 	}
 }

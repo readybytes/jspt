@@ -44,30 +44,11 @@ class XiptControllerConfiguration extends XiptController
 	
 	function save()
 	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-				
-		$user	=& JFactory::getUser();
-
-		if ( $user->get('guest')) {
-			XiptError::raiseError( 403, JText::_('Access Forbidden') );
-			return;
-		}
-		$method	= JRequest::getMethod();
-		
-		if( $method == 'GET' )
-		{
-			XiptError::raiseError( 500 , JText::_('Access Method not allowed') );
-			return;
-		}
-		
-		$mainframe	=& JFactory::getApplication();		
-
 		$cModel	=& XiptFactory::getModel( 'configuration' );
-		
+		$id	= JRequest::getVar( 'id','0','post');
+		$postData	= JRequest::get( 'post' , 2 );
 		// Try to save configurations
-		if( $cModel->save() )
+		if( $cModel->save($postData, $id) )
 		{
 			$message	= JText::_('Configuration Updated');
 		}
@@ -76,7 +57,7 @@ class XiptControllerConfiguration extends XiptController
 			XiptError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
 		}
 		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-		$mainframe->redirect($link, $message);
+		JFactory::getApplication()->redirect($link, $message);
 	}
 	
 	function reset()

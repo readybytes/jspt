@@ -91,7 +91,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->_DBO->filterOrder('#__xipt_profiletypes','id');
     $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams'); 
     $this->_DBO->filterColumn('#__xipt_profiletypes','visible'); 
-    
+    $this->_DBO->filterColumn('#__xipt_profiletypes','config');
     
   }
   

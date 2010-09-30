@@ -7,13 +7,8 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiptTableProfileFields extends XiptTable
-{	
-	var $id			= null;
-	var $fid		= null;
-	var $pid		= null;
-	var $category	= null;
-	
-	function load( $id)
+{		
+	function load($id)
 	{
 		if( $id == 0 )
 		{
@@ -30,7 +25,7 @@ class XiptTableProfileFields extends XiptTable
 	}
 	
 	
-	function __construct(&$db)
+	function __construct()
 	{
 		parent::__construct('#__xipt_profilefields','id');
 	}

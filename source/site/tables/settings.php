@@ -11,9 +11,9 @@ class XiptTableSettings extends XiptTable
 	var $name				= null;
 	var $params 			= null;
 	
-	function __construct(&$db)
+	function __construct()
 	{
-		parent::__construct(null,'name');
+		parent::__construct('#__xipt_settings','name');
 	}
 
 	function load( $name)
