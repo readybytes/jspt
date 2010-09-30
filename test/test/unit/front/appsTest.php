@@ -1,4 +1,10 @@
 <?php
+
+class dummyOPD
+{
+	function onProfileDisplay()
+	{}
+}
 class AppsTest extends XiUnitTestCase 
 {
 
@@ -31,30 +37,124 @@ class AppsTest extends XiUnitTestCase
   	$this->assertEquals($appid, $result);
   }
   
-//  function testFilterCommunityApps()
-//  {
-//  	$dispatcher =& JDispatcher::getInstance();
-//  	$app = $dispatcher->_observers;
-//	$result = XiptLibApps::FilterCommunityApps($app, 1);
-//	$this->assertEquals($result, true);
-//	
-//  }
+  function testFilterCommunityApps()
+  {
+  	
+  	//case #1 : when apps is blank array
+	$apps = array();
+	$result = array();
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertEquals($result, $apps);
+  	
+	// case #2 : do not work on arrays
+	$apps = array( array(5, 'sample'));
+	$result = array( array(5, 'sample'));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertEquals($result, $apps);
+	
+	
+	// case #3 do not work on non-community plugins
+  	$obj1 = new stdClass();
+	$obj1->_type = 'system';
+	$obj1->_name = 'xipt_system';
+	
+	$apps = array($obj1);
+	$result = array($obj1);
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertEquals($result, $apps);
+	
+	
+	// case #4 community but xipt_community, then also do not work
+	$obj2 = new stdClass();
+	$obj2->_type = 'community';
+	$obj2->_name = 'xipt_community';
+	
+	$apps = array($obj2);
+	$result = array($obj2);
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertEquals($result, $apps);
+	
+	// case #5 
+	$obj3 = new stdClass();
+	$obj3->_type = 'community';
+	$obj3->_name = 'walls';
+	
+	$obj4 = new dummyOPD();
+	$obj4->_type = 'community';
+	$obj4->_name = 'walls';
+	
+	//#5-1 OnProfileDisplay=false, $blockProfileApps=true
+	$apps = array($obj3);
+	$result = array($obj3);
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1));
+	$this->assertEquals($result, $apps);
+	
+	//#5-2 OnProfileDisplay=false, $blockProfileApps=false
+	$apps = array($obj3);
+	$result = array();
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1, false));
+	$this->assertEquals($result, $apps);
+	
+	//#5-3 OnProfileDisplay=true, $blockProfileApps=true
+	$apps = array($obj4);
+	$result = array();
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1));
+	$this->assertEquals($result, $apps);
+	
+	//#5-4 OnProfileDisplay=true, $blockProfileApps=false
+	$apps = array($obj4);
+	$result = array($obj4);
+	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1, false));
+	$this->assertEquals($result, $apps);
+	
+	
+	
+	// # Case 6, is given apps allowed
+	$obj4 = new dummyOPD();
+	$obj4->_type = 'community';
+	$obj4->_name = 'walls';
+		//only allowed to profiletype-2
+		$apps = array($obj4);
+		$result = array($obj4);
+	  	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+		$this->assertEquals($result , $apps);
+
+		// not allowed to profiletype-1
+		$apps = array($obj4);
+		$result = array();
+	  	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1));
+		$this->assertEquals($result , $apps);
+	
+	// case #7
+	$obj3 = new dummyOPD();
+	$obj3->_type = 'community';
+	$obj3->_name = 'groups';
+	
+	$obj4 = new dummyOPD();
+	$obj4->_type = 'community';
+	$obj4->_name = 'walls';
+	
+	$apps = array($obj3,$obj4);
+	$result = array($obj4);
+  	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertEquals($result , $apps);
+		
+  }
   
   function testPluginId()
   {
-	  	//retrun PluginId of element
+	 //valid searches retrun PluginId of element
 	 $this->assertEquals(XiptLibApps::getPluginId('joomla', 'authentication'),1);
-	  	
-	 $this->assertEquals(XiptLibApps::getPluginId('sections', 'search'),9);
-	 	
-	 $this->assertEquals(XiptLibApps::getPluginId('tinymce', 'editors'),19);
-	  	
-	 $this->assertEquals(XiptLibApps::getPluginId('legacy', 'system'),29);
-	  	
-	 $this->assertEquals(XiptLibApps::getPluginId('weblinks', 'search'),11);
-	  	
-	 $this->assertEquals(XiptLibApps::getPluginId('contacts', 'search'),7);
+	 $this->assertEquals(XiptLibApps::getPluginId('legacy', 'system'),29);	 
 	 
+	 // invalid search
+	 $this->assertEquals(XiptLibApps::getPluginId('joomla', 'stupid'),false);
+	 
+	 // cached search
+	 $this->assertEquals(XiptLibApps::getPluginId('legacy', 'system'),29);
+	 $this->assertEquals(XiptLibApps::getPluginId('joomla', 'stupid'),false);
+	 
+
   }
   
   function testFilterAjaxAddApps()

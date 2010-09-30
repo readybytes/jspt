@@ -11,8 +11,9 @@ class XiptLibApps
 {
     function filterCommunityApps(&$apps, $profiletype, $blockProfileApps=true)
     {
-        // $apps is array of objects
         $notAllowedApps =XiptLibApps::getNotAllowedCommunityAppsArray($profiletype);
+        
+        // $apps is array of objects
         for($i=0 ; $i < count($apps) ; $i++ )
         {
             $app   =& $apps[$i];
@@ -21,12 +22,8 @@ class XiptLibApps
             if(is_object($app)==false)
                 continue;
             
-            // we want to restrict only community apps
-            if($app->_type != 'community')
-                continue;
-            
-            // do not restrict our component, user may do mistakes :-)
-            if($app->_name == 'xipt_community')
+            // we want to restrict only community apps and do not restrict our component
+            if($app->_type != 'community' && $app->_name == 'xipt_community')
                 continue;
                 
 			if(method_exists($app,'onProfileDisplay') != $blockProfileApps)
@@ -44,36 +41,48 @@ class XiptLibApps
     
     function getNotAllowedCommunityAppsArray($profiletype)
     {
-        // cache the results in static $instance
+        static $result = null;
+        if($result !== null && isset($result[$profiletype]))
+			return $result[$profiletype];
+			
         $db		=& JFactory::getDBO();
-		$query	= 'SELECT ' . $db->nameQuote( 'applicationid' ) . ' '
-				. 'FROM ' . $db->nameQuote( '#__xipt_applications' ) . ' '
-				. 'WHERE '. $db->nameQuote( 'profiletype' ).'='.$db->Quote( $profiletype );
+		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__xipt_applications' );
 
 		$db->setQuery( $query );
-		$results = $db->loadResultArray();
+		$tempResult = $db->loadAssocList();
 		
-		return $results;
+		$result = array();
+		
+		foreach($tempResult as $temp)
+		{
+			$result[$temp['profiletype']][] = $temp['applicationid'];
+		}
+		
+		return $result[$profiletype];
+		
     }
     
 	function getPluginId( $element, $folder = 'community' )
 	{
 		static $result = null;
-		if($result === null || isset($result[$folder])===false)
-		{
-			$db		=& JFactory::getDBO();
-			$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' , ' . $db->nameQuote( 'element' ) . ' '
-					. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
-					. 'WHERE ' .$db->nameQuote( 'folder' ) . '=' . $db->Quote( $folder );
+		if($result !== null && isset($result[$folder][$element]))
+			return $result[$folder][$element]['id'];
+		
+		$db		=& JFactory::getDBO();
+		$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' , ' . $db->nameQuote( 'element' ) . ' '
+				. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
+				. 'WHERE ' .$db->nameQuote( 'folder' ) . '=' . $db->Quote( $folder );
 	
-			$db->setQuery( $query );
-			$result[$folder] = $db->loadAssocList('element');
+		$db->setQuery( $query );
+		$result[$folder] = $db->loadAssocList('element');
 			
-			if($db->getErrorNum())
-				XiptError::raiseError( 500, $db->stderr());
-		}
-			
-		return $result[$folder][$element]['id'];
+		if($db->getErrorNum())
+			XiptError::raiseError( 500, $db->stderr());
+		
+		if(isset($result[$folder][$element]))
+			return $result[$folder][$element]['id'];
+		else
+			return false;
 	}
 	
 	

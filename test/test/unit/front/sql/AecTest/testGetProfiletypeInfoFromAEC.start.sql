@@ -1,3 +1,5 @@
+TRUNCATE TABLE `#__session`;;
+
 TRUNCATE TABLE `#__xipt_aec`;;
 INSERT INTO `#__xipt_aec` (`id`, `planid`, `profiletype`) VALUES
 (1, 0, 0),
