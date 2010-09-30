@@ -58,7 +58,10 @@ class XiptLibApps
 			$result[$temp['profiletype']][] = $temp['applicationid'];
 		}
 		
-		return $result[$profiletype];
+		if(isset($result[$profiletype]))
+			return $result[$profiletype];
+		else
+			return array();
 		
     }
     
