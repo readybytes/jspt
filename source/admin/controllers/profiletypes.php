@@ -143,11 +143,12 @@ class XiptControllerProfiletypes extends XiptController
 				
 				$privacysetting = new JParameter('','');
 				$privacysetting->bind($row->privacy);
-				/*XITODO : send debug mode in second parameter */
-				$imageGenerator = new XiptLibImage($config,0);
-				$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
-				$imageName = 'watermark_'. $row->id;
-				$filename	= $imageGenerator->genImage($storage,$imageName);
+
+				
+				$imageGenerator = new XiptLibImage($config);
+				$storage		= PROFILETYPE_AVATAR_STORAGE_PATH;
+				$imageName 		= 'watermark_'. $row->id;
+				$filename		= $imageGenerator->genImage($storage,$imageName);
 				
 				if($filename) {
 					$config->set('demo',$row->id);

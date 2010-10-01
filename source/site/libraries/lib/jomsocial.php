@@ -7,42 +7,46 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+//This class contains all logic for XIPT & JomSocial & Joomla Table Communication
 
-/*
- * This class contains all logic for XIPT & JomSocial & Joomla Table Communication
- * */
 class XiptLibJomsocial
 {
-	/*
-	 * Create a fields object
-	 * */
+	//will return object of field as per fieldId
     function getFieldObject($fieldid)
 	{
+		static $result = null;
+		if(isset($result[$fieldid]))
+			return $result[$fieldid];
+			
 		$db		=& JFactory::getDBO();
 		$query	= 'SELECT * FROM '
-				. $db->nameQuote( '#__community_fields' ) . ' '
-				. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $fieldid );
+				. $db->nameQuote( '#__community_fields' );
 		
 		$db->setQuery( $query );
-		$result	= $db->loadObject();
+		$result	= $db->loadObjectList('id');
 		
-		return $result;
+		return $result[$fieldid];
 	}
 	
-    //    get required user info from community_users table
+    //get required user info from community_users table
 	function getUserDataFromCommunity($userid,$what)
 	{
 		XiptLibUtils::XAssert(!empty($what));
+		
+		static $results = array();
+		
+		if(isset($results[$userid][$what]))
+			return $results[$userid][$what];
+
+		//XITODO : Use LIMIT to 100
 		$db			=& JFactory::getDBO();
-		$query	= 'SELECT '.$db->nameQuote($what).' FROM '
-				. $db->nameQuote( '#__community_users' ) . ' '
-				. 'WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $userid );
+		$query		= 'SELECT * FROM '
+					. $db->nameQuote( '#__community_users' );
 		
 		$db->setQuery( $query );
+		$results  = $db->loadAssocList('userid');
 		
-		$result	= $db->loadResult();
-		
-		return $result;
+		return $results[$userid][$what];
 	}
 	
     /**
@@ -332,12 +336,11 @@ class XiptLibJomsocial
 	
 	function _addUserToGroup( $userId , $groupId)
 	{
-		$groupId=explode(',',$groupId);
+		$groupId	= explode(',',$groupId);
 		$groupModel	=& CFactory::getModel( 'groups' );
-		//$userModel	=& CFactory::getModel( 'user' );
 	
-        //if user has selected "none" jst exit
-		if(!is_array($groupId) || !count($groupId)>0 || in_array(0,$groupId))
+        //if user has selected "none" just exit
+		if( !is_array($groupId) || count($groupId)<=0 || in_array(0, $groupId) )
 			return false;
 	
 	    foreach($groupId as $k=>$gid)
@@ -372,34 +375,34 @@ class XiptLibJomsocial
 	    
 	function _removeUserFromGroup($userId , $groupId)
 	{
-		$groupId=explode(',',$groupId);
+		$groupId	=explode(',',$groupId);
 		$model		= & CFactory::getModel( 'groups' );
 		$group		=& JTable::getInstance( 'Group' , 'CTable' );
 		
-		//if(!$groupId)
-		if((!is_array($groupId) )&& (!count($groupId)>0))
+		if( (!is_array($groupId)) && (count($groupId) <= 0) )
 			return false;
 
-	    foreach($groupId as $k=>$gid)
+	    foreach($groupId as $k => $gid)
 	    {
 			$group->load( $gid );
 		
 			// do not remove owner
-			if($group->ownerid == $userId)
+			if($group->ownerid === $userId)
 				return;
 			
-			// is not already a member
+			// if user is not member of group
 			if(!$model->isMember($userId , $gid))
 				return;
 			
-			// remove
-			$groupMember	=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+			//load group member table
+			$groupMember =& JTable::getInstance( 'GroupMembers' , 'CTable' );
 			$groupMember->load( $userId , $gid );
 	
-			$data		= new stdClass();
+			$data			= new stdClass();
 			$data->groupid	= $gid;
 			$data->memberid	= $userId;
 	
+			//remove member
 			$model->removeMember($data);
 			$model->substractMembersCount( $gid );
 	    }

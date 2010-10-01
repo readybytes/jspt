@@ -21,7 +21,7 @@ class XiptLibImage
 	private $_debugMode;
 	
 	// initalize arguments
-	function __construct($params, $debugMode)
+	function __construct($params, $debugMode = false)
 	{
 		
 		$this->params		= 	$params;
@@ -43,21 +43,28 @@ class XiptLibImage
 	/*return a valid filename ( with extension ) to store image */
 	function genImage($path,$filename) 
 	{
-		assert(!empty($path));
-		assert(!empty($filename));
-		//echo $path;
-		jimport('joomla.filesystem.folder');
+		//XITODO : move to XiptError::assert()
+		XiptLibUtils::XAssert(!empty($path));
+		XiptLibUtils::XAssert(!empty($filename));
+			
 		//here check if folder exist or not. if not then create it.
-		if(JFolder::exists($path)==false)
-			JFolder::create($path);
-		/* XITODO : support for other image type */	
-		$filename = $filename.".png";
-		$storagename = $path."/".$filename;
+		if(JFolder::exists($path)==false && JFolder::create($path)===false){
+			XiptError::raiseError("XIPT-SYSTEM-ERROR","Folder [$path] does not exist. Even we are not able to create it. Please check file permission.");
+			return false;
+		}
+			
+		$filename 	 = $filename.".png";
+		$filepath	 = $path."/".$filename;
 		
 		// init image
 		// Create a new image instance
-		$img 			= 	ImageCreateTrueColor($this->width, $this->height) 
-								or die('Cannot initialize GD Image');
+		$img 			= 	ImageCreateTrueColor($this->width, $this->height);
+		
+	    if($img==false){
+            XiptError::raiseError("XIPT-SYSTEM-ERROR",'Image is not generated');
+			return false;
+        }
+        
 		$Cbackground	=	$this->_getColor($img, $this->background);
 		$Ctextcolor		=	$this->_getColor($img, $this->textcolor);
 		
@@ -66,28 +73,23 @@ class XiptLibImage
 		
 		// print string
 		$textbox = imagettfbbox($this->fontSize, 0, $this->fontName, $this->text);
-		$x = ($this->width - $textbox[4])/2;
-		$y = ($this->height - $textbox[5])/2; 
-		
-		/*$x = $textbox[0] + ((($this->width) / 2) - ($textbox[4]/2) - 25 );
-		$y = $textbox[1] + ((($this->height) / 2) - ($textbox[5]/2) - 5 ); */
+		$x 		 = ($this->width - $textbox[4])/2;
+		$y 		 = ($this->height - $textbox[5])/2; 
 		
 		imagettftext($img, $this->fontSize, 0, $x, $y, $Ctextcolor, $this->fontName, $this->text);
-
-		if($this->_debugMode && $img==false)
-        {
-             echo "Image file generation error";
-             return NULL;
+		
+		if($img==false){
+            XiptError::raiseError("XIPT-SYSTEM-ERROR",'Image is not generated');
+			return false;
         }
         
-        // Output the image to browser
-		//header('Content-type: image/png');
-		$result	=	 imagepng($img,$storagename);
+		$result	=	 imagepng($img,$filepath);
 		
 		//fix for permissions
-		chmod($storagename, 0744);
+		chmod($filepath, 0744);
 		
 		imagedestroy($img);
+		
 		// if file creation is successfull return filename , else false
 		return $result ? $filename :  false;
 	}
@@ -95,8 +97,8 @@ class XiptLibImage
 	function _getColor($img , $hexcode)
 	{
 		assert($img);
-		$color	= $this->_html2rgb($hexcode);
-		return imagecolorallocate($img, $color[0],$color[1],$color[2]);
+		list($r, $g, $b)	= $this->_html2rgb($hexcode);
+		return imagecolorallocate($img, $r,$g,$b);
 	}
 	
 	// convert color into RGB
@@ -110,11 +112,16 @@ class XiptLibImage
 	                                 $color[2].$color[3],
 	                                 $color[4].$color[5]);
 	    elseif (strlen($color) == 3)
-	        list($r, $g, $b) = array($color[0].$color[0], $color[1].$color[1], $color[2].$color[2]);
+	        list($r, $g, $b) = array($color[0].$color[0],
+	        						 $color[1].$color[1], 
+	        						 $color[2].$color[2]);
 	    else
 	        return false;
 
-	    $r = hexdec($r); $g = hexdec($g); $b = hexdec($b);
+	    $r = hexdec($r); 
+	    $g = hexdec($g); 
+	    $b = hexdec($b);
+	    
 	    return array($r, $g, $b);
 	}
 }
