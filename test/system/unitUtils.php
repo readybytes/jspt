@@ -99,7 +99,7 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   
   function resetCacheData()
   {
-  	 $sModel = XiptFactory :: getModel('settings');
+  	 $sModel = XiptFactory::getInstance('settings','model');
 	 $params  = $sModel->getParams(true);
   }
 }

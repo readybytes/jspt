@@ -56,6 +56,10 @@ class XiptQuery
 
 	/** @var object The where element */
 	protected $_order = null;
+	
+	/** @var object The where element */
+	protected $_limit = 0;
+	protected $_offset = 0;
 
 	/**
 	 * Clear data from the query or a specific clause of the query.
@@ -102,6 +106,10 @@ class XiptQuery
 			case 'order':
 				$this->_order = null;
 				break;
+			case 'limit':
+				$this->_limit = null;
+				break;
+
 			default:
 				$this->_type = null;
 				$this->_select = null;
@@ -115,6 +123,7 @@ class XiptQuery
 				$this->_group = null;
 				$this->_having = null;
 				$this->_order = null;
+				$this->_limit = null;
 				break;
 		}
 
@@ -311,6 +320,15 @@ class XiptQuery
 
 		return $this;
 	}
+	
+	public function limit($limit=0, $offset=0)
+	{
+		$this->_limit 	= $limit;
+		$this->_offset 	= $offset;
+		return $this;
+	}
+	
+	
 
 	/**
 	 * @return	string	The completed query
@@ -341,6 +359,7 @@ class XiptQuery
 				if ($this->_order) {
 					$query .= (string) $this->_order;
 				}
+							
 				break;
 
 			case 'delete':
@@ -349,6 +368,7 @@ class XiptQuery
 				if ($this->_where) {
 					$query .= (string) $this->_where;
 				}
+				
 				break;
 
 			case 'update':
@@ -377,5 +397,13 @@ class XiptQuery
 			return $this->_where->convertWhereIntoString();
 		}
 		return true;
+	}
+	
+	function dbLoadQuery($queryPrefix="", $querySuffix="")
+	{
+		//XITODO : Add limit and limitstart support in query class
+		$db = JFactory::getDBO();
+		$db->setQuery($queryPrefix.(string)$this.$querySuffix, $this->_offset,$this->_limit);
+		return $db;
 	}
 }

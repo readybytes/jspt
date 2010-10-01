@@ -9,15 +9,6 @@ defined('_JEXEC') or die('Restricted access');
 class XiptModelProfiletypes extends XiptModel
 {
 	/**
-	 * Returns the Fields
-	 * @return object	JParameter object
-	 **/
-	function getFields()
-	{
-		return $this->loadRecords();
-	}
-	
-	/**
 	 * Returns the Query Object if exist
 	 * else It builds the object
 	 * @return XiQuery
@@ -36,26 +27,7 @@ class XiptModelProfiletypes extends XiptModel
 		$this->_query->order('ordering');
 		
 		return $this->_query;
-	}
-	
-	function updatePublish($id,$value)
-	{
-		$data = array('published'=>$value);
-		return $this->save($data,$id);		
-	}
-	
-	function updateVisibility($id,$value)
-	{
-		$data = array('visible' => $value);
-		return $this->save($data,$id);		
-	}
-	
-	function removeCustomAvatar($id, $newavatar)
-	{
-		$data = array('avatar' => $newavatar);
-		return $this->save($data,$id);
-	}
-	
+	}	
 	
 	function resetUserAvatar($pid, $newavatar, $oldavatar, $newavatarthumb)
 	{

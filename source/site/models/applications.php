@@ -7,42 +7,27 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiptModelApplications extends XiptModel
-{
-	var $_pagination;
-
+{	
 	/**
-	 * Constructor
+	 * Returns the Query Object if exist
+	 * else It builds the object
+	 * @return XiQuery
 	 */
-	function __construct()
+	public function getQuery()
 	{
-		global $mainframe;
+		//query already exist
+		if($this->_query)
+			return $this->_query;
 
-		// Call the parents constructor
-		parent::__construct();
-
-		// Get the pagination request variables
-		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
-		$limitstart	= $mainframe->getUserStateFromRequest( 'com_Xipt.limitstart', 'limitstart', 0, 'int' );
-
-		// In case limit has been changed, adjust limitstart accordingly
-		$limitstart = ($limit != 0 ? (floor($limitstart / $limit) * $limit) : 0);
-
-		$this->setState('limit', $limit);
-		$this->setState('limitstart', $limitstart);
-	}
-
-	/**
-	 * Retrieves the JPagination object
-	 *
-	 * @return object	JPagination object	 	 
-	 **/	 	
-	function &getPagination()
-	{
-		if ($this->_pagination == null)
-		{
-			$this->getFields();
-		}
-		return $this->_pagination;
+		//create a new query
+		$this->_query = new XiptQuery();
+		
+		$this->_query->select('*'); 
+		$this->_query->from('#__plugins');
+		$this->_query->where(" `folder` = 'community' ");
+		$this->_query->order('ordering');
+		
+		return $this->_query;
 	}
 	
 	/**
@@ -50,64 +35,25 @@ class XiptModelApplications extends XiptModel
 	 *
 	 * @return object	JParameter object
 	 **/
-	function &getFields()
+	function getFields()
 	{
-		global $mainframe;
-
-		static $fields;
-		
-		if( isset( $fields ) )
-		{
-			return $fields;
-		}
-
-		// Initialize variables
-		$db			=& JFactory::getDBO();
-
-		// Get the limit / limitstart
-		$limit		= $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart	= $mainframe->getUserStateFromRequest('com_Xiptlimitstart', 'limitstart', 0, 'int');
-
-		// In case limit has been changed, adjust limitstart accordingly
-		$limitstart	= ($limit != 0) ? ($limitstart / $limit ) * $limit : 0;
-
-		// Get the total number of records for pagination
-		$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__plugins' ).' '
-		          .'where '.$db->nameQuote('folder').'='.$db->Quote("community");
-		$db->setQuery( $query );
-		$total	= $db->loadResult();
-
-
-		jimport('joomla.html.pagination');
-		
-		// Get the pagination object
-		$this->_pagination	= new JPagination( $total , $limitstart , $limit );
-
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__plugins' )
-		          .' where '.$db->nameQuote('folder').'='.$db->Quote("community")
-				  .' ORDER BY ' . $db->nameQuote( 'ordering' );
-
-		$db->setQuery( $query , $this->_pagination->limitstart , $this->_pagination->limit );		
-		
-		$fields	= $db->loadObjectList();
-		
-		return $fields;
+		return $this->loadRecords();
 	}
 	
+	/**
+	 * Returns the Application name
+	 * @return string
+	 **/
 	function getPluginNamefromId($pluginId)
-	{
-		$db		=& JFactory::getDBO();
-		$query 	= 'SELECT * FROM #__plugins'
-				. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($pluginId);
-       	$db->setQuery( $query );
-		$result	= $db->loadObject();
-
-		//print_r("query = ".$query);
-		if($db->getErrorNum()){
-		     XiptError::raiseError( 500, $db->stderr());
-		     return false;
-		}
-      
+	{	
+		//XITODO : Load all records indexed by plugin ID, and return one object
+		$query 	= new XiptQuery();
+		$query->select('*');
+		$query->from('#__plugins');
+		$query->where(" `id` = $pluginId ");		
+       	$result = $query->dbLoadQuery("", "")
+						->loadObject();
+									
 		if(!empty($result))
 			return $result->name;
 		else

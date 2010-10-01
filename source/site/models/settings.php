@@ -9,41 +9,25 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiptModelSettings extends XiptModel
-{
-	
-	/**
-	 * Constructor
-	 */
-	function __construct()
-	{
-		// Call the parents constructor
-		parent::__construct();
-	}	
-
-	
-	function getParams($reset = false)
-	{
-		static $settingsParams = null;
-		if($settingsParams !== null && $reset === false)
-			return $settingsParams;
+{	
+	function getParams($refresh = false)
+	{		
+		if(isset($this->_params) && $refresh === false)
+			return $this->_params;
 			
-		$row   =& JTable::getInstance( 'settings' , 'XiptTable' );
-		$row->load('settings');
+		$row   = $this->loadRecords();
 		
 		$settingsxmlpath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'settings.xml';
 		$settingsini     = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'settings.ini';
 		$settingsdata    = JFile::read($settingsini);
 		
-		if(JFile::exists($settingsxmlpath))
-			$settingsParams = new JParameter($settingsdata,$settingsxmlpath);
-		else{ 
-			$tmpParams = new JParameter('','');
-			$tmpParams->bind($row->params);
-			//raise warning
-			return $tmpParams;
+		if(!JFile::exists($settingsxmlpath)){
+			XiptError::raiseError(500,XiptText::_("SETTINGS.XML FILE NOT FOUND"));
+			return false;
 		}
-		
-		$settingsParams->bind($row->params);
-		return $settingsParams;
+
+		$this->_params = new JParameter($settingsdata,$settingsxmlpath);				
+		$this->_params->bind($row['settings']->params);
+		return $this->_params;
 	}
 }

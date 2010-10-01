@@ -359,15 +359,8 @@ class ProfileTest extends XiSelTestCase
   // check if it does accidentaly delete default avatar of profiletye
   // check if watermark is applied or not
   // check what happend if Picture is removed by admin
-  function testUploadAvatar()
+  function xtestUploadAvatar()
   {
-  	 $version = XiSelTestCase::get_js_version();
-
-	 //Jomsocial 1.7 has discard remove avatar feature , 
-	 //so do not need to test it with JS 1.7
-     if(!Jstring::stristr($version,'1.6'))
-     	return true;
-     else{
   	  //ensure we have watermarks in place
   	  require_once (JPATH_ROOT . '/components/com_xipt/includes.php' );
   	  if(JFolder::exists(JPATH_ROOT.DS.'images/profiletype')==false)
@@ -447,9 +440,7 @@ class ProfileTest extends XiSelTestCase
   	  $this->verifyRemovePicture(82,1); 
   	  $this->verifyRemovePicture(83,2);
   	  $this->verifyRemovePicture(84,3);
-  	  $this->frontLogout();
-     }
-  	  
+  	  $this->frontLogout(); 	  
   }
   
   function verifyUploadAvatar($userid, $ptype, $newAvatar, $newAvatarAU)

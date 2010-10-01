@@ -12,7 +12,7 @@ class XiptViewConfiguration extends XiptView
 	function display($tpl = null){
     	$profiletype	=XiptFactory::getModel( 'Profiletypes' );		
 		
-    	$fields		=& $profiletype->getFields();
+    	$fields		=& $profiletype->loadRecords();
 		$pagination	=& $profiletype->getPagination();
 		
 		// Load tooltips

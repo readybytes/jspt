@@ -703,7 +703,7 @@ class XiptLibUtils
 	//get params data from xipt component or any
 	function getParams($paramName='', $defaultValue=0)
 	{
-		$sModel = XiptFactory :: getModel('settings');
+		$sModel = XiptFactory::getModel('settings');
 		$params  = $sModel->getParams();
 
 		if(!$params)

@@ -327,7 +327,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->updatePublish($id,1);
+			$pModel->save(array('published'=>1),$id);
 		}
 		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -351,7 +351,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->updatePublish($id,0);
+			$pModel->save(array('published'=>0),$id);
 		}
 		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -375,7 +375,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->updateVisibility($id,1);
+			$pModel->save( array('visible' => 1), $id );
 		}
 		$msg = sprintf(JText::_('ITEMS VISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -399,7 +399,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->updateVisibility($id,0);
+			$pModel->save( array('visible' => 0), $id );
 		}
 		$msg = sprintf(JText::_('ITEMS INVISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -450,7 +450,7 @@ class XiptControllerProfiletypes extends XiptController
 		$newavatarthumb	= DEFAULT_AVATAR_THUMB;
 		$profiletype	=XiptFactory::getModel( 'Profiletypes' );
 		
-		$profiletype->removeCustomAvatar($id, $newavatar);
+		$profiletype->save( array('avatar' => $newavatar), $id );;
 		
 		$profiletype->resetUserAvatar($id, $newavatar, $oldAvatar, $newavatarthumb);
 		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');

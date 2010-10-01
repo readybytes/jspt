@@ -26,6 +26,7 @@ class XiptModel extends JModel
 
 		//now construct the parent
 		parent::__construct($options);
+		$this->getPagination();
 	}
 
 	/*
@@ -98,10 +99,10 @@ class XiptModel extends JModel
 	public function loadRecords($limit=null, $limitstart=null, $emptyRecord=false)
 	{
 		if($limit===null)
-			$limit = $this->getState('limit');
+			$limit = $this->getState('limit',null);
 
 		if($limitstart ===null)
-			$limitstart = $this->getState('limitstart');
+			$limitstart = $this->getState('limitstart',0);
 
 		$query = $this->getQuery();
 
@@ -110,8 +111,11 @@ class XiptModel extends JModel
 			return null;
 			
 		//we want returned record indexed by columns
-		$this->_db->setQuery( (string) $query, $limitstart, $limit );
-		$this->_recordlist = $this->_db->loadObjectList();
+		$pKey = $this->getTable()->getKeyName();
+
+		$this->_recordlist = $query->limit($limit,$limitstart)
+									->dbLoadQuery("", "")
+									->loadObjectList($pKey);
 
 		if($emptyRecord){
 			$this->_recordlist = $this->__getEmptyRecord();
@@ -217,7 +221,18 @@ class XiptModel extends JModel
 	 * @return XiQuery
 	 */
 	public function getQuery()
-	{}
+	{
+		//query already exist
+		if($this->_query)
+			return $this->_query;
+
+		//create a new query
+		$this->_query = new XiptQuery();
+		
+		$this->_query->select('*'); 
+		$this->_query->from($this->getTable()->getTableName());	
+		return $this->_query;
+	}
 
 	/**
 	 * @return XiPagination

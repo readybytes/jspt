@@ -14,22 +14,12 @@ class ProfiletypeUnitTest extends XiUnitTestCase
 	$filter['defaultProfiletypeID']=1;
 	$this->changeJSPTConfig($filter);
 	$this->resetCacheData();
-    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(true),1);
+    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(),1);
     
     $filter['defaultProfiletypeID']=5;
 	$this->changeJSPTConfig($filter);
 	$this->resetCacheData();
-    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(true),5);
-    
-    $filter['defaultProfiletypeID']=7;
-	$this->changeJSPTConfig($filter);
-	$this->resetCacheData();
-    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(),5);
-    
-    $filter['defaultProfiletypeID']=2;
-	$this->changeJSPTConfig($filter);
-	$this->resetCacheData();
-	$this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(true),2);
+    $this->assertEquals(XiptLibProfiletypes::getDefaultProfiletype(),5);    
   }
   
   function testProfiletypeName()
@@ -518,7 +508,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  		$newavatar 		= DEFAULT_AVATAR ;
  		
  		//remove custom avatar for pid 2
-		$profiletype->removeCustomAvatar(2, $newavatar);
+		$profiletype->save( array('avatar' => $newavatar), 2 );
 		$this->_DBO->addTable('#__xipt_profiletypes');
  	}
  	

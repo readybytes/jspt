@@ -9,7 +9,10 @@ defined('_JEXEC') or die('Restricted access');
 
 class XiptModelConfiguration extends XiptModel
 {
-
+	function getTable()
+	{
+		return parent::getTable('profiletypes');
+	}
 	/**
 	 * Returns the configuration object
 	 * @return object	JParameter object
@@ -17,33 +20,24 @@ class XiptModelConfiguration extends XiptModel
 	function getParams($id)
 	{
 		// Test if the config is already loaded.
-		static $params=null;
-		if( isset($params) && array_key_exists($id,$params))
-			return $params;
 		
-		$db = & JFactory::getDBO();
- 		$this->_query = new XiptQuery();
-		
-		$this->_query->select('params'); 
-		$this->_query->from('#__xipt_profiletypes');
-		$this->_query->where("`id` = $id");
-		
-		$db->setQuery((string) $this->_query);
-		$pTypeConfig = $db->loadResult();
+		if( isset($this->_params))
+			return $this->_params;
+ 		
+		$row	= XiptFactory::getInstance('profiletypes','model');
+		$record = $row->loadRecords();
 		
 		// if config not found from tabale then load default config of jom social
-		if(!$pTypeConfig)
-			$config = & CFactory::getConfig();
+		if(!$record[$id]->params)
+			$this->_params = CFactory::getConfig();
 		else
-			$config	= new JParameter( $pTypeConfig );
+			$this->_params = new JParameter( $record[$id]->params );
 			
-		$params[$id] = $config;
-		return $params[$id];		
+		return $this->_params;		
 	}
 	
 	/**
-	 * Save the configuration to the config file
-	 * 
+	 * Save the configuration to the config file	 * 
 	 * @return boolean	True on success false on failure.
 	 **/
 	function save($postData,$id)
@@ -72,8 +66,9 @@ class XiptModelConfiguration extends XiptModel
 	
 	function reset($id)
 	{		
-		//XITODO : assert for $id should be valid
-		$row = XiptFactory::getInstance('profiletypes','model');	
-		return $row->save(array('params'=>''),$id);
+		//XITODO : assert for $id should be valid		
+		return  XiptFactory::getInstance('profiletypes','model')
+							->save(array('params'=>''),$id);;
+		
 	}
 }

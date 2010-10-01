@@ -20,20 +20,17 @@ class XiptLibProfiletypes
 	{
 		XiptLibUtils::XAssert($userid);
 
-		/*XITODO : Remove the require_once, class should be auto loaded*/
-		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
-
 		/*XITODO : validate ptype before save*/
 		$data             = new stdClass();
 		$data->userid     = $userid;
 		$data->profiletype= $profiletype;
 		$data->template   = $template;
 				
-		/*call model through object. */
-		$uModel = XiptFactory :: getModel('User','site');
-		$uModel->setUserData($data);
+		$uModel = XiptFactory::getInstance('Users','model');
+		$uModel->save($data,$data->userid);
+
+		//XITODO : Do We really require it
 		XiptLibProfiletypes::getUserData($userid, $what='PROFILETYPE', true);
-		//XiptModelUser::setUserData($data);
 	}
 	
     function saveXiptUserField($userId,$value,$what)
@@ -228,21 +225,18 @@ class XiptLibProfiletypes
 	}
 	
 
-	function getDefaultProfiletype($refresh=false)
-	{
-		static $defaultProfiletypeID = null;
-		if($defaultProfiletypeID && $refresh===false)
-			return $defaultProfiletypeID;
-			 
+	function getDefaultProfiletype()
+	{		
+//		static $defaultProfiletypeID = null;
+//		if($defaultProfiletypeID && $refresh===false)
+//			return $defaultProfiletypeID;
+//		
 		$defaultProfiletypeID = XiptLibUtils::getParams('defaultProfiletypeID');
+		if($defaultProfiletypeID)
+			return  $defaultProfiletypeID;
 		
-		if(!$defaultProfiletypeID)
-		{
-			echo XiptLibUtils::getParams()->render();
-		    XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
-		}
-		    
-		return  $defaultProfiletypeID;
+		echo XiptLibUtils::getParams()->render();
+		XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 	}
 	
 	
