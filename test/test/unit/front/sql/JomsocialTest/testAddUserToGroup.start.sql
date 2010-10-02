@@ -28,4 +28,6 @@ INSERT INTO `au_#__community_groups_members` (`groupid`, `memberid`, `approved`,
 (4, 84, 1, 0),
 (1, 85, 1, 0),
 (4, 87, 1, 0),
-(2, 83, 1, 0);;
+(2, 83, 1, 0),
+(3, 83, 1, 0),
+(4, 83, 1, 0);;

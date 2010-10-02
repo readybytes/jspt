@@ -8,8 +8,7 @@
 ../packages/tmp/site/includes.php:33:require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
 ../packages/tmp/site/includes.php:34:require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/site/includes.php:49:require_once  JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
-../packages/tmp/site/libraries/lib/profiletypes.php:23:		/*XITODO : Remove the require_once, class should be auto loaded*/
-../packages/tmp/site/libraries/lib/profiletypes.php:24:		require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
+../packages/tmp/site/libraries/lib/profiletypes.php:32:		//XITODO : Do We really require it
 ../packages/tmp/site/libraries/lib/utils.php:365:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 ../packages/tmp/site/libraries/lib/utils.php:456:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 ../packages/tmp/site/libraries/lib/pluginhandler.php:12:// include files, as we are here from plugin
@@ -19,8 +18,6 @@
 ../packages/tmp/site/libraries/acl/factory.php:58:		require_once $path;
 ../packages/tmp/site/libraries/acl/helper.php:240:		//is this require to check if viewuserid and userid is same
 ../packages/tmp/site/libraries/base/factory.php:32:        require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
-../packages/tmp/site/libraries/base/factory.php:45://				include_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'
-../packages/tmp/site/libraries/base/factory.php:48://				include_once( JPATH_ROOT.DS.'components'.DS.'com_xipt'
 ../packages/tmp/site/libraries/base/route.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt' .DS. 'router.php';
 ../packages/tmp/site/api.xipt.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/site/xipt.php:10:require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.php';
@@ -35,7 +32,7 @@
 ../packages/tmp/admin/includes.php:19:// include JomSocial files
 ../packages/tmp/admin/includes.php:30:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/admin/includes.php:32:// define our include paths to joomla
-../packages/tmp/admin/controllers/profiletypes.php:215:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+../packages/tmp/admin/controllers/profiletypes.php:216:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 ../packages/tmp/admin/controllers/setup.php:109:	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/admin/controllers/setup.php:128:			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/admin/controllers/setup.php:164:			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');

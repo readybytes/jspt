@@ -13,7 +13,7 @@ define('XIPT_NONE','XIPT_NONE');
 
 define('PROFILETYPE_FIELD_TYPE_NAME','profiletypes');
 define('TEMPLATE_FIELD_TYPE_NAME','templates');
-
+define('JOOMLA_USER_TYPE_NONE','None');
 
 define('PROFILETYPE_FIELD_IN_USER_TABLE','profiletype');
 define('TEMPLATE_FIELD_IN_USER_TABLE','template');
@@ -83,10 +83,13 @@ define('XIPT_FRONT_PATH_LIBRARY_LIB',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS
 define('XIPT_FRONT_PATH_LIBRARY_ACL',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'acl');
 
 
-// define constant   for privacy value
+// define constant for privacy value
 define('XI_PRIVACY_PUBLIC',10);
 define('XI_PRIVACY_MEMBERS',20);
 define('XI_PRIVACY_FRIENDS',30);
 
 define('XIPT_PROFILETYPE_ALL',0);
 define('XIPT_PROFILETYPE_NONE',-1);
+
+// define constant for none group
+define('NONE', 0);

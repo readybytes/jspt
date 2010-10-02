@@ -38,10 +38,10 @@ class XiptLibJomsocial
 		//if(isset($results[$userid][$what]))
 		//	return $results[$userid][$what];
 
-		//XITODO : Use LIMIT to 100
 		$db			=& JFactory::getDBO();
 		$query		= 'SELECT * FROM '
-					. $db->nameQuote( '#__community_users' );
+					. $db->nameQuote( '#__community_users' )
+					.' LIMIT 100';
 		
 		$db->setQuery( $query );
 		$results  = $db->loadAssocList('userid');
@@ -55,10 +55,10 @@ class XiptLibJomsocial
      * @param $newUsertype
      * @return true/false
      */
-    function updateJoomlaUserType($userid, $newUsertype='')
+    function updateJoomlaUserType($userid, $newUsertype=JOOMLA_USER_TYPE_NONE)
 	{
 	    //do not change usertypes for admins
-		if(XiptLibUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === 'None')
+		if(XiptLibUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE)
 		    return false;
 
 		self::reloadCUser($userid);
@@ -75,8 +75,6 @@ class XiptLibJomsocial
 		    return true;
 		}
 		
-		// With CUSER->save() nothing is returned
-		//XiptError::raiseError('XIPTERR', JText::_( $user->getError()));
 		self::reloadCUser($userid);
 		return true;
 	}
@@ -89,14 +87,14 @@ class XiptLibJomsocial
 	function updateCommunityConfig(&$instance)
 	{
 		// skip these calls from backend
-		global $mainframe;
-		if($mainframe->isAdmin())
+		if(JFactory::getApplication()->isAdmin())
 			return true;
+
+			$loggedInUser = JFactory::getUser();
 			
-		$loggedInUser = JFactory::getUser();
 		$pID = XiptLibProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
 		
-		if(JRequest :: getVar('view') === 'register'){
+		if(JRequest::getVar('view') === 'register'){
 			$pluginHandler = XiptFactory::getLibraryPluginHandler();
 			$pID = $pluginHandler->getRegistrationPType();
 		}
@@ -140,7 +138,6 @@ class XiptLibJomsocial
 	    XiptLibUtils::XAssert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
 
 	    // find the profiletype or template field
-	    //TODO : user $user->setInfo, once it comes or some other way,
 	    // dont patch up the database.
 		$db		=& JFactory::getDBO();
 		$query 	= 'SELECT * FROM `#__community_fields`'
@@ -199,13 +196,9 @@ class XiptLibJomsocial
 	 * @return unknown_type
 	 */
 	function updateCommunityUserWatermark($userid,$watermark='')
-	{
-		//no watermark
-		if($watermark === '')
-			return false;
-			
+	{	
 		//check if watermark is enable
-		if(XiptLibUtils::getParams('show_watermark')=== false)
+		if(XiptLibUtils::getParams('show_watermark')== false)
 			return false;
 		
 		//update watermark on user's avatar
@@ -214,10 +207,10 @@ class XiptLibJomsocial
 		$isDefault		   = XiptLibProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true);
 		
 		//no watermark
-		if($watermark=='')	
+		if($watermark == '')	
 		{
-			XiptLibJomsocial::replaceAvatar($pTypeAvatar);
-			XiptLibJomsocial::replaceAvatar($pTypeThumbAvatar);
+			self::restoreBackUpAvatar($pTypeAvatar);
+			self::restoreBackUpAvatar($pTypeThumbAvatar);
 		}
 		
 		// no watermark on default avatars
@@ -235,11 +228,14 @@ class XiptLibJomsocial
 		return true;
 	}
 	
-	function replaceAvatar($imagepath)
+	function restoreBackUpAvatar($currImagePath)
 	{
-		    $avatarFileName = JFile::getName($imagepath);
-			if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName))
-			JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$imagepath);
+		    $avatarFileName = JFile::getName($currImagePath);
+			if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
+				return true;
+				
+			XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar in backup folder does not exist.");
+			return false;
 	}
 	/**
 	 * It updates user's oldAvtar to newAvatars
@@ -257,14 +253,14 @@ class XiptLibJomsocial
 		
 		//reload : so that we do not override previous information if any updated in database.
 		self::reloadCUser($userid);
-		$user    =& CFactory::getUser($userid);
-		$userAvatar  = $user->_avatar;
+		$user    	= CFactory::getUser($userid);
+		$userAvatar = $user->_avatar;
 		
 		//We must enforce this as we never want to overwrite a custom avatar
 		$isDefault	= XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
 		$changeAvatarOnSyncUp= self::_changeAvatarOnSyncUp($userAvatar); 
 		
-		if($isDefault==false && $changeAvatarOnSyncUp==false)
+		if($isDefault == false && $changeAvatarOnSyncUp == false)
 			return false;
 
 		// we can safely update avatar so perform the operation		
@@ -276,15 +272,6 @@ class XiptLibJomsocial
 		
 		//enforce JomSocial to clean cached user
         self::reloadCUser($userid);
-        
-        //apply watermark on user's avatar, as we are not updating custom avatar 
-        // we are never going to apply watermark over here
-        /*
-        $profiletype = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-        $watermark 	 = XiptLibProfiletypes::getProfiletypeData($profiletype,'watermark');
-        self::updateCommunityUserWatermark($userid, $watermark);
-        */
-        
 		return true;
 	}
 
@@ -295,8 +282,8 @@ class XiptLibJomsocial
 		// get params
 		self::reloadCUser($userid);
 		
-		$cuser    =& CFactory::getUser($userid);
-		$myparams =  $cuser->getParams();
+		$cuser    = CFactory::getUser($userid);
+		$myparams = $cuser->getParams();
 		foreach( $myprivacy as $key => $val ){
 			$myparams->set( $key , $val );
 		}
@@ -334,19 +321,22 @@ class XiptLibJomsocial
   		return $db->loadResult() ? true : false ;
 	}
 	
-	function _addUserToGroup( $userId , $groupId)
+	function _addUserToGroup( $userId , $groupIds)
 	{
-		$groupId	= explode(',',$groupId);
+		if(empty($groupIds))
+			return false;
+			
+		$groupIds	= explode(',',$groupIds);
 		$groupModel	=& CFactory::getModel( 'groups' );
 	
         //if user has selected "none" just exit
-		if( !is_array($groupId) || count($groupId)<=0 || in_array(0, $groupId) )
+		if( is_array($groupIds) == false || in_array(NONE, $groupIds) )
 			return false;
 	
-	    foreach($groupId as $k=>$gid)
+	    foreach($groupIds as $k=>$gid)
 	    {
 			if( $groupModel->isMember( $userId , $gid ) )
-				return false;
+				continue;
 			
 			$group		=& JTable::getInstance( 'Group' , 'CTable' );
 			$member		=& JTable::getInstance( 'GroupMembers' , 'CTable' );
@@ -373,26 +363,29 @@ class XiptLibJomsocial
 			return true;
 	}
 	    
-	function _removeUserFromGroup($userId , $groupId)
+	function _removeUserFromGroup($userId , $groupIds)
 	{
-		$groupId	=explode(',',$groupId);
-		$model		= & CFactory::getModel( 'groups' );
+		if(empty($groupIds))
+			return false;
+		
+		$groupIds	=explode(',',$groupIds);
+		$model		=& CFactory::getModel( 'groups' );
 		$group		=& JTable::getInstance( 'Group' , 'CTable' );
 		
-		if( (!is_array($groupId)) && (count($groupId) <= 0) )
+		if( (is_array($groupIds)) == false )
 			return false;
 
-	    foreach($groupId as $k => $gid)
+	    foreach($groupIds as $k => $gid)
 	    {
 			$group->load( $gid );
 		
 			// do not remove owner
-			if($group->ownerid === $userId)
-				return;
+			if($group->ownerid == $userId)
+				continue;
 			
 			// if user is not member of group
 			if(!$model->isMember($userId , $gid))
-				return;
+				continue;
 			
 			//load group member table
 			$groupMember =& JTable::getInstance( 'GroupMembers' , 'CTable' );
@@ -406,29 +399,35 @@ class XiptLibJomsocial
 			$model->removeMember($data);
 			$model->substractMembersCount( $gid );
 	    }
-		return;
+		return true;
 	}
 	
 	function reloadCUser($userid)
 	{
 		if(!$userid)
-			return;
-		
-		$cuser =& CFactory::getUser($userid);
-		$cuser = array();
-		CFactory::getUser($userid);
-		return;	
+			return false;
+			
+		$cuser = CFactory::getUser($userid, '');
+		return CFactory::getUser($userid);		
 	}
-	
-	
+
 	function _changeAvatarOnSyncUp($userAvatar)
 	{
 		$task=JRequest::getVar('task','','GET');
 		if($task != 'syncUpUserPT')
 			return false;
-		$val=JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_');
-		if($val==true)
-			return true;
-		return false;
+			
+		//check that avatar exists in images/profiletype
+		return JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_');
+	}
+	
+	function cleanStaticCache($set = null)
+	{
+		static $reset=false;
+		
+		if($set !== null)
+			$reset = $set;
+			
+		return $reset;
 	}
 }

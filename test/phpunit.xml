@@ -26,7 +26,7 @@
 		<file>test/unit/front/profiletypeUnitTest.php</file>
 		<file>test/unit/front/appsTest.php</file>
 		<file>test/unit/front/profileFieldControlTest.php</file>
-		<file>test/unit/front/coreTest.php</file>
+		<file>test/unit/front/jomsocialTest.php</file>
 		<file>test/unit/front/aecTest.php</file>
 		<file>test/unit/front/imageTest.php</file>
 		

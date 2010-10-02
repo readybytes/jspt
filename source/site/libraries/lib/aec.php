@@ -27,7 +27,7 @@ class XiptLibAec
 		//if user is requesting to change plan then prefer it
 		$planid  = $usage = JRequest::getInt( 'usage', $usage, 'REQUEST');
 		// if no prefered plan, then use saved in session
-		if($usage===0  && $planSetInSess){
+		if($usage == 0  && $planSetInSess){
 			$planid = $mySess->get('AEC_REG_PLANID',0,'XIPT');
 		}
 		

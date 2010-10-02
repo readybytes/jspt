@@ -8,7 +8,8 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
 	
-	
+	function testSTUPID000000001()
+	{}
  function testProfileFieldPrivacy()
   {	
   	return;

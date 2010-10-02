@@ -74,7 +74,6 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (163, 86, 8, 'regtest1504555'),
 (129, 81, 5, 'regtest8635954'),
 (128, 81, 17, '3'),
-(127, 81, 16, 'blackout'),
 (126, 80, 9, 'regtest6208627');;
 
 
@@ -150,5 +149,5 @@ INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value
 (163, 86, 8, 'regtest1504555'),
 (129, 81, 5, 'regtest8635954'),
 (128, 81, 17, '3'),
-(127, 81, 16, 'blackout'),
-(126, 80, 9, 'regtest6208627');;
+(126, 80, 9, 'regtest6208627'),
+(169, 81, 16, 'blackout');;

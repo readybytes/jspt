@@ -72,7 +72,7 @@ INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`
 (1, 'PROFILETYPE-1', 2, 1, '<p>PROFILETYPE-ONE-TIP</p>', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 1, 'images/profiletype/watermark_1.png', '', 'enableWaterMark=1\nxiText=P1\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=1\n\n', 1),
 (2, 'PROFILETYPE-2', 1, 1, '<p>PROFILETYPE-TWO-TIP</p>', 'public', 'default', 'Registered', 'images/profiletype/avatar_2.jpg', 0, 0, 0, 'images/profiletype/watermark_2.png', '', 'enableWaterMark=1\nxiText=P2\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=2\n\n', 1),
 (3, 'PROFILETYPE-3', 3, 1, 'PROFILETYPE-THREE-TIP', 'public', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 4, '', '', '', 1),
-(4, 'PROFILETYPE-4', 4, 0, 'PROFILETYPE-THREE-TIP', 'members', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', '', 1);
+(4, 'PROFILETYPE-4', 4, 0, 'PROFILETYPE-THREE-TIP', 'members', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', '', 1);;
 
 
 
