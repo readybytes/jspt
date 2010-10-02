@@ -327,7 +327,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->save(array('published'=>1),$id);
+			$pModel->publish($id);
 		}
 		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -351,7 +351,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->save(array('published'=>0),$id);
+			$pModel->unpublish($id);
 		}
 		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -375,7 +375,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->save( array('visible' => 1), $id );
+			$pModel->visible($id);
 		}
 		$msg = sprintf(JText::_('ITEMS VISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -399,7 +399,7 @@ class XiptControllerProfiletypes extends XiptController
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		foreach($ids as $id)
 		{
-			$pModel->save( array('visible' => 0), $id );
+			$pModel->invisible($id);
 		}
 		$msg = sprintf(JText::_('ITEMS INVISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);

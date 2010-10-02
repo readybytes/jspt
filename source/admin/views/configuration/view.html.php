@@ -30,8 +30,9 @@ class XiptViewConfiguration extends XiptView
 	{		
 		$name = JRequest :: getVar('name');
 		
-		$cModel = XiptFactory :: getModel('configuration');
-		$params  = $cModel->getParams($id);
+		$params	= XiptFactory::getInstance('profiletypes','model')
+									->loadParams($id);
+		
 		$lists = array();
 		for ($i=1; $i<=31; $i++) {
 			$qscale[]	= JHTML::_('select.option', $i, $i);

@@ -217,7 +217,7 @@ class XiptControllerAclRules extends XiptController
 		$aclModel	= XiptFactory::getModel( 'aclrules' );
 		foreach($ids as $id)
 		{
-			$aclModel->updatePublish($id,1);
+			$aclModel->publish($id);
 		}
 		$msg = JText::sprintf( $count.' ITEMS PUBLISHED' );
 		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
@@ -241,7 +241,7 @@ class XiptControllerAclRules extends XiptController
 		$aclModel	= XiptFactory::getModel( 'aclrules' );
 		foreach($ids as $id)
 		{
-			$aclModel->updatePublish($id,0);
+			$aclModel->unpublish($id);
 		}
 		$msg = JText::sprintf( $count.' ITEMS UNPUBLISHED' );
 		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);

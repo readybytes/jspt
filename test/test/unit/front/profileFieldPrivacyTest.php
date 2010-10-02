@@ -9,8 +9,9 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
   }
 	
 	
- function xtestProfileFieldPrivacy()
+ function testProfileFieldPrivacy()
   {	
+  	return;
 
   	$version = XiSelTestCase::get_js_version();
     if(Jstring::stristr($version,'1.8'))

@@ -29,6 +29,44 @@ class XiptModelProfiletypes extends XiptModel
 		return $this->_query;
 	}	
 	
+	/**
+	 * Save the configuration to the config file	 * 
+	 * @return boolean	True on success false on failure.
+	 **/
+	function saveParams($postData,$id)
+	{
+		//XITODO : Assert THIS $id should be valid
+		//XiptError:assert($id);
+		
+		unset($postData[JUtility::getToken()]);
+		unset($postData['option']);
+		unset($postData['task']);
+		unset($postData['view']);
+		unset($postData['id']);
+		
+		$registry	= JRegistry::getInstance('xipt');
+		$registry->loadArray($postData,'xipt');
+		$params	= $registry->toString( 'INI' , 'xipt' );
+		
+		return $this->save(array('params'=> $params), $id);
+	}
+	
+	function loadParams($id)
+	{
+		if( isset($this->_params))
+			return $this->_params; 		
+		
+		$record = $this->loadRecords();
+		
+		// if config not found from tabale then load default config of jom social
+		if(!$record[$id]->params)
+			$this->_params = CFactory::getConfig();
+		else
+			$this->_params = new JParameter( $record[$id]->params );
+			
+		return $this->_params;
+	}
+	
 	function resetUserAvatar($pid, $newavatar, $oldavatar, $newavatarthumb)
 	{
 		//get all users for profiletype

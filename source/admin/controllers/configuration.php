@@ -44,11 +44,11 @@ class XiptControllerConfiguration extends XiptController
 	
 	function save()
 	{
-		$cModel	=& XiptFactory::getModel( 'configuration' );
+		$pModel	= XiptFactory::getInstance('profiletypes', 'model');
 		$id	= JRequest::getVar( 'id','0','post');
 		$postData	= JRequest::get( 'post' , 2 );
 		// Try to save configurations
-		if( $cModel->save($postData, $id) )
+		if( $pModel->saveParams($postData, $id) )
 		{
 			$message	= JText::_('Configuration Updated');
 		}
@@ -75,10 +75,10 @@ class XiptControllerConfiguration extends XiptController
 		
 		$mainframe	=& JFactory::getApplication();		
 
-		$cModel	=& XiptFactory::getModel( 'configuration' );
+		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		
 		// Try to save configurations
-		if( $cModel->reset($id) )
+		if( $pModel->save(array('params'=>''),$id) )
 		{
 			$message = JText::_('Profiletype has been Reset');
 		}

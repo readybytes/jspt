@@ -245,4 +245,25 @@ class XiptModel extends JModel
 		$this->_pagination = new XiptPagination($this);
 		return $this->_pagination;
 	}
+	// XITODO : check these fileds exist in table or not
+	function publish($id)
+	{		
+		return $this->save( array('published'=>1), $id );		
+	}
+	
+	function unpublish($id)
+	{		
+		return $this->save( array('published'=>0), $id );		
+	}
+	
+//XITODO : move to child model
+	function visible($id)
+	{		
+		return $this->save( array('visible'=>1), $id );		
+	}
+	
+	function invisible($id)
+	{		
+		return $this->save( array('visible'=>0), $id );		
+	}
 }

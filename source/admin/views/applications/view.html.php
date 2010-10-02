@@ -11,7 +11,7 @@ class XiptViewApplications extends XiptView
 	function display($tpl = null){
 		$aModel	= XiptFactory::getModel( 'Applications' );
 		
-		$fields		=& $aModel->getFields();
+		$fields		=& $aModel->loadRecords();
 		$pagination	=& $aModel->getPagination();
 		
 		// Load tooltips

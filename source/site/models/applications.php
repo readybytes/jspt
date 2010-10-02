@@ -31,31 +31,15 @@ class XiptModelApplications extends XiptModel
 	}
 	
 	/**
-	 * Returns the Fields
-	 *
-	 * @return object	JParameter object
-	 **/
-	function getFields()
-	{
-		return $this->loadRecords();
-	}
-	
-	/**
 	 * Returns the Application name
 	 * @return string
 	 **/
 	function getPluginNamefromId($pluginId)
-	{	
-		//XITODO : Load all records indexed by plugin ID, and return one object
-		$query 	= new XiptQuery();
-		$query->select('*');
-		$query->from('#__plugins');
-		$query->where(" `id` = $pluginId ");		
-       	$result = $query->dbLoadQuery("", "")
-						->loadObject();
+	{			
+		$result = $this->loadRecords();
 									
-		if(!empty($result))
-			return $result->name;
+		if(!empty($result[$pluginId]))
+			return $result[$pluginId];
 		else
 			return false;
 	}

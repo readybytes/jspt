@@ -34,9 +34,9 @@ class XiptLibJomsocial
 		XiptLibUtils::XAssert(!empty($what));
 		
 		static $results = array();
-		
-		if(isset($results[$userid][$what]))
-			return $results[$userid][$what];
+		//XITODO : carefully apply caching
+		//if(isset($results[$userid][$what]))
+		//	return $results[$userid][$what];
 
 		//XITODO : Use LIMIT to 100
 		$db			=& JFactory::getDBO();

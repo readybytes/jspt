@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<params addpath="/administrator/components/com_xipt/elements" >
+	<params>
 		<param name="jspt_restrict_reg_check" type="radio" default="0" label="ENABLE RESTRICT REGISTRATION CHECK" description="ENABLE RESTRICT REGISTRATION CHECK.DESC">
 				<option value="0">No</option>
 				<option value="1">Yes</option>

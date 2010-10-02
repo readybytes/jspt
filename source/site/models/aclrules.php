@@ -7,18 +7,4 @@
 defined('_JEXEC') or die('Restricted access');
 
 class XiptModelAclrules extends XiptModel
-{	 
-	/**
-	 * Returns the Fields
-	 * @return object	JParameter object
-	 **/
-	function getRules()
-	{		
-		return $this->loadRecords();
-	}
-	
-	function updatePublish($id,$value)
-	{		
-		return $this->save( array('published'=>$value), $id );		
-	}
-}
+{}
