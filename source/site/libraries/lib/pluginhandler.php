@@ -27,8 +27,7 @@ class XiptLibPluginhandler
 	{
 		global $mainframe;
 		$this->mainframe =& $mainframe;
-
-		$this->mySess = & JFactory::getSession();
+		$this->mySess    =  JFactory::getSession();
 	}
 
 	//if value exist in session then return ptype else return false
@@ -142,9 +141,9 @@ class XiptLibPluginhandler
 		}
 
 		// Checks to stop Apps addition not allowed
-		if($controller=='apps' && $function=='ajaxAdd')
+		if($controller =='apps' && $function =='ajaxAdd')
 		{
-		    $my				=& JFactory::getUser();
+		    $my				= JFactory::getUser();
 
 		    //no filtering for guests
 		    if(0 == $my->id)
@@ -223,7 +222,7 @@ class XiptLibPluginhandler
 	
 	function deleteUser($userid)
 	{
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query	= 'SELECT * FROM '. $db->nameQuote('#__xipt_users')
 				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
 
@@ -302,7 +301,7 @@ class XiptLibPluginhandler
 		}
 
 		// not allowed to change profiletype, get data from table and set it
-		if(0 == $allowToChangePType || $profileTypeValue==0){
+		if(0 == $allowToChangePType || $profileTypeValue == 0){
 			$profileTypeValue = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 
@@ -332,8 +331,8 @@ class XiptLibPluginhandler
 	    XiptLibProfiletypes::updateUserProfiletypeData($userid,$profiletype,$template,'ALL');
 	    
 	    //update template seperately
-	    $filter[] = 'template';
-	    $newData['template']= $template;
+	    $filter[] 				= 'template';
+	    $newData['template']	= $template;
 	    XiptLibProfiletypes::updateUserProfiletypeFilteredData($userid,$filter,null,$newData);
 	    return true;
 	}
@@ -354,13 +353,13 @@ class XiptLibPluginhandler
 		// When admin is removing a user's avatar
 		// we need to apply default avatar of profiletype
 		$isAdmin = XiptLibUtils::isAdmin(JFactory::getUser()->id);
-		$view = JRequest::getVar('view','','GET');
-		$task = JRequest::getVar('task','','GET');
+		$view    = JRequest::getVar('view','','GET');
+		$task    = JRequest::getVar('task','','GET');
 		//
 		if($isAdmin && $view == 'profile' && $task == 'removepicture')
 		{
 			//setup $new_avatar
-			$ptype = XiptLibProfiletypes::getUserData($userid, 'PROFILETYPE');
+			$ptype  = XiptLibProfiletypes::getUserData($userid, 'PROFILETYPE');
 			$avatar = XiptLibProfiletypes::getProfiletypeData($ptype, 'avatar');
 			//if users avatar is custom avatar then thumb is stored as thumb_XXXX.png
 			//else if it is a default avatar(JomSocial OR Profiletype) then stored as XXX_thumb.png
@@ -418,7 +417,7 @@ class XiptLibPluginhandler
 		if($mainframe->isAdmin())
 			return;
 
-		$dispatcher =& JDispatcher::getInstance();
+		$dispatcher = JDispatcher::getInstance();
 		/* TODO : when A is viewing B's profile then
 		 * we restrict all A's app on B's profile too.
 		 * so currently we are restricting all apps for currently logged in user
@@ -430,7 +429,7 @@ class XiptLibPluginhandler
 		$othersUserid  = JRequest::getVar('userid',$selfUserid);
 		
 		// apply guest profile type for guest user
-		$selfProfiletype= XiptLibProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
+		$selfProfiletype    = XiptLibProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 
 		$othersProfiletype 	= XiptLibProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
 		$blockDisplayApp    = XiptLibUtils::getParams('jspt_block_dis_app', 0);
@@ -439,10 +438,10 @@ class XiptLibPluginhandler
 		   #2: otherwise block display application of user whose profile is being visited
 		   #3: block the functional application of logged in user
 		*/ 		
-		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_OWNER || $blockDisplayApp==BLOCK_DISPLAY_APP_OF_BOTH)
+		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_OWNER || $blockDisplayApp == BLOCK_DISPLAY_APP_OF_BOTH)
 			XiptLibApps::filterCommunityApps($dispatcher->_observers, $othersProfiletype, true);
 			
-		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_VISITOR || $blockDisplayApp==BLOCK_DISPLAY_APP_OF_BOTH)
+		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_VISITOR || $blockDisplayApp == BLOCK_DISPLAY_APP_OF_BOTH)
 			XiptLibApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype, true);
 
 		XiptLibApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype,	  false);
@@ -497,7 +496,7 @@ class XiptLibPluginhandler
 
 			$link = "index.php?option=com_xipt&view=registration";
 								
-			$menu = &JSite::getMenu(); 
+			$menu   = JSite::getMenu(); 
 			$itemid = $menu->getItems('link', $link);
 
 			$itemInfo = '';
@@ -511,7 +510,7 @@ class XiptLibPluginhandler
 			}
 
 
-			$aecExists = XiptLibAec::isAecExists();
+			$aecExists 		= XiptLibAec::isAecExists();
 			$integrateAEC   = XiptLibUtils::getParams('aec_integrate',0);
 
 			// pType already selected
@@ -522,9 +521,9 @@ class XiptLibPluginhandler
 			}
 			else
 			{
-			    $url = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
+			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
 			    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
-			    $msg = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
+			    $msg 			   = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
 			}
 
 			$link = '<a id="xipt_back_link" href='.$url.'>'. JText::_("CLICK HERE").'</a>';
@@ -546,8 +545,8 @@ class XiptLibPluginhandler
 	/* get the plan id when the direct link of AEC are used */
 	function event_com_acctexp_blank_subscribe()
 	{
-		$mySess =& JFactory::getSession();
-		$usage  =  JRequest::getVar( 'usage', '0', 'REQUEST');
+		$mySess = JFactory::getSession();
+		$usage  = JRequest::getVar( 'usage', '0', 'REQUEST');
 		$mySess->set('AEC_REG_PLANID',$usage, 'XIPT');			
 	}
 
@@ -572,7 +571,7 @@ class XiptLibPluginhandler
 
 	    // as user want to integrate the AEC so a plan must be selected
         // send user to profiletype selection page
-	    if($aecData['planSelected']==false)
+	    if($aecData['planSelected'] == false)
 	        $mainframe->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),JText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
 
 	    // set selected profiletype in session
@@ -588,7 +587,7 @@ class XiptLibPluginhandler
 	 */
 	function onProfileLoad(&$userid, &$fields, $from)
 	{
-		$none = false;
+		$none 			 = false;
 		$args['from']    = 'onprofileload';
 		$args['field']   =  &$fields      ;
 		$this->performACLCheck($none,$none, $args);
@@ -618,14 +617,14 @@ class XiptLibPluginhandler
 	function onBeforeProfileTypeSelection()
 	{
 		// if user comes from genaral registration link then return
-		$ptypeid=JRequest::getVar('ptypeid',0,'GET');
-		if($ptypeid==0)
+		$ptypeid = JRequest::getVar('ptypeid',0,'GET');
+		if($ptypeid == 0)
 			return true;
 		/* if user comes from a direct link (with profile type selected) 
 		 the reset will be false or does not exist	
 		 if user comes for selecting profile type again then reset is true */
-		$reset=JRequest::getVar('reset',false,'GET');
-		if($reset==false)
+		$reset = JRequest::getVar('reset',false,'GET');
+		if($reset == false)
 		{
 			XiptHelperProfiletypes::setProfileTypeInSession($ptypeid);			
 		}
@@ -641,14 +640,13 @@ class XiptLibPluginhandler
 	
 	function checkSetupRequired()
 	{
-		$mysess= & JFactory::getSession();
-		if($mysess->has('requireSetupCleanUp')==true 
- 					&& $mysess->get('requireSetupCleanUp',false)==true)
+		$mysess =  JFactory::getSession();
+		if($mysess->has('requireSetupCleanUp') == true && $mysess->get('requireSetupCleanUp',false) == true)
  				return true;
  			
- 		if(XiptHelperProfiletypes::getProfileTypeArray()==false)
+ 		if(XiptHelperProfiletypes::getProfileTypeArray() == false)
  			return true;
- 		else if(XiptLibUtils::getParams('defaultProfiletypeID', 0)==false)
+ 		else if(XiptLibUtils::getParams('defaultProfiletypeID', 0) == false)
  			return true;
  		else if(XiptHelperSetup::checkCustomfieldRequired())
  			return true;

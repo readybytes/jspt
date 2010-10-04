@@ -12,14 +12,14 @@ class XiptLibUtils
 	
 	function ajaxUpdate(&$args, &$response)
 	{
-		$mySess 	=& JFactory::getSession();
+		$mySess 	= JFactory::getSession();
 		$mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
 		return true;
 	}
 	
 	function ajaxShowNewUserForm(&$args, &$response)
 	{
-		$mySess 	=& JFactory::getSession();
+		$mySess 	= JFactory::getSession();
 		/*Set facebook variable is session so we can redirect user
 			 * to plan selection page after login
 			 * XITODO : we will remove this when aec support fbc
@@ -73,10 +73,10 @@ class XiptLibUtils
 	{
 		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 		// e.g. : I want to patch description. with some extra information
-		$filter = array('published'=>1,'visible'=>1);
-	    $allProfileTypes = XiptLibProfiletypes::getProfiletypeArray($filter);
-	    $defaultPType = XiptLibProfiletypes::getDefaultProfiletype();
-		$selectedProfileTypeID = $defaultPType;
+		$filter 				= 	array('published'=>1,'visible'=>1);
+	    $allProfileTypes 		= 	XiptLibProfiletypes::getProfiletypeArray($filter);
+	    $defaultPType 			= 	XiptLibProfiletypes::getDefaultProfiletype();
+		$selectedProfileTypeID  = 	$defaultPType;
 		
 		$params = XiptLibUtils::getParams('', 0);
 		$showAsRadio = $params->get('jspt_fb_show_radio',false);
@@ -86,7 +86,7 @@ class XiptLibUtils
 		$contents = ob_get_contents();
 		ob_end_clean();
 		
-		$html = '';
+		$html  = '';
 		$html .= $addhtml;
 		$html .= $contents;
 		
@@ -240,7 +240,7 @@ class XiptLibUtils
 			{
 				$username	= preg_quote(trim($invalidUsername), '#');
 				$username	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $username);
-				$regex	= "#^(?:$username)$#i";
+				$regex		= "#^(?:$username)$#i";
 			
 				if(preg_match($regex, $testUsername))
 					return false;
@@ -254,7 +254,7 @@ class XiptLibUtils
 	
     function isAdmin($id)
 	{
-		$my	=& CFactory::getUser($id);		
+		$my	= CFactory::getUser($id);		
 		return ( $my->usertype == 'Super Administrator');
 	}
 	
@@ -279,7 +279,7 @@ class XiptLibUtils
 	
 	function getPTPrivacyValue($privacy)
 	{
-			$value=PRIVACY_PUBLIC;
+			$value = PRIVACY_PUBLIC;
 			switch($privacy)
 			{
 				case "friends":
@@ -320,7 +320,7 @@ class XiptLibUtils
 	{
 		//print_r("avatar type : ".$type);
 		jimport('joomla.filesystem.file');
-		$ext = JFile::getExt($avatar);
+		$ext   = JFile::getExt($avatar);
 		$thumb = JFile::stripExt($avatar).'_thumb.'.$ext;
 		return $thumb;
 	}
@@ -328,7 +328,7 @@ class XiptLibUtils
 	
 	function getWatermark($userid)
 	{
-		$ptype = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
+		$ptype		   = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		$watermarkInfo = XiptLibProfiletypes::getProfiletypeData($ptype,'watermark');
 		if(!$watermarkInfo)
 			return false;
@@ -365,15 +365,15 @@ class XiptLibUtils
 		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 		//ini_set('gd.jpeg_ignore_warning', 1);
 		
-		$ptype = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
+		$ptype 			 = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		$watermarkParams = XiptLibProfiletypes::getParams($ptype,'watermarkparams');
 		
 		if($what == 'thumb')
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
 				
-		$waterMark= JPATH_ROOT. DS. $waterMark;
+		$waterMark = JPATH_ROOT. DS. $waterMark;
 		
-		$type = self::getImageType($image);
+		$type  = self::getImageType($image);
 		$wType = self::getImageType($waterMark);
 
 		if($wType == 'image/jpg')
@@ -385,15 +385,15 @@ class XiptLibUtils
 
 		$imageInfo	= getimagesize($image);
 		
-		if($imageInfo ==false)
+		if($imageInfo == false)
 		{
 			global $mainframe;
 			$mainframe->enqueueMessage("Unable to open through getimage the file $image");
 			return false;
 		}
 		
-		$imageWidth = $imageInfo[0];//imagesx( $image );	
-		$imageHeight= $imageInfo[1];// imagesy( $image );
+		$imageWidth   = $imageInfo[0];//imagesx( $image );	
+		$imageHeight  = $imageInfo[1];// imagesy( $image );
 
 
 		if($what == 'avatar'){
@@ -408,7 +408,7 @@ class XiptLibUtils
 			//XITODO : here we need to trick as per the JomSocial
 			// we need to modify the code when things changes, currently 
 			// the image informationfor thumbs does not come correctly
-			$imageWidth = AVATAR_WIDTH_THUMB;
+			$imageWidth  = AVATAR_WIDTH_THUMB;
 			$imageHeight = AVATAR_HEIGHT_THUMB;
 		}
 		
@@ -451,7 +451,7 @@ class XiptLibUtils
 		//original image
 		$destinationType = self::getImageType($imagePath);
 		
-		$watermarkType = self::getImageType($watermarkPath);
+		$watermarkType   = self::getImageType($watermarkPath);
 		// Load image helper library as it is needed.
 		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 		$watermarkImage	 = cImageOpen( $watermarkPath , $watermarkType);
@@ -478,8 +478,8 @@ class XiptLibUtils
 		$xy[1] = &$dest_y;
 		
 		$watermarkSize=array();
-		$watermarkSize[0]=$watermarkWidth;
-		$watermarkSize[1]=$watermarkHeight;
+		$watermarkSize[0] = $watermarkWidth;
+		$watermarkSize[1] = $watermarkHeight;
 		self::setPosotion($size,$watermarkSize,$watermarkImage,$position,$xy);
 				
 		imagecopymerge($imageImage , $watermarkImage, $dest_x, $dest_y, 0, 0, $watermarkSize[0], $watermarkSize[1], 100);
@@ -583,12 +583,12 @@ class XiptLibUtils
 	function rotateImage($img, &$watermarkSize, $rotation) 
 	{
 	  
-	  $width = imagesx($img);
+	  $width  = imagesx($img);
 	  $height = imagesy($img);
 	  switch($rotation) {
-	    case 90: $newimg= @imagecreatetruecolor($height , $width );break;
-	    case 180: $newimg= @imagecreatetruecolor($width , $height );break;
-	    case 270: $newimg= @imagecreatetruecolor($height , $width );break;
+	    case 90: $newimg  = @imagecreatetruecolor($height , $width );break;
+	    case 180: $newimg = @imagecreatetruecolor($width , $height );break;
+	    case 270: $newimg = @imagecreatetruecolor($height , $width );break;
 	    case 0: return $img;break;
 	    case 360: return $img;break;
 	  }
@@ -603,8 +603,8 @@ class XiptLibUtils
 	        }
 	      }
 	    } 
-		$watermarkSize[0]=imagesx($newimg);
-		  $watermarkSize[1]=imagesy($newimg);
+		$watermarkSize[0]   = imagesx($newimg);
+		  $watermarkSize[1] = imagesy($newimg);
 		 return $newimg;
 	  }
 	  return false;
@@ -703,7 +703,7 @@ class XiptLibUtils
 	//get params data from xipt component or any
 	function getParams($paramName='', $defaultValue=0)
 	{
-		$sModel = XiptFactory::getModel('settings');
+		$sModel  = XiptFactory::getModel('settings');
 		$params  = $sModel->getParams();
 
 		if(!$params)
@@ -726,7 +726,7 @@ class XiptLibUtils
           if($regType === 'jomsocial')
              $redirectURL = XiPTRoute::_('index.php?option=com_community&view=register', false);
           else
-              $redirectURL = XiPTRoute::_('index.php?option=com_user&view=register', false);
+             $redirectURL = XiPTRoute::_('index.php?option=com_user&view=register', false);
                  
           return $redirectURL;
       }

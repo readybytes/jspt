@@ -44,9 +44,8 @@ class ImageTest extends XiUnitTestCase
 	
   	$image = new XiptLibImage($config);
   	
-  	$result = $image->genImage(PROFILETYPE_AVATAR_STORAGE_PATH, 'watermark_3');
-  	
-  	$this->assertEquals('watermark_3.png', $result);
+  	$result = $image->genImage(PROFILETYPE_AVATAR_STORAGE_PATH, 'watermark_8');
+  	$this->assertEquals('watermark_8.png', $result);
   	
   	//case #2: when folder does not exist
 

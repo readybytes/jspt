@@ -35,7 +35,7 @@ class XiptLibProfiletypes
 	
     function saveXiptUserField($userId,$value,$what)
 	{
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		switch($what)
 		{
 			case PROFILETYPE_FIELD_NAME:
@@ -90,7 +90,7 @@ class XiptLibProfiletypes
 					
 				case 'avatar' :
 					$newAvatar 	= $newData['avatar'];
-					XiptLibJomsocial::updateCommunityUserAvatar($userid,$newAvatar);
+					XiptLibJomsocial::updateCommunityUserDefaultAvatar($userid,$newAvatar);
 					break;
 				
 				case 'watermark' :
@@ -242,7 +242,7 @@ class XiptLibProfiletypes
 	
 	function getDefaultTemplate()
 	{
-		$config	        =& CFactory::getConfig();
+		$config	        = CFactory::getConfig();
 	    $defaultValue   =  $config->get('template');
 	    return $defaultValue;
 	}
@@ -265,7 +265,7 @@ class XiptLibProfiletypes
 	function getProfiletypeArray($filter='')
 	{
 		//TODO : we need to add $visible pTypes as per request.
-		$db			=& JFactory::getDBO();
+		$db			= JFactory::getDBO();
 		$where = '';
 		
 		if($filter){
@@ -301,18 +301,17 @@ class XiptLibProfiletypes
 	 */
 	function getUserData($userid, $what='PROFILETYPE', $clean=false)
 	{	
-		static $counter=0;
-		
+//		static $counter=0;
 		static $result=array();
 		if($clean)
 		{
 			unset($result[$userid]);
 		}
 		
-		if(array_key_exists($userid,$result))
-			return $result[$userid][strtolower($what)];
+//		if(array_key_exists($userid,$result))
+//			return $result[$userid][strtolower($what)];
 	    
-		//echo "counter ".(++$counter);
+//		echo "counter ".(++$counter);
 		switch($what)
 	    {
 	        case 'PROFILETYPE':
@@ -339,7 +338,7 @@ class XiptLibProfiletypes
 	    }
 			
 		if($userid >= 62){
-		    $db		=& JFactory::getDBO();
+		    $db		= JFactory::getDBO();
 			$query	= 'SELECT * FROM '
 					. $db->nameQuote( '#__xipt_users') . ' WHERE '
 					. $db->nameQuote( 'userid') . '=' . $db->Quote( $userid );
@@ -424,7 +423,7 @@ class XiptLibProfiletypes
 		if($id==0)
 			return $defaultValue;
 			
-		$db			=& JFactory::getDBO();
+		$db			= JFactory::getDBO();
 		$query		= 'SELECT '. $db->nameQuote($searchFor) .' FROM '
 					. $db->nameQuote( '#__xipt_profiletypes' )
 					. ' WHERE '.$db->nameQuote('id').'='. $db->Quote($id);
@@ -437,7 +436,7 @@ class XiptLibProfiletypes
 	// returns all user of profiletype
 	function getAllUsers($pid)
 	{
-		$db	=& JFactory::getDBO();
+		$db	= JFactory::getDBO();
 		
 		$defaultPtype = self::getDefaultProfiletype();
 		
@@ -469,7 +468,7 @@ class XiptLibProfiletypes
 		
 		$notselected = array();
 		//Load all fields for profiletype
-		$db			=& JFactory::getDBO();
+		$db			= JFactory::getDBO();
 		$query		= 'SELECT `fid` FROM ' . $db->nameQuote( '#__xipt_profilefields' )
 					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId)
 					. ' AND '.$db->nameQuote('category').'='.$db->Quote($category);
@@ -564,7 +563,7 @@ class XiptLibProfiletypes
 	
     // Checks if given avatar is default profiletype avatar
     // or default of one of ProfileType? 
-	function isDefaultAvatarOfProfileType($path,$isDefaultCheckRequired = false)
+	function isDefaultAvatarOfProfileType($path, $isDefaultCheckRequired = false)
 	{
 		//if default check required 
 		//we should not ignore case for windows 
@@ -580,8 +579,8 @@ class XiptLibProfiletypes
 		//it will improve the performance
 		if($allAvatars == null)
 		{
-			$searchFor 		= 'avatar';
-			$db			=& JFactory::getDBO();
+			$searchFor 	= 'avatar';
+			$db			= JFactory::getDBO();
 			$query		= 'SELECT '.$db->nameQuote($searchFor)
 						.' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
 			$db->setQuery( $query );
@@ -638,8 +637,8 @@ class XiptLibProfiletypes
 	
 	function getParams($id,$what='params')
 	{
-			$config = '';
-			$db			=& JFactory::getDBO();
+			$config	    = '';
+			$db			= JFactory::getDBO();
 			$query		= 'SELECT '. $db->nameQuote($what) .' FROM '
 						. $db->nameQuote( '#__xipt_profiletypes' )
 						. ' WHERE '.$db->nameQuote('id').'='. $db->Quote($id);

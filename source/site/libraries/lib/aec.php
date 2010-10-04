@@ -68,7 +68,7 @@ class XiptLibAec
 		
 		$validMIs = self::getExistingMI($planMIs);
 		
-		$db = &JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = ' SELECT '.$db->nameQuote('profiletype')
 				.' FROM ' .$db->nameQuote('#__xipt_aec')
 				.' WHERE '.$db->nameQuote('planid').' IN( '. implode(",", $validMIs).' ) ';
@@ -132,7 +132,7 @@ class XiptLibAec
 
 	static public function getExistingMI( $planMIs )
 	{		
-		$db = &JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = ' SELECT '.$db->nameQuote('id')
 			    .' FROM '  .$db->nameQuote('#__acctexp_microintegrations')
 			    .' WHERE ' .$db->nameQuote('id').' IN( '. implode(",", $planMIs).' ) ';
@@ -145,7 +145,7 @@ class XiptLibAec
 	
 	static public function getPlan($planid)
 	{
-		$db = &JFactory::getDBO();
+		$db    = JFactory::getDBO();
 		$query = ' SELECT * FROM ' .$db->nameQuote('#__acctexp_plans');
 		
 		$db->setQuery( $query );

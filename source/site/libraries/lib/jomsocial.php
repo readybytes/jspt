@@ -14,11 +14,11 @@ class XiptLibJomsocial
 	//will return object of field as per fieldId
     function getFieldObject($fieldid)
 	{
-		static $result = null;
-		if(isset($result[$fieldid]))
-			return $result[$fieldid];
+//		static $result = null;
+//		if(isset($result[$fieldid]))
+//			return $result[$fieldid];
 			
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query	= 'SELECT * FROM '
 				. $db->nameQuote( '#__community_fields' );
 		
@@ -38,7 +38,7 @@ class XiptLibJomsocial
 		//if(isset($results[$userid][$what]))
 		//	return $results[$userid][$what];
 
-		$db			=& JFactory::getDBO();
+		$db			= JFactory::getDBO();
 		$query		= 'SELECT * FROM '
 					. $db->nameQuote( '#__community_users' )
 					.' LIMIT 100';
@@ -63,8 +63,8 @@ class XiptLibJomsocial
 
 		self::reloadCUser($userid);
 		
-		$user 			=& CFactory::getUser($userid);
-		$authorize		=& JFactory::getACL();
+		$user 			= CFactory::getUser($userid);
+		$authorize		= JFactory::getACL();
 		$user->set('usertype',$newUsertype);
 		$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
 		
@@ -84,19 +84,19 @@ class XiptLibJomsocial
 	 * @param  $instance
 	 * @return CConfig
 	 */
-	function updateCommunityConfig(&$instance)
+	function updateCommunityConfig(&$instance, $userId = null)
 	{
 		// skip these calls from backend
 		if(JFactory::getApplication()->isAdmin())
 			return true;
 
-			$loggedInUser = JFactory::getUser();
+		$loggedInUser = JFactory::getUser($userId);
 			
 		$pID = XiptLibProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
 		
 		if(JRequest::getVar('view') === 'register'){
 			$pluginHandler = XiptFactory::getLibraryPluginHandler();
-			$pID = $pluginHandler->getRegistrationPType();
+			$pID 		   = $pluginHandler->getRegistrationPType();
 		}
 					
 		
@@ -113,13 +113,13 @@ class XiptLibJomsocial
 
 		//means guest is looking user profile ,
 		// so we will show them default template
-		$visitingUser	= JRequest::getVar('userid',$loggedInUser->id);
+		$visitingUser	= JRequest::getInt('userid',$loggedInUser->id);
 	
 		//$visitingUser = 0 means loggen-in-user is looking their own profile
 		//so we set $visitingUser as logged-in-user
-			//if in case user is already logged in
-			//then honour his template else return and honour global settings
-		if($visitingUser <= 0  || $visitingUser == '0')
+		//if in case user is already logged in
+		//then honour his template else return and honour global settings
+		if($visitingUser <= 0 )
 			return true;
 				
 		//$visitingUser > 0 means a valid-user to visit profile
@@ -128,7 +128,9 @@ class XiptLibJomsocial
 		$template = XiptLibProfiletypes::getUserData($visitingUser,'TEMPLATE');
 
 		//now update template @template
-		if($template) $instance->set('template',$template);
+		if($template) 
+			$instance->set('template',$template);
+			
 		return true;
 	}
 	
@@ -139,31 +141,31 @@ class XiptLibJomsocial
 
 	    // find the profiletype or template field
 	    // dont patch up the database.
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query 	= 'SELECT * FROM `#__community_fields`'
 				 .' WHERE '.$db->nameQuote('fieldcode').'='.$db->Quote($what);
 		$db->setQuery( $query );
-		$res = $db->loadObject();
+		$res 	= $db->loadObject();
 		
 		$field_id = $res->id;
 		// skip these calls from backend
 		XiptLibUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
 		
 		//if row does not exist
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query 	= ' SELECT * FROM '.$db->nameQuote('#__community_fields_values')
 				 .' WHERE ' .$db->nameQuote('user_id'). '='.$db->Quote($userId)
 				 .' AND '   .$db->nameQuote('field_id').'='.$db->Quote($field_id);
 		$db->setQuery( $query );
-		$res = $db->loadObject();
+		$res 	= $db->loadObject();
 
 		//record does not exist, insert it
 		if(!$res)
 		{
-			$res= new stdClass();
-			$res->user_id = $userId;
-			$res->field_id = $field_id;
-			$res->value = $value;
+			$res			= new stdClass();
+			$res->user_id 	= $userId;
+			$res->field_id 	= $field_id;
+			$res->value 	= $value;
 			$db->insertObject('#__community_fields_values',$res,'id');
 			
 			if($db->getErrorNum()){
@@ -174,9 +176,9 @@ class XiptLibJomsocial
 		}
 		
 		// change the type
-		$res->user_id = $userId;
-		$res->field_id = $field_id;
-		$res->value = $value;
+		$res->user_id 	= $userId;
+		$res->field_id 	= $field_id;
+		$res->value 	= $value;
 		$db->updateObject( '#__community_fields_values', $res, 'id');
 		
 		if($db->getErrorNum()){
@@ -206,17 +208,17 @@ class XiptLibJomsocial
 		$pTypeThumbAvatar  = XiptLibJomsocial::getUserDataFromCommunity($userid, 'thumb');
 		$isDefault		   = XiptLibProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true);
 		
-		//no watermark
+		// no watermark on default avatars
+		if($isDefault)
+			return false;
+		
+		//no watermark then resotre backup avatar
 		if($watermark == '')	
 		{
 			self::restoreBackUpAvatar($pTypeAvatar);
 			self::restoreBackUpAvatar($pTypeThumbAvatar);
 		}
 		
-		// no watermark on default avatars
-		if($isDefault)
-			return false;
-				
 		//add watermark on user avatar image
 		if($pTypeAvatar)
 			XiptLibUtils::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
@@ -230,12 +232,12 @@ class XiptLibJomsocial
 	
 	function restoreBackUpAvatar($currImagePath)
 	{
-		    $avatarFileName = JFile::getName($currImagePath);
-			if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
-				return true;
+		$avatarFileName = JFile::getName($currImagePath);
+		if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
+			return true;
 				
-			XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar in backup folder does not exist.");
-			return false;
+		XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar in backup folder does not exist.");
+		return false;
 	}
 	/**
 	 * It updates user's oldAvtar to newAvatars
@@ -243,7 +245,7 @@ class XiptLibJomsocial
 	 * @param $newAvatar
 	 * @return unknown_type
 	 */
-	function updateCommunityUserAvatar($userid, $newAvatar)
+	function updateCommunityUserDefaultAvatar($userid, $newAvatar)
 	{
 		/*
 		 * IMP : Implemented in setup 
@@ -257,8 +259,8 @@ class XiptLibJomsocial
 		$userAvatar = $user->_avatar;
 		
 		//We must enforce this as we never want to overwrite a custom avatar
-		$isDefault	= XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
-		$changeAvatarOnSyncUp= self::_changeAvatarOnSyncUp($userAvatar); 
+		$isDefault			  = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
+		$changeAvatarOnSyncUp = self::_changeAvatarOnSyncUp($userAvatar); 
 		
 		if($isDefault == false && $changeAvatarOnSyncUp == false)
 			return false;
@@ -313,7 +315,7 @@ class XiptLibJomsocial
 	
 	function _isMemberOfGroup($userid, $groupid)
 	{
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query	= " SELECT `memberid` FROM `#__community_groups_members` "
   				. " WHERE `memberid`='".$userid."'   AND `groupid` IN ({$groupid})" 
   				. " LIMIT 1";
@@ -327,19 +329,19 @@ class XiptLibJomsocial
 			return false;
 			
 		$groupIds	= explode(',',$groupIds);
-		$groupModel	=& CFactory::getModel( 'groups' );
+		$groupModel	= CFactory::getModel( 'groups' );
 	
         //if user has selected "none" just exit
 		if( is_array($groupIds) == false || in_array(NONE, $groupIds) )
 			return false;
 	
-	    foreach($groupIds as $k=>$gid)
+	    foreach($groupIds as $k => $gid)
 	    {
 			if( $groupModel->isMember( $userId , $gid ) )
 				continue;
 			
-			$group		=& JTable::getInstance( 'Group' , 'CTable' );
-			$member		=& JTable::getInstance( 'GroupMembers' , 'CTable' );
+			$group		= JTable::getInstance( 'Group' , 'CTable' );
+			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
 			$group->load( $gid );
 			
 			// Set the properties for the members table
@@ -368,9 +370,9 @@ class XiptLibJomsocial
 		if(empty($groupIds))
 			return false;
 		
-		$groupIds	=explode(',',$groupIds);
-		$model		=& CFactory::getModel( 'groups' );
-		$group		=& JTable::getInstance( 'Group' , 'CTable' );
+		$groupIds	= explode(',',$groupIds);
+		$model		= CFactory::getModel( 'groups' );
+		$group		= JTable::getInstance( 'Group' , 'CTable' );
 		
 		if( (is_array($groupIds)) == false )
 			return false;
@@ -388,7 +390,7 @@ class XiptLibJomsocial
 				continue;
 			
 			//load group member table
-			$groupMember =& JTable::getInstance( 'GroupMembers' , 'CTable' );
+			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
 			$groupMember->load( $userId , $gid );
 	
 			$data			= new stdClass();
@@ -411,19 +413,20 @@ class XiptLibJomsocial
 		return CFactory::getUser($userid);		
 	}
 
-	function _changeAvatarOnSyncUp($userAvatar)
+	function _changeAvatarOnSyncUp($userAvatar = '', $task='')
 	{
-		$task=JRequest::getVar('task','','GET');
-		if($task != 'syncUpUserPT')
+		
+		$task = JRequest::getVar('task', $task, 'GET');
+		if($task != 'syncUpUserPT' || $userAvatar == '')
 			return false;
 			
 		//check that avatar exists in images/profiletype
-		return JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_');
+		return JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_')? true:false;
 	}
 	
 	function cleanStaticCache($set = null)
 	{
-		static $reset=false;
+		static $reset = false;
 		
 		if($set !== null)
 			$reset = $set;

@@ -41,11 +41,11 @@ class XiptLibApps
     
     function getNotAllowedCommunityAppsArray($profiletype)
     {
-        static $result = null;
-        if($result !== null && isset($result[$profiletype]))
-			return $result[$profiletype];
+//        static $result = null;
+//        if($result !== null && isset($result[$profiletype]))
+//			return $result[$profiletype];
 			
-        $db		=& JFactory::getDBO();
+        $db		= JFactory::getDBO();
 		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__xipt_applications' );
 
 		$db->setQuery( $query );
@@ -67,11 +67,11 @@ class XiptLibApps
     
 	function getPluginId( $element, $folder = 'community' )
 	{
-		static $result = null;
-		if($result !== null && isset($result[$folder][$element]))
-			return $result[$folder][$element]['id'];
+//		static $result = null;
+//		if($result !== null && isset($result[$folder][$element]))
+//			return $result[$folder][$element]['id'];
 		
-		$db		=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' , ' . $db->nameQuote( 'element' ) . ' '
 				. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
 				. 'WHERE ' .$db->nameQuote( 'folder' ) . '=' . $db->Quote( $folder );
