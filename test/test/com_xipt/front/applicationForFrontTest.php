@@ -21,13 +21,13 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  //visiting self profile
 	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=82');
 	  $this->waitPageLoad();
-	  $this->verifyApps(array(43=>9,44=>10,45=>11),1, true,true);	  
-  	  $this->verifyApps(array(42=>8,46=>12),1, false,true);
+	  $this->verifyApps(array(45=>9,46=>10,47=>11),1, true,true);	  
+  	  $this->verifyApps(array(44=>8,48=>12),1, false,true);
   	  //visitin ohte profiletype users' profile
   	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
 	  $this->waitPageLoad();
-  	  $this->verifyApps(array(42=>14,43=>15,46=>18),2,true,false);
-  	  $this->verifyApps(array(44=>0,45=>17),2, false,false);
+  	  $this->verifyApps(array(44=>14,45=>15,48=>18),2,true,false);
+  	  $this->verifyApps(array(46=>0,47=>17),2, false,false);
   	  $this->frontLogout();
 	  
 	  $filter['jspt_block_dis_app']=1;
@@ -40,13 +40,13 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  //visiting self profile
 	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
 	  $this->waitPageLoad();
-  	  $this->verifyApps(array(42=>14,43=>15,46=>18),2,true,true);
-  	  $this->verifyApps(array(44=>0,45=>17),2, false,true);
+  	  $this->verifyApps(array(44=>14,45=>15,48=>18),2,true,true);
+  	  $this->verifyApps(array(46=>0,47=>17),2, false,true);
   	  //visitin ohte profiletype users' profile
   	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=84');
 	  $this->waitPageLoad();
-  	  $this->verifyApps(array(42=>20,43=>21,46=>24),3,true,false);
-  	  $this->verifyApps(array(44=>22,45=>23),3, false,false);
+  	  $this->verifyApps(array(44=>20,45=>21,48=>24),3,true,false);
+  	  $this->verifyApps(array(46=>22,47=>23),3, false,false);
   	  $this->frontLogout();
 
   	  $filter['jspt_block_dis_app']=2;
@@ -59,18 +59,14 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  //visiting self profile
 	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
 	  $this->waitPageLoad();
-  	  $this->verifyApps(array(42=>14,43=>15,46=>18),2,true,true);
-  	  $this->verifyApps(array(44=>0,45=>17),2, false,true);
+  	  $this->verifyApps(array(44=>14,45=>15,48=>18),2,true,true);
+  	  $this->verifyApps(array(46=>0,47=>17),2, false,true);
   	  //visitin ohte profiletype users' profile
   	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=82');
 	  $this->waitPageLoad();
-  	  $this->verifyApps(array(43=>9),1,true,false);
-  	  $this->verifyApps(array(42=>8,44=>10,45=>11,46=>12),1, false, false);
-  	  $this->frontLogout();
-  	  
-  	  
-  	  
-	  
+  	  $this->verifyApps(array(45=>9),1,true,false);
+  	  $this->verifyApps(array(44=>8,46=>10,47=>11,48=>12),1, false, false);
+  	  $this->frontLogout();	  
   }
   
   function verifyApps($apps, $ptype, $appPresent=true, $self=true)
@@ -84,24 +80,14 @@ class ApplicationForFrontTest extends XiSelTestCase
       	// now check for every links
   	if($appPresent==true)
   	{
-    	foreach($apps as $k=>$v)
-    	{    	
-	        if(Jstring::stristr($version,'1.8'))
-    	    	$this->assertTrue($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
-    		else 
-    	   	 	$this->assertTrue($this->isElementPresent("//a[@name='app-$appsNames[$k]']"));
-  	     }
-     }
+    		foreach($apps as $k=>$v)
+    		    	$this->assertTrue($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
+	}
      else
      {
          foreach($apps as $k=>$v)
-    	 {
-    	
-         	if(Jstring::stristr($version,'1.8'))
-        		$this->assertFalse($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
-    	  	else 
-       	  		$this->assertFalse($this->isElementPresent("//a[@name='app-$appsNames[$k]']"));
-  	     }
+    	 	$this->assertFalse($this->isElementPresent("//a[@onclick=\"joms.apps.toggle('#jsapp-$v');\"]"));	
+    	 
      }	
   	// Test core applications
   	// testing001 have been selected for ptype=1

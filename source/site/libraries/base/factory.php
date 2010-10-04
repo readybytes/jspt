@@ -60,7 +60,7 @@ class XiptFactory
 		// and also try auto-load class if it can
 		if(class_exists($className, true)===false)
 		{
-			self::getErrorObject()->setError("Class $className not found");
+			XiptError::raiseError(500,XiptText::_("Class $className not found"));
 			return false;
 		}
 

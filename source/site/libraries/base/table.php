@@ -57,6 +57,24 @@ class XiptTable extends JTable
 		$this->_loadTableProps();
 	}
 
+	public function reset($resetId=false)
+	{
+//		if($resetId===true){
+//			$this->set($this->getKeyName(),0);
+//		}
+
+		$k = $this->_tbl_key;
+		foreach ($this->getProperties() as $name => $value)
+		{
+			if($name != $k)
+			{
+				$this->$name	= null;
+			}
+		}
+		
+		return true;
+	}
+	
 	/**
      * Load properties of object based on table fields
      * It will be done via reading table from DB
@@ -86,7 +104,8 @@ class XiptTable extends JTable
 			
 		$tableName 	= $this->getTableName();
 		if(XiptHelperTable::isTableExist($tableName)===FALSE)
-			return XiptError::raiseError("Table $this->_tbl does not exist");
+			return XiptError::raiseError(500, XiptText::_("Table $this->_tbl does not exist"));
+			
 
 		$fields 		= $this->_db->getTableFields($tableName);
 		$this->_columns = $fields[$tableName];
@@ -96,8 +115,15 @@ class XiptTable extends JTable
 	
 	function bind($data =array())
 	{
-		foreach($data as $key => $value)
-			$this->$key = $value;
+		
+		$prop = $this->getProperties();
+		
+		foreach($data as $key => $value){
+			// set those properties which exists in filed list of table
+			// otherwise do not update
+			if(array_key_exists($key, $prop))
+				$this->$key = $value;
+		}
 			
 		return true;
 	}
@@ -119,9 +145,9 @@ class XiptTable extends JTable
 			  ->from($this->getTableName());
 		
 		foreach($oid as $key=> $value){
-			$query->where(" `$key`  = $value ",$glue);
+			$query->where(" `$key`  = '$value' ",$glue);
 		}
-
+		// XITODO : generate warning if record does not exists
 		return $query->dbLoadQuery("", "")
 					 ->query();		
 		

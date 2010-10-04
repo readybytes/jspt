@@ -152,11 +152,12 @@ class XiptHelperApps
 		}
 	}
 
+	//XITODO : remove this wrapper also
 	function remMyApplicationProfileType($aid)
 	{
 		if(empty($aid))
 			return;
-		$row	=& JTable::getInstance( 'Applications' , 'XiptTable' );
+		$row	= XiptFactory::getInstance( 'Applications' , 'model' );
 		$row->resetApplicationId($aid);
 	}
 

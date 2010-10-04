@@ -3,9 +3,6 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-/**
- * Jom Social Table Model
- */
 class XiptTableSettings extends XiptTable
 {
 	var $name				= null;
@@ -16,7 +13,7 @@ class XiptTableSettings extends XiptTable
 		parent::__construct('#__xipt_settings','name');
 	}
 
-	function load( $name)
+	function load( $name='')
 	{
 		if( $name != 'settings'  )
 		{

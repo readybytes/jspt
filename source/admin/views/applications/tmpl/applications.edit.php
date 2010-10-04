@@ -21,7 +21,7 @@ $aModel			= XiptFactory::getModel( 'applications' );
 			<td class="key"><?php echo JText::_('NAME');?></td>
 			<td>:</td>
 			<td>
-				<?php echo $aModel->getPluginNamefromId($this->applicationId)->name;?>
+				<?php echo $aModel->getPluginFromId($this->applicationId)->name;?>
 			</td>
 		</tr>
 		<br>

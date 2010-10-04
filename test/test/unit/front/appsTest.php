@@ -18,22 +18,22 @@ class AppsTest extends XiUnitTestCase
   {
   	//return array of appid for Profiletype 1
   	$appid = XiptLibApps::getNotAllowedCommunityAppsArray(1);
-  	$result = array(42, 46, 48);
+  	$result = array(44, 48, 50);
   	$this->assertEquals($appid, $result);
   	
   	//return array of appid for Profiletype 2
   	$appid = XiptLibApps::getNotAllowedCommunityAppsArray(2);
-  	$result = array(45, 44, 47);
+  	$result = array(47, 46, 49);
   	$this->assertEquals($appid, $result);
   	
   	//return array of appid for Profiletype 3
   	$appid = XiptLibApps::getNotAllowedCommunityAppsArray(3);
-  	$result = array(42, 43, 47, 48);
+  	$result = array(44, 45, 49, 50);
   	$this->assertEquals($appid, $result);
   	
   	//return array of appid for Profiletype 4
   	$appid = XiptLibApps::getNotAllowedCommunityAppsArray(4);
-  	$result = array(42, 47, 48);
+  	$result = array(44, 49, 50);
   	$this->assertEquals($appid, $result);
   }
   

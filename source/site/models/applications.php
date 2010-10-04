@@ -34,7 +34,7 @@ class XiptModelApplications extends XiptModel
 	 * Returns the Application name
 	 * @return string
 	 **/
-	function getPluginNamefromId($pluginId)
+	function getPluginFromId($pluginId)
 	{			
 		$result = $this->loadRecords();
 									
@@ -42,5 +42,11 @@ class XiptModelApplications extends XiptModel
 			return $result[$pluginId];
 		else
 			return false;
+	}
+	
+	//XITODO : remove this wrapper
+	function resetApplicationId( $aid )
+	{
+		return $this->delete(array('applicationid'=> $aid));
 	}
 }

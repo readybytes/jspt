@@ -24,9 +24,5 @@ class XiptTableApplications extends XiptTable
 	{
 		parent::__construct('#__xipt_applications','id');
 	}
-	//XITODO : move to model
-	function resetApplicationId( $aid )
-	{
-		return $this->delete(array('applicationid'=> $aid));
-	}
+	
 }

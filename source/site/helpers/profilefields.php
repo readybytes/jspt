@@ -175,7 +175,7 @@ function remFieldsProfileType($fid)
 {
 	if(empty($fid))
 		return;
-	$row	=& JTable::getInstance( 'Profilefields' , 'XiptTable' );
+	$row	= XiptFactory::getInstance( 'Profilefields' , 'model' );
 	$row->resetFieldId($fid);
 }
 

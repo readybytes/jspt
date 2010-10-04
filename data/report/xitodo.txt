@@ -1,3 +1,36 @@
+../packages/tmp/install/helper.php:186:	// XITODO : chek if function is usabel
+../packages/tmp/admin/controllers/profiletypes.php:230:		//XITODO : also support other formats
+../packages/tmp/admin/views/setup/view.html.php:130:	//XITODO : check if any profiletype have enbaled admin approval
+../packages/tmp/site/libraries/base/table.php:150:		// XITODO : generate warning if record does not exists
+../packages/tmp/site/libraries/base/model.php:187:		//XITODO assert for $pk
+../packages/tmp/site/libraries/base/model.php:203:	 * XITODO Method to order rows.
+../packages/tmp/site/libraries/base/model.php:207:		//XITODO assert for $pk
+../packages/tmp/site/libraries/base/model.php:254:	// XITODO : check these fileds exist in table or not
+../packages/tmp/site/libraries/base/query.php:404:		//XITODO : Add limit and limitstart support in query class
+../packages/tmp/site/libraries/lib/profiletypes.php:23:		/*XITODO : validate ptype before save*/
+../packages/tmp/site/libraries/lib/profiletypes.php:32:		//XITODO : Do We really require it
+../packages/tmp/site/libraries/lib/profiletypes.php:649:			//xitodo : build an INI file
+../packages/tmp/site/libraries/lib/utils.php:25:			 * XITODO : we will remove this when aec support fbc
+../packages/tmp/site/libraries/lib/utils.php:74:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
+../packages/tmp/site/libraries/lib/utils.php:176:	/*XITODO : Add unit testing for this case */
+../packages/tmp/site/libraries/lib/utils.php:408:			//XITODO : here we need to trick as per the JomSocial
+../packages/tmp/site/libraries/lib/jomsocial.php:37:		//XITODO : carefully apply caching
+../packages/tmp/site/libraries/lib/image.php:46:		//XITODO : move to XiptError::assert()
+../packages/tmp/site/libraries/acl/factory.php:66:		//XITODO send debugmode
+../packages/tmp/site/libraries/acl/base.php:150:		//XITODO : Conditions should be OR ED
+../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
+../packages/tmp/site/libraries/acl/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
+../packages/tmp/site/libraries/acl/helper.php:108://XITODO : Clean function
+../packages/tmp/site/libraries/acl/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
+../packages/tmp/site/includes.php:38:/*XITODO : Cleant IT Load Langauge file*/
+../packages/tmp/site/models/applications.php:47:	//XITODO : remove this wrapper
+../packages/tmp/site/models/profiletypes.php:48:		//XITODO : Assert THIS $id should be valid
+../packages/tmp/site/models/profiletypes.php:53:		//XITODO : move cleanup to controller
+../packages/tmp/site/models/profiletypes.php:107:			// XITODO : need to improve
+../packages/tmp/site/helpers/apps.php:9://XITODO : apps
+../packages/tmp/site/helpers/apps.php:136:	//XITODO : Clean Code
+../packages/tmp/site/helpers/apps.php:155:	//XITODO : remove this wrapper also
+../packages/tmp/site/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
 ../packages/tmp/site/helpers/profiletypes.php:11:	//XITODO : Clean the function. Remove Switch
 ../packages/tmp/site/helpers/profiletypes.php:55:		//XITODO : Uset JHTML to build html
 ../packages/tmp/site/helpers/profiletypes.php:128:	//XITODO : Caching can be added
@@ -9,35 +42,3 @@
 ../packages/tmp/site/helpers/profiletypes.php:286:			//XITODO : why we are insterting again n again
 ../packages/tmp/site/helpers/profiletypes.php:456:	//XITODO  : move to HelperUtils
 ../packages/tmp/site/helpers/profiletypes.php:489:	//XITODO : Remove funda of return url, use configuration
-../packages/tmp/site/helpers/apps.php:9://XITODO : apps
-../packages/tmp/site/helpers/apps.php:136:	//XITODO : Clean Code
-../packages/tmp/site/helpers/profilefields.php:16:	//XITODO: Use filter instead of $fieldID ---improve
-../packages/tmp/site/includes.php:38:/*XITODO : Cleant IT Load Langauge file*/
-../packages/tmp/site/libraries/lib/jomsocial.php:37:		//XITODO : carefully apply caching
-../packages/tmp/site/libraries/lib/profiletypes.php:23:		/*XITODO : validate ptype before save*/
-../packages/tmp/site/libraries/lib/profiletypes.php:32:		//XITODO : Do We really require it
-../packages/tmp/site/libraries/lib/profiletypes.php:650:			//xitodo : build an INI file
-../packages/tmp/site/libraries/lib/utils.php:25:			 * XITODO : we will remove this when aec support fbc
-../packages/tmp/site/libraries/lib/utils.php:74:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
-../packages/tmp/site/libraries/lib/utils.php:176:	/*XITODO : Add unit testing for this case */
-../packages/tmp/site/libraries/lib/utils.php:408:			//XITODO : here we need to trick as per the JomSocial
-../packages/tmp/site/libraries/lib/image.php:46:		//XITODO : move to XiptError::assert()
-../packages/tmp/site/libraries/acl/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
-../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:49:		/*XITODO : we will expect that vie task and should be given
-../packages/tmp/site/libraries/acl/factory.php:66:		//XITODO send debugmode
-../packages/tmp/site/libraries/acl/base.php:150:		//XITODO : Conditions should be OR ED
-../packages/tmp/site/libraries/acl/helper.php:108://XITODO : Clean function
-../packages/tmp/site/libraries/acl/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
-../packages/tmp/site/libraries/base/query.php:404:		//XITODO : Add limit and limitstart support in query class
-../packages/tmp/site/libraries/base/model.php:181:		//XITODO assert for $pk
-../packages/tmp/site/libraries/base/model.php:197:	 * XITODO Method to order rows.
-../packages/tmp/site/libraries/base/model.php:201:		//XITODO assert for $pk
-../packages/tmp/site/libraries/base/model.php:248:	// XITODO : check these fileds exist in table or not
-../packages/tmp/site/libraries/base/model.php:259://XITODO : move to child model
-../packages/tmp/site/tables/profilefields.php:33:	// XITODO : move to model
-../packages/tmp/site/tables/applications.php:27:	//XITODO : move to model
-../packages/tmp/site/models/profiletypes.php:38:		//XITODO : Assert THIS $id should be valid
-../packages/tmp/site/models/profiletypes.php:94:			// XITODO : need to improve
-../packages/tmp/install/helper.php:186:	// XITODO : chek if function is usabel
-../packages/tmp/admin/controllers/profiletypes.php:230:		//XITODO : also support other formats
-../packages/tmp/admin/views/setup/view.html.php:130:	//XITODO : check if any profiletype have enbaled admin approval

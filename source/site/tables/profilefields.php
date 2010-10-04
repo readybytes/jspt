@@ -29,10 +29,4 @@ class XiptTableProfileFields extends XiptTable
 	{
 		parent::__construct('#__xipt_profilefields','id');
 	}
-	
-	// XITODO : move to model
-	function resetFieldId( $fid)
-	{
-		return $this->delete(array('fid'=> $fid));
-	}
 }

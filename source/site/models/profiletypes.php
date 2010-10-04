@@ -27,7 +27,17 @@ class XiptModelProfiletypes extends XiptModel
 		$this->_query->order('ordering');
 		
 		return $this->_query;
-	}	
+	}
+		
+	function visible($id)
+	{		
+		return $this->save( array('visible'=>1), $id );		
+	}
+	
+	function invisible($id)
+	{		
+		return $this->save( array('visible'=>0), $id );		
+	}
 	
 	/**
 	 * Save the configuration to the config file	 * 
@@ -37,7 +47,10 @@ class XiptModelProfiletypes extends XiptModel
 	{
 		//XITODO : Assert THIS $id should be valid
 		//XiptError:assert($id);
-		
+		if(empty($postData) || !is_array($postData))
+			return false;
+			
+		//XITODO : move cleanup to controller
 		unset($postData[JUtility::getToken()]);
 		unset($postData['option']);
 		unset($postData['task']);
@@ -53,18 +66,18 @@ class XiptModelProfiletypes extends XiptModel
 	
 	function loadParams($id)
 	{
-		if( isset($this->_params))
-			return $this->_params; 		
+		if( isset($this->_params[$id]))
+			return $this->_params[$id]; 		
 		
 		$record = $this->loadRecords();
 		
 		// if config not found from tabale then load default config of jom social
-		if(!$record[$id]->params)
-			$this->_params = CFactory::getConfig();
+		if(!isset($record[$id]->params) || empty($record[$id]->params))
+			$this->_params[$id] = CFactory::getConfig();
 		else
-			$this->_params = new JParameter( $record[$id]->params );
+			$this->_params[$id] = new JParameter( $record[$id]->params );
 			
-		return $this->_params;
+		return $this->_params[$id];
 	}
 	
 	function resetUserAvatar($pid, $newavatar, $oldavatar, $newavatarthumb)

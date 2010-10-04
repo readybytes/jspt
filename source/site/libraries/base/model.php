@@ -156,7 +156,13 @@ class XiptModel extends JModel
 			XiptError::raiseError(500,XiptText::_("Table does not exist"));
 			return false;
 		}
-
+	
+		// If table object was loaded by some code previously
+		// then it can overwrite the previous record
+		// So we must ensure that either PK is set to given value
+		// Else it should be set to 0
+		$table->reset(true);
+		
 		//if we have itemid then we MUST load the record
 		// else this is a new record
 		if($pk && $table->load($pk)===false){
@@ -176,7 +182,7 @@ class XiptModel extends JModel
 	/**
 	 * Method to delete rows.
 	 */
-	public function delete($pk)
+	public function delete($filters,$glue='AND')
 	{
 		//XITODO assert for $pk
 		//load the table row
@@ -186,7 +192,7 @@ class XiptModel extends JModel
 			return false;
 
 		//try to load and delete 
-	    if($table->load($pk) && $table->delete($pk))
+	    if($table->delete($filters,$glue))
 	    	return true;
 
 		XiptError::raiseError(500,XiptText::_('NOT ABLE TO DELETE DATA'));		
@@ -254,16 +260,5 @@ class XiptModel extends JModel
 	function unpublish($id)
 	{		
 		return $this->save( array('published'=>0), $id );		
-	}
-	
-//XITODO : move to child model
-	function visible($id)
-	{		
-		return $this->save( array('visible'=>1), $id );		
-	}
-	
-	function invisible($id)
-	{		
-		return $this->save( array('visible'=>0), $id );		
-	}
+	}	
 }
