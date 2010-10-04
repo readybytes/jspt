@@ -7,7 +7,7 @@
  */
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 
 // include files, as we are here from plugin
 // so files might not be included for non-component events

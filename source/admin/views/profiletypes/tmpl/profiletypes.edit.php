@@ -3,7 +3,7 @@
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 
 <script language="javascript" type="text/javascript">
@@ -189,3 +189,4 @@ defined('_JEXEC') or die('Restricted access');
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
+<?php 

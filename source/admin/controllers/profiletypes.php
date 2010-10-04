@@ -4,7 +4,7 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
  
 class XiptControllerProfiletypes extends XiptController 
 {

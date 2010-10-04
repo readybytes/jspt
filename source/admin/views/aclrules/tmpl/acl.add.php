@@ -3,7 +3,7 @@
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 
 <?php 
@@ -78,3 +78,4 @@ JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 	<input type="hidden" name="task" value="renderacl" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
+<?php 

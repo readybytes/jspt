@@ -4,7 +4,7 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 // Disallow direct access to this file
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <fieldset class="adminform">
 	<legend><?php echo JText::_( 'Reportings' ); ?></legend>
@@ -65,3 +65,4 @@ defined('_JEXEC') or die('Restricted access');
 		</tbody>
 	</table>
 </fieldset>
+<?php 

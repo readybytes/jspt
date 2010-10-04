@@ -1,5 +1,5 @@
 <?php
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <script language="javascript" type="text/javascript">
 	function submitbutton(action) {
@@ -29,3 +29,4 @@ defined('_JEXEC') or die('Restricted access');
 	
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>	
+<?php 

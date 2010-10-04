@@ -4,7 +4,7 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 // Disallow direct access to this file
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5;"><?php 
 				//echo $this->pane->startPane( 'stat-pane1' );
@@ -32,3 +32,4 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			</tr>
 		</table>
+<?php 

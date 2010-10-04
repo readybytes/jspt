@@ -6,7 +6,7 @@
 
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
  
 class CFieldsTemplates

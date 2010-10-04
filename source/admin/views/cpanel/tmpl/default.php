@@ -4,7 +4,7 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 // Disallow direct access to this file
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 <table width="100%" border="0">
@@ -33,3 +33,4 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="boxchecked" value="0" />
 </form>	
+<?php 

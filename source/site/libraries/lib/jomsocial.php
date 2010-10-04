@@ -5,7 +5,7 @@
 **/
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 
 //This class contains all logic for XIPT & JomSocial & Joomla Table Communication
 

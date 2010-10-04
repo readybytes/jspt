@@ -1,6 +1,6 @@
 <?php
 // Disallow direct access to this file
-defined('_JEXEC') or die('Restricted access');
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 	<?php 
 	
