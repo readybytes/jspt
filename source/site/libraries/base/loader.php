@@ -29,4 +29,18 @@ class XiptLoader
         {
         	JLoader::register($class, $file);
         }
+        
+		function addAutoLoadViews($baseFolders, $format, $prefix='Xipt')
+		{
+			foreach(JFolder::folders($baseFolders) as $folder )
+			{
+				//e.g. XiController + Product
+				$className 	= JString::ucfirst($prefix)
+							. JString::ucfirst('View')
+							. JString::ucfirst($folder);
+
+				$fileName	= JString::strtolower("view.$format.php");
+				JLoader::register($className, $baseFolders.DS.$folder.DS.$fileName);
+			}
+		}
 }

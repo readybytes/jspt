@@ -8,62 +8,30 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
-//Import Joomla Dependency
-jimport( 'joomla.application.component.controller' );
-jimport('joomla.application.component.model');
-
 // add include files
 require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
-	if(JRequest::getCmd('view') == '') {
-	            JRequest::setVar('view', 'cpanel');
-	}
+// check for jom social supported version and show message
+if(!XiptHelperSetup::isSupportedJS()){
+	$msg = "ERROR : The JomSocial Current Version used by you is not supported for ProfileTypes.";
+	JFactory::getApplication()->enqueueMessage($msg);	 
+}
 
-	$controller	= JRequest::getCmd( 'view');
-
-	if(!empty( $controller )){
-		$controller	= JString::strtolower( $controller );
-		$path		= JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.$controller.'.php';
-	
-		// Test if the controller really exists
-		if(JFile::exists($path))
-			require_once( $path );
-		else
-			XiptError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );
-	}
-	
-	$class	= 'XiptController' . JString::ucfirst( $controller );
+$controller	= JRequest::getCmd('view', 'cpanel');
+$controller	= JString::strtolower( $controller );	
+$class	= 'XiptController' . JString::ucfirst( $controller );
 	
 	// Test if the object really exists in the current context
-	if( class_exists( $class ) )
-		$controller	= new $class();
-	else
+	if(!class_exists($class, true))
 		XiptError::raiseError( 500 , 'Invalid Controller Object. Class definition does not exists in this context.' );
-	
-	// Perform the Request task
-	$task = JRequest::getCmd('task');
-	
-	if($task == '')
-	{
-		JRequest::setVar('task', 'display');
-		$task='display';
-	}
-	
-	$version = XiptHelperSetup::get_js_version();
-	
-	global $mainframe;
-	if(Jstring::stristr($version,'1.5'))
-	{
-		$msg = "ERROR : The JomSocial Version $version used by you is not supported for ProfileTypes.
-				The JSPT 2.x.x release will only supports newer version of JomSocial since JomSocial 1.6.184.";
-		$mainframe->enqueueMessage($msg,false);
-	}
 		
-	// Task's are methods of the controller. Perform the Request task
-	$controller->execute( $task );
-	
-	// Redirect if set by the controller
-	//$controller->redirect();
+$controller	= new $class();
 
+// Perform the Request task
+$task = JRequest::getCmd('task','display');	
+		
+// Task's are methods of the controller. Perform the Request task
+$controller->execute( $task );
 
-//$controller->redirect();
+// Redirect if set by the controller
+$controller->redirect();

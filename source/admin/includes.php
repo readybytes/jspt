@@ -12,29 +12,19 @@ if(defined('DEFINE_ADMIN_INCLUDES'))
 define('DEFINE_ADMIN_INCLUDES','DEFINE_ADMIN_INCLUDES');
 
 //	This is file for BACKEND only, should be included in starting file only.
-
 jimport( 'joomla.filesystem.file' );
 jimport( 'joomla.filesystem.folder' );
 
 // include JomSocial files
-if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
-{
-	global $mainframe;
+if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community')){
 	$option=JRequest::getVar('option','','GET');
 	if($option=='com_xipt'){
-		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
+		JFactory::getApplication()->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
 	}
 	return false;
 }
 
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
-// define our include paths to joomla
-jimport( 'joomla.application.component.model' );
-//JModel::addIncludePath(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models');
-//JTable::addIncludePath( JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables' );
-
-/*Load Langauge file*/
-$lang =& JFactory::getLanguage();
-if($lang)
-	$lang->load( 'com_xipt' );
+XiptLoader::addAutoLoadViews(XIPT_ADMIN_PATH_VIEWS, JRequest::getCmd('format','html'),	'Xipt');
+XiptLoader::addAutoLoadFolder(XIPT_ADMIN_PATH_CONTROLLERS, 'Controller',	'Xipt');

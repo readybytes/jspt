@@ -544,6 +544,13 @@ class XiptHelperSetup
 		return $version;
 	}
 	
+	function isSupportedJS()
+	{
+		$inValid = array('1.1','1.2','1.5','1.6');
+		$ver = self::get_js_version();		 
+		return  !in_array(JString::substr($ver,0,3), $inValid);
+ 	}
+	
 	function isWaterMarkingRequired()
 	{
 		$ptypeArray	= XiptHelperProfiletypes::getProfileTypeArray();

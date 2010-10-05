@@ -65,24 +65,6 @@
 ../packages/tmp/admin/controllers/aclrules.php:224:		$mainframe->redirect($link, $msg);
 ../packages/tmp/admin/controllers/aclrules.php:230:		global $mainframe;
 ../packages/tmp/admin/controllers/aclrules.php:248:		$mainframe->redirect($link, $msg);
-../packages/tmp/admin/controllers/cpanel.php:26:		$document	=& JFactory::getDocument();
-../packages/tmp/admin/controllers/configuration.php:33:		$document	=& JFactory::getDocument();
-../packages/tmp/admin/controllers/configuration.php:60:		JFactory::getApplication()->redirect($link, $message);
-../packages/tmp/admin/controllers/configuration.php:65:		global $mainframe;
-../packages/tmp/admin/controllers/configuration.php:69:		$user	=& JFactory::getUser();
-../packages/tmp/admin/controllers/configuration.php:76:		$mainframe	=& JFactory::getApplication();		
-../packages/tmp/admin/controllers/configuration.php:90:		$mainframe->redirect($link, $message);
-../packages/tmp/admin/controllers/configuration.php:95:		global $mainframe;
-../packages/tmp/admin/controllers/configuration.php:103:		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-../packages/tmp/admin/controllers/configuration.php:104:		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-../packages/tmp/admin/controllers/configuration.php:115:					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
-../packages/tmp/admin/controllers/configuration.php:122:		$cache = & JFactory::getCache('com_content');
-../packages/tmp/admin/controllers/configuration.php:126:		$mainframe->redirect($link, $message);
-../packages/tmp/admin/controllers/configuration.php:137:		global $mainframe;
-../packages/tmp/admin/controllers/configuration.php:149:			// Load the JTable Object.
-../packages/tmp/admin/controllers/configuration.php:150:			$table	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-../packages/tmp/admin/controllers/configuration.php:155:			$cache	=& JFactory::getCache( 'com_content');
-../packages/tmp/admin/controllers/configuration.php:158:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
 ../packages/tmp/admin/controllers/applications.php:30:		$document	=& JFactory::getDocument();
 ../packages/tmp/admin/controllers/applications.php:44:		global $mainframe;
 ../packages/tmp/admin/controllers/applications.php:52:		$user	=& JFactory::getUser();
@@ -123,24 +105,13 @@
 ../packages/tmp/admin/controllers/profiletypes.php:437:			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
 ../packages/tmp/admin/controllers/profiletypes.php:443:		global $mainframe;
 ../packages/tmp/admin/controllers/profiletypes.php:456:		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');
-../packages/tmp/admin/controllers/settings.php:20:		global $mainframe;
-../packages/tmp/admin/controllers/settings.php:25:		$settingsTable	=& JTable::getInstance( 'settings' , 'XiptTable' );
-../packages/tmp/admin/controllers/settings.php:46:		$mainframe->redirect("index.php?option=com_xipt&view=settings",$data['msg']);
-../packages/tmp/admin/includes.php:22:	global $mainframe;
-../packages/tmp/admin/includes.php:25:		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
-../packages/tmp/admin/includes.php:35://JTable::addIncludePath( JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables' );
-../packages/tmp/admin/includes.php:38:$lang =& JFactory::getLanguage();
+../packages/tmp/admin/includes.php:22:		JFactory::getApplication()->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
 ../packages/tmp/admin/views/profiletypes/view.html.php:39:		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 ../packages/tmp/admin/views/profiletypes/view.html.php:132:		$db			=& JFactory::getDBO();
 ../packages/tmp/admin/views/profiletypes/tmpl/profiletypes.edit.php:21:	                $editor =& JFactory::getEditor();
 ../packages/tmp/admin/views/profiletypes/tmpl/profiletypes.edit.php:145:									<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&editId='.$this->row->id.'&oldAvatar='.$this->row->avatar, false); ?>
-../packages/tmp/admin/views/cpanel/view.html.php:58:		$lang		=& JFactory::getLanguage();
 ../packages/tmp/admin/views/setup/view.html.php:141:		$mysess = & JFactory::getSession();
-../packages/tmp/admin/views/configuration/view.html.php:79:		$lang =& JFactory::getLanguage();
-../packages/tmp/admin/views/configuration/view.html.php:138:		$db			=& JFactory::getDBO();
-../packages/tmp/admin/views/settings/view.html.php:22:		$lang =& JFactory::getLanguage();
-../packages/tmp/admin/xipt.php:54:	global $mainframe;
-../packages/tmp/admin/xipt.php:59:		$mainframe->enqueueMessage($msg,false);
+../packages/tmp/admin/xipt.php:17:	JFactory::getApplication()->enqueueMessage($msg);	 
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:49:		$database	=& JFactory::getDBO();
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:117:		$db =& JFactory::getDBO();
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:139:class jomsocialjspt_restriction extends JTable {
@@ -252,7 +223,8 @@
 ../packages/tmp/site/libraries/acl/createvent/createvent.php:31:		$db		=& JFactory::getDBO();
 ../packages/tmp/site/includes.php:22:	global $mainframe;
 ../packages/tmp/site/includes.php:25:		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
-../packages/tmp/site/includes.php:39:$lang =& JFactory::getLanguage();
+../packages/tmp/site/includes.php:35:JFactory::getLanguage()->load('com_xipt');
+../packages/tmp/site/includes.php:36:JFactory::getLanguage()->load('com_community');
 ../packages/tmp/site/views/registration/view.html.php:17:		$userId = JFactory::getUser()->id;
 ../packages/tmp/site/views/registration/view.html.php:20:			global $mainframe;
 ../packages/tmp/site/views/registration/view.html.php:23:			$mainframe->redirect($redirectUrl,$msg);

@@ -1,7 +1,8 @@
 ../packages/tmp/install/helper.php:186:	// XITODO : chek if function is usabel
 ../packages/tmp/admin/controllers/profiletypes.php:230:		//XITODO : also support other formats
 ../packages/tmp/admin/views/setup/view.html.php:130:	//XITODO : check if any profiletype have enbaled admin approval
-../packages/tmp/site/libraries/base/table.php:150:		// XITODO : generate warning if record does not exists
+../packages/tmp/admin/views/configuration/view.html.php:80:			// XITODO : show name of profiltype for which configuration is being edited
+../packages/tmp/site/libraries/base/table.php:141:		// XITODO : generate warning if record does not exists
 ../packages/tmp/site/libraries/base/model.php:187:		//XITODO assert for $pk
 ../packages/tmp/site/libraries/base/model.php:203:	 * XITODO Method to order rows.
 ../packages/tmp/site/libraries/base/model.php:207:		//XITODO assert for $pk
@@ -22,7 +23,6 @@
 ../packages/tmp/site/libraries/acl/accessgroup/accessgroup.php:48:		/*XITODO : we will expect that vie task and should be given
 ../packages/tmp/site/libraries/acl/helper.php:108://XITODO : Clean function
 ../packages/tmp/site/libraries/acl/createvent/createvent.php:48:		// XITODO : use pattern ( return false in below conditiion)
-../packages/tmp/site/includes.php:38:/*XITODO : Cleant IT Load Langauge file*/
 ../packages/tmp/site/models/applications.php:47:	//XITODO : remove this wrapper
 ../packages/tmp/site/models/profiletypes.php:48:		//XITODO : Assert THIS $id should be valid
 ../packages/tmp/site/models/profiletypes.php:53:		//XITODO : move cleanup to controller

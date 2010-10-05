@@ -10,33 +10,26 @@ class XiptViewConfiguration extends XiptView
 {
     
 	function display($tpl = null){
-    	$profiletype	=XiptFactory::getModel( 'Profiletypes' );		
+    	$pModel	=XiptFactory::getInstance('profiletypes','model');		
 		
-    	$fields		=& $profiletype->loadRecords();
-		$pagination	=& $profiletype->getPagination();
-		
-		// Load tooltips
-		JHTML::_('behavior.tooltip', '.hasTip');
+    	$fields		= $pModel->loadRecords();
+		$pagination	= $pModel->getPagination();		
 
-		$this->setToolbar();		
+		$this->setToolBar();		
 		
-		$this->assign('reset',self::getResetLinkArray());
+		$this->assign('reset',XiptHelperConfiguration::getResetLinkArray());
 		$this->assignRef( 'fields' 		, $fields );
 		$this->assignRef( 'pagination'	, $pagination );
-		parent::display( $tpl );
+		return parent::display( $tpl );
     }
 	
-	function edit($id,$tpl = null )
-	{		
-		$name = JRequest :: getVar('name');
-		
-		$params	= XiptFactory::getInstance('profiletypes','model')
-									->loadParams($id);
-		
+	function edit($id, $tpl = 'edit' )
+	{				
+		$params	= XiptFactory::getInstance('profiletypes','model')->loadParams($id);
+
 		$lists = array();
-		for ($i=1; $i<=31; $i++) {
+		for ($i=1; $i<=31; $i++)
 			$qscale[]	= JHTML::_('select.option', $i, $i);
-		}
 		
 		$lists['qscale'] = JHTML::_('select.genericlist',  $qscale, 'qscale', 'class="inputbox" size="1"', 'value', 'text', $params->get('qscale', '11'));
 
@@ -58,17 +51,7 @@ class XiptViewConfiguration extends XiptView
 		);
 
 		$lists['videosSize'] = JHTML::_('select.genericlist',  $videosSize, 'videosSize', 'class="inputbox" size="1"', 'value', 'text', $params->get('videosSize'));
-		
-		
-		/*$dstOffset	= array();
-		$counter = -12;
-		for($i=0; $i <= 24; $i++ ){
-			$dstOffset[] = 	JHTML::_('select.option', $counter, $counter);
-			$counter++;
-		}
-		
-		$lists['dstOffset'] = JHTML::_('select.genericlist',  $dstOffset, 'daylightsavingoffset', 'class="inputbox" size="1"', 'value', 'text', $params->get('daylightsavingoffset'));
-		*/
+				
 		$uploadLimit = ini_get('upload_max_filesize');
 		$uploadLimit = JString::str_ireplace('M', ' MB', $uploadLimit);
 		
@@ -76,111 +59,32 @@ class XiptViewConfiguration extends XiptView
 		$this->assign( 'uploadLimit' , $uploadLimit );
 		$this->assign( 'config'	, $params );
 		$this->assign( 'id'	, $id );
-		$lang =& JFactory::getLanguage();
-		if($lang)
-			$lang->load( 'com_community' );
-	
 		$this->assign( 'jsConfigPath'	, JPATH_ADMINISTRATOR .DS.'components'. DS. 'com_community'.DS.'views'.DS.'configuration'.DS.'tmpl' );
 		
-		// Set the titlebar text
-		JToolBarHelper::title( sprintf(JText::_( 'EDIT CONFIGURATION'), $name), 'configuration' );
-		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
-		JToolBarHelper::divider();
-		JToolBarHelper::save('save',JText::_('SAVE'));
-		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
-		parent::display($tpl);
+		$this->setToolBar();
+		// Set the titlebar text		
+		return parent::display($tpl);
 	}
 	
-	function getResetLinkArray()
-	{
-		$resetArray = array();
-		$allPTypes = XiptLibProfiletypes::getProfiletypeArray();
-		if(!empty($allPTypes)) {
-			foreach($allPTypes as $ptype) {
-				if($ptype->params)
-					$resetArray[$ptype->id] = true;
-				else
-					 $resetArray[$ptype->id] = false;
-			}
-		}
-		
-		return $resetArray;
-	}
-	
-	/**
-	 * Private method to set the toolbar for this view
-	 * 
-	 * @access private
-	 * 
-	 * @return null
-	 **/	 	 
-	function setToolBar()
-	{
-
-		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Jom Social Configuration' ), 'configuration' );
-
-		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-		//JToolBarHelper::divider();
-		//JToolBarHelper::publishList('publish', JText::_( 'PUBLISH' ));
-		//JToolBarHelper::unpublishList('unpublish', JText::_( 'UNPUBLISH' ));
-		//JToolBarHelper::divider();
-		//JToolBarHelper::trash('remove', JText::_( 'DELETE' ));
-		//JToolBarHelper::addNew('edit', JText::_( 'ADD PROFILETYPES' ));
-	}
-	
-	function getGroup( $id )
+	// set the toolbar according to task	 	 
+	function setToolBar($task='display')
 	{	
-		if($id==0)
-			return "NONE";
-		$db			=& JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('name')
-					. ' FROM ' . $db->nameQuote( '#__community_groups' ) 
-					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id) ;
-		$db->setQuery( $query );
-		$val = $db->loadResult();
-		return $val;
-	}
-	
-	function getPrivacyHTML( $name , $selected , $showSelf = false )
-	{
-		$public		= ( $selected == 0 ) ? 'checked="true" ' : '';
-		$members	= ( $selected == 20 ) ? 'checked="true" ' : '';
-		$friends	= ( $selected == 30 ) ? 'checked="true" ' : '';
-		$self		= ( $selected == 40 ) ? 'checked="true" ' : '';
-		
-		$html	= '<input type="radio" value="0" name="' . $name . '" ' . $public . '/> ' . JText::_('Public');
-		$html	.= '<input type="radio" value="20" name="' . $name . '" ' . $members . '/> ' . JText::_('Members');
-		$html	.= '<input type="radio" value="30" name="' . $name . '" ' . $friends . '/> ' . JText::_('Friends');
-		
-		if( $showSelf )
-		{
-			$html	.= '<input type="radio" value="40" name="' . $name . '" ' . $self . '/> ' . JText::_('Self');
+		$task = JRequest::getVar('task',$task,'GET');
+		if($task === 'display'){		
+			JToolBarHelper::title( JText::_( 'Jom Social Configuration' ), 'configuration' );		
+			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+			return true;
 		}
-		return $html;
-	}
-	
-	function getFolderPermissionsPhoto( $name , $selected )
-	{		
-		$all		= ( $selected == '0777' ) ? 'checked="true" ' : '';
-		$default	= ( $selected == '0755' ) ? 'checked="true" ' : '';
-
-		$html	 = '<input type="radio" value="0777" name="' . $name . '" ' . $all . '/> ' . JText::_('Enable All (CHMOD 0777)');
-		$html	.= '<input type="radio" value="0755" name="' . $name . '" ' . $default . '/> ' . JText::_('System Default');
-
-		return $html;
-	}
-	
-	function getFolderPermissionsVideo( $name , $selected )
-	{		
-		$all		= ( $selected == '0777' ) ? 'checked="true" ' : '';
-		$default	= ( $selected == '0755' ) ? 'checked="true" ' : '';
-
-		$html	 = '<input type="radio" value="0777" name="' . $name . '" ' . $all . '/> ' . JText::_('Enable All (CHMOD 0777)');
-		$html	.= '<input type="radio" value="0755" name="' . $name . '" ' . $default . '/> ' . JText::_('System Default');
-
-		return $html;
+		
+		if($task === 'edit'){
+			// XITODO : show name of profiltype for which configuration is being edited
+			$name 	= JRequest :: getVar('name');	
+			JToolBarHelper::title( sprintf(JText::_( 'EDIT CONFIGURATION'),$name), 'configuration' );
+			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
+			JToolBarHelper::divider();
+			JToolBarHelper::save('save',JText::_('SAVE'));
+			JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+			return true;
+		}		
 	}
 }

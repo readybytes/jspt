@@ -105,4 +105,4 @@ JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
-<php 
+<?php 

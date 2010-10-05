@@ -48,7 +48,7 @@ function submitbutton( action )
 			</th>
 		</tr>		
 	</thead>
-<?php
+	<?php
 	$count	= 0;
 	$i		= 0;
 	if(!empty($this->fields))
@@ -58,7 +58,7 @@ function submitbutton( action )
 		
 		// Process publish / unpublish images
 		++$i;
-?>
+		?>
 		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
 			<td><?php echo $i;?></td>
 			<td>
@@ -81,11 +81,11 @@ function submitbutton( action )
 			</td>
 				
 		</tr>
-<?php
+		<?php
 		
 		$count++;
 	}
-?>
+	?>
 	<tfoot>
 	<tr>
 		<td colspan="15">

@@ -161,7 +161,7 @@ class XiptModel extends JModel
 		// then it can overwrite the previous record
 		// So we must ensure that either PK is set to given value
 		// Else it should be set to 0
-		$table->reset(true);
+		$table->reset();
 		
 		//if we have itemid then we MUST load the record
 		// else this is a new record
@@ -261,4 +261,16 @@ class XiptModel extends JModel
 	{		
 		return $this->save( array('published'=>0), $id );		
 	}	
+	
+	function saveParams($postData,$pk)
+	{
+		if(empty($postData) || !is_array($postData))
+			return false;
+		
+		$registry	= JRegistry::getInstance('xipt');
+		$registry->loadArray($postData,'xipt');
+		$params	= $registry->toString( 'INI' , 'xipt' );
+		
+		return $this->save(array('params'=> $params), $pk);
+	} 
 }

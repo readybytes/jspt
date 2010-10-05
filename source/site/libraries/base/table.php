@@ -57,20 +57,11 @@ class XiptTable extends JTable
 		$this->_loadTableProps();
 	}
 
-	public function reset($resetId=false)
+	public function reset()
 	{
-//		if($resetId===true){
-//			$this->set($this->getKeyName(),0);
-//		}
-
 		$k = $this->_tbl_key;
 		foreach ($this->getProperties() as $name => $value)
-		{
-			if($name != $k)
-			{
-				$this->$name	= null;
-			}
-		}
+			$this->$name	= null;
 		
 		return true;
 	}

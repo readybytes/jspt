@@ -29,18 +29,15 @@ if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
 
 // require_once defines.php
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
-
 require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
-require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-//XICODREV : 
 
-
-/*XITODO : Cleant IT Load Langauge file*/
-$lang =& JFactory::getLanguage();
-if($lang)
-	$lang->load( 'com_xipt' );
+/*Load Langauge file*/
+JFactory::getLanguage()->load('com_xipt');
+JFactory::getLanguage()->load('com_community');
 
 //files required
+XiptLoader::addAutoLoadViews(XIPT_FRONT_PATH_VIEWS, JRequest::getCmd('format','html'),	'Xipt');
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_CONTROLLERS, 'Controller',	'Xipt');
 XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models','Model');
 XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');

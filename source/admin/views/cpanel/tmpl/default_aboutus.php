@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5;"><?php 
 				//echo $this->pane->startPane( 'stat-pane1' );
-				require_once 'welcome.php';
+				echo $this->loadTemplate('welcome');
 				//echo $this->pane->endPanel();
 				?>
 </div>
@@ -17,7 +17,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<td width="50%" valign="top">
 				<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5;"><?php 
 				//echo $this->pane->startPane( 'stat-pane1' );
-				require_once 'news.php';
+				echo $this->loadTemplate('news');
 				//echo $this->pane->endPanel();
 				?>
 				</div>
@@ -25,7 +25,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<td width="50%" valign="top">
 				<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5;" ><?php
 				//echo $this->pane->startPane( 'stat-pane2' );
-				require_once 'updates.php';
+				echo $this->loadTemplate('updates');
 				//echo $this->pane->endPanel();
 				?>
 				</div>

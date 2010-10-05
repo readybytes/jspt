@@ -75,6 +75,11 @@ define('BLOCK_DISPLAY_APP_OF_BOTH',2);
 define('ALL',-1); //required in admin in ACL rules only ,
 // it's not -1 at all places , we have used this as 0
 
+define('XIPT_ADMIN_PATH_VIEWS',JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'views');
+define('XIPT_ADMIN_PATH_CONTROLLERS',JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers');
+
+define('XIPT_FRONT_PATH_CONTROLLERS',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'controllers');
+define('XIPT_FRONT_PATH_VIEWS', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views');
 define('XIPT_FRONT_PATH_LIBRARY',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries');
 define('XIPT_FRONT_PATH_HELPER', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers');
 define('XIPT_FRONT_PATH_ASSETS',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'assets');

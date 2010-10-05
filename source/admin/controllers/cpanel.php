@@ -7,32 +7,10 @@
 if(!defined('_JEXEC')) die('Restricted access');
  
 class XiptControllerCPanel extends XiptController 
-{
-  
-	function __construct($config = array())
-	{
-		parent::__construct($config);
-	}
-	
-    function display() 
-	{
-		parent::display();
-    }
-    
+{    
 	function aboutus()
 	{
-		$viewName	= JRequest::getCmd( 'view' , 'cpanel' );
-				// Get the document object
-		$document	=& JFactory::getDocument();
-		// Get the view type
-		$viewType	= $document->getType();
-	
-		$view		=& $this->getView( $viewName , $viewType );
-
-		$layout		= JRequest::getCmd( 'layout' , 'aboutus' );
-		$view->setLayout( $layout );
-		//echo parent::display();
-		echo $view->aboutus();
-	}
-	
+		$view = $this->getView();
+		return $view->aboutus();
+	}	
 }

@@ -6,25 +6,12 @@
 
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
-
-class XiptViewCPanel extends XiptView
-{
-	/**
-	 * The default method that will display the output of this view which is called by
-	 * Joomla
-	 * 
-	 * @param	string template	Template file name
-	 **/	 	
-	function display( $tpl = null )
+		
+class XiptViewCpanel extends XiptView
+{	
+	function display($tpl = null)
 	{
-		// Load tooltips
-		JHTML::_('behavior.tooltip', '.hasTip');
-		jimport('joomla.html.pane');
-		$pane	=& JPane::getInstance('sliders');
-		
-		$this->setToolbar();
-		
-		$this->assignRef( 'pane'		, $pane );
+		$this->setToolbar();		
 		parent::display( $tpl );
 	}
 
@@ -54,25 +41,19 @@ class XiptViewCPanel extends XiptView
 	}
 	
 	function addIcon( $image , $url , $text , $newWindow = false )
-	{
-		$lang		=& JFactory::getLanguage();
-		
+	{	
 		$newWindow	= ( $newWindow ) ? ' target="_blank"' : '';
-?>
-		<div style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
-			<div class="icon">
-				<a href="<?php echo $url; ?>"<?php echo $newWindow; ?>>
-					<?php echo JHTML::_('image', 'components/com_xipt/assets/images/' . $image , NULL, NULL, $text ); ?>
-					<span><?php echo $text; ?></span></a>
-			</div>
-		</div>
-<?php
+		
+		$this->assign('image',$image);
+		$this->assign('url',$url);
+		$this->assign('text',$text);
+		$this->assign('newWindow',$newWindow);
+
+		return $this->loadTemplate('addicon');
 	}
 	
-	
-	function aboutus($tpl = null)
+	function aboutus($tpl = 'aboutus')
 	{
-		$this->setToolbar();
-		parent::display( $tpl);
+		return $this->display( $tpl);
 	}
 }

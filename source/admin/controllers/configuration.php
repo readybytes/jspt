@@ -7,156 +7,49 @@
 if(!defined('_JEXEC')) die('Restricted access');
  
 class XiptControllerConfiguration extends XiptController 
-{
-    
-	function __construct($config = array())
-	{
-		parent::__construct($config);
-		
-		//registering some extra in all task list which we want to call
-		$this->registerTask( 'orderup' , 'saveOrder' );
-		$this->registerTask( 'orderdown' , 'saveOrder' );
+{	
+	function edit($id=0)
+	{		
+		$id 	= JRequest::getVar('editId', $id , 'GET');			
+		$view	= $this->getView();
+		return $view->edit($id);		
 	}
 	
-    function display() 
+	function save($id=0, $postData=null)
 	{
-		parent::display();
-    }
-	
-	function edit()
-	{
-		$id = JRequest::getVar('editId', 0 , 'GET');
-		
-		$viewName	= JRequest::getCmd( 'view' , 'profiletypes' );
-		
-		// Get the document object
-		$document	=& JFactory::getDocument();
-
-		// Get the view type
-		$viewType	= $document->getType();
-		
-		$view		=& $this->getView( $viewName , $viewType );
-		$layout		= JRequest::getCmd( 'layout' , 'configuration.edit' );
-		$view->setLayout( $layout );
-		echo $view->edit($id);
-		
-	}
-	
-	function save()
-	{
+		$id	= JRequest::getVar('id', $id, 'post');
+		if($postData === null)
+			$postData	= JRequest::get('post', JREQUEST_ALLOWRAW );
+			
 		$pModel	= XiptFactory::getInstance('profiletypes', 'model');
-		$id	= JRequest::getVar( 'id','0','post');
-		$postData	= JRequest::get( 'post' , 2 );
+		
 		// Try to save configurations
-		if( $pModel->saveParams($postData, $id) )
-		{
-			$message	= JText::_('Configuration Updated');
-		}
-		else
-		{
+		if(!$pModel->saveParams($postData, $id) ){
 			XiptError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
+			return false;		
 		}
+			
 		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-		JFactory::getApplication()->redirect($link, $message);
+		$msg	= JText::_('Configuration Updated');
+		$this->setRedirect($link,$msg);
+		return true;
 	}
 	
-	function reset()
-	{
-		global $mainframe;
-		
-		$id	= JRequest::getVar( 'profileId','0','GET');
-				
-		$user	=& JFactory::getUser();
-
-		if ( $user->get('guest')) {
-			XiptError::raiseError( 403, JText::_('Access Forbidden') );
-			return;
-		}
-		
-		$mainframe	=& JFactory::getApplication();		
+	function reset($id=0)
+	{		
+		$id		= JRequest::getVar( 'profileId',$id,'GET');
 
 		$pModel	= XiptFactory::getModel( 'profiletypes' );
 		
 		// Try to save configurations
-		if( $pModel->save(array('params'=>''),$id) )
-		{
-			$message = JText::_('Profiletype has been Reset');
-		}
-		else
-		{
+		if(!$pModel->save(array('params'=>''),$id)){
 			XiptError::raiseWarning( 100 , JText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
+			return false;
 		}
-		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-		$mainframe->redirect($link, $message);
+
+		$link 	= XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
+		$msg 	= JText::_('Profiletype has been Reset');
+		$this->setRedirect($link,$msg);
+		return true;		
 	}
-	
-	function remove()
-	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		
-		$ids	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-	
-		//$post['id'] = (int) $cid[0];
-		$count	= count($ids);
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-		$i = 1;
-		if(!empty($ids))
-		{
-			foreach( $ids as $id )
-			{
-				$row->load( $id );
-				if(!$row->delete( $id ))
-				{
-					// If there are any error when deleting, we just stop and redirect user with error.
-					$message	= JText::_('ERROR IN REMOVING PROFILETYPE');
-					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
-					exit;
-				}
-				$i++;
-			}
-		}
-				
-		$cache = & JFactory::getCache('com_content');
-		$cache->clean();
-		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
-		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $message);
-	}
-	
-/**	
-	 * Save the ordering of the entire records.
-	 *	 	
-	 * @access public
-	 *
-	 **/	 
-	function saveOrder()
-	{
-		global $mainframe;
-	
-		// Determine whether to order it up or down
-		$direction	= ( JRequest::getWord( 'task' , '' ) == 'orderup' ) ? -1 : 1;
-
-		// Get the ID in the correct location
- 		$id			= JRequest::getVar( 'cid', array(), 'post', 'array' );
-
-		if( isset( $id[0] ) )
-		{
-			$id		= (int) $id[0];
-
-			// Load the JTable Object.
-			$table	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-			
-			$table->load( $id );
-			$table->move( $direction );
-
-			$cache	=& JFactory::getCache( 'com_content');
-			$cache->clean();
-			
-			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
-		}
-	}
-	
 }
