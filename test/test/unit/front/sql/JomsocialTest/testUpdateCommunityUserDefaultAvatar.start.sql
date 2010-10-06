@@ -44,8 +44,11 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
 (79, 1, 'default');;
-TRUNCATE TABLE `au_#__community_users`;;
 
+CREATE TABLE IF NOT EXISTS`au_#__community_users` 
+	SELECT * FROM `#__community_users`;;
+TRUNCATE TABLE `au_#__community_users`;;
+ 
 INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
 (62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=0\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 

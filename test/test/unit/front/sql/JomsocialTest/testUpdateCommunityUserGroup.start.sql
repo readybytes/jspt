@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS `au_#__community_groups_members` (
   KEY `idx_memberid` (`memberid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;;
 
+CREATE TABLE IF NOT EXISTS `au_#__community_groups_members` 
+		SELECT * FROM `#__community_groups_members` ;; 
 TRUNCATE TABLE `au_#__community_groups_members` ;;
 
 INSERT INTO `au_#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES

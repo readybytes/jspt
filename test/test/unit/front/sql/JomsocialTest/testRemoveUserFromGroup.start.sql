@@ -17,7 +17,8 @@ INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `p
 (3, 83, 1, 0);;
 
 
-
+CREATE TABLE IF NOT EXISTS `au_#__community_groups_members` 
+		SELECT * FROM `#__community_groups_members` ;;  
 TRUNCATE TABLE `au_#__community_groups_members` ;;
 
 INSERT INTO `au_#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES

@@ -77,19 +77,10 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (126, 80, 9, 'regtest6208627');;
 
 
-CREATE TABLE IF NOT EXISTS `au_#__community_fields_values` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `field_id` int(10) NOT NULL,
-  `value` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `field_id` (`field_id`),
-  KEY `user_id` (`user_id`),
-  KEY `idx_user_fieldid` (`user_id`,`field_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=169 ;;
-
-
+CREATE TABLE IF NOT EXISTS `au_#__community_fields_values` 
+	SELECT * FROM `#__community_fields_values` ;; 
 TRUNCATE TABLE `au_#__community_fields_values` ;;
+
 
 INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) VALUES
 (22, 62, 16, 'default'),
