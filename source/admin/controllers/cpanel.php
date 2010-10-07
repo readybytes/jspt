@@ -10,7 +10,6 @@ class XiptControllerCPanel extends XiptController
 {    
 	function aboutus()
 	{
-		$view = $this->getView();
-		return $view->aboutus();
+		return $this->getView()->aboutus();
 	}	
 }

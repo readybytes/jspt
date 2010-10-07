@@ -9,13 +9,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptViewApplications extends XiptView 
 {
 	function display($tpl = null){
-		$aModel	= XiptFactory::getModel( 'Applications' );
+		$aModel	= $this->getModel();
 		
 		$fields		=& $aModel->loadRecords();
 		$pagination	=& $aModel->getPagination();
-		
-		// Load tooltips
-		JHTML::_('behavior.tooltip', '.hasTip');
 		
 		$this->setToolbar();
 		
@@ -24,29 +21,30 @@ class XiptViewApplications extends XiptView
 		parent::display( $tpl );
     }
 	
-	function edit($id,$tpl = null)
+	function edit($id,$tpl = 'edit')
 	{
 		$this->assign( 'applicationId' , $id );
-		
-		// Set the titlebar text
-		
-		JToolBarHelper::title( JText::_( 'EDIT APPLICATIONS' ), 'applications' );
-
-		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
-		JToolBarHelper::divider();
-		JToolBarHelper::save('save',JText::_('SAVE'));
-		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
-		parent::display($tpl);
+		$this->setToolbar();
+		return parent::display($tpl);
 	}
 	
-	function setToolBar()
-	{
-
-		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'APPLICATIONS' ), 'applications' );
-
-		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+	// set the toolbar according to task	 	 
+	function setToolbar($task='display')
+	{	
+		$task = JRequest::getVar('task',$task,'GET');
+		if($task === 'display'){		
+			JToolBarHelper::title( JText::_( 'APPLICATIONS' ), 'applications' );
+			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+			return true;
+		}
+		
+		if($task === 'edit'){
+			JToolBarHelper::title( JText::_( 'EDIT APPLICATIONS' ), 'applications' );
+			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
+			JToolBarHelper::divider();
+			JToolBarHelper::save('save',JText::_('SAVE'));
+			JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+			return true;
+		}		
 	}
 }

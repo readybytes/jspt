@@ -8,9 +8,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 jimport( 'joomla.application.component.model' );
 
-class XiptModel extends JModel
+abstract class XiptModel extends JModel
 {
-	protected	$_absolutePrefix = 'xipt';
 	protected 	$_pagination	 = '';
 	protected	$_query		= null;
 	protected 	$_total 	= array();
@@ -135,11 +134,7 @@ class XiptModel extends JModel
 		if($tableName===null)
 			$tableName = $this->getName();
 
-		$table	= XiptFactory::getInstance($tableName,'Table',JString::ucfirst($this->_absolutePrefix));
-		if(!$table)
-			XiptError::raiseError(500,XiptText::_("NOT ABLE TO GET INSTANCE OF TABLE : {$this->getName()}"));
-
-		return $table;
+		return XiptFactory::getInstance($tableName,'Table');
 	}
 
 	function save($data, $pk=null)

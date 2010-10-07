@@ -5,42 +5,51 @@
 **/
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
- 
-class XiptControllerConfiguration extends XiptController 
-{	
-	function edit($id=0)
-	{		
-		$id 	= JRequest::getVar('editId', $id , 'GET');			
-		$view	= $this->getView();
-		return $view->edit($id);		
+
+class XiptControllerConfiguration extends XiptController
+{
+	//Need to override, as we dont have model
+	public function getModel($modelName=null)
+	{
+		// support for parameter
+		if($modelName===null || $modelName === $this->getName())
+			return parent::getModel('profiletypes');
+
+		return parent::getModel($modelName);
 	}
-	
+
+	function edit($id=0)
+	{
+		// XITODO : use id instead of editId
+		$id = JRequest::getVar('editId', $id);
+		return $this->getView()->edit($id,'edit');
+	}
+
 	function save($id=0, $postData=null)
 	{
-		$id	= JRequest::getVar('id', $id, 'post');
+		$id	= JRequest::getVar('id', $id);
 		if($postData === null)
 			$postData	= JRequest::get('post', JREQUEST_ALLOWRAW );
-			
-		$pModel	= XiptFactory::getInstance('profiletypes', 'model');
-		
+
+		$pModel	= $this->getModel();
+
 		// Try to save configurations
 		if(!$pModel->saveParams($postData, $id) ){
 			XiptError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
-			return false;		
+			return false;
 		}
-			
+
 		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$msg	= JText::_('Configuration Updated');
 		$this->setRedirect($link,$msg);
 		return true;
 	}
-	
-	function reset($id=0)
-	{		
-		$id		= JRequest::getVar( 'profileId',$id,'GET');
 
-		$pModel	= XiptFactory::getModel( 'profiletypes' );
-		
+	function reset($id=0)
+	{
+		$id		= JRequest::getVar( 'profileId',$id);
+		$pModel	= $this->getModel();
+
 		// Try to save configurations
 		if(!$pModel->save(array('params'=>''),$id)){
 			XiptError::raiseWarning( 100 , JText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
@@ -50,6 +59,6 @@ class XiptControllerConfiguration extends XiptController
 		$link 	= XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
 		$msg 	= JText::_('Profiletype has been Reset');
 		$this->setRedirect($link,$msg);
-		return true;		
+		return true;
 	}
 }

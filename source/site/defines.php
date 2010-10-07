@@ -54,10 +54,23 @@ define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images' . DS . 'profiletype
 define('PROFILETYPE_AVATAR_STORAGE_PATH', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH);
 define('USER_AVATAR_BACKUP', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'useravatar');
 
-/*
- * Create directories over here. if they dont exist
- * and chmod($dir, 0755);
- */
+if(JFolder::exists(PROFILETYPE_AVATAR_STORAGE_PATH)==false
+		&& JFolder::create(PROFILETYPE_AVATAR_STORAGE_PATH)===false){
+	XiptError::raiseError("XIPT-ERROR","Folder [".PROFILETYPE_AVATAR_STORAGE_PATH."] does not exist. Even we are not able to create it. Please check file permission.");
+	return false;
+}
+
+if(JFolder::exists(PROFILETYPE_AVATAR_STORAGE_PATH))
+	chmod(PROFILETYPE_AVATAR_STORAGE_PATH, 0755);
+
+if(JFolder::exists(USER_AVATAR_BACKUP)==false
+		&& JFolder::create(USER_AVATAR_BACKUP)===false){
+	XiptError::raiseError("XIPT-ERROR","Folder [".USER_AVATAR_BACKUP."] does not exist. Even we are not able to create it. Please check file permission.");
+	return false;
+}
+if(JFolder::exists(USER_AVATAR_BACKUP))
+	chmod(USER_AVATAR_BACKUP, 0755);
+
 // define constants for category of Profile Fields
 define('PROFILE_FIELD_CATEGORY_ALLOWED',0);
 define('PROFILE_FIELD_CATEGORY_REQUIRED',1);

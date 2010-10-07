@@ -7,35 +7,11 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptControllerProfileFields extends XiptController 
-{
-    
-	function __construct($config = array())
+{	
+	function edit($fieldId=0)
 	{
-		parent::__construct($config);
-	}
-	
-	function display() 
-	{
-		parent::display();
-    }
-	
-	function edit()
-	{
-		$fieldId = JRequest::getVar('editId', 0 , 'GET');
-		$viewName	= JRequest::getCmd( 'view' , 'profilefields' );
-		
-		// Get the document object
-		$document	=& JFactory::getDocument();
-
-		// Get the view type
-		$viewType	= $document->getType();
-		
-		// Get the view
-		$view		=& $this->getView( $viewName , $viewType );
-		$layout		= JRequest::getCmd( 'layout' , 'profilefields.edit' );
-		$view->setLayout( $layout );
-		echo $view->edit($fieldId);
-		
+		$fieldId = JRequest::getVar('editId', $fieldId);		
+		return $this->getView()->edit($fieldId,'edit');
 	}
 	
 	//save fields which is not accsible , means in opposite form
@@ -46,23 +22,11 @@ class XiptControllerProfileFields extends XiptController
 	
 	function save()
 	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-
-		$post	= JRequest::get('post');
-		
-		$user	=& JFactory::getUser();
-
-		if ( $user->get('guest')) {
-			XiptError::raiseError( 403, JText::_('Access Forbidden') );
-			return;
-		}
-		
-			
+		$post	= JRequest::get('post');		
+					
 		//remove all rows related to specific field id 
-		// cleaning all data for storing new profiletype with fields
-		XiptHelperProfilefields::remFieldsProfileType($post['id']);
+		// cleaning all data for storing new profiletype with fields		
+		$this->getModel()->delete(array('fid'=> $post['id']));
 		
 		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
 		$categories		= XiptHelperProfilefields::getProfileFieldCategories();
@@ -86,9 +50,9 @@ class XiptControllerProfileFields extends XiptController
 			}
 		}
 			
-		$msg = JText::_('FIELDS SAVED');	
-		$link = XiptRoute::_('index.php?option=com_xipt&view=profilefields', false);
-		$mainframe->redirect($link, $msg);
+		$msg 	= JText::_('FIELDS SAVED');	
+		$link 	= XiptRoute::_('index.php?option=com_xipt&view=profilefields', false);
+		JFactory::getApplication()->redirect($link, $msg);
 		return;
 	}
 }

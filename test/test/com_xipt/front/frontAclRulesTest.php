@@ -411,7 +411,7 @@ function testACLRules2()
 	$this->_DBO->addTable('#__xipt_users');
   }
   
-  function testACLRulesDeleteGroup()
+  function xtestACLRulesDeleteGroup()
   {
   	$version = XiSelTestCase::get_js_version();
   	$users[1]=array(79,82,85);

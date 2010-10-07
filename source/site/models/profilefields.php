@@ -7,9 +7,4 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptModelProfilefields extends XiptModel
-{
-	function resetFieldId( $fid)
-	{
-		return $this->delete(array('fid'=> $fid));
-	}	
-}
+{}

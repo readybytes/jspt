@@ -432,7 +432,6 @@ class XiptLibUtils
 		$newimagepath = self::showWatermarkOverImage($image,$waterMark,'tmp',$watermarkParams->get('xiWatermarkPosition','br'));
 				
 		/*copy user original avatar at one place to remove destroy */
-		jimport('joomla.filesystem.folder');
 		//here check if folder exist or not. if not then create it.
 		$avatarPath = USER_AVATAR_BACKUP;
 		if(JFolder::exists($avatarPath)==false)

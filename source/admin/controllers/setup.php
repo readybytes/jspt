@@ -8,7 +8,17 @@ if(!defined('_JEXEC')) die('Restricted access');
  
 class XiptControllerSetup extends XiptController 
 {
-    
+	//Need to override, as we dont have model
+	public function getModel($modelName=null)
+	{
+		// support for parameter
+		if($modelName===null || $modelName === $this->getName())
+			return false;
+
+		return parent::getModel($modelName);
+	}
+	
+	
 	function __construct($config = array())
 	{
 		parent::__construct($config);

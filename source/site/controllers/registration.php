@@ -49,9 +49,6 @@ class XiptControllerRegistration extends XiptController {
 		$document->addStyleSheet($css);
 
 		// Get the view
-		$viewName	= JRequest::getCmd( 'view' , 'registration' );
-		$viewType	= $document->getType();
-		$view		=& $this->getView( $viewName , $viewType );
-		$view->display();
+		$this->getView()->display();
     }
 }

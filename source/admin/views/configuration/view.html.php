@@ -10,7 +10,7 @@ class XiptViewConfiguration extends XiptView
 {
     
 	function display($tpl = null){
-    	$pModel	=XiptFactory::getInstance('profiletypes','model');		
+    	$pModel	= $this->getModel();		
 		
     	$fields		= $pModel->loadRecords();
 		$pagination	= $pModel->getPagination();		
@@ -25,7 +25,7 @@ class XiptViewConfiguration extends XiptView
 	
 	function edit($id, $tpl = 'edit' )
 	{				
-		$params	= XiptFactory::getInstance('profiletypes','model')->loadParams($id);
+		$params	= $this->getModel()->loadParams($id);
 
 		$lists = array();
 		for ($i=1; $i<=31; $i++)
@@ -45,9 +45,6 @@ class XiptViewConfiguration extends XiptView
 			JHTML::_('select.option', '640x360', '640x360 (16:9)'),
 			JHTML::_('select.option', '640x480', '640x480 (VCA 4:3)'),
 			JHTML::_('select.option', '800x600', '800x600 (SVGA 4:3)'),
-//			JHTML::_('select.option', '856x480', '856x480 (WVGA 16:9)'),
-//			JHTML::_('select.option', '1024x576', '1024x576 (WSVGA 16:9)'),
-//			JHTML::_('select.option', '1024x768', '1024x768 (XGA 4:3)')
 		);
 
 		$lists['videosSize'] = JHTML::_('select.genericlist',  $videosSize, 'videosSize', 'class="inputbox" size="1"', 'value', 'text', $params->get('videosSize'));
@@ -87,4 +84,57 @@ class XiptViewConfiguration extends XiptView
 			return true;
 		}		
 	}
+	
+//	function getGroup( $id )
+//	{	
+//		if($id==0)
+//			return "NONE";
+//			
+//		$query = new XiptQuery();
+//		return $query->select('name')
+//					 ->from('#__community_groups')
+//					 ->where(" `id` = $id ")
+//					 ->dbLoadQuery("", "")
+//					 ->loadResult();					
+//	}
+	
+//	function getPrivacyHTML( $name , $selected , $showSelf = false )
+//	{
+//		$public		= ( $selected == 0 ) ? 'checked="true" ' : '';
+//		$members	= ( $selected == 20 ) ? 'checked="true" ' : '';
+//		$friends	= ( $selected == 30 ) ? 'checked="true" ' : '';
+//		$self		= ( $selected == 40 ) ? 'checked="true" ' : '';
+//		
+//		$html	= '<input type="radio" value="0" name="' . $name . '" ' . $public . '/> ' . JText::_('Public');
+//		$html	.= '<input type="radio" value="20" name="' . $name . '" ' . $members . '/> ' . JText::_('Members');
+//		$html	.= '<input type="radio" value="30" name="' . $name . '" ' . $friends . '/> ' . JText::_('Friends');
+//		
+//		if( $showSelf )
+//		{
+//			$html	.= '<input type="radio" value="40" name="' . $name . '" ' . $self . '/> ' . JText::_('Self');
+//		}
+//		return $html;
+//	}
+	
+//	function getFolderPermissionsPhoto( $name , $selected )
+//	{		
+//		$all		= ( $selected == '0777' ) ? 'checked="true" ' : '';
+//		$default	= ( $selected == '0755' ) ? 'checked="true" ' : '';
+//
+//		$html	 = '<input type="radio" value="0777" name="' . $name . '" ' . $all . '/> ' . JText::_('Enable All (CHMOD 0777)');
+//		$html	.= '<input type="radio" value="0755" name="' . $name . '" ' . $default . '/> ' . JText::_('System Default');
+//
+//		return $html;
+//	}
+	
+//	function getFolderPermissionsVideo( $name , $selected )
+//	{		
+//		$all		= ( $selected == '0777' ) ? 'checked="true" ' : '';
+//		$default	= ( $selected == '0755' ) ? 'checked="true" ' : '';
+//
+//		$html	 = '<input type="radio" value="0777" name="' . $name . '" ' . $all . '/> ' . JText::_('Enable All (CHMOD 0777)');
+//		$html	.= '<input type="radio" value="0755" name="' . $name . '" ' . $default . '/> ' . JText::_('System Default');
+//
+//		return $html;
+//	}
 }

@@ -48,4 +48,17 @@ abstract class XiptView extends JView
 
 		return $name;
 	}
+	
+	/**
+	 * Get an object of controller-corresponding Model.
+	 * @return XiptModel
+	 */
+	public function getModel($modelName=null)
+	{
+		// support for parameter
+		if($modelName===null)
+			$modelName = $this->getName();
+
+		return XiptFactory::getInstance($modelName,'Model');
+	}
 }

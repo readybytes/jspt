@@ -7,7 +7,7 @@
 if(!defined('_JEXEC')) die('Restricted access');
 jimport( 'joomla.application.component.controller' );
 
-class XiptController extends JController
+abstract class XiptController extends JController
 {
 	public function getPrefix()
 	{
@@ -38,23 +38,30 @@ class XiptController extends JController
 
 		return $name;
 	}
-	
+
 	public function getView()
 	{
-		if(isset($this->_view))
-			return $this->_view;
-
+//		if(isset($this->_view))
+//			return $this->_view;
 
 		//get Instance from Factory
 		$this->_view	= 	XiptFactory::getInstance($this->getName(),'View', $this->getPrefix());
-
-		if(!$this->_view)
-			XiptError::raiseError (500, XiusText::_("NOT ABLE TO GET INSTANCE OF VIEW : {$this->getName()}"));
-
 		$layout	= JRequest::getCmd( 'layout' , 'default' );
-		$this->_view->setLayout( $layout );		
-		
+		$this->_view->setLayout( $layout );
 		return $this->_view;
+	}
+
+	/**
+	 * Get an object of controller-corresponding Model.
+	 * @return XiptModel
+	 */
+	public function getModel($modelName=null)
+	{
+		// support for parameter
+		if($modelName===null)
+			$modelName = $this->getName();
+
+		return XiptFactory::getInstance($modelName,'Model');
 	}
 }
 

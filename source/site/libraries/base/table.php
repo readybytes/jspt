@@ -7,10 +7,9 @@
 if(!defined('_JEXEC')) die('Restricted access');
 jimport( 'joomla.application.component.table' );
 
-class XiptTable extends JTable
+abstract class XiptTable extends JTable
 {
 	protected	$_name;
-    protected	$_absolutePrefix	= 'xipt';
 
 	//apply caching
     public function getName()

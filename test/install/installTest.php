@@ -36,15 +36,15 @@ class InstallTest extends XiSelTestCase
     $this->assertFalse($this->isElementPresent("//dl[@id='system-error']/dd/ul/li"));
     
     //check migration tables
-    $this->_DBO->addTable('#__xipt_aclrules');
-    $this->_DBO->addTable('#__xipt_aec');
-    $this->_DBO->addTable('#__xipt_applications');
-    $this->_DBO->addTable('#__xipt_profilefields');
-    $this->_DBO->addTable('#__xipt_profiletypes');
-    $this->_DBO->addTable('#__xipt_users');
-    $this->_DBO->addTable('#__components');
-    $this->_DBO->filterRow('#__components',"`parent`='0' AND `option` ='com_xipt'");
-    $this->_DBO->filterColumn('#__components','id');
+//    $this->_DBO->addTable('#__xipt_aclrules');
+//    $this->_DBO->addTable('#__xipt_aec');
+//    $this->_DBO->addTable('#__xipt_applications');
+//    $this->_DBO->addTable('#__xipt_profilefields');
+//    $this->_DBO->addTable('#__xipt_profiletypes');
+//    $this->_DBO->addTable('#__xipt_users');
+//    $this->_DBO->addTable('#__components');
+//    $this->_DBO->filterRow('#__components',"`parent`='0' AND `option` ='com_xipt'");
+//    $this->_DBO->filterColumn('#__components','id');
     //now compare that AEC MI deleted or not
 	$this->assertFalse(JFile::exists($AEC_MI_FILE));
   }        

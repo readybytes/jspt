@@ -66,7 +66,7 @@ class XiptHelperApps
 		$db->setQuery( $query );
 		$results = $db->loadObjectList();
 		
-		$allTypes		= XiptHelperApps::getProfileTypeArrayforApplication();
+		$allTypes	= XiptHelperProfiletypes::getProfileTypeArray();
 		
 		$notselected = array();
 		$selected = array();
@@ -94,28 +94,28 @@ class XiptHelperApps
 	}
 
 
-	function getProfileTypeArrayforApplication($all = '')
-	{
-		$db			=& JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('id')
-					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
-		$db->setQuery( $query );
-		$results = $db->loadObjectList();
-		$retVal	= array();
-		if($results)
-			foreach ($results as $result)
-				$retVal[]=$result->id;
-				
-		if($all == 'ALL')
-			$retVal[] = 0;
-			
-		return $retVal;
-	}	
+//	function getProfileTypeArrayforApplication($all = '')
+//	{
+//		$db			=& JFactory::getDBO();
+//		$query		= 'SELECT '.$db->nameQuote('id')
+//					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
+//		$db->setQuery( $query );
+//		$results = $db->loadObjectList();
+//		$retVal	= array();
+//		if($results)
+//			foreach ($results as $result)
+//				$retVal[]=$result->id;
+//				
+//		if($all == 'ALL')
+//			$retVal[] = 0;
+//			
+//		return $retVal;
+//	}	
 
 	function buildProfileTypesforApplication( $aid )
 	{
 		$selectedTypes 	= XiptHelperApps::getProfileTypeArrayForApplicationId($aid);		
-		$allTypes		= XiptHelperApps::getProfileTypeArrayforApplication('ALL');
+		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray('ALL','');
 		
 		$html	= '';
 		
@@ -133,32 +133,22 @@ class XiptHelperApps
 		return $html;
 	}
 
-	//XITODO : Clean Code
-	function addApplicationProfileType($aid, $pid)
-	{
-		$row	=& JTable::getInstance( 'Applications' , 'XiptTable' );
-		if(is_array($pid))
-		{
-			foreach($pid as $p)
-			{			
-				$row->bind(array('applicationid'=>$aid,'profiletype'=>$p));
-				$row->store();
-			}
-		}
-		else
-		{
-			$row->bind(array('applicationid'=>$aid,'profiletype'=>$pid));
-			$row->store();
-		}
-	}
-
-	//XITODO : remove this wrapper also
-	function remMyApplicationProfileType($aid)
-	{
-		if(empty($aid))
-			return;
-		$row	= XiptFactory::getInstance( 'Applications' , 'model' );
-		$row->resetApplicationId($aid);
-	}
-
+	
+//	function addApplicationProfileType($aid, $pid)
+//	{
+//		$row	=& JTable::getInstance( 'Applications' , 'XiptTable' );
+//		if(is_array($pid))
+//		{
+//			foreach($pid as $p)
+//			{			
+//				$row->bind(array('applicationid'=>$aid,'profiletype'=>$p));
+//				$row->store();
+//			}
+//		}
+//		else
+//		{
+//			$row->bind(array('applicationid'=>$aid,'profiletype'=>$pid));
+//			$row->store();
+//		}
+//	}
 }

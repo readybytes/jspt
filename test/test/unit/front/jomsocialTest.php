@@ -145,7 +145,11 @@ class JomsocialTest extends XiUnitTestCase
   	//case #1: when user has default avatar, don't apply watermark 
   	$this->assertFalse(XiptLibJomsocial::updateCommunityUserWatermark(87, 'test/test/com_xipt/front/images/watermark_2.png'));
   	
-  	//case #2: when user has custom avatar, apply watermark 
+  	//case #2: when user has custom avatar, apply watermark
+//  	$tmpFile = PROFILETYPE_AVATAR_STORAGE_PATH.DS."tmp.jpg";
+//  	if(JFile::exists($tmpFile))
+//  		$this->assertTrue(JFile::delete($tmpFile),$tmpFile);
+  		 
     $this->assertTrue(XiptLibJomsocial::updateCommunityUserWatermark(82, 'test/test/com_xipt/front/images/watermark_2.png'));
 
     //case #3: when watermark is blank restore backedup avatar 
@@ -245,7 +249,7 @@ class JomsocialTest extends XiUnitTestCase
   	$this->_DBO->addTable('#__community_groups_members');
   	
   	//remove user from group where user exists
-  	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(83, '2,1'));
+  	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(83, '2,3'));
   	$this->_DBO->addTable('#__community_groups_members');
   }
   
@@ -297,13 +301,14 @@ class JomsocialTest extends XiUnitTestCase
   
   function testRestoreBackUpAvatar()
   {
-  	$this->assertTrue(JFile::copy(PROFILETYPE_AVATAR_STORAGE_PATH.DS.'avatar_2.gif', USER_AVATAR_BACKUP.DS.'avatar_2.gif'));
-  	$this->assertTrue(XiptLibJomsocial::restoreBackUpAvatar('images/profiletype/avatar_2.gif'));
+  	$testFile = dirname(__FILE__).DS.'images'.DS.'avatar.jpg';
+  	$this->assertTrue(JFile::copy($testFile , USER_AVATAR_BACKUP.DS.'avatar_2.gif'));
   	
-  	$md5_old_avatar  = md5(JFile::read(USER_AVATAR_BACKUP.DS.'avatar_2.gif'));
-	$md5_new_avatar  = md5(JFile::read(JPATH_ROOT.DS.'images/profiletype/avatar_2.gif'));
-	
-	$this->assertEquals($md5_old_avatar, $md5_new_avatar);
+  	$this->assertTrue(XiptLibJomsocial::restoreBackUpAvatar('images/profiletype/avatar_2.gif'));  	
+  	
+  	$md5_bkup_avatar  = md5(JFile::read(USER_AVATAR_BACKUP.DS.'avatar_2.gif'));
+	$md5_new_avatar  = md5(JFile::read(PROFILETYPE_AVATAR_STORAGE_PATH.DS.'avatar_2.gif'));
+	$this->assertEquals($md5_bkup_avatar, $md5_new_avatar);
   }
   
   function testCleanStaticCache()

@@ -12,9 +12,7 @@ class XiptViewSettings extends XiptView
     
 	function display($tpl = null)
 	{
-		$sModel 		 = XiptFactory :: getModel('settings');
-		$settingsParams  = $sModel->getParams();
-		
+		$settingsParams  = $this->getModel()->getParams();		
 		$settingParamsHtml = $settingsParams->render('settings');	
 		
 		$this->assignRef('settingsParamsHtml',$settingParamsHtml);	

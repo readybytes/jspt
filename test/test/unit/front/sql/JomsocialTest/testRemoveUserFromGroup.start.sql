@@ -1,7 +1,4 @@
-
-
 TRUNCATE TABLE `#__community_groups_members` ;;
-
 INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES
 (1, 62, 1, 1),
 (2, 62, 1, 1),

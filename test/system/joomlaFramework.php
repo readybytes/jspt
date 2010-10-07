@@ -22,5 +22,11 @@ require_once JPATH_BASE .DS.'libraries'.DS.'joomla'.DS.'factory.php';
 $mainframe =& JFactory::getApplication('site');
 $mainframe->initialise();
 
-if(file_exists(JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php'))
+if(file_exists(JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php')){
 	require_once JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php';
+	require_once JPATH_ADMINISTRATOR .DS.'components'.DS.'com_xipt'.DS.'includes.php';
+
+	//for testing
+	chmod(USER_AVATAR_BACKUP, 0777);
+	chmod(PROFILETYPE_AVATAR_STORAGE_PATH, 0777);
+}

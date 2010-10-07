@@ -171,13 +171,13 @@ function addFieldsProfileType($fid, $pid, $for)
 	}
 }
 
-function remFieldsProfileType($fid)
-{
-	if(empty($fid))
-		return;
-	$row	= XiptFactory::getInstance( 'Profilefields' , 'model' );
-	$row->resetFieldId($fid);
-}
+//function remFieldsProfileType($fid)
+//{
+//	if(empty($fid))
+//		return;
+//	$row	= XiptFactory::getInstance( 'Profilefields' , 'model' );
+//	$row->resetFieldId($fid);
+//}
 
 function getProfileFieldCategories()
 {
