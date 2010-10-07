@@ -165,9 +165,9 @@ abstract class XiptModel extends JModel
 			return false;
 		}
 
-		//bind, and then save
-	    if($table->bind($data) && $table->store())
-			return true;
+		//bind, and then save, we should return the record_id updated/inserted
+	    if($table->save($data))
+			return $table->{$table->getKeyName()};
 
 		//some error occured
 		XiptError::raiseError(500, XiptText::_("NOT ABLE TO SAVE DATA"));
@@ -257,15 +257,46 @@ abstract class XiptModel extends JModel
 		return $this->save( array('published'=>0), $id );		
 	}	
 	
-	function saveParams($postData,$pk)
+	function saveParams($data, $id, $what = '')
 	{
-		if(empty($postData) || !is_array($postData))
+		
+		XiptLibUtils::XAssert($id);
+		XiptLibUtils::XAssert($what);
+		
+		if(empty($data) || !is_array($data))
 			return false;
+			
+		//XITODO : remove it after testing
+		unset($data[JUtility::getToken()]);
+		unset($data['option']);
+		unset($data['task']);
+		unset($data['view']);
+		unset($data['id']);
 		
-		$registry	= JRegistry::getInstance('xipt');
-		$registry->loadArray($postData,'xipt');
-		$params	= $registry->toString( 'INI' , 'xipt' );
+		//$xmlPath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS. JString::strtolower($this->getName().".$what.xml");
+		$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
+		$iniData = JFile::read($iniPath);
 		
-		return $this->save(array('params'=> $params), $pk);
-	} 
+		$registry	= new JRegistry();
+		$registry->loadINI($iniData);
+		$registry->loadArray($data);
+		$iniData	= $registry->toString('INI');
+		return $this->save(array($what => $iniData), $id);
+	}
+	
+	function loadParams($id, $what = '')
+	{		
+		$record = $this->loadRecords();
+		
+		$xmlPath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.JString::strtolower($this->getName().".$what.xml");
+		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");
+		$iniData	= JFile::read($iniPath);
+
+		XiptLibUtils::XAssert(JFile::exists($xmlPath));
+			
+		$config = new JParameter($iniData,$xmlPath);
+		$config->bind($record[$id]->$what);	
+		
+		return $config;
+	}
 }

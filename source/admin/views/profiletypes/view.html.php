@@ -39,8 +39,8 @@ class XiptViewProfiletypes extends XiptView
 		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$row->load( $id );	
 		
-		$wmxmlpath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'watermark.xml';
-		$wmini		= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'watermark.ini';
+		$wmxmlpath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'profiletypes.watermarkparams.xml';
+		$wmini		= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'profiletypes.watermarkparams.ini';
 		$wmdata		= JFile::read($wmini);
 
 		if(JFile::exists($wmxmlpath))
@@ -54,8 +54,8 @@ class XiptViewProfiletypes extends XiptView
 		
 		$this->assign( 'row' , $row );
                
-        	$paramsxmlpath         = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'ptypesetting.xml';
-        	$ini                   = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'ptypesetting.ini';
+        	$paramsxmlpath         = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'profiletypes.config.xml';
+        	$ini                   = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'profiletypes.config.ini';
         	$data                  = JFile::read($ini);                
                
 	       if(JFile::exists($paramsxmlpath))
@@ -69,8 +69,8 @@ class XiptViewProfiletypes extends XiptView
 		
 		$this->assign( 'row' , $row );
 		              
-	        $psettingsxmlpath      = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'privacysettings.xml';
-        	$ini                   = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'privacysettings.ini';
+	        $psettingsxmlpath      = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'profiletypes.privacy.xml';
+        	$ini                   = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.'profiletypes.privacy.ini';
         	$psdata                = JFile::read($ini);                
                
     	       if(JFile::exists($paramsxmlpath))

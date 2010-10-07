@@ -8,58 +8,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptLibProfiletypes
 {
-
-	/**
-	 * This function stores the user object
-	 * @param $userid
-	 * @param $profiletype
-	 * @param $template
-	 * @return unknown_type
-	 */
-	function saveXiptUser($userid,$profiletype,$template)
-	{
-		XiptLibUtils::XAssert($userid);
-
-		/*XITODO : validate ptype before save*/
-		$data             = new stdClass();
-		$data->userid     = $userid;
-		$data->profiletype= $profiletype;
-		$data->template   = $template;
-				
-		$uModel = XiptFactory::getInstance('Users','model');
-		$uModel->save($data,$data->userid);
-
-		//XITODO : Do We really require it
-		XiptLibProfiletypes::getUserData($userid, $what='PROFILETYPE', true);
-	}
-	
-    function saveXiptUserField($userId,$value,$what)
-	{
-		$db		= JFactory::getDBO();
-		switch($what)
-		{
-			case PROFILETYPE_FIELD_NAME:
-				$extraSql = ' SET '.$db->nameQuote(PROFILETYPE_FIELD_IN_USER_TABLE)
-				 . '=' . $db->Quote($value);
-				break;
-			
-			case TEMPLATE_FIELD_NAME:
-				$extraSql = ' SET '.$db->nameQuote(TEMPLATE_FIELD_IN_USER_TABLE)
-				. '=' . $db->Quote($value);
-				break;
-				
-			default:
-				return;
-		}
-			
-			$strSQL	= 'UPDATE ' . $db->nameQuote('#__xipt_users')
-					 	. $extraSql
-						. ' WHERE ' . $db->nameQuote('userid') . '=' . $db->Quote($userId);
-			$db->setQuery( $strSQL );
-			$db->query();
-	}
-	
-   	
 	/**
 	 * This function will not change user's profiletype
 	 * It only updates user's data, do not add profiletypes
@@ -71,6 +19,7 @@ class XiptLibProfiletypes
 	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
 	{
 		XiptLibUtils::XAssert($userid) || XiptError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
+		$uModel = XiptFactory::getInstance('Users','model');
 		
 		foreach($filter as $feature)
 		{
@@ -78,8 +27,10 @@ class XiptLibProfiletypes
 			{
 				case 'template':
 					$template = $newData['template'];
-					$ptype  =  XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-					XiptLibProfiletypes::saveXiptUser($userid,$ptype,$template);
+					$ptype    =  XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
+					$uModel->save(	array('userid' => $userid,'profiletype'=>$ptype,'template'=>$template),
+								 	$userid
+								 );
 					XiptLibJomsocial::updateCommunityCustomField($userid,$template,TEMPLATE_CUSTOM_FIELD_CODE);
 					break;
 					
@@ -106,7 +57,7 @@ class XiptLibProfiletypes
 				
 				case 'privacy':
 					$newPrivacy = $newData['privacy'];
-					$registry	=& JRegistry::getInstance( 'xipt' );
+					$registry	= JRegistry::getInstance( 'xipt' );
 					$registry->loadINI($newPrivacy,'xipt-privacyparams');
 					$newPrivacy = $registry->toArray('xipt-privacyparams');
 					XiptLibJomsocial::updateCommunityUserPrivacy($userid,$newPrivacy);
@@ -135,7 +86,7 @@ class XiptLibProfiletypes
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
 		XiptLibUtils::XAssert($userid, 'No User ID in '.__FUNCTION__, "ERROR");
-
+		$uModel = XiptFactory::getInstance('Users','model');
 		//store prev profiletype
 		//IMP : must be first line, as we want to store prev profiletype
 		$prevProfiletype = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
@@ -143,12 +94,11 @@ class XiptLibProfiletypes
 		if($what == 'profiletype' || $what == 'ALL')
 		{
 			// trigger an API for before profile type updation
-			$dispatcher =& JDispatcher::getInstance();
+			$dispatcher = JDispatcher::getInstance();
 			$userInfo['userid'] 	= $userid;
 			$userInfo['oldPtype']	= $prevProfiletype;
 			$userInfo['newPtype']	= &$ptype;
 			
-			//echo $userInfo['oldPtype']." AND ".$userInfo['newPtype'];
 			/* we are sending refrence of new ptype
 			* this should be validate before save 
 			*/
@@ -157,10 +107,13 @@ class XiptLibProfiletypes
 			if(XiptLibProfiletypes::validateProfiletype($ptype)==false)
 				$ptype  = XiptLibProfiletypes::getDefaultProfiletype();
 		
-			//set profiletype and template for user in #__xipt_users table
 			if(!$template) 
 				$template = XiptLibProfiletypes::getProfileTypeData($ptype,'template');
-			$result=XiptLibProfiletypes::saveXiptUser($userid,$ptype,$template);
+				
+			//set profiletype and template for user in #__xipt_users table	
+			$result = $uModel->save(	array('userid' => $userid,'profiletype'=>$ptype,'template'=>$template),
+								 	$userid
+								 );
 
 			//set profiletype and template field in #__community_fields_values table
 			// also change the user's type in profiletype field.
@@ -264,7 +217,7 @@ class XiptLibProfiletypes
 	//return array of all published profile type id
 	function getProfiletypeArray($filter='')
 	{
-		//TODO : we need to add $visible pTypes as per request.
+		//XITODO : we need to add $visible pTypes as per request.move this to model
 		$db			= JFactory::getDBO();
 		$where = '';
 		
@@ -299,6 +252,7 @@ class XiptLibProfiletypes
 	 * @param $what
 	 * @return unknown_type
 	 */
+	//XITODO : move to user model
 	function getUserData($userid, $what='PROFILETYPE', $clean=false)
 	{	
 //		static $counter=0;
@@ -458,94 +412,7 @@ class XiptLibProfiletypes
 		
 		return $result;
 	}
-	
-    //    assuming that by default all fields are available to all profiletype
-	//if any info is stored in table means that field is not available to that profiletype
-	//we store info in opposite form
-	function _getNotSelectedFieldForProfiletype($profiletypeId,$category)
-	{
-		//XIPT_NONE means none , means not visible to any body
 		
-		$notselected = array();
-		//Load all fields for profiletype
-		$db			= JFactory::getDBO();
-		$query		= 'SELECT `fid` FROM ' . $db->nameQuote( '#__xipt_profilefields' )
-					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId)
-					. ' AND '.$db->nameQuote('category').'='.$db->Quote($category);
-		$db->setQuery( $query );
-		$results = $db->loadResultArray();
-		
-		//this has been handled by loadResultArray.
-//		if(!empty($results)) {
-//		//create array of result profile type
-//			foreach($results as $result) {
-//		      $notselected[] = $result->fid;
-//		 	 }
-//		}
-// 		return $notselected;
-		return $results;
-	}
-	
-	//call fn to update fields during registration
-	function _getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from, $notSelectedFields= null)
-	{
-		global $mainframe;
-		if(empty($selectedProfiletypeID)){
-		    XiptError::raiseError('XIPT_ERROR','XIPT SYSTEM ERROR');
-			return false;
-		}
-		
-		if($notSelectedFields===null)
-		{
-			$categories=XiptHelperProfilefields::getProfileFieldCategories();
-			
-			foreach($categories as $catIndex => $catInfo)
-			{
-				$catName 			 = $catInfo['name'];
-				$notSelectedFields[$catName] = XiptLibProfiletypes::_getNotSelectedFieldForProfiletype($selectedProfiletypeID,$catIndex);
-			}
-		}
-		
-		$fieldCount=count($fields);
-		for($i=0 ; $i < $fieldCount ; $i++){
-		    $field =& $fields[$i];
-		    
-		    
-		    if(is_object($field))
-		        $fieldId   = $field->id;
-		    else
-		        $fieldId   = $field['id'];
-
-			if(in_array($fieldId, $notSelectedFields['ALLOWED']))
-			{
-			    unset($fields[$i]);
-			    continue;
-			}
-			
-			if(in_array($fieldId, $notSelectedFields['REQUIRED']))
-			{
-				if(is_object($field))
-				    $field->required=0;
-				else
-					$field['required']=0;
-			}
-			
-			if(in_array($fieldId, $notSelectedFields['VISIBLE']) &&  $from==='getViewableProfile')
-				unset($fields[$i]);
-						
-			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && $mainframe->isAdmin()==false)
-				unset($fields[$i]);
-
-			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile')
-				unset($fields[$i]);
-				
-			
-		}
-		$fields = array_values($fields);
-		return true;
-	}
-	
-			
 	//call fn to get fields related to ptype in getviewable and geteditable profile fn
 	function filterCommunityFields($userid, &$fields, $from)
 	{
@@ -557,7 +424,9 @@ class XiptLibProfiletypes
 	        $pTypeID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
      
 	    // filter the fields as per profiletype
-	    XiptLibProfiletypes::_getFieldsForProfiletype($fields,$pTypeID, $from);
+		//XITODO : Use getInstance
+	    $model 	= new XiptModelProfilefields();
+	    $model->getFieldsForProfiletype($fields,$pTypeID, $from);
 	}
 	
 	
@@ -599,15 +468,6 @@ class XiptLibProfiletypes
 		
 		return false;
 	}
-
-	/*
-	 * We do not need this function anymore
-	 */
-	/*function isProfileTypeDataResetRequired($userid, $check, $what='ALL')
-	{
-	    XiptLibUtils::XAssert(0);
-	}*/
-	
 	
     /**
      * If profiletype exist and published return true
@@ -637,24 +497,8 @@ class XiptLibProfiletypes
 	
 	function getParams($id,$what='params')
 	{
-			$config	    = '';
-			$db			= JFactory::getDBO();
-			$query		= 'SELECT '. $db->nameQuote($what) .' FROM '
-						. $db->nameQuote( '#__xipt_profiletypes' )
-						. ' WHERE '.$db->nameQuote('id').'='. $db->Quote($id);
-			
-			$db->setQuery( $query );
-			$pTypeConfig = $db->loadResult();
-
-			//xitodo : build an INI file
-			$watermarkxml = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'watermark.xml';
-			$config	= new JParameter($pTypeConfig,$watermarkxml);
-
-			
-			
-			// Load default configuration
-			$params	= $config;//new JParameter( $config->_raw );
-		//}
+		$model = XiptFactory::getInstance('Profiletypes','model');
+		$params = $model->loadParams($id,$what='params');
 		return $params;		
 	}
 	

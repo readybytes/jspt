@@ -139,11 +139,7 @@ INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value
 (128, 81, 17, '3'),
 (127, 81, 16, 'blackout'),
 (126, 80, 9, 'regtest6208627');;
--- --------------------------------------------------------
 
---
--- Table structure for table `#__community_groups`
---
 
 TRUNCATE TABLE `#__community_groups` ;;
 INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `name`, `description`, `email`, `website`, `approvals`, `created`, `avatar`, `thumb`, `discusscount`, `wallcount`, `membercount`, `params`) VALUES
@@ -152,11 +148,6 @@ INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `
 (3, 1, 62, 4, 'Groups PT 3', 'Groups PT 3', '', '', 0, '2009-12-03 07:37:50', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
 (4, 1, 62, 4, 'Private Group', 'Private Group', '', '', 1, '2009-12-03 07:38:07', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `#__community_groups_members`
---
 
 TRUNCATE TABLE `#__community_groups_members` ;;
 INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES

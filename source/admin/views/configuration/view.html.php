@@ -8,8 +8,19 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptViewConfiguration extends XiptView 
 {
+
+	public function getModel($modelName=null)
+	{
+		// support for parameter
+		if($modelName===null || $modelName === $this->getName())
+			return parent::getModel('profiletypes');
+
+		return parent::getModel($modelName);
+	}
+
     
-	function display($tpl = null){
+	function display($tpl = null)
+	{
     	$pModel	= $this->getModel();		
 		
     	$fields		= $pModel->loadRecords();
@@ -82,59 +93,6 @@ class XiptViewConfiguration extends XiptView
 			JToolBarHelper::save('save',JText::_('SAVE'));
 			JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 			return true;
-		}		
+		}	
 	}
-	
-//	function getGroup( $id )
-//	{	
-//		if($id==0)
-//			return "NONE";
-//			
-//		$query = new XiptQuery();
-//		return $query->select('name')
-//					 ->from('#__community_groups')
-//					 ->where(" `id` = $id ")
-//					 ->dbLoadQuery("", "")
-//					 ->loadResult();					
-//	}
-	
-//	function getPrivacyHTML( $name , $selected , $showSelf = false )
-//	{
-//		$public		= ( $selected == 0 ) ? 'checked="true" ' : '';
-//		$members	= ( $selected == 20 ) ? 'checked="true" ' : '';
-//		$friends	= ( $selected == 30 ) ? 'checked="true" ' : '';
-//		$self		= ( $selected == 40 ) ? 'checked="true" ' : '';
-//		
-//		$html	= '<input type="radio" value="0" name="' . $name . '" ' . $public . '/> ' . JText::_('Public');
-//		$html	.= '<input type="radio" value="20" name="' . $name . '" ' . $members . '/> ' . JText::_('Members');
-//		$html	.= '<input type="radio" value="30" name="' . $name . '" ' . $friends . '/> ' . JText::_('Friends');
-//		
-//		if( $showSelf )
-//		{
-//			$html	.= '<input type="radio" value="40" name="' . $name . '" ' . $self . '/> ' . JText::_('Self');
-//		}
-//		return $html;
-//	}
-	
-//	function getFolderPermissionsPhoto( $name , $selected )
-//	{		
-//		$all		= ( $selected == '0777' ) ? 'checked="true" ' : '';
-//		$default	= ( $selected == '0755' ) ? 'checked="true" ' : '';
-//
-//		$html	 = '<input type="radio" value="0777" name="' . $name . '" ' . $all . '/> ' . JText::_('Enable All (CHMOD 0777)');
-//		$html	.= '<input type="radio" value="0755" name="' . $name . '" ' . $default . '/> ' . JText::_('System Default');
-//
-//		return $html;
-//	}
-	
-//	function getFolderPermissionsVideo( $name , $selected )
-//	{		
-//		$all		= ( $selected == '0777' ) ? 'checked="true" ' : '';
-//		$default	= ( $selected == '0755' ) ? 'checked="true" ' : '';
-//
-//		$html	 = '<input type="radio" value="0777" name="' . $name . '" ' . $all . '/> ' . JText::_('Enable All (CHMOD 0777)');
-//		$html	.= '<input type="radio" value="0755" name="' . $name . '" ' . $default . '/> ' . JText::_('System Default');
-//
-//		return $html;
-//	}
 }

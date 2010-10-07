@@ -608,114 +608,20 @@ class XiptLibUtils
 	  }
 	  return false;
 	}
-	
-	
-	/*// $src_img - a GD image resource
-// $angle - degrees to rotate clockwise, in degrees
-// returns a GD image resource
-// USAGE:
-// $im = imagecreatefrompng('test.png');
-// $im = imagerotate($im, 15);
-// header('Content-type: image/png');
-// imagepng($im);
-	function rotateImage($src_img, &$watermarkSize, $angle, $bicubic=false) 
-	{
- 
-   	// convert degrees to radians
-	   $angle = $angle + 180;
-	   $angle = deg2rad($angle);
-	 
-	   $src_x = imagesx($src_img);
-	   $src_y = imagesy($src_img);
-	 
-	   $center_x = floor($src_x/2);
-	   $center_y = floor($src_y/2);
-	
-	   $cosangle = cos($angle);
-	   $sinangle = sin($angle);
-	
-	   $corners=array(array(0,0), array($src_x,0), array($src_x,$src_y), array(0,$src_y));
-	
-	   foreach($corners as $key=>$value) {
-	     $value[0]-=$center_x;        //Translate coords to center for rotation
-	     $value[1]-=$center_y;
-	     $temp=array();
-	     $temp[0]=$value[0]*$cosangle+$value[1]*$sinangle;
-	     $temp[1]=$value[1]*$cosangle-$value[0]*$sinangle;
-	     $corners[$key]=$temp;   
-	   }
-	  
-	   $min_x=1000000000000000;
-	   $max_x=-1000000000000000;
-	   $min_y=1000000000000000;
-	   $max_y=-1000000000000000;
-	  
-	   foreach($corners as $key => $value) {
-	     if($value[0]<$min_x)
-	       $min_x=$value[0];
-	     if($value[0]>$max_x)
-	       $max_x=$value[0];
-	  
-	     if($value[1]<$min_y)
-	       $min_y=$value[1];
-	     if($value[1]>$max_y)
-	       $max_y=$value[1];
-	   }
-	
-	   $rotate_width=round($max_x-$min_x);
-	   $rotate_height=round($max_y-$min_y);
-	
-	   $rotate=imagecreatetruecolor($rotate_width,$rotate_height);
-	   imagealphablending($rotate, false);
-	   imagesavealpha($rotate, true);
-	
-	   //Reset center to center of our image
-	   $newcenter_x = ($rotate_width)/2;
-	   $newcenter_y = ($rotate_height)/2;
-	
-	   for ($y = 0; $y < ($rotate_height); $y++) {
-	     for ($x = 0; $x < ($rotate_width); $x++) {
-	       // rotate...
-	       $old_x = round((($newcenter_x-$x) * $cosangle + ($newcenter_y-$y) * $sinangle))
-	         + $center_x;
-	       $old_y = round((($newcenter_y-$y) * $cosangle - ($newcenter_x-$x) * $sinangle))
-	         + $center_y;
-	     
-	       if ( $old_x >= 0 && $old_x < $src_x
-	             && $old_y >= 0 && $old_y < $src_y ) {
-	
-	           $color = imagecolorat($src_img, $old_x, $old_y);
-	       } else {
-	         // this line sets the background colour
-	         $color = imagecolorallocatealpha($src_img, 255, 255, 255, 127);
-	       }
-	       imagesetpixel($rotate, $x, $y, $color);
-	     }
-	   }
-	  $watermarkSize[0]=imagesx($rotate);
-	  $watermarkSize[1]=imagesy($rotate);
-	  return $rotate;
-	}
-	*/
-	
-	
-	//get params data from xipt component or any
+	//XITODO : Move to factory, and call on config object
+	//get settings params data from xipt component
 	function getParams($paramName='', $defaultValue=0)
 	{
 		$sModel  = XiptFactory::getModel('settings');
 		$params  = $sModel->getParams();
 
 		if(!$params)
-		{
 		    XiptError::raiseWarning('XIPT-SYSTEM-ERROR','JSPT PARAMS ARE NULL');
-		}
 		
 		if(empty($paramName))
 			return $params;
 			
-		$result = $params->get($paramName,$defaultValue);
-		
-		return $result;
+		return $params->get($paramName,$defaultValue);
 	}
 	
    function getReturnURL()
@@ -723,12 +629,10 @@ class XiptLibUtils
           $regType = self::getParams('user_reg');
          
           if($regType === 'jomsocial')
-             $redirectURL = XiPTRoute::_('index.php?option=com_community&view=register', false);
-          else
-             $redirectURL = XiPTRoute::_('index.php?option=com_user&view=register', false);
-                 
-          return $redirectURL;
-      }
+             return XiPTRoute::_('index.php?option=com_community&view=register', false);
+         
+          return XiPTRoute::_('index.php?option=com_user&view=register', false);
+    }
 	
 	function XAssert($condition, $errMsg="", $severity="ERROR" ,$file=__FILE__, $function=__FUNCTION__,$line=__LINE__)
 	{

@@ -43,29 +43,40 @@ class XiptModelProfiletypes extends XiptModel
 	 * Save the configuration to the config file	 * 
 	 * @return boolean	True on success false on failure.
 	 **/
-	function saveParams($postData,$id)
+	function saveParams($data, $id, $what = 'params')
 	{
 		//XITODO : Assert THIS $id should be valid
 		//XiptError:assert($id);
-		if(empty($postData) || !is_array($postData))
+		if(empty($data) || !is_array($data))
 			return false;
+
+		//We want to handle only JS Configuration from this function
+		//Everything else should be handled by generic parent function
+		if($what != 'params'){
+			parent::saveParams($data, $id, $what);
+			return;
+		}
 			
 		//XITODO : move cleanup to controller
-		unset($postData[JUtility::getToken()]);
-		unset($postData['option']);
-		unset($postData['task']);
-		unset($postData['view']);
-		unset($postData['id']);
+		unset($data[JUtility::getToken()]);
+		unset($data['option']);
+		unset($data['task']);
+		unset($data['view']);
+		unset($data['id']);
 		
-		$registry	= JRegistry::getInstance('xipt');
-		$registry->loadArray($postData,'xipt');
-		$params	= $registry->toString( 'INI' , 'xipt' );
+		//XITODO : bind params 
+		$registry	= new JRegistry();
+		$registry->loadArray($data);
+		$params	= $registry->toString('INI');
 		
-		return $this->save(array('params'=> $params), $id);
+		return $this->save(array($what => $params), $id);
 	}
 	
-	function loadParams($id)
+	function loadParams($id, $what = 'params')
 	{
+		if($what != 'params')
+			return parent::loadParams($id, $what = 'params');
+		
 		if( isset($this->_params[$id]))
 			return $this->_params[$id]; 		
 		

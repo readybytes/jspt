@@ -10,7 +10,7 @@ class XiptControllerSettings extends XiptController
 			$post	= JRequest::get('post',JREQUEST_ALLOWRAW);		
 					
 		
-		if(!$this->getModel()->saveParams($post['settings'],'settings')){ 	
+		if(!$this->getModel()->saveParams($post['settings'],'settings','params')){ 	
 			XiptError::raiseWarning(100 , JText::_('ERROR IN SAVING SETTINGS'));
 			return false;		
 		}

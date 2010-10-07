@@ -313,7 +313,7 @@ function resetAllUsers($pid, $oldData, $newData)
 	foreach ($featuresToReset  as $feature)
 	{
 		$filteredOldData[$feature]= $oldData->$feature;
-		$filteredNewData[$feature]= $newData[$feature];
+		$filteredNewData[$feature]= $newData->$feature;
 	}
 	
 	foreach ($allUsers as $user)

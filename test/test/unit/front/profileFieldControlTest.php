@@ -10,6 +10,7 @@ class ProfileFieldControlTest extends XiUnitTestCase
 	
   function testProfileFieldControl()
   {		
+  	    $model 	= new XiptModelProfilefields();
   	// ptofile type 1 when all categories are set to all
 		$fields 	= $this->getProfileFields(82);
 		$compare=array();
@@ -65,7 +66,7 @@ class ProfileFieldControlTest extends XiUnitTestCase
 		$compare[4]=1;
 		$require[5]=0;
 		$fields 	= $this->getProfileFields(85);
-		XiptLibProfiletypes::_getFieldsForProfiletype($fields,1,'registration');
+		$model->getFieldsForProfiletype($fields,1,'registration');
 		$this->compareProfileFields($fields,$compare,$require);
 	
   }

@@ -45,11 +45,6 @@ class XiptControllerProfiletypes extends XiptController
 	function apply()
 	{
 		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		
-		jimport('joomla.filesystem.file');
-		jimport('joomla.utilities.utility');
 
 		$info = $this->_processSave();
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
@@ -61,11 +56,7 @@ class XiptControllerProfiletypes extends XiptController
 	function save()
 	{
 		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		
-		jimport('joomla.filesystem.file');
-		jimport('joomla.utilities.utility');
+
 		
 		$info = $this->_processSave();
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
@@ -76,147 +67,71 @@ class XiptControllerProfiletypes extends XiptController
 	function _processSave()
 	{
 		$post	= JRequest::get('post');
-		$cid	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
+		$cid	= JRequest::getVar('cid', array(0), 'post', 'array');
 		
-		$user	=& JFactory::getUser();
-
-		if ( $user->get('guest')) {
-			XiptError::raiseError( 403, JText::_('Access Forbidden') );
-			return;
-		}
-
 		$info = array();
 		$info['id'] = $cid[0];
 		$info['msg'] = '';
 		
-		
-		// Load the JTable Object.
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-		$row->load( $cid[0] );	
-		$isValid	= true;
-		
-		//for Reset we will save old Data
-		$oldData = clone($row);
-		
-		$data = array();
-		$data['name'] 		= $post['name'];
+		//We only need few data as special case
+		$data = $post;
 		$data['tip'] 		= JRequest::getVar( 'tip', '', 'post', 'string', JREQUEST_ALLOWRAW );
-		$data['published'] 	= $post['published']; 
-		$data['template'] 	= $post['template'];
-		$data['jusertype'] 	= $post['jusertype'];
-		$data['approve'] 	= $post['approve'];
-		$data['allowt'] 	= $post['allowt'];
 		$data['group'] 		= implode(',',$post['group']);
-		$data['visible']	= $post['visible'];
-		
-		$registry	=& JRegistry::getInstance( 'xipt' );
-		$registry->loadArray($post['watermarkparams'],'xipt_watermarkparams');
-		$data['watermarkparams'] =  $registry->toString('INI' , 'xipt_watermarkparams' );
-		//$data['ordering']	= 0;
-		
-		$registry->loadArray($post['config'],'xipt_config');
-		$data['config'] =  $registry->toString('INI' , 'xipt_config' );
-		
-		$registry->loadArray($post['privacy'],'xipt_params');
-		$data['privacy']  =  $registry->toString('INI' , 'xipt_params' );
-		
-		$row->bind($data);
 
-		if( $isValid )
-		{
-			$id = $row->store();	
-			if($id != 0)
-			{
-				//call uploadImage function if post(image) data is set
-				$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
+		// These data will be seperately stored, we dont want to update these
+		unset($data['watermarkparams']);
+		unset($data['config']);
+		unset($data['privacy']);
+			
+		$model = $this->getModel();
+		//for Reset we will save old Data
+		$allData = $model->loadRecords();
+		if(isset($allData[$cid[0]]))
+			$oldData = $allData[$cid[0]];
 		
-				if( isset( $fileAvatar['tmp_name'] ) && !empty( $fileAvatar['tmp_name'] ) )
-					XiptHelperProfiletypes::uploadAndSetImage($fileAvatar,$row->id,'avatar');
+		// now save model
+		$id	= $model->save($data, $cid[0]);
+		
+		if(!$id)
+			XiptError::raiseError(500, "SAVE ERROR");
+		
+		// Now store other data
+		// Handle Avatar : call uploadImage function if post(image) data is set
+		$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
+		if(isset($fileAvatar['tmp_name']) && !empty($fileAvatar['tmp_name']))
+			XiptHelperProfiletypes::uploadAndSetImage($fileAvatar,$id,'avatar');
 
-				/* generate watermark image */
-				$config = new JParameter('','');
-				$config->bind($row->watermarkparams);
-				
-				$ptypesetting = new JParameter('','');
-				$ptypesetting->bind($row->config);
-				
-				$privacysetting = new JParameter('','');
-				$privacysetting->bind($row->privacy);
+		// Handle Params : watermarkparams, privacy, config
+		$model->saveParams($post['watermarkparams'],$id, $what='watermarkparams');
+		$model->saveParams($post['config'], 		$id, $what='config');
+		$model->saveParams($post['privacy'], 		$id, $what='privacy');
 
-				
-				$imageGenerator = new XiptLibImage($config);
-				$storage		= PROFILETYPE_AVATAR_STORAGE_PATH;
-				$imageName 		= 'watermark_'. $row->id;
-				$filename		= $imageGenerator->genImage($storage,$imageName);
-				
-				if($filename) {
-					$config->set('demo',$row->id);
-					//save watermark params
-					
-					$image=$this->saveWatermarkparams($filename,$row,$config);
-					/*generate thumnail */
-				    $this->generateThumbnail($imageName,$filename,$storage,$row,$config);
-				    
-					}	
+		// now generate watermark, and update watermark field
+		$image = $this->_saveWatermark($id);
+		
+		//XITODO : Ensure data is reloaded, not cached
+		$newData = $model->loadRecords();
+		$newData = $newData[$id];
 
-				if($ptypesetting)
-				{
-					$this->saveConfig($row, $ptypesetting,'config');
-				}
-				
-			   if($privacysetting)
-			   {
-					$this->saveConfig($row, $privacysetting,'privacy');
-			   }
-				
-				/* Reset existing user's */
-				if($post['resetAll']) {
-					//If not uploaded data then by default save the previous values 
-					$data['avatar'] 	= XiptLibProfiletypes::getProfiletypeData($cid[0],'avatar');
-					$data['watermark'] 	= $image; //XiptLibProfiletypes::getProfiletypeData($cid[0],'watermark');
-					XiptHelperProfiletypes::resetAllUsers($row->id, $oldData, $data);	
-				}
-					
-				$info['id'] = $row->id;
-				$info['msg'] .= JText::_('PROFILETYPE SAVED');
-			}
+	    // Reset existing user's 
+		if($post['resetAll']) {
+			//If not uploaded data then by default save the previous values 
+			XiptHelperProfiletypes::resetAllUsers($id, $oldData, $newData);	
 		}
-		return $info;
-	}
-	
-	function saveWatermarkparams($filename,$row,$config,$test=false)
-	{
-		$image = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$filename;
-		
-		/*assign ptype id in  demo so we can generate data in element itself */ 
-		if($test==false)
-			$params = $config->toString('INI');
-		else
-			$params = $config;
-		//now update profiletype with new watermark
-		$db =& JFactory::getDBO();
-		$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
-    			. 'SET ' . $db->nameQuote( 'watermark' ) . '=' . $db->Quote( $image ) . ' '
-    			. ', '.$db->nameQuote( 'watermarkparams' ) . '=' . $db->Quote( $params ) . ' '
-    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $row->id );
-    	$db->setQuery( $query );
-    	$db->query( $query );
+					
+		$info['id'] = $id;
+		$info['msg'] .= JText::_('PROFILETYPE SAVED');
 
-		if($db->getErrorNum())
-		{
-			XiptError::raiseError( 500, $db->stderr());
-	    }
-	    return $image;
+		return $info;
 	}
 
 	// this function generates thumbnail of watermark
-	function generateThumbnail($imageName,$filename,$storage,$row,$config)
+	function generateThumbnail($imageName,$filename,$storage,$newData,$config)
 	{
 		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 					
 		$fileExt = JFile::getExt($filename);
-		$thumbnailName = 'watermark_'. $row->id.'_thumb.'.$fileExt;
+		$thumbnailName = 'watermark_'. $newData->id.'_thumb.'.$fileExt;
 		$storageThumbnail = $storage . DS .$thumbnailName;
 		$watermarkPath = $storage.DS.$imageName.'.'.$fileExt;
 		
@@ -230,7 +145,7 @@ class XiptControllerProfiletypes extends XiptController
 		//XITODO : also support other formats
 		
 		
-		if(imagecopyresampled($dstimg,$srcimg,0,0,0,0,$watermarkThumbWidth,$watermarkThumbHeight,$config->get(xiWidth,64),$config->get(xiHeight,64)))
+		if(imagecopyresampled($dstimg,$srcimg,0,0,0,0,$watermarkThumbWidth,$watermarkThumbHeight,$config->get('xiWidth',64),$config->get('xiHeight',64)))
 		{
 			//fix for permissions
 			imagepng($dstimg,$storageThumbnail);
@@ -244,28 +159,6 @@ class XiptControllerProfiletypes extends XiptController
 		return;
 	}
 	
-	function saveConfig($row,$ptypesetting,$what,$test=false)
-	{
-		if($test===false)
-			$params = $ptypesetting->toString('INI');
-		else
-		{
-			$params = $ptypesetting;	
-		}
-		//now update profiletype with new watermark
-		$db =& JFactory::getDBO();
-		$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
-    			. 'SET ' . ' '.$db->nameQuote( $what ) . '=' . $db->Quote( $params ) . ' '
-    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $row->id );
-    	$db->setQuery( $query );
-    	$db->query( $query );
-
-		if($db->getErrorNum())
-		{
-			XiptError::raiseError( 500, $db->stderr());
-	    }
-	}
-
 	function remove()
 	{
 		global $mainframe;
@@ -454,5 +347,33 @@ class XiptControllerProfiletypes extends XiptController
 		
 		$profiletype->resetUserAvatar($id, $newavatar, $oldAvatar, $newavatarthumb);
 		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');
+	}
+	
+	function _saveWatermark($id)
+	{
+		$model = $this->getModel();
+
+		//Collect Newly saved data
+		$newData = $model->loadRecords();
+		$newData = $newData[$id];
+		
+		$config = new JParameter('','');
+		$config->bind($newData->watermarkparams);
+
+		// generate watermark image		
+		//XITODO : improve nomenclature
+		$imageGenerator = new XiptLibImage($config);
+		$storage		= PROFILETYPE_AVATAR_STORAGE_PATH;
+		$imageName 		= 'watermark_'. $id;
+		$filename		= $imageGenerator->genImage($storage,$imageName);
+				
+		//XITODO : assert on filename
+		$image = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$filename;
+		$data 	= array('watermark' => $image);
+		$this->generateThumbnail($imageName,$filename,$storage,$newData,$config);
+		
+		// now save model
+		$model->save($data, $id);
+		return $image;
 	}
 }
