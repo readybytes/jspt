@@ -57,7 +57,7 @@ class XiptHelperSetup
 						$data['tips']			= 'Template Of User';
 						break;
 			default :
-						XiptLibUtils::XAssert(0);
+						XiptHelperUtils::XAssert(0);
 						break;
 		}
 		$data['fieldcode']		= $what;
@@ -368,7 +368,7 @@ class XiptHelperSetup
 	
 	function syncUpUserPTRequired()
 	{
-		$params = XiptLibUtils::getParams('', 0);
+		$params = XiptFactory::getParams('', 0);
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		if(!$defaultProfiletypeID){
 			global $mainframe;
@@ -406,10 +406,10 @@ class XiptHelperSetup
 
 		if(empty($result))
 		{
-			//not required XiptLibUtils::XAssert b'coz from backend fisrt time admin will not have entry in community table
-			//and that time it will XiptLibUtils::XAssert
+			//not required XiptHelperUtils::XAssert b'coz from backend fisrt time admin will not have entry in community table
+			//and that time it will XiptHelperUtils::XAssert
 			//when admin login from front-end commuity create entry for admin in community_users table
-			//XiptLibUtils::XAssert(0);
+			//XiptHelperUtils::XAssert(0);
 			return false;
 		}
 		
@@ -554,7 +554,7 @@ class XiptHelperSetup
 	function isWaterMarkingRequired()
 	{
 		$ptypeArray	= XiptHelperProfiletypes::getProfileTypeArray();
-		$globalWM	= XiptLibUtils::getParams('show_watermark',0);
+		$globalWM	= XiptFactory::getParams('show_watermark',0);
 		if($globalWM)
 			return false;
 		foreach($ptypeArray as $ptype)

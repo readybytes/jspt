@@ -44,8 +44,8 @@ class XiptLibImage
 	function genImage($path,$filename) 
 	{
 		//XITODO : move to XiptError::assert()
-		XiptLibUtils::XAssert(!empty($path));
-		XiptLibUtils::XAssert(!empty($filename));
+		XiptHelperUtils::XAssert(!empty($path));
+		XiptHelperUtils::XAssert(!empty($filename));
 			
 		//here check if folder exist or not. if not then create it.
 		if(JFolder::exists($path)==false && JFolder::create($path)===false){

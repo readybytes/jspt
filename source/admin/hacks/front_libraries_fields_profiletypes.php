@@ -22,7 +22,7 @@ class CFieldsProfiletypes
 		$this->_mainframe =& $mainframe;
 		$this->_task = JRequest::getVar('task','','GET');
 		$this->_view = JRequest::getVar('view','','GET');
-		$this->_params = XiptLibUtils::getParams('', 0);
+		$this->_params = XiptFactory::getParams('', 0);
 	}
 	
 	/* if data not available,
@@ -55,7 +55,7 @@ class CFieldsProfiletypes
 			//not required to get data from getUser() fn b'coz we call this fn in 
 			//getViewableprofile only.
 			$userid = JRequest::getVar('userid',0,'GET');
-			XiptLibUtils::XAssert($userid);
+			XiptHelperUtils::XAssert($userid);
 			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		
@@ -103,14 +103,14 @@ class CFieldsProfiletypes
 		$userid  = $user->id;
 		
 		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
-		$allowToChangePType = $allowToChangePType || XiptLibUtils::isAdmin($user->id);
+		$allowToChangePType = $allowToChangePType || XiptHelperUtils::isAdmin($user->id);
 		
 		//if not allowed then show disabled view of ptype
 		if($allowToChangePType == false){
 
 			if(!(int)$pID){
 			    $pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-				XiptLibUtils::XAssert($pID);
+				XiptHelperUtils::XAssert($pID);
 			}
 			
 			$pName = XiptLibProfiletypes::getProfileTypeName($pID);

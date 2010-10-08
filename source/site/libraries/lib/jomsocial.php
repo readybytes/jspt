@@ -31,7 +31,7 @@ class XiptLibJomsocial
     //get required user info from community_users table
 	function getUserDataFromCommunity($userid,$what)
 	{
-		XiptLibUtils::XAssert(!empty($what));
+		XiptHelperUtils::XAssert(!empty($what));
 		
 		static $results = array();
 		//XITODO : carefully apply caching
@@ -58,7 +58,7 @@ class XiptLibJomsocial
     function updateJoomlaUserType($userid, $newUsertype=JOOMLA_USER_TYPE_NONE)
 	{
 	    //do not change usertypes for admins
-		if(XiptLibUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE)
+		if(XiptHelperUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE)
 		    return false;
 
 		self::reloadCUser($userid);
@@ -100,7 +100,7 @@ class XiptLibJomsocial
 		}
 					
 		
-		XiptLibUtils::XAssert($pID);
+		XiptHelperUtils::XAssert($pID);
 		$params = XiptLibProfiletypes::getParams($pID);
 
 		if($params)
@@ -137,7 +137,7 @@ class XiptLibJomsocial
 	function updateCommunityCustomField($userId, $value, $what='')
 	{
 	    //ensure we are calling it for correct field
-	    XiptLibUtils::XAssert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
+	    XiptHelperUtils::XAssert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
 
 	    // find the profiletype or template field
 	    // dont patch up the database.
@@ -149,7 +149,7 @@ class XiptLibJomsocial
 		
 		$field_id = $res->id;
 		// skip these calls from backend
-		XiptLibUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
+		XiptHelperUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
 		
 		//if row does not exist
 		$db		= JFactory::getDBO();
@@ -200,7 +200,7 @@ class XiptLibJomsocial
 	function updateCommunityUserWatermark($userid,$watermark='')
 	{	
 		//check if watermark is enable
-		if(XiptLibUtils::getParams('show_watermark')== false)
+		if(XiptFactory::getParams('show_watermark')== false)
 			return false;
 		
 		//update watermark on user's avatar
@@ -221,11 +221,11 @@ class XiptLibJomsocial
 		
 		//add watermark on user avatar image
 		if($pTypeAvatar)
-			XiptLibUtils::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
+			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
 
 		//add watermark on thumb image
 		if($pTypeThumbAvatar)
-			XiptLibUtils::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermark,'thumb');
+			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermark,'thumb');
 
 		return true;
 	}
@@ -267,7 +267,7 @@ class XiptLibJomsocial
 
 		// we can safely update avatar so perform the operation		
 		$user->set('_avatar',$newAvatar);
-		$user->set('_thumb', XiptLibUtils::getThumbAvatarFromFull($newAvatar));
+		$user->set('_thumb', XiptHelperImage::getThumbAvatarFromFull($newAvatar));
 		
 		if(!$user->save())
 		    return false;
@@ -355,8 +355,8 @@ class XiptLibJomsocial
 			$member->permissions	= '0';
 			$store	= $member->store();
 	
-			// Add XiptLibUtils::XAssertion if storing fails
-			XiptLibUtils::XAssert( $store );
+			// Add XiptHelperUtils::XAssertion if storing fails
+			XiptHelperUtils::XAssert( $store );
 	
 			if($member->approved)
 				$groupModel->addMembersCount($gid);

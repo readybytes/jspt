@@ -66,7 +66,7 @@ class AvatarTest extends XiSelTestCase
 		$md5_avatar = md5(JFile::read(JPATH_ROOT.DS.$cuser->avatar));
 	  	$md5_thumb  = md5(JFile::read(JPATH_ROOT.DS.$cuser->thumb));
 	  	$md5_avatar_gold = md5(JFile::read(JPATH_ROOT.DS.$newAvatarAU));
-	  	$md5_thumb_gold = md5(JFile::read(XiptLibUtils::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
+	  	$md5_thumb_gold = md5(JFile::read(XiptHelperImage::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
   		
 	  	$this->assertEquals($md5_avatar, $md5_avatar_gold);
 	  	$this->assertEquals($md5_thumb, $md5_thumb_gold);	    	

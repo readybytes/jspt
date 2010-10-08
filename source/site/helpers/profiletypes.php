@@ -49,7 +49,7 @@ class XiptHelperProfiletypes
 					$allValues['0']='None';
 					break;
 			default:
-				XiptLibUtils::XAssert(0);
+				XiptHelperUtils::XAssert(0);
 		}
 	
 		//XITODO : Uset JHTML to build html
@@ -107,7 +107,7 @@ class XiptHelperProfiletypes
 
 	function getBackendTemplatesList()
 	{
-		return XiptLibUtils::getTemplatesList();
+		return XiptHelperRegistration::getTemplatesList();
 		/*$path	= JPATH_ROOT . DS . 'components' . DS . 'com_community' . DS . 'templates';
 	
 		$handle = @opendir($path);
@@ -170,7 +170,7 @@ function getProfileTypeData($id,$what='name')
 				$defaultValue	=  '0';
 				break;
 		default	:
-				XiptLibUtils::XAssert(0);
+				XiptHelperUtils::XAssert(0);
 	}
 
 	if($id==0)
@@ -423,7 +423,7 @@ function resetAllUsers($pid, $oldData, $newData)
 			{
 				$newAvatar	= $image;
 				/* No need to update thumb here , script will update both avatar and thumb */
-				//$newThumb   = XiptLibUtils::getThumbAvatarFromFull($newAvatar);
+				//$newThumb   = XiptHelperImage::getThumbAvatarFromFull($newAvatar);
 				$oldAvatar  = XiptLibProfiletypes::getProfiletypeData($id,'avatar');
 					
 				$allUsers = XiptLibProfiletypes::getAllUsers($id);
@@ -491,7 +491,7 @@ function resetAllUsers($pid, $oldData, $newData)
     {
     	global $mainframe;
     	$mySess = & JFactory::getSession();
-    	$redirectUrl = XiptLibUtils::getReturnURL();
+    	$redirectUrl = XiptHelperRegistration::getReturnURL();
 
 			// validate values
 			if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {

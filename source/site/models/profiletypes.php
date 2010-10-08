@@ -45,8 +45,8 @@ class XiptModelProfiletypes extends XiptModel
 	 **/
 	function saveParams($data, $id, $what = 'params')
 	{
-		//XITODO : Assert THIS $id should be valid
-		//XiptError:assert($id);
+		XiptHelperUtils::XAssert($id);
+		
 		if(empty($data) || !is_array($data))
 			return false;
 
@@ -100,7 +100,7 @@ class XiptModelProfiletypes extends XiptModel
 		for($i=0; $i < $cnt; $i++)
 		{
 			//if user is admin unset value
-			if(XiptLibUtils::isAdmin($users[$i]))
+			if(XiptHelperUtils::isAdmin($users[$i]))
 				unset($users[$i]);
 		}
 		

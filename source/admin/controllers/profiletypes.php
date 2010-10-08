@@ -140,7 +140,7 @@ class XiptControllerProfiletypes extends XiptController
 		$dstimg 			= 	ImageCreateTrueColor($watermarkThumbWidth,$watermarkThumbHeight) 
 					or die('Cannot initialize GD Image');
 
-		$watermarkType = XiptLibUtils::getImageType($watermarkPath);
+		$watermarkType = XiptHelperImage::getImageType($watermarkPath);
 		$srcimg	 = cImageOpen( $watermarkPath , $watermarkType);
 		//XITODO : also support other formats
 		
@@ -154,7 +154,7 @@ class XiptControllerProfiletypes extends XiptController
 		else
 			XiptError::raiseWarning('XIPT_THUMB_WAR','THUMBNAIL NOT SUPPORTED');
 		
-		/*if(!cImageCreateThumb( $watermarkPath , $storageThumbnail , XiptLibUtils::getImageType($watermarkPath),$config->get(xiWidth,64)/2,$config->get(xiHeight,64)/2));
+		/*if(!cImageCreateThumb( $watermarkPath , $storageThumbnail , XiptHelperImage::getImageType($watermarkPath),$config->get(xiWidth,64)/2,$config->get(xiHeight,64)/2));
 			$info['msg'] .= sprintf(JText::_('ERROR MOVING UPLOADED FILE') , $storageThumbnail);*/
 		return;
 	}

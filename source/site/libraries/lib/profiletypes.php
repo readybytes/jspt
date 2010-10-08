@@ -18,7 +18,7 @@ class XiptLibProfiletypes
 	 */
 	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
 	{
-		XiptLibUtils::XAssert($userid) || XiptError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
+		XiptHelperUtils::XAssert($userid) || XiptError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
 		$uModel = XiptFactory::getInstance('Users','model');
 		
 		foreach($filter as $feature)
@@ -64,7 +64,7 @@ class XiptLibProfiletypes
 					break;
 					
 				default:
-					XiptLibUtils::XAssert(0);
+					XiptHelperUtils::XAssert(0);
 					XiptError::raiseWarning('XIPT',"Not a valid filter options  ".__FUNCTION__);
 					break;
 			}
@@ -85,7 +85,7 @@ class XiptLibProfiletypes
 	 */
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
-		XiptLibUtils::XAssert($userid, 'No User ID in '.__FUNCTION__, "ERROR");
+		XiptHelperUtils::XAssert($userid, 'No User ID in '.__FUNCTION__, "ERROR");
 		$uModel = XiptFactory::getInstance('Users','model');
 		//store prev profiletype
 		//IMP : must be first line, as we want to store prev profiletype
@@ -103,6 +103,7 @@ class XiptLibProfiletypes
 			* this should be validate before save 
 			*/
 			$dispatcher->trigger( 'onBeforeProfileTypeChange',array($userInfo));
+			
 			// validate profile type, may be changed in event triggered
 			if(XiptLibProfiletypes::validateProfiletype($ptype)==false)
 				$ptype  = XiptLibProfiletypes::getDefaultProfiletype();
@@ -184,11 +185,11 @@ class XiptLibProfiletypes
 //		if($defaultProfiletypeID && $refresh===false)
 //			return $defaultProfiletypeID;
 //		
-		$defaultProfiletypeID = XiptLibUtils::getParams('defaultProfiletypeID');
+		$defaultProfiletypeID = XiptFactory::getParams('defaultProfiletypeID');
 		if($defaultProfiletypeID)
 			return  $defaultProfiletypeID;
 		
-		echo XiptLibUtils::getParams()->render();
+		echo XiptFactory::getParams()->render();
 		XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 	}
 	
@@ -270,14 +271,14 @@ class XiptLibProfiletypes
 	    {
 	        case 'PROFILETYPE':
 	        	if($userid == 0 )
-					return XiptLibUtils::getParams('guestProfiletypeID', XiptLibUtils::getParams('defaultProfiletypeID', 0));
+					return XiptFactory::getParams('guestProfiletypeID', XiptFactory::getParams('defaultProfiletypeID', 0));
 		        $getMe	       = PROFILETYPE_FIELD_IN_USER_TABLE;
                 $defaultValue  = XiptLibProfiletypes::getDefaultProfiletype();
                 break;
                 
 	        case 'TEMPLATE':
                 $getMe	= TEMPLATE_FIELD_IN_USER_TABLE;
-                $allTemplates = XiptLibUtils::getTemplatesList();
+                $allTemplates = XiptHelperRegistration::getTemplatesList();
        		    $pID          = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
        		    $defaultValue = XiptLibProfiletypes::getProfileTypeData($pID,'template');
 
@@ -424,8 +425,7 @@ class XiptLibProfiletypes
 	        $pTypeID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
      
 	    // filter the fields as per profiletype
-		//XITODO : Use getInstance
-	    $model 	= new XiptModelProfilefields();
+		$model = XiptFactory::getInstance('Profilefields','model');
 	    $model->getFieldsForProfiletype($fields,$pTypeID, $from);
 	}
 	
@@ -462,7 +462,7 @@ class XiptLibProfiletypes
 		{
 			if(JString::stristr($one->avatar ,$path))
 				return true;
-			if(JString::stristr($path, XiptLibUtils::getThumbAvatarFromFull($one->avatar)))
+			if(JString::stristr($path, XiptHelperImage::getThumbAvatarFromFull($one->avatar)))
 				return true;
 		}
 		

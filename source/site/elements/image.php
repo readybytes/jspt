@@ -29,7 +29,7 @@ class JElementImage extends JElement
 		$watermarkParams = XiptLibProfiletypes::getParams($value,'watermarkparams');
 		
 		if(JFile::exists($imagePath) && JFile::exists($watermarkPath))
-			$generatedImage = XiptLibUtils::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$value,$watermarkParams->get('xiWatermarkPosition'));
+			$generatedImage = XiptHelperImage::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$value,$watermarkParams->get('xiWatermarkPosition'));
 		if(DS== '\\')
 			$generatedImage = str_replace('\\','/',$generatedImage);
 		

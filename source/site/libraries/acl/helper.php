@@ -54,7 +54,7 @@ class XiptAclHelper
 		$userId 		= JFactory::getUser()->id;
 		$viewuserid 	= JRequest::getVar('userid', 0 , 'GET');
 			
-		if(XiptLibUtils::isAdmin($userId))
+		if(XiptHelperUtils::isAdmin($userId))
 			return false;
 		
 		/*if(($feature && ($task || $viewuserid) && $userId)== false)
@@ -183,7 +183,7 @@ class XiptAclHelper
 		$db->setQuery( $query );
 		$result	= $db->loadObject();
 		
-		XiptLibUtils::XAssert($result);
+		XiptHelperUtils::XAssert($result);
 		
 		//foreach($results as $result)
 		//{
@@ -232,7 +232,7 @@ class XiptAclHelper
 	function aclMicroCheck($userID , $feature , $viewuserid = 0,$objectID = 0)
 	{
 		// get profiletype
-		XiptLibUtils::XAssert($feature && $userID);
+		XiptHelperUtils::XAssert($feature && $userID);
 		
 		$myPID	 = XiptLibProfiletypes::getUserData($userID,'PROFILETYPE');
 		$db		 = JFactory::getDBO();
@@ -335,7 +335,7 @@ class XiptAclHelper
 				return self::getTotalMessageSent($userid,$otherpid);
 			
 			default :
-				XiptLibUtils::XAssert(0);
+				XiptHelperUtils::XAssert(0);
 				
 		}
 		return 0;

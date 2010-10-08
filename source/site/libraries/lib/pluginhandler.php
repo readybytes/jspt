@@ -34,7 +34,7 @@ class XiptLibPluginhandler
 	function isPTypeExistInSession()
 	{
 		$aecExists 		= XiptLibAec::isAecExists();
-		$integrateAEC   = XiptLibUtils::getParams('aec_integrate',0);
+		$integrateAEC   = XiptFactory::getParams('aec_integrate',0);
 		if($aecExists && $integrateAEC)
 		{
 			$data  = XiptLibAec::getProfiletypeInfoFromAEC() ;
@@ -120,13 +120,13 @@ class XiptLibPluginhandler
 			switch($function)
 			{
 				case 'ajaxCheckEmail' 	 :
-					return XiptLibUtils::ajaxCheckEmailDuringFacebook($args,$response);
+					return XiptHelperRegistration::ajaxCheckEmailDuringFacebook($args,$response);
 				case 'ajaxCheckUsername' :
-					return XiptLibUtils::ajaxCheckUsernameDuringFacebook($args,$response);
+					return XiptHelperRegistration::ajaxCheckUsernameDuringFacebook($args,$response);
 				case 'ajaxShowNewUserForm' :
-					return XiptLibUtils::ajaxShowNewUserForm($args,$response);
+					return XiptHelperRegistration::ajaxShowNewUserForm($args,$response);
 				case 'ajaxUpdate' :
-					return XiptLibUtils::ajaxUpdate($args,$response);
+					return XiptHelperRegistration::ajaxUpdate($args,$response);
 			}
 		}
 		
@@ -136,7 +136,7 @@ class XiptLibPluginhandler
 			{
 				case 'ajaxCheckEmail' 	 :
 				case 'ajaxCheckUserName' :
-					return XiptLibUtils::$function($args,$response);
+					return XiptHelperRegistration::$function($args,$response);
 			}
 		}
 
@@ -282,12 +282,12 @@ class XiptLibPluginhandler
 			return true;
 			
 		// the use is admin, might be editing from frontend return true
-		if(XiptLibUtils::isAdmin($userid))
+		if(XiptHelperUtils::isAdmin($userid))
 			return true;
 
 		// user is allowed or not.
-        $allowToChangePType    = XiptLibUtils::getParams('allow_user_to_change_ptype_after_reg',0);
-        $allowToChangeTemplate = XiptLibUtils::getParams('allow_templatechange',0);
+        $allowToChangePType    = XiptFactory::getParams('allow_user_to_change_ptype_after_reg',0);
+        $allowToChangeTemplate = XiptFactory::getParams('allow_templatechange',0);
 
         // not changing anything get data from table and set it
 		if(0 == $allowToChangeTemplate || $templateValue==''){
@@ -352,7 +352,7 @@ class XiptLibPluginhandler
 	{
 		// When admin is removing a user's avatar
 		// we need to apply default avatar of profiletype
-		$isAdmin = XiptLibUtils::isAdmin(JFactory::getUser()->id);
+		$isAdmin = XiptHelperUtils::isAdmin(JFactory::getUser()->id);
 		$view    = JRequest::getVar('view','','GET');
 		$task    = JRequest::getVar('task','','GET');
 		//
@@ -366,7 +366,7 @@ class XiptLibPluginhandler
 			//HERE the new_avatar will be default jomsocial avatar so search _thumb 
 			$thumb = JString::stristr($new_avatar_path,'thumb');
 			if($thumb)
-				$new_avatar_path = XiptLibUtils::getThumbAvatarFromFull($avatar);
+				$new_avatar_path = XiptHelperImage::getThumbAvatarFromFull($avatar);
 			else
 				$new_avatar_path = $avatar;
 		}
@@ -383,7 +383,7 @@ class XiptLibPluginhandler
 		
 		//Now apply watermark to images
 		//	for that we don't require to add watermark
-		if(XiptLibUtils::getParams('show_watermark')==false)
+		if(XiptFactory::getParams('show_watermark')==false)
 			return true;
 					
 		//check if uploadable avatar is not default ptype avatar
@@ -396,11 +396,11 @@ class XiptLibPluginhandler
 		else
 			$what = 'avatar';
 		
-		$watermarkInfo = XiptLibUtils::getWatermark($userid);
+		$watermarkInfo = XiptHelperImage::getWatermark($userid);
 		if(false == $watermarkInfo)
 			return true;
 			
-		XiptLibUtils::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
+		XiptHelperImage::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
 		return true;
 	}
 
@@ -432,7 +432,7 @@ class XiptLibPluginhandler
 		$selfProfiletype    = XiptLibProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 
 		$othersProfiletype 	= XiptLibProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
-		$blockDisplayApp    = XiptLibUtils::getParams('jspt_block_dis_app', 0);
+		$blockDisplayApp    = XiptFactory::getParams('jspt_block_dis_app', 0);
 		
 		/* #1: block the display application of logged in user if the above param is set to yes
 		   #2: otherwise block display application of user whose profile is being visited
@@ -468,7 +468,7 @@ class XiptLibPluginhandler
 	function event_com_community_profile_blank()
 	{
 		$isFromFacebook = $this->getDataInSession('FROM_FACEBOOK',false);
-		$aec_integrate  = XiptLibUtils::getParams('aec_integrate', 0);
+		$aec_integrate  = XiptFactory::getParams('aec_integrate', 0);
 		if($isFromFacebook)		
 			$this->resetDataInSession('FROM_FACEBOOK');	
 	
@@ -489,7 +489,7 @@ class XiptLibPluginhandler
 	{
 	    XiptLibAec::getProfiletypeInfoFromAEC() ;
 
-		$show_ptype_during_reg = XiptLibUtils::getParams('show_ptype_during_reg', 0);
+		$show_ptype_during_reg = XiptFactory::getParams('show_ptype_during_reg', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 
 		if($show_ptype_during_reg){
@@ -511,7 +511,7 @@ class XiptLibPluginhandler
 
 
 			$aecExists 		= XiptLibAec::isAecExists();
-			$integrateAEC   = XiptLibUtils::getParams('aec_integrate',0);
+			$integrateAEC   = XiptFactory::getParams('aec_integrate',0);
 
 			// pType already selected
 			if($integrateAEC && $aecExists)
@@ -554,8 +554,8 @@ class XiptLibPluginhandler
 	function event_com_xipt_registration_blank()
 	{
 	    global $mainframe;
-	    $integrateAEC   = XiptLibUtils::getParams('aec_integrate');
-	    //$forcePtypePage = XiptLibUtils::getParams('aec_force_ptype_page');
+	    $integrateAEC   = XiptFactory::getParams('aec_integrate');
+	    //$forcePtypePage = XiptFactory::getParams('aec_force_ptype_page');
 
 	    // if we do not want to integrate AEC then simply return
 	    if(!$integrateAEC)
@@ -576,7 +576,7 @@ class XiptLibPluginhandler
 
 	    // set selected profiletype in session
 	    $this->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
-	    $mainframe->redirect(XiptLibUtils::getReturnURL());
+	    $mainframe->redirect(XiptHelperRegistration::getReturnURL());
 	}
 
 	/**
@@ -595,7 +595,7 @@ class XiptLibPluginhandler
 		//do not filter fields in  advanced search if user do not want to restrict
 		// field according to profiletype
 		
-		$restrict_advancesearchfield = XiptLibUtils::getParams('restrict_advancesearchfield', 0);
+		$restrict_advancesearchfield = XiptFactory::getParams('restrict_advancesearchfield', 0);
 		$view	= JRequest::getVar('view','','GET');
 		$task 	= JRequest::getVar('task','','GET');
 		
@@ -646,7 +646,7 @@ class XiptLibPluginhandler
  			
  		if(XiptHelperProfiletypes::getProfileTypeArray() == false)
  			return true;
- 		else if(XiptLibUtils::getParams('defaultProfiletypeID', 0) == false)
+ 		else if(XiptFactory::getParams('defaultProfiletypeID', 0) == false)
  			return true;
  		else if(XiptHelperSetup::checkCustomfieldRequired())
  			return true;

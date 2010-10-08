@@ -96,7 +96,7 @@ class XiptLibAec
 	static public function getAecMessage()
 	{
 		$data   = self::getProfiletypeInfoFromAEC();
-	    $msgOption = XiptLibUtils::getParams('aec_message','b');
+	    $msgOption = XiptFactory::getParams('aec_message','b');
 	    $pTypeName = XiptLibProfiletypes::getProfiletypeName($data['profiletype']);
 	    
     	if($msgOption==='pl')

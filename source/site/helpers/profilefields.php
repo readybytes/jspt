@@ -52,7 +52,7 @@ function get_fieldname_from_fieldid($fieldId)
 	// return row from row id of fields values table
 	function getProfileTypeNamesForFieldId($fid,$for)
 	{
-		XiptLibUtils::XAssert($fid);
+		XiptHelperUtils::XAssert($fid);
 
 		$selected = array();
 		$selected = XiptHelperProfilefields::getProfileTypeArrayForFieldId($fid,$for);
@@ -80,7 +80,7 @@ function get_fieldname_from_fieldid($fieldId)
 
 function getProfileTypeArrayForFieldId($fid,$for)
 {
-	XiptLibUtils::XAssert($fid);
+	XiptHelperUtils::XAssert($fid);
 		
 	//Load all profiletypes for the field
 	$db			=& JFactory::getDBO();

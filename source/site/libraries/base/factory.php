@@ -99,4 +99,19 @@ class XiptFactory
 		$urlpath = preg_replace('#[/\\\\]+#', '/', $filepath);
 		return $urlpath;
 	}
+	
+    //get settings params data from xipt component
+	function getParams($paramName='', $defaultValue=0)
+	{
+		$sModel  = XiptFactory::getModel('Settings');
+		$params  = $sModel->getParams();
+
+		if(!$params)
+		    XiptError::raiseWarning('XIPT-SYSTEM-ERROR','JSPT PARAMS ARE NULL');
+		
+		if(empty($paramName))
+			return $params;
+			
+		return $params->get($paramName,$defaultValue);
+	}
 }

@@ -26,7 +26,7 @@ class XiptHelperApps
 	function getProfileTypeNamesForApplicationId($aid)
 	{
 	
-		XiptLibUtils::XAssert($aid, "Application Id cannot be null.");
+		XiptHelperUtils::XAssert($aid, "Application Id cannot be null.");
 
 		$selected = array();
 		$selected = XiptHelperApps::getProfileTypeArrayForApplicationId($aid);
@@ -56,7 +56,7 @@ class XiptHelperApps
 	function getProfileTypeArrayForApplicationId($aid)
 	{
 	
-		XiptLibUtils::XAssert($aid, "Application ID cannot be NULL.");
+		XiptHelperUtils::XAssert($aid, "Application ID cannot be NULL.");
 			
 		//Load all profiletypes for the field
 		$db			=& JFactory::getDBO();

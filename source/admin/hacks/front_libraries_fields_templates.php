@@ -24,7 +24,7 @@ class CFieldsTemplates
 		$this->_mySess =& JFactory::getSession();
 		$this->_task = JRequest::getVar('task',0,'GET');
 		$this->_view = JRequest::getVar('view',0,'GET');
-		$this->_params = XiptLibUtils::getParams('', 0);
+		$this->_params = XiptFactory::getParams('', 0);
 		
 	}
 
@@ -52,13 +52,13 @@ class CFieldsTemplates
 		$user    =& JFactory::getUser();
 		
 		$tName	= $field->value;
-		$templates = XiptLibUtils::getTemplatesList();
+		$templates = XiptHelperRegistration::getTemplatesList();
 		$class	= ($required == 1) ? ' required' : '';
 		
 		$selectedValue = JText::_(CFieldsTemplates::getTemplateValue($tName,$user->id));
 		
 		$allowToChangeTemplate = $this->_params->get('allow_templatechange',0);
-		$allowToChangeTemplate = $allowToChangeTemplate || XiptLibUtils::isAdmin($user->id);
+		$allowToChangeTemplate = $allowToChangeTemplate || XiptHelperUtils::isAdmin($user->id);
 		
 		if(!$allowToChangeTemplate) {
 			$html = '<input type="hidden" id="field'.$field->id.'"

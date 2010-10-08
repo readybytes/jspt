@@ -300,7 +300,7 @@ class XiptControllerSetup extends XiptController
 			if($avatar == $image)
 				continue;
 						
-			$avatarThumb = XiptLibUtils::getThumbAvatarFromFull($avatar);
+			$avatarThumb = XiptHelperImage::getThumbAvatarFromFull($avatar);
 	
 			//copy absolute files to new locations
 			JFile::copy(JPATH_ROOT.DS.$avatar, 	  $storageImage);

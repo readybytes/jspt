@@ -199,7 +199,7 @@ abstract class XiptModel extends JModel
 	 */
 	public function order($pk, $change)
 	{
-		//XITODO assert for $pk
+		XiptHelperUtils::XAssert($pk);
 
 		//load the table row
 		$table = $this->getTable();
@@ -260,19 +260,12 @@ abstract class XiptModel extends JModel
 	function saveParams($data, $id, $what = '')
 	{
 		
-		XiptLibUtils::XAssert($id);
-		XiptLibUtils::XAssert($what);
+		XiptHelperUtils::XAssert($id);
+		XiptHelperUtils::XAssert($what);
 		
 		if(empty($data) || !is_array($data))
 			return false;
 			
-		//XITODO : remove it after testing
-		unset($data[JUtility::getToken()]);
-		unset($data['option']);
-		unset($data['task']);
-		unset($data['view']);
-		unset($data['id']);
-		
 		//$xmlPath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS. JString::strtolower($this->getName().".$what.xml");
 		$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
 		$iniData = JFile::read($iniPath);
@@ -292,7 +285,7 @@ abstract class XiptModel extends JModel
 		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");
 		$iniData	= JFile::read($iniPath);
 
-		XiptLibUtils::XAssert(JFile::exists($xmlPath));
+		XiptHelperUtils::XAssert(JFile::exists($xmlPath));
 			
 		$config = new JParameter($iniData,$xmlPath);
 		$config->bind($record[$id]->$what);	

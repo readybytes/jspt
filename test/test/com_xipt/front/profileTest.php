@@ -481,7 +481,7 @@ class ProfileTest extends XiSelTestCase
 	  	$md5_avatar = md5(JFile::read(JPATH_ROOT.DS.$cuser->avatar));
 	  	$md5_thumb  = md5(JFile::read(JPATH_ROOT.DS.$cuser->thumb));
 	  	$md5_avatar_gold = md5(JFile::read(JPATH_ROOT.DS.$newAvatarAU));
-	  	$md5_thumb_gold = md5(JFile::read(XiptLibUtils::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
+	  	$md5_thumb_gold = md5(JFile::read(XiptHelperImage::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
 	  	
 		//XITODO : Change image here for comparision , i think it's system specific
 	  /*	$this->assertEquals($md5_avatar, $md5_avatar_gold);
@@ -491,7 +491,7 @@ class ProfileTest extends XiSelTestCase
   function verifyRemovePicture($userid, $ptype)
   {
   		$defaultAvatar	= XiptLibProfiletypes::getProfiletypeData($ptype,'avatar');
-  		$defaultThumb	= XiptLibUtils::getThumbAvatarFromFull($defaultAvatar);
+  		$defaultThumb	= XiptHelperImage::getThumbAvatarFromFull($defaultAvatar);
 
   		$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=$userid");
 	  	$this->waitPageLoad();
