@@ -60,16 +60,17 @@ if(JFolder::exists(PROFILETYPE_AVATAR_STORAGE_PATH)==false
 	return false;
 }
 
-if(JFolder::exists(PROFILETYPE_AVATAR_STORAGE_PATH))
-	chmod(PROFILETYPE_AVATAR_STORAGE_PATH, 0755);
+//if(JFolder::exists(PROFILETYPE_AVATAR_STORAGE_PATH))
+//	chmod(PROFILETYPE_AVATAR_STORAGE_PATH, 0755);
 
 if(JFolder::exists(USER_AVATAR_BACKUP)==false
 		&& JFolder::create(USER_AVATAR_BACKUP)===false){
 	XiptError::raiseError("XIPT-ERROR","Folder [".USER_AVATAR_BACKUP."] does not exist. Even we are not able to create it. Please check file permission.");
 	return false;
 }
-if(JFolder::exists(USER_AVATAR_BACKUP))
-	chmod(USER_AVATAR_BACKUP, 0755);
+
+//if(JFolder::exists(USER_AVATAR_BACKUP))
+//	chmod(USER_AVATAR_BACKUP, 0755);
 
 // define constants for category of Profile Fields
 define('PROFILE_FIELD_CATEGORY_ALLOWED',0);

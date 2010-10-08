@@ -8,5 +8,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptError extends JError
 {
-	
+	//XITODO : add assertError. assertWarn, assertMessage function
+	function assert($condition)
+	{
+		if($condition)
+			return;
+
+		self::raiseError('XIPT-ASSERT', "$condition is false");
+	}
 }

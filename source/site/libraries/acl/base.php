@@ -16,28 +16,30 @@ abstract class XiptAclBase
 	protected $coreparams;
 	protected $aclparams;
 	protected $debugMode;
-	
-	function __construct($className,$debugMode)
+
+	function __construct($className,$debugMode=false)
 	{
-		jimport( 'joomla.filesystem.files' );
 		$this->debugMode = $debugMode;
-		$this->aclname = $className;
+		$this->aclname 	 = $className;
+
 		$aclxmlpath =  dirname(__FILE__) . DS . strtolower($className) . DS . strtolower($className).'.xml';
+
 		if(!$this->aclparams && JFile::exists($aclxmlpath))
 			$this->aclparams = new JParameter('',$aclxmlpath);
 		else if(!$this->aclparams && !JFile::exists($aclxmlpath))
 			$this->aclparams = new JParameter('','');
 
+		//load core params
 		$corexmlpath = dirname(__FILE__) . DS . 'coreparams.xml';
-		if(JFile::exists($corexmlpath))
-			$this->coreparams = new JParameter('',$corexmlpath);
-			
-		$this->id = 0;
-		$this->rulename = '';
-		$this->published = 1;
+		XiptError::assert(JFile::exists($corexmlpath));
+		$this->coreparams = new JParameter('',$corexmlpath);
+
+		$this->id 			= 0;
+		$this->rulename 	= '';
+		$this->published 	= 1;
 	}
-	
-	
+
+
 	function load($id)
 	{
 		if(0 == $id) {
@@ -59,7 +61,7 @@ abstract class XiptAclBase
 			}
 		}
 	}
-	
+
 	/* function will return array of all value */
 	function getObjectInfoArray()
 	{
@@ -72,42 +74,42 @@ abstract class XiptAclBase
 		$data['aclparams']		= $this->aclparams;
 		return $data;
 	}
-	
-	
+
+
 	public function getHtml(&$coreParamsHtml,&$aclParamsHtml)
 	{
 		//Imp : Function will always call core field html
 		$coreParamsHtml = $this->getCoreParamsHtml();
 		$aclParamsHtml = $this->getAclParamsHtml();
 	}
-	
-	
+
+
 	public function getAclParamsHtml()
 	{
 		$aclParamsHtml = $this->aclparams->render('aclparams');
-		
+
 		if($aclParamsHtml)
 			return $aclParamsHtml;
-		
+
 		$aclParamsHtml = "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>";
-		
+
 		return $aclParamsHtml;
 	}
-	
-	
+
+
 	final public function getCoreParamsHtml()
 	{
 		$coreParamsHtml = $this->coreparams->render('coreparams');
-		
+
 		if($coreParamsHtml)
 			return $coreParamsHtml;
-		
+
 		$coreParamsHtml = "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>";
-		
+
 		return $coreParamsHtml;
 	}
-	
-	
+
+
 	function collectParamsFromPost($postdata)
 	{
 		assert($postdata['aclparams']);
@@ -116,9 +118,9 @@ abstract class XiptAclBase
 		$aclparams =  $registry->toString('INI' , 'xipt_aclparams' );
 		return $aclparams;
 	}
-	
-	
-	
+
+
+
 	function bind($data)
 	{
 		if(is_object($data)) {
@@ -136,104 +138,104 @@ abstract class XiptAclBase
 			$this->id			= $data['id'];
 		}
 	}
-	
-		
-	
+
+
+
 	/* we need refrence b'coz we may need to change viewuserid
 	 * in case of writemessages
 	 */
 	function isApplicable(&$data)
-	{    
+	{
 	    $isAclApplicableOnProfile  =     $this->checkAclOnProfile($data);
 		$isApplicableAccToAcl      =     $this->checkAclAccesibility($data);
 		$isApplicableAccToCore     =     $this->checkCoreAccesibility($data);
 		//XITODO : Conditions should be OR ED
 		if($isApplicableAccToAcl && $isApplicableAccToCore && $isAclApplicableOnProfile)
 			return true;
-			
+
 		return false;
 	}
-	
+
   public function checkAclOnProfile($data)
     {
 	  if(is_array($data['args']) && array_key_exists('from',$data['args']) && 'onprofileload' == $data['args']['from'])
 	    return false;
-	    
+
 	  return true;
     }
-	
+
 	public function checkCoreAccesibility($data)
 	{
 		$ptype = $this->getCoreParams('core_profiletype',0);
-		
+
 		/* ptype 0 means rule is defined for all */
 		if(0 == $ptype)
 			return true;
-			
+
 		//else check user profiletype
 		$userPtype = XiptLibProfiletypes::getUserData($data['userid']);
-		
+
 		if($userPtype == $ptype)
 			return true;
-			
+
 		return false;
 	}
-	
-	
+
+
 	public function checkAclAccesibility($data)
 	{
 		return true;
 	}
-	
-	
+
+
 	function isViolatingRule($data)
 	{
 		$isViolateAccToAcl = $this->checkAclViolatingRule($data);
 
 		$isViolateAccToCore =  $this->checkCoreViolatingRule($data);
-		
+
 		if($isViolateAccToCore || $isViolateAccToAcl)
 			return true;
-			
+
 		return false;
 	}
-	
-	
+
+
 	public function checkAclViolatingRule($data)
 	{
 		return false;
 	}
-	
-	
+
+
 	public function checkCoreViolatingRule($data)
 	{
-		return false;	
+		return false;
 	}
 
-	
-	
+
+
 	public function getDisplayMessage()
 	{
 		$message = $this->getCoreParams('core_display_message','YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE');
 		$message = JText::_($message,false);
 		return $message;
 	}
-	
-	
+
+
 	public function getRedirectUrl()
 	{
 		$redirectUrl  = $this->getCoreParams('core_redirect_url','index.php?option=com_community');
 		return $redirectUrl;
 	}
-	
-	
+
+
 	public function getCoreParams($what,$default=0)
 	{
 		$value = $this->coreparams->get($what,$default);
 		return $value;
 	}
-	
-	
+
+
 	public function handleViolation($info)
 	{
 		/* handle ajax case also */
@@ -243,7 +245,7 @@ abstract class XiptAclBase
 			$this->aclAjaxBlock($msg);
 			return;
 		}
-		
+
 		// one special case
 		if($info['task'] == 'jsonupload') {
 			$nextUpload	= JRequest::getVar('nextupload' , '' , 'GET');
@@ -254,12 +256,12 @@ abstract class XiptAclBase
 			echo "}";
 			exit;
 		}
-		
+
 		$redirectUrl 	= $this->getRedirectUrl();
 		$mainframe->redirect(XiptRoute::_($redirectUrl,false),$msg);
 	}
-	
-	
+
+
 	function aclAjaxBlock($msg, $objResponse=null)
 	{
 		if($objResponse === null)
@@ -272,8 +274,8 @@ abstract class XiptAclBase
 		$objResponse->addScriptCall('cWindowResize', 80);
 		$objResponse->sendResponse();
 	}
-	
-	
+
+
 	public function getMe()
 	{
 		$name =  get_class($this);
