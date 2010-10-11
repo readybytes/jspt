@@ -52,7 +52,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				</span>
 			</td>
 			<td align="center" id="profiletype<?php echo $field->id;?>">
-				<?php echo XiptHelperApps::getProfileTypeNamesForApplicationId($field->id); ?>
+				<?php echo XiptHelperApps::getProfileTypeNames($field->id); ?>
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">

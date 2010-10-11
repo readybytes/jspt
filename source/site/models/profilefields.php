@@ -84,4 +84,15 @@ class XiptModelProfilefields extends XiptModel
 		$fields = array_values($fields);
 		return true;
 	}
+	
+	function getProfileTypes($fid, $cat)
+	{			
+		$query = new XiptQuery();
+		return $query->select('pid')
+					 ->from('#__xipt_profilefields')
+					 ->where(" `fid` = $fid ", 'AND')
+					 ->where(" `category` = $cat ")
+					 ->dbLoadQuery("", "")
+			  		 ->loadResultArray();		
+	}
 }

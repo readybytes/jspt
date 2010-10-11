@@ -278,7 +278,7 @@ class XiptLibProfiletypes
                 
 	        case 'TEMPLATE':
                 $getMe	= TEMPLATE_FIELD_IN_USER_TABLE;
-                $allTemplates = XiptHelperRegistration::getTemplatesList();
+                $allTemplates = XiptHelperJomsocial::getTemplatesList();
        		    $pID          = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
        		    $defaultValue = XiptLibProfiletypes::getProfileTypeData($pID,'template');
 

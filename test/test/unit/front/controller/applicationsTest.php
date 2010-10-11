@@ -61,6 +61,8 @@ class XiptApplicationsControllerTest extends XiUnitTestCase
   	$controller->save($data);
   	
   	$this->_DBO->addTable('#__xipt_applications');
+  	$this->_DBO->filterOrder('#__xipt_applications', 'profiletype');
+  	$this->_DBO->filterColumn('#__xipt_applications', 'id');
   }
  
 }

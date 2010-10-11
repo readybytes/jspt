@@ -12,7 +12,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptLibJomsocial
 {
 	//will return object of field as per fieldId
-    function getFieldObject($fieldid)
+    function getFieldObject($fieldid=0)
 	{
 //		static $result = null;
 //		if(isset($result[$fieldid]))
@@ -24,7 +24,9 @@ class XiptLibJomsocial
 		
 		$db->setQuery( $query );
 		$result	= $db->loadObjectList('id');
-		
+		if($fieldid === 0)
+			return $result;
+			
 		return $result[$fieldid];
 	}
 	

@@ -26,7 +26,7 @@ class JElementFonts extends JElement
 	
 	function getFontsHTML($name,$value,$control_name='params')
 	{	
-		$fonts = XiptHelperProfiletypes::getFonts();
+		$fonts = XiptHelperUtils::getFonts();
 		$html =  JHTML::_('select.genericlist', $fonts,$control_name.'['.$name.']' ,
                                 null, 'value', 'text', $value);
 		

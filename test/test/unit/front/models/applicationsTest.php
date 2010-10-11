@@ -12,17 +12,8 @@ class XiptApplicationsModelTest extends XiUnitTestCase
 	function testGetPluginFromId()
 	{
 		$model 	= new XiptModelApplications();
-		$this->assertEquals($model->getPluginFromId(44)->name,'Walls');
-		$this->assertEquals($model->getPluginFromId(45)->name,'Feeds');
-		$this->assertEquals($model->getPluginFromId(46)->name,'Groups'); 
+		$this->assertEquals($model->getPlugin(44)->name,'Walls');
+		$this->assertEquals($model->getPlugin(45)->name,'Feeds');
+		$this->assertEquals($model->getPlugin(46)->name,'Groups'); 
 	}
-	
-	function testResetApplicationId()
-	{
-		$model 	= new XiptModelApplications();
-		$model->resetApplicationId(46);
-		
-		$this->_DBO->addTable('#__xipt_applications');
-	}
-	
 }

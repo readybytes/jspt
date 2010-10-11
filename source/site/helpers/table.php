@@ -10,7 +10,7 @@ class XiptHelperTable
 {
 	static function isTableExist($tableName)
 	{
-		$db		 	=&	JFactory::getDBO();
+		$db		 	=	JFactory::getDBO();
 
 		//if table name consist #__ replace it.
 		$tableName	=	$db->replacePrefix($tableName);

@@ -576,7 +576,7 @@ class XiptLibPluginhandler
 
 	    // set selected profiletype in session
 	    $this->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
-	    $mainframe->redirect(XiptHelperRegistration::getReturnURL());
+	    $mainframe->redirect(XiptHelperJomsocial::getReturnURL());
 	}
 
 	/**

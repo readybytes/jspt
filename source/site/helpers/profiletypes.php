@@ -7,185 +7,122 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperProfiletypes 
-{
-	//XITODO : Clean the function. Remove Switch
-	function buildTypes($value, $what,$multiselect=false)
+{	
+	function buildTypes($value, $what)
 	{
 		$allValues	= array();
-		switch($what)
-		{
-			case 'profiletype':
-				$allTypes = XiptLibProfiletypes::getProfiletypeArray();
-				if ($allTypes)
-						foreach ($allTypes as $ptype)
-							$allValues[$ptype->id]=$ptype->name;
-				break;
-
-			case 'privacy':
-				$allValues['friends'] = 'friends';
-				$allValues['members'] = 'members';
-				$allValues['public'] = 'public';
-				break;
-					
-			case 'template' :
-					$templates = XiptHelperProfiletypes::getBackendTemplatesList();
-					if($templates)
-						foreach ($templates as $t)
-							$allValues[$t]=$t;
-					break;
-			case 'jusertype' :
-					$usertypes= XiptHelperProfiletypes::getJUserTypes();
-					if ($usertypes) 
-						foreach ($usertypes as $u)
-							$allValues[$u]=$u;
-					
-					break;
-			case 'group' :
-					$groups = XiptHelperProfiletypes::getGroups();
-					if ($groups)
-						foreach ($groups as $g)
-							$allValues[$g->id]=$g->name;
-					//We should add none also.
-					$allValues['0']='None';
-					break;
-			default:
-				XiptHelperUtils::XAssert(0);
-		}
+		$callFunc = '_build'.JString::ucfirst($what);
+		
+		if(!method_exists(new XiptHelperProfiletypes(),$callFunc))
+			XiptHelperUtils::XAssert(0);
+				
+		return XiptHelperProfiletypes::$callFunc($value);		
+	}	
 	
-		//XITODO : Uset JHTML to build html
-		$html   	= '<span>';
-		$multiple   ='';
-		$size ='';
-		if($multiselect==true)
-		{
-			$multiple ='multiple';
-			$what.='[]';
-			$value=explode(',',$value);
-			$size="size=3";
-		}
-		$html	.= '<select '.$multiple.' name="'.$what.'"  id="'.$what.'"'.$size.'>';
-		
-		// we need to check here key=>value
-		foreach($allValues as $key=>$val)
-		{	
-			if(is_array($value))
-				$selected	= ( in_array($key, $value) ) ? 'selected="true"' : '';
-			else
-				$selected	= ( trim($value) == $key ) ? 'selected="true"' : '';
-			
-			$html		.= '<option value="' . $key . '"' . $selected . '>' . ucfirst($val) . '</option>';
-		}
-		
-		$html	.= '</span>';		
-		return $html;
+	function _buildProfiletypes($value)
+	{
+		$allTypes = XiptLibProfiletypes::getProfiletypeArray();
+		if (!$allTypes)
+			return false;
+
+		return JHTML::_('select.genericlist',  $allTypes, 'profiletypes', 'class="inputbox"', 'id', 'name', $value);
 	}
 	
+	// not being used
+	function _buildPrivacy($value)
+	{
+		$allValues[]['value'] =  'friends';
+		$allValues[]['value'] =  'members';
+		$allValues[]['value'] =  'public';		
+ 
+		return JHTML::_('select.genericlist',  $allValues, 'privacy', 'class="inputbox"', 'value', 'value', $value);
+	}
 	
+	function _buildTemplate($value)
+	{
+		$templates = XiptHelperJomsocial::getTemplatesList();
+		if(!$templates)
+			return false;
+			
+		foreach($templates as $t)
+			$allValues[]['value']=$t;
+			
+		return JHTML::_('select.genericlist',  $allValues, 'template', 'class="inputbox"', 'value', 'value', $value);
+	}
 	
+	function _buildJusertype($value)
+	{
+		$usertypes= XiptLibJoomla::getJUserTypes();
+		if(!$usertypes)
+			return false;
+			 
+		foreach($usertypes as $u)		
+			$allValues[]['value']=$u;
+			
+		return JHTML::_('select.genericlist',  $allValues, 'jusertype', 'class="inputbox"', 'value', 'value', $value);
+	}				 
+	
+	function _buildGroup($value)
+	{
+		//We should add none also.
+		$allValues 		= new stdClass();
+		$allValues->id 	= 0;
+		$allValues->name= 'None';
+		
+		$groups = XiptHelperProfiletypes::getGroups();
+		array_push($groups, $allValues);
+		$value=explode(',',$value);
+		return JHTML::_('select.genericlist',  $groups, 'group[]', 'class="inputbox" size="3" multiple ', 'id', 'name', $value);
+	}
+			
 	function getGroups($id='')
 	{
-		$db			=& JFactory::getDBO();
+		$query = new XiptQuery();
+		$query->select(' `id`, `name` ')
+				->from('#__community_groups');
 		
-		if(!empty($id))
-			$extraSql 	= ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id).' ' ;
-		else
-			$extraSql	= '';
+		if(!empty($id))		
+				$query->where(" `id`  = $id ");
+				
+		return $query->dbLoadQuery("","")
+					 ->loadObjectList();
+					 
+		/* TODO : what if group list is empty */		
+	}
+	
+	function getProfileTypeData($id,$what='name')
+	{		
+		//XITODO : Caching can be added
+		$searchFor 		= 'name';
+		$defaultValue	= 'NONE';
+		// XITODO : clean this code
+		$data = array(
+					'name' 		=> array('name' => 'name', 		'value' => 'All'),
+					'privacy' 	=> array('name' => 'privacy', 	'value' => 'friends'),
+					'template' 	=> array('name' => 'template', 	'value' => 'default'),
+					'jusertype'	=> array('name' => 'jusertype', 'value' => 'Registered'),
+					'avatar' 	=> array('name' => 'avatar', 	'value' => DEFAULT_AVATAR),
+					'watermark'	=> array('name' => 'watermark', 'value' => ''),
+					'approve'	=> array('name' => 'approve', 	'value' => true),
+					'allowt'	=> array('name' => 'allowt', 	'value' => false),
+					'group'		=> array('name' => 'group', 	'value' => 0)	
+					);
+					
+		if(!array_key_exists($what,$data))
+			XiptHelperUtils::XAssert(0);
+				
+		if($id==0)
+			return $data[$what]['value'];
+		
+		$val = XiptFactory::getInstance('profiletypes','model')->loadRecords();
+		if(!$val)
+			return $data[$what]['value'];
 			
-		$query		= 'SELECT '.$db->nameQuote('id').' , '.$db->nameQuote('name')
-					.' FROM ' . $db->nameQuote( '#__community_groups' )
-					.$extraSql ;
-		$db->setQuery( $query );
-		if(empty($id))
-			$rows = $db->loadObjectList();
-		else
-			$rows = $db->loadObject();	
-		
-		/* TODO : what if group list is empty */
-		return $rows;
+		return $val[$id]->$what;
 	}
 	
-
-	function getBackendTemplatesList()
+	function getProfileTypeName($id,$isNoneReq=false)
 	{
-		return XiptHelperRegistration::getTemplatesList();
-		/*$path	= JPATH_ROOT . DS . 'components' . DS . 'com_community' . DS . 'templates';
-	
-		$handle = @opendir($path);
-		if($handle)
-		{
-			while( false !== ( $file = readdir( $handle ) ) )
-			{
-				// Do not get '.' or '..' or '.svn' since we only want folders.
-				if( $file != '.' && $file != '..' && $file != '.svn' )
-					$templates[]	= $file;
-			}
-		}
-		return $templates;*/
-	}
-	
-function getProfileTypeData($id,$what='name')
-{
-	//XITODO : Caching can be added
-	$searchFor 		= 'name';
-	$defaultValue	= 'NONE';
-	
-	switch($what)
-	{
-		case 'name' :
-				$searchFor 		= 'name';
-				$defaultValue	= 'ALL';
-				break;
-					
-		case 'privacy' :
-				$searchFor 		= 'privacy';
-				$defaultValue	= 'friends';
-				break;
-					
-		case 'template' :
-				$searchFor 		= 'template';
-				$defaultValue	= 'default';
-				break;
-		case 'jusertype' :
-				$searchFor 		= 'jusertype';
-				$defaultValue	= 'Registered';
-				break;	
-		case  'avatar':
-				$searchFor 		= 'avatar';
-				$defaultValue	= DEFAULT_AVATAR;
-				break;
-		case  'watermark':
-				$searchFor 		= 'watermark';
-				$defaultValue	= '';
-				break;
-		case  'approve':
-				$searchFor 		= 'approve';
-				$defaultValue	= true;
-				break;
-		case  'allowt':
-				$searchFor 		= 'allowt';
-				$defaultValue	= false;
-				break;
-		case  'group':
-				$searchFor 		= 'group';
-				$defaultValue	=  '0';
-				break;
-		default	:
-				XiptHelperUtils::XAssert(0);
-	}
-
-	if($id==0)
-		return $defaultValue;
-		
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '. $db->nameQuote($searchFor) .' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
-				. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id) ;
-	$db->setQuery( $query );
-	$val = $db->loadResult();
-	return $val;
-}
-	
-function getProfileTypeName($id,$isNoneReq=false)
-{
 		//XITODO : Clean ALL / NONE, and cache results
 		if($id==0 || empty($id))
 			return JText::_("All");
@@ -193,158 +130,61 @@ function getProfileTypeName($id,$isNoneReq=false)
 		if($isNoneReq && $id==-1)
 			return JText::_("NONE");
 
-		$db		=& JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('name')
-					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) 
-					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id);
-		$db->setQuery( $query );
-		return $db->loadResult();
-}
+		return XiptHelperProfiletypes::getProfileTypeData($id,'name');
+	}
 
-
-
-
-function getProfileTypeArray($all = '',$none= '')
-{
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('id').' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
-	$db->setQuery( $query );
-	$results = $db->loadObjectList();
-	$retVal	= array();
-	if($results)
-		foreach ($results as $result)
-			$retVal[]=$result->id;
-	
-	//add all value also
-	if($all == 'ALL')
-		$retVal[] = XIPT_PROFILETYPE_ALL;
+	function getProfileTypeArray($all = '',$none= '')
+	{
+		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords();
 		
-	if($none == 'NONE')
-		$retVal[] = XIPT_PROFILETYPE_NONE;
+		// results will be indexed accroding to id
+		// only get the keys
+		$retVal = array_keys($results);
 		
-	return $retVal;
-}	
-
-//XITODO : move to joomla library
-function getJUserTypes()
-{
-	$values=array();
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT * FROM ' . $db->nameQuote( '#__core_acl_aro_groups' );
-	$db->setQuery( $query );
-	$val = $db->loadObjectList();
-	
-    //XITODO : remove this loop
-	if($val)
-		foreach ($val as $v)
-		{
-			//XITODO : improve performance use, array_diff
-			if($v->name == 'ROOT' || $v->name == 'USERS'
-				|| $v->name == 'Public Frontend' || $v->name == 'Public Backend'
-				|| $v->name == 'Administrator' || $v->name == 'Super Administrator'
-				)
-				continue;
+		//add all value also
+		if($all == 'ALL')
+			$retVal[] = XIPT_PROFILETYPE_ALL;
 			
-			$values[]=$v->name;
-		}
-	      $values[] = 'None';
-	return $values;	
-}
+		if($none == 'NONE')
+			$retVal[] = XIPT_PROFILETYPE_NONE;
+			
+		return $retVal;
+	}
 
-//XITODO : rename function, clean it
-function addProfileTypeInfroForAll($fID)
-{
-	// read community_user table
-	$db			=& JFactory::getDBO();
-	$query		= 'SELECT '.$db->nameQuote('userid').', '.$db->nameQuote('profiletype')
-				. ' FROM ' . $db->nameQuote( '#__community_users' );
-	$db->setQuery( $query );
-	$results = $db->loadObjectList();
-	
-	$obj			= new stdClass();
-	// add infor for every user in field table
-	
-	if(!$results)
-		return;
-	
-	foreach ($results as $v)
-		{
-			$obj->user_id	= $v->userid;
-			$obj->field_id 	= $fID;
-			// if ZERO get from configuration
-			if($v->profiletype == 0)
-			{
-				$sql = "SELECT ".$db->nameQuote("params"). " FROM #__community_config"
-						." WHERE ".$db->nameQuote("name")."=".$db->Quote("config");
-				$db->setQuery($sql);
-				$myresult = $db->loadResult();
-				$myparams = new JParameter($myresult);		
-				$v->profiletype= $myparams->get('profiletypes','0');
-			}
-			$obj->value		= getProfileTypeData($v->profiletype,'name');
-
-			//XITODO : why we are insterting again n again
-			$db->insertObject( '#__community_fields_values' , $obj );
-		}
-}
-
-/**
- * The function will reapply attributes to every user of profiletype $pid
- * IMP : if user have custom avatar, then it will not be updated
- * IMP : we will re-apply watermark on custom avatar
- * IMP : Users other attribute will be reset irrespective of there settings 
- *
- * @param $pid
- * @param $oldData
- * @param $newData
- * @return unknown_type
- */
-function resetAllUsers($pid, $oldData, $newData)
-{
-	$allUsers = XiptLibProfiletypes::getAllUsers($pid);
-	
-	if(!$allUsers)
-		return;
-
-	$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
-	$filteredOldData= array();
-	$filteredNewData= array();
-	
-	foreach ($featuresToReset  as $feature)
+	/**
+	 * The function will reapply attributes to every user of profiletype $pid
+	 * IMP : if user have custom avatar, then it will not be updated
+	 * IMP : we will re-apply watermark on custom avatar
+	 * IMP : Users other attribute will be reset irrespective of there settings 
+	 *
+	 * @param $pid
+	 * @param $oldData
+	 * @param $newData
+	 * @return unknown_type
+	 */
+	//XITODO : needs cleanup
+	function resetAllUsers($pid, $oldData, $newData)
 	{
-		$filteredOldData[$feature]= $oldData->$feature;
-		$filteredNewData[$feature]= $newData->$feature;
-	}
-	
-	foreach ($allUsers as $user)
-	{
-		XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
-	}
-}
-
-	function getProfiletypeFieldHTML($value)
-	{	
-		$required			='1';
-		$html				= '';
-		$class				= ($required == 1) ? ' required' : '';
-		$options			= XiptLibProfiletypes::getProfiletypeArray();
+		$allUsers = XiptLibProfiletypes::getAllUsers($pid);
 		
-		$html	.= '<select id="params[defaultProfiletypeID]" name="params[defaultProfiletypeID]" class="hasTip select'.$class.'" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
-		for( $i = 0; $i < count( $options ); $i++ )
+		if(!$allUsers)
+			return;
+	
+		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
+		$filteredOldData = array();
+		$filteredNewData = array();
+		
+		foreach($featuresToReset  as $feature)
 		{
-		    $option		= $options[ $i ]->name;
-			$id			= $options[ $i ]->id;
-		    
-		    $selected	= ( JString::trim($id) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . $id . '"' . $selected . '>' . $option . '</option>';
+			$filteredOldData[$feature]= $oldData->$feature;
+			$filteredNewData[$feature]= $newData->$feature;
 		}
-		$html	.= '</select>';	
-		$html   .= '<span id="errprofiletypemsg" style="display: none;">&nbsp;</span>';
 		
-		return $html;
+		foreach ($allUsers as $user)
+			XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
 	}
-
 	
+	// XITODO : needs cleanup
 	function uploadAndSetImage($file,$id,$what)
 	{
 		global $mainframe;
@@ -453,55 +293,35 @@ function resetAllUsers($pid, $oldData, $newData)
 		}
 	}
 	
-	//XITODO  : move to HelperUtils
-	function getFonts()
-	{
-		$path	= JPATH_ROOT  . DS . 'components' . DS . 'com_xipt' . DS . 'assets' . DS . 'fonts';
-	
-		jimport( 'joomla.filesystem.file' );
-		$fonts = array();
-		if( $handle = @opendir($path) )
-		{
-			while( false !== ( $file = readdir( $handle ) ) )
-			{
-				if( JFile::getExt($file) === 'ttf')
-					//$fonts[JFile::stripExt($file)]	= JFile::stripExt($file);
-					$fonts[] = JHTML::_('select.option', JFile::stripExt($file), JFile::stripExt($file));
-			}
-		}
-		return $fonts;
-	}
-	
-	
 	function checkSessionForProfileType()
     {   	
-    	$mySess = & JFactory::getSession();
+    	$mySess = JFactory::getSession();
     	if($mySess)
 			return true;
 
 		// session expired, redirect to community page
 		$redirectUrl	= XiptRoute::_('index.php?option=com_community&view=register',false);
 		$msg 			= JText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
-    	global $mainframe;
-		$mainframe->redirect($redirectUrl,$msg);
+    	
+		return JFactory::getApplication()->redirect($redirectUrl,$msg);
     }
         
 	//XITODO : Remove funda of return url, use configuration
     function setProfileTypeInSession($selectedProfiletypeID)
     {
-    	global $mainframe;
+		// XITODO : move redirection to controller 
     	$mySess = & JFactory::getSession();
-    	$redirectUrl = XiptHelperRegistration::getReturnURL();
+    	$redirectUrl = XiptHelperJomsocial::getReturnURL();
 
-			// validate values
-			if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {
-				$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
-				$mainframe->redirect('index.php?option=com_xipt&view=registration',$msg);
-				return;
-			}
-			
-			//set value in session and redirect to destination url
-			$mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
-			$mainframe->redirect($redirectUrl);
+		// validate values
+		if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {
+			$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
+			JFactory::getApplication()->redirect('index.php?option=com_xipt&view=registration',$msg);
+			return;
+		}
+		
+		//set value in session and redirect to destination url
+		$mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
+		JFactory::getApplication()->redirect($redirectUrl);
     }
 }

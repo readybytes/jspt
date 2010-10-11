@@ -38,7 +38,7 @@ class XiptControllerProfileFields extends XiptController
 				foreach($allTypes as $type) {
 					if($type) {
 						if(!array_key_exists($controlName.$type,$post)) {
-							  XiptHelperProfilefields::addFieldsProfileType($post['id'], $type,$catIndex);
+							  $this->getModel()->save(array('fid'=>$post['id'], 'pid'=>$type, 'category'=>$catIndex));
 							  $msg = JText::_('FIELDS SAVED');
 							  $count++;
 						}

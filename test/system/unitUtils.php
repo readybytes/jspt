@@ -102,4 +102,10 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   	 $sModel = XiptFactory::getInstance('settings','model');
 	 $params  = $sModel->getParams(true);
   }
+  
+	function cleanWhiteSpaces($str)
+	{
+		$str = preg_replace('#[\\n\\b\\s\\t]+#','' , $str);
+		return $str;
+	}
 }

@@ -342,7 +342,7 @@ class XiptControllerSetup extends XiptController
 		XiptHelperUnhook::disable_plugin('xipt_system');
 		XiptHelperUnhook::disable_plugin('xipt_community');
 		
-		XiptHelperUnhook::disable_custom_fields();
+		XiptHelperUnhook::disableCustomFields();
 		
 		global $mainframe;
 		$msg = JText::_('UNHOOKED SUCCESSFULLY');

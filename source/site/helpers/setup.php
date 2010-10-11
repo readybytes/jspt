@@ -8,8 +8,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperSetup 
 {
-
-
 	//check existance of custom fields profiletype and template
 	function checkExistanceOfCustomFields($what,$checkenable=false)
 	{

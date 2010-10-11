@@ -20,5 +20,5 @@ function com_uninstall()
 	XiptHelperUnhook::disable_plugin('xipt_system');
 	XiptHelperUnhook::disable_plugin('xipt_community');
 	
-	XiptHelperUnhook::disable_custom_fields();
+	XiptHelperUnhook::disableCustomFields();
 }

@@ -25,7 +25,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<?php echo JText::_( 'FIELD NAME' ); ?> :
 			</td>
 			<td style="width:60%;">
-					<?php echo XiptHelperProfilefields::get_fieldname_from_fieldid($this->fieldid); ?>
+					<?php echo $this->fields->name; ?>
 			</td>
 		</tr>
 		</thead>

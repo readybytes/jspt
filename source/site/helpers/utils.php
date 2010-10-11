@@ -10,7 +10,7 @@ class XiptHelperUtils
 {
 	function isAdmin($id)
 	{
-		$my	= CFactory::getUser($id);		
+		$my	= JFactory::getUser($id);		
 		return ( $my->usertype == 'Super Administrator');
 	}
 	
@@ -42,4 +42,22 @@ class XiptHelperUtils
 		}
 		return false;
 	}
+	
+	function getFonts()
+	{
+		$path	= JPATH_ROOT  . DS . 'components' . DS . 'com_xipt' . DS . 'assets' . DS . 'fonts';
+	
+		jimport( 'joomla.filesystem.file' );
+		$fonts = array();
+		if( $handle = @opendir($path) )
+		{
+			while( false !== ( $file = readdir( $handle ) ) )
+			{
+				if( JFile::getExt($file) === 'ttf')
+					//$fonts[JFile::stripExt($file)]	= JFile::stripExt($file);
+					$fonts[] = JHTML::_('select.option', JFile::stripExt($file), JFile::stripExt($file));
+			}
+		}
+		return $fonts;
+	}	
 }

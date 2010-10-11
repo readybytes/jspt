@@ -52,7 +52,7 @@ class CFieldsTemplates
 		$user    =& JFactory::getUser();
 		
 		$tName	= $field->value;
-		$templates = XiptHelperRegistration::getTemplatesList();
+		$templates = XiptHelperJomsocial::getTemplatesList();
 		$class	= ($required == 1) ? ' required' : '';
 		
 		$selectedValue = JText::_(CFieldsTemplates::getTemplateValue($tName,$user->id));

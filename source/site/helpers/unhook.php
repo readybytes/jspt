@@ -6,15 +6,11 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
-jimport( 'joomla.filesystem.folder' );
-jimport('joomla.filesystem.file');
-
 require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
 require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'install'.DS.'helper.php';
 
 class XiptHelperUnhook 
-{
-	
+{	
 	function disable_plugin($pluginname)
 	{
 		$db			=& JFactory::getDBO();		
@@ -28,19 +24,15 @@ class XiptHelperUnhook
 		return true;
 	} 
 	
-	
-	function disable_custom_fields()
+	function disableCustomFields()
 	{
-		$db			=& JFactory::getDBO();		
-		$query	= 'UPDATE ' . $db->nameQuote( '#__community_fields' )
-				. ' SET '.$db->nameQuote('published').'='.$db->Quote('0')
-	          	.' WHERE '.$db->nameQuote('type').'='.$db->Quote('profiletypes')
-	          	.' OR '.$db->nameQuote('type').'='.$db->Quote('templates');
-	
-		$db->setQuery($query);		
-		if(!$db->query())
-			return false;
-		return true;
+		$query = new XiptQuery();
+		return $query->update('#__community_fields')
+					 ->set(" `published` = 0 ")
+					 ->where(" `type` = 'profiletypes' ", 'OR')
+					 ->where(" `type` = 'templates' ", 'OR')
+					 ->dbLoadQuery("","")
+					 ->query();
 	} 
 	
 	

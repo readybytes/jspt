@@ -28,18 +28,13 @@ class XiptHelperRegistration
 			$mySess->set('FROM_FACEBOOK',true, 'XIPT');
 		
 		/*if ptype is not required during registration then return */
-		$show_ptype_during_reg = XiptFactory::getParams('show_ptype_during_reg', 0);
-		
-		if(!$show_ptype_during_reg)
+		if(!XiptFactory::getParams('show_ptype_during_reg', 0))		
 			return true;
 
 		//if aec is integrate with ptype then we don't want to display
 		//ptype selection page during facebook integration so return
-				 
-		$integrateAEC   = XiptFactory::getParams('aec_integrate',0);
-
 		// pType already selected
-		if($integrateAEC && $aecExists)
+		if($aecExists && XiptFactory::getParams('aec_integrate',0))
 			return true;
 			
 		/*check if ptype exist in session , 
@@ -190,33 +185,6 @@ class XiptHelperRegistration
 			}
 		return $value;
 	}
-	
-    function getTemplatesList()
-	{	
-		$path	= JPATH_ROOT. DS . 'components' . DS . 'com_community' . DS . 'templates';
-		
-		$handle = @opendir($path);
-		if( $handle )
-		{
-			while( false !== ( $file = readdir( $handle ) ) )
-			{
-				// Do not get '.' or '..' or '.svn' since we only want folders.
-				if( $file != '.' && $file != '..' && $file != '.svn' && $file != 'index.html')
-					$templates[]	= $file;
-			}
-		}
-		return $templates;
-	}
-	
-   function getReturnURL()
-   {
-          $regType = XiptFactory::getParams('user_reg');
-         
-          if($regType === 'jomsocial')
-             return XiPTRoute::_('index.php?option=com_community&view=register', false);
-         
-          return XiPTRoute::_('index.php?option=com_user&view=register', false);
-    }
     
 	function checkIfEmailAllowed($testEmail)
 	{

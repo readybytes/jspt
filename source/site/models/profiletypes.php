@@ -74,10 +74,11 @@ class XiptModelProfiletypes extends XiptModel
 	
 	function loadParams($id, $what = 'params')
 	{
+		$reset = XiptLibJomsocial::cleanStaticCache();
 		if($what != 'params')
 			return parent::loadParams($id, $what = 'params');
 		
-		if( isset($this->_params[$id]))
+		if( isset($this->_params[$id]) && $reset == false)
 			return $this->_params[$id]; 		
 		
 		$record = $this->loadRecords();

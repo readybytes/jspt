@@ -34,7 +34,7 @@ class XiptModelApplications extends XiptModel
 	 * Returns the Application name
 	 * @return string
 	 **/
-	function getPluginFromId($pluginId)
+	function getPlugin($pluginId)
 	{			
 		$result = $this->loadRecords();
 									
@@ -44,9 +44,16 @@ class XiptModelApplications extends XiptModel
 			return false;
 	}
 	
-	//XITODO : remove this wrapper
-	function resetApplicationId( $aid )
+	function getProfileTypes($aid)
 	{
-		return $this->delete(array('applicationid'=> $aid));
+		if(isset($this->_ptypes[$aid]))
+			return $this->_ptypes[$aid];
+			
+		$query = new XiptQuery();
+		return  $this->_ptypes[$aid] = $query->select('profiletype')
+					 						 ->from('#__xipt_applications')
+					 						 ->where(" `applicationid` = $aid ")
+					 						 ->dbLoadQuery("", "")
+			  		 						 ->loadResultArray();		
 	}
 }
