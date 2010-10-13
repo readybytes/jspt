@@ -10,8 +10,8 @@ require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'i
 
 function com_install()
 {	
-	if(XiptHelperInstall::check_version() == false)
-		JError::raiseWarning('INSTERR', "XIPT Only support Jomsocial 1.8 or greater releases");
+//	if(XiptHelperInstall::check_version() == false)
+//		JError::raiseWarning('INSTERR', "XIPT Only support Jomsocial 1.8 or greater releases");
 	
 	if(XiptHelperInstall::setup_database() == false)
 		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");

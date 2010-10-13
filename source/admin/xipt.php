@@ -12,7 +12,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 // check for jom social supported version and show message
-if(!XiptHelperSetup::isSupportedJS()){
+if(!XiptHelperJomsocial::isSupportedJS()){
 	$msg = "ERROR : The JomSocial Current Version used by you is not supported for ProfileTypes.";
 	JFactory::getApplication()->enqueueMessage($msg);	 
 }

@@ -56,4 +56,7 @@ XiptLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_commun
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_BASE,'');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_LIB,'Lib');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_ACL, 'Acl');
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP, 'Setup');
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP .DS. 'rule', 'SetupRule');
+
 

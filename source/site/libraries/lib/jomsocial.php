@@ -262,9 +262,9 @@ class XiptLibJomsocial
 		
 		//We must enforce this as we never want to overwrite a custom avatar
 		$isDefault			  = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
-		$changeAvatarOnSyncUp = self::_changeAvatarOnSyncUp($userAvatar); 
+//		$changeAvatarOnSyncUp = self::_changeAvatarOnSyncUp($userAvatar); 
 		
-		if($isDefault == false && $changeAvatarOnSyncUp == false)
+		if($isDefault == false )
 			return false;
 
 		// we can safely update avatar so perform the operation		
@@ -415,16 +415,16 @@ class XiptLibJomsocial
 		return CFactory::getUser($userid);		
 	}
 
-	function _changeAvatarOnSyncUp($userAvatar = '', $task='')
-	{
-		
-		$task = JRequest::getVar('task', $task, 'GET');
-		if($task != 'syncUpUserPT' || $userAvatar == '')
-			return false;
-			
-		//check that avatar exists in images/profiletype
-		return JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_')? true:false;
-	}
+//	function _changeAvatarOnSyncUp($userAvatar = '', $task='')
+//	{
+//		
+//		$task = JRequest::getVar('task', $task, 'GET');
+//		if($task != 'syncUpUserPT' || $userAvatar == '')
+//			return false;
+//			
+//		//check that avatar exists in images/profiletype
+//		return JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_')? true:false;
+//	}
 	
 	function cleanStaticCache($set = null)
 	{

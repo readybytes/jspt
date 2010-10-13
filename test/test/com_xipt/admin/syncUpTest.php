@@ -12,8 +12,8 @@ class SyncUpTest extends XiSelTestCase
   {
   	$this->open(JOOMLA_LOCATION.'/administrator/index.php?option=com_xipt&view=setup');
 	$this->waitPageLoad();
-	$this->assertTrue($this->isElementPresent("//td[@id='setupMessage1']/a"));
-    $this->assertTrue($this->isElementPresent("//td[@id='setupImage1']/img[contains(@src,'images/publish_x.png')]"));
+	$this->assertTrue($this->isElementPresent("//td[@id='setupMessage2']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage2']/img[contains(@src,'images/publish_x.png')]"));
     $this->open(JOOMLA_LOCATION.'administrator/index.php?option=com_xipt&view=profiletypes&task=edit');
     $this->waitPageLoad();
 
@@ -36,9 +36,9 @@ class SyncUpTest extends XiSelTestCase
 	$this->changeJSPTConfig($filter);
     $this->open(JOOMLA_LOCATION.'/administrator/index.php?option=com_xipt&view=setup');
 	$this->waitPageLoad();
-    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage7']/a"));
-    $this->assertTrue($this->isElementPresent("//td[@id='setupImage7']/img[contains(@src,'images/publish_x.png')]"));
-    $this->click("//td[@id='setupMessage7']/a");
+    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage6']/a"));
+    $this->assertTrue($this->isElementPresent("//td[@id='setupImage6']/img[contains(@src,'images/publish_x.png')]"));
+    $this->click("//td[@id='setupMessage6']/a");
     $this->waitPageLoad();     	
   }
 }

@@ -643,23 +643,24 @@ class XiptLibPluginhandler
 		$mysess =  JFactory::getSession();
 		if($mysess->has('requireSetupCleanUp') == true && $mysess->get('requireSetupCleanUp',false) == true)
  				return true;
- 			
- 		if(XiptHelperProfiletypes::getProfileTypeArray() == false)
- 			return true;
- 		else if(XiptFactory::getParams('defaultProfiletypeID', 0) == false)
- 			return true;
- 		else if(XiptHelperSetup::checkCustomfieldRequired())
- 			return true;
- 		else if(XiptHelperSetup::checkFilePatchRequired())
- 			return true;
- 		else if(($msg = XiptHelperSetup::checkPluginInstallationRequired()))
- 			return true;
- 		else if(XiptHelperSetup::checkPluginEnableRequired())
- 			return true;
- 		else if(XiptHelperSetup::migrateAvatarRequired())
- 			return true;
- 		else if(XiptLibAec::isAecExists() && XiptHelperSetup::isAECMIRequired())
- 			return true;
+ 		
+		//XITODO : do apply setup rules here
+// 		if(XiptHelperProfiletypes::getProfileTypeArray() == false)
+// 			return true;
+// 		else if(XiptFactory::getParams('defaultProfiletypeID', 0) == false)
+// 			return true;
+// 		else if(XiptHelperSetup::checkCustomfieldRequired())
+// 			return true;
+// 		else if(XiptHelperSetup::checkFilePatchRequired())
+// 			return true;
+// 		else if(($msg = XiptHelperSetup::checkPluginInstallationRequired()))
+// 			return true;
+// 		else if(XiptHelperSetup::checkPluginEnableRequired())
+// 			return true;
+// 		else if(XiptHelperSetup::migrateAvatarRequired())
+// 			return true;
+// 		else if(XiptLibAec::isAecExists() && XiptHelperSetup::isAECMIRequired())
+// 			return true;
  		else 
  		{
  			$mysess->get('requireSetupCleanUp',false);

@@ -97,9 +97,10 @@ define('XIPT_FRONT_PATH_VIEWS', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'vie
 define('XIPT_FRONT_PATH_LIBRARY',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries');
 define('XIPT_FRONT_PATH_HELPER', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers');
 define('XIPT_FRONT_PATH_ASSETS',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'assets');
-define('XIPT_FRONT_PATH_LIBRARY_BASE',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'base');
-define('XIPT_FRONT_PATH_LIBRARY_LIB',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'lib');
-define('XIPT_FRONT_PATH_LIBRARY_ACL',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'acl');
+define('XIPT_FRONT_PATH_LIBRARY_BASE',XIPT_FRONT_PATH_LIBRARY.DS.'base');
+define('XIPT_FRONT_PATH_LIBRARY_LIB',XIPT_FRONT_PATH_LIBRARY.DS.'lib');
+define('XIPT_FRONT_PATH_LIBRARY_ACL',XIPT_FRONT_PATH_LIBRARY.DS.'acl');
+define('XIPT_FRONT_PATH_LIBRARY_SETUP',XIPT_FRONT_PATH_LIBRARY.DS.'setup');
 
 
 // define constant for privacy value

@@ -12,133 +12,37 @@ class XiptViewSetup extends XiptView
 {
     function display($tpl = null)
 	{
-		self::setToolBar();
-		//@TODO : check whether custom field exitst or not
-		//Default ptype exist or not
-		//profiletypes exist or not
-		//patch file 
+		$this->setToolBar();
 			
 		$requiredSetup = array();
-		//check profiletype existance
-		$ptypes = XiptHelperProfiletypes::getProfileTypeArray();
-		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createprofiletypes",false);
-		if(!$ptypes) {
-			$requiredSetup['profiletypes']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE PROFILETYPES").'</a>';
-			$requiredSetup['profiletypes']['done']  = false;
-		}
-		else {
-			$requiredSetup['profiletypes']['message'] = JText::_("PROFILETYPE VALIDATION SUCCESSFULL");
-			$requiredSetup['profiletypes']['done']  = true;
-		}
+		
+		//get all files required for setup
+		$setupNames = XiptSetupHelper::getOrder();
+		
+		//for each file check that setup is required or not & get message a/c to this.
+		foreach($setupNames as $setup)
+		{
+			//get object of class
+			$setupObject = XiptFactory::getSetupObject($setup);
 			
-		//check default profiletype
-		$defaultProfiletypeID = XiptFactory::getParams('defaultProfiletypeID', 0);
-		$link = XiptRoute::_("index.php?option=com_xipt&view=settings",false);
-		if(!$defaultProfiletypeID || XiptLibProfiletypes::validateProfiletype($defaultProfiletypeID)==false) {
-			$requiredSetup['defaultprofiletype']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';
-			$requiredSetup['defaultprofiletype']['done']  = false;
-		}
-		else {
-			$requiredSetup['defaultprofiletype']['message'] = JText::_("DEFAULT PROFILETYPE EXIST");
-			$requiredSetup['defaultprofiletype']['done']  = true;
-		}
-		
+			if($setupObject->isApplicable())
+			{
+				$data = $setupObject->getMessage();
 			
-		//validate custom field
-		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=createfields",false);
-		if(XiptHelperSetup::checkCustomfieldRequired()) {
-			$requiredSetup['customfields']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE AND ENABLE CUSTOM FIELDS").'</a>';
-			$requiredSetup['customfields']['done'] = false;
-		}
-		else {
-			$requiredSetup['customfields']['message'] = JText::_("CUSTOM FIELDS EXIST");
-			$requiredSetup['customfields']['done'] = true;
-		}
-		
-		
-		//check file patch up required or not
-		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchfile",false);
-		if(XiptHelperSetup::checkFilePatchRequired()) {
-			$requiredSetup['filepatch']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO PATCH FILES").'</a>';
-			$requiredSetup['filepatch']['done'] = false;
-		}
-		else {
-			$requiredSetup['filepatch']['message'] = JText::_("FILES ARE PATCHED");
-			$requiredSetup['filepatch']['done'] = true;
-		}
-		
-		//check plugins( community and system ) are installed
-		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=installplugin",false);
-		if(($msg = XiptHelperSetup::checkPluginInstallationRequired())) {
-			$requiredSetup['plugininstalled']['message'] = '<a href="'.$link.'">'.$msg.'</a>';
-			$requiredSetup['plugininstalled']['done'] = false;
-		}
-		else {
-			$requiredSetup['plugininstalled']['message'] = JText::_("PLUGINS ARE INSTALLED");
-			$requiredSetup['plugininstalled']['done'] = true;
-		}
-		
-		
-		//check plugins( community and system ) are enabled
-		$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=enableplugin",false);
-		if(XiptHelperSetup::checkPluginEnableRequired()) {
-			$requiredSetup['pluginenabled']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO ENABLE PLUGIN").'</a>';
-			$requiredSetup['pluginenabled']['done'] = false;
-		}
-		else {
-			$requiredSetup['pluginenabled']['message'] = JText::_("PLUGINS ARE ENABLED");
-			$requiredSetup['pluginenabled']['done'] = true;
+				// if we are checking setup for watermark,we will show warning
+				if($setup === 'watermark')
+					$warnings = $data;
+				else
+				{
+					$requiredSetup[$setup]['done'] 	  = $data['done'];
+					$requiredSetup[$setup]['message'] = $data['message'];
+				}
+			}
 		}
 
-		
-			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT",false);
-			if(XiptHelperSetup::syncUpUserPTRequired()) {
-				$requiredSetup['syncUpUserPT']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO SYNC UP USERS PROFILETYPES").'</a>';
-				$requiredSetup['syncUpUserPT']['done'] = false;
-			}
-			else {
-				$requiredSetup['syncUpUserPT']['message'] = JText::_("USERS PROFILETYPES ALREADY IN SYNC");
-				$requiredSetup['syncUpUserPT']['done'] = true;
-			}
-		
-			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=migrateAvatar",false);
-			if(XiptHelperSetup::migrateAvatarRequired()) {
-				$requiredSetup['migrateAvatar']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO MIGRATE AVATARS").'</a>';
-				$requiredSetup['migrateAvatar']['done'] = false;
-			}
-			else {
-				$requiredSetup['migrateAvatar']['message'] = JText::_("AVATARS ALREADY MIGRATED");
-				$requiredSetup['migrateAvatar']['done'] = true;
-			}
-			
-			
-		/*Display only if user have AEC installed*/
-		if(XiptLibAec::isAecExists()){
-			
-			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=patchAECfile",false);
-			if(XiptHelperSetup::isAECMIRequired()) {
-				$requiredSetup['patchAECfile']['message'] = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO INSTALL JSPT MI INTO AEC").'</a>';
-				$requiredSetup['patchAECfile']['done'] = false;
-			}
-			else {
-				$requiredSetup['patchAECfile']['message'] = JText::_("AEC MI ALREADY THERE");
-				$requiredSetup['patchAECfile']['done'] = true;
-			}
-		}
-		
-	/* display the link if admin approvel is installed but not enabled */
-	//XITODO : check if any profiletype have enbaled admin approval
-		if(XiptHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',false)){
-			if(XiptHelperSetup::isPluginInstalledAndEnabled('xi_adminapproval','system',true)==false)
-				$warnings['enableAdminApproval']['message'] = JText::_("ADMIN APPROVAL PLUGIN IS INSTALLED BUT NOT ENABLE.");
-			}
-		
-		if(XiptHelperSetup::isWaterMarkingRequired())
-				$warnings['enableWaterMarking']['message'] = JText::_("WATER MARKING IS NOT ENABLED IN SETTINGS BUT ENABLE FOR PROFILE TYPES.");
-			
 		// to check that setup screen is clean or not
 		$cleanUp=true;
-		$mysess = & JFactory::getSession();
+		$mysess = JFactory::getSession();
 		foreach($requiredSetup as $req)
 		{
 			if($req["done"]==false)
@@ -164,17 +68,9 @@ class XiptViewSetup extends XiptView
 		
 		parent::display( $tpl );
     }
-		
-	/**
-	 * Private method to set the toolbar for this view
-	 * 
-	 * @access private
-	 * 
-	 * @return null
-	 **/	 	 
+			 	 
 	function setToolBar()
 	{
-
 		// Set the titlebar text
 		JToolBarHelper::title( JText::_( 'Setup' ), 'setup' );
 	}

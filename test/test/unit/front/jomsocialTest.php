@@ -287,7 +287,8 @@ class JomsocialTest extends XiUnitTestCase
 
   }
   
-  function testChangeAvatarOnSyncUp()
+  // we are not using this function anymore
+  function xxtestChangeAvatarOnSyncUp()
   {
   	//case #1: return false when task is not syncUpUserPT
   	$this->assertFalse(XiptLibJomsocial::_changeAvatarOnSyncUp('',''));

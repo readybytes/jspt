@@ -20,14 +20,14 @@ class XiptProfiletypesHelperTest extends XiUnitTestCase
 				.'<option value="1" >ProfileType1</option>'
 				.'<option value="2"  selected="selected">ProfileType2</option>'
 				.'</select>');
-		$this->assertEquals($this->cleanWhiteSpaces(XiptHelperProfiletypes::buildTypes('2','profiletypes')),$html);
+		$this->assertEquals($this->cleanWhiteSpaces(XiptHelperProfiletypes::buildTypes(2,'profiletypes')),$html);
 		
 		// for groups
 		$html = '<selectname="group[]"id="group"class="inputbox"size="3"multiple>'
 				.'<optionvalue="1"selected="selected">Group1</option>'
 				.'<optionvalue="2">Group2</option><optionvalue="3">Group3</option>'
 				.'<optionvalue="0">None</option></select>';
-		$this->assertEquals($this->cleanWhiteSpaces(XiptHelperProfiletypes::buildTypes('1','group')),$html);
+		$this->assertEquals($this->cleanWhiteSpaces(XiptHelperProfiletypes::buildTypes(1,'group')),$html);
 		
 		// for privacy members
 		$html = '<selectname="privacy"id="privacy"class="inputbox"><optionvalue="friends">friends</option><optionvalue="members"selected="selected">members</option><optionvalue="public">public</option></select>';

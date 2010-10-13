@@ -40,6 +40,23 @@ class XiptFactory
 		return XiptFactory::getInstance($name,'model');
 	}
 
+	//XITODO : rename getSetupRule, apply caching 
+	function getSetupObject($name)
+	{		
+		$classname = 'XiptSetupRule'.JString::ucfirst($name);
+		
+		//if class doesn't exist, raise error
+		if(class_exists($classname, true)===false)
+		{
+			XiptError::raiseError(500,XiptText::_("Class $className not found"));
+			return false;
+		}	
+		
+		//create new object
+		$object = new $classname();
+		return $object;
+	}
+	
 	static function getInstance($name, $type, $prefix='Xipt', $refresh=false)
 	{
 		static $instance=array();

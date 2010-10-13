@@ -11,8 +11,16 @@ jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
 if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
-	return;
-
+	return false;
+	
+if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
+ 	return false;
+ 			
+$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
+ 		
+if($includeXipt === false)
+	return false;
+	
 class plgSystemxipt_system extends JPlugin
 {
 	var $_debugMode = 1;
@@ -23,26 +31,19 @@ class plgSystemxipt_system extends JPlugin
 		parent::__construct( $subject, $params );
 	}
 	
-	function _includeXipt()
-	{
-		if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
- 			return false;
- 			
-		$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
- 		
-		if( isset($includeXipt) && $includeXipt === false)
-			return false;
-			
-		return true;
-	}
+//	function _includeXipt()
+//	{
+//			
+//		return true;
+//	}
 	
 	function onAfterRoute()
 	{
 		global $mainframe;
 		 $oldTablePath = JTable::addIncludePath();
 		
-		if(!$this->_includeXipt())
-			return false;
+//		if(!$this->_includeXipt())
+//			return false;
 				
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();
@@ -90,8 +91,8 @@ class plgSystemxipt_system extends JPlugin
 	
 	function onAfterStoreUser($properties,$isNew,$result,$error)
 	{
-		if(!$this->_includeXipt())
-			return false;
+//		if(!$this->_includeXipt())
+//			return false;
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterStoreUser(array($properties,$isNew,$result,$error));
@@ -99,8 +100,8 @@ class plgSystemxipt_system extends JPlugin
 	
 	function onAfterDeleteUser($properties,$result,$error)
 	{
-		if(!$this->_includeXipt())
-			return false;
+//		if(!$this->_includeXipt())
+//			return false;
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterDeleteUser(array($properties,$result,$error));
@@ -108,8 +109,8 @@ class plgSystemxipt_system extends JPlugin
 	
 	function onBeforeProfileTypeSelection()
 	{
-		if(!$this->_includeXipt())
-			return false;
+//		if(!$this->_includeXipt())
+//			return false;
 			
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();
@@ -119,8 +120,8 @@ class plgSystemxipt_system extends JPlugin
 	
 	function onAfterProfileTypeSelection($ptypeid)
 	{
-		if(!$this->_includeXipt())
-			return false;
+//		if(!$this->_includeXipt())
+//			return false;
 			
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();

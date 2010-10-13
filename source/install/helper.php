@@ -15,28 +15,27 @@ class XiptHelperInstall
 		$siteURL  = JURI::base();
 		if(strstr($siteURL,'localhost')==false)
 		{
-			$version  = self::_get_js_version();
-		
+//			$version  = self::_get_js_version();
 			$siteURL  = JURI::base();
 		}
 	}
 
 
-	function check_version()
-	{
-		$version = self::_get_js_version();
-	
-		if(Jstring::stristr($version,'1.5'))
-		{?>
+//	function check_version()
+//	{
+//		$version = self::_get_js_version();
+//	
+//		if(Jstring::stristr($version,'1.5'))
+		/*{?>
 			<div>
 				ERROR : The JomSocial Version [<?php echo $version; ?>] used by you is not supported for ProfileTypes.
 				The JSPT 2.x.x release will only supports newer version of JomSocial since JomSocial 1.6.184.
 			</div>	
-			<?php
-			return false;
-		}
-		return true;
-	}
+			<?php*/
+//			return false;
+//		}
+//		return true;
+//	}
 
 	function copyAECfiles()
 	{
@@ -49,21 +48,21 @@ class XiptHelperInstall
 		return true;	
 	}
 
-	function _get_js_version()
-	{	
-		$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
-	
-		$parser		=& JFactory::getXMLParser('Simple');
-		$xml		= $CMP_PATH_ADMIN . DS . 'community.xml';
-	
-		$parser->loadFile( $xml );
-	
-		$doc		=& $parser->document;
-		$element	=& $doc->getElementByPath( 'version' );
-		$version	= $element->data();
-	
-		return $version;
-	}
+//	function _get_js_version()
+//	{	
+//		$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
+//	
+//		$parser		=& JFactory::getXMLParser('Simple');
+//		$xml		= $CMP_PATH_ADMIN . DS . 'community.xml';
+//	
+//		$parser->loadFile( $xml );
+//	
+//		$doc		=& $parser->document;
+//		$element	=& $doc->getElementByPath( 'version' );
+//		$version	= $element->data();
+//	
+//		return $version;
+//	}
 
 	
 	function _getJSPTFileList()
@@ -101,36 +100,36 @@ class XiptHelperInstall
 	}
 
 
-	function copy_files() 
-	{
-		$filestoreplace = self::_getJSPTFileList();
-		$MY_PATH_ADMIN	  = JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_xipt';
-	
-		foreach($filestoreplace AS $key => $val)
-		{
-			$sourceFile		= $MY_PATH_ADMIN.DS.'hacks'.DS.$key;
-			$targetFile		= $val;
-			$targetFileBackup 	= $targetFile.'.jxibak';
-
-			assert(JFile::exists($sourceFile)) || JError::raiseError('INSTERR', "File does not exist ".$sourceFile);
-			
-			// do backup first if we really have some file to replace
-			if(JFile::exists($targetFile)){
-			
-				// previous backup, delete it.
-				if(JFile::exists($targetFileBackup)){
-					JFile::delete($targetFileBackup);
-				}
-			
-				// create a backup
-				JFile::move($targetFile, $targetFileBackup);
-			}
-
-			// now copy files
-			assert(JFile::move($sourceFile, $targetFile)) || JError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
-		}
-		return true;
-	}
+//	function copy_files() 
+//	{
+//		$filestoreplace = self::_getJSPTFileList();
+//		$MY_PATH_ADMIN	  = JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_xipt';
+//	
+//		foreach($filestoreplace AS $key => $val)
+//		{
+//			$sourceFile		= $MY_PATH_ADMIN.DS.'hacks'.DS.$key;
+//			$targetFile		= $val;
+//			$targetFileBackup 	= $targetFile.'.jxibak';
+//
+//			assert(JFile::exists($sourceFile)) || JError::raiseError('INSTERR', "File does not exist ".$sourceFile);
+//			
+//			// do backup first if we really have some file to replace
+//			if(JFile::exists($targetFile)){
+//			
+//				// previous backup, delete it.
+//				if(JFile::exists($targetFileBackup)){
+//					JFile::delete($targetFileBackup);
+//				}
+//			
+//				// create a backup
+//				JFile::move($targetFile, $targetFileBackup);
+//			}
+//
+//			// now copy files
+//			assert(JFile::move($sourceFile, $targetFile)) || JError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
+//		}
+//		return true;
+//	}
 
 	function installExtensions($extPath=null)
 	{

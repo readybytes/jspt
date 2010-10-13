@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules name="pluginorder">
+	<rule name="xiptplugin" />
+	<rule name="createprofiletypes" />
+	<rule name="defaultprofiletype" />
+	<rule name="jsfields" />
+	<rule name="patchfiles" />
+	<rule name="syncupusers" />
+	<rule name="aecmi" />
+</rules>

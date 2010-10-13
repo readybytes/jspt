@@ -12,11 +12,16 @@ jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
 if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
-	return;
+	return false;
 
-if(JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
-	require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-
+if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
+ 	return false;
+ 			
+$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
+ 		
+if($includeXipt === false)
+	return false;
+	
 class plgCommunityxipt_community extends CApplications
 {
 	private $_pluginHandler;

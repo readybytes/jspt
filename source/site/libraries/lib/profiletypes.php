@@ -444,6 +444,10 @@ class XiptLibProfiletypes
 				return true;
 		}	
 		
+		//if user avatar contains "STORAGE_PATH/avatar_" then it is default avatar
+		if(JString::stristr($path,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_'))
+			return true;
+		
 		static $allAvatars = null ;
 		//it will improve the performance
 		if($allAvatars == null)
