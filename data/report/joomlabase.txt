@@ -21,9 +21,8 @@
 ../packages/tmp/admin/controllers/setup.php:66:		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
 ../packages/tmp/admin/controllers/profiletypes.php:146:				JFactory::getApplication()->enqueueMessage($message);
 ../packages/tmp/admin/includes.php:22:		JFactory::getApplication()->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
-../packages/tmp/admin/views/profiletypes/view.html.php:91://		$db			=& JFactory::getDBO();
 ../packages/tmp/admin/views/profiletypes/tmpl/default_edit.php:21:	                $editor =& JFactory::getEditor();
-../packages/tmp/admin/views/profiletypes/tmpl/default_edit.php:145:									<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&editId='.$this->row->id.'&oldAvatar='.$this->row->avatar, false); ?>
+../packages/tmp/admin/views/profiletypes/tmpl/default_edit.php:145:									<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&editId='.$this->data->id.'&oldAvatar='.$this->data->avatar, false); ?>
 ../packages/tmp/admin/views/setup/view.html.php:45:		$mysess = JFactory::getSession();
 ../packages/tmp/admin/xipt.php:17:	JFactory::getApplication()->enqueueMessage($msg);	 
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:49:		$database	=& JFactory::getDBO();
@@ -153,25 +152,25 @@
 ../packages/tmp/site/models/profilefields.php:18:		$db			= JFactory::getDBO();
 ../packages/tmp/site/models/profilefields.php:31:		global $mainframe;
 ../packages/tmp/site/models/profilefields.php:76:			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && $mainframe->isAdmin()==false)
-../packages/tmp/site/models/profiletypes.php:131:			$db 	=& JFactory::getDBO();
+../packages/tmp/site/models/profiletypes.php:138:			$db 	=& JFactory::getDBO();
 ../packages/tmp/site/tables/aclrules.php:43:	 * Overrides Joomla's JTable store method so that we can define proper values
 ../packages/tmp/site/elements/profilefields.php:30:			$db	=& JFactory::getDBO();
 ../packages/tmp/site/helpers/table.php:13:		$db		 	=	JFactory::getDBO();
 ../packages/tmp/site/helpers/registration.php:13:		$mySess 	= JFactory::getSession();
 ../packages/tmp/site/helpers/registration.php:20:		$mySess 	= JFactory::getSession();
 ../packages/tmp/site/helpers/profiletypes.php:55:		$usertypes= XiptLibJoomla::getJUserTypes();
-../packages/tmp/site/helpers/profiletypes.php:188:		global $mainframe;
-../packages/tmp/site/helpers/profiletypes.php:197:			$mainframe->enqueueMessage( JText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
-../packages/tmp/site/helpers/profiletypes.php:198:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
-../packages/tmp/site/helpers/profiletypes.php:203:			$mainframe->enqueueMessage(JText::_('IMAGE FILE NOT SUPPORTED'), 'error');
-../packages/tmp/site/helpers/profiletypes.php:235:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
-../packages/tmp/site/helpers/profiletypes.php:241:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
-../packages/tmp/site/helpers/profiletypes.php:280:			$db =& JFactory::getDBO();
-../packages/tmp/site/helpers/profiletypes.php:296:    	$mySess = JFactory::getSession();
-../packages/tmp/site/helpers/profiletypes.php:304:		return JFactory::getApplication()->redirect($redirectUrl,$msg);
-../packages/tmp/site/helpers/profiletypes.php:310:    	$mySess = & JFactory::getSession();
-../packages/tmp/site/helpers/profiletypes.php:316:			JFactory::getApplication()->redirect('index.php?option=com_xipt&view=registration',$msg);
-../packages/tmp/site/helpers/profiletypes.php:322:		JFactory::getApplication()->redirect($redirectUrl);
+../packages/tmp/site/helpers/profiletypes.php:189:		global $mainframe;
+../packages/tmp/site/helpers/profiletypes.php:198:			$mainframe->enqueueMessage( JText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
+../packages/tmp/site/helpers/profiletypes.php:199:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
+../packages/tmp/site/helpers/profiletypes.php:204:			$mainframe->enqueueMessage(JText::_('IMAGE FILE NOT SUPPORTED'), 'error');
+../packages/tmp/site/helpers/profiletypes.php:236:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
+../packages/tmp/site/helpers/profiletypes.php:242:				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
+../packages/tmp/site/helpers/profiletypes.php:281:			$db =& JFactory::getDBO();
+../packages/tmp/site/helpers/profiletypes.php:297:    	$mySess = JFactory::getSession();
+../packages/tmp/site/helpers/profiletypes.php:305:		return JFactory::getApplication()->redirect($redirectUrl,$msg);
+../packages/tmp/site/helpers/profiletypes.php:312:    	$mySess = & JFactory::getSession();
+../packages/tmp/site/helpers/profiletypes.php:318:			JFactory::getApplication()->redirect('index.php?option=com_xipt&view=registration',$msg);
+../packages/tmp/site/helpers/profiletypes.php:324:		JFactory::getApplication()->redirect($redirectUrl);
 ../packages/tmp/site/helpers/unhook.php:16:		$db			=& JFactory::getDBO();		
 ../packages/tmp/site/helpers/utils.php:13:		$my	= JFactory::getUser($id);		
 ../packages/tmp/site/helpers/jomsocial.php:48:		$parser		= JFactory::getXMLParser('Simple');

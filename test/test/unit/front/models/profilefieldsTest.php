@@ -4,22 +4,10 @@
 
 class XiptProfilefieldsModelTest extends XiUnitTestCase
 {
-//	function getSqlPath()
-//	{
-//		return dirname(__FILE__).'/sql/'.__CLASS__;
-//	}
-	
-	function testdummy()
-	{}
-//	
-//	function testResetFieldId()
-//	{
-//		$model 	= new XiptModelProfilefields();
-//		
-//		$model->resetFieldId(3);
-//		
-//		$this->_DBO->addTable('#__xipt_profilefields');
-//	}
+	function getSqlPath()
+	{
+		return dirname(__FILE__).'/sql/'.__CLASS__;
+	}
 	
   function testNotSelectedFieldForProfiletype()
   {
