@@ -31,12 +31,30 @@ class XiptModelProfiletypes extends XiptModel
 		
 	function visible($id)
 	{		
-		return $this->save( array('visible'=>1), $id );		
+		if(!is_array($id))
+			$id = array($id);			
+		
+		if(empty($id))
+			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO MAKE VISIBLE'));
+				
+		foreach($id as $pk)
+			$this->save( array('visible'=>1), $pk );
+
+		return true;
 	}
 	
 	function invisible($id)
 	{		
-		return $this->save( array('visible'=>0), $id );		
+		if(!is_array($id))
+			$id = array($id);			
+		
+		if(empty($id))
+			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO MAKE INVISIBLE'));
+				
+		foreach($id as $pk)
+			$this->save( array('visible'=>0), $pk );
+
+		return true;
 	}
 	
 	/**
@@ -56,14 +74,14 @@ class XiptModelProfiletypes extends XiptModel
 			parent::saveParams($data, $id, $what);
 			return;
 		}
-			
-		//XITODO : move cleanup to controller
-		unset($data[JUtility::getToken()]);
-		unset($data['option']);
-		unset($data['task']);
-		unset($data['view']);
-		unset($data['id']);
 		
+		// XITODO : move this to controller
+		unset($data[JUtility::getToken()]);
+        unset($data['option']);
+        unset($data['task']);
+        unset($data['view']);
+        unset($data['id']);
+               
 		//XITODO : bind params 
 		$registry	= new JRegistry();
 		$registry->loadArray($data);
@@ -76,9 +94,9 @@ class XiptModelProfiletypes extends XiptModel
 	{
 		$reset = XiptLibJomsocial::cleanStaticCache();
 		if($what != 'params')
-			return parent::loadParams($id, $what = 'params');
+			return parent::loadParams($id, $what);
 		
-		if( isset($this->_params[$id]) && $reset == false)
+		if( isset($this->_params[$id])&& $reset == false)
 			return $this->_params[$id]; 		
 		
 		$record = $this->loadRecords();

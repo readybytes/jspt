@@ -48,7 +48,7 @@ class XiptHelperApps
 	function buildProfileTypesforApplication( $aid )
 	{
 		$selectedTypes 	= XiptHelperApps::getProfileTypeArray($aid);		
-		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray('ALL','');
+		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true);
 		
 		$html	= '';
 		

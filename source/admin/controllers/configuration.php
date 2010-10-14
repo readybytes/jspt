@@ -31,10 +31,17 @@ class XiptControllerConfiguration extends XiptController
 		if($postData === null)
 			$postData	= JRequest::get('post', JREQUEST_ALLOWRAW );
 
+		// unset the data which is not required
+		unset($postData[JUtility::getToken()]);
+		unset($postData['option']);
+		unset($postData['task']);
+		unset($postData['view']);
+		unset($postData['id']);
+		
 		$pModel	= $this->getModel();
 
 		// Try to save configurations
-		if(!$pModel->saveParams($postData, $id) ){
+		if(!$pModel->saveParams($postData, $id, 'params') ){
 			XiptError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
 			return false;
 		}
@@ -47,6 +54,7 @@ class XiptControllerConfiguration extends XiptController
 
 	function reset($id=0)
 	{
+		//XITODO : what to do if invalid id comes 
 		$id		= JRequest::getVar( 'profileId',$id);
 		$pModel	= $this->getModel();
 

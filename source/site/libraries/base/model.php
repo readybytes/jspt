@@ -80,22 +80,25 @@ abstract class XiptModel extends JModel
 	}
 
 	
-	private function __getEmptyRecord()
+	public function getEmptyRecord()
 	{
 		$vars = $this->getTable()->getProperties();
 		$retObj = new stdClass();
 
-		foreach($vars as $key => $value)
-			$retObj->$key = null;
-
-		return array($retObj);
+		$table = $this->getTable();
+		$table->load(null);
+	
+		foreach($vars as $key => $value)		
+			$retObj->$key = $table->$key;
+		
+		return array(0 => $retObj);
 	}
 	
 	/*
 	 * Returns Records from Model Tables
 	 * as per Model STATE
 	 */
-	public function loadRecords($limit=null, $limitstart=null, $emptyRecord=false)
+	public function loadRecords($limit=null, $limitstart=null)
 	{
 		if($limit===null)
 			$limit = $this->getState('limit',null);
@@ -115,10 +118,6 @@ abstract class XiptModel extends JModel
 		$this->_recordlist = $query->limit($limit,$limitstart)
 									->dbLoadQuery("", "")
 									->loadObjectList($pKey);
-
-		if($emptyRecord){
-			$this->_recordlist = $this->__getEmptyRecord();
-		}
 
 		return $this->_recordlist;
 	}
@@ -249,12 +248,30 @@ abstract class XiptModel extends JModel
 	// XITODO : check these fileds exist in table or not
 	function publish($id)
 	{		
-		return $this->save( array('published'=>1), $id );		
+		if(!is_array($id))
+			$id = array($id);			
+		
+		if(array() === $id)
+			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO PUBLISH'));
+	
+		foreach($id as $pk)
+			$this->save( array('published'=>1), $pk );
+
+		return true;
 	}
 	
 	function unpublish($id)
 	{		
-		return $this->save( array('published'=>0), $id );		
+		if(!is_array($id))
+			$id = array($id);			
+		
+		if(array() === $id)
+			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO UNPUBLISH'));
+				
+		foreach($id as $pk)
+			$this->save( array('published'=>0), $pk );
+
+		return true;
 	}	
 	
 	function saveParams($data, $id, $what = '')
@@ -277,7 +294,7 @@ abstract class XiptModel extends JModel
 		return $this->save(array($what => $iniData), $id);
 	}
 	
-	function loadParams($id, $what = '')
+	function loadParams($id, $what='')
 	{		
 		$record = $this->loadRecords();
 		
@@ -288,7 +305,7 @@ abstract class XiptModel extends JModel
 		XiptHelperUtils::XAssert(JFile::exists($xmlPath));
 			
 		$config = new JParameter($iniData,$xmlPath);
-		$config->bind($record[$id]->$what);	
+		if(isset($record[$id])) $config->bind($record[$id]->$what);	
 		
 		return $config;
 	}

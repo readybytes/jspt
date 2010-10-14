@@ -70,12 +70,12 @@ JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 <div class="clr"></div>
 
 <div style="float:left; margin-left: 320px">
-	<input type="submit" name="aclnext" value="<?php echo JText::_('NEXT');?>" onclick="submitbutton('renderacl');"/>
+	<input type="submit" name="aclnext" value="<?php echo JText::_('NEXT');?>" onclick="submitbutton('edit');"/>
 </div>	
 	<input type="hidden" name="option" value="com_xipt" />
 	<input type="hidden" name="view" value="<?php echo JRequest::getCmd( 'view' , 'aclrules' );?>" />
 	<input type="hidden" name="id" value="" />
-	<input type="hidden" name="task" value="renderacl" />
+	<input type="hidden" name="task" value="edit" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 <?php 

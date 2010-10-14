@@ -10,14 +10,12 @@ class XiptViewAclRules extends XiptView
 {
 	function display($tpl = null)
 	{
-		$aclModel	= XiptFactory::getModel( 'AclRules' );
+		$aclModel	= $this->getModel();
 		
-		$rules		=& $aclModel->loadRecords();
-		$pagination	=& $aclModel->getPagination();
+		$rules		= $aclModel->loadRecords();
+		$pagination	= $aclModel->getPagination();
 		
 		$this->setToolbar();
-		// Load tooltips
-		JHTML::_('behavior.tooltip', '.hasTip');
 
 		$ruleProfiletype = array();
 		if(!empty($rules)) {
@@ -32,7 +30,7 @@ class XiptViewAclRules extends XiptView
 		$this->assign( 'rules' , $rules );
 		$this->assign( 'ruleProfiletype' , $ruleProfiletype );
 		$this->assignRef( 'pagination'	, $pagination );
-		parent::display( $tpl );
+		return parent::display( $tpl );
     }
 	
 	function setToolBar()
@@ -49,18 +47,15 @@ class XiptViewAclRules extends XiptView
 		JToolBarHelper::publishList('publish', JText::_( 'PUBLISH' ));
 		JToolBarHelper::unpublishList('unpublish', JText::_( 'UNPUBLISH' ));
 	}
-	
-	
 
-	function add($tpl = null)
+	function add($tpl = 'add')
 	{
 		$acl = XiptAclFactory::getAcl();
 		$this->assign( 'acl' , $acl );
-		parent::display($tpl);
-	}
+		return parent::display($tpl);
+	}	
 	
-	
-	function renderacl($data,$tpl = null)
+	function edit($data,$tpl = 'edit')
 	{
 		$coreParamsHtml = '';
 		$aclParamsHtml = '';
@@ -74,6 +69,6 @@ class XiptViewAclRules extends XiptView
 		$this->assignRef('coreParamsHtml',		$coreParamsHtml);
 		$this->assignRef('aclParamsHtml',		$aclParamsHtml);
 		$this->assign('aclruleInfo',$data);
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 }

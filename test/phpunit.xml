@@ -21,21 +21,7 @@
         <file>test/com_xipt/front/frontAclRulesTest.php</file>
 		<file>test/com_xipt/front/aclRuleTest.php</file>
 		<file>test/com_xipt/front/applicationForFrontTest.php</file>
-		<file>test/unit/front/routeTest.php</file>
-		<file>test/unit/front/profiletypeUnitTest.php</file>
-		<file>test/unit/front/appsTest.php</file>
-		<file>test/unit/front/profileFieldControlTest.php</file>
-		<file>test/unit/front/jomsocialTest.php</file>
-		<file>test/unit/front/aecTest.php</file>
-		<file>test/unit/front/imageTest.php</file>
-		
-		<file>test/unit/front/tableTest.php</file>
-		<file>test/unit/front/modelTest.php</file>
-		<file>test/unit/front/tables/usersTest.php</file>
-		<file>test/unit/front/tables/settingsTest.php</file>
-		<file>test/unit/front/models/applicationsTest.php</file>
-		<file>test/unit/front/models/profilefieldsTest.php</file>
-		<file>test/unit/front/models/profiletypesTest.php</file>
+		<directory>test/unit</directory>
 	 </testsuite>
 	
 	<listeners>

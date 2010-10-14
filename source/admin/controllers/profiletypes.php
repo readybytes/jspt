@@ -18,64 +18,36 @@ class XiptControllerProfiletypes extends XiptController
 		$this->registerTask( 'orderdown' , 'saveOrder' );
 	}
 	
-    function display() 
+	function edit($id=0)
 	{
-		parent::display();
-    }
-	
-	function edit()
-	{
-		$id = JRequest::getVar('editId', 0 , 'GET');
-		
-		$viewName	= JRequest::getCmd( 'view' , 'profiletypes' );
-		
-		// Get the document object
-		$document	=& JFactory::getDocument();
-
-		// Get the view type
-		$viewType	= $document->getType();
-		
-		$view		=& $this->getView( $viewName , $viewType );
-		$layout		= JRequest::getCmd( 'layout' , 'profiletypes.edit' );
-		$view->setLayout( $layout );
-		echo $view->edit($id);
-	}
-	
+		$id 	= JRequest::getVar('editId', $id , 'GET');					
+		return $this->getView()->edit($id);
+	}	
 	
 	function apply()
 	{
-		global $mainframe;
-
 		$info = $this->_processSave();
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
-		$mainframe->redirect($link, $info['msg']);
+		$this->setRedirect($link, $info['msg']);
 	}
-	
-	
-	
+		
 	function save()
 	{
-		global $mainframe;
-
-		
 		$info = $this->_processSave();
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $info['msg']);
+		$this->setRedirect($link, $info['msg']);
 	}
 	
-	
-	function _processSave()
+	// XITO : needs test case
+	function _processSave($post=null,$cid=array(0))
 	{
-		$post	= JRequest::get('post');
-		$cid	= JRequest::getVar('cid', array(0), 'post', 'array');
+		if($post === null) $post	= JRequest::get('post');
+		$cid	= JRequest::getVar('cid', $cid, 'post', 'array');
 		
-		$info = array();
-		$info['id'] = $cid[0];
-		$info['msg'] = '';
-		
+	
 		//We only need few data as special case
 		$data = $post;
-		$data['tip'] 		= JRequest::getVar( 'tip', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		$data['tip'] 		= JRequest::getVar( 'tip', $post['tip'], 'post', 'string', JREQUEST_ALLOWRAW );
 		$data['group'] 		= implode(',',$post['group']);
 
 		// These data will be seperately stored, we dont want to update these
@@ -91,9 +63,7 @@ class XiptControllerProfiletypes extends XiptController
 		
 		// now save model
 		$id	= $model->save($data, $cid[0]);
-		
-		if(!$id)
-			XiptError::raiseError(500, "SAVE ERROR");
+		XiptError::assert($id);
 		
 		// Now store other data
 		// Handle Avatar : call uploadImage function if post(image) data is set
@@ -102,9 +72,9 @@ class XiptControllerProfiletypes extends XiptController
 			XiptHelperProfiletypes::uploadAndSetImage($fileAvatar,$id,'avatar');
 
 		// Handle Params : watermarkparams, privacy, config
-		$model->saveParams($post['watermarkparams'],$id, $what='watermarkparams');
-		$model->saveParams($post['config'], 		$id, $what='config');
-		$model->saveParams($post['privacy'], 		$id, $what='privacy');
+		$model->saveParams($post['watermarkparams'],$id, 'watermarkparams');
+		$model->saveParams($post['config'], 		$id, 'config');
+		$model->saveParams($post['privacy'], 		$id, 'privacy');
 
 		// now generate watermark, and update watermark field
 		$image = $this->_saveWatermark($id);
@@ -159,194 +129,85 @@ class XiptControllerProfiletypes extends XiptController
 		return;
 	}
 	
-	function remove()
+	function remove($ids=array())
 	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		
-		$ids	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
+		$ids	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 	
-		//$post['id'] = (int) $cid[0];
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
 		$i = 1;
-
-		if(!empty($ids))
+		//XITODO : Clean and commonize it
+		$defaultPtype = XiptLibProfiletypes::getDefaultProfiletype();
+		foreach( $ids as $id )
 		{
-			foreach( $ids as $id )
+			// can not delete default profiletype
+			if($id == $defaultPtype)
 			{
-				$row->load( $id );
-				if($id == XiptLibProfiletypes::getDefaultProfiletype())
-				{
-					$message= JText::_('CAN NOT DELETE DEFAULT PROFILE TYPE');
-					$mainframe->enqueueMessage($message);
-					continue;
-				}
-				if(!$row->delete( $id ))
-				{
-					// If there are any error when deleting, we just stop and redirect user with error.
-					$message	= JText::_('ERROR IN REMOVING PROFILETYPE');
-					$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' , $message);
-					exit;
-				}
-				$i++;
+				$message= JText::_('CAN NOT DELETE DEFAULT PROFILE TYPE');
+				JFactory::getApplication()->enqueueMessage($message);
+				continue;
 			}
-		}
-
-		$count = $i - 1;
+			
+			if(!$this->getModel()->delete($id))
+			{
+				// If there are any error when deleting, we just stop and redirect user with error.
+				$message	= JText::_('ERROR IN REMOVING PROFILETYPE');
+				$this->setRedirect($link, $message);
+				return false;
+			}
+			$i++;
+		}	
 		
-		$cache = & JFactory::getCache('com_content');
-		$cache->clean();
-		$message	= $count.' '.JText::_('PROFILETYPE REMOVED');		
-		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $message);
+		$message	= ($i - 1).' '.JText::_('PROFILETYPE REMOVED');		
+		$this->setRedirect($link, $message);
 	}
 	
-	
-	function publish()
+	function visible($ids=array(0))
 	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		// Initialize variables
-		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$count			= count( $ids );
+		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
+		$count		= count( $ids );
 
-		if (empty( $ids )) {
-			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
+		if(!$this->getModel()->visible($ids)){
+			XiptError::raiseWarning(500,JText::_('ERROR IN MAKING PROFILETYPE VISIBLE'));
+			return false;
 		}
 		
-		$pModel	= XiptFactory::getModel( 'profiletypes' );
-		foreach($ids as $id)
-		{
-			$pModel->publish($id);
-		}
-		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
-		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);	
-		return true;
-	}
-	
-	function unpublish()
-	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		// Initialize variables
-		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$count			= count( $ids );
-
-		if (empty( $ids )) {
-			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
-		}
-		
-		$pModel	= XiptFactory::getModel( 'profiletypes' );
-		foreach($ids as $id)
-		{
-			$pModel->unpublish($id);
-		}
-		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
-		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);
-		return true;
-	}
-	
-	function visible()
-	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		// Initialize variables
-		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$count			= count( $ids );
-
-		if (empty( $ids )) {
-			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
-		}
-		
-		$pModel	= XiptFactory::getModel( 'profiletypes' );
-		foreach($ids as $id)
-		{
-			$pModel->visible($id);
-		}
 		$msg = sprintf(JText::_('ITEMS VISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);	
+		$this->setRedirect($link, $msg);	
 		return true;
 	}
 	
-	function invisible()
+	function invisible($ids=array(0))
 	{
-		global $mainframe;
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-		// Initialize variables
-		$ids		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$count			= count( $ids );
+		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
+		$count		= count( $ids );
 
-		if (empty( $ids )) {
-			return XiptError::raiseWarning( 500, JText::_( 'No items selected' ) );
+		if(!$this->getModel()->invisible($ids)){
+			XiptError::raiseWarning(500,JText::_('ERROR IN MAKING PROFILETYPE INVISIBLE'));
+			return false;
 		}
 		
-		$pModel	= XiptFactory::getModel( 'profiletypes' );
-		foreach($ids as $id)
-		{
-			$pModel->invisible($id);
-		}
 		$msg = sprintf(JText::_('ITEMS INVISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
-		$mainframe->redirect($link, $msg);
+		$this->setRedirect($link, $msg);
 		return true;
 	}
 	
-/**	
-	 * Save the ordering of the entire records.
-	 *	 	
-	 * @access public
-	 *
-	 **/	 
-	function saveOrder()
+	function removeAvatar($id=0, $oldAvatar=null)
 	{
-		global $mainframe;
-	
-		// Determine whether to order it up or down
-		$direction	= ( JRequest::getWord( 'task' , '' ) == 'orderup' ) ? -1 : 1;
-
-		// Get the ID in the correct location
- 		$id			= JRequest::getVar( 'cid', array(), 'post', 'array' );
-
-		if( isset( $id[0] ) )
-		{
-			$id		= (int) $id[0];
-			
-			// Load the JTable Object.
-			$table	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-		
-			$table->load( $id );
-			$table->move( $direction );
-			
-			
-			$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes' );
-		}
-	}
-	
-	function removeAvatar()
-	{
-		global $mainframe;
-		
 		//get id and old avatar.
-		$id        = JRequest::getVar('editId', 0 , 'GET');
-		$oldAvatar = JRequest::getVar('oldAvatar', 0 , 'GET');
+		$id        = JRequest::getVar('editId', $id, 'GET');
+		$oldAvatar = JRequest::getVar('oldAvatar', $oldAvatar, 'GET');
 		
 		$newavatar 		= DEFAULT_AVATAR ;
 		$newavatarthumb	= DEFAULT_AVATAR_THUMB;
-		$profiletype	=XiptFactory::getModel( 'Profiletypes' );
+		$profiletype	= $this->getModel();
 		
 		$profiletype->save( array('avatar' => $newavatar), $id );;
 		
 		$profiletype->resetUserAvatar($id, $newavatar, $oldAvatar, $newavatarthumb);
-		$mainframe->redirect( 'index.php?option=com_xipt&view=profiletypes');
+		$this->setRedirect('index.php?option=com_xipt&view=profiletypes');
+		return true;
 	}
 	
 	function _saveWatermark($id)

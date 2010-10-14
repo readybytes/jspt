@@ -8,6 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
  
 class XiptControllerCPanel extends XiptController 
 {    
+	public function getModel($modelName=null)
+    {
+		// support for parameter
+        if($modelName===null || $modelName === $this->getName())
+        	return false;
+
+		return parent::getModel($modelName);
+    }
+       
 	function aboutus()
 	{
 		return $this->getView()->aboutus();

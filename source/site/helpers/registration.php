@@ -102,9 +102,16 @@ class XiptHelperRegistration
 	
 	function ajaxCheckEmailDuringFacebook(&$args, &$response)
 	{
+		//Added Profiletype Specific support
+		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
+		if(!$ptype){
+			XiptError::raiseWarning(500,XiptText::_('PROFILE TYPE IS NOT SELECTED'));
+			return false;
+		}
+		
 		// as per JomSocial code
 		$email = $args[0];
-		if(XiptHelperRegistration::checkIfEmailAllowed($email))
+		if(XiptHelperRegistration::checkIfEmailAllowed($email, $ptype))
 			return true;
 
 		// invalid emails
@@ -118,9 +125,15 @@ class XiptHelperRegistration
 	
 	function ajaxCheckUsernameDuringFacebook(&$args, &$response)
 	{
+		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
+		if(!$ptype){
+			XiptError::raiseWarning(500,XiptText::_('PROFILE TYPE IS NOT SELECTED'));
+			return false;
+		}
+		
 		// as per JomSocial code
 		$email = $args[0];
-		if(XiptHelperRegistration::checkIfUsernameAllowed($email))
+		if(XiptHelperRegistration::checkIfUsernameAllowed($email, $ptype))
 			return true;
 
 		// invalid emails
@@ -135,9 +148,15 @@ class XiptHelperRegistration
 	
 	function ajaxCheckEmail(&$args, &$response)
 	{
+		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
+		if(!$ptype){
+			XiptError::raiseWarning(500,XiptText::_('PROFILE TYPE IS NOT SELECTED'));
+			return false;
+		}
+		
 		// as per JomSocial code
 		$email = $args[0];
-		if(XiptHelperRegistration::checkIfEmailAllowed($email))
+		if(XiptHelperRegistration::checkIfEmailAllowed($email,$ptype))
 			return true;
 
 		// invalid emails
@@ -152,9 +171,15 @@ class XiptHelperRegistration
 
 	function ajaxCheckUserName(&$args, &$response)
 	{
+		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
+		if(!$ptype){
+			XiptError::raiseWarning(500,XiptText::_('PROFILE TYPE IS NOT SELECTED'));
+			return false;
+		}
+		
 		// as per JomSocial code
 		$uname = $args[0];
-		if(XiptHelperRegistration::checkIfUsernameAllowed($uname))
+		if(XiptHelperRegistration::checkIfUsernameAllowed($uname, $ptype))
 			return true;
 
 		// username not allowed
@@ -166,6 +191,7 @@ class XiptHelperRegistration
 		$response->addScriptCall('false;');
 		return false;
 	}
+	
 	function getPTPrivacyValue($privacy)
 	{
 			$value = PRIVACY_PUBLIC;
@@ -186,21 +212,17 @@ class XiptHelperRegistration
 		return $value;
 	}
     
-	function checkIfEmailAllowed($testEmail)
+	function checkIfEmailAllowed($testEmail, $ptype)
 	{
-		$config = XiptFactory::getParams('', 0);
-		
-		$jspt_restrict_reg_check = $config->get('jspt_restrict_reg_check',false);
-		if($jspt_restrict_reg_check == false)
+		//jspt_prevent_username
+		$config = XiptLibProfiletypes::getParams($ptype, 'config');
+	
+		if(!$config->get('jspt_restrict_reg_check',false))
 			return true;
 			
-		$jspt_allowed_email = $config->get('jspt_allowed_email');
-		$jspt_prevent_email = $config->get('jspt_prevent_email');
-		
-		// is the email blocked
-		$invalidemails		= explode(';',$jspt_prevent_email);
-		
-		if($invalidemails != '' && $jspt_prevent_email != '')
+		$invalidemails = explode(';', $config->get('jspt_prevent_email',''));		
+				
+		if($invalidemails != '')
 		{
 			foreach($invalidemails as $invalidemail)
 			{
@@ -214,8 +236,8 @@ class XiptHelperRegistration
 		}
 
 		// if allowed email
-		$validemails		= explode(';',$jspt_allowed_email);
-		if($validemails != '' && $jspt_allowed_email != '')
+		$validemails		= explode(';',$config->get('jspt_allowed_email',''));
+		if($validemails != '')
 		{
 			foreach($validemails as $validemail)
 			{
@@ -234,29 +256,27 @@ class XiptHelperRegistration
 		return true;
 	}
 	
-	function checkIfUsernameAllowed($testUsername)
+	function checkIfUsernameAllowed($testUsername, $ptype)
 	{
 		//jspt_prevent_username
-		$config = XiptFactory::getParams('', 0);
-		
-		$jspt_restrict_reg_check = $config->get('jspt_restrict_reg_check',false);
-		if($jspt_restrict_reg_check == false)
+		$config = XiptLibProfiletypes::getParams($ptype, 'config');
+	
+		if(!$config->get('jspt_restrict_reg_check',false))
 			return true;
 			
-		$jspt_prevent_username = $config->get('jspt_prevent_username');
+		$invalidUsernames = explode(';', $config->get('jspt_prevent_username',''));
 		
-		// is the email blocked
-		$invalidUsernames		= explode(';',$jspt_prevent_username);
-		if($invalidUsernames!='')
-			foreach($invalidUsernames as $invalidUsername)
-			{
-				$username	= preg_quote(trim($invalidUsername), '#');
-				$username	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $username);
-				$regex		= "#^(?:$username)$#i";
+		if($invalidUsernames == '' || empty($invalidUsernames))
+			return true;
+		
+		foreach($invalidUsernames as $invalidUsername){
+			$username	= preg_quote(trim($invalidUsername), '#');
+			$username	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $username);
+			$regex		= "#^(?:$username)$#i";
 			
-				if(preg_match($regex, $testUsername))
-					return false;
-			}
+			if(preg_match($regex, $testUsername))
+				return false;
+		}
 		
 		//passed through all rules, allow it
 		return true;

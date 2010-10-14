@@ -51,7 +51,7 @@ class XiptHelperProfilefields
 	function buildProfileTypes( $fid ,$for)
 		{
 			$selectedTypes 	= XiptHelperProfilefields::getProfileTypeArray($fid,$for);		
-			$allTypes		= XiptHelperProfiletypes::getProfileTypeArray('ALL');
+			$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true);
 			
 			$html			= '';
 			$categories		= XiptHelperProfilefields::getProfileFieldCategories();	

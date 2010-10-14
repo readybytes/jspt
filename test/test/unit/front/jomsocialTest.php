@@ -90,39 +90,39 @@ class JomsocialTest extends XiUnitTestCase
   
   function testUpdateCommunityConfig()
   {
-  	//case #1 when user is guest return true
-  	$instance 		= new JParameter('', '');
-  	$this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 0));
-  	$this->assertEquals($instance->get('enableterms'), 1);
-  	
-  	//case #2 when user is not guest
-  	$instance 		= new JParameter('', '');
-  	$this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 84));
-  	$this->assertEquals($instance->get('enablemyblogicon'), 1);
-  	
-  	//#case 3 : Templates
-  	//#case 3.1: when guest is looking user profile, don't set template
-  	$instance 		= new JParameter('', '');
-  	$this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 0));
-  	$this->assertEquals($instance->get('template'), '');
-  	
-  	//#case 3.2: when guest is looking user profile, set template as per visiting user
-  	$instance 		= new JParameter('', '');
-  	JRequest::setVar('userid', 82,'POST');
-  	$this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 84));
-  	$this->assertEquals($instance->get('template'), 'default');
-  	
-  	//#case 3.3: when guest is looking user profile, set template as per visiting user
-  	$instance 		= new JParameter('', '');
-  	JRequest::setVar('userid', 83,'POST');
-  	$this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 83));
-  	$this->assertEquals($instance->get('template'), 'blueface');
-  	
-  	//#case 3.4: when guest is looking user profile, set template as per visiting user
-  	$instance 		= new JParameter('', '');
-  	JRequest::setVar('userid', 84,'POST');
-  	$this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 82));
-  	$this->assertEquals($instance->get('template'), 'blackout');
+  		//case #1 when user is guest return true
+         $instance                 = new JParameter('', '');
+         $this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 0));
+         $this->assertEquals($instance->get('enableterms'), 1);
+         
+         //case #2 when user is not guest
+         $instance                 = new JParameter('', '');
+         $this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 84));
+         $this->assertEquals($instance->get('enablemyblogicon'), 1);
+         
+         //#case 3 : Templates
+         //#case 3.1: when guest is looking user profile, don't set template
+         $instance                 = new JParameter('', '');
+         $this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 0));
+         $this->assertEquals($instance->get('template'), '');
+         
+         //#case 3.2: when guest is looking user profile, set template as per visiting user
+         $instance                 = new JParameter('', '');
+         JRequest::setVar('userid', 82,'POST');
+         $this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 84));
+         $this->assertEquals($instance->get('template'), 'default');
+         
+         //#case 3.3: when guest is looking user profile, set template as per visiting user
+         $instance                 = new JParameter('', '');
+         JRequest::setVar('userid', 83,'POST');
+         $this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 83));
+         $this->assertEquals($instance->get('template'), 'blueface');
+         
+         //#case 3.4: when guest is looking user profile, set template as per visiting user
+         $instance                 = new JParameter('', '');
+         JRequest::setVar('userid', 84,'POST');
+         $this->assertTrue(XiptLibJomsocial::updateCommunityConfig(&$instance, 82));
+         $this->assertEquals($instance->get('template'), 'blackout');
   }
   
   function testUpdateCommunityCustomField()

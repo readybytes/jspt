@@ -9,8 +9,21 @@ class XiptRegistrationHelperTest extends XiUnitTestCase
 	
 	function testAjaxCheckUsername()
 	{
-		$uname = 'username'.rand(111111,999999);
-		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed($uname));
-		//$this->assert(XiptHelperRegistration::checkIfUsernameAllowed('admin'));
+		$uname = 'username'.rand(111111,999999);	
+		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed($uname,1));
+		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed($uname,2));
+		
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('admin',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('moderator',2));
+		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed('moderator',1));		
+	}
+	
+	function testAjaxCheckEmail()
+	{	
+		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('admin@yahoo.com',1));
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('moderator@gmail.com',1));
+
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yahoo.com',2));
+		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('moderator@gmail.com',2));		
 	}
 }

@@ -8,11 +8,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptViewApplications extends XiptView 
 {
-	function display($tpl = null){
+	function display($tpl = null)
+	{
 		$aModel	= $this->getModel();
 		
-		$fields		=& $aModel->loadRecords();
-		$pagination	=& $aModel->getPagination();
+		$fields		= $aModel->loadRecords();
+		$pagination	= $aModel->getPagination();
 		
 		$this->setToolbar();
 		

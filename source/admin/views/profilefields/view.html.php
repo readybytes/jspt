@@ -12,8 +12,8 @@ class XiptViewProfileFields extends XiptView
     {
 		//define all categories
 		$categories	= XiptHelperProfilefields::getProfileFieldCategories();
-
 		$fields		= XiptLibJomsocial::getFieldObject();
+
 		$this->setToolbar();
 
 		$this->assign('fields', $fields);
@@ -21,7 +21,7 @@ class XiptViewProfileFields extends XiptView
 		return parent::display($tpl);
     }
 
-	function edit($fieldId, $tpl = null)
+	function edit($fieldId, $tpl = 'edit')
 	{
 		$field		= XiptLibJomsocial::getFieldObject($fieldId);
 		$this->assign('fields', $field);

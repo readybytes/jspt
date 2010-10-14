@@ -93,7 +93,7 @@ class JElementProfilefields extends JElement
 	function buildProfileTypes($name, $value, $control_name, $fid)
 	{
 		//$selectedTypes 	= XiptHelperProfilefields::getProfileTypeArray($fid,$for);		
-		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray('ALL');
+		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true);
 		$html			= '';
 		$html .= '<select id="'.$control_name.'['.$name.']['.$fid.'][]" name="'.$control_name.'['.$name.']['.$fid.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';	
 		foreach( $allTypes as $option )

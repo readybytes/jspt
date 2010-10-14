@@ -95,7 +95,6 @@ class XiptHelperProfiletypes
 		//XITODO : Caching can be added
 		$searchFor 		= 'name';
 		$defaultValue	= 'NONE';
-		// XITODO : clean this code
 		$data = array(
 					'name' 		=> array('name' => 'name', 		'value' => 'All'),
 					'privacy' 	=> array('name' => 'privacy', 	'value' => 'friends'),
@@ -121,19 +120,19 @@ class XiptHelperProfiletypes
 		return $val[$id]->$what;
 	}
 	
-	function getProfileTypeName($id,$isNoneReq=false)
+	function getProfileTypeName($id)
 	{
 		//XITODO : Clean ALL / NONE, and cache results
-		if($id==0 || empty($id))
-			return JText::_("All");
-			
-		if($isNoneReq && $id==-1)
-			return JText::_("NONE");
+		if($id == XIPT_PROFILETYPE_ALL || empty($id))
+			return JText::_("ALL");
 
+		if($id == XIPT_PROFILETYPE_NONE)
+			return JText::_("NONE");
+			
 		return XiptHelperProfiletypes::getProfileTypeData($id,'name');
 	}
 
-	function getProfileTypeArray($all = '',$none= '')
+	function getProfileTypeArray($isAllReq = false, $isNoneReq= false)
 	{
 		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords();
 		
@@ -142,10 +141,10 @@ class XiptHelperProfiletypes
 		$retVal = array_keys($results);
 		
 		//add all value also
-		if($all == 'ALL')
+		if($isAllReq === true)
 			$retVal[] = XIPT_PROFILETYPE_ALL;
 			
-		if($none == 'NONE')
+		if($isNoneReq === true)
 			$retVal[] = XIPT_PROFILETYPE_NONE;
 			
 		return $retVal;
@@ -162,7 +161,6 @@ class XiptHelperProfiletypes
 	 * @param $newData
 	 * @return unknown_type
 	 */
-	//XITODO : needs cleanup
 	function resetAllUsers($pid, $oldData, $newData)
 	{
 		$allUsers = XiptLibProfiletypes::getAllUsers($pid);
@@ -170,6 +168,7 @@ class XiptHelperProfiletypes
 		if(!$allUsers)
 			return;
 	
+		// //XITODO : needs cleanup Remove hardcoding
 		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
 		$filteredOldData = array();
 		$filteredNewData = array();

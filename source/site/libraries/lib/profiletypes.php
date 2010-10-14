@@ -502,7 +502,7 @@ class XiptLibProfiletypes
 	function getParams($id,$what='params')
 	{
 		$model = XiptFactory::getInstance('Profiletypes','model');
-		$params = $model->loadParams($id,$what='params');
+		$params = $model->loadParams($id,$what);
 		return $params;		
 	}
 	

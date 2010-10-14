@@ -50,35 +50,35 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<td class="key"><?php echo JText::_('Name');?></td>
 							<td>:</td>
 							<td>
-								<input type="text" value="<?php echo $this->row->name;?>" name="name" />
+								<input type="text" value="<?php echo $this->data->name;?>" name="name" />
 							</td>
 						</tr>
 						<tr>
 							<td class="key"><?php echo JText::_('Published');?></td>
 							<td>:</td>
 							<td>
-								<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->row->published);?></span>
+								<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->data->published);?></span>
 							</td>
 						</tr>
 						<tr>
 							<td class="key"><?php echo JText::_('Visible');?></td>
 							<td>:</td>
 							<td>
-								<span><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->row->visible);?></span>
+								<span><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->data->visible);?></span>
 							</td>
 						</tr>
 						<tr>	
 						<td class="key"><?php echo JText::_('Require Approval');?></td>
 							<td>:</td>
 							<td>
-								<span><?php echo JHTML::_('select.booleanlist',  'approve', '', $this->row->approve );?></span>
+								<span><?php echo JHTML::_('select.booleanlist',  'approve', '', $this->data->approve );?></span>
 							</td>					
 						</tr>
 						<tr>
 							<td class="key"><?php echo JText::_('Allow Template');?></td>
 							<td>:</td>
 							<td>
-								<span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->row->allowt );?></span>
+								<span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->data->allowt );?></span>
 							</td>
 						</tr>
 						<tr>
@@ -86,14 +86,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<td>:</td>
 							<!--<td colspan="4"> -->
 							<td>
-								<?php echo XiptHelperProfiletypes::buildTypes($this->row->jusertype,'jusertype');?>
+								<?php echo XiptHelperProfiletypes::buildTypes($this->data->jusertype,'jusertype');?>
 							</td>
 						</tr>
 						<tr>	
 							<td class="key"><?php echo JText::_('Default Template Settings for Profile');?></td>
 							<td>:</td>
 							<td>
-								<?php echo XiptHelperProfiletypes::buildTypes($this->row->template, 'template');?>
+								<?php echo XiptHelperProfiletypes::buildTypes($this->data->template, 'template');?>
 							</td>
 						</tr>
 						<tr>
@@ -101,7 +101,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<td class="key"><?php echo JText::_('Select default group to assign');?></td>
 							<td>:</td>
 							<td>
-								<span><?php echo XiptHelperProfiletypes::buildTypes($this->row->group,'group',true);?></span>
+								<span><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></span>
 							</td>			
 						</tr>
 						<tr>
@@ -109,7 +109,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<td>:</td>
 							<td>
 							<?php 
-								echo $editor->display( 'tip',  htmlspecialchars($this->row->tip, ENT_QUOTES),
+								echo $editor->display( 'tip',  htmlspecialchars($this->data->tip, ENT_QUOTES),
 								'350', '200', '60', '20', array('pagebreak', 'readmore') ) ;
 							?>
 							</td>		
@@ -130,7 +130,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 									<div>
 									<?php 
 									?>
-								    	<img src="<?php echo JURI::root().XiptFactory::getUrlpathFromFilePath($this->row->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->row->avatar; ?>" />
+								    	<img src="<?php echo JURI::root().XiptFactory::getUrlpathFromFilePath($this->data->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->data->avatar; ?>" />
 								    </div>
 								    <br />
 									<div>
@@ -142,7 +142,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<tr>
 							<td>
 								<span class="editlinktip">
-									<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&editId='.$this->row->id.'&oldAvatar='.$this->row->avatar, false); ?>
+									<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&editId='.$this->data->id.'&oldAvatar='.$this->data->avatar, false); ?>
 										<a href="<?php echo $link; ?>"><?php echo JText::_('Remove Avatar'); ?></a>
 								</span>								
 							</td>
@@ -157,15 +157,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<?php 
 								echo $this->pane->startPane("parameters-pane");
 								echo $this->pane->startPanel(JText :: _('Watermark'), 'watermark-page');
-								echo $this->config->render('watermarkparams');
+								echo $this->watermarkParams->render('watermarkparams');
 								echo $this->pane->endPanel();
 								
 								echo $this->pane->startPanel(JText :: _('XiConfiguration'), 'xiconfiguration-page');
-								echo $this->configuration->render('config');
+								echo $this->configParams->render('config');
 								echo $this->pane->endPanel();
 								
 								echo $this->pane->startPanel(JText :: _('Privacy-Settings'), 'xiprivacysettings-page');
-								echo $this->privacy->render('privacy');
+								echo $this->privacyParams->render('privacy');
 								echo $this->pane->endPanel();
 								
 								echo $this->pane->startPanel(JText :: _('ResetAll'), 'resetall-page');
@@ -185,7 +185,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <div class="clr"></div>
 	<input type="hidden" name="option" value="com_xipt" />
 	<input type="hidden" name="view" value="<?php echo JRequest::getCmd( 'view' , 'profiletypes' );?>" />
-	<input type="hidden" name="cid[]" value="<?php echo $this->row->id; ?>" />
+	<input type="hidden" name="cid[]" value="<?php echo $this->data->id; ?>" />
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

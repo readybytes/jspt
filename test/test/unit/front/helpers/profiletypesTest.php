@@ -58,5 +58,49 @@ class XiptProfiletypesHelperTest extends XiUnitTestCase
 	{
 		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testBuildTypes.start.sql');
 		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(2,'name'),'ProfileType2');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(1,'privacy'),"privacyProfileView=30\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n");
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(2,'template'),'blueface');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(1,'template'),'default');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(0,'name'),'All');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(0,'group'),0);
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(1,'group'),0);
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeData(2,'group'),'1,2');
+	}
+	
+	function testGetProfileTypeName()
+	{
+		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testBuildTypes.start.sql');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeName(2),'ProfileType2');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeName(1),'ProfileType1');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeName(1,true),'ProfileType1');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeName(0,true),'All');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeName(-1,true),'None');
+		//$this->assertEquals(XiptHelperProfiletypes::getProfileTypeName(-1,false),'All');
+	}
+	
+	function testGetProfileTypeAraay()
+	{
+		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testBuildTypes.start.sql');
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeArray(),array(1,2));
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeArray(true),array(1,2,0));
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeArray(false,true),array(1,2,-1));
+		$this->assertEquals(XiptHelperProfiletypes::getProfileTypeArray(true,true),array(1,2,0,-1));
+	}
+	
+	function testResetAllUsers()
+	{
+		// profiletype1 watermark images/profiletypes/watermark_1.png
+		$records = XiptFactory::getInstance('profiletypes','model')->loadRecords();
+		$p1Data = clone $records[1];
+		$p1Data->template 	= 'blackout';
+		$p1Data->group 		= '1';
+		$p1Data->watermark 	= '/images/profiletypes/watermark_3.png';
+		$p1Data->avatar		= 'components/com_community/assets/group.jpg';
+		
+		XiptHelperProfiletypes::resetAllUsers(1,$records[1],$p1Data);
+		
+		$this->_DBO->addTable('#__community_users');
+		$this->_DBO->addTable('#__xipt_users');
+		$this->_DBO->addTable('#__community_groups_members');
 	}
 }

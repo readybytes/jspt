@@ -63,5 +63,57 @@ abstract class XiptController extends JController
 
 		return XiptFactory::getInstance($modelName,'Model');
 	}
+	
+	function publish($ids=array(0))
+	{
+		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
+		$count		= count( $ids );
+
+		if(!$this->getModel()->publish($ids)){
+			XiptError::raiseWarning(500,JText::_('ERROR IN PUBLISHING ITEM'));
+			return false;
+		}
+		
+		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
+		$link = XiptRoute::_('index.php?option=com_xipt&view='.$this->getName(), false);
+		$this->setRedirect($link, $msg);	
+		return true;		
+	}
+	
+	function unpublish($ids=array(0))
+	{
+		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
+		$count		= count( $ids );
+
+		if(!$this->getModel()->unpublish($ids)){
+			XiptError::raiseWarning(500,JText::_('ERROR IN UNPUBLISHING ACLRULES'));
+			return false;
+		}
+		
+		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
+		$link = XiptRoute::_('index.php?option=com_xipt&view='.$this->getName(), false);
+		$this->setRedirect($link, $msg);	
+		return true;		
+	}
+	
+	/**	
+	 * Save the ordering of the entire records.
+	 *	 	
+	 * @access public
+	 *
+	 **/	 
+	function saveOrder($ids=array(),$task='')
+	{		
+		// Get the ID in the correct location
+ 		$ids	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
+ 		XiptError::assert(!empty($ids));
+		$id	= (int) array_shift($ids);
+		
+		// Determine whether to order it up or down
+		$direction	= ( JRequest::getWord( 'task' , $task ) == 'orderup' ) ? -1 : 1;
+			
+		$this->getModel()->order($id, $direction);
+		$this->setRedirect(XiptRoute::_('index.php?option=com_xipt&view='.$this->getName(), false));
+	}
 }
 

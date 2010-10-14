@@ -20,9 +20,10 @@ class XiptControllerProfileFields extends XiptController
 	//if all is selected then store nothing
 	//remove old fields
 	
-	function save()
+	function save($post=null)
 	{
-		$post	= JRequest::get('post');		
+		if($post === null)
+			$post	= JRequest::get('post');		
 					
 		//remove all rows related to specific field id 
 		// cleaning all data for storing new profiletype with fields		
@@ -30,29 +31,26 @@ class XiptControllerProfileFields extends XiptController
 		
 		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
 		$categories		= XiptHelperProfilefields::getProfileFieldCategories();
+		// for each category
 		foreach($categories as $catIndex => $catInfo)
 		{
-			$controlName= $catInfo['controlName'];
-			$count = 0;
-			if(!array_key_exists($controlName."0",$post)) {
-				foreach($allTypes as $type) {
-					if($type) {
-						if(!array_key_exists($controlName.$type,$post)) {
-							  $this->getModel()->save(array('fid'=>$post['id'], 'pid'=>$type, 'category'=>$catIndex));
-							  $msg = JText::_('FIELDS SAVED');
-							  $count++;
-						}
-					}
-				}
-				/*if($count == 0) {
-				 XiptHelperProfilefields::addFieldsProfileType($post['id'], 'XIPT_NONE','XIPT_NONE');
-			}*/
+			$controlName= $catInfo['controlName'];			
+			if(array_key_exists($controlName."0",$post))
+				continue;
+			
+			// for each profile type
+			foreach($allTypes as $type) {
+				if(!$type || array_key_exists($controlName.$type,$post)) 
+					continue;
+				
+				$this->getModel()->save(array('fid'=>$post['id'], 'pid'=>$type, 'category'=>$catIndex));
+				$msg = JText::_('FIELDS SAVED');															
 			}
 		}
 			
 		$msg 	= JText::_('FIELDS SAVED');	
 		$link 	= XiptRoute::_('index.php?option=com_xipt&view=profilefields', false);
-		JFactory::getApplication()->redirect($link, $msg);
-		return;
+		$this->setRedirect($link,$msg);
+		return true;
 	}
 }
