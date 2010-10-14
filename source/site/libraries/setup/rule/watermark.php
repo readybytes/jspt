@@ -12,13 +12,14 @@ class XiptSetupRuleWatermark extends XiptSetupBase
 	{
 		$ptypeArray	= XiptHelperProfiletypes::getProfileTypeArray();
 		$globalWM	= XiptFactory::getParams('show_watermark',0);
+				
 		if($globalWM)
 			return false;
+			
 		foreach($ptypeArray as $ptype)
 		{
 			$watermarkParams = XiptLibProfiletypes::getParams($ptype,'watermarkparams');
-			if($watermarkParams == false)
-				continue;
+		
 			if($watermarkParams->get('enableWaterMark',0) == true)
 				return true;
 		}

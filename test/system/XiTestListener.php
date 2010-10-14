@@ -225,6 +225,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
   {
     static $i=1;
     $testName      = $test->getName();    
+	echo "\n Test $i : $testName "; $i++;
 
     // this two variables must be defined by test
     if(!method_exists($test,'getSqlPath'))
@@ -239,7 +240,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     //else
     //	echo "\n File does not exist for ". $dbDump . "\n";
 
-    echo "\n Test $i : $testName "; $i++;
+    
   }
  
   public function endTest(PHPUnit_Framework_Test $test, $time)

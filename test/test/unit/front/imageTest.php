@@ -11,7 +11,7 @@ class ImageTest extends XiUnitTestCase
   
   function testHtml2rgb()
   {
-  	$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
+  	$row	= JTable::getInstance( 'profiletypes' , 'XiptTable' );
 	$row->load(2);
 	$config = new JParameter('','');
 	$config->bind($row->watermarkparams);
@@ -37,7 +37,7 @@ class ImageTest extends XiUnitTestCase
   function testGenImage()
   {
   	//case #1: when folder already exists
-  	$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
+  	$row	= JTable::getInstance( 'profiletypes' , 'XiptTable' );
 	$row->load(3);
 	$config = new JParameter('','');
 	$config->bind($row->watermarkparams);

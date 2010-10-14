@@ -1,6 +1,4 @@
---
--- Table structure for table `#__community_users`
---
+
 TRUNCATE TABLE `#__community_users`;;
 DROP TABLE IF EXISTS `au_#__community_users`;;
 CREATE TABLE IF NOT EXISTS `au_#__community_users` SELECT * FROM `#__community_users`;;
@@ -23,7 +21,7 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 
 
 INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`, `alias`, `longitude`, `latitude`) VALUES
-(62, '', 12, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
+(62, '', 12, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
 (83, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
 (84, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
 (85, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),

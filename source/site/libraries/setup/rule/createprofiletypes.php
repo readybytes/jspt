@@ -17,10 +17,10 @@ class XiptSetupRuleCreateprofiletypes extends XiptSetupBase
 		return true;
 	}
 	
-//	function doApply()
-//	{
-//		return true;
-//	}
+	function doApply()
+	{
+		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit", false));
+	}
 	
 	function getMessage()
 	{
@@ -28,7 +28,7 @@ class XiptSetupRuleCreateprofiletypes extends XiptSetupBase
 		
 		if($this->isRequired())
 		{
-			$link = XiptRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit",false);
+			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=createprofiletypes",false);
 			$requiredSetup['message']  = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO CREATE PROFILETYPES").'</a>';
 			$requiredSetup['done']  = false;
 		}

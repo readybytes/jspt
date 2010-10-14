@@ -9,32 +9,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptSetupRuleXiptplugin extends XiptSetupBase
 {
 	function isRequired()
-	{
-		$sEnable = false;
-		$cEnable = false;
-		
-		if($this->_isPluginInstalledAndEnabled('xipt_system','system')
-				&& !$this->_isPluginInstalledAndEnabled('xipt_system','system',true))
-			$sEnable = true;
-
-		if($this->_isPluginInstalledAndEnabled('xipt_community','community')
-				&& !$this->_isPluginInstalledAndEnabled('xipt_community','community',true))
-			$cEnable = true;
-		
-		if($sEnable || $cEnable)
-			return true;
-			
-		return false;
+	{	
+		return (!$this->_isPluginInstalledAndEnabled());
 	}
 	
 	function doApply()
 	{
-		$db			= JFactory::getDBO();
+		$db		= JFactory::getDBO();
 			
-		$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
-				. ' SET '.$db->nameQuote('published').'='.$db->Quote('1')
-	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote('xipt_community')
-	          	. ' OR '.$db->nameQuote('element').'='.$db->Quote('xipt_system');
+		$query	= ' UPDATE ' . $db->nameQuote( '#__plugins' )
+				. ' SET '	 . $db->nameQuote('published').'='.$db->Quote('1')
+	          	. ' WHERE '	 . $db->nameQuote('element').'='.$db->Quote('xipt_community')
+	          	. ' OR '	 . $db->nameQuote('element').'='.$db->Quote('xipt_system');
 
 		$db->setQuery($query);		
 		if(!$db->query())
@@ -53,34 +39,28 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	          	. ' OR '.$db->nameQuote('element').'='.$db->Quote('xipt_system');
 
 		$db->setQuery($query);		
-		if(!$db->query())
-			return false;
-		return true;
+		return $db->query();
 	}
 	
 	//retrun true if plugin is installed or enabled
 	//type means plugin type eg :- community , system etc.
-	function _isPluginInstalledAndEnabled($pluginname,$type,$checkenable = false)
+	function _isPluginInstalledAndEnabled()
 	{
-		$db			=& JFactory::getDBO();
-		
-		$extraChecks = '';
-		if($checkenable)
-			$extraChecks = ' AND '.$db->nameQuote('published').'='.$db->Quote(true);
+		$db		= JFactory::getDBO();
 			
 		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__plugins' )
-	          .' WHERE '.$db->nameQuote('folder').'='.$db->Quote($type)
-	          .' AND '.$db->nameQuote('element').'='.$db->Quote($pluginname)
-	          . $extraChecks;
+	         	 . ' WHERE '.$db->nameQuote('element').'='.$db->Quote('xipt_community')
+	          	 . ' OR '.$db->nameQuote('element').'='.$db->Quote('xipt_system')
+	          	 .' AND '.$db->nameQuote('published').'='.$db->Quote(1);
 
 		$db->setQuery($query);		
 		
 		$plugin	= $db->loadObjectList();
 		
-		if(!$plugin)
-			return false;
+		if(count($plugin)== 2)
+			return true;
 			
-		return true;
+		return false;
 	}
 	
 

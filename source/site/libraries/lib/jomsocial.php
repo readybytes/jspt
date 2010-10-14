@@ -149,9 +149,9 @@ class XiptLibJomsocial
 		$db->setQuery( $query );
 		$res 	= $db->loadObject();
 		
-		$field_id = $res->id;
 		// skip these calls from backend
 		XiptHelperUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
+		$field_id = $res->id;
 		
 		//if row does not exist
 		$db		= JFactory::getDBO();

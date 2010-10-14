@@ -12,57 +12,28 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	{
 		$params = XiptFactory::getParams('', 0);
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
+		
 		if(!$defaultProfiletypeID){
 			global $mainframe;
 			$mainframe->enqueueMessage(JText::_("FIRST SELECT THE DEFAULT PROFILE TYPE"));
 			return false;
 		}
 
-		//for every user
-		$db 	= JFactory::getDBO();
-		$query	= ' SELECT `id` FROM `#__community_fields` '
-				. ' WHERE `fieldcode`=\''.PROFILETYPE_CUSTOM_FIELD_CODE.'\' ';
-		$db->setQuery($query);
-		$PTFieldId=$db->loadResult();
-		
-		$query	= ' SELECT `id` FROM `#__community_fields` '
-				. ' WHERE `fieldcode`=\''.TEMPLATE_CUSTOM_FIELD_CODE.'\' ';
-		$db->setQuery($query);
-		$TMFieldId=$db->loadResult();
+		$PTFieldId = $this->getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
+		$TMFieldId = $this->getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
 		
 		// we need first these fields to be exist
 		if(!($PTFieldId && $TMFieldId))
 			return true;
 			
-		$query 	= ' SELECT u.`userid` as id, vPT.`value` AS vptype, vTM.`value` AS vtemp, xUser.* '
-				.' FROM `#__community_users` AS u '
-				.' LEFT JOIN `#__community_fields_values` AS vPT'
-        		.' ON ( vPT.`user_id` = u.`userid` AND  vPT.`field_id`='.$db->Quote($PTFieldId).')'
-				.' LEFT JOIN `#__community_fields_values` AS vTM'
-        		.' ON ( vTM.`user_id` = u.`userid` AND  vTM.`field_id`='.$db->Quote($TMFieldId).')'
-				.' LEFT JOIN `#__xipt_users` AS '.'xUser'
-        		.' ON ( xUser.`userid` = u.`userid` )';
-        			
-		$db->setQuery($query);
-		$result = $db->loadObjectList();
-
+		$result = $this->getUsertoSyncUp();
+		
 		if(empty($result))
 		{
 			return false;
 		}
 		
-		foreach ($result as $r){
-			if(!($r->vptype && $r->profiletype && $r->vtemp && $r->template) 
-					|| XiptLibProfiletypes::validateProfiletype($r->profiletype)==false)
-				return true;
-				
-			if($r->vptype != $r->profiletype)
-				return true;
-			if($r->vtemp != $r->template)
-				return true;
-		}
-		
-		return false;
+		return true;
 	}
 	
 	function doApply()
@@ -75,69 +46,37 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
         return JText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZATION FAILED');
 	}
 	
-	function syncUpUserPT($start, $limit)
+	function syncUpUserPT($start, $limit, $test = false)
 	{
 		
-		//	for every user
-		$db 	= JFactory::getDBO();
-		$query	= ' SELECT `id` FROM `#__community_fields` '
-				. ' WHERE `fieldcode`=\''.PROFILETYPE_CUSTOM_FIELD_CODE.'\' ';
-		$db->setQuery($query);
-		$PTFieldId=$db->loadResult();
-		
-		$query	= ' SELECT `id` FROM `#__community_fields` '
-				. ' WHERE `fieldcode`=\''.TEMPLATE_CUSTOM_FIELD_CODE.'\' ';
-		$db->setQuery($query);
-		$TMFieldId=$db->loadResult();
+		$PTFieldId = $this->getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
+		$TMFieldId = $this->getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
 		
 		// we need first these fields to be exist
 		if(!($PTFieldId && $TMFieldId))
 			return false;
 			
-		$query 	= ' SELECT u.`userid` as id, vPT.`value` AS vptype, vTM.`value` AS vtemp, xUser.* '
-				.' FROM `#__community_users` AS u '
-				.' LEFT JOIN `#__community_fields_values` AS vPT'
-        		.' ON ( vPT.`user_id` = u.`userid` AND  vPT.`field_id`='.$db->Quote($PTFieldId).')'
-				.' LEFT JOIN `#__community_fields_values` AS vTM'
-        		.' ON ( vTM.`user_id` = u.`userid` AND  vTM.`field_id`='.$db->Quote($TMFieldId).')'
-				.' LEFT JOIN `#__xipt_users` AS '.'xUser'
-        		.' ON ( xUser.`userid` = u.`userid` ) '
-        		.' LIMIT '.$start.','.$limit;
-        			
-		$db->setQuery($query);
-		$result = $db->loadObjectList();
-					
-		 $i=0;
-		foreach ($result as $r){
-			
-			//skip correct users
-			if($r->vptype && $r->profiletype && $r->vtemp && $r->template && XiptLibProfiletypes::validateProfiletype($r->profiletype)==true)
-			{
-				if(($r->vptype == $r->profiletype) && ($r->vtemp == $r->template))
-					continue;
-			}
-			
-			//It ensure that system will pickup correct data
-			$profiletype = XiptLibProfiletypes::getUserData($r->id,'PROFILETYPE');
-			if(XiptLibProfiletypes::validateProfiletype($profiletype)==true)
-			{
-				$template	 = XiptLibProfiletypes::getUserData($r->id,'TEMPLATE');
-			}
-			else
-			{
-				$profiletype = XiptLibProfiletypes::getDefaultProfiletype();
-				$template	 = XiptLibProfiletypes::getProfileTypeData($profiletype,'template');;
-			}
-			XiptLibProfiletypes::updateUserProfiletypeData($r->id, $profiletype, $template, 'ALL');
-			$i++;
+		$result = $this->getUsertoSyncUp($start, $limit);
+
+		foreach ($result as $userid)
+		{
+			$profiletype = XiPTLibProfiletypes::getDefaultProfiletype();
+			$template	 = XiPTLibProfiletypes::getProfileTypeData($profiletype,'template');;
+			XiPTLibProfiletypes::updateUserProfiletypeData($userid, $profiletype, $template, 'ALL');
 		}
+		
+		if($test)
+		{
+			return true;
+		}
+		
 		global $mainframe;
 		if(sizeof($result)== $limit){			
 			$start+=$limit;
-    		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
 		}
 		
-		$msg = 'Total '. ($start+$i) . ' users '.JText::_('synchornized');
+		$msg = 'Total '. ($start+count($result)) . ' users '.JText::_('synchornized');
 		$mainframe->enqueueMessage($msg);
 		return true;
 	}
@@ -159,5 +98,55 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			$requiredSetup['done']  = true;
 		}
 		return $requiredSetup;
+	}
+	
+	function getUsertoSyncUp($start = 0, $limit = 1000)
+	{
+		static $users = null;
+		$reset = XiptLibJomsocial::cleanStaticCache();
+		if($users!== null && $reset == false)
+			return $users;
+
+		$db 	= JFactory::getDBO();	
+		$query 	= ' SELECT `userid` FROM `#__community_users` ';
+        			
+		$db->setQuery($query);
+		$commResult = $db->loadResultArray();
+		
+		$xiptquery = ' SELECT `userid` FROM `#__xipt_users` ';
+
+		$db->setQuery($xiptquery);
+		$xiptResult = $db->loadResultArray();
+		
+		$result = array_diff($commResult, $xiptResult);
+		
+		$query = ' SELECT `userid` FROM `#__xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `#__xipt_profiletypes` )';
+		$db->setQuery($query);
+		$userid = $db->loadResultArray();
+		
+		$users = array_merge($result, $userid);
+		
+		sort($users);
+		
+		return array_slice($users, $start, $limit);
+	}
+	
+	function getFieldId($fieldcode)
+	{
+		static $results = array();
+		
+		$reset = XiptLibJomsocial::cleanStaticCache();
+		if(isset($results[$fieldcode]) && $reset == false)
+			return $results[$fieldcode]['id'];
+		
+		$db			= JFactory::getDBO();
+		$query		= 'SELECT * FROM '
+					. $db->nameQuote( '#__community_fields' );
+		
+		$db->setQuery( $query );
+		$results  = $db->loadAssocList('fieldcode');
+		if(array_key_exists($fieldcode, $results))
+			return $results[$fieldcode]['id'];
+		
 	}
 }

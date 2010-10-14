@@ -12,6 +12,8 @@ class XiptModelSettings extends XiptModel
 {	
 	function getParams($refresh = false)
 	{
+		//for testing purpose clean cache
+		$refresh = XiptLibJomsocial::cleanStaticCache();
 		if(isset($this->_params) && $refresh === false)
 			return $this->_params;
 

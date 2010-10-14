@@ -10,42 +10,37 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 {
 	function isRequired()
 	{
-		if(!$this->_checkExistance(PROFILETYPE_CUSTOM_FIELD_CODE)
-			|| !$this->_checkExistance(TEMPLATE_CUSTOM_FIELD_CODE))
+		$fields = $this->_checkExistance();
+		if(!$fields || count($fields)!= 2)
 			return true;
 
-		//check field enable required
-		if(!$this->_checkExistance(PROFILETYPE_CUSTOM_FIELD_CODE,true)
-			|| !$this->_checkExistance(TEMPLATE_CUSTOM_FIELD_CODE,true))
-			return true;
-			
-		return false;
+		$tmpField = $fields[TEMPLATE_CUSTOM_FIELD_CODE];
+		$ptField  = $fields[PROFILETYPE_CUSTOM_FIELD_CODE];
+		
+		return (!($tmpField->published && $ptField->published));
 	}
 	
 	function doApply()
 	{
-		$pFieldCreated = true;
-    	$tFieldCreated = true;
-    	
-		if(!self::_checkExistance(TEMPLATE_CUSTOM_FIELD_CODE))
-				$tFieldCreated = self::createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
-				
-		if(!self::_checkExistance(PROFILETYPE_CUSTOM_FIELD_CODE))
-				$pFieldCreated = self::createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
+		if($this->isRequired()== false)
+			return JText::_("CUSTOM FIELD ALREADY CREATED AND ENABLED SUCCESSFULLY");
+			
+		$fields = $this->_checkExistance();
+			
+		
+		if(isset($fields[TEMPLATE_CUSTOM_FIELD_CODE])===false)
+			$tFieldCreated = $this->createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
+		
+		if(isset($fields[PROFILETYPE_CUSTOM_FIELD_CODE])===false)
+			$pFieldCreated  = $this->createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
+			
+		$fieldEnabled = $this->_enableField();
 
-		//now check field enable required then enable field
-		if(!self::_checkExistance(TEMPLATE_CUSTOM_FIELD_CODE,true))
-				$tFieldEnabled = self::_enableField(TEMPLATE_CUSTOM_FIELD_CODE);
 				
-		if(!self::_checkExistance(PROFILETYPE_CUSTOM_FIELD_CODE,true))
-				$pFieldEnabled = self::_enableField(PROFILETYPE_CUSTOM_FIELD_CODE);
-				
-		if($pFieldCreated && $tFieldCreated
-			&& $pFieldEnabled && $tFieldEnabled)
+		if($pFieldCreated && $tFieldCreated && $fieldEnabled)
 			return JText::_("CUSTOM FIELD CREATED AND ENABLED SUCCESSFULLY");
 			
 		return JText::_("CUSTOM FIELDS ARE NOT CREATED OR ENABLED");
-		
 	}
 	
 	function doRevert()
@@ -57,19 +52,30 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 	          	.' OR '.$db->nameQuote('type').'='.$db->Quote('templates');
 	
 		$db->setQuery($query);		
-		if(!$db->query())
+		return $db->query();
+	}
+	
+	//check existance of custom fields profiletype and template
+	function _checkExistance()
+	{
+		$db		= JFactory::getDBO();
+			
+		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__community_fields' ) . ' '
+				. ' WHERE '.$db->nameQuote('fieldcode').'='. $db->Quote(PROFILETYPE_CUSTOM_FIELD_CODE)
+				. ' OR '.$db->nameQuote('fieldcode').'='. $db->Quote(TEMPLATE_CUSTOM_FIELD_CODE);
+				
+		$db->setQuery( $query );
+		$results = $db->loadObjectList('fieldcode');
+		
+		if(!$results)
 			return false;
-		return true;
+			
+		return $results;
 	}
 	
 	//create custome field
 	function createCustomField($what)
 	{
-		$group = 0;
-		//get first group name from community_fields_values table
-		$allGroups = self::getGroups();
-		if(!empty($allGroups))
-			$group = $allGroups[0]->ordering;
 		// Load the JTable Object.
 		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'tables');
 		$row	= JTable::getInstance( 'profiles' , 'CommunityTable' );
@@ -86,52 +92,27 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 						$data['tips']			= 'Template Of User';
 						break;
 			default :
-						XiptHelperUtils::XAssert(0);
+						XiptError::assert(0);
 						break;
 		}
-		$data['fieldcode']		= $what;
-		$data['group']			= $group;
 		
-		$row->bind( $data );
-		$groupOrdering	= isset($data['group']) ? $data['group'] : '';
+		$data['published'] =  1;								
+		$data['fieldcode'] = $what;
 		
-		if($row->store( $groupOrdering ))
-			return true;
-			
-		return false;
-		
+		return $row->bind($data) && $row->store();		
 	}
 	
-	//check existance of custom fields profiletype and template
-	function _checkExistance($what,$checkenable=false)
+	
+	
+	//enable template & profiletype fields in community_fields table
+	function _enableField()
 	{
 		$db		= JFactory::getDBO();
-		
-		$extraChk = '';
-		if($checkenable)
-			$extraChk = ' AND '.$db->nameQuote('published').'='.$db->Quote(1);
-			
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__community_fields' ) . ' '
-				. 'WHERE '.$db->nameQuote('fieldcode').'='. $db->Quote($what)
-				. $extraChk;
-				
-		$db->setQuery( $query );
-		
-		$result = $db->loadObject();
-		if(!$result)
-			return false;
-			
-		return true;
-	}
-	
-	//call fn don't write update query here
-	function _enableField($fieldcode)
-	{
-		$db			= JFactory::getDBO();
 			
 		$query	= 'UPDATE ' . $db->nameQuote( '#__community_fields' )
 				. ' SET '.$db->nameQuote('published').'='.$db->Quote('1')
-	          	.' WHERE '.$db->nameQuote('fieldcode').'='.$db->Quote($fieldcode);
+	          	. ' WHERE '.$db->nameQuote('type').'='. $db->Quote('profiletypes')
+				. ' OR '.$db->nameQuote('type').'='. $db->Quote('templates');
 
 		$db->setQuery($query);		
 		if(!$db->query())
@@ -140,20 +121,6 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 		return true;
 	}
 	
-	function getGroups()
-	{
-		$db		=& JFactory::getDBO();
-		
-		$query	= 'SELECT * '
-				. 'FROM ' . $db->nameQuote( '#__community_fields' )
-				. 'WHERE ' . $db->nameQuote( 'type' ) . '=' . $db->Quote( 'group' );
-
-		$db->setQuery( $query );		
-		
-		$fieldGroups	= $db->loadObjectList();
-		
-		return $fieldGroups;
-	}
 	
 	function getMessage()
 	{

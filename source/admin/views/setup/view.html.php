@@ -23,7 +23,7 @@ class XiptViewSetup extends XiptView
 		foreach($setupNames as $setup)
 		{
 			//get object of class
-			$setupObject = XiptFactory::getSetupObject($setup);
+			$setupObject = XiptFactory::getSetupRule($setup);
 			
 			if($setupObject->isApplicable())
 			{

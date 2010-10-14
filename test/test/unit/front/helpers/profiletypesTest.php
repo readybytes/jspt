@@ -6,8 +6,8 @@ class XiptProfiletypesHelperTest extends XiUnitTestCase
 	{
 		return dirname(__FILE__).'/sql/'.__CLASS__;
 	}
-	
-	function testBuildTypes()
+	//XITODO 
+	function xxtestBuildTypes()
 	{
 		// for profiletype 1
 		$html = $this->cleanWhiteSpaces('<select name="profiletypes" id="profiletypes" class="inputbox">'

@@ -35,7 +35,7 @@ class XiptControllerSetup extends XiptController
     	$name = JRequest::getVar('name', '' );
     	
     	//get object of class
-		$setupObject = XiptFactory::getSetupObject($name);
+		$setupObject = XiptFactory::getSetupRule($name);
 		$msg = $setupObject->doApply();
 		
 		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false), $msg);
@@ -49,17 +49,9 @@ class XiptControllerSetup extends XiptController
 		foreach($setupNames as $setup)
 		{
 			//get object of class
-			$setupObject = XiptFactory::getSetupObject($setup);
-			
+			$setupObject = XiptFactory::getSetupRule($setup);
 			$setupObject->doRevert();
 		}
-		
-//    	XiptHelperUnhook::uncopyHackedFiles();
-//		// disable plugins
-//		XiptHelperUnhook::disable_plugin('xipt_system');
-//		XiptHelperUnhook::disable_plugin('xipt_community');
-//		
-//		XiptHelperUnhook::disable_custom_fields();
 		
 		global $mainframe;
 		$msg = JText::_('UNHOOKED SUCCESSFULLY');
