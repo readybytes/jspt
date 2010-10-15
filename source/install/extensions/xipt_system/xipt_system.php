@@ -21,6 +21,7 @@ class plgSystemxipt_system extends JPlugin
 {
 	var $_debugMode = 1;
 	var $_eventPreText = 'event_';
+	private $_pluginHandler;
 		
 	function plgSystemxipt_system( $subject, $params )
 	{
@@ -31,49 +32,31 @@ class plgSystemxipt_system extends JPlugin
 	
 	function onAfterRoute()
 	{
-		global $mainframe;
-		 $oldTablePath = JTable::addIncludePath();
-					
-		// use factory to get any object
-		$pluginHandler = XiptFactory::getLibraryPluginHandler();
-					
- 		if( $mainframe->isAdmin())
- 		{	
- 			if($pluginHandler->checkSetupRequired())
- 				$mainframe->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'));
- 		     	
-			JTable::addIncludePath($oldTablePath);
+		$app = JFactory::getApplication();
+							
+		if($app->isAdmin()){	
+ 			if($this->_pluginHandler->checkSetupRequired())
+ 				$app->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'));
+ 				
  			return false;
  		} 		
 			
-		//sometimes in SEF, value from GET might be blank		
-		$option = JRequest::getCmd('option','BLANK','GET');
-		if($option == 'BLANK')
-			$option = JRequest::getVar('option','');
+		// get option, view and task		
+		$option 	= JRequest::getVar('option','BLANK');
+		$view 		= JRequest::getVar('view','BLANK');		
+		$task 		= JRequest::getVar('task','BLANK');
+		$component	= JRequest::getVar('component','BLANK');			
 
-		//sometimes in SEF, value from GET might be blank
-		$task = JRequest::getCmd('task','BLANK','GET');
-		if($task=='BLANK')
-			$task = JRequest::getVar('task','BLANK');
-			
-		$view = JRequest::getVar('view','BLANK');
-		$component=JRequest::getVar('component','BLANK');
-				
-
-		$nothing    = false;
-		$pluginHandler->performACLCheck($nothing,$nothing,$nothing);
+		// perform all acl check from here
+		XiptAclHelper::performACLCheck(false, false, false);		
 
 		//do routine works
 		$eventName = $this->_eventPreText.strtolower($option).'_'.strtolower($view).'_'.strtolower($task);
-		
 		//call defined event to handle work
-		$exist = method_exists($pluginHandler,$eventName);
+		$exist = method_exists($this,$eventName);
 		if($exist)
-		{
-			//call function
-			$pluginHandler->$eventName();
-		}
-		JTable::addIncludePath($oldTablePath);	
+			$this->$eventName();
+			
 		return false;
 	}
 		
@@ -107,21 +90,94 @@ class plgSystemxipt_system extends JPlugin
 		return XiptFactory::getInstance('users','model')->delete($properties['id']);		
 	}
 	
+	// this is trigerred on registraion page of xipt 
 	function onBeforeProfileTypeSelection()
 	{
-		// use factory to get any object
-		$pluginHandler = XiptFactory::getLibraryPluginHandler();
-		return $pluginHandler->onBeforeProfileTypeSelection();
-	
+		// if user comes from genaral registration link then return
+		$ptypeid = JRequest::getVar('ptypeid',0,'GET');
+		
+		// if user comes from a direct link (with profile type selected) 
+		// the reset will be false or does not exist	
+		// if user comes for selecting profile type again then reset is true
+		$reset = JRequest::getVar('reset',false,'GET');
+
+		if($ptypeid == 0 || $reset)
+			return true;
+
+		XiptHelperProfiletypes::setProfileTypeInSession($ptypeid);
+		return true;	
 	}
 	
+	// this is trigerred on after post on registration page of xipt
 	function onAfterProfileTypeSelection($ptypeid)
 	{
-		// use factory to get any object
-		$pluginHandler = XiptFactory::getLibraryPluginHandler();
-		return $pluginHandler->onAfterProfileTypeSelection($ptypeid);	
+		// set the profile type in session
+		XiptHelperProfiletypes::setProfileTypeInSession($ptypeid);	
 	}
 	
+	/* 
+	 * Events generated from the onAfterRoute
+	 */
+	
+	//BLANK means task should be empty
+	function event_com_community_register_blank()
+	{
+		return $this->_pluginHandler->integrateRegistrationWithPType();
+	}
+	
+	function event_com_user_register_blank()
+	{
+	    return $this->_pluginHandler->integrateRegistrationWithPType();
+	}
+	
+	function event_com_community_profile_blank()
+	{		
+		if(!$this->_pluginHandler->getDataInSession('FROM_FACEBOOK',false))
+			return true;
+		
+		// reset the session data of FROM_FACEBOOK
+		$this->_pluginHandler->resetDataInSession('FROM_FACEBOOK');	
+	
+		if(XiptFactory::getParams('aec_integrate', 0) == true) {
+			$link = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
+			JFactory::getApplication()->redirect($link);
+		}
+
+		return true;
+	}
+	
+	/* get the plan id when the direct link of AEC are used */
+	function event_com_acctexp_blank_subscribe()
+	{		
+		$usage  = JRequest::getVar( 'usage', 0, 'REQUEST');
+		//XiptError::assert($usage);				
+		$this->_pluginHandler->setDataInSession('AEC_REG_PLANID', $usage);			
+	}
+	
+	// we are on xipt registration page
+	function event_com_xipt_registration_blank()
+	{		
+	    $aecExists 		= XiptLibAec::isAecExists();
+	    $integrateAEC   = XiptFactory::getParams('aec_integrate');	   
+
+	    // check AEC exist or not 
+	    // AND check JSPT is integrated with AEC or not
+	    if(!$aecExists || !$integrateAEC)
+	        return;
+
+	    // find selected profiletype from AEC
+	    $aecData = XiptLibAec::getProfiletypeInfoFromAEC();
+		$app	 = JFactory::getApplication();
+		
+	    // as user want to integrate the AEC so a plan must be selected
+        // send user to profiletype selection page
+	    if($aecData['planSelected'] == false)
+	        $app->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),JText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
+
+	    // set selected profiletype in session
+	    $this->_pluginHandler->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
+	    $app->redirect(XiptHelperJomsocial::getReturnURL());
+	}	
 	
 	// $userInfo ia an array and contains contains
 	// userid

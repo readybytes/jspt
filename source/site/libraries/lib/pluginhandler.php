@@ -20,13 +20,12 @@ require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 class XiptLibPluginhandler
 {
 	private $mySess ;
-	private $mainframe;
+	private $app;
 
 
 	function __construct()
 	{
-		global $mainframe;
-		$this->mainframe =& $mainframe;
+		$this->app = JFactory::getApplication();
 		$this->mySess    =  JFactory::getSession();
 	}
 
@@ -96,18 +95,13 @@ class XiptLibPluginhandler
 
 	//============================ Community Events=========================
 
-	function onAfterConfigCreate(&$config)
-	{
-	    return XiptLibJomsocial::updateCommunityConfig($config);
-	}
-
 	function onAjaxCall(&$func, &$args , &$response)
 	{
 		$callArray	= explode(',', $func);
 
 		//perform Access checks
 		$ajax = true;
-		$this->performACLCheck($ajax, $callArray, $args);
+		XiptAclHelper::performACLCheck($ajax, $callArray, $args);
 
 		// If we come here means ACL Check was passed
 		$controller	=	JString::strtolower($callArray[0]);
@@ -150,42 +144,6 @@ class XiptLibPluginhandler
 					return true;
 		}
 	}
-
-	
-
-	//==================== Joomla Events=======================
-	/*
-	 * This function intercept registration call to jomSocial
-	 * - if profiletype-selection registration not allowed then simply return
-	 * - if above is enabled then check pType already exist in session
-	 * 		-- Yes -> redirect to JomSocial reg
-	 * 		-- NO  -> send user to pType selection page
-	 * */
-	//BLANK means task should be empty
-	function event_com_community_register_blank()
-	{
-		return $this->integrateRegistrationWithPType();
-	}
-	
-	
-	function event_com_community_profile_blank()
-	{
-		$isFromFacebook = $this->getDataInSession('FROM_FACEBOOK',false);
-		$aec_integrate  = XiptFactory::getParams('aec_integrate', 0);
-		if($isFromFacebook)		
-			$this->resetDataInSession('FROM_FACEBOOK');	
-	
-		if($isFromFacebook == true && $aec_integrate == true) {
-			$link = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
-			$this->mainframe->redirect($link);
-		}
-	}
-	
-	
-	function event_com_user_register_blank()
-	{
-	    return $this->integrateRegistrationWithPType();
-	}
 	
 	/*Get decision to show ptype on registration session or not */
 	function integrateRegistrationWithPType()
@@ -196,9 +154,7 @@ class XiptLibPluginhandler
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 
 		if($show_ptype_during_reg){
-
-			$link = "index.php?option=com_xipt&view=registration";
-								
+			$link 	= "index.php?option=com_xipt&view=registration";								
 			$menu   = JSite::getMenu(); 
 			$itemid = $menu->getItems('link', $link);
 
@@ -208,7 +164,7 @@ class XiptLibPluginhandler
 								
 			// pType not selected : send to select profiletype
 				if(!$selectedProfiletypeID){
-				$this->mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
+				$this->app->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
 				return;
 			}
 
@@ -230,7 +186,7 @@ class XiptLibPluginhandler
 			}
 
 			$link = '<a id="xipt_back_link" href='.$url.'>'. JText::_("CLICK HERE").'</a>';
-			$this->mainframe->enqueueMessage($msg.' '.$link);
+			$this->app->enqueueMessage($msg.' '.$link);
 			return;
 		}
 
@@ -244,43 +200,6 @@ class XiptLibPluginhandler
 
 		return;
 	}
-		
-	/* get the plan id when the direct link of AEC are used */
-	function event_com_acctexp_blank_subscribe()
-	{
-		$mySess = JFactory::getSession();
-		$usage  = JRequest::getVar( 'usage', '0', 'REQUEST');
-		$mySess->set('AEC_REG_PLANID',$usage, 'XIPT');			
-	}
-
-	// we are on xipt registration page
-	function event_com_xipt_registration_blank()
-	{
-	    global $mainframe;
-	    $integrateAEC   = XiptFactory::getParams('aec_integrate');
-	    //$forcePtypePage = XiptFactory::getParams('aec_force_ptype_page');
-
-	    // if we do not want to integrate AEC then simply return
-	    if(!$integrateAEC)
-	        return;
-
-	    // aec not installed.
-	    $aecExists = XiptLibAec::isAecExists();
-	    if(!$aecExists)
-	        return;
-
-	    // find selected profiletype from AEC
-	    $aecData = XiptLibAec::getProfiletypeInfoFromAEC() ;
-
-	    // as user want to integrate the AEC so a plan must be selected
-        // send user to profiletype selection page
-	    if($aecData['planSelected'] == false)
-	        $mainframe->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),JText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
-
-	    // set selected profiletype in session
-	    $this->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
-	    $mainframe->redirect(XiptHelperJomsocial::getReturnURL());
-	}
 
 	/**
 	 * Filter the fields, which are allowed to user.
@@ -293,7 +212,7 @@ class XiptLibPluginhandler
 		$none 			 = false;
 		$args['from']    = 'onprofileload';
 		$args['field']   =  &$fields      ;
-		$this->performACLCheck($none,$none, $args);
+		XiptAclHelper::performACLCheck($none,$none, $args);
 
 		//do not filter fields in  advanced search if user do not want to restrict
 		// field according to profiletype
@@ -309,36 +228,6 @@ class XiptLibPluginhandler
 		 }
 	    XiptLibProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
-	}
-
-	function performACLCheck(&$ajax, &$callArray, &$args)
-	{
-	    return XiptAclHelper::performACLCheck($ajax, $callArray, $args);
-	}
-	
-	// this is trigerred on registraion page of xipt 
-	function onBeforeProfileTypeSelection()
-	{
-		// if user comes from genaral registration link then return
-		$ptypeid = JRequest::getVar('ptypeid',0,'GET');
-		if($ptypeid == 0)
-			return true;
-		/* if user comes from a direct link (with profile type selected) 
-		 the reset will be false or does not exist	
-		 if user comes for selecting profile type again then reset is true */
-		$reset = JRequest::getVar('reset',false,'GET');
-		if($reset == false)
-		{
-			XiptHelperProfiletypes::setProfileTypeInSession($ptypeid);			
-		}
-		return false;	
-	}
-	
-	// this is trigerred on after post on registration page of xipt
-	function onAfterProfileTypeSelection($ptypeid)
-	{
-		// set the profile type in session
-		XiptHelperProfiletypes::setProfileTypeInSession($ptypeid);	
 	}
 	
 	function checkSetupRequired()

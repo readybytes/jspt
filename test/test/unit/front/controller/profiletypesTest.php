@@ -27,6 +27,7 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   		$controller->remove(array(1,2)); 		  
   		
   		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
   	}
   	
   	function testPublish()
@@ -38,6 +39,7 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   		$controller->publish(6);
   		
   		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
   	}
   	
 	function testUnpublish()
@@ -49,6 +51,7 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   		$controller->unpublish(6);
 
   		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
   	}
   	
   	function testVisible()
@@ -60,6 +63,7 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   		$controller->visible(6);  		  	
   		
   		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
   	}
   	
 	function testInvisible()
@@ -71,7 +75,7 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   		$controller->invisible(6); 		
   		
   		$this->_DBO->addTable('#__xipt_profiletypes');
-  		
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');  		
   	}
   	
   	function testSaveOrder()
@@ -85,6 +89,7 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
  		$controller->saveOrder(array(6),'orderdown');
  		
  		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
   	}
   	
   	function testRemoveAvatar()
@@ -95,6 +100,7 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   		$controller->removeAvatar(2,'components/com_community/assets/demo1.jpg');
   		  		
   		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
   		$this->_DBO->addTable('#__community_users');  		
   	}
 }

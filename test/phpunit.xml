@@ -6,8 +6,8 @@
 		bootstrap="bootstrap.php"
 		stopOnFailure="true" >
 
-	<testsuite name="AllTest">
-		<file>setup/setupTest.php</file>	
+	<testsuite name="AllTest">		
+		<directory>test/unit</directory>
 		<file>test/com_xipt/admin/profiletypeTest.php</file>
 		<file>test/com_xipt/admin/editUserTest.php</file>
 		<file>test/com_xipt/admin/applicationTest.php</file>
@@ -21,7 +21,6 @@
         <file>test/com_xipt/front/frontAclRulesTest.php</file>
 		<file>test/com_xipt/front/aclRuleTest.php</file>
 		<file>test/com_xipt/front/applicationForFrontTest.php</file>
-		<directory>test/unit</directory>
 	 </testsuite>
 	
 	<listeners>

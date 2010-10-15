@@ -78,8 +78,7 @@ class plgCommunityxipt_community extends CApplications
 			//if users avatar is custom avatar then thumb is stored as thumb_XXXX.png
 			//else if it is a default avatar(JomSocial OR Profiletype) then stored as XXX_thumb.png
 			//HERE the new_avatar will be default jomsocial avatar so search _thumb 
-			$thumb = JString::stristr($new_avatar_path,'thumb');
-			if($thumb)
+			if(JString::stristr($new_avatar_path,'thumb'))
 				$new_avatar_path = XiptHelperImage::getThumbAvatarFromFull($avatar);
 			else
 				$new_avatar_path = $avatar;
@@ -87,9 +86,8 @@ class plgCommunityxipt_community extends CApplications
 		
 		//check if avatar is ptype default avatar
 		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
-			//HERE we should search for _thumb, not for thumb_
-			$thumb = JString::stristr($old_avatar_path,'thumb');
-			if ($thumb)
+			//HERE we should search for _thumb, not for thumb_			
+			if (JString::stristr($old_avatar_path,'thumb'))
 				$old_avatar_path = DEFAULT_AVATAR_THUMB;
 			else
 				$old_avatar_path = DEFAULT_AVATAR;
@@ -123,7 +121,7 @@ class plgCommunityxipt_community extends CApplications
 	// update the configuration
 	function onAfterConfigCreate($config)
 	{
-		return $this->_pluginHandler->onAfterConfigCreate($config);
+		return XiptLibJomsocial::updateCommunityConfig($config);
 	}
 
 	/**
