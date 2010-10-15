@@ -1,3 +1,7 @@
+
+DROP TABLE IF EXISTS `bk_#__plugins`;;
+CREATE TABLE IF NOT EXISTS `bk_#__plugins` SELECT * FROM `#__plugins`;;
+
 TRUNCATE TABLE `#__plugins`;;
 
 INSERT INTO `#__plugins` (`id`, `name`, `element`, `folder`, `access`, `ordering`, `published`, `iscore`, `client_id`, `checked_out`, `checked_out_time`, `params`) VALUES
