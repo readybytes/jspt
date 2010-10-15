@@ -8,11 +8,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.plugin.plugin' );
 jimport('joomla.filesystem.file');
-jimport('joomla.filesystem.folder');
 
-if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
-	return false;
-	
 if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
  	return false;
  			
@@ -29,22 +25,15 @@ class plgSystemxipt_system extends JPlugin
 	function plgSystemxipt_system( $subject, $params )
 	{
 		parent::__construct( $subject, $params );
+		$this->_pluginHandler = XiptFactory::getLibraryPluginHandler();
 	}
 	
-//	function _includeXipt()
-//	{
-//			
-//		return true;
-//	}
 	
 	function onAfterRoute()
 	{
 		global $mainframe;
 		 $oldTablePath = JTable::addIncludePath();
-		
-//		if(!$this->_includeXipt())
-//			return false;
-				
+					
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 					
@@ -88,30 +77,38 @@ class plgSystemxipt_system extends JPlugin
 		return false;
 	}
 		
-	
+	/**
+	 * This function will store user's registration information
+	 * in the tables, when User object is created
+	 * @param $cuser
+	 * @return true
+	 */
 	function onAfterStoreUser($properties,$isNew,$result,$error)
 	{
-//		if(!$this->_includeXipt())
-//			return false;
-		// use factory to get any object
-		$pluginHandler = XiptFactory::getLibraryPluginHandler();
-		return $pluginHandler->onAfterStoreUser(array($properties,$isNew,$result,$error));
+		if($isNew == false || $result == false || $error == true) {
+			$this->_pluginHandler->cleanRegistrationSession();
+			return true;
+		}
+
+		$profiletypeID = $this->_pluginHandler->getRegistrationPType();
+		// need to set everything
+		XiptLibProfiletypes::updateUserProfiletypeData($properties['id'], $profiletypeID,'', 'ALL');
+
+		//clean the session
+		$this->_pluginHandler->cleanRegistrationSession();
+		return true;
 	}
 	
 	function onAfterDeleteUser($properties,$result,$error)
-	{
-//		if(!$this->_includeXipt())
-//			return false;
-		// use factory to get any object
-		$pluginHandler = XiptFactory::getLibraryPluginHandler();
-		return $pluginHandler->onAfterDeleteUser(array($properties,$result,$error));
+	{		
+		if($result == false || $error == true)
+			return true;		
+		
+		return XiptFactory::getInstance('users','model')->delete($properties['id']);		
 	}
 	
 	function onBeforeProfileTypeSelection()
 	{
-//		if(!$this->_includeXipt())
-//			return false;
-			
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onBeforeProfileTypeSelection();
@@ -120,9 +117,6 @@ class plgSystemxipt_system extends JPlugin
 	
 	function onAfterProfileTypeSelection($ptypeid)
 	{
-//		if(!$this->_includeXipt())
-//			return false;
-			
 		// use factory to get any object
 		$pluginHandler = XiptFactory::getLibraryPluginHandler();
 		return $pluginHandler->onAfterProfileTypeSelection($ptypeid);	

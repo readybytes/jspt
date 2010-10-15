@@ -61,6 +61,10 @@ class XiptQuery
 	protected $_limit = 0;
 	protected $_offset = 0;
 
+	/** @var object The where element */
+	protected $_ignore = null;
+	
+	
 	/**
 	 * Clear data from the query or a specific clause of the query.
 	 *
@@ -109,7 +113,10 @@ class XiptQuery
 			case 'limit':
 				$this->_limit = null;
 				break;
-
+			case 'ignore':
+				$this->_ignore = null;
+				break;
+				
 			default:
 				$this->_type = null;
 				$this->_select = null;
@@ -124,6 +131,7 @@ class XiptQuery
 				$this->_having = null;
 				$this->_order = null;
 				$this->_limit = null;
+				$this->_ignore = null;
 				break;
 		}
 
@@ -328,6 +336,12 @@ class XiptQuery
 		return $this;
 	}
 	
+	public function ignore()
+	{
+		$this->_type = 'ignore';
+		$this->_ignore = new XiptQueryElement('IGNORE', array(), '');
+		return $this;
+	}
 	
 
 	/**
@@ -364,6 +378,7 @@ class XiptQuery
 
 			case 'delete':
 				$query .= (string) $this->_delete;
+				$query .= (string) $this->_ignore;
 				$query .= (string) $this->_from;
 				if ($this->_where) {
 					$query .= (string) $this->_where;
@@ -373,6 +388,7 @@ class XiptQuery
 
 			case 'update':
 				$query .= (string) $this->_update;
+				$query .= (string) $this->_ignore;
 				$query .= (string) $this->_set;
 				if ($this->_where) {
 					$query .= (string) $this->_where;
@@ -381,6 +397,7 @@ class XiptQuery
 
 			case 'insert':
 				$query .= (string) $this->_insert;
+				$query .= (string) $this->_ignore;
 				$query .= (string) $this->_set;
 				if ($this->_where) {
 					$query .= (string) $this->_where;

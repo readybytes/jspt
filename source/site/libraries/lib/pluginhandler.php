@@ -89,8 +89,6 @@ class XiptLibPluginhandler
 		return true;
 	}
 	
-	
-	
 	function cleanRegistrationSession()
 	{
 	    $this->mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
@@ -112,343 +110,48 @@ class XiptLibPluginhandler
 		$this->performACLCheck($ajax, $callArray, $args);
 
 		// If we come here means ACL Check was passed
-		$controller	=	$callArray[0];
-		$function	=	$callArray[1];
+		$controller	=	JString::strtolower($callArray[0]);
+		$function	=	JString::strtolower($callArray[1]);
 	
-		if($controller	==	'connect')
+		switch($controller.'_'.$function)
 		{
-			switch($function)
-			{
-				case 'ajaxCheckEmail' 	 :
-					return XiptHelperRegistration::ajaxCheckEmailDuringFacebook($args,$response);
-				case 'ajaxCheckUsername' :
-					return XiptHelperRegistration::ajaxCheckUsernameDuringFacebook($args,$response);
-				case 'ajaxShowNewUserForm' :
-					return XiptHelperRegistration::ajaxShowNewUserForm($args,$response);
-				case 'ajaxUpdate' :
-					return XiptHelperRegistration::ajaxUpdate($args,$response);
-			}
-		}
-		
-		if($controller	==	'register')
-		{
-			switch($function)
-			{
-				case 'ajaxCheckEmail' 	 :
-				case 'ajaxCheckUserName' :
+			//when controller == connect
+			case 'connect_ajaxCheckEmail' 	 :
+				return XiptHelperRegistration::ajaxCheckEmailDuringFacebook($args,$response);
+
+			case 'connect_ajaxCheckUsername' :
+				return XiptHelperRegistration::ajaxCheckUsernameDuringFacebook($args,$response);
+			
+			case 'connect_ajaxShowNewUserForm' :
+				return XiptHelperRegistration::ajaxShowNewUserForm($args,$response);
+			
+			case 'connect_ajaxUpdate' :
+				return XiptHelperRegistration::ajaxUpdate($args,$response);
+
+			// when controller == register
+			case 'register_ajaxCheckEmail' 	 :
+
+			case 'register_ajaxCheckUserName' :
 					return XiptHelperRegistration::$function($args,$response);
-			}
-		}
-
-		// Checks to stop Apps addition not allowed
-		if($controller =='apps' && $function =='ajaxAdd')
-		{
-		    $my				= JFactory::getUser();
-
-		    //no filtering for guests
-		    if(0 == $my->id)
-		        return true;
-
-		    $profiletype = XiptLibProfiletypes::getUserData($my->id,'PROFILETYPE');
-		    return XiptLibApps::filterAjaxAddApps($args[0],$profiletype,$response);
-		}
-
-		// we do not want to interfere, go ahead JomSocial
-		return true;
-	}
-
-	
-	/*Function will call replacement controller for any community controller
-	 * we are doing this for facebook ( connect ) controller
-	 
-	function onBeforeControllerCreate(&$args)
-	{
-
-	}
-	*/
-	
-
-	/**
-	 * This function will store user's registration information
-	 * in the tables, when Community User object is created
-	 * @param $cuser
-	 * @return true
-	 */
-	function onProfileCreate($cuser)
-	{
-		$userid	= $cuser->_userid;
-
-		return self::storeUser($userid);
-	}
-	
-	
-	/**
-	 * This function will store user's registration information
-	 * in the tables, when User object is created
-	 * @param $cuser
-	 * @return true
-	 */
-	function onAfterStoreUser($args)
-	{
-		/*args[1] contain isNew user
-		 * args[2] = success
-		 * args[3] = error
-		 * so we will check that if user is old 
-		 * or error in save or not success then we will return
-		 */
-		if($args[1] == false || $args[2] == false || $args[3] == true) {
-			self::cleanRegistrationSession();
-			return true;
-		}
-
-		return self::storeUser($args[0]['id']);
-	}
-	
-	/*function will delete user entry from xipt_users table also */
-	function onAfterDeleteUser($args)
-	{
-		/*args[1] = success
-		 * args[2] = error
-		 * so we will check that if user has beed successfully deleted
-		 * then we will proced else
-		 * or error in delete then we will return
-		 */
-		if($args[1] == false || $args[2] == true)
-			return true;
-
-		return self::deleteUser($args[0]['id']);
-	}
-
-	
-	function deleteUser($userid)
-	{
-		$db		= JFactory::getDBO();
-		$query	= 'SELECT * FROM '. $db->nameQuote('#__xipt_users')
-				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
-
-		$db->setQuery( $query );
-		$result	= $db->loadObject();
-		
-		if(empty($result))
-			return true;
-			
-		$query	= 'DELETE FROM '. $db->nameQuote('#__xipt_users')
-				. ' WHERE '.$db->nameQuote('userid').'='.$db->Quote($userid);
-
-		$db->setQuery( $query );
-		if($db->query())
-			return true;
-			
-		return false;
-	}
-	
-
-	function storeUser($userid)
-	{
-		// find pType of user
-		$profiletypeID = self::getRegistrationPType();
-
-		// need to set everything
-		XiptLibProfiletypes::updateUserProfiletypeData($userid, $profiletypeID,'', 'ALL');
-
-		//clean the session
-		self::cleanRegistrationSession();
-
-		return true;
-	}
-
-
-	/**
-	 * This function will ensure that who is not allowed to change template
-	 * or profiletype the data should not be saved.
-	 *
-	 * @param $userId
-	 * @param $fieldValueCodes
-	 * @return true
-	 */
-	function onBeforeProfileUpdate($userid, &$fieldValueCodes)
-	{
-		// We NEVER send false from here. If profiletype should not be changed then 
-		// we simply store previous values. so correct values are always there during the 
-		// after event
-		
-		// TODO : array_key_exists Check for both fields exist in array or not
-		$profileTypeValue =& $fieldValueCodes[PROFILETYPE_CUSTOM_FIELD_CODE];
-		$templateValue    =& $fieldValueCodes[TEMPLATE_CUSTOM_FIELD_CODE];
-		
-		global $mainframe;
-		// While editing in backend do not check for verification Dont run in admin
-		if ($mainframe->isAdmin())
-			return true;
-			
-		// the use is admin, might be editing from frontend return true
-		if(XiptHelperUtils::isAdmin($userid))
-			return true;
-
-		// user is allowed or not.
-        $allowToChangePType    = XiptFactory::getParams('allow_user_to_change_ptype_after_reg',0);
-        $allowToChangeTemplate = XiptFactory::getParams('allow_templatechange',0);
-
-        // not changing anything get data from table and set it
-		if(0 == $allowToChangeTemplate || $templateValue==''){
-			//reset to old users value
-			$templateValue = XiptLibProfiletypes::getUserData($userid,'TEMPLATE');
-			
-			//if user is changing profiletype then we should pick the template as per profiletype
-			$oldPtype = XiptLibProfiletypes::getUserData($userid, 'PROFILETYPE');
-			if($allowToChangePType && $oldPtype != $profileTypeValue)
-				$templateValue = XiptLibProfiletypes::getProfiletypeData($profileTypeValue, 'template');
-		}
-
-		// not allowed to change profiletype, get data from table and set it
-		if(0 == $allowToChangePType || $profileTypeValue == 0){
-			$profileTypeValue = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-		}
-
-		return true;
-	}
-
-	/**
-	 * The user data have been saved.
-	 * We will save user's data (profiletype and template) into Xipt tables
-	 * @param $userId
-	 * @param $saveSuccess
-	 * @return unknown_type
-	 */
-	function onAfterProfileUpdate($userid, $saveSuccess)
-	{
-	    // data was not saved, do nothing
-	    if(false == $saveSuccess)
-	        return true;
-
-	    // the JomSocial already store values in field tables
-	    // now we need to apply that information to our tables
-	    $cuser        = CFactory::getUser($userid);
-	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
-	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
-
-	    //update profiletype only
-	    XiptLibProfiletypes::updateUserProfiletypeData($userid,$profiletype,$template,'ALL');
-	    
-	    //update template seperately
-	    $filter[] 				= 'template';
-	    $newData['template']	= $template;
-	    XiptLibProfiletypes::updateUserProfiletypeFilteredData($userid,$filter,null,$newData);
-	    return true;
-	}
-
-	/*
-	 * This function require to protect deletion of
-	 * default avatar of profiletype because JS
-	 * delete non-default avatar when user change his avatar
-	 * so in that case if that user has any ptype default avatar
-	 * then our ptype avatar will be deleted.
-	 * 
-	 * This function also ensures that when remove pciture is used by admin
-	 * on custom avatar, then we need to add default avatar of profiletype to user
-	 * not the jomsocial default avatar
-	 */
-	function onProfileAvatarUpdate($userid, &$old_avatar_path, &$new_avatar_path)
-	{
-		// When admin is removing a user's avatar
-		// we need to apply default avatar of profiletype
-		$isAdmin = XiptHelperUtils::isAdmin(JFactory::getUser()->id);
-		$view    = JRequest::getVar('view','','GET');
-		$task    = JRequest::getVar('task','','GET');
-		//
-		if($isAdmin && $view == 'profile' && $task == 'removepicture')
-		{
-			//setup $new_avatar
-			$ptype  = XiptLibProfiletypes::getUserData($userid, 'PROFILETYPE');
-			$avatar = XiptLibProfiletypes::getProfiletypeData($ptype, 'avatar');
-			//if users avatar is custom avatar then thumb is stored as thumb_XXXX.png
-			//else if it is a default avatar(JomSocial OR Profiletype) then stored as XXX_thumb.png
-			//HERE the new_avatar will be default jomsocial avatar so search _thumb 
-			$thumb = JString::stristr($new_avatar_path,'thumb');
-			if($thumb)
-				$new_avatar_path = XiptHelperImage::getThumbAvatarFromFull($avatar);
-			else
-				$new_avatar_path = $avatar;
-		}
-		
-		//check if avatar is ptype default avatar
-		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
-			//HERE we should search for _thumb, not for thumb_
-			$thumb = JString::stristr($old_avatar_path,'thumb');
-			if ($thumb)
-				$old_avatar_path = DEFAULT_AVATAR_THUMB;
-			else
-				$old_avatar_path = DEFAULT_AVATAR;
-		}		
-		
-		//Now apply watermark to images
-		//	for that we don't require to add watermark
-		if(XiptFactory::getParams('show_watermark')==false)
-			return true;
 					
-		//check if uploadable avatar is not default ptype avatar
-		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($new_avatar_path,true))
-			return true;
-		
-		//check what is new image , if thumb or original
-		if(JString::stristr($new_avatar_path,'thumb'))
-			$what = 'thumb';
-		else
-			$what = 'avatar';
-		
-		$watermarkInfo = XiptHelperImage::getWatermark($userid);
-		if(false == $watermarkInfo)
-			return true;
-			
-		XiptHelperImage::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
-		return true;
+			//when controller == apps
+			case 'apps_ajaxaddapp' : 
+			case 'apps_ajaxadd' : 
+					$my	= JFactory::getUser();
+
+				    //XITODO : Remove it and add assert
+				    if(0 == $my->id) return true;
+
+		    		$profiletype = XiptLibProfiletypes::getUserData($my->id,'PROFILETYPE');
+		    		return XiptLibApps::filterAjaxAddApps($args[0],$profiletype,$response);
+				
+			default :
+				// 	we do not want to interfere, go ahead JomSocial
+					return true;
+		}
 	}
 
-
-	/**
-	 * This function removes not allowed community apps form dispatcher
-	 * as per user's profiletype
-	 * @return true
-	 */
-	function onAfterAppsLoad()
-	{
-		// skip these calls from backend
-		global $mainframe;
-		if($mainframe->isAdmin())
-			return;
-
-		$dispatcher = JDispatcher::getInstance();
-		/* TODO : when A is viewing B's profile then
-		 * we restrict all A's app on B's profile too.
-		 * so currently we are restricting all apps for currently logged in user
-		 * $userid    = JRequest::getVar('userid',0);
-		 * do nothing for guest
-		 *
-		 */
-		$selfUserid    = JFactory::getUser()->id;
-		$othersUserid  = JRequest::getVar('userid',$selfUserid);
-		
-		// apply guest profile type for guest user
-		$selfProfiletype    = XiptLibProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
-
-		$othersProfiletype 	= XiptLibProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
-		$blockDisplayApp    = XiptFactory::getParams('jspt_block_dis_app', 0);
-		
-		/* #1: block the display application of logged in user if the above param is set to yes
-		   #2: otherwise block display application of user whose profile is being visited
-		   #3: block the functional application of logged in user
-		*/ 		
-		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_OWNER || $blockDisplayApp == BLOCK_DISPLAY_APP_OF_BOTH)
-			XiptLibApps::filterCommunityApps($dispatcher->_observers, $othersProfiletype, true);
-			
-		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_VISITOR || $blockDisplayApp == BLOCK_DISPLAY_APP_OF_BOTH)
-			XiptLibApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype, true);
-
-		XiptLibApps::filterCommunityApps($dispatcher->_observers, $selfProfiletype,	  false);
-		
-	    return true;
-	}
-
+	
 
 	//==================== Joomla Events=======================
 	/*
