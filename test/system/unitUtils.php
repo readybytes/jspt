@@ -8,6 +8,7 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   {
   	//$this->parentSetup();
   	$this->resetCacheData();
+  	$this->cleanStaticCache();
   }
   
   
@@ -100,7 +101,8 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   function resetCacheData()
   {
   	 $sModel = XiptFactory::getInstance('settings','model');
-	 $params  = $sModel->getParams(true);
+	 $params  = $sModel->getParams();
+	 XiptLibJomsocial::cleanStaticCache(true);
   }
   
   function cleanWhiteSpaces($str)
@@ -124,4 +126,9 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
 			
 		return true;
   }
+	
+	function cleanStaticCache()
+	{
+		XiptLibJomsocial::cleanStaticCache(true);
+	}
 }
