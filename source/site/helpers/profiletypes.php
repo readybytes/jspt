@@ -106,7 +106,7 @@ class XiptHelperProfiletypes
 					'allowt'	=> array('name' => 'allowt', 	'value' => false),
 					'group'		=> array('name' => 'group', 	'value' => 0)	
 					);
-					
+		//XITODO : clean this fn	
 		if(!array_key_exists($what,$data))
 			XiptHelperUtils::XAssert(0);
 				
@@ -116,8 +116,10 @@ class XiptHelperProfiletypes
 		$val = XiptFactory::getInstance('profiletypes','model')->loadRecords();
 		if(!$val)
 			return $data[$what]['value'];
-			
-		return $val[$id]->$what;
+
+		if(isset($val[$id]))
+			return $val[$id]->$what;
+		return false;
 	}
 	
 	function getProfileTypeName($id)

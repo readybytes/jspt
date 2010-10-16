@@ -138,7 +138,7 @@ class plgSystemxipt_system extends JPlugin
 		// reset the session data of FROM_FACEBOOK
 		$this->_pluginHandler->resetDataInSession('FROM_FACEBOOK');	
 	
-		if(XiptFactory::getParams('aec_integrate', 0) == true) {
+		if(XiptFactory::getSettingParams('aec_integrate', 0) == true) {
 			$link = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
 			JFactory::getApplication()->redirect($link);
 		}
@@ -158,7 +158,7 @@ class plgSystemxipt_system extends JPlugin
 	function event_com_xipt_registration_blank()
 	{		
 	    $aecExists 		= XiptLibAec::isAecExists();
-	    $integrateAEC   = XiptFactory::getParams('aec_integrate');	   
+	    $integrateAEC   = XiptFactory::getSettingParams('aec_integrate');	   
 
 	    // check AEC exist or not 
 	    // AND check JSPT is integrated with AEC or not

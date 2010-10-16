@@ -25,7 +25,7 @@ class XiptControllerRegistration extends XiptController {
 		XiptHelperProfiletypes::checkSessionForProfileType();
 
 		//If not allowed to select PT for user then return
-		if(XiptFactory::getParams('show_ptype_during_reg')==0){
+		if(XiptFactory::getSettingParams('show_ptype_during_reg')==0){
 			$selectedProfiletypeID= XiptLibProfiletypes::getDefaultProfiletype();
 			XiptHelperProfiletypes::setProfileTypeInSession($selectedProfiletypeID);
 		}

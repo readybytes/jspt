@@ -24,7 +24,7 @@ class CFieldsTemplates
 		$this->_mySess =& JFactory::getSession();
 		$this->_task = JRequest::getVar('task',0,'GET');
 		$this->_view = JRequest::getVar('view',0,'GET');
-		$this->_params = XiptFactory::getParams('', 0);
+		$this->_params = XiptFactory::getSettingParams('', 0);
 		
 	}
 

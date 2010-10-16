@@ -118,7 +118,7 @@ class XiptFactory
 	}
 	
     //get settings params data from xipt component
-	function getParams($paramName='', $defaultValue=0)
+	function getSettingParams($paramName='', $defaultValue=0)
 	{
 		$sModel  = XiptFactory::getModel('Settings');
 		$params  = $sModel->getParams();

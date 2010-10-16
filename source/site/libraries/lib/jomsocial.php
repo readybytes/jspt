@@ -202,7 +202,7 @@ class XiptLibJomsocial
 	function updateCommunityUserWatermark($userid,$watermark='')
 	{	
 		//check if watermark is enable
-		if(XiptFactory::getParams('show_watermark')== false)
+		if(XiptFactory::getSettingParams('show_watermark')== false)
 			return false;
 		
 		//update watermark on user's avatar

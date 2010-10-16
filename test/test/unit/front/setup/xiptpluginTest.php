@@ -23,36 +23,42 @@ class XiptpluginTest extends XiUnitTestCase
 	{
 		//#case 1: when both plugins are installed & enabled
 		$obj = new XiptSetupRuleXiptplugin();
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testDoRevert.start.sql');
+		$this->changePluginState('xipt_system', 1);
+		$this->changePluginState('xipt_community', 1);
 		$this->assertTrue($obj->_isPluginInstalledAndEnabled());
 		
 		//#case 2: when both plugins are installed but not enabled
 		$obj = new XiptSetupRuleXiptplugin();
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testDoApply.start.sql');
+		$this->changePluginState('xipt_system', 0);
+		$this->changePluginState('xipt_community', 0);
 		$this->assertFalse($obj->_isPluginInstalledAndEnabled());
 		
 		//#case 3: when both plugins are installed but one is not enabled
 		$obj = new XiptSetupRuleXiptplugin();
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testIsPluginInstalledAndEnabled.start.sql');
+		$this->changePluginState('xipt_system', 0);
+		$this->changePluginState('xipt_community', 1);
 		$this->assertFalse($obj->_isPluginInstalledAndEnabled());
 	}
 	
 	function testIsRequired()
 	{
-		//#case 1: when both plugins are installed & enabled
+		//#case 1: when both plugins are installed but not enabled
 		$obj = new XiptSetupRuleXiptplugin();
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testDoRevert.start.sql');
+		$this->changePluginState('xipt_system', 0);
+		$this->changePluginState('xipt_community', 0);
+		$this->assertTrue($obj->isRequired());
+		
+		//#case 2: when both plugins are installed but one is not enabled
+		$obj = new XiptSetupRuleXiptplugin();
+		$this->changePluginState('xipt_system', 0);
+		$this->changePluginState('xipt_community', 1);
+		$this->assertTrue($obj->isRequired());
+		
+		//#case 3: when both plugins are installed & enabled
+		$obj = new XiptSetupRuleXiptplugin();
+		$this->changePluginState('xipt_system', 1);
+		$this->changePluginState('xipt_community', 1);
 		$this->assertFalse($obj->isRequired());
-		
-		//#case 2: when both plugins are installed but not enabled
-		$obj = new XiptSetupRuleXiptplugin();
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testDoApply.start.sql');
-		$this->assertTrue($obj->isRequired());
-		
-		//#case 3: when both plugins are installed but one is not enabled
-		$obj = new XiptSetupRuleXiptplugin();
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testIsPluginInstalledAndEnabled.start.sql');
-		$this->assertTrue($obj->isRequired());
 	}
 	
 	function testDoApply()

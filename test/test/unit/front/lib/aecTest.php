@@ -12,7 +12,6 @@ class AecTest extends XiUnitTestCase
   {
   		//default params
   		$param 					= array();
-		$param['hidden'] 		= false;
 		$param['profiletype'] 	= 1;
 		$param['plan'] 			= '';
 		$param['planid'] 		= 0;
@@ -25,7 +24,6 @@ class AecTest extends XiUnitTestCase
 	  	$mySess->set('AEC_REG_PLANID', 4 ,'XIPT');
   	
   	    $param 					= array();
-		$param['hidden'] 		= false;
 		$param['profiletype'] 	= 3;
 		$param['plan'] 			= 'AEC Plan 002 (ID 4)';
 		$param['planid'] 		= 4;
@@ -36,7 +34,6 @@ class AecTest extends XiUnitTestCase
 		
 		//default params
   		$param 					= array();
-		$param['hidden'] 		= false;
 		$param['profiletype'] 	= 3;
 		$param['plan'] 			= 'AEC Plan 002 (ID 4)';
 		$param['planid'] 		= 4;
@@ -49,7 +46,6 @@ class AecTest extends XiUnitTestCase
 	  	$mySess->set('AEC_REG_PLANID', 2 ,'XIPT');
   		
   	    $param 					= array();
-		$param['hidden'] 		= false;
 		$param['profiletype'] 	= 3;
 		$param['plan'] 			= 'AEC Plan 002 (ID 4)';
 		$param['planid'] 		= 4;

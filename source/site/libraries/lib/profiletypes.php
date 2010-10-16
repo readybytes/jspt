@@ -185,11 +185,11 @@ class XiptLibProfiletypes
 //		if($defaultProfiletypeID && $refresh===false)
 //			return $defaultProfiletypeID;
 //		
-		$defaultProfiletypeID = XiptFactory::getParams('defaultProfiletypeID');
+		$defaultProfiletypeID = XiptFactory::getSettingParams('defaultProfiletypeID');
 		if($defaultProfiletypeID)
 			return  $defaultProfiletypeID;
 		
-		echo XiptFactory::getParams()->render();
+		echo XiptFactory::getSettingParams()->render();
 		XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 	}
 	
@@ -203,15 +203,7 @@ class XiptLibProfiletypes
 			
 	function getProfiletypeName( $id = 0)
 	{
-	    // in Custom field and Xipt table they can have pID=0
-	    if($id==0)
-            $id=XiptLibProfiletypes::getDefaultProfiletype();
-		
-		$db			=& JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('name').' FROM ' . $db->nameQuote( '#__xipt_profiletypes' )
-					. ' WHERE '.$db->nameQuote('id').'='.$db->Quote($id) ;
-		$db->setQuery( $query );
-		$val = $db->loadResult();
+		$val = XiptHelperProfiletypes::getProfileTypeName($id);
 		return $val;
 	}
 
@@ -271,7 +263,7 @@ class XiptLibProfiletypes
 	    {
 	        case 'PROFILETYPE':
 	        	if($userid == 0 )
-					return XiptFactory::getParams('guestProfiletypeID', XiptFactory::getParams('defaultProfiletypeID', 0));
+					return XiptFactory::getSettingParams('guestProfiletypeID', XiptFactory::getSettingParams('defaultProfiletypeID', 0));
 		        $getMe	       = PROFILETYPE_FIELD_IN_USER_TABLE;
                 $defaultValue  = XiptLibProfiletypes::getDefaultProfiletype();
                 break;
@@ -328,63 +320,10 @@ class XiptLibProfiletypes
 		return $cache->call(array('XiptLibProfiletypes','_getProfiletypeData'),$id=0, $what);
 	}*/
 	
-	function getProfiletypeData($id=0, $what='name')
+	function getProfiletypeData($id = 0, $what = 'name')
 	{
 
-		switch($what)
-		{
-			case 'name' :
-					$searchFor 		= 'name';
-					$defaultValue	= 'ALL';
-					break;
-						
-			case 'privacy' :
-					$searchFor 		= 'privacy';
-					$defaultValue	= 'friends';
-					break;
-						
-			case 'template' :
-					$searchFor 		= 'template';
-					$defaultValue	= 'default';
-					break;
-			case 'jusertype' :
-					$searchFor 		= 'jusertype';
-					$defaultValue	= 'Registered';
-					break;
-			case  'avatar':
-					$searchFor 		= 'avatar';
-					$defaultValue	= DEFAULT_AVATAR;
-					break;
-			case  'watermark':
-					$searchFor 		= 'watermark';
-					$defaultValue	= '';
-					break;
-			case  'approve':
-					$searchFor 		= 'approve';
-					$defaultValue	= true;
-					break;
-			case	'allowt':
-					$searchFor 		= 'allowt';
-					$defaultValue	= false;
-					break;
-			case	'group':
-					$searchFor 		= 'group';
-					$defaultValue	= false;
-					break;
-			default	:
-					XiptError::raiseError('XIPT_ERR','XIPT System Error');
-		}
-	
-		if($id==0)
-			return $defaultValue;
-			
-		$db			= JFactory::getDBO();
-		$query		= 'SELECT '. $db->nameQuote($searchFor) .' FROM '
-					. $db->nameQuote( '#__xipt_profiletypes' )
-					. ' WHERE '.$db->nameQuote('id').'='. $db->Quote($id);
-		
-		$db->setQuery( $query );
-		$val = $db->loadResult();
+		$val = XiptHelperProfiletypes::getProfileTypeData($id, $what);
 		return $val;
 	}
 	

@@ -15,7 +15,6 @@ class XiptLibAec
 			return false;
 			
 		$param 					= array();
-		$param['hidden'] 		= false;
 		$param['profiletype'] 	= XiptLibProfiletypes::getDefaultProfiletype();
 		$param['plan'] 			= '';
 		$param['planid'] 		= 0;
@@ -96,7 +95,7 @@ class XiptLibAec
 	static public function getAecMessage()
 	{
 		$data   = self::getProfiletypeInfoFromAEC();
-	    $msgOption = XiptFactory::getParams('aec_message','b');
+	    $msgOption = XiptFactory::getSettingParams('aec_message','b');
 	    $pTypeName = XiptLibProfiletypes::getProfiletypeName($data['profiletype']);
 	    
     	if($msgOption==='pl')

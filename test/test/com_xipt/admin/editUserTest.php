@@ -268,7 +268,7 @@ function testEditUserTemplateProfiletype()
   
 	function checkDeletedUser($userid)
 	{
-	  	$db	=& JFactory::getDBO();
+	  	$db	= JFactory::getDBO();
 	  	$query	= " SELECT * FROM #__xipt_users"
 	  			." WHERE `userid`='". $userid ."'"
 	  			." LIMIT 1";

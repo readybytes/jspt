@@ -37,8 +37,8 @@ class ProfiletypeUnitTest extends XiUnitTestCase
 	$name = XiptLibProfiletypes::getProfiletypeName(4);
 	$this->assertEquals($name,'PROFILETYPE-4');
 	
-	$name = XiptLibProfiletypes::getProfiletypeName(0);
-	$this->assertEquals($name,'PROFILETYPE-2');
+//	$name = XiptLibProfiletypes::getProfiletypeName(0);
+//	$this->assertEquals($name,'PROFILETYPE-2');
 	       
   }
   function testProfiletypeArray()

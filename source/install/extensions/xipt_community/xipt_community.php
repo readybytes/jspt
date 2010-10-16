@@ -95,7 +95,7 @@ class plgCommunityxipt_community extends CApplications
 		
 		//Now apply watermark to images
 		//	for that we don't require to add watermark
-		if(XiptFactory::getParams('show_watermark')==false)
+		if(XiptFactory::getSettingParams('show_watermark')==false)
 			return true;
 					
 		//check if uploadable avatar is not default ptype avatar
@@ -145,7 +145,7 @@ class plgCommunityxipt_community extends CApplications
 		$selfProfiletype    = XiptLibProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 		$othersProfiletype 	= XiptLibProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
 		
-		$blockDisplayApp    = XiptFactory::getParams('jspt_block_dis_app', 0);
+		$blockDisplayApp    = XiptFactory::getSettingParams('jspt_block_dis_app', 0);
 		
 		/**
 		 *  #1: block the display application of logged in user if the above param is set to yes
@@ -190,8 +190,8 @@ class plgCommunityxipt_community extends CApplications
 			return true;
 
 		// user is allowed or not.
-        $allowToChangePType    = XiptFactory::getParams('allow_user_to_change_ptype_after_reg',0);
-        $allowToChangeTemplate = XiptFactory::getParams('allow_templatechange',0);
+        $allowToChangePType    = XiptFactory::getSettingParams('allow_user_to_change_ptype_after_reg',0);
+        $allowToChangeTemplate = XiptFactory::getSettingParams('allow_templatechange',0);
 
         // not changing anything get data from table and set it
 		if(!$allowToChangeTemplate || !empty($templateValue)){

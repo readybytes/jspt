@@ -11,7 +11,7 @@ class XiptSetupRuleWatermark extends XiptSetupBase
 	function isRequired()
 	{
 		$ptypeArray	= XiptHelperProfiletypes::getProfileTypeArray();
-		$globalWM	= XiptFactory::getParams('show_watermark',0);
+		$globalWM	= XiptFactory::getSettingParams('show_watermark',0);
 				
 		if($globalWM)
 			return false;

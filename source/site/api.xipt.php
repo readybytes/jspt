@@ -109,6 +109,6 @@ class XiptAPI
 		if($paramName === '')
 			return null;
 			
-		return XiptFactory::getParams($paramName ,$defaultValue);
+		return XiptFactory::getSettingParams($paramName ,$defaultValue);
 	}
 }

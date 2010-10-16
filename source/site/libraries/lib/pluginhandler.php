@@ -33,7 +33,7 @@ class XiptLibPluginhandler
 	function isPTypeExistInSession()
 	{
 		$aecExists 		= XiptLibAec::isAecExists();
-		$integrateAEC   = XiptFactory::getParams('aec_integrate',0);
+		$integrateAEC   = XiptFactory::getSettingParams('aec_integrate',0);
 		if($aecExists && $integrateAEC)
 		{
 			$data  = XiptLibAec::getProfiletypeInfoFromAEC() ;
@@ -150,7 +150,7 @@ class XiptLibPluginhandler
 	{
 	    XiptLibAec::getProfiletypeInfoFromAEC() ;
 
-		$show_ptype_during_reg = XiptFactory::getParams('show_ptype_during_reg', 0);
+		$show_ptype_during_reg = XiptFactory::getSettingParams('show_ptype_during_reg', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 
 		if($show_ptype_during_reg){
@@ -170,7 +170,7 @@ class XiptLibPluginhandler
 
 
 			$aecExists 		= XiptLibAec::isAecExists();
-			$integrateAEC   = XiptFactory::getParams('aec_integrate',0);
+			$integrateAEC   = XiptFactory::getSettingParams('aec_integrate',0);
 
 			// pType already selected
 			if($integrateAEC && $aecExists)
@@ -217,7 +217,7 @@ class XiptLibPluginhandler
 		//do not filter fields in  advanced search if user do not want to restrict
 		// field according to profiletype
 		
-		$restrict_advancesearchfield = XiptFactory::getParams('restrict_advancesearchfield', 0);
+		$restrict_advancesearchfield = XiptFactory::getSettingParams('restrict_advancesearchfield', 0);
 		$view	= JRequest::getVar('view','','GET');
 		$task 	= JRequest::getVar('task','','GET');
 		

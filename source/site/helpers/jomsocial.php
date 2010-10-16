@@ -26,7 +26,7 @@ class XiptHelperJomsocial
 	
  	function getReturnURL()
     {
-    	$regType = XiptFactory::getParams('user_reg');
+    	$regType = XiptFactory::getSettingParams('user_reg');
         
         if($regType === 'jomsocial')
            return XiPTRoute::_('index.php?option=com_community&view=register', false);
