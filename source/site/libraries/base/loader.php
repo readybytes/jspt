@@ -9,25 +9,20 @@ class XiptLoader
         //here we will try to register all MC and libs and helpers
         function addAutoLoadFolder($folder, $type, $prefix='Xipt')
         {
-                foreach(JFolder::files($folder) as $file )
+                foreach(JFolder::files($folder,'.php$') as $file )
                 {
-                        if($file===strtolower('index.html'))
-                        	continue;
-                         if($file===strtolower('aclrule.php'))
-                        	continue;
                         $className      = JString::ucfirst($prefix)
                                                 . JString::ucfirst($type)
                                                 . JString::ucfirst(JFile::stripExt($file));
-                        
-                        if($file===strtolower('xiptcore.php'))
-                        	$className='XiptFactory';
+
                         JLoader::register($className, $folder.DS.$file);
                 }
         }
         
         function addAutoLoadFile($class,$file)
         {
-        	JLoader::register($class, $file);
+        	if(JFile::getExt($file)==='php')
+        		JLoader::register($class, $file);
         }
         
 		function addAutoLoadViews($baseFolders, $format, $prefix='Xipt')

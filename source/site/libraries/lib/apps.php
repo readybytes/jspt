@@ -44,25 +44,17 @@ class XiptLibApps
 //        static $result = null;
 //        if($result !== null && isset($result[$profiletype]))
 //			return $result[$profiletype];
-			
-        $db		= JFactory::getDBO();
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__xipt_applications' );
 
-		$db->setQuery( $query );
-		$tempResult = $db->loadAssocList();
-		
-		$result = array();
-		
+    	$tempResult = XiptFactory::getInstance('applications', 'model')
+    								->loadRecords();		
+				
 		foreach($tempResult as $temp)
-		{
-			$result[$temp['profiletype']][] = $temp['applicationid'];
-		}
+			$result[$temp->profiletype][] = $temp->applicationid;
 		
 		if(isset($result[$profiletype]))
 			return $result[$profiletype];
 		else
-			return array();
-		
+			return array();		
     }
     
 	function getPluginId( $element, $folder = 'community' )
@@ -70,20 +62,15 @@ class XiptLibApps
 //		static $result = null;
 //		if($result !== null && isset($result[$folder][$element]))
 //			return $result[$folder][$element]['id'];
-		
-		$db		= JFactory::getDBO();
-		$query	= 'SELECT ' . $db->nameQuote( 'id' ) . ' , ' . $db->nameQuote( 'element' ) . ' '
-				. 'FROM ' . $db->nameQuote( '#__plugins' ) . ' '
-				. 'WHERE ' .$db->nameQuote( 'folder' ) . '=' . $db->Quote( $folder );
-	
-		$db->setQuery( $query );
-		$result[$folder] = $db->loadAssocList('element');
-			
-		if($db->getErrorNum())
-			XiptError::raiseError( 500, $db->stderr());
-		
-		if(isset($result[$folder][$element]))
-			return $result[$folder][$element]['id'];
+		$query = new XiptQuery();
+		$plugin = $query->select('*')
+						->from('#__plugins')
+						->where(" `folder` = '$folder' ")
+						->dbLoadQuery("","")
+						->loadObjectList('element');
+						
+		if(isset($plugin[$element]))
+			return $plugin[$element]->id;
 		else
 			return false;
 	}

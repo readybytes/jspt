@@ -44,17 +44,17 @@ class XiptControllerSetup extends XiptController
     function unhook()
     {
     	//get all files required for setup
-		$setupNames = XiptSetupHelper::getOrder();
+		$setupNames = XiptSetupHelper::getOrderedRules();
 		
 		foreach($setupNames as $setup)
 		{
 			//get object of class
-			$setupObject = XiptFactory::getSetupRule($setup);
+			$setupObject = XiptFactory::getSetupRule($setup['name']);
 			$setupObject->doRevert();
 		}
 		
-		global $mainframe;
 		$msg = JText::_('UNHOOKED SUCCESSFULLY');
-		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+		$this->setRedirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
+		return true;
     }
 }

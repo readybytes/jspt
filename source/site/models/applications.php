@@ -7,38 +7,29 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptModelApplications extends XiptModel
-{	
-	/**
-	 * Returns the Query Object if exist
-	 * else It builds the object
-	 * @return XiQuery
-	 */
-	public function getQuery()
-	{
-		//query already exist
-		if($this->_query)
-			return $this->_query;
-
-		//create a new query
-		$this->_query = new XiptQuery();
-		
-		$this->_query->select('*'); 
-		$this->_query->from('#__plugins');
-		$this->_query->where(" `folder` = 'community' ");
-		$this->_query->order('ordering');
-		
-		return $this->_query;
-	}
-	
+{
 	/**
 	 * Returns the Application name
 	 * @return string
 	 **/
-	function getPlugin($pluginId)
-	{			
-		$result = $this->loadRecords();
-									
-		if(!empty($result[$pluginId]))
+	function getPlugin($pluginId=null, $indexBy='id')
+	{		
+		static $result=null;
+		if($result== null){
+			$query = new XiptQuery();
+			
+			$result = $query->select('*')
+							->from('#__plugins')
+							->where(" `folder` = 'community' ")
+							->order('ordering')
+							->dbLoadQuery("","")
+							->loadObjectList('id');			
+		}
+		
+		if($pluginId == null && $result)
+			return $result;
+			
+		if(isset($result[$pluginId]) && !empty($result[$pluginId]))
 			return $result[$pluginId];
 		else
 			return false;

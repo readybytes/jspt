@@ -12,7 +12,7 @@ class XiptViewApplications extends XiptView
 	{
 		$aModel	= $this->getModel();
 		
-		$fields		= $aModel->loadRecords();
+		$fields		= $aModel->getPlugin();
 		$pagination	= $aModel->getPagination();
 		
 		$this->setToolbar();

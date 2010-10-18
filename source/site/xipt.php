@@ -6,47 +6,23 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
-jimport('joomla.application.component.controller');
 require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
-
-	if(JRequest::getCmd('view') == '') {
-	            JRequest::setVar('view', 'registration');
-	}
-
-	$controller	= JRequest::getCmd( 'view');
-
-	if( !empty( $controller ) )
-	{
-		$controller	= JString::strtolower( $controller );
-		$path		= JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.$controller.'.php';
+$controller	= JRequest::getCmd('view', 'registration');
+$controller	= JString::strtolower( $controller );	
+$class	= 'XiptController' . JString::ucfirst( $controller );
 	
-		// Test if the controller really exists
-		if( JFile::exists( $path ) )
-			require_once( $path );
-		else
-			XiptError::raiseError( 500 , JText::_( 'Invalid Controller. File does not exists in this context.' ) );
-	}
+// Test if the object really exists in the current context
+if(!class_exists($class, true))
+	XiptError::raiseError( 500 , 'Invalid Controller Object. Class definition does not exists in this context.' );
+		
+$controller	= new $class();
 	
-	$class	= 'XiptController'. JString::ucfirst( $controller ) ;
+// Perform the Request task
+$task = JRequest::getCmd('task','display');		
 	
-	// Test if the object really exists in the current context
-	if(class_exists($class))
-		$controller	= new $class();
-	else
-		XiptError::raiseError( 500 , JText::_('Invalid Controller Object.Class definition does not exists in this context') );
+// Task's are methods of the controller. Perform the Request task
+$controller->execute( $task );
 	
-	// Perform the Request task
-	$task = JRequest::getCmd('task');
-	
-	if($task == '')
-	{
-		JRequest::setVar('task', 'display');
-		$task='display';
-	}
-	
-	// Task's are methods of the controller. Perform the Request task
-	$controller->execute( $task );
-	
-	// Redirect if set by the controller
-	//$controller->redirect();
+// Redirect if set by the controller
+$controller->redirect();

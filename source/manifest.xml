@@ -36,14 +36,14 @@
 	<administration>
 		<menu link="option=com_xipt" img="components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
 		<submenu>
-			<menu view="cpanel" 		img="../components/com_xipt/assets/images/icon-cpanel.png">Control Panel</menu>
-			<menu view="settings" 		img="../components/com_xipt/assets/images/icon-jspt-settings.png">Settings</menu>
-			<menu view="configuration" 	img="../components/com_xipt/assets/images/icon-jspt-config.gif">JS Configuration</menu>
+			<menu view="cpanel" 		img="../components/com_xipt/assets/images/icon-cpanel.png">Home</menu>
 			<menu view="setup" 			img="../components/com_xipt/assets/images/icon-setup.gif">Setup</menu>
+			<menu view="settings" 		img="../components/com_xipt/assets/images/icon-jspt-settings.png">Settings</menu>
 			<menu view="profiletypes" 	img="../components/com_xipt/assets/images/icon-profiletypes.gif">Profile Types</menu>
+			<menu view="configuration" 	img="../components/com_xipt/assets/images/icon-jspt-config.gif">JS Configuration</menu>
 			<menu view="aclrules" 		img="../components/com_xipt/assets/images/icon-aclrules.gif">Access Control</menu>
-			<menu view="applications" 	img="../components/com_xipt/assets/images/icon-applications.gif">Applications</menu>
 			<menu view="profilefields" 	img="../components/com_xipt/assets/images/icon-profilefields.gif">Profile Fields</menu>
+			<menu view="applications" 	img="../components/com_xipt/assets/images/icon-applications.gif">Applications</menu>
 		</submenu>
 	
 		<files folder="admin">

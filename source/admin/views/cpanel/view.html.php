@@ -11,7 +11,11 @@ class XiptViewCpanel extends XiptView
 {	
 	function display($tpl = null)
 	{
-		$this->setToolbar();		
+		$this->setToolbar();
+
+		$pane	= JPane::getInstance('sliders');
+		$this->assignRef( 'pane'		, $pane );
+
 		parent::display( $tpl );
 	}
 

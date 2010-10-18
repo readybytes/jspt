@@ -115,5 +115,12 @@ abstract class XiptController extends JController
 		$this->getModel()->order($id, $direction);
 		$this->setRedirect(XiptRoute::_('index.php?option=com_xipt&view='.$this->getName(), false));
 	}
+	
+	function execute( $task )
+	{
+		parent::execute($task);
+		if(JFactory::getApplication()->isAdmin() == true)		
+			include_once(XIPT_ADMIN_PATH_VIEWS.DS.'cpanel'.DS.'tmpl'.DS.'default_footermenu.php');
+	}	
 }
 

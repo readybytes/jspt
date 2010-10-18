@@ -28,4 +28,16 @@ abstract class XiptSetupBase
 	{
 		return true;
 	}
+	
+	function getHelpMsg($ruleName)
+	{
+		// XITODO : handle errors 
+		$msgFile = dirname(__FILE__).DS.'rule'.DS.$ruleName.'.html';
+		ob_start();
+		include_once($msgFile);
+		$content = ob_get_contents();
+		ob_end_clean();
+		
+		return $content;
+	}
 }

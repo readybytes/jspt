@@ -6,30 +6,21 @@
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
-<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5;"><?php 
-				//echo $this->pane->startPane( 'stat-pane1' );
-				echo $this->loadTemplate('welcome');
-				//echo $this->pane->endPanel();
-				?>
-</div>
-<table>
+<table class="adminlist">
 		<tr>
-				<td width="50%" valign="top">
-				<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5;"><?php 
-				//echo $this->pane->startPane( 'stat-pane1' );
-				echo $this->loadTemplate('news');
-				//echo $this->pane->endPanel();
-				?>
+			<td>
+				<div style="font-weight:700;">
+					JoomlaXi is a team of professional web developers dedicated to deliver high-quality extensions, unique solutions and advanced services for Joomla!, the most popular open source Content Management System (CMS) worldwide.				 
 				</div>
-				</td>
-				<td width="50%" valign="top">
-				<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5;" ><?php
-				//echo $this->pane->startPane( 'stat-pane2' );
-				echo $this->loadTemplate('updates');
-				//echo $this->pane->endPanel();
-				?>
-				</div>
+				<p>
+					Support : <a href="http://www.joomlaxi.com/support/forum.html" target="_blank">
+					http://www.joomlaxi.com/support/forum.html
+					</a>
+				</p>
+				<p>
+					Through JSPT it is possible to create unlimited number of ProfileTypes.Every field of Profile can be assigned to any number of profiles-type or to ALL. Moreover, Well Organized user management is achieved.
+				</p>
 			</td>
-			</tr>
-		</table>
+		</tr>
+	</table>
 <?php 

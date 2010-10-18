@@ -3,21 +3,19 @@
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
-	//echo $this->pane->startPanel( JText::_('WELCOME TO XIPT') , 'welcome' );
-	?>
-	<table class="adminlist">
+// Disallow direct access to this file
+if(!defined('_JEXEC')) die('Restricted access');
+?>
+<table class="adminlist">
 		<tr>
 			<td>
 				<div style="font-weight:700;">
-					<?php echo JText::_('ANOTHER GREAT COMPONENT BROUGHT TO YOU BY JOOMLAXI.COM');?>
-				</div>
 				<p>
-					Support : <a href="http://www.joomlaxi.com/support/forum.html" target="_blank">
-					http://www.joomlaxi.com/support/forum.html
-					</a>
+					JoomlaXi is a team of professional web developers dedicated to deliver high-quality extensions, unique solutions and advanced services for Joomla!, the most popular open source Content Management System (CMS) worldwide.				 
 				</p>
+				</div>
 			</td>
 		</tr>
 	</table>
-<?php
-	//echo $this->pane->endPanel();
+<?php 
+

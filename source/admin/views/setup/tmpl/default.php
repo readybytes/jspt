@@ -10,68 +10,43 @@ if(!defined('_JEXEC')) die('Restricted access');
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
 <div>
 	<div style="float:left;"> 
-	<?php 
-		if($this->requiredSetup) {
-			$counter = 1; 
-			?>
-			<table>
-			<?php 
-			$complete 		= '<img src="images/tick.png" alt="done" />';
-			$notcomplete 	= '<img src="images/publish_x.png" alt="not complete" />';
-			$warningImage	= '<img src="../components/com_xipt/assets/images/warning.png" alt="warning" />';
-			foreach($this->requiredSetup as $util) {
-				?>
-				<tr id="setup<?php echo $counter; ?>" >
-				 <td>
-				 		<?php  echo $counter.". ";?>
-				 </td>
-				 
-				 <td id="setupMessage<?php echo $counter; ?>">
-				 	<?php  echo $util['message'];?>
-				 </td>
-				 
-				 <td id="setupImage<?php echo $counter; ?>">
-				 	<?php  if($util['done'])
-				 				echo $complete;
-				 			else 
-				 				echo $notcomplete;?>
-				 </td>
-				 
-				 </tr>
-				 <?php 
-				 $counter++;
-			}
-			if(isset($this->warnings))
-			{
-				foreach($this->warnings as $warning)
-				{
-					?>
-					<tr>
-				 		<td>
-				 		<?php  echo $counter.". ";?>
-				 		</td>
-				 
-				 		<td id="warningMessage<?php echo $counter; ?>">
-				 			<?php  echo $warning['message'];?>
-				 		</td>
-				 
-						 <td id="warningImage<?php echo $counter; ?>" >
-						 	<?php  echo $warningImage; ?>
-						 </td>
-					 
-					 </tr>
-					 <?php 
-				 	$counter++;
-				}
-			}
-			?></table><?php 
-		}
-	?>
+		<?php $counter = 1;	?>
+		<table>
+			<?php 	$complete 		= '<img src="images/tick.png" alt="done" />'; ?>
+			<?php 	$notcomplete 	= '<img src="images/publish_x.png" alt="not complete" />'; ?>
+			<?php 	$warningImage	= '<img src="../components/com_xipt/assets/images/warning.png" alt="warning" />'; ?>
+			
+			<?php  foreach($this->requiredSetup as $util) :	?>
+			<tr id="setup<?php echo $counter; ?>" >
+			 <td>
+			 		<?php  echo $counter.". ";?>
+			 </td>
+			 
+			 <td id="setupMessage<?php echo $counter; ?>">
+			 	<?php  echo $util['message'];?>
+			 </td>
+			 
+			 <td id="setupImage<?php echo $counter; ?>">
+			 	<?php  if($util['type'] == XIPT_SETUP_WARNING)
+			 				echo $warningImage;
+			 			else if($util['done'] == true)
+			 				echo $complete;
+			 			else 
+			 				echo $notcomplete;?>
+			 </td>				 
+			 </tr>
+			 <?php  $counter++;  ?>
+			 <?php endforeach;	?>
+		</table>
 	</div>
 	<div style="float:inherit; margin-left:50%;">
 			<?php
 				echo $this->pane->startPane( 'stat-pane' );
-				require_once 'helpPanel.php';
+					foreach($this->setupRules as $rule):
+						echo $this->pane->startPanel($rule['title'],$rule['name']);
+						echo $this->helpMsg[$rule['name']];
+						echo $this->pane->endPanel();
+					endforeach;	
 				echo $this->pane->endPane();
 			?>
 	</div>

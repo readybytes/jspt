@@ -102,19 +102,11 @@ class ConfigurationTest extends XiSelTestCase
   	$this->open(JOOMLA_LOCATION.'/administrator/index.php?option=com_xipt&view=settings');
   	$this->waitPageLoad();
   	
-    $this->click("settingsshow_ptype_during_reg1");
-    $this->click("settingsallow_user_to_change_ptype_after_reg0");
+    $this->click("settingsshow_ptype_during_reg1");    
     $this->select("settings[defaultProfiletypeID]", "label=PROFILETYPE-1");
     $this->select("settings[guestProfiletypeID]", "label=PROFILETYPE-3");
-    $this->click("settingsjspt_show_radio0");
-    $this->click("settingsjspt_fb_show_radio1");
-    $this->click("settingsallow_templatechange0");
-    $this->click("settingsshow_watermark1");
-    $this->click("settingsjspt_block_dis_app1");
     $this->click("settingsaec_integrate1");
-    $this->click("settingsaec_messagepl");
-    
-  	
+      	
   	$this->click("//td[@id='toolbar-save']/a");
   	$this->waitPageLoad();
   }

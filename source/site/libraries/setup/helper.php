@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupHelper
 {
-	function getOrder()
+	function getOrderedRules()
 	{
 		$parser		= JFactory::getXMLParser('Simple');
 		$xml		= XIPT_FRONT_PATH_LIBRARY_SETUP . DS . 'order.xml';
@@ -17,11 +17,9 @@ class XiptSetupHelper
 	
 		$order	= array();
 		$childrens = $parser->document->children();
-		foreach($childrens as $child){
-			$attr = $child->attributes();
-			$order[] = $attr['name'];
-		}
-
-		return $order;
+		foreach($childrens as $child)
+			$attr[] = $child->attributes();
+			
+		return $attr;
 	}
 }

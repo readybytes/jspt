@@ -56,8 +56,8 @@ class CFieldsTemplates
 		$class	= ($required == 1) ? ' required' : '';
 		
 		$selectedValue = JText::_(CFieldsTemplates::getTemplateValue($tName,$user->id));
-		
-		$allowToChangeTemplate = $this->_params->get('allow_templatechange',0);
+		//	XITODO : format it in proper way
+		$allowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData(XiptLibProfiletypes::getUserData($user->id),'allowt');
 		$allowToChangeTemplate = $allowToChangeTemplate || XiptHelperUtils::isAdmin($user->id);
 		
 		if(!$allowToChangeTemplate) {

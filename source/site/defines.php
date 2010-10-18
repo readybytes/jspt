@@ -113,3 +113,7 @@ define('XIPT_PROFILETYPE_NONE',-1);
 
 // define constant for none group
 define('NONE', 0);
+
+// define contants for type of setup rule
+define('XIPT_SETUP_ERROR','error');
+define('XIPT_SETUP_WARNING','warning');

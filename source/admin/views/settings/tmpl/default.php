@@ -16,11 +16,79 @@ if(!defined('_JEXEC')) die('Restricted access');
 	}
 </script>
 
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+			$("div#xiptAdvanceSettings").css("display","none");
+			$("input#advanceSettings").click(function(){
+			$("div#xiptAdvanceSettings").slideToggle('fast');
+		});	
+	});
+	
+</script>
+<script type="text/javascript">jQuery.noConflict();</script>
+
+
 <form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm">
-<div>
-<?php 
-	echo $this->settingsParamsHtml;?>
+
+<div class="col width-45" style="float:left;">
+<fieldset class="adminform">
+<legend><?php echo XiptText::_( 'BASIC SETTINGS' ); ?></legend>
+	<div>
+		<fieldset class="adminform" id="basicPtypeSettings">
+		<legend><?php echo XiptText::_( 'PROFILE TYPE SETTINGS' ); ?></legend>
+		<?php echo $this->settingsParams->render('settings','basicPtypeSettings');?>
+		</fieldset>
+	</div>
+	
+	<div>
+		<fieldset class="adminform" id="basicIntegrationSettings">
+		<legend><?php echo XiptText::_( 'INTEGRATION SETTINGS' ); ?></legend>
+		<?php echo $this->settingsParams->render('settings','basicIntegrationSettings');?>
+		</fieldset>
+	</div>
+		
+</fieldset>
 </div>
+
+
+<div class="col width-45" style="float:right;">
+<fieldset class="adminform">
+<legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE SETTINGS' ); ?></legend>
+	<div id="xiptAdvanceSettings">
+	
+		<div>
+			<fieldset class="adminform" id="advPtypeSettings">
+			<legend><?php echo XiptText::_( 'PROFILE TYPE SETTINGS' ); ?></legend>
+			<?php echo $this->settingsParams->render('settings','advPtypeSettings');?>
+			</fieldset>
+		</div>
+		
+		<div>
+			<fieldset class="adminform" id="advRegistrationSettings">
+			<legend><?php echo XiptText::_( 'REGISTRATION SETTINGS' ); ?></legend>
+			<?php echo $this->settingsParams->render('settings','advRegistrationSettings');?>
+			</fieldset>
+		</div>	
+		
+		<div>
+			<fieldset class="adminform" id="advAppsSettings">
+			<legend><?php echo XiptText::_( 'APPLICATION SETTINGS' ); ?></legend>
+			<?php echo $this->settingsParams->render('settings','advAppsSettings');?>
+			</fieldset>
+		</div>		
+				
+		<div>
+			<fieldset class="adminform" id="advAecSettings">
+			<legend><?php echo XiptText::_( 'AEC SETTINGS' ); ?></legend>
+			<?php echo $this->settingsParams->render('settings','advAecSettings');?>
+			</fieldset>
+		</div>
+	</div>
+</fieldset>	
+</div>
+
+
 <div class="clr"></div>
 	<input type="hidden" name="option" value="com_xipt" />
 	<input type="hidden" name="view" value="<?php echo JRequest::getCmd( 'view' , 'settings' );?>" />
