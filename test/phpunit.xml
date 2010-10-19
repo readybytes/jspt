@@ -18,9 +18,12 @@
 		<file>test/com_xipt/admin/walkThroughTest.php</file>
 		<file>test/com_xipt/front/registerTest.php</file>
 		<file>test/com_xipt/front/profileTest.php</file>
-        <file>test/com_xipt/front/frontAclRulesTest.php</file>
+		<!--
+		<file>test/com_xipt/front/frontAclRulesTest.php</file>
 		<file>test/com_xipt/front/aclRuleTest.php</file>
+		-->
 		<file>test/com_xipt/front/applicationForFrontTest.php</file>
+		<file>test/ui/aclRuleTest.php</file>
 	 </testsuite>
 	
 	<listeners>

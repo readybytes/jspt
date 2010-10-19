@@ -19,7 +19,11 @@ class cantviewotherprofile extends XiptAclBase
 	{	
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
 		$otherpid	= XiptLibProfiletypes::getUserData($data['viewuserid'],'PROFILETYPE');
-		
+
+		// do not restrict self
+		if($data['userid'] == $data['viewuserid'])
+			return false;
+
 		if((0 != $otherptype)
 			&& (-1 != $otherptype)
 				 && ($otherpid != $otherptype))

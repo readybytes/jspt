@@ -13,7 +13,7 @@ class AclEventTest extends XiAclUnitTest
   {
 
   		$data = array();
-  		$data['userid'] 	= 0;
+  		$data['userid'] 	= 85;
   		$data['viewuserid'] = 0;
   		$data['ajax'] 		= false;
   		$data['args'] 		= array();
@@ -71,7 +71,7 @@ class AclEventTest extends XiAclUnitTest
   function testView()
   {
   		$data = array();
-  		$data['userid'] 	= 0;
+  		$data['userid'] 	= 87;
   		$data['viewuserid'] = 0;
   		$data['ajax'] 		= false;
   		$data['args'] 		= array();
@@ -124,7 +124,7 @@ class AclEventTest extends XiAclUnitTest
   {
 
   		$data = array();
-  		$data['userid'] 	= 0;
+  		$data['userid'] 	= 85;
   		$data['viewuserid'] = 0;
   		$data['ajax'] 		= false;
   		$data['args'] 		= array();

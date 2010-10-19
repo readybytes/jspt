@@ -103,33 +103,29 @@ class writemessages extends XiptAclBase
 		}
 		
 		if($data['task'] == 'write') {
-			$otherptype = $this->aclparams->get('other_profiletype',-1);
-			if($otherptype == 0 || $otherptype == -1)
-				return true;
-		}
-		
-		if($data['task'] == 'write' && $data['viewuserid'] == 0) {
-			$viewusername = JRequest::getVar('to','','POST');
+//			$otherptype = $this->aclparams->get('other_profiletype',-1);
+//			if($otherptype == 0 || $otherptype == -1)
+//				return true;
+
+			//if username give then find user-id
+			$data['viewusername'] = isset($data['viewusername']) ? $data['viewusername']:  '';
+			$viewusername = JRequest::getVar('to',$data['viewusername']);
 			if($viewusername != '') {
 				$db			=& JFactory::getDBO();
-		
+
 				$query = "SELECT * FROM ".$db->nameQuote('#__users')
 						." WHERE ".$db->nameQuote('username')."=".$db->Quote($viewusername);
-					
+
 				$db->setQuery( $query );
 				$user = $db->loadObject();
-				
-				if(!empty($user))
-					$data['viewuserid'] = $user->id;
-					
-				return  true;
+
+				if(!empty($user)) $data['viewuserid'] = $user->id;
 			}
-				
-			return  false;
+
+			return  true;
 		}
 		
 				
 		return false;
-	}
-	
+	}	
 }

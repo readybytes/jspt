@@ -362,7 +362,7 @@ function testACLRules2()
   	  	$this->checkVisitProfile(83,79,False);
   	  	$this->checkVisitProfile(83,80,False);
   	  	$this->checkVisitProfile(83,81,False);
-  	  	$this->checkVisitProfile(83,83,False); // check self  	  	
+// 	  	$this->checkVisitProfile(83,83,False); // check self  	  	
 	  $this->frontLogout();
 	  
 	  

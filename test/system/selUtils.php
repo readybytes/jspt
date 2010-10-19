@@ -18,7 +18,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   
   function click($elem)
   {
-  	$this->assertTrue($this->isElementPresent($elem));
+  	$this->assertTrue($this->isElementPresent($elem)," Element $elem was not found");
   	parent::click($elem);
   }
   

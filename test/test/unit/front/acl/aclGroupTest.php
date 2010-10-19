@@ -26,6 +26,7 @@ class AclGroupTest extends XiAclUnitTest
 
   		// case 2 : should be applicable
   		$data['task'] 		= 'create';
+  		$data['userid'] 	= 85;
   		$this->assertTrue($this->checkApplicable(11, $data));
 
   		// Profiletypes:
@@ -70,7 +71,7 @@ class AclGroupTest extends XiAclUnitTest
   {
 
   		$data = array();
-  		$data['userid'] 	= 0;
+  		$data['userid'] 	= 85;
   		$data['viewuserid'] = 0;
   		$data['ajax'] 		= false;
   		$data['args'] 		= array();
@@ -143,6 +144,7 @@ class AclGroupTest extends XiAclUnitTest
 
   		// case 2 : should be applicable
   		$data['task'] 		= 'viewgroup';
+  		$data['userid'] 	= 87;
   		$this->assertTrue($this->checkApplicable(10, $data));
 
 
@@ -183,7 +185,7 @@ class AclGroupTest extends XiAclUnitTest
   {
 
   		$data = array();
-  		$data['userid'] 	= 0;
+  		$data['userid'] 	= 85;
   		$data['viewuserid'] = 0;
   		$data['ajax'] 		= false;
   		$data['args'] 		= array();

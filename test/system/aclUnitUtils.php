@@ -16,7 +16,7 @@ class XiAclUnitTest extends XiUnitTestCase
 		$aclObject->bind($rule);
 
 		//applicable
-		return $aclObject->checkAclAccesibility($info);
+		return $aclObject->isApplicable($info);
 	}
 
 	function checkViolation($aclid, $info)
