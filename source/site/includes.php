@@ -16,16 +16,6 @@ jimport( 'joomla.filesystem.file' );
 jimport( 'joomla.filesystem.folder' );
 jimport( 'joomla.application.component.helper' );
 
-// include JomSocial files
-if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community'))
-{
-	global $mainframe;
-	$option=JRequest::getVar('option','','GET');
-	if($option=='com_xipt'){
-		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
-	}
-	return false;
-}
 
 // require_once defines.php
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
@@ -42,14 +32,6 @@ XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'model
 XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
 
-// auto load community classes
-require_once  JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
-XiptLoader::addAutoLoadFile('CFactory' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-XiptLoader::addAutoLoadFile('CAssets' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-XiptLoader::addAutoLoadFile('CConfig' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-XiptLoader::addAutoLoadFile('CApplications' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-XiptLoader::addAutoLoadFile('CUser' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-XiptLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 
 // auto load front libraries files
 //XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY,'Library');
@@ -59,4 +41,21 @@ XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_ACL, 'Acl');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP, 'Setup');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP .DS. 'rule', 'SetupRule');
 
+// include JomSocial files
+if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php'))
+{
+	global $mainframe;
+	$option=JRequest::getVar('option','','GET');
+	if($option=='com_xipt'){
+		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
+	}
+	return false;
+}
 
+// auto load community classes
+XiptLoader::addAutoLoadFile('CFactory' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CAssets' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CConfig' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CApplications' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CUser' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+XiptLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');

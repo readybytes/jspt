@@ -11,6 +11,63 @@ class SetupTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
 
+  function testCommunityUnInstall()
+  {
+  		// setup default location 
+	    $this->adminLogin();
+	    
+	    // go to installation
+	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+	    $this->waitPageLoad("60000");
+	    $this->click("//a[@onclick=\"javascript:document.adminForm.type.value='components';submitbutton('manage');\"]");
+		$this->waitPageLoad("30000");
+		$this->click("cb2");
+		$this->click("//td[@id='toolbar-delete']/a/span");
+		$this->waitPageLoad();
+		$this->assertTrue($this->isTextPresent("Uninstall Component Success"));
+  }
+  
+  function testCommunityInstall()
+  {
+	    // setup default location 
+	    $this->adminLogin();
+	    
+	    // go to installation
+	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+	    $this->waitPageLoad("60000");
+
+		// add profiletype-one
+	    $this->type("install_url", JOMSOCIAL_PKG);
+	    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+	    $this->waitPageLoad();
+
+	    $this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->click("//form[@id='installform']/div/div/input");
+	    $this->waitForPageToLoad("60000");
+	    $this->assertTrue($this->isTextPresent("Jom Social"));
+  }
 
   function testCreateProfiletype()
   {

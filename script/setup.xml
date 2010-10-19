@@ -25,6 +25,7 @@
 		<phingcall target="copy_kit" />
 		<phingcall target="copy_testcase" />
 		<phingcall target="copy_revbuild" />
+		<phingcall target="copy_community" />
 	</target>
 
 	<target name="copy_revbuild">
@@ -42,6 +43,12 @@
 				</replacetokens>
 			</filterchain>
 		</reflexive>
+	</target>
+
+	<!-- Copy latest JomSocial -->
+	<target name="copy_community">
+		<copy 	file="${pkg.location}/com_community.zip" 
+				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
 	</target>
 
 	<target name="copy_testcase">
