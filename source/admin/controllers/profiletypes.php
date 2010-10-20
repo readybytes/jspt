@@ -20,14 +20,14 @@ class XiptControllerProfiletypes extends XiptController
 	
 	function edit($id=0)
 	{
-		$id 	= JRequest::getVar('editId', $id , 'GET');					
+		$id 	= JRequest::getVar('id', $id , 'GET');					
 		return $this->getView()->edit($id);
 	}	
 	
 	function apply()
 	{
 		$info = $this->_processSave();
-		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$info['id'], false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$info['id'], false);
 		$this->setRedirect($link, $info['msg']);
 	}
 		
@@ -39,10 +39,10 @@ class XiptControllerProfiletypes extends XiptController
 	}
 	
 	// XITODO : needs test case
-	function _processSave($post=null,$cid=array(0))
+	function _processSave($post=null,$id=0)
 	{
 		if($post === null) $post	= JRequest::get('post');
-		$cid	= JRequest::getVar('cid', $cid, 'post', 'array');
+		$id	= JRequest::getVar('id', $id, 'post');
 		
 	
 		//We only need few data as special case
@@ -58,11 +58,11 @@ class XiptControllerProfiletypes extends XiptController
 		$model = $this->getModel();
 		//for Reset we will save old Data
 		$allData = $model->loadRecords();
-		if(isset($allData[$cid[0]]))
-			$oldData = $allData[$cid[0]];
+		if(isset($allData[$id]))
+			$oldData = $allData[$id];
 		
 		// now save model
-		$id	= $model->save($data, $cid[0]);
+		$id	= $model->save($data, $id);
 		XiptError::assert($id);
 		
 		// Now store other data
@@ -82,7 +82,9 @@ class XiptControllerProfiletypes extends XiptController
 		//XITODO : Ensure data is reloaded, not cached
 		$newData = $model->loadRecords();
 		$newData = $newData[$id];
-
+		//to reset privacy of users need to load from loadParams
+		$newData->privacy = $model->loadParams($id,'privacy');		
+		
 	    // Reset existing user's 
 		if($post['resetAll']) {
 			//If not uploaded data then by default save the previous values 
@@ -90,7 +92,7 @@ class XiptControllerProfiletypes extends XiptController
 		}
 					
 		$info['id'] = $id;
-		$info['msg'] .= JText::_('PROFILETYPE SAVED');
+		$info['msg'] .= XiptText::_('PROFILETYPE SAVED');
 
 		return $info;
 	}
@@ -142,7 +144,7 @@ class XiptControllerProfiletypes extends XiptController
 			// can not delete default profiletype
 			if($id == $defaultPtype)
 			{
-				$message= JText::_('CAN NOT DELETE DEFAULT PROFILE TYPE');
+				$message= XiptText::_('CAN NOT DELETE DEFAULT PROFILE TYPE');
 				JFactory::getApplication()->enqueueMessage($message);
 				continue;
 			}
@@ -150,14 +152,14 @@ class XiptControllerProfiletypes extends XiptController
 			if(!$this->getModel()->delete($id))
 			{
 				// If there are any error when deleting, we just stop and redirect user with error.
-				$message	= JText::_('ERROR IN REMOVING PROFILETYPE');
+				$message	= XiptText::_('ERROR IN REMOVING PROFILETYPE');
 				$this->setRedirect($link, $message);
 				return false;
 			}
 			$i++;
 		}	
 		
-		$message	= ($i - 1).' '.JText::_('PROFILETYPE REMOVED');		
+		$message	= ($i - 1).' '.XiptText::_('PROFILETYPE REMOVED');		
 		$this->setRedirect($link, $message);
 	}
 	
@@ -167,36 +169,68 @@ class XiptControllerProfiletypes extends XiptController
 		$count		= count( $ids );
 
 		if(!$this->getModel()->visible($ids)){
-			XiptError::raiseWarning(500,JText::_('ERROR IN MAKING PROFILETYPE VISIBLE'));
+			XiptError::raiseWarning(500,XiptText::_('ERROR IN MAKING PROFILETYPE VISIBLE'));
 			return false;
 		}
 		
-		$msg = sprintf(JText::_('ITEMS VISIBLE'),$count);
+		$msg = sprintf(XiptText::_('ITEMS VISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$this->setRedirect($link, $msg);	
 		return true;
-	}
-	
+	}	
+		
 	function invisible($ids=array(0))
 	{
 		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
 		$count		= count( $ids );
 
 		if(!$this->getModel()->invisible($ids)){
-			XiptError::raiseWarning(500,JText::_('ERROR IN MAKING PROFILETYPE INVISIBLE'));
+			XiptError::raiseWarning(500,XiptText::_('ERROR IN MAKING PROFILETYPE INVISIBLE'));
 			return false;
 		}
 		
-		$msg = sprintf(JText::_('ITEMS INVISIBLE'),$count);
+		$msg = sprintf(XiptText::_('ITEMS INVISIBLE'),$count);
 		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 		$this->setRedirect($link, $msg);
+		return true;
+	}
+	
+	function autoApprove($ids=array(0))
+	{
+		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
+		$count		= count( $ids );
+
+		if(!$this->getModel()->autoApprove($ids)){
+			XiptError::raiseWarning(500,JText::_('ERROR IN MAKING PROFILETYPE AUTO APPROVAL'));
+			return false;
+		}
+		
+		$msg = sprintf(XiptText::_('ITEMS REQUIRE AUTO APPROVAL'),$count);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$this->setRedirect($link, $msg);	
+		return true;
+	}
+	
+	function adminApprove($ids=array(0))
+	{
+		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
+		$count		= count( $ids );
+
+		if(!$this->getModel()->adminApprove($ids)){
+			XiptError::raiseWarning(500,XiptText::_('ERROR IN MAKING PROFILETYPE ADMIN APPROVAL'));
+			return false;
+		}
+		
+		$msg = sprintf(XiptText::_('ITEMS REQUIRE ADMIN APPROVAL'),$count);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
+		$this->setRedirect($link, $msg);	
 		return true;
 	}
 	
 	function removeAvatar($id=0, $oldAvatar=null)
 	{
 		//get id and old avatar.
-		$id        = JRequest::getVar('editId', $id, 'GET');
+		$id        = JRequest::getVar('id', $id, 'GET');
 		$oldAvatar = JRequest::getVar('oldAvatar', $oldAvatar, 'GET');
 		
 		$newavatar 		= DEFAULT_AVATAR ;
@@ -238,3 +272,4 @@ class XiptControllerProfiletypes extends XiptController
 		return $image;
 	}
 }
+

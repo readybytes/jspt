@@ -69,13 +69,13 @@ class ProfiletypeTest extends XiSelTestCase
 	    // 1-> down , 3 -> down , 5-> up
     	    
 		// 1-> down //id('rowid1')/td[12]/span[2]/a/img
-		$this->click("//tr[@id='rowid1']/td[13]/span[2]/a");
+		$this->click("//tr[@id='rowid1']/td[10]/span[2]/a");
 		$this->waitForPageToLoad();
 		//3 -> down  id('rowid3')/td[12]/span[2]/a/img
-		$this->click("//tr[@id='rowid3']/td[13]/span[2]/a");
+		$this->click("//tr[@id='rowid3']/td[10]/span[2]/a");
 		$this->waitForPageToLoad();
 		//5-> up
-		$this->click("//tr[@id='rowid5']/td[13]/span[1]/a");
+		$this->click("//tr[@id='rowid5']/td[10]/span[1]/a");
 		$this->waitForPageToLoad();
 		
 		$this->_DBO->filterOrder('#__xipt_profiletypes','ordering');
@@ -148,17 +148,17 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
       
 	// Edit profiletype-one
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=1");
     $this->waitPageLoad(); //1: png.jpg
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
     
     $this->click("watermarkparamsenableWaterMark1");
-     $this->type("watermarkparamsxiText", "Profiletype1");
+    $this->type("watermarkparamsxiText", "Profiletype1");
     $this->click("resetAll1");
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
   
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=2");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=2");
     $this->waitPageLoad();//2:png,gif
 	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_2.png");
 	 $this->type("watermarkparamsxiText", "Profiletype2");
@@ -168,13 +168,13 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
 	
 	// Edit entry 3 with default avatar and watermark as blank
-	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
+	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=3");
     $this->waitPageLoad();//3: jpg,-
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
     
 	// now edit first entry, and change watermark
-	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=1");
     $this->waitPageLoad();//1. png,png
 	$this->type("watermarkparamsxiText", "Profiletype1");
     $this->type("watermarkparamsxiWidth", "150");
@@ -190,7 +190,7 @@ class ProfiletypeTest extends XiSelTestCase
     
     //edit 1st entry and change avatar before it was PNG and now its GIF
     //user must be updated
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=1");
     $this->waitPageLoad(); //1: gif,png
 	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
 	$this->click("//td[@id='toolbar-save']/a");
@@ -198,7 +198,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
 	
     // now edit 3rd entry, and change watermark and avatar
-	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
+	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=3");
     $this->waitPageLoad();//3: png,png
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_1.png");
 	$this->click("watermarkparamsenableWaterMark1");
@@ -267,7 +267,7 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->changeJSPTConfig($filter);
 	
   	//edit 2nd profiletype
-  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=2");
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=2");
     $this->waitPageLoad();
     $this->select("jusertype", "label=Editor");
     $this->click("//h3[@id='xiprivacysettings-page']/span");
@@ -281,7 +281,7 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));   
 	
 	//edit 1st profiletype joomla user type
-  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=1");
     $this->waitPageLoad();
     $this->select("jusertype", "label=Manager");
     $this->click("resetAll1");
@@ -290,7 +290,7 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
 
 	//edit 3rd profiletype 
-  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=3");
+  	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=3");
     $this->waitPageLoad();
    // $this->select("group", "value=2"); // from 4 to 2
     $this->removeSelection("group[]", "value=4");
@@ -349,7 +349,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
     
     // Edit profiletype-one
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&editId=1");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=1");
     $this->waitPageLoad(); 
    // $this->click("//h3[@id='xiconfiguration-page']/span");
     $this->click("configjspt_restrict_reg_check1");

@@ -14,7 +14,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 		case 'save':			
 			if( form.name.value == '' )
 			{
-				alert( "<?php echo JText::_( 'You must provide a Profiletype name.', true ); ?>" );
+				alert( "<?php echo XiptText::_( 'You must provide a Profiletype name.', true ); ?>" );
 				break;
 			}
 			<?php
@@ -32,7 +32,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo JText::_('Create new profile types for your site.');?>
+	<?php echo XiptText::_('Create new profile types for your site.');?>
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
@@ -43,70 +43,42 @@ if(!defined('_JEXEC')) die('Restricted access');
 			<td width="60%">
 				<fieldset>
 					<legend>
-						<?php echo JText::_( 'Profiletype Settings' ); ?>
+						<?php echo XiptText::_( 'Profiletype Settings' ); ?>
 					</legend>
 					<table width="100%">
 						<tr>
-							<td class="key"><?php echo JText::_('Name');?></td>
-							<td>:</td>
+							<td class="key"><?php echo XiptText::_('Name');?></td>
 							<td>
 								<input type="text" value="<?php echo $this->data->name;?>" name="name" />
 							</td>
 						</tr>
 						<tr>
-							<td class="key"><?php echo JText::_('Published');?></td>
-							<td>:</td>
+							<td class="key"><?php echo XiptText::_('Published');?></td>
 							<td>
 								<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->data->published);?></span>
 							</td>
-						</tr>
-						<tr>
-							<td class="key"><?php echo JText::_('Visible');?></td>
-							<td>:</td>
-							<td>
-								<span><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->data->visible);?></span>
-							</td>
-						</tr>
+						</tr>						
 						<tr>	
-						<td class="key"><?php echo JText::_('Require Approval');?></td>
-							<td>:</td>
+						<td class="key"><?php echo XiptText::_('Require Approval');?></td>
 							<td>
 								<span><?php echo JHTML::_('select.booleanlist',  'approve', '', $this->data->approve );?></span>
 							</td>					
 						</tr>
 						<tr>
-							<td class="key"><?php echo JText::_('Allow Template');?></td>
-							<td>:</td>
-							<td>
-								<span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->data->allowt );?></span>
-							</td>
-						</tr>
-						<tr>
-							<td class="key"><?php echo JText::_('Default Joomla User Type Settings for Profile');?></td>
-							<td>:</td>
+							<td class="key"><?php echo XiptText::_('Default Joomla User Type Settings for Profile');?></td>
 							<!--<td colspan="4"> -->
 							<td>
 								<?php echo XiptHelperProfiletypes::buildTypes($this->data->jusertype,'jusertype');?>
 							</td>
 						</tr>
 						<tr>	
-							<td class="key"><?php echo JText::_('Default Template Settings for Profile');?></td>
-							<td>:</td>
+							<td class="key"><?php echo XiptText::_('Default Template Settings for Profile');?></td>
 							<td>
 								<?php echo XiptHelperProfiletypes::buildTypes($this->data->template, 'template');?>
 							</td>
 						</tr>
 						<tr>
-							
-							<td class="key"><?php echo JText::_('Select default group to assign');?></td>
-							<td>:</td>
-							<td>
-								<span><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></span>
-							</td>			
-						</tr>
-						<tr>
-							<td class="key"><?php echo JText::_('DESCRIPTION OF PROFILE TYPE');?></td>
-							<td>:</td>
+							<td class="key"><?php echo XiptText::_('DESCRIPTION OF PROFILE TYPE');?></td>
 							<td>
 							<?php 
 								echo $editor->display( 'tip',  htmlspecialchars($this->data->tip, ENT_QUOTES),
@@ -117,61 +89,69 @@ if(!defined('_JEXEC')) die('Restricted access');
 					</table>
 				</fieldset>
 				</td>
+				
 				<td width="60%">
-				<fieldset>
-					<legend>
-						<?php echo JText::_( 'Default avatar' ); ?>
-					</legend>
-					<table width="100%">
-						<tr>
-							<td class="key" rowspan='4'><?php echo JText::_('Default avatar');?></td>
-								<td rowspan='4'>
-								<div>
-									<div>
-									<?php 
-									?>
-								    	<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($this->data->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->data->avatar; ?>" />
-								    </div>
-								    <br />
-									<div>
-								    	<input class="inputbox button" type="file" id="file-upload" name="FileAvatar" style="color: #666;" />
-								    </div>
-								</div>
-								</td>
-							</tr>
-							<tr>
-							<td>
-								<span class="editlinktip">
-									<?php $link = JRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&editId='.$this->data->id.'&oldAvatar='.$this->data->avatar, false); ?>
-										<a href="<?php echo $link; ?>"><?php echo JText::_('Remove Avatar'); ?></a>
-								</span>								
-							</td>
-							</tr>
-						</table>
-					</fieldset>
 					<fieldset>
-					<legend>
-						<?php echo JText::_( 'Parameters' ); ?>
-					</legend>
-						<table width="100%"><tr><td>
+						<legend><?php echo XiptText::_( 'Parameters' ); ?>	</legend>
+						<table width="100%">
+							<tr><td>
+							<?php echo $this->pane->startPane("parameters-pane");?>
+							<?php echo $this->pane->startPanel(JText :: _('ASSIGNMENTS'), 'assignments-page');?>
+							<table>
+								<tr><td class="key" ><?php echo XiptText::_('Default avatar');?></td>
+									<td><div>							
+										<div>
+											<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($this->data->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->data->avatar; ?>" />
+										</div>
+										<div class='clr'></div>
+										<div>
+											<input class="inputbox button" type="file" id="file-upload" name="FileAvatar" style="color: #666;" />
+										</div>
+										</div>
+									</td>
+								</tr>
+								
+								<tr><td></td>						
+									<td><span class="editlinktip">
+										<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&id='.$this->data->id.'&oldAvatar='.$this->data->avatar, false); ?>
+										<a href="<?php echo $link; ?>"><?php echo XiptText::_('Remove Avatar'); ?></a>
+										</span>								
+									</td>
+								</tr>
+										
+								<tr><td class="key"><?php echo XiptText::_('Visible');?></td>
+									<td><span><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->data->visible);?></span></td>
+								</tr>
+									
+								<tr><td class="key"><?php echo XiptText::_('Allow Template');?></td>
+									<td><span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->data->allowt );?></span></td>
+								</tr>
+									
+								<tr><td class="key"><?php echo XiptText::_('Select default group to assign');?></td>
+									<td><span><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></span></td>			
+								</tr>
+									
+							</table>
 							<?php 
-								echo $this->pane->startPane("parameters-pane");
-								echo $this->pane->startPanel(JText :: _('Watermark'), 'watermark-page');
-								echo $this->watermarkParams->render('watermarkparams');
-								echo $this->pane->endPanel();
+								echo $this->pane->endPanel();								
 								
-								echo $this->pane->startPanel(JText :: _('XiConfiguration'), 'xiconfiguration-page');
-								echo $this->configParams->render('config');
-								echo $this->pane->endPanel();
-								
-								echo $this->pane->startPanel(JText :: _('Privacy-Settings'), 'xiprivacysettings-page');
+								echo $this->pane->startPanel(XiptText :: _('PRIVACY SETTINGS'), 'xiprivacysettings-page');
 								echo $this->privacyParams->render('privacy');
 								echo $this->pane->endPanel();
 								
-								echo $this->pane->startPanel(JText :: _('ResetAll'), 'resetall-page');
-								echo JText::_('On saving, do you want to reset properties of all existing users');	
+								echo $this->pane->startPanel(XiptText :: _('REGISTRATION'), 'xiconfiguration-page');
+								echo $this->configParams->render('config');
+								echo $this->pane->endPanel();
+							
+								echo $this->pane->startPanel(XiptText :: _('WATERMARK'), 'watermark-page');
+								echo $this->watermarkParams->render('watermarkparams');
+								echo $this->pane->endPanel();
+								
+								echo $this->pane->startPanel(XiptText :: _('RESET ALL'), 'resetall-page');
+								echo XiptText::_('On saving, do you want to reset properties of all existing users');	
 								echo JHTML::_('select.booleanlist',  'resetAll', '', '0' );
 								echo $this->pane->endPanel();
+								
 								echo $this->pane->endPane();
 							?>
 							</td></tr>
@@ -185,8 +165,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 <div class="clr"></div>
 	<input type="hidden" name="option" value="com_xipt" />
 	<input type="hidden" name="view" value="<?php echo JRequest::getCmd( 'view' , 'profiletypes' );?>" />
-	<input type="hidden" name="cid[]" value="<?php echo $this->data->id; ?>" />
+	<input type="hidden" name="id" value="<?php echo $this->data->id; ?>" />
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 <?php 
+

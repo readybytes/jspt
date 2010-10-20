@@ -15,7 +15,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'remove':
-			if( !confirm( '<?php echo JText::_('ARE YOU SURE YOU WANT TO DELETE THIS PROFILE TYPE?'); ?>' ) )
+			if( !confirm( '<?php echo XiptText::_('ARE YOU SURE YOU WANT TO DELETE THIS PROFILE TYPE?'); ?>' ) )
 			{
 				break;
 			}
@@ -32,47 +32,39 @@ function submitbutton( action )
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<?php echo JText::_( '#' ); ?>
-			</th>
-			<th width="1%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
 			</th>
 			<th width="1%">
-				<?php echo JText::_( 'PROFILETYPE-ID' ); ?>
+				<?php echo XiptText::_( 'PROFILETYPE-ID' ); ?>
 			</th>
 			<th>
-				<?php echo JText::_( 'NAME' ); ?>
+				<?php echo XiptText::_( 'NAME' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'AVATAR' ); ?>
+				<?php echo XiptText::_( 'AVATAR' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'WATERMARK' ); ?>
+				<?php echo XiptText::_( 'WATERMARK' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'TEMPLATE' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo JText::_( 'JOOMLA USER TYPE' ); ?>
+				<?php echo XiptText::_( 'JOOMLA USER TYPE' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'REQUIRE APPROVAL' ); ?>
+				<?php echo XiptText::_( 'REQUIRE APPROVAL' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'ALLOW TEMPLATE' ); ?>
+				<?php echo XiptText::_( 'PUBLISHED' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo JText::_( 'PUBLISHED' ); ?>
-			</th>
-			<th width="5%">
-				<?php echo JText::_( 'VISIBLE' ); ?>
+				<?php echo XiptText::_( 'VISIBLE' ); ?>
 			</th>
 			<th width="5%" align="center">
-				<?php echo JText::_( 'ORDERING' ); ?>
+				<?php echo XiptText::_( 'ORDERING' ); ?>
 			</th>
 		</tr>		
 	</thead>
-<?php
+	
+	<?php 
 	$count	= 0;
 	$i		= 0;
 	if(!empty($this->fields))
@@ -82,74 +74,64 @@ function submitbutton( action )
 		
 		// Process publish / unpublish images
 		++$i;
-?>
-		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
-			<td><?php echo $i;?></td>
+	?>
+		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">			
 			<td>
 				<?php echo $input; ?>
 			</td>
+			
 			<td><?php echo $field->id;?></td>
+			
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$field->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$field->id, false); ?>
 						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
+						<?php echo JString::substr($field->tip, 0,100); ?>
 				</span>
 			</td>
-			<td align="center" id="avatar<?php echo $field->id;?>">
 			
-							
+			<td align="center" id="avatar<?php echo $field->id;?>">							
 				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($field->avatar);?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
-			<td align="center" id="watermark<?php echo $field->id;?>">
-				
+			
+			<td align="center" id="watermark<?php echo $field->id;?>">				
 				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
 			</td>
-			<td align="center" id="template<?php echo $field->id;?>">
-				<?php echo $field->template; ?>
-			</td>
+			
 			<td align="center" id="jusertype<?php echo $field->id;?>">
 				<?php echo $field->jusertype; ?>
 			</td>
+			
 			<td align="center" id="approve<?php echo $field->id;?>">
-				<?php 
-					$yntext	= $field->approve ? 'Yes' :'No';
-					echo $yntext;
-				?>
-			</td>
-			<td align="center" id="allowt<?php echo $field->id;?>">
-				<?php 
-					$yntext	= $field->allowt ? 'Yes' :'No';
-					echo $yntext;
-				?>
-			</td>
+				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->approve ? 'autoApprove' : 'adminApprove' ?>')">
+					<?php if($field->approve) : ?>
+						<img src="images/tick.png" width="16" height="16" border="0" alt="Admin Approve" />
+					<?php else : ?> 
+						<img src="images/publish_x.png" width="16" height="16" border="0" alt="Auto Approve" />
+					<?php endif; ?>
+				</a>			
+			</td>			
+			
 			<td align="center" id="published<?php echo $field->id;?>">
 				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->published ? 'unpublish' : 'publish' ?>')">
-							<?php if($field->published)
-							{ ?>
-								<img src="images/tick.png" width="16" height="16" border="0" alt="Published" /></a>
-							<?php 
-							}
-							else 
-							{ ?>
-								<img src="images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" /></a>
-						<?php 
-							} //echo $published;
-						?>
+					<?php if($field->published) : ?>
+						<img src="images/tick.png" width="16" height="16" border="0" alt="Published" />
+					<?php else : ?> 
+						<img src="images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" />
+					<?php endif; ?>
+				</a>
 			</td>
+			
 			<td align="center" id="visible<?php echo $field->id;?>">
 				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->visible ? 'invisible' : 'visible' ?>')">
-							<?php if($field->visible)
-							{ ?>
-								<img src="images/tick.png" width="16" height="16" border="0" alt="Visible" /></a>
-							<?php 
-							}
-							else 
-							{ ?>
-								<img src="images/publish_x.png" width="16" height="16" border="0" alt="Invisible" /></a>
-						<?php 
-							} //echo $published;
-						?>
+					<?php if($field->visible) : ?>
+						<img src="images/tick.png" width="16" height="16" border="0" alt="Visible" />
+					<?php else : ?>
+						<img src="images/publish_x.png" width="16" height="16" border="0" alt="Invisible" />
+					<?php endif; ?>
+				</a>					
 			</td>
+			
 			<td align="right">
 				<span><?php echo $this->pagination->orderUpIcon( $count , true, 'orderup', 'Move Up'); ?></span>
 				<span><?php echo $this->pagination->orderDownIcon( $count , count($this->fields), true , 'orderdown', 'Move Down', true ); ?></span>

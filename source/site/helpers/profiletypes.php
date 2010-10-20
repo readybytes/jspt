@@ -96,8 +96,7 @@ class XiptHelperProfiletypes
 		$searchFor 		= 'name';
 		$defaultValue	= 'NONE';
 		$data = array(
-					'name' 		=> array('name' => 'name', 		'value' => 'All'),
-					'privacy' 	=> array('name' => 'privacy', 	'value' => 'friends'),
+					'name' 		=> array('name' => 'name', 		'value' => 'All'),					
 					'template' 	=> array('name' => 'template', 	'value' => 'default'),
 					'jusertype'	=> array('name' => 'jusertype', 'value' => 'Registered'),
 					'avatar' 	=> array('name' => 'avatar', 	'value' => DEFAULT_AVATAR),
@@ -198,7 +197,7 @@ class XiptHelperProfiletypes
 		if( filesize( $file['tmp_name'] ) > $uploadLimit )
 		{
 			$mainframe->enqueueMessage( JText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
-			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&editId='.$id, false) );
+			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$id, false) );
 		}
 		
 		if( !cValidImage($file['tmp_name'] ) )

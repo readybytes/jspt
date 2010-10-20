@@ -57,9 +57,9 @@ class XiptLibProfiletypes
 				
 				case 'privacy':
 					$newPrivacy = $newData['privacy'];
-					$registry	= JRegistry::getInstance( 'xipt' );
-					$registry->loadINI($newPrivacy,'xipt-privacyparams');
-					$newPrivacy = $registry->toArray('xipt-privacyparams');
+					XiptError::assert($newPrivacy);
+					$newPrivacy = $newPrivacy->toArray();
+							
 					XiptLibJomsocial::updateCommunityUserPrivacy($userid,$newPrivacy);
 					break;
 					
@@ -167,8 +167,9 @@ class XiptLibProfiletypes
 		if($what == 'ALL'  || $what == 'privacy')
 		{
 			$feature[] = 'privacy';
-			$oldPrivacy	= self::getProfiletypeData($prevProfiletype,'privacy');
-			$newPrivacy	= self::getProfiletypeData($ptype,'privacy');
+			$pModel = XiptFactory::getInstance('profiletypes','model');
+			$oldPrivacy	= $pModel->loadParams($prevProfiletype,'privacy');
+			$newPrivacy	= $pModel->loadParams($ptype,'privacy');
 			
 			$oldData['privacy']	=$oldPrivacy;
 			$newData['privacy']	= $newPrivacy;
@@ -446,3 +447,4 @@ class XiptLibProfiletypes
 	}
 	
 }
+

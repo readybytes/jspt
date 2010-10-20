@@ -11,11 +11,8 @@ class SetupTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
 
-  function testCommunityUnInstall()
+  function communityUnInstall()
   {
-  		// setup default location 
-	    $this->adminLogin();
-	    
 	    // go to installation
 	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
 	    $this->waitPageLoad("60000");
@@ -27,11 +24,12 @@ class SetupTest extends XiSelTestCase
 		$this->assertTrue($this->isTextPresent("Uninstall Component Success"));
   }
   
-  function testCommunityInstall()
+  function xtestCommunityInstall()
   {
 	    // setup default location 
 	    $this->adminLogin();
-	    
+	    // uninstall community first
+	    $this->communityUnInstall();
 	    // go to installation
 	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
 	    $this->waitPageLoad("60000");

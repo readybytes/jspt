@@ -174,8 +174,8 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	$this->assertEquals($profileData,'PROFILETYPE-1');
   	
   	//this will return Profiletype name.
-  	$profileData = XiptLibProfiletypes::getProfiletypeData(2,'privacy');
-  	$this->assertEquals($profileData,'friends');
+  	//$profileData = XiptLibProfiletypes::getProfiletypeData(2,'privacy');
+  	//$this->assertEquals($profileData,'friends');
   	
   	//this will return Profiletype name.
   	$profileData = XiptLibProfiletypes::getProfiletypeData(3,'template');
