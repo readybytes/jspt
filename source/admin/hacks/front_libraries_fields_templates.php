@@ -24,7 +24,7 @@ class CFieldsTemplates
 		$this->_mySess =& JFactory::getSession();
 		$this->_task = JRequest::getVar('task',0,'GET');
 		$this->_view = JRequest::getVar('view',0,'GET');
-		$this->_params = XiptFactory::getSettingParams('', 0);
+		$this->_params = XiptFactory::getSettings('', 0);
 		
 	}
 
@@ -91,7 +91,7 @@ class CFieldsTemplates
 	{
 		// during registration
         if($this->_view =='register'){
-            $pID = XiptFactory::getLibraryPluginHandler()->getRegistrationPType();
+            $pID = XiptFactory::getPluginHandler()->getRegistrationPType();
 		    $tName = XiptLibProfiletypes::getProfileTypeData($pID,'template');
 		    return $tName;
         }

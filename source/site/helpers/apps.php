@@ -53,7 +53,7 @@ class XiptHelperApps
 		$html	= '';
 		
 		$html	.= '<span>';
-		$count=count($allTypes);
+		$count = count($allTypes);
 		$html .= '<input type="hidden" name="profileTypesCount" value="'.$count.'" />';
 		foreach( $allTypes as $option )
 		{

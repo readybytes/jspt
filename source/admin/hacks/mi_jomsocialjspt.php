@@ -105,7 +105,7 @@ class mi_jomsocialjspt
 			
 		//IMP : if MI are attached but aec_integrate is set to false
 		// then dont apply any action 
-		$aec_integrate =  XiptFactory::getSettingParams('aec_integrate');
+		$aec_integrate =  XiptFactory::getSettings('aec_integrate');
 		if($aec_integrate == 0)
 			return;
 		XiptLibProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');

@@ -14,28 +14,8 @@ class XiptHelperInstall
 	{
 		$siteURL  = JURI::base();
 		if(strstr($siteURL,'localhost')==false)
-		{
-//			$version  = self::_get_js_version();
 			$siteURL  = JURI::base();
-		}
 	}
-
-
-//	function check_version()
-//	{
-//		$version = self::_get_js_version();
-//	
-//		if(Jstring::stristr($version,'1.5'))
-		/*{?>
-			<div>
-				ERROR : The JomSocial Version [<?php echo $version; ?>] used by you is not supported for ProfileTypes.
-				The JSPT 2.x.x release will only supports newer version of JomSocial since JomSocial 1.6.184.
-			</div>	
-			<?php*/
-//			return false;
-//		}
-//		return true;
-//	}
 
 	function copyAECfiles()
 	{
@@ -47,23 +27,6 @@ class XiptHelperInstall
 	
 		return true;	
 	}
-
-//	function _get_js_version()
-//	{	
-//		$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
-//	
-//		$parser		=& JFactory::getXMLParser('Simple');
-//		$xml		= $CMP_PATH_ADMIN . DS . 'community.xml';
-//	
-//		$parser->loadFile( $xml );
-//	
-//		$doc		=& $parser->document;
-//		$element	=& $doc->getElementByPath( 'version' );
-//		$version	= $element->data();
-//	
-//		return $version;
-//	}
-
 	
 	function _getJSPTFileList()
 	{
@@ -98,38 +61,6 @@ class XiptHelperInstall
 	
 		return true;
 	}
-
-
-//	function copy_files() 
-//	{
-//		$filestoreplace = self::_getJSPTFileList();
-//		$MY_PATH_ADMIN	  = JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_xipt';
-//	
-//		foreach($filestoreplace AS $key => $val)
-//		{
-//			$sourceFile		= $MY_PATH_ADMIN.DS.'hacks'.DS.$key;
-//			$targetFile		= $val;
-//			$targetFileBackup 	= $targetFile.'.jxibak';
-//
-//			assert(JFile::exists($sourceFile)) || JError::raiseError('INSTERR', "File does not exist ".$sourceFile);
-//			
-//			// do backup first if we really have some file to replace
-//			if(JFile::exists($targetFile)){
-//			
-//				// previous backup, delete it.
-//				if(JFile::exists($targetFileBackup)){
-//					JFile::delete($targetFileBackup);
-//				}
-//			
-//				// create a backup
-//				JFile::move($targetFile, $targetFileBackup);
-//			}
-//
-//			// now copy files
-//			assert(JFile::move($sourceFile, $targetFile)) || JError::raiseError('INSTERR', "Not able to copy file ".$sourceFile ." to ".$targetFile) ;
-//		}
-//		return true;
-//	}
 
 	function installExtensions($extPath=null)
 	{
@@ -169,7 +100,7 @@ class XiptHelperInstall
 	function changePluginState($pluginname, $action=1)
 	{
 	  
-		$db			=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
 				. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
 			  .' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
@@ -180,15 +111,6 @@ class XiptHelperInstall
 			return false;
 		
 		return true;
-	}
-	
-	// XITODO : chek if function is usabel
-	function generateParamsString($params=array())
-	{
-		$config = new JParameter('','');
-		$config->bind($params);
-		$configString = $config->toString('INI');
-		return $configString;
 	}
 
 	function setup_database()
@@ -220,7 +142,7 @@ class XiptHelperInstall
 		            MODIFY `privacy`   text not null';
 	    
 		            
-	    $db	=& JFactory::getDBO();
+	    $db	= JFactory::getDBO();
 		foreach ( $allQueries as $query){
 
 			$db->setQuery($query);
@@ -269,7 +191,7 @@ class XiptHelperInstall
 						}				
 					}	
 				
-	    	        $registry	=& JRegistry::getInstance( 'xipt' );
+	    	        $registry	= JRegistry::getInstance( 'xipt' );
 					$registry->loadArray($privacy,'xipt_privacyparams');
 					$Privacyparams =  $registry->toString('INI' , 'xipt_privacyparams' );
 		    	   	 
@@ -315,10 +237,10 @@ class XiptHelperInstall
 
 	function _add_column($name, $specstr, $tname)
 	{
-		$db		=& JFactory::getDBO();
-		$query	= 	'SHOW COLUMNS FROM ' 
-					. $db->nameQuote($tname)
-					. ' LIKE \'%'.$name.'%\' ';
+		$db		= JFactory::getDBO();
+		$query	= 'SHOW COLUMNS FROM ' 
+				  . $db->nameQuote($tname)
+				  . ' LIKE \'%'.$name.'%\' ';
 		$db->setQuery( $query );
 		$columns	= $db->loadObjectList();
 		if($db->getErrorNum())
@@ -327,7 +249,7 @@ class XiptHelperInstall
 			return false;
 		}
 
-		if($columns==NULL || $columns[0] == NULL)
+		if($columns == NULL || $columns[0] == NULL)
 		{
 			$query =' ALTER TABLE '. $db->nameQuote($tname) 
 					. ' ADD COLUMN ' . $db->nameQuote($name)
@@ -344,7 +266,7 @@ class XiptHelperInstall
 		assert($tableName  != '');
 		assert($columnName != '');
 
-		$db	=& JFactory::getDBO();
+		$db	    = JFactory::getDBO();
 		$query	=  'DESC ' 
 			   . ' '.$db->nameQuote($tableName)
 			   . ' '.$db->nameQuote($columnName);
@@ -364,8 +286,8 @@ class XiptHelperInstall
 
 		$tables	= array();
 	
-		$database = &JFactory::getDBO();
-		$tables	= $database->getTableList();
+		$database = JFactory::getDBO();
+		$tables	  = $database->getTableList();
 
 		return in_array( $mainframe->getCfg( 'dbprefix' ) . $tableName, $tables );
 	}
@@ -375,20 +297,20 @@ class XiptHelperInstall
 		assert($tableName  != '');
 		assert($columnName != '');
 
-		$db	=& JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$query	=  'SHOW COLUMNS FROM ' 
 			   . $db->nameQuote($tableName)
 			   . ' LIKE \'%'.$columnName.'%\' ';
 
 		$db->setQuery( $query );
-		$columns= $db->loadObjectList();
+		$columns = $db->loadObjectList();
 
 		if($db->getErrorNum()){
 			JError::raiseError( 500, $db->stderr());
 			return false;
 		}
 
-		if($columns==NULL || $columns[0] == NULL){
+		if($columns == NULL || $columns[0] == NULL){
 			return false;
 		}
 		return true;

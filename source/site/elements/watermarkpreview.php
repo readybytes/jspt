@@ -7,7 +7,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class JElementImage extends JElement
+class JElementWatermarkPreview extends JElement
 {
 	/**
 	 * Element name
@@ -20,24 +20,23 @@ class JElementImage extends JElement
 	function fetchElement($name, $value, &$node, $control_name)
 	{
 		/*value contain profiletype id so get watermark from function */
-		$watermark = XiptHelperProfiletypes::getProfileTypeData($value,'watermark'); 
-		$generatedImage = '';
+		$watermark 		 = XiptHelperProfiletypes::getProfileTypeData($value,'watermark'); 
+		$generatedImage  = '';
 		/*generate image from watermark */
-		$imagePath = JPATH_ROOT.DS.DEFAULT_DEMOAVATAR;
-		$watermarkPath = JPATH_ROOT.DS.$watermark;
+		$imagePath 	     = JPATH_ROOT.DS.DEFAULT_DEMOAVATAR;
+		$watermarkPath   = JPATH_ROOT.DS.$watermark;
 		
 		$watermarkParams = XiptLibProfiletypes::getParams($value,'watermarkparams');
 		
 		if(JFile::exists($imagePath) && JFile::exists($watermarkPath))
 			$generatedImage = XiptHelperImage::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$value,$watermarkParams->get('xiWatermarkPosition'));
-		if(DS== '\\')
+		if(DS == '\\')
 			$generatedImage = str_replace('\\','/',$generatedImage);
 		
 		$html = '';
-		if ($generatedImage==false || $generatedImage=='')
-			$generatedImage=DEFAULT_DEMOAVATAR;
+		if($generatedImage == false || $generatedImage == '')
+			$generatedImage = DEFAULT_DEMOAVATAR;
 
-		//$html = '<img src="'.JURI::root().DS.$watermark.'" width="64" alt="watermark" />';
 		$html .= '<img src="'.JURI::root().'/'.$generatedImage.'" width="64" height="64" alt="generatedimage" border=10 />';
 		
 

@@ -185,11 +185,11 @@ class XiptLibProfiletypes
 //		if($defaultProfiletypeID && $refresh===false)
 //			return $defaultProfiletypeID;
 //		
-		$defaultProfiletypeID = XiptFactory::getSettingParams('defaultProfiletypeID');
+		$defaultProfiletypeID = XiptFactory::getSettings('defaultProfiletypeID');
 		if($defaultProfiletypeID)
 			return  $defaultProfiletypeID;
 		
-		echo XiptFactory::getSettingParams()->render();
+		echo XiptFactory::getSettings()->render();
 		XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 	}
 	
@@ -263,7 +263,7 @@ class XiptLibProfiletypes
 	    {
 	        case 'PROFILETYPE':
 	        	if($userid == 0 )
-					return XiptFactory::getSettingParams('guestProfiletypeID', XiptFactory::getSettingParams('defaultProfiletypeID', 0));
+					return XiptFactory::getSettings('guestProfiletypeID', XiptFactory::getSettings('defaultProfiletypeID', 0));
 		        $getMe	       = PROFILETYPE_FIELD_IN_USER_TABLE;
                 $defaultValue  = XiptLibProfiletypes::getDefaultProfiletype();
                 break;
@@ -359,7 +359,7 @@ class XiptLibProfiletypes
 	    //durin loadAllfields no user id avaialble
 	    // so we pick the pType from registration 
 	    if($userid == 0 )
-	        $pTypeID = XiptFactory::getLibraryPluginHandler()->getRegistrationPType();
+	        $pTypeID = XiptFactory::getPluginHandler()->getRegistrationPType();
 	    else
 	        $pTypeID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
      

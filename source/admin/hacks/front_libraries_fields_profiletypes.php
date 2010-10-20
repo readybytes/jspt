@@ -22,7 +22,7 @@ class CFieldsProfiletypes
 		$this->_mainframe =& $mainframe;
 		$this->_task = JRequest::getVar('task','','GET');
 		$this->_view = JRequest::getVar('view','','GET');
-		$this->_params = XiptFactory::getSettingParams('', 0);
+		$this->_params = XiptFactory::getSettings('', 0);
 	}
 	
 	/* if data not available,
@@ -85,7 +85,7 @@ class CFieldsProfiletypes
 		if($this->_view ==='register') {
     
 		    // get pType from registration session OR defaultPType
-		    $pID = XiptFactory::getLibraryPluginHandler()->getRegistrationPType();
+		    $pID = XiptFactory::getPluginHandler()->getRegistrationPType();
 				 
 			$html = '<input type="hidden"
 							id="field'.$field->id.'"

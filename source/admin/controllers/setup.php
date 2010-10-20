@@ -31,14 +31,13 @@ class XiptControllerSetup extends XiptController
     
     function doApply()
     {
-    	global $mainframe;
     	$name = JRequest::getVar('name', '' );
     	
     	//get object of class
 		$setupObject = XiptFactory::getSetupRule($name);
 		$msg = $setupObject->doApply();
 		
-		$mainframe->redirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false), $msg);
+		$this->setRedirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false), $msg);
     }
     
     function unhook()

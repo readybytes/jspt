@@ -11,7 +11,7 @@ class XiptLibApps
 {
     function filterCommunityApps(&$apps, $profiletype, $blockProfileApps=true)
     {
-        $notAllowedApps =XiptLibApps::getNotAllowedCommunityAppsArray($profiletype);
+        $notAllowedApps = XiptLibApps::getNotAllowedCommunityAppsArray($profiletype);
         
         // $apps is array of objects
         for($i=0 ; $i < count($apps) ; $i++ )
@@ -19,7 +19,7 @@ class XiptLibApps
             $app   =& $apps[$i];
             
             //legacy plugins come as array, we dont work on them
-            if(is_object($app)==false)
+            if(is_object($app) == false)
                 continue;
             
             // we want to restrict only community apps and do not restrict our component

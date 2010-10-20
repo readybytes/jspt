@@ -29,7 +29,7 @@ class plgCommunityxipt_community extends CApplications
 	function plgCommunityxipt_community( $subject, $params )
 	{
 		parent::__construct( $subject, $params );
-		$this->_pluginHandler = XiptFactory::getLibraryPluginHandler();
+		$this->_pluginHandler = XiptFactory::getPluginHandler();
 	}
 	
 	/**
@@ -146,7 +146,7 @@ class plgCommunityxipt_community extends CApplications
 		$selfProfiletype    = XiptLibProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 		$othersProfiletype 	= XiptLibProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
 		
-		$blockDisplayApp    = XiptFactory::getSettingParams('jspt_block_dis_app', 0);
+		$blockDisplayApp    = XiptFactory::getSettings('jspt_block_dis_app', 0);
 		
 		/**
 		 *  #1: block the display application of logged in user if the above param is set to yes
@@ -191,7 +191,7 @@ class plgCommunityxipt_community extends CApplications
 			return true;
 
 		// user is allowed or not.
-        $allowToChangePType    = XiptFactory::getSettingParams('allow_user_to_change_ptype_after_reg',0);
+        $allowToChangePType    = XiptFactory::getSettings('allow_user_to_change_ptype_after_reg',0);
         $allowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData($userid,'allowt');
 
         // not changing anything get data from table and set it

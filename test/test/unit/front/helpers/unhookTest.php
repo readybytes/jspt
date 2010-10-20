@@ -72,7 +72,7 @@ class XiptUnhookHelperTest extends XiUnitTestCase
 			
 			$file = JFile::read($filename);
 			
-			$searchString = '$pluginHandler=& XiptFactory::getLibraryPluginHandler()';
+			$searchString = '$pluginHandler=& XiptFactory::getPluginHandler()';
 			$count = substr_count($file,$searchString);
 			if($count >= 3)
 				return false;

@@ -19,7 +19,7 @@ class JElementProfiletypes extends JElement
 	function fetchElement($name, $value, &$node, $control_name)
 	{
 		$reqnone = false;
-		$reqall = false;
+		$reqall  = false;
 		if(isset($node->_attributes->addnone) || isset($node->_attributes['addnone']))
 			$reqnone = true;
 			

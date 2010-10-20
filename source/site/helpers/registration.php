@@ -28,13 +28,13 @@ class XiptHelperRegistration
 			$mySess->set('FROM_FACEBOOK',true, 'XIPT');
 		
 		/*if ptype is not required during registration then return */
-		if(!XiptFactory::getSettingParams('show_ptype_during_reg', 0))		
+		if(!XiptFactory::getSettings('show_ptype_during_reg', 0))		
 			return true;
 
 		//if aec is integrate with ptype then we don't want to display
 		//ptype selection page during facebook integration so return
 		// pType already selected
-		if($aecExists && XiptFactory::getSettingParams('aec_integrate',0))
+		if($aecExists && XiptFactory::getSettings('aec_integrate',0))
 			return true;
 			
 		/*check if ptype exist in session , 
@@ -72,7 +72,7 @@ class XiptHelperRegistration
 	    $defaultPType 			= 	XiptLibProfiletypes::getDefaultProfiletype();
 		$selectedProfileTypeID  = 	$defaultPType;
 		
-		$params = XiptFactory::getSettingParams('', 0);
+		$params = XiptFactory::getSettings('', 0);
 		$showAsRadio = $params->get('jspt_fb_show_radio',false);
 		
 		ob_start();

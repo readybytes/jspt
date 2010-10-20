@@ -98,11 +98,11 @@ function submitbutton( action )
 			<td align="center" id="avatar<?php echo $field->id;?>">
 			
 							
-				<img src="<?php echo JURI::root().XiptFactory::getUrlpathFromFilePath($field->avatar);?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
+				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($field->avatar);?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
 			<td align="center" id="watermark<?php echo $field->id;?>">
 				
-				<img src="<?php echo JURI::root().XiptFactory::getUrlpathFromFilePath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
+				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
 			</td>
 			<td align="center" id="template<?php echo $field->id;?>">
 				<?php echo $field->template; ?>

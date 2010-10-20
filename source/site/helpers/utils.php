@@ -60,4 +60,10 @@ class XiptHelperUtils
 		}
 		return $fonts;
 	}	
+	
+	function getUrlpathFromFilePath($filepath)
+	{
+		$urlpath = preg_replace('#[/\\\\]+#', '/', $filepath);
+		return $urlpath;
+	}
 }

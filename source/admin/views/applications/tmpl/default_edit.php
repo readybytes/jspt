@@ -5,7 +5,7 @@
 **/
 if(!defined('_JEXEC')) die('Restricted access');
 
-$aModel			= XiptFactory::getModel( 'applications' );
+$aModel			= XiptFactory::getInstance( 'applications' , 'model');
 ?>
 
 	

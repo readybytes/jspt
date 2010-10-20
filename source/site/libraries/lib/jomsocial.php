@@ -97,7 +97,7 @@ class XiptLibJomsocial
 		$pID = XiptLibProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
 		
 		if(JRequest::getVar('view') === 'register'){
-			$pluginHandler = XiptFactory::getLibraryPluginHandler();
+			$pluginHandler = XiptFactory::getPluginHandler();
 			$pID 		   = $pluginHandler->getRegistrationPType();
 		}
 					

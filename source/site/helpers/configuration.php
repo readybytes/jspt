@@ -11,13 +11,13 @@ class XiptHelperConfiguration
 	function getResetLinkArray()
 	{
 		$resetArray = array();
-		$allPTypes = XiptLibProfiletypes::getProfiletypeArray();
+		$allPTypes  = XiptLibProfiletypes::getProfiletypeArray();
 		if(!empty($allPTypes)) {
 			foreach($allPTypes as $ptype) {
 				if($ptype->params)
 					$resetArray[$ptype->id] = true;
 				else
-					 $resetArray[$ptype->id] = false;
+					$resetArray[$ptype->id] = false;
 			}
 		}
 		

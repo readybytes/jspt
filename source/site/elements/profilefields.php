@@ -24,10 +24,10 @@ class JElementProfilefields extends JElement
 	function getJomsocialProfileFields($filter = '',$join='AND')
 	{
 		//$ptype=jspcAddons::getCoreParams('jspc_profiletype',0);
-		$allField=null;
+		$allField = null;
 		
 		if($allField == null){
-			$db	=& JFactory::getDBO();
+			$db	= JFactory::getDBO();
 			
 			//setting up the search condition is there is any
 		$wheres = array();
@@ -47,10 +47,6 @@ class JElementProfilefields extends JElement
 		$db->setQuery($sql);
 		$fields = $db->loadObjectList();
 	    	
-	   // $xipt_exists = JspcHelper::checkXiptExists();
-	    
-	    	//$result  = XiptLibProfiletypes::_getFieldsForProfiletype($fields,$ptype,null);
-	    
 		return $fields;
 		
 		}
@@ -59,7 +55,7 @@ class JElementProfilefields extends JElement
 	function getFieldsHtml($name, $value, $control_name)
 	{
 		$fields = self::getJomsocialProfileFields();
-		$html = '';
+		$html   = '';
 		if(empty($fields)) {
 			$html = "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>";
 			return $html;
@@ -75,7 +71,8 @@ class JElementProfilefields extends JElement
 				++$i;
 				if($f->type != 'group') {
 					$html .= "<td class='paramlist_value'>".$f->name."</td>";
-						$profiletypeFieldHtml=$this->buildProfileTypes($name, $value, $control_name,$f->id);
+					
+					$profiletypeFieldHtml = $this->buildProfileTypes($name, $value, $control_name,$f->id);
 					$html .= "<td class='paramlist_value'>".$profiletypeFieldHtml."</td>";
 					//$html .= "<td class='paramlist_value'>".$fieldsPercentage[$f->id]."</td>";
 					//$html .= "<td class='paramlist_value'>".$fieldsPercentageInTotal[$f->id]." % </td>";
@@ -91,15 +88,14 @@ class JElementProfilefields extends JElement
 	}
 	
 	function buildProfileTypes($name, $value, $control_name, $fid)
-	{
-		//$selectedTypes 	= XiptHelperProfilefields::getProfileTypeArray($fid,$for);		
+	{	
 		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true);
 		$html			= '';
 		$html .= '<select id="'.$control_name.'['.$name.']['.$fid.'][]" name="'.$control_name.'['.$name.']['.$fid.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';	
 		foreach( $allTypes as $option )
 		{
 			$ptypeName       = XiptHelperProfiletypes::getProfileTypeName($option);
-			$selected       ='';
+			$selected        = '';
 		 	if (is_array($value) && array_key_exists($fid, $value) && in_array($option, $value[$fid]))
 		  		$selected        ='SELECTED';
 		  			

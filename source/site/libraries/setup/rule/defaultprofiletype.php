@@ -10,7 +10,7 @@ class XiptSetupRuleDefaultprofiletype extends XiptSetupBase
 {
  	function isRequired()
  	{
- 		$defaultProfiletypeID = XiptFactory::getSettingParams('defaultProfiletypeID', 0);
+ 		$defaultProfiletypeID = XiptFactory::getSettings('defaultProfiletypeID', 0);
  		
  		if($defaultProfiletypeID && XiptLibProfiletypes::validateProfiletype($defaultProfiletypeID))
  			return false;

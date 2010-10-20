@@ -10,7 +10,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 {
 	function isRequired()
 	{
-		$params = XiptFactory::getSettingParams('', 0);
+		$params = XiptFactory::getSettings('', 0);
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		
 		if(!$defaultProfiletypeID){

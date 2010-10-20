@@ -284,35 +284,9 @@ class ProfiletypeUnitTest extends XiUnitTestCase
 		$this->assertEquals($params,$config);
  	}
  	
-// 	function xxtestSaveConfig()
-// 	{
-// 		jimport('joomla.application.component.controller');
-// 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.'profiletypes.php');
-// 		$obj = new XiptControllerProfiletypes;
-// 		$xiconfig = "jspt_restrict_reg_check=1\njspt_prevent_username=admin;moderator;\njspt_allowed_email=\njspt_prevent_email=\n\n";
-// 		JTable::addIncludePath(JPATH_COMPONENT_SITE.DS.'tables');
-//		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-//		$row->load(1);
-//		$obj->saveConfig($row,$xiconfig,'config',true);
-// 		$this->_DBO->addTable('#__xipt_profiletypes');
-// 	}
-// 	
-// 	function xxtestSaveWatermarkparams()
-// 	{
-// 		jimport('joomla.application.component.controller');
-// 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers'.DS.'profiletypes.php');
-// 		$obj = new XiptControllerProfiletypes;
-// 		$config = "enableWaterMark=0\nxiText=P\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=5\n\n";
-// 		$filename = 'watermark_2.png';
-// 		$row	=& JTable::getInstance( 'profiletypes' , 'XiptTable' );
-//		$row->load(1);
-//		$obj->saveWatermarkparams($filename, $row, $config, true);
-// 		$this->_DBO->addTable('#__xipt_profiletypes');
-// 	}
- 	
  	function testRemoveCustomAvatar()
  	{
- 		$profiletype	=XiptFactory::getModel( 'Profiletypes' );
+ 		$profiletype	=XiptFactory::getInstance('profiletypes', 'model');
  		$newavatar 		= DEFAULT_AVATAR ;
  		
  		//remove custom avatar for pid 2
@@ -322,7 +296,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  	
  	function testResetUserAvatar()
  	{
- 		$profiletype	= XiptFactory::getModel( 'Profiletypes' );
+ 		$profiletype	= XiptFactory::getInstance('profiletypes', 'model');
 		$newavatar 		= DEFAULT_AVATAR ;
 		$newavatarthumb	= DEFAULT_AVATAR_THUMB;
 		$oldAvatar      = 'components/com_community/assets/group.jpg';

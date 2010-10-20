@@ -10,14 +10,14 @@ class XiptControllerRegistration extends XiptController {
 
 	function __construct($config = array())
 	{
-		$this->mySess 	=& JFactory::getSession();
+		$this->mySess 	= JFactory::getSession();
 		parent::__construct($config);
 	}
 
     function display()
 	{
 		//trigger event
-		$dispatcher =& JDispatcher::getInstance();
+		$dispatcher = JDispatcher::getInstance();
 		$dispatcher->trigger( 'onBeforeProfileTypeSelection');
 
 		// 	check for session
@@ -25,8 +25,8 @@ class XiptControllerRegistration extends XiptController {
 		XiptHelperProfiletypes::checkSessionForProfileType();
 
 		//If not allowed to select PT for user then return
-		if(XiptFactory::getSettingParams('show_ptype_during_reg')==0){
-			$selectedProfiletypeID= XiptLibProfiletypes::getDefaultProfiletype();
+		if(XiptFactory::getSettings('show_ptype_during_reg') == 0){
+			$selectedProfiletypeID = XiptLibProfiletypes::getDefaultProfiletype();
 			XiptHelperProfiletypes::setProfileTypeInSession($selectedProfiletypeID);
 		}
 
@@ -35,17 +35,16 @@ class XiptControllerRegistration extends XiptController {
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
 			if(XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID,array('published'=>1,'visible'=>1)) == false)
 			{
-				global $mainframe;
-				$msg = sprintf(JText::_('INVALID PROFILE TYPE SELECTED'),$count);
+				$msg  = sprintf(JText::_('INVALID PROFILE TYPE SELECTED'),$count);
 				$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
-				$mainframe->redirect($link, $msg);	
+				$this->setRedirect($link, $msg);	
 			}
 			$dispatcher->trigger( 'onAfterProfileTypeSelection',array(&$selectedProfiletypeID));			
 		}
 
 		$css		= JURI::root() . 'components/com_xipt/assets/style.css';
 
-		$document	=& JFactory::getDocument();
+		$document	= JFactory::getDocument();
 		$document->addStyleSheet($css);
 
 		// Get the view

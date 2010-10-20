@@ -38,7 +38,7 @@ class XiptControllerProfiletypes extends XiptController
 		$this->setRedirect($link, $info['msg']);
 	}
 	
-	// XITO : needs test case
+	// XITODO : needs test case
 	function _processSave($post=null,$cid=array(0))
 	{
 		if($post === null) $post	= JRequest::get('post');

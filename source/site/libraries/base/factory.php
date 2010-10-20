@@ -9,7 +9,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptFactory
 {
     /* This classes required a object to be created first.*/
-    function getLibraryPluginHandler()
+    function getPluginHandler()
     {
         static $instance =null;
         
@@ -18,29 +18,8 @@ class XiptFactory
         
         return $instance;
     }
-    
-    function getXiptUser($userid)
-    {
-        static $instance = array();
-        
-        if(!$userid)
-            return null;
-        
-        if($instance[$userid])
-            return $instance[$userid];
-        
-        require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models'.DS.'user.php';
-        
-        $instance[$userid] = new XiptModelUser($userid);
-        return $instance[$userid];
-    }
 
-	function getModel( $name = '', $from='admin')
-	{
-		return XiptFactory::getInstance($name,'model');
-	}
-
-	//XITODO : rename getSetupRule, apply caching 
+	//XITODO : apply caching 
 	function getSetupRule($name)
 	{		
 		$classname = 'XiptSetupRule'.JString::ucfirst($name);
@@ -111,16 +90,10 @@ class XiptFactory
 		return $html;
 	}
 	
-	function getUrlpathFromFilePath($filepath)
+    //get global settings
+	function getSettings($paramName='', $defaultValue=0)
 	{
-		$urlpath = preg_replace('#[/\\\\]+#', '/', $filepath);
-		return $urlpath;
-	}
-	
-    //get settings params data from xipt component
-	function getSettingParams($paramName='', $defaultValue=0)
-	{
-		$sModel  = XiptFactory::getModel('Settings');
+		$sModel  = XiptFactory::getInstance('settings', 'model');
 		$params  = $sModel->getParams();
 
 		if(!$params)
