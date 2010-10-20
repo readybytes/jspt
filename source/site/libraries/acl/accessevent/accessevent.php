@@ -8,14 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class accessevent extends XiptAclBase
 {
-
-	function __construct($debugMode)
-	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-
-
-	public function checkAclViolatingRule($data)
+	public function checkAclViolation($data)
 	{
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
 		$eventId	= isset($data['eventid']) ? $data['eventid'] : 0;
@@ -23,24 +16,20 @@ class accessevent extends XiptAclBase
 		$ownerid	= $this->getownerId($eventId);
 		$otherpid	= XiptLibProfiletypes::getUserData($ownerid,'PROFILETYPE');
 
-		if((0 != $otherptype)
-			&& (-1 != $otherptype)
-				 && ($otherpid != $otherptype))
+		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
 			return false;
-
 
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
 		{
 			$isFriend = XiptAclHelper::isFriend($data['userid'],$ownerid);
-			if($isFriend)
-			 return false;
+			if($isFriend) return false;
 		}
 
 		return true;
 	}
 
 
-	function checkAclAccesibility(&$data)
+	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

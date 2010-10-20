@@ -8,45 +8,56 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addphotos extends XiptAclBase
 {
-
-	function __construct($debugMode)
-	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-	
-
-	public function checkAclViolatingRule($data)
+	public function checkAclViolation($data)
 	{
 		$count = $this->getFeatureCounts($data['userid']);
 		$maxmimunCount = $this->aclparams->get('addphotos_limit',0);
 		if($count >= $maxmimunCount)
 			return true;
-			
+
 		return false;
 	}
-	
-	
+
+
 	function getFeatureCounts($userid)
 	{
 		$photoModel		=& CFactory::getModel('photos');
 		return $photoModel->getPhotosCount($userid);
 	}
-	
-	
-	function checkAclAccesibility($data)
+
+	public function handleViolation($info)
+	{
+		$msg 			= $this->getDisplayMessage();
+
+		if($info['task'] == 'jsonupload') {
+			$nextUpload	= JRequest::getVar('nextupload');
+			echo 	"{\n";
+			echo "error: 'true',\n";
+			echo "msg: '" . $message . "'\n,";
+			echo "nextupload: '" . $nextUpload . "'\n";
+			echo "}";
+			exit;
+		}
+
+		//let parent handle it
+		parent::handleViolation($info);
+	}
+
+
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
-			
+
 		if('photos' != $data['view'])
 			return false;
-			
-		if($data['task'] == 'uploader' 
-			|| $data['task'] == 'jsonupload' 
+
+		if($data['task'] == 'uploader'
+			|| $data['task'] == 'jsonupload'
 				|| $data['task'] == 'addnewupload')
 				return true;
-				
+
 		return false;
 	}
-	
+
 }

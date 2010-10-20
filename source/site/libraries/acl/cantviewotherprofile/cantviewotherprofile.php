@@ -9,14 +9,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 class cantviewotherprofile extends XiptAclBase
 {
 
-	function __construct($debugMode)
+	public function checkAclViolation($data)
 	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-	
-
-	public function checkAclViolatingRule($data)
-	{	
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
 		$otherpid	= XiptLibProfiletypes::getUserData($data['viewuserid'],'PROFILETYPE');
 
@@ -24,34 +18,32 @@ class cantviewotherprofile extends XiptAclBase
 		if($data['userid'] == $data['viewuserid'])
 			return false;
 
-		if((0 != $otherptype)
-			&& (-1 != $otherptype)
-				 && ($otherpid != $otherptype))
+		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
 			return false;
-		
+
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
 		{
 			$isFriend = XiptAclHelper::isFriend($data['userid'],$data['viewuserid']);
 			if($isFriend)
 			 return false;
 		}
-			
+
 		return true;
 	}
-	
-		
-	function checkAclAccesibility(&$data)
-	{ 
+
+
+	function checkAclApplicable(&$data)
+	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
-			
+
 		if('profile' != $data['view'])
 			return false;
-			
+
 		if($data['viewuserid'] != 0 && $data['task'] === '')
 				return true;
-				
+
 		return false;
 	}
-	
+
 }

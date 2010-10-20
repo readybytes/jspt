@@ -8,14 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class accessvideo extends XiptAclBase
 {
-
-	function __construct($debugMode)
-	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-
-
-	public function checkAclViolatingRule($data)
+	public function checkAclViolation($data)
 	{
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
 
@@ -28,11 +21,8 @@ class accessvideo extends XiptAclBase
 		$otherpid	= XiptLibProfiletypes::getUserData($creatorid,'PROFILETYPE');
 
 
-		if((0 != $otherptype)
-			&& (-1 != $otherptype)
-				 && ($otherpid != $otherptype))
+		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
 			return false;
-
 
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
 		{
@@ -46,7 +36,7 @@ class accessvideo extends XiptAclBase
 	}
 
 
-	function checkAclAccesibility(&$data)
+	function checkAclApplicable(&$data)
 	{
 		/*XITODO : we will expect that vie task and should be given
 		 * and from parsing we will find out that is this request for me

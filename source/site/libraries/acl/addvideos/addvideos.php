@@ -8,24 +8,16 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addvideos extends XiptAclBase
 {
-
-	function __construct($debugMode)
-	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-	
-
-	public function checkAclViolatingRule($data)
+	public function checkAclViolation($data)
 	{
 		$count = $this->getFeatureCounts($data['userid']);
 		$maxmimunCount = $this->aclparams->get('addvideos_limit',0);
 		if($count >= $maxmimunCount)
 			return true;
-			
+
 		return false;
 	}
-	
-	
+
 	function getFeatureCounts($userid)
 	{
 		$db		=& JFactory::getDBO();
@@ -36,20 +28,20 @@ class addvideos extends XiptAclBase
 		$db->setQuery( $query );
 		return $db->loadResult();
 	}
-	
-	
-	function checkAclAccesibility($data)
+
+
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
-			
+
 		if('videos' != $data['view'])
 			return false;
-			
+
 		if($data['task'] == 'ajaxaddvideo' || $data['task'] == 'ajaxuploadvideo')
 				return true;
-				
+
 		return false;
 	}
-	
+
 }

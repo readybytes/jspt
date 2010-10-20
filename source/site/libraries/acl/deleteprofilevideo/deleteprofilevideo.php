@@ -4,27 +4,21 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class deleteprofilevideo extends XiptAclBase
 {
-
-	function __construct($debugMode)
-	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-	
-	public function checkAclViolatingRule($data)
+	public function checkAclViolation($data)
 	{
 		return true;
 	}
-	
-	function checkAclAccesibility(&$data)
+
+	function checkAclApplicable(&$data)
 	{
-		if('com_community' == $data['option'] 
-		    	&& 'profile' == $data['view'] 
-		    	&& $data['task'] == 'ajaxremovelinkprofilevideo') 
+		if('com_community' == $data['option']
+		    	&& 'profile' == $data['view']
+		    	&& $data['task'] == 'ajaxremovelinkprofilevideo')
 			return true;
-			
+
 		return false;
 	}
-	
-	
+
+
 }
 

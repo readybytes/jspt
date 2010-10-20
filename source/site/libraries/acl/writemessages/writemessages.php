@@ -8,35 +8,26 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class writemessages extends XiptAclBase
 {
-
-	function __construct($debugMode)
+	public function checkAclViolation($data)
 	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-	
-
-	public function checkAclViolatingRule($data)
-	{	
 		/* messagecountlimit = 2
 		 * otherprofiletype -1 means none
 		 * menas users can write PTYPE1 message to any profiletype user
-		 * else if otherprofiletype is PTYPE1 means 
+		 * else if otherprofiletype is PTYPE1 means
 		 * particular profiletype user can 't write message
 		 * to ptype PTYPE1 users more than 2
 		 */
-		
+
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
-		
+
 		if((0 != $otherptype)
 			&& (-1 != $otherptype)
 				&& ($data['viewuserid'] == 0))
 				return false;
-		
+
 		$otherpid	= XiptLibProfiletypes::getUserData($data['viewuserid'],'PROFILETYPE');
-		
-		if((0 != $otherptype)
-			&& (-1 != $otherptype)
-				 && ($otherpid != $otherptype))
+
+		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
 			return false;
 
 		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
@@ -45,21 +36,21 @@ class writemessages extends XiptAclBase
 			if($isFriend)
 			 return false;
 		}
-		
+
 		$count = $this->getFeatureCounts($data,$otherptype);
 		$maxmimunCount = $this->aclparams->get('writemessage_limit',0);
 		if($count >= $maxmimunCount)
 			return true;
-			
+
 		return false;
 	}
-	
-	
+
+
 	function getFeatureCounts($data,$otherptype)
 	{
 		CFactory::load( 'helpers' , 'time' );
 		$db			=& JFactory::getDBO();
-		
+
 		/* otherptype o means rule is defined to count message written to any one */
 		if($otherptype == -1 || $otherptype == 0) {
 			$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__community_msg' ) . ' AS a'
@@ -72,36 +63,36 @@ class writemessages extends XiptAclBase
 					." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
 					."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
 					."  WHERE a.`msg_from` = ".$data['userid']
-					."  AND c.`profiletype`='$otherptype'" ; 
+					."  AND c.`profiletype`='$otherptype'" ;
 		}
 
 		$db->setQuery( $query );
 		$count		= $db->loadResult();
 		return $count;
 	}
-	
+
 	function aclAjaxBlock($msg)
 	{
 		$objResponse   	= new JAXResponse();
 		$title		= JText::_('CC WRITE MESSAGE');
 		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
 		return parent::aclAjaxBlock($msg, $objResponse);
-	}  
-	
-	function checkAclAccesibility(&$data)
+	}
+
+	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
-			
+
 		if('inbox' != $data['view'])
 			return false;
-			
+
 		if($data['task'] == 'ajaxcompose' || $data['task'] == 'ajaxaddreply' ) {
 			//modify whom we are sending msg
 			$data['viewuserid'] = $data['args'][0];
 			return  true;
 		}
-		
+
 		if($data['task'] == 'write') {
 //			$otherptype = $this->aclparams->get('other_profiletype',-1);
 //			if($otherptype == 0 || $otherptype == -1)
@@ -124,8 +115,8 @@ class writemessages extends XiptAclBase
 
 			return  true;
 		}
-		
-				
+
+
 		return false;
-	}	
+	}
 }

@@ -13,34 +13,32 @@ class addasfriends extends XiptAclBase
 	{
 		parent::__construct(__CLASS__, $debugMode);
 	}
-	
 
-	public function checkAclViolatingRule($data)
-	{	
+
+	public function checkAclViolation($data)
+	{
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
 		$otherpid	= XiptLibProfiletypes::getUserData($data['args'][0],'PROFILETYPE');
-		
-		if((0 != $otherptype)
-			&& (-1 != $otherptype)
-				 && ($otherpid != $otherptype))
+
+		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
 			return false;
-			
+
 		return true;
 	}
-	
-		
-	function checkAclAccesibility(&$data)
+
+
+	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
-			
+
 		if('friends' != $data['view'])
 			return false;
-			
+
 		if($data['args'][0] != 0 && $data['task'] === 'ajaxconnect')
 				return true;
-				
+
 		return false;
 	}
-	
+
 }

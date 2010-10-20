@@ -1,19 +1,9 @@
-<?php 
+<?php
 /**
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
-if(!defined('_JEXEC')) die('Restricted access'); 
-?>
-
-<?php JHTML::_('behavior.tooltip'); ?>
-
-<?php 
-JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=aclrules');
-JToolBarHelper::divider();
-JToolBarHelper::apply('apply', JText::_('APPLY'));
-JToolBarHelper::save('save',JText::_('SAVE'));
-JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+if(!defined('_JEXEC')) die('Restricted access');
 ?>
 
 <script language="javascript" type="text/javascript">
@@ -70,14 +60,14 @@ JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 	</fieldset>
 	<br />
 	<br />
-	
+
 	<fieldset class="adminform">
 	<legend><?php echo JText::_( 'Rule Parameters' ); ?></legend>
 	<?php
-		jimport('joomla.html.pane');
-		$pane = &JPane::getInstance('sliders', array('allowAllClose' => true));
-		echo $pane->startPane('acl-pane');
-		echo $this->aclParamsHtml;
+		if($this->aclParamsHtml)
+			echo $this->aclParamsHtml;
+		else
+			echo "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>" ;
 	?>
 	</fieldset>
 </div>
@@ -85,12 +75,10 @@ JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 	<fieldset class="adminform">
 	<legend><?php echo JText::_( 'General Parameters' ); ?></legend>
 	<?php
-		jimport('joomla.html.pane');
-		$pane = &JPane::getInstance('sliders', array('allowAllClose' => true));
-		echo $pane->startPane('core-pane');
-		//echo $pane->startPanel(JText :: _('Core Fields Parameters'), 'coreparam-page');
-		echo $this->coreParamsHtml;
-		//echo $pane->endPanel();
+		if ($this->coreParamsHtml)
+			echo $this->coreParamsHtml;
+		else
+			echo "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>"
 		?>
 	</fieldset>
 </div>
@@ -105,4 +93,4 @@ JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
-<?php 
+<?php

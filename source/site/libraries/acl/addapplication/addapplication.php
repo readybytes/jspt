@@ -4,26 +4,20 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addapplication extends XiptAclBase
 {
-
-	function __construct($debugMode)
-	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-	
-	public function checkAclViolatingRule($data)
+	public function checkAclViolation($data)
 	{
 		return true;
 	}
-	
-	function checkAclAccesibility(&$data)
+
+	function checkAclApplicable(&$data)
 	{
-		if('com_community' == $data['option'] 
-		    	&& 'apps' == $data['view'] 
-		    	&& $data['task'] == 'ajaxadd') 
+		if('com_community' == $data['option']
+		    	&& 'apps' == $data['view']
+		    	&& $data['task'] == 'ajaxadd')
 			return true;
-			
+
 		return false;
 	}
-	
-	
+
+
 }

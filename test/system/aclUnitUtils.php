@@ -36,7 +36,7 @@ class XiAclUnitTest extends XiUnitTestCase
 			return false;
 
 		//test violation
-		$result = $aclObject->isViolatingRule($info);
+		$result = $aclObject->checkViolation($info);
 		return $result;
 	}
 }
