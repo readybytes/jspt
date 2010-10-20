@@ -64,38 +64,6 @@ abstract class XiptController extends JController
 		return XiptFactory::getInstance($modelName,'Model');
 	}
 	
-	function publish($ids=array(0))
-	{
-		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
-		$count		= count( $ids );
-
-		if(!$this->getModel()->publish($ids)){
-			XiptError::raiseWarning(500,JText::_('ERROR IN PUBLISHING ITEM'));
-			return false;
-		}
-		
-		$msg = sprintf(JText::_('ITEMS PUBLISHED'),$count);
-		$link = XiptRoute::_('index.php?option=com_xipt&view='.$this->getName(), false);
-		$this->setRedirect($link, $msg);	
-		return true;		
-	}
-	
-	function unpublish($ids=array(0))
-	{
-		$ids		= JRequest::getVar('cid', $ids, 'post', 'array');
-		$count		= count( $ids );
-
-		if(!$this->getModel()->unpublish($ids)){
-			XiptError::raiseWarning(500,JText::_('ERROR IN UNPUBLISHING ACLRULES'));
-			return false;
-		}
-		
-		$msg = sprintf(JText::_('ITEMS UNPUBLISHED'),$count);
-		$link = XiptRoute::_('index.php?option=com_xipt&view='.$this->getName(), false);
-		$this->setRedirect($link, $msg);	
-		return true;		
-	}
-	
 	/**	
 	 * Save the ordering of the entire records.
 	 *	 	
@@ -118,9 +86,81 @@ abstract class XiptController extends JController
 	
 	function execute( $task )
 	{
-		parent::execute($task);
+		$this->_task	= $task;
+
+		$pattern = '/^switchOff/';
+		if(preg_match($pattern, $task))
+			$this->registerTask( $task, 	'multidobool');
+
+		$pattern = '/^switchOn/';
+		if(preg_match($pattern, $task))
+			$this->registerTask( $task, 	'multidobool');
+
+		//let the task execute in controller
+		//if task have failed, simply return and do not go to view
+		if(parent::execute($task)===false)
+			return false;		
+		
 		if(JFactory::getApplication()->isAdmin() == true)		
 			include_once(XIPT_ADMIN_PATH_VIEWS.DS.'cpanel'.DS.'tmpl'.DS.'default_footermenu.php');
-	}	
+	}
+	
+	function multidobool($task='enable',$cids=array(0))
+	{
+		$task	= JRequest::getVar('task',	$task);
+
+		$offpattern = '/^switchOff/';
+		$onpattern = '/^switchOn/';
+
+		if(preg_match($onpattern, $task)){
+			$switch		= false;
+			//$columninfo = str_split($task,strlen('switchOn'));
+			$columninfo = explode('switchOn',$task);
+			$column		= array_key_exists(1,$columninfo) ? $columninfo[1] : '';
+			$value		= 1;
+		}
+		else if(preg_match($offpattern, $task)){
+			$switch		= false;				
+			//$columninfo = str_split($task,strlen('switchOff'));
+			$columninfo = explode('switchOff',$task);
+			$column		= array_key_exists(1,$columninfo) ? $columninfo[1] : '';
+			$value		= 0;
+		}
+		else
+			XiptError::assert(0);
+
+		$cids 	= JRequest::getVar('cid', $cids, 'post', 'array');
+
+		foreach ($cids as $cid)
+		{
+			$this->_doBool($column, $value, $cid);
+		}
+
+		//redirect now
+		$this->setRedirect(XiptRoute::_("index.php?option=com_".JString::strtolower($this->getPrefix())."&view={$this->getName()}"));
+		return false;
+	}
+	
+	/**
+	 * This function will modify the table boolean data
+	 * @param $task = the related task : published
+	 * @param $change = the value to change to, 1/0
+	 * @param $switch = do we need to switch the value if field, default is false
+	 * @param $itemId = The item to modify, if null, will be calculated from session
+	 * @return bool
+	 */
+	public function _doBool($column, $change, $itemId=null)
+	{
+		//get the model
+		$model 		= $this->getModel();
+
+		//try to switch
+		if($model->boolean($itemId, $column, $change)===true)
+			return true;
+
+		//we need to set error message
+		$this->setError($model->getError());
+		return false;
+	}
 }
 

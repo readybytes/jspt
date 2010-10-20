@@ -244,34 +244,6 @@ abstract class XiptModel extends JModel
 
 		$this->_pagination = new XiptPagination($this);
 		return $this->_pagination;
-	}
-	// XITODO : check these fileds exist in table or not
-	function publish($id)
-	{		
-		if(!is_array($id))
-			$id = array($id);			
-		
-		if(array() === $id)
-			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO PUBLISH'));
-	
-		foreach($id as $pk)
-			$this->save( array('published'=>1), $pk );
-
-		return true;
-	}
-	
-	function unpublish($id)
-	{		
-		if(!is_array($id))
-			$id = array($id);			
-		
-		if(array() === $id)
-			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO UNPUBLISH'));
-				
-		foreach($id as $pk)
-			$this->save( array('published'=>0), $pk );
-
-		return true;
 	}	
 	
 	function saveParams($data, $id, $what = '')
@@ -308,5 +280,10 @@ abstract class XiptModel extends JModel
 		if(isset($record[$id])) $config->bind($record[$id]->$what);	
 		
 		return $config;
+	}
+	
+	public function boolean($pk, $column, $value)
+	{
+		return $this->save(array($column => $value), $pk);
 	}
 }

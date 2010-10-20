@@ -34,9 +34,9 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   	{ 		
   		$controller = new XiptControllerProfiletypes();
   		
-  		$controller->publish(array(1,3,4));  		
-  		$controller->publish(array(2));
-  		$controller->publish(6);
+  		$controller->multidobool('switchOnpublished',array(1,3,4));  		
+  		$controller->multidobool('switchOnpublished',array(2));
+  		$controller->multidobool('switchOnpublished',6);
   		
   		$this->_DBO->addTable('#__xipt_profiletypes');
 		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
@@ -46,9 +46,9 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   	{ 		
   		$controller = new XiptControllerProfiletypes();
   		
-  		$controller->unpublish(array(1,3,4));  		
-  		$controller->unpublish(array(2));
-  		$controller->unpublish(6);
+  		$controller->multidobool('switchOffpublished',array(1,3,4));  		
+  		$controller->multidobool('switchOffpublished',array(2));
+  		$controller->multidobool('switchOffpublished',6);
 
   		$this->_DBO->addTable('#__xipt_profiletypes');
 		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
@@ -58,9 +58,9 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   	{
   		$controller = new XiptControllerProfiletypes();
   		
-  		$controller->visible(array(1,3,4));  		
-  		$controller->visible(array(2));
-  		$controller->visible(6);  		  	
+  		$controller->multidobool('switchOnvisible',array(1,3,4));  		
+  		$controller->multidobool('switchOnvisible',array(2));
+  		$controller->multidobool('switchOnvisible',6);  		  	
   		
   		$this->_DBO->addTable('#__xipt_profiletypes');
 		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
@@ -70,9 +70,33 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
   	{
   		$controller = new XiptControllerProfiletypes();
   		
-  		$controller->invisible(array(1,3,4));  		
-  		$controller->invisible(array(2));
-  		$controller->invisible(6); 		
+  		$controller->multidobool('switchOffvisible',array(1,3,4));  		
+  		$controller->multidobool('switchOffvisible',array(2));
+  		$controller->multidobool('switchOffvisible',6); 		
+  		
+  		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');  		
+  	}
+  	
+	function testApprove()
+  	{
+  		$controller = new XiptControllerProfiletypes();
+  		
+  		$controller->multidobool('switchOnapprove',array(1,3,4));  		
+  		$controller->multidobool('switchOnapprove',array(2));
+  		$controller->multidobool('switchOnapprove',6);  		  	
+  		
+  		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
+  	}
+  	
+	function testAdminApprove()
+  	{
+  		$controller = new XiptControllerProfiletypes();
+  		
+  		$controller->multidobool('switchOffapprove',array(1,3,4));  		
+  		$controller->multidobool('switchOffapprove',array(2));
+  		$controller->multidobool('switchOffapprove',6); 		
   		
   		$this->_DBO->addTable('#__xipt_profiletypes');
 		$this->_DBO->filterOrder('#__xipt_profiletypes','id');  		

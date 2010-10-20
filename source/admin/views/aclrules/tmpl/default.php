@@ -20,8 +20,8 @@ function submitbutton( action )
 			{
 				break;
 			}
-		case 'publish':
-		case 'unpublish':
+		case 'switchOnpublished':
+		case 'switchOffpublished':
 		default:
 			submitform( action );
 	}
@@ -86,7 +86,7 @@ function submitbutton( action )
 				<?php echo $this->ruleProfiletype[$rule->id]; ?>
 			</td>
 			<td align="center" id="published<?php echo $rule->id;?>">
-				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $rule->published ? 'unpublish' : 'publish' ?>')">
+				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $rule->published ? 'switchOffpublished' : 'switchOnpublished' ?>')">
 							<?php if($rule->published)
 							{ ?>
 								<img src="images/tick.png" width="16" height="16" border="0" alt="Published" />

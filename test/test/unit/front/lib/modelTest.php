@@ -75,4 +75,19 @@ class XiptModelTest extends XiUnitTestCase
     	$table->load(3);    	
     	$this->assertEquals($table->get('title'),null);
     }
+    
+    public function testBoolean()
+    {
+    	$model	= new XiptModelPollspgf();    	
+    	
+    	$model->boolean(1,'published',0);
+    	$table = $model->getTable();
+    	$table->load(1);   	
+    	$this->assertEquals($table->published,0);
+    	
+    	$model->boolean(2,'published',1);
+    	$table = $model->getTable();
+    	$table->load(2);   	
+    	$this->assertEquals($table->published,1);
+    }
 }

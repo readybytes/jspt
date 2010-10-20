@@ -19,8 +19,8 @@ function submitbutton( action )
 			{
 				break;
 			}
-		case 'publish':
-		case 'unpublish':
+		case 'switchOnpublished':
+		case 'switchOffpublished':
 		default:
 			submitform( action );
 	}
@@ -103,7 +103,7 @@ function submitbutton( action )
 			</td>
 			
 			<td align="center" id="approve<?php echo $field->id;?>">
-				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->approve ? 'autoApprove' : 'adminApprove' ?>')">
+				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->approve ? 'switchOffapprove' : 'switchOnapprove' ?>')">
 					<?php if($field->approve) : ?>
 						<img src="images/tick.png" width="16" height="16" border="0" alt="Admin Approve" />
 					<?php else : ?> 
@@ -113,7 +113,7 @@ function submitbutton( action )
 			</td>			
 			
 			<td align="center" id="published<?php echo $field->id;?>">
-				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->published ? 'unpublish' : 'publish' ?>')">
+				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->published ? 'switchOffpublished' : 'switchOnpublished' ?>')">
 					<?php if($field->published) : ?>
 						<img src="images/tick.png" width="16" height="16" border="0" alt="Published" />
 					<?php else : ?> 
@@ -123,7 +123,7 @@ function submitbutton( action )
 			</td>
 			
 			<td align="center" id="visible<?php echo $field->id;?>">
-				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->visible ? 'invisible' : 'visible' ?>')">
+				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->visible ? 'switchOffvisible' : 'switchOnvisible' ?>')">
 					<?php if($field->visible) : ?>
 						<img src="images/tick.png" width="16" height="16" border="0" alt="Visible" />
 					<?php else : ?>

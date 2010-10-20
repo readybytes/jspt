@@ -33,9 +33,9 @@ class XiptAclrulesControllerTest extends XiUnitTestCase
   	{ 		
   		$controller = new XiptControllerAclrules();
   		
-  		$controller->publish(array(1,3,4));  		
-  		$controller->publish(array(2));
-  		$controller->publish(6);
+  		$controller->multidobool('switchOnpublished', array(1,3,4));  		
+  		$controller->multidobool('switchOnpublished', array(2));
+  		$controller->multidobool('switchOnpublished', 6);
   		
   		$this->_DBO->addTable('#__xipt_aclrules');
   	}
@@ -44,9 +44,9 @@ class XiptAclrulesControllerTest extends XiUnitTestCase
   	{ 		
   		$controller = new XiptControllerAclrules();
   		
-  		$controller->unpublish(array(1,3,4));  		
-  		$controller->unpublish(array(2));
-  		$controller->unpublish(6);
+  		$controller->multidobool('switchOffpublished', array(1,3,4));  		
+  		$controller->multidobool('switchOffpublished', array(2));
+  		$controller->multidobool('switchOffpublished', 6);
 
   		$this->_DBO->addTable('#__xipt_aclrules');
   	}

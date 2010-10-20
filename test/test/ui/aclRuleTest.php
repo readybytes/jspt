@@ -193,11 +193,11 @@ class AclRulesUITest extends XiSelTestCase
 	function enableACLRule($id)
 	{
 		$acl = new XiptModelAclrules();
-		if($id) $acl->publish($id);
+		if($id) $acl->boolean($id,'published',1);
 		for($i=11; $i <=31; $i++)
 		{
 			if($i != $id)
-			$acl->unpublish($i);
+			$acl->boolean($i,'published',0);
 		}
 	}
 

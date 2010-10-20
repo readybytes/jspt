@@ -28,62 +28,7 @@ class XiptModelProfiletypes extends XiptModel
 		
 		return $this->_query;
 	}
-		
-	function visible($id)
-	{		
-		if(!is_array($id))
-			$id = array($id);			
-		
-		if(empty($id))
-			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO MAKE VISIBLE'));
-				
-		foreach($id as $pk)
-			$this->save( array('visible'=>1), $pk );
 
-		return true;
-	}
-	
-	function invisible($id)
-	{		
-		if(!is_array($id))
-			$id = array($id);			
-		
-		if(empty($id))
-			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO MAKE INVISIBLE'));
-				
-		foreach($id as $pk)
-			$this->save( array('visible'=>0), $pk );
-
-		return true;
-	}
-	
-	function autoApprove($id)
-	{		
-		if(!is_array($id))
-			$id = array($id);			
-		
-		if(empty($id))
-			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO MAKE INVISIBLE'));
-				
-		foreach($id as $pk)
-			$this->save( array('approve'=>0), $pk );
-
-		return true;
-	}
-	
-	function adminApprove($id)
-	{		
-		if(!is_array($id))
-			$id = array($id);			
-		
-		if(empty($id))
-			return Xipterror::raiseError(500,XiptText::_('PLEASE SELECT ATLEAST ONE PROFILETYPE TO MAKE INVISIBLE'));
-				
-		foreach($id as $pk)
-			$this->save( array('approve'=>1), $pk );
-
-		return true;
-	}
 	/**
 	 * Save the configuration to the config file	 * 
 	 * @return boolean	True on success false on failure.

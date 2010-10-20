@@ -15,36 +15,88 @@
                         tofile="${target}/source/languages/admin/en-GB.com_xipt.ini" 
                          />
 
-		<delete dir="${source}/administrator/components/com_xipt/install/extensions" />
+				<php function="file_exists" returnProperty="fileExist">
+                  <param value="${source}/components/com_community/libraries/fields/profiletypes.php"/>
+                </php>
 
-		<copy todir="${target}/source/admin">
-			<fileset dir="${source}/administrator/components/com_xipt">
-				<include name="**/*.*" />
-			</fileset>
-        </copy>
+                <if>
+                 <equals arg1="${fileExist}" arg2="1" />
+                  <then>
+                         <copy  file="${source}/components/com_community/libraries/fields/profiletypes.php" 
+                                tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_profiletypes.php" 
+                          />
+                 </then>
+                 <else> <echo msg="File not exist(${fileExist})  : ${source}/components/com_community/libraries/fields/profiletypes.php " />
+
+                 </else>
+                </if>
+				
+				
+				<php function="file_exists" returnProperty="fileExist">
+                  <param value="${source}/components/com_community/libraries/fields/templates.php"/>
+                </php>
+
+                <if>
+                 <equals arg1="${fileExist}" arg2="1" />
+                  <then>               
+                        <copy  file="${source}/components/com_community/libraries/fields/templates.php" 
+                                tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_templates.php" 
+                                />
+                 </then>
+                 <else>
+                        <echo msg="File not exist (${fileExist})  : ${source}/components/com_community/libraries/fields/templates.php " />
+                 </else>
+                </if>
+				
+				<php function="file_exists" returnProperty="fileExist">
+                  <param value="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php"/>
+                </php>
+
+                <if>
+                 <equals arg1="${fileExist}" arg2="1" />
+                  <then>     
+                <copy   file="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" 
+                        tofile="${source}/administrator/components/com_xipt/hacks/mi_jomsocialjspt.php" 
+                         />
+                         </then>
+                 <else>
+                        <echo msg="File not exist (${fileExist}) : ${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" />
         
-		<move file="${target}/source/admin/manifest.xml" 
-                        tofile="${target}/source/manifest.xml" 
-         />
-		
-		<!-- Copy plguin files again into folder -->
-		<copy   file="${source}/plugins/system/xipt_system.php" 
-                        tofile="${target}/source/install/extensions/xipt_system/xipt_system.php" 
-                         />
-
-		<copy   file="${source}/plugins/system/xipt_system.xml" 
-                        tofile="${target}/source/install/extensions/xipt_system/xipt_system.xml" 
-                         />
-
-
-		<copy   file="${source}/plugins/community/xipt_community.php" 
-                        tofile="${target}/source/install/extensions/xipt_community/xipt_community.php" 
-                         />
-
-		<copy   file="${source}/plugins/community/xipt_community.xml" 
-                        tofile="${target}/source/install/extensions/xipt_community/xipt_community.xml" 
-                         />                  
-            
+                 </else>
+                </if>
+				
+				
+								
+			<delete dir="${source}/administrator/components/com_xipt/install/extensions" />
+	
+			<copy todir="${target}/source/admin">
+				<fileset dir="${source}/administrator/components/com_xipt">
+					<include name="**/*.*" />
+				</fileset>
+	        </copy>
+	        
+			<move file="${target}/source/admin/manifest.xml" 
+	                        tofile="${target}/source/manifest.xml" 
+	         />
+			
+			<!-- Copy plguin files again into folder -->
+			<copy   file="${source}/plugins/system/xipt_system.php" 
+	                        tofile="${target}/source/install/extensions/xipt_system/xipt_system.php" 
+	                         />
+	
+			<copy   file="${source}/plugins/system/xipt_system.xml" 
+	                        tofile="${target}/source/install/extensions/xipt_system/xipt_system.xml" 
+	                         />
+	
+	
+			<copy   file="${source}/plugins/community/xipt_community.php" 
+	                        tofile="${target}/source/install/extensions/xipt_community/xipt_community.php" 
+	                         />
+	
+			<copy   file="${source}/plugins/community/xipt_community.xml" 
+	                        tofile="${target}/source/install/extensions/xipt_community/xipt_community.xml" 
+	                         />                  
+	            
                  
                                               
 		<!-- first copy -->

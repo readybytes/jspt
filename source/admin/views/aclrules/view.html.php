@@ -57,8 +57,8 @@ class XiptViewAclRules extends XiptView
 		JToolBarHelper::addNew('add', JText::_( 'ADD ACL RULES' ));
 		JToolBarHelper::trash('remove', JText::_( 'DELETE' ));
 		JToolBarHelper::divider();
-		JToolBarHelper::publishList('publish', JText::_( 'PUBLISH' ));
-		JToolBarHelper::unpublishList('unpublish', JText::_( 'UNPUBLISH' ));
+		JToolBarHelper::publishList('switchOnpublished', JText::_( 'PUBLISH' ));
+		JToolBarHelper::unpublishList('switchOffpublished', JText::_( 'UNPUBLISH' ));
 	}
 
 	function add($tpl = 'add')
