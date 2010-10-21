@@ -47,38 +47,56 @@ if(!defined('_JEXEC')) die('Restricted access');
 					</legend>
 					<table width="100%">
 						<tr>
-							<td class="key"><?php echo XiptText::_('Name');?></td>
+							<td class="key">
+							<label class="hasTip" title="<?php echo JText::_('NAME'); ?>::<?php echo JText::_('PTYPE NAME.DESC'); ?>">
+							<?php echo JText::_('NAME'); ?>
+							</label>	
 							<td>
 								<input type="text" value="<?php echo $this->data->name;?>" name="name" />
 							</td>
 						</tr>
 						<tr>
-							<td class="key"><?php echo XiptText::_('Published');?></td>
+							<td class="key">
+								<label class="hasTip" title="<?php echo JText::_('Published'); ?>::<?php echo JText::_('PTYPE PUBLISHED.DESC'); ?>">
+								<?php echo XiptText::_('Published');?></td>
+								</label>
 							<td>
 								<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->data->published);?></span>
 							</td>
 						</tr>						
 						<tr>	
-						<td class="key"><?php echo XiptText::_('Require Approval');?></td>
+						<td class="key">
+								<label class="hasTip" title="<?php echo JText::_('Require Approval'); ?>::<?php echo JText::_('PTYPE REQUIRE APPROVAL.DESC'); ?>">
+								<?php echo XiptText::_('Require Approval');?></td>
+								</label>
 							<td>
 								<span><?php echo JHTML::_('select.booleanlist',  'approve', '', $this->data->approve );?></span>
 							</td>					
 						</tr>
 						<tr>
-							<td class="key"><?php echo XiptText::_('Default Joomla User Type Settings for Profile');?></td>
+							<td class="key">
+								<label class="hasTip" title="<?php echo JText::_('Default Joomla User Type Settings for Profile'); ?>::<?php echo JText::_('PTYPE DEFAULT JOOMLA USER TYPE SETTINGS FOR PROFILE.DESC'); ?>">
+								<?php echo XiptText::_('Default Joomla User Type Settings for Profile');?></td>
+								</label>
 							<!--<td colspan="4"> -->
 							<td>
 								<?php echo XiptHelperProfiletypes::buildTypes($this->data->jusertype,'jusertype');?>
 							</td>
 						</tr>
 						<tr>	
-							<td class="key"><?php echo XiptText::_('Default Template Settings for Profile');?></td>
+							<td class="key">
+								<label class="hasTip" title="<?php echo JText::_('Default Template Settings for Profile'); ?>::<?php echo JText::_('PTYPE DEFAULT TEMPLATE SETTINGS FOR PROFILE.DESC'); ?>">
+								<?php echo XiptText::_('Default Template Settings for Profile');?></td>
+								</label>
 							<td>
 								<?php echo XiptHelperProfiletypes::buildTypes($this->data->template, 'template');?>
 							</td>
 						</tr>
 						<tr>
-							<td class="key"><?php echo XiptText::_('DESCRIPTION OF PROFILE TYPE');?></td>
+							<td class="key">
+								<label class="hasTip" title="<?php echo JText::_('DESCRIPTION OF PROFILE TYPE'); ?>::<?php echo JText::_('PTYPE DESCRIPTION OF PROFILE TYPE.DESC'); ?>">
+								<?php echo XiptText::_('DESCRIPTION OF PROFILE TYPE');?></td>
+								</label>
 							<td>
 							<?php 
 								echo $editor->display( 'tip',  htmlspecialchars($this->data->tip, ENT_QUOTES),
