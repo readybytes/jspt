@@ -14,14 +14,13 @@ class XiptViewRegistration extends XiptView
 		$userId = JFactory::getUser()->id;
 		if($userId)
 		{
-			global $mainframe;
-			$redirectUrl	= CRoute::_('index.php?option=com_community&view=profile',false);
-			$msg = JText::_('YOU ARE ALREADY REGISTERED, NEED NOT TO REGISTER AGAIN');
-			$mainframe->redirect($redirectUrl,$msg);
+			$redirectUrl	= XiptRoute::_('index.php?option=com_community&view=profile',false);
+			$msg		    = XiptText::_('YOU ARE ALREADY REGISTERED, NEED NOT TO REGISTER AGAIN');
+			JFactory::getApplication()->redirect($redirectUrl,$msg);
 		}
 
     	//   refine it, if empty will add default pType
-    	$allProfileTypes = array();
+    	$allProfileTypes 	= array();
 	    $seletedPTypeID 	= JRequest::getVar('ptypeid','');
 
 		//TODO : trigger an API Event to add something to templates, or modify $profiletypes array
@@ -31,7 +30,7 @@ class XiptViewRegistration extends XiptView
 
 
 		$this->assign( 'allProfileTypes' , $allProfileTypes );
-		$this->assign( 'selectedProfileTypeID' , $seletedPTypeID );
+		$this->assign( 'selectedPT' , $seletedPTypeID );
 		$params = XiptFactory::getSettings('', 0);
 		$this->assign( 'showAsRadio' , $params->get('jspt_show_radio',true));
 

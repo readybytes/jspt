@@ -16,11 +16,11 @@ class XiptHelperApps
 		
 		//if selected is empty means field is invisible, then return none
 		if(empty($selected))
-			return JText::_("NONE");
+			return XiptText::_("NONE");
 		
 		//if 0 exist in selected ptype means , field is available to all
 		if(in_array(XIPT_PROFILETYPE_ALL, $selected))
-			return JText::_("ALL");
+			return XiptText::_("ALL");
 			
 		$retVal = array();		
 		foreach($selected as $pid)	     		

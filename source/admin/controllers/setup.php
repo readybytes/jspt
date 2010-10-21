@@ -52,7 +52,7 @@ class XiptControllerSetup extends XiptController
 			$setupObject->doRevert();
 		}
 		
-		$msg = JText::_('UNHOOKED SUCCESSFULLY');
+		$msg = XiptText::_('UNHOOKED SUCCESSFULLY');
 		$this->setRedirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false),$msg);
 		return true;
     }

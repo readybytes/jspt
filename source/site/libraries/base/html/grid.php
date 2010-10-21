@@ -16,7 +16,7 @@ class XiHtmlGrid extends JHTMLGrid
 	{
 		$img 	= $row->$what ? $imgY : $imgX;
 		$task 	= $row->$what ? 'switchOff'.$what : 'switchOn'.$what;
-		$alt 	= $row->$what ? XiText::_( 'Switchon'.$what ) : JText::_( 'Switchoff'.$what);
+		$alt 	= $row->$what ? XiText::_( 'Switchon'.$what ) : XiptText::_( 'Switchoff'.$what);
 		$action = $row->$what ? XiText::_( 'Switch off '.$what.' Item' ) : XiText::_( 'Switch on '.$what.' Item' );
 
 		$href = '
@@ -58,7 +58,7 @@ class XiHtmlGrid extends JHTMLGrid
 		{
 			$text = addslashes(htmlspecialchars($row->checked_out));
 
-			$date 	= XiHTML::_('date',  $row->checked_out_time, JText::_('DATE_FORMAT_LC1') );
+			$date 	= XiHTML::_('date',  $row->checked_out_time, XiptText::_('DATE_FORMAT_LC1') );
 			$time	= XiHTML::_('date',  $row->checked_out_time, '%H:%M' );
 
 			$hover = '<span class="editlinktip hasTip" title="'. XiText::_( 'Checked Out' ) .'::'. $text .'<br />'. $date .'<br />'. $time .'">';

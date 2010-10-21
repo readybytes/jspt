@@ -22,8 +22,8 @@ class CFieldsTemplates
 		global $mainframe;
 		$this->_mainframe =& $mainframe;
 		$this->_mySess =& JFactory::getSession();
-		$this->_task = JRequest::getVar('task',0,'GET');
-		$this->_view = JRequest::getVar('view',0,'GET');
+		$this->_task = JRequest::getVar('task',0);
+		$this->_view = JRequest::getVar('view',0);
 		$this->_params = XiptFactory::getSettings('', 0);
 		
 	}
@@ -33,7 +33,7 @@ class CFieldsTemplates
 	function getFieldData( $value )
 	{
 		$userid = JRequest::getVar('userid',0);
-		$tName = JText::_(self::getTemplateValue($value,$userid));
+		$tName = XiptText::_(self::getTemplateValue($value,$userid));
 		
 		/*
 		 // add search link
@@ -55,7 +55,7 @@ class CFieldsTemplates
 		$templates = XiptHelperJomsocial::getTemplatesList();
 		$class	= ($required == 1) ? ' required' : '';
 		
-		$selectedValue = JText::_(CFieldsTemplates::getTemplateValue($tName,$user->id));
+		$selectedValue = XiptText::_(CFieldsTemplates::getTemplateValue($tName,$user->id));
 		//	XITODO : format it in proper way
 		$allowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData(XiptLibProfiletypes::getUserData($user->id),'allowt');
 		$allowToChangeTemplate = $allowToChangeTemplate || XiptHelperUtils::isAdmin($user->id);
@@ -77,7 +77,7 @@ class CFieldsTemplates
 				if( !empty( $selected ) )
 					$selectedElement++;
 				
-				$html	.= '<option value="' . $tmpl . '"' . $selected . '>' . JText::_( $tmpl ) . '</option>';
+				$html	.= '<option value="' . $tmpl . '"' . $selected . '>' . XiptText::_( $tmpl ) . '</option>';
 			}
 		}
 		$html	.= '</select>';

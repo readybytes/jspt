@@ -29,7 +29,7 @@ class XiptViewProfileFields extends XiptView
 		$this->assignRef('categories', $categories);
 		$this->assign('fieldid', $fieldId);
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'EDIT FIELD' ), 'profilefields' );
+		JToolBarHelper::title( XiptText::_( 'EDIT FIELD' ), 'profilefields' );
 
 		$pane	=& JPane::getInstance('sliders');
 		$this->assignRef( 'pane'		, $pane );
@@ -37,8 +37,8 @@ class XiptViewProfileFields extends XiptView
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profilefields');
 		JToolBarHelper::divider();
-		JToolBarHelper::save('save',JText::_('SAVE'));
-		JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+		JToolBarHelper::save('save',XiptText::_('SAVE'));
+		JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
 		parent::display($tpl);
 	}
 
@@ -53,7 +53,7 @@ class XiptViewProfileFields extends XiptView
 	{
 
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'PROFILE FIELDS' ), 'profilefields' );
+		JToolBarHelper::title( XiptText::_( 'PROFILE FIELDS' ), 'profilefields' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');

@@ -10,7 +10,7 @@ $aModel			= XiptFactory::getInstance( 'applications' , 'model');
 
 	
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo JText::_('ASSIGN APPLICATION AS PER PROFILE TYPES FOR YOUR SITE.');?>
+	<?php echo XiptText::_('ASSIGN APPLICATION AS PER PROFILE TYPES FOR YOUR SITE.');?>
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
@@ -18,7 +18,7 @@ $aModel			= XiptFactory::getInstance( 'applications' , 'model');
 <table cellspacing="0" class="admintable" border="0" width="100%">
 	<tbody>
 		<tr>
-			<td class="key"><?php echo JText::_('NAME');?></td>
+			<td class="key"><?php echo XiptText::_('NAME');?></td>
 			<td>:</td>
 			<td>
 				<?php echo $aModel->getPlugin($this->applicationId)->name;?>
@@ -27,7 +27,7 @@ $aModel			= XiptFactory::getInstance( 'applications' , 'model');
 		<br>
 		<br>
 		<tr>
-			<td class="key"><?php echo JText::_('FOR PROFILETYPES');?></td>
+			<td class="key"><?php echo XiptText::_('FOR PROFILETYPES');?></td>
 			<td>:</td>
 			<td colspan="4"> <?php echo XiptHelperApps::buildProfileTypesforApplication($this->applicationId);?></td>			
 		</tr>

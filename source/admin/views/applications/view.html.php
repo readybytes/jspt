@@ -32,19 +32,19 @@ class XiptViewApplications extends XiptView
 	// set the toolbar according to task	 	 
 	function setToolbar($task='display')
 	{	
-		$task = JRequest::getVar('task',$task,'GET');
+		$task = JRequest::getVar('task',$task);
 		if($task === 'display'){		
-			JToolBarHelper::title( JText::_( 'APPLICATIONS' ), 'applications' );
+			JToolBarHelper::title( XiptText::_( 'APPLICATIONS' ), 'applications' );
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 			return true;
 		}
 		
 		if($task === 'edit'){
-			JToolBarHelper::title( JText::_( 'EDIT APPLICATIONS' ), 'applications' );
+			JToolBarHelper::title( XiptText::_( 'EDIT APPLICATIONS' ), 'applications' );
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
 			JToolBarHelper::divider();
-			JToolBarHelper::save('save',JText::_('SAVE'));
-			JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+			JToolBarHelper::save('save',XiptText::_('SAVE'));
+			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
 			return true;
 		}		
 	}

@@ -182,10 +182,10 @@ class XiptLibPluginhandler
 			{
 			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
 			    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
-			    $msg 			   = sprintf(JText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
+			    $msg 			   = sprintf(XiptText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
 			}
 
-			$link = '<a id="xipt_back_link" href='.$url.'>'. JText::_("CLICK HERE").'</a>';
+			$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK HERE").'</a>';
 			$this->app->enqueueMessage($msg.' '.$link);
 			return;
 		}
@@ -218,8 +218,8 @@ class XiptLibPluginhandler
 		// field according to profiletype
 		
 		$restrict_advancesearchfield = XiptFactory::getSettings('restrict_advancesearchfield', 0);
-		$view	= JRequest::getVar('view','','GET');
-		$task 	= JRequest::getVar('task','','GET');
+		$view	= JRequest::getVar('view','');
+		$task 	= JRequest::getVar('task','');
 		
 		if(!$restrict_advancesearchfield)
 		 {

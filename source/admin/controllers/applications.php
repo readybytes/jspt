@@ -31,7 +31,7 @@ class XiptControllerApplications extends XiptController
 		
 		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
 		
-		$msg = JText::_('APPLICATION SAVED');
+		$msg = XiptText::_('APPLICATION SAVED');
 		$link = XiptRoute::_('index.php?option=com_xipt&view=applications', false);
 		$this->setRedirect($link,$msg);
 				

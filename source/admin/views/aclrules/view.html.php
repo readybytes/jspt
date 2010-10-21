@@ -36,29 +36,29 @@ class XiptViewAclRules extends XiptView
 	function setToolBar($task='display')
 	{
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'ACCESS CONTROL' ), 'AclRules' );
+		JToolBarHelper::title( XiptText::_( 'ACCESS CONTROL' ), 'AclRules' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::divider();
 
 		if($task === 'edit'){
-			JToolBarHelper::apply('apply', JText::_('APPLY'));
-			JToolBarHelper::save('save',JText::_('SAVE'));
-			JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+			JToolBarHelper::apply('apply', XiptText::_('APPLY'));
+			JToolBarHelper::save('save',XiptText::_('SAVE'));
+			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
 			return;
 		}
 
 		if($task === 'add'){
-			JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));
+			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
 			return;
 		}
 
-		JToolBarHelper::addNew('add', JText::_( 'ADD ACL RULES' ));
-		JToolBarHelper::trash('remove', JText::_( 'DELETE' ));
+		JToolBarHelper::addNew('add', XiptText::_( 'ADD ACL RULES' ));
+		JToolBarHelper::trash('remove', XiptText::_( 'DELETE' ));
 		JToolBarHelper::divider();
-		JToolBarHelper::publishList('switchOnpublished', JText::_( 'PUBLISH' ));
-		JToolBarHelper::unpublishList('switchOffpublished', JText::_( 'UNPUBLISH' ));
+		JToolBarHelper::publishList('switchOnpublished', XiptText::_( 'PUBLISH' ));
+		JToolBarHelper::unpublishList('switchOffpublished', XiptText::_( 'UNPUBLISH' ));
 	}
 
 	function add($tpl = 'add')

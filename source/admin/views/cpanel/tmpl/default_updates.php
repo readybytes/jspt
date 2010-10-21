@@ -5,7 +5,6 @@
 **/
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
-//echo $this->pane->startPanel( JText::_('XIPT UPDATES') , 'xipt' );
 
 ?>
 	<script src="http://widgets.twimg.com/j/2/widget.js"></script>

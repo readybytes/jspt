@@ -54,24 +54,24 @@ class XiptViewProfiletypes extends XiptView
 	{
 		$task = JRequest::getVar('task',$task);
 
-		JToolBarHelper::title( JText::_( 'PROFILETYPES' ), 'profiletypes' );
+		JToolBarHelper::title( XiptText::_( 'PROFILETYPES' ), 'profiletypes' );
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::divider();
 		
 		
 		if($task === 'edit'){
-			JToolBarHelper::apply('apply', JText::_('APPLY'));
-			JToolBarHelper::save('save',JText::_('SAVE'));
-			JToolBarHelper::cancel( 'cancel', JText::_('CLOSE' ));			
+			JToolBarHelper::apply('apply', XiptText::_('APPLY'));
+			JToolBarHelper::save('save',XiptText::_('SAVE'));
+			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));			
 			return true;
 		}	
 		
 		//default
-		JToolBarHelper::publishList('switchOnpublished', JText::_( 'PUBLISH' ));
-		JToolBarHelper::unpublishList('switchOffpublished', JText::_( 'UNPUBLISH' ));
+		JToolBarHelper::publishList('switchOnpublished', XiptText::_( 'PUBLISH' ));
+		JToolBarHelper::unpublishList('switchOffpublished', XiptText::_( 'UNPUBLISH' ));
 		JToolBarHelper::divider();
-		JToolBarHelper::trash('remove', JText::_( 'DELETE' ));
-		JToolBarHelper::addNew('edit', JText::_( 'ADD PROFILETYPES' ));
+		JToolBarHelper::trash('remove', XiptText::_( 'DELETE' ));
+		JToolBarHelper::addNew('edit', XiptText::_( 'ADD PROFILETYPES' ));
 		return true;
 	}
 }

@@ -57,13 +57,13 @@ class JElementProfilefields extends JElement
 		$fields = self::getJomsocialProfileFields();
 		$html   = '';
 		if(empty($fields)) {
-			$html = "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>";
+			$html = "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>";
 			return $html;
 		}
 
 		$html .= "<table width='100%' class='paramlist admintable' cellspacing='1'>";
 		$html .= "<tr class='title'>";
-		$html .= "<th width='30%'>".JText::_( 'FIELD NAME' )."</th>";
+		$html .= "<th width='30%'>".XiptText::_( 'FIELD NAME' )."</th>";
 		
 		$i = 0;
 		foreach($fields as $f) {

@@ -22,7 +22,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<thead>
 		<tr>
 			<td style="width:40%;" >
-				<?php echo JText::_( 'FIELD NAME' ); ?> :
+				<?php echo XiptText::_( 'FIELD NAME' ); ?> :
 			</td>
 			<td style="width:60%;">
 					<?php echo $this->fields->name; ?>
@@ -36,7 +36,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				?>	
 				<tr  class="row<?php echo $catIndex%2;?>">
 					<td>
-						<?php echo JText::_($catName);?> :
+						<?php echo XiptText::_($catName);?> :
 					</td>
 					<td colspan="4"> 
 						<?php echo XiptHelperProfilefields::buildProfileTypes($this->fieldid,$catIndex);?>

@@ -13,7 +13,7 @@ class accessvideo extends XiptAclBase
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
 
 		$videoId = isset($data['videoid']) ? $data['videoid'] : '';
-		$videoId	= JRequest::getVar( 'videoid' , $videoId , 'get' );
+		$videoId	= JRequest::getVar( 'videoid' , $videoId );
 		$video	    = CFactory::getModel('videos');
 		$videoData  = $video->getVideos(array('id'=>$videoId));
 		$creatorid	= $videoData[0]->creator;

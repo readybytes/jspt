@@ -59,7 +59,7 @@ class XiptViewSetup extends XiptView
 	function setToolBar()
 	{
 		// Set the titlebar text
-		JToolBarHelper::title( JText::_( 'Setup' ), 'setup' );
+		JToolBarHelper::title( XiptText::_( 'Setup' ), 'setup' );
 	}
 	
 	

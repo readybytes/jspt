@@ -23,12 +23,12 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		$sourceMIFilename = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'mi_jomsocialjspt.php';
 
 		if(JFile::exists($miFilename))
-			return JText::_('AEC MI ALREADY EXIST');
+			return XiptText::_('AEC MI ALREADY EXIST');
 
 		if(JFile::copy($sourceMIFilename , $miFilename))
-			return JText::_('AEC MI COPIED SUCCESSFULLY');
+			return XiptText::_('AEC MI COPIED SUCCESSFULLY');
         
-        return JText::_('AEC MI COPY FAILED');
+        return XiptText::_('AEC MI COPY FAILED');
 	}
 	
 	function isApplicable()
@@ -42,13 +42,13 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=aecmi",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.JText::_("PLEASE CLICK HERE TO INSTALL JSPT MI INTO AEC").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO INSTALL JSPT MI INTO AEC").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message']  = JText::_("AEC MI ALREADY THERE");
+			$requiredSetup['message']  = XiptText::_("AEC MI ALREADY THERE");
 			$requiredSetup['done'] = true;
 		}
 			

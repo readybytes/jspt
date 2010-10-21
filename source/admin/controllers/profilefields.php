@@ -44,11 +44,11 @@ class XiptControllerProfileFields extends XiptController
 					continue;
 				
 				$this->getModel()->save(array('fid'=>$post['id'], 'pid'=>$type, 'category'=>$catIndex));
-				$msg = JText::_('FIELDS SAVED');															
+				$msg = XiptText::_('FIELDS SAVED');															
 			}
 		}
 			
-		$msg 	= JText::_('FIELDS SAVED');	
+		$msg 	= XiptText::_('FIELDS SAVED');	
 		$link 	= XiptRoute::_('index.php?option=com_xipt&view=profilefields', false);
 		$this->setRedirect($link,$msg);
 		return true;

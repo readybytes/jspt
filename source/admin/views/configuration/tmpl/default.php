@@ -15,7 +15,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'remove':
-			if( !confirm( '<?php echo JText::_('ARE YOU SURE YOU WANT TO DELETE THIS PROFILE TYPE?'); ?>' ) )
+			if( !confirm( '<?php echo XiptText::_('ARE YOU SURE YOU WANT TO DELETE THIS PROFILE TYPE?'); ?>' ) )
 			{
 				break;
 			}
@@ -32,19 +32,19 @@ function submitbutton( action )
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<?php echo JText::_( '#' ); ?>
+				<?php echo XiptText::_( '#' ); ?>
 			</th>
 			<th width="1%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
 			</th>
 			<!--<th width="1%">
-				<?php echo JText::_( 'PROFILETYPE-ID' ); ?>
+				<?php echo XiptText::_( 'PROFILETYPE-ID' ); ?>
 			</th>-->
 			<th>
-				<?php echo JText::_( 'NAME' ); ?>
+				<?php echo XiptText::_( 'NAME' ); ?>
 			</th>
 			<th width="30%">
-				<?php echo JText::_( 'RESET_TO_JOMSOCIAL' ); ?>
+				<?php echo XiptText::_( 'RESET_TO_JOMSOCIAL' ); ?>
 			</th>
 		</tr>		
 	</thead>

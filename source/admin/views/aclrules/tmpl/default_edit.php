@@ -15,7 +15,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 		// validation
 		var form = document.adminForm;
 		if (form.rulename.value == "") {
-			alert( "<?php echo JText::_( 'RULE MUST HAVE A NAME', true ); ?>" );
+			alert( "<?php echo XiptText::_( 'RULE MUST HAVE A NAME', true ); ?>" );
 		} else {
 			submitform(pressbutton);
 		}
@@ -30,18 +30,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<table class="admintable">
 		<tr>
 			<td width="100" class="key">
-				<label for="name" class="hasTip" title="<?php echo JText::_('NAME'); ?>::<?php echo JText::_('ACL NAME.DESC'); ?>">
-					<?php echo JText::_( 'NAME' ); ?>
+				<label for="name" class="hasTip" title="<?php echo XiptText::_('NAME'); ?>::<?php echo XiptText::_('ACL NAME.DESC'); ?>">
+					<?php echo XiptText::_( 'NAME' ); ?>
 				</label>
 			</td>
 			<td>
-				<?php echo JText::_($this->aclruleInfo['aclname']); ?>
+				<?php echo XiptText::_($this->aclruleInfo['aclname']); ?>
 			</td>
 		</tr>
 		<tr>
 			<td width="100" class="key">
-				<label for="featurename" class="hasTip" title="<?php echo JText::_('RULE NAME'); ?>::<?php echo JText::_('RULE NAME.DESC'); ?>">
-					<?php echo JText::_( 'RULE NAME' ); ?>
+				<label for="featurename" class="hasTip" title="<?php echo XiptText::_('RULE NAME'); ?>::<?php echo XiptText::_('RULE NAME.DESC'); ?>">
+					<?php echo XiptText::_( 'RULE NAME' ); ?>
 				</label>
 			</td>
 			<td>
@@ -50,8 +50,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 		</tr>
 		<tr>
 			<td valign="top" class="key">
-				<label class="hasTip" title="<?php echo JText::_('PUBLISHED'); ?>::<?php echo JText::_('ACL PUBLISHED.DESC'); ?>">
-				<?php echo JText::_( 'PUBLISHED' ); ?>
+				<label class="hasTip" title="<?php echo XiptText::_('PUBLISHED'); ?>::<?php echo XiptText::_('ACL PUBLISHED.DESC'); ?>">
+				<?php echo XiptText::_( 'PUBLISHED' ); ?>
 				</label>
 			</td>
 			<td>
@@ -64,23 +64,23 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<br />
 
 	<fieldset class="adminform">
-	<legend><?php echo JText::_( 'Rule Parameters' ); ?></legend>
+	<legend><?php echo XiptText::_( 'Rule Parameters' ); ?></legend>
 	<?php
 		if($this->aclParamsHtml)
 			echo $this->aclParamsHtml;
 		else
-			echo "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>" ;
+			echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>" ;
 	?>
 	</fieldset>
 </div>
 <div class="col width-60" style="width:60%; float:right;">
 	<fieldset class="adminform">
-	<legend><?php echo JText::_( 'General Parameters' ); ?></legend>
+	<legend><?php echo XiptText::_( 'General Parameters' ); ?></legend>
 	<?php
 		if ($this->coreParamsHtml)
 			echo $this->coreParamsHtml;
 		else
-			echo "<div style=\"text-align: center; padding: 5px; \">".JText::_('There are no parameters for this item')."</div>"
+			echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>"
 		?>
 	</fieldset>
 </div>

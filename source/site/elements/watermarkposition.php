@@ -19,19 +19,14 @@ class JElementWatermarkposition extends JElement
 	function fetchElement($name, $value, &$node, $control_name)
 	{
 		$positions = array();
-		$positions[] = JHTML::_('select.option', 'tl', JText::_('Top Left'));
-		$positions[] = JHTML::_('select.option', 'tr', JText::_('Top Right'));
-		$positions[] = JHTML::_('select.option', 'bl', JText::_('Bottom Left'));
-		$positions[] = JHTML::_('select.option', 'br', JText::_('Bottom Right'));
-		$positions[] = JHTML::_('select.option', 'lt', JText::_('Left Top'));
-		$positions[] = JHTML::_('select.option', 'lb', JText::_('Left Bottom'));
-		$positions[] = JHTML::_('select.option', 'rt', JText::_('Right Top'));
-		$positions[] = JHTML::_('select.option', 'rb', JText::_('Right Bottom'));
-		/*$positions[] = JHTML::_('select.option', 'lta', JText::_('Left Top Angle'));
-		$positions[] = JHTML::_('select.option', 'rta', JText::_('Right Top Angle'));
-		$positions[] = JHTML::_('select.option', 'lba', JText::_('Left Bottom Angle'));
-		$positions[] = JHTML::_('select.option', 'rba', JText::_('Right Bottom Angle'));
-		*/
+		$positions[] = JHTML::_('select.option', 'tl', XiptText::_('Top Left'));
+		$positions[] = JHTML::_('select.option', 'tr', XiptText::_('Top Right'));
+		$positions[] = JHTML::_('select.option', 'bl', XiptText::_('Bottom Left'));
+		$positions[] = JHTML::_('select.option', 'br', XiptText::_('Bottom Right'));
+		$positions[] = JHTML::_('select.option', 'lt', XiptText::_('Left Top'));
+		$positions[] = JHTML::_('select.option', 'lb', XiptText::_('Left Bottom'));
+		$positions[] = JHTML::_('select.option', 'rt', XiptText::_('Right Top'));
+		$positions[] = JHTML::_('select.option', 'rb', XiptText::_('Right Bottom'));
 		$html =  JHTML::_('select.genericlist', $positions,$control_name.'['.$name.']' ,
                                 null, 'value', 'text', $value);
 		return $html;

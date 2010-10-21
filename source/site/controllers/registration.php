@@ -14,7 +14,7 @@ class XiptControllerRegistration extends XiptController {
 		parent::__construct($config);
 	}
 
-    function display()
+    function display($save='', $pt = 0)
 	{
 		//trigger event
 		$dispatcher = JDispatcher::getInstance();
@@ -31,21 +31,17 @@ class XiptControllerRegistration extends XiptController {
 		}
 
 		// do some validation for visibility and publish of ptype
-		if(JRequest::getVar('save', '', 'POST') != ''){
-			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , 0 , 'POST' );
+		if(JRequest::getVar('save', $save, 'POST') != ''){
+			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , $pt , 'POST' );
 			if(XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID,array('published'=>1,'visible'=>1)) == false)
 			{
-				$msg  = sprintf(JText::_('INVALID PROFILE TYPE SELECTED'),$count);
+				$msg  = XiptText::_('INVALID PROFILE TYPE SELECTED');
 				$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
 				$this->setRedirect($link, $msg);	
 			}
 			$dispatcher->trigger( 'onAfterProfileTypeSelection',array(&$selectedProfiletypeID));			
+			return true;
 		}
-
-		$css		= JURI::root() . 'components/com_xipt/assets/style.css';
-
-		$document	= JFactory::getDocument();
-		$document->addStyleSheet($css);
 
 		// Get the view
 		$this->getView()->display();

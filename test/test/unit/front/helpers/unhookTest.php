@@ -68,7 +68,7 @@ class XiptUnhookHelperTest extends XiUnitTestCase
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			
@@ -90,7 +90,7 @@ class XiptUnhookHelperTest extends XiUnitTestCase
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
 			$file =JFile::read($filename);
 			
@@ -110,7 +110,7 @@ class XiptUnhookHelperTest extends XiUnitTestCase
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(JText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			

@@ -12,19 +12,19 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<?php echo JText::_( 'Num' ); ?>
+				<?php echo XiptText::_( 'Num' ); ?>
 			</th>
 			<th width="1%">
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
 			</th>
 			<th>
-				<?php echo JText::_( 'JOMSOCIAL APPLICATION NAME' ); ?>
+				<?php echo XiptText::_( 'JOMSOCIAL APPLICATION NAME' ); ?>
 			</th>
 			<th width="20%">
-				<?php echo JText::_( 'AVAILABLE TO PROFILE TYPES' ); ?>
+				<?php echo XiptText::_( 'AVAILABLE TO PROFILE TYPES' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo JText::_( 'APPLICATION ID' ); ?>
+				<?php echo XiptText::_( 'APPLICATION ID' ); ?>
 			</th>
 		</tr>		
 	</thead>

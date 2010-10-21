@@ -125,10 +125,10 @@ class XiptHelperProfiletypes
 	{
 		//XITODO : Clean ALL / NONE, and cache results
 		if($id == XIPT_PROFILETYPE_ALL || empty($id))
-			return JText::_("ALL");
+			return XiptText::_("ALL");
 
 		if($id == XIPT_PROFILETYPE_NONE)
-			return JText::_("NONE");
+			return XiptText::_("NONE");
 			
 		return XiptHelperProfiletypes::getProfileTypeData($id,'name');
 	}
@@ -196,13 +196,13 @@ class XiptHelperProfiletypes
 		// @rule: Limit image size based on the maximum upload allowed.
 		if( filesize( $file['tmp_name'] ) > $uploadLimit )
 		{
-			$mainframe->enqueueMessage( JText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
+			$mainframe->enqueueMessage( XiptText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
 			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$id, false) );
 		}
 		
 		if( !cValidImage($file['tmp_name'] ) )
 		{
-			$mainframe->enqueueMessage(JText::_('IMAGE FILE NOT SUPPORTED'), 'error');
+			$mainframe->enqueueMessage(XiptText::_('IMAGE FILE NOT SUPPORTED'), 'error');
 		}
 		else
 		{
@@ -234,13 +234,13 @@ class XiptHelperProfiletypes
 			// Only resize when the width exceeds the max.
 			if( !cImageResizePropotional( $file['tmp_name'] , $storageImage , $file['type'] , $imageMaxWidth ) )
 			{
-				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
+				$mainframe->enqueueMessage(XiptText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
 			}
 
 			// Generate thumbnail
 			if(!cImageCreateThumb( $file['tmp_name'] , $storageThumbnail , $file['type'],$thumbWidth,$thumbHeight ))
 			{
-				$mainframe->enqueueMessage(JText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
+				$mainframe->enqueueMessage(XiptText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
 			}			
 
 			$oldFile = XiptLibProfiletypes::getProfiletypeData($id,$what);
@@ -301,7 +301,7 @@ class XiptHelperProfiletypes
 
 		// session expired, redirect to community page
 		$redirectUrl	= XiptRoute::_('index.php?option=com_community&view=register',false);
-		$msg 			= JText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
+		$msg 			= XiptText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
     	
 		return JFactory::getApplication()->redirect($redirectUrl,$msg);
     }
@@ -315,7 +315,7 @@ class XiptHelperProfiletypes
 
 		// validate values
 		if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {
-			$msg = JText::_('PLEASE ENTER VALID PROFILETYPE');
+			$msg = XiptText::_('PLEASE ENTER VALID PROFILETYPE');
 			JFactory::getApplication()->redirect('index.php?option=com_xipt&view=registration',$msg);
 			return;
 		}

@@ -56,7 +56,7 @@ class XiptHelperRegistration
 				return true;
 			}
 			else
-				$html .= JText::_('PLEASE ENTER VALID PROFILETYPE');
+				$html .= XiptText::_('PLEASE ENTER VALID PROFILETYPE');
 		}
 		
 		return self::getPtypeDisplayPageForFacebook($response,$html);		
@@ -88,11 +88,11 @@ class XiptHelperRegistration
 		
 		if($showAsRadio) {
 			$response->addScriptCall('cWindowResize' , PTYPE_POPUP_WINDOW_HEIGHT_RADIO , PTYPE_POPUP_WINDOW_WIDTH_RADIO);
-			$buttons	= '<input type="button" value="' . JText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'[name=profiletypes]:checked\').val()), \'\', 450, 200); return false;" />';
+			$buttons	= '<input type="button" value="' . XiptText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'[name=profiletypes]:checked\').val()), \'\', 450, 200); return false;" />';
 		}
 		else{
 			$response->addScriptCall('cWindowResize' ,PTYPE_POPUP_WINDOW_HEIGHT_SELECT, PTYPE_POPUP_WINDOW_WIDTH_SELECT);
-			$buttons	= '<input type="button" value="' . JText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'#profiletypes\').val()), \'\', 450, 200); return false;" />';
+			$buttons	= '<input type="button" value="' . XiptText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'#profiletypes\').val()), \'\', 450, 200); return false;" />';
 		}
 		$response->addAssign('cWindowContent' , 'innerHTML' , $html);
 		$response->addScriptCall('cWindowActions', $buttons);
@@ -115,7 +115,7 @@ class XiptHelperRegistration
 			return true;
 
 		// invalid emails
-		$msg = JText::_('XIPT EMAIL NOT ALLOWED');
+		$msg = XiptText::_('XIPT EMAIL NOT ALLOWED');
 		$response->addScriptCall('jQuery("#newemail").addClass("invalid");');
 		$response->addScriptCall('jQuery("#error-newemail").show();');
 		$response->addScriptCall('jQuery("#error-newemail").html("' . $msg . '");');
@@ -137,7 +137,7 @@ class XiptHelperRegistration
 			return true;
 
 		// invalid emails
-		$msg = JText::_('XIPT USERNAME NOT ALLOWED');
+		$msg = XiptText::_('XIPT USERNAME NOT ALLOWED');
 		$response->addScriptCall('jQuery("#newusername").addClass("invalid");');
 		$response->addScriptCall('jQuery("#error-newusername").show();');
 		$response->addScriptCall('jQuery("#error-newusername").html("' . $msg . '");');
@@ -160,7 +160,7 @@ class XiptHelperRegistration
 			return true;
 
 		// invalid emails
-		$msg = JText::_('XIPT EMAIL NOT ALLOWED');
+		$msg = XiptText::_('XIPT EMAIL NOT ALLOWED');
 		$response->addScriptCall('jQuery("#jsemail").addClass("invalid");');
 		$response->addScriptCall('jQuery("#errjsemailmsg").show();');
 		$response->addScriptCall('jQuery("#errjsemailmsg").html("<br/>'.$msg.'");');
@@ -183,7 +183,7 @@ class XiptHelperRegistration
 			return true;
 
 		// username not allowed
-		$msg = JText::_('XIPT USERNAME NOT ALLOWED');
+		$msg = XiptText::_('XIPT USERNAME NOT ALLOWED');
 		$response->addScriptCall('jQuery("#jsusername").addClass("invalid");');
 		$response->addScriptCall('jQuery("#errjsusernamemsg").show();');
 		$response->addScriptCall('jQuery("#errjsusernamemsg").html("<br/>'.$msg.'");');

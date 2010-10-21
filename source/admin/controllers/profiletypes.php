@@ -20,7 +20,7 @@ class XiptControllerProfiletypes extends XiptController
 	
 	function edit($id=0)
 	{
-		$id 	= JRequest::getVar('id', $id , 'GET');					
+		$id 	= JRequest::getVar('id', $id);					
 		return $this->getView()->edit($id);
 	}	
 	
@@ -166,8 +166,8 @@ class XiptControllerProfiletypes extends XiptController
 	function removeAvatar($id=0, $oldAvatar=null)
 	{
 		//get id and old avatar.
-		$id        = JRequest::getVar('id', $id, 'GET');
-		$oldAvatar = JRequest::getVar('oldAvatar', $oldAvatar, 'GET');
+		$id        = JRequest::getVar('id', $id);
+		$oldAvatar = JRequest::getVar('oldAvatar', $oldAvatar);
 		
 		$newavatar 		= DEFAULT_AVATAR ;
 		$newavatarthumb	= DEFAULT_AVATAR_THUMB;

@@ -42,12 +42,12 @@ class XiptControllerConfiguration extends XiptController
 
 		// Try to save configurations
 		if(!$pModel->saveParams($postData, $id, 'params') ){
-			XiptError::raiseWarning( 100 , JText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
+			XiptError::raiseWarning( 100 , XiptText::_( 'Unable to save configuration into database. Please ensure that the table jos_community_config exists' ) );
 			return false;
 		}
 
 		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-		$msg	= JText::_('Configuration Updated');
+		$msg	= XiptText::_('Configuration Updated');
 		$this->setRedirect($link,$msg);
 		return true;
 	}
@@ -60,12 +60,12 @@ class XiptControllerConfiguration extends XiptController
 
 		// Try to save configurations
 		if(!$pModel->save(array('params'=>''),$id)){
-			XiptError::raiseWarning( 100 , JText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
+			XiptError::raiseWarning( 100 , XiptText::_( 'Unable to reset profiletype into database. Please ensure that the table jos_xipt_profiletypes exists' ) );
 			return false;
 		}
 
 		$link 	= XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-		$msg 	= JText::_('Profiletype has been Reset');
+		$msg 	= XiptText::_('Profiletype has been Reset');
 		$this->setRedirect($link,$msg);
 		return true;
 	}

@@ -11,16 +11,16 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<tr>
 		<td width="45%" valign="top">
 			<div id="cpanel">
-				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', JText::_('SETTINGS'));?>
-				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', JText::_('JSCONFIGURATION'));?>
-				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', JText::_('SETUP'));?>
-				<?php echo $this->addIcon('profiletypes.gif','index.php?option=com_xipt&view=profiletypes', JText::_('PROFILETYPES'));?>
+				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', XiptText::_('SETTINGS'));?>
+				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', XiptText::_('JSCONFIGURATION'));?>
+				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', XiptText::_('SETUP'));?>
+				<?php echo $this->addIcon('profiletypes.gif','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
 			</div>
 			<div class='clr'></div>
 			<div id='cpanel'>
-				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', JText::_('ACCESS CONTROL'));?>
-				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', JText::_('APPLICATIONS'));?>
-				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', JText::_('PROFILE FIELDS'));?>
+				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', XiptText::_('ACCESS CONTROL'));?>
+				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', XiptText::_('APPLICATIONS'));?>
+				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', XiptText::_('PROFILE FIELDS'));?>
 			</div>
 		</td>
 		<td width="45%" valign="top">

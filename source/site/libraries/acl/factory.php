@@ -44,7 +44,7 @@ class XiptAclFactory
 	{
 		$path	= dirname(__FILE__). DS . $aclName . DS . $aclName.'.php';
 		if(!JFile::exists($path)){
-			XiptError::raiseError(400, JText::_("INVALID ACL FILE : $aclName "));
+			XiptError::raiseError(400, XiptText::_("INVALID ACL FILE : $aclName "));
 			return false;
 		}
 

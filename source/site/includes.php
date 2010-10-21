@@ -47,7 +47,7 @@ if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.comm
 	global $mainframe;
 	$option=JRequest::getVar('option','','GET');
 	if($option=='com_xipt'){
-		$mainframe->redirect("index.php",JText::_("PLEASE INSTALL JOMSOCIAL"));
+		$mainframe->redirect("index.php",XiptText::_("PLEASE INSTALL JOMSOCIAL"));
 	}
 	return false;
 }

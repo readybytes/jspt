@@ -61,9 +61,9 @@ class XiptControllerAclRules extends XiptController
 		
 		// Save it // XITODO : clean it
 		if(!($info['id'] = $model->save($data,$id)) )
-			$info['msg'] = JText::_('ERROR IN SAVING RULE');
+			$info['msg'] = XiptText::_('ERROR IN SAVING RULE');
 		else
-			$info['msg'] = JText::_('RULE SAVED');	
+			$info['msg'] = XiptText::_('RULE SAVED');	
 
 		return $info;
 	}
@@ -92,14 +92,14 @@ class XiptControllerAclRules extends XiptController
 		foreach( $ids as $id ){		
 			if(!$this->getModel()->delete( $id )){
 				// If there are any error when deleting, we just stop and redirect user with error.
-				$message	= JText::_('ERROR IN REMOVING RULE');
+				$message	= XiptText::_('ERROR IN REMOVING RULE');
 				$this->setRedirect( 'index.php?option=com_xipt&view=aclrules' , $message);
 				return false;
 			}
 			$i++;
 		}
 		
-		$message	= $count.' '.JText::_('RULE REMOVED');		
+		$message	= $count.' '.XiptText::_('RULE REMOVED');		
 		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$this->setRedirect($link, $message);
 	}			

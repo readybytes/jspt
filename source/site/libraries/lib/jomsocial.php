@@ -150,7 +150,7 @@ class XiptLibJomsocial
 		$res 	= $db->loadObject();
 		
 		// skip these calls from backend
-		XiptHelperUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(JText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
+		XiptHelperUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(XiptText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
 		$field_id = $res->id;
 		
 		//if row does not exist
@@ -415,17 +415,6 @@ class XiptLibJomsocial
 		$cuser = CFactory::getUser($userid, '');
 		return CFactory::getUser($userid);		
 	}
-
-//	function _changeAvatarOnSyncUp($userAvatar = '', $task='')
-//	{
-//		
-//		$task = JRequest::getVar('task', $task, 'GET');
-//		if($task != 'syncUpUserPT' || $userAvatar == '')
-//			return false;
-//			
-//		//check that avatar exists in images/profiletype
-//		return JString::stristr($userAvatar,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_')? true:false;
-//	}
 	
 	function cleanStaticCache($set = null)
 	{

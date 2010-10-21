@@ -52,8 +52,8 @@ class RegisterTest extends XiSelTestCase
   		
   		$config = $params->toString();
   		
-  		$db			=& JFactory::getDBO();
-  		$query = "UPDATE `#__components` SET `params`='".$config."'"
+  		$db	    = JFactory::getDBO();
+  		$query  = "UPDATE `#__components` SET `params`='".$config."'"
   				." WHERE `parent`='0' AND `option` ='com_users' LIMIT 1";	
 		$db->setQuery($query);
 		$db->query();
@@ -68,9 +68,7 @@ class RegisterTest extends XiSelTestCase
   		/*we know that template must be default 
   		 * for ptype 1 and etc.. */
 		$this->joomlaRegistrationForPT(1,'default');
-		$this->joomlaRegistrationForPT(2,'blueface');
-		$this->joomlaRegistrationForPT(2,'blueface');
-		$this->joomlaRegistrationForPT(3,'blackout');	
+		$this->joomlaRegistrationForPT(2,'blueface');	
   }
 
   
@@ -119,16 +117,16 @@ class RegisterTest extends XiSelTestCase
   
   function verifyJoomlaUser($username,$ptype,$template)
   {
-  	$db	=& JFactory::getDBO();
+  	$db	    = JFactory::getDBO();
   	$query	= " SELECT `id` FROM #__users "
   			." WHERE `username`='". $username ."' LIMIT 1";
   	$db->setQuery($query);
   	$userid = $db->loadResult();
   	
-  	$jUser = JFactory::getUser($userid);
+  	$jUser  = JFactory::getUser($userid);
   	$jUser->block=0;
   	$jUser->save();
-  	$jUser = JFactory::getUser($userid);
+  	$jUser  = JFactory::getUser($userid);
 
   	$query	= " SELECT * FROM #__xipt_users"
   			." WHERE `userid`='". $userid ."'"
@@ -151,10 +149,8 @@ class RegisterTest extends XiSelTestCase
   		$filter['jspt_show_radio'] = 1;
   		$this->changeJSPTConfig($filter);
   		
-		$this->userRegistrationForPT(1);
-		$this->userRegistrationForPT(2);
-		$this->userRegistrationForPT(2);
-		$this->userRegistrationForPT(3);		
+		$this->userRegistrationForPT(3);
+		$this->userRegistrationForPT(2);	
   }
   
   function userRegistrationForPT($ptype)
@@ -195,7 +191,7 @@ class RegisterTest extends XiSelTestCase
 	  	$this->click("file-upload-submit");
     	$this->waitPageLoad();
     	
-      	if($counter==0)
+      	if($counter == 0)
     	{
     		$filter['show_watermark']=0;
     		$this->changeJSPTConfig($filter);
@@ -293,7 +289,7 @@ class RegisterTest extends XiSelTestCase
   
   function verifyUser($username, $ptype, $customAvatar = 0)
   {
-  	$db	=& JFactory::getDBO();
+  	$db		= JFactory::getDBO();
   	$query	= " SELECT `id` FROM #__users "
   			." WHERE `username`='". $username ."' LIMIT 1";
   	$db->setQuery($query);
@@ -307,10 +303,10 @@ class RegisterTest extends XiSelTestCase
   	require_once (JPATH_BASE . '/components/com_community/libraries/core.php' );
   	require_once (JPATH_BASE . '/components/com_xipt/defines.php' );
   	
-  	$cUser = CFactory::getUser($userid);
-  	$privacy= $cUser->getParams()->get('privacyProfileView');
-  	$profiletype  = $cUser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
-    $template     = $cUser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
+  	$cUser 			= CFactory::getUser($userid);
+  	$privacy		= $cUser->getParams()->get('privacyProfileView');
+  	$profiletype  	= $cUser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
+    $template     	= $cUser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
 
     // find groups of user
     $query	= " SELECT `groupid` FROM #__community_groups_members "
@@ -319,7 +315,7 @@ class RegisterTest extends XiSelTestCase
   	$groups = $db->loadResultArray();
   	
   	//if custom avatar was uploaded
-  	if($customAvatar==1)
+  	if($customAvatar == 1)
   	{
   		$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$cUser->_avatar));
   		$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$cUser->_thumb));
@@ -384,8 +380,6 @@ class RegisterTest extends XiSelTestCase
 
     $data[2] = 1;
     $data[4] = 3;
-//    $data[5] = 4;
-    $data[13] = 2;
     
     //create backend test
     // create 4 MI
@@ -456,27 +450,23 @@ class RegisterTest extends XiSelTestCase
   	$random=rand(111,999);
   	$filter['jspt_restrict_reg_check'] = 1;
 	$filter['aec_integrate']           = 0;
+	
 	$filter['jspt_prevent_username']='moderator; admin; support; owner; employee';
+	$filter['jspt_allowed_email']='yahoo.com';
+  	$filter['jspt_prevent_email']='gmail.com';
+	
 	$this->changeJSPTConfig($filter);
+	
 	//restrict usernames to register
 	$this->fillDataForRestriction("moderator","moderator@email.com",true);
 	$this->isTextPresent("The username selected is not a vaild username.");
 	
-	//allow user to register frof the below domain's email
-	$filter['jspt_allowed_email']='gmail.com; yahoo.com';
-		$filter['jspt_prevent_email']='';
-	$this->changeJSPTConfig($filter);
-	$this->fillDataForRestriction("user$random","user$random@email.com",true);
-	$this->isTextPresent("The email is not allowed to register.");
-	$this->fillDataForRestriction("user$random","user$random@gmail.com",false);
-	
   	//restrict user to regiser by email doman name
-  	$filter['jspt_allowed_email']='yahoo.com';
-  	$filter['jspt_prevent_email']='gmail.com';
-	$this->changeJSPTConfig($filter);
 	$this->fillDataForRestriction("user$random","user$random@gmail.com",true);
 	$this->isTextPresent("The email is not allowed to register.");
+	
 	$this->fillDataForRestriction("user$random","user$random@yahoo.com",false);
+	$this->assertFalse($this->isTextPresent("The email is not allowed to register."));
 	
 	$filter['jspt_allowed_email']='';
   	$filter['jspt_prevent_email']='';
@@ -531,8 +521,6 @@ class RegisterTest extends XiSelTestCase
   	  	
 	$data[2] = 1;
     $data[4] = 3;
-  	//$data[5] = 2;
-    $data[13] = 2;
   	   
   	foreach($data as $usage => $profiletype)
     {

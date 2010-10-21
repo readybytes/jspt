@@ -11,11 +11,11 @@ class XiptControllerSettings extends XiptController
 					
 		
 		if(!$this->getModel()->saveParams($post['settings'],'settings','params')){ 	
-			XiptError::raiseWarning(100 , JText::_('ERROR IN SAVING SETTINGS'));
+			XiptError::raiseWarning(100 , XiptText::_('ERROR IN SAVING SETTINGS'));
 			return false;		
 		}
 		
-		$msg = JText::_('SETTINGS SAVED');
+		$msg = XiptText::_('SETTINGS SAVED');
 		$this->setRedirect("index.php?option=com_xipt&view=settings",$msg);
 		return true;		
 	}

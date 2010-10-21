@@ -24,7 +24,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 			case 'renderacl' :
 				if( form.acl.value == 0 )
 				{
-					alert( "<?php echo JText::_( 'PLEASE SELECT A ACL FROM LIST'); ?>" );
+					alert( "<?php echo XiptText::_( 'PLEASE SELECT A ACL FROM LIST'); ?>" );
 					break;
 				}
 			case 'cancel':
@@ -50,7 +50,7 @@ jQuery(document).ready(function($){
 </script>
 
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo JText::_('SELECT ACL TO USE');?>
+	<?php echo XiptText::_('SELECT ACL TO USE');?>
 </div>
 
 <div id="error-notice" style="color: red; font-weight:700;"></div>
@@ -64,16 +64,16 @@ jQuery(document).ready(function($){
 		if(!empty($this->groups))
 		foreach($this->groups as $acl) : ?>
 			<option disabled="disabled"></option>
-		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo JText::_($acl['title']);?></option>
+		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo XiptText::_($acl['title']);?></option>
 		    
 			<?php foreach($this->rules[$acl['name']] as $rule) : ?>
-		    		<option value="<?php echo $rule['name'];?>" ><?php echo JText::_($rule['title']);?></option>
+		    		<option value="<?php echo $rule['name'];?>" ><?php echo XiptText::_($rule['title']);?></option>
 			<?php endforeach; ?> 
 	<?php endforeach; ?>
 	</select>
 	</div>
 	<div style="margin-top:10px; margin-left:160px;";>				
-	<input type="submit" name="aclnext" value="<?php echo JText::_('NEXT');?>" onclick="submitbutton('edit');"/>
+	<input type="submit" name="aclnext" value="<?php echo XiptText::_('NEXT');?>" onclick="submitbutton('edit');"/>
 	</div>				
 </div>
 

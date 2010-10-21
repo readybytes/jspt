@@ -96,7 +96,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 						<table width="100%">
 							<tr><td>
 							<?php echo $this->pane->startPane("parameters-pane");?>
-							<?php echo $this->pane->startPanel(JText :: _('ASSIGNMENTS'), 'assignments-page');?>
+							<?php echo $this->pane->startPanel(XiptText :: _('ASSIGNMENTS'), 'assignments-page');?>
 							<table>
 								<tr><td class="key" ><?php echo XiptText::_('Default avatar');?></td>
 									<td><div>							

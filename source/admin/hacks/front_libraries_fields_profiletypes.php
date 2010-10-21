@@ -20,8 +20,8 @@ class CFieldsProfiletypes
 	{
 		global $mainframe;
 		$this->_mainframe =& $mainframe;
-		$this->_task = JRequest::getVar('task','','GET');
-		$this->_view = JRequest::getVar('view','','GET');
+		$this->_task = JRequest::getVar('task','');
+		$this->_view = JRequest::getVar('view','');
 		$this->_params = XiptFactory::getSettings('', 0);
 	}
 	
@@ -37,7 +37,7 @@ class CFieldsProfiletypes
 		
 		if(!$pID){
 			//get value from profiletype field from xipt_users table
-			$userid = JRequest::getVar('userid',0,'GET');
+			$userid = JRequest::getVar('userid',0);
 			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		return $pID;
@@ -54,7 +54,7 @@ class CFieldsProfiletypes
 			//get value from profiletype field from xipt_users table
 			//not required to get data from getUser() fn b'coz we call this fn in 
 			//getViewableprofile only.
-			$userid = JRequest::getVar('userid',0,'GET');
+			$userid = JRequest::getVar('userid',0);
 			XiptHelperUtils::XAssert($userid);
 			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
@@ -69,7 +69,7 @@ class CFieldsProfiletypes
 
 		return $data; //$pName;
 		*/
-		return JText::_($pName);
+		return XiptText::_($pName);
 	}
 	
 	/*
@@ -93,7 +93,7 @@ class CFieldsProfiletypes
 							value="'.$pID.'" />';
 			
 			$pName = XiptLibProfiletypes::getProfiletypeName($pID);
-			$html .= JText::_($pName);
+			$html .= XiptText::_($pName);
 			
 			return $html;
 		}
@@ -114,7 +114,7 @@ class CFieldsProfiletypes
 			}
 			
 			$pName = XiptLibProfiletypes::getProfileTypeName($pID);
-			$pName =JText::_($pName);
+			$pName =XiptText::_($pName);
 			$html = '<input type="hidden"
 							id="field'.$field->id.'"
 							name="field' . $field->id.'"
@@ -140,7 +140,7 @@ class CFieldsProfiletypes
 				if( !empty( $selected ) )
 					$selectedElement++;
 				
-				$html	.= '<option value="' . $pType->id . '"' . $selected . '>' .JText::_($pType->name)  . '</option>';
+				$html	.= '<option value="' . $pType->id . '"' . $selected . '>' .XiptText::_($pType->name)  . '</option>';
 			}
 		}
 		
