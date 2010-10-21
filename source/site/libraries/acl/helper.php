@@ -84,4 +84,28 @@ class XiptAclHelper
 
 		return false;
 	}
+	
+//XITODO : Apply caching
+	function getOrderedRules()
+	{
+		$parser		= JFactory::getXMLParser('Simple');
+		$xml		= dirname(__FILE__) . DS . 'order.xml';
+	
+		$parser->loadFile( $xml );
+	
+		$order	= array();
+		$childrens = $parser->document->children();
+		$groups = array();
+		foreach($childrens as $child){
+			$group = $child->attributes();
+			array_push($groups,$group);
+			
+			$childGroup = $child->children();
+			foreach($childGroup as $cg)
+				$rules[$group['name']][] = $cg->attributes();
+				
+		}
+		
+		return array('groups'=>$groups,'rules'=>$rules);
+	}
 }

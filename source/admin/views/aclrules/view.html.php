@@ -63,8 +63,10 @@ class XiptViewAclRules extends XiptView
 
 	function add($tpl = 'add')
 	{
-		$acl = XiptAclFactory::getAcl();
-		$this->assign( 'acl' , $acl );
+		$orderedAcl = XiptAclHelper::getOrderedRules();
+				
+		$this->assign('groups', $orderedAcl['groups']);
+		$this->assign('rules', $orderedAcl['rules']);
 		$this->setToolbar($tpl);
 		return parent::display($tpl);
 	}

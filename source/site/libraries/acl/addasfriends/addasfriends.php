@@ -8,13 +8,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addasfriends extends XiptAclBase
 {
-
-	function __construct($debugMode)
-	{
-		parent::__construct(__CLASS__, $debugMode);
-	}
-
-
 	public function checkAclViolation($data)
 	{
 		$otherptype = $this->aclparams->get('other_profiletype',-1);

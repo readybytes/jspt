@@ -18,7 +18,7 @@ abstract class XiptAclBase
 
 	function __construct()
 	{
-		$className	= get_class($this);
+		$this->aclname = $className	= get_class($this);
 
 		//Load ACL Params, if not already loaded
 		if(!$this->aclparams){
@@ -78,7 +78,10 @@ abstract class XiptAclBase
 
 	function collectParamsFromPost($postdata)
 	{
-		XiptError::assert($postdata['aclparams']);
+		// it is not necessary the each rule will have acl params
+		// so check it, and return empty ini string if not exists 
+		if(!isset($postdata['aclparams']))
+			return "\n\n";
 
 		$registry	= new JRegistry();
 		$registry->loadArray($postdata['aclparams']);

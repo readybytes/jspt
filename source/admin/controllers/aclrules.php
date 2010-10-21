@@ -16,7 +16,7 @@ class XiptControllerAclRules extends XiptController
 	
 	function edit($id=0, $acl=0)
 	{
-		$id = JRequest::getVar('editId', $id);
+		$id = JRequest::getVar('id', $id);
 		$acl = JRequest::getVar('acl', $acl) ;
 		
 		$view = $this->getView();
@@ -78,7 +78,7 @@ class XiptControllerAclRules extends XiptController
 	function apply()
 	{
 		$data = $this->processSave();
-		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=edit&editId='.$data['id'], false);
+		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=edit&id='.$data['id'], false);
 		$this->setRedirect($link, $data['msg']);				
 	}
 	

@@ -133,11 +133,12 @@ abstract class XiptController extends JController
 
 		foreach ($cids as $cid)
 		{
-			$this->_doBool($column, $value, $cid);
+			if(!$this->_doBool($column, $value, $cid))
+				XiptError::raiseError(500,XiptText::_("ERROR IN REODERRING ITEMS"));
 		}
 
 		//redirect now
-		$this->setRedirect(XiptRoute::_("index.php?option=com_".JString::strtolower($this->getPrefix())."&view={$this->getName()}"));
+		$this->setRedirect(XiptRoute::_("index.php?option=com_".JString::strtolower($this->getPrefix())."&view={$this->getName()}"),sprintf(XiptText::_($task.'.MSG'),$cids));
 		return false;
 	}
 	
@@ -155,7 +156,7 @@ abstract class XiptController extends JController
 		$model 		= $this->getModel();
 
 		//try to switch
-		if($model->boolean($itemId, $column, $change)===true)
+		if($model->boolean($itemId, $column, $change))
 			return true;
 
 		//we need to set error message

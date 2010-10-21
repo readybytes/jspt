@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules name="pluginorder">
+<group name="event" title="Event">	
+	<rule name="accessevent" 
+		  title="Can not Access Event" 
+		  description="Restrict user to Access Event" />
+		  
+	<rule name="createvent"
+		  title="Can not Create Events"
+   		  description="Restrict user to Create Events" />
+   		  
+   	<rule name="deletevent"
+		  title="Can not Delete Events"
+    	  description="Restrict user to Delete Events" />
+</group>
+
+<group name="groups" title="Groups">
+	<rule name="accessgroup" 
+		  title="Can not Access Group"
+		  description="Restrict user to Access Group" />
+	
+	<rule name="deletegroup"
+		  title="Can not Delete Groups"
+		  description="Restrict user to Delete Groups" />
+		  
+	<rule name="creategroup"
+		  title="Can not Create Groups"
+		  description="Restrict user to Create Groups" />
+		  
+	<rule name="joingroup"
+		  title="Can not Join Groups"
+		  description="Restrict user to Join Gorups"/>
+</group>
+		  
+<group name="albums" title="Albums">
+	<rule name="addalbums" 
+		  title="Can not Add Albums"
+          description="Restrict user to Add  Albums" />
+</group>
+	
+<group name="videos" title="Videos">
+	<rule name="accessvideo" 
+		  title="Can not Access Videos"
+		  description="Restrict user to Access Videos" />
+		  
+	<rule name="addvideos"
+		  title="Can not Add Videos"
+	 	  description="Restrict user to Add Videos" />
+</group>
+	
+<group name="profileVideos" title="Profile Videos">
+	<rule name="accessprofilevideo"	
+		  title="Can not Access Profile Video"
+		  description="Restrict user to Access Profile Video" />
+	
+	<rule name="addprofilevideo"
+		  title="Can not Add Profile Videos"
+		  description="Restrict user to Add Profile Videos" />
+		  
+	<rule name="deleteprofilevideo"
+		  title="Can not Delete Profile Video"
+		  description="Restrict user to Delete Profile Video" />
+</group>
+		  
+
+<group name="application" title="Application">
+	<rule name="addapplication" 
+		  title="Can not Add Applications"
+          description="Restrict user to Add Applications" />		  
+</group>
+		  
+<group name="Friend" title="Friend">
+	<rule name="addasfriends"
+	      title="Can not Add Friends"
+		  description="Restrict user to Add Friends" />	
+</group>
+	
+<group name="photos" title="Photos">
+	<rule name="addphotos"
+		  title="Can not Add Photos"
+		  description="Restrict user to Add Photos" />	
+</group>
+
+<group name="profile" title="Profile">
+	<rule name="cantviewotherprofile"
+		  title="Can not view Other's Profile"
+		  description="Restrict user to view Other's Profile" />
+	
+	<rule name="editselfprofile"
+		  title="Can not Edit Self Profile"
+		  description="Restrict user to Edit Self Profile" />
+		  
+	<rule name="editselfprofiledetails"
+		  title="Can not Edit Self Profile Details"
+		  description="Restrict user to Edit Self Profile Details"/>
+	
+	<rule name="statusbox"
+		  title="Redirect to Change Status Message"
+		  description="Redirect User to Change Status Message"/>
+</group>	
+	
+<group name="avatar" title="Avatar">
+	<rule name="changeavatar"
+		  title="Can not Change Avatar"
+		  description="Restrict user to Change Avatar" />	
+</group>
+	
+<group name="privacy" title="Privacy">
+	<rule name="changeprivacy"
+	  	  title="Can not Change Privacy"
+		  description="Restrict user to Change Privacy" />
+</group>	
+
+<group name="other" title="Others">
+	<rule name="aecredirect"
+		  title="Redirect to AEC or Custom URL"
+		  description="Redirect User to AEC Subscription or Other Page" />
+		
+	<rule name="redirect"
+		  title="Redirect to AEC URL"
+		  description="Redirect User to AEC Subscription Page"/>
+	
+	<rule name="writemessages"
+		  title="Restrict to Send Message"
+		  description="Restrict User to Send Message" />
+</group>		
+</rules>

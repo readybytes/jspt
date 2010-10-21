@@ -30,8 +30,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<table class="admintable">
 		<tr>
 			<td width="100" class="key">
-				<label for="name">
-					<?php echo JText::_( 'NAME' ); ?>:
+				<label for="name" class="hasTip" title="<?php echo JText::_('NAME'); ?>::<?php echo JText::_('ACL NAME.DESC'); ?>">
+					<?php echo JText::_( 'NAME' ); ?>
 				</label>
 			</td>
 			<td>
@@ -40,8 +40,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 		</tr>
 		<tr>
 			<td width="100" class="key">
-				<label for="featurename">
-					<?php echo JText::_( 'RULE NAME' ); ?>:
+				<label for="featurename" class="hasTip" title="<?php echo JText::_('RULE NAME'); ?>::<?php echo JText::_('RULE NAME.DESC'); ?>">
+					<?php echo JText::_( 'RULE NAME' ); ?>
 				</label>
 			</td>
 			<td>
@@ -50,7 +50,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 		</tr>
 		<tr>
 			<td valign="top" class="key">
-				<?php echo JText::_( 'PUBLISHED' ); ?>:
+				<label class="hasTip" title="<?php echo JText::_('PUBLISHED'); ?>::<?php echo JText::_('ACL PUBLISHED.DESC'); ?>">
+				<?php echo JText::_( 'PUBLISHED' ); ?>
+				</label>
 			</td>
 			<td>
 				<?php echo JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $this->aclruleInfo['published'] ); ?>

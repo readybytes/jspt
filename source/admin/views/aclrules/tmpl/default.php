@@ -75,7 +75,7 @@ function submitbutton( action )
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $rule->rulename; ?>" id="rulename<?php echo $rule->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=edit&editId='.$rule->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=edit&id='.$rule->id, false); ?>
 						<A HREF="<?php echo $link; ?>"><?php echo $rule->rulename; ?></A>
 				</span>
 			</td>
