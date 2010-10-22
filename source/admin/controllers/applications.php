@@ -12,7 +12,7 @@ class XiptControllerApplications extends XiptController
 	function edit($id=0)
 	{
 		//XITODO : remove edit it
-		$id = JRequest::getVar('editId', $id);					
+		$id = JRequest::getVar('id', $id);					
 		return $this->getView()->edit($id,'edit');				
 	}
 	
@@ -21,43 +21,33 @@ class XiptControllerApplications extends XiptController
 		if($post===null)
 			$post	= JRequest::get('post');	
 			
-		$aid 	= isset($post['id'])? $post['id'] : 0;
-		$pType0 = isset($post['profileTypes0'])? true : false;
-
+		$aid 	  	 = isset($post['id'])? $post['id'] : 0;		
+		$otherAid 	 = isset($post['appId'])? $post['appId'] : array(); 
+		$appPtype	 = isset($post['profileTypes'])? $post['profileTypes'] : array();
+		$allTypes 	 = XiptHelperProfiletypes::getProfileTypeArray();
+		$model 		 = $this->getModel();
 		
-		//remove all rows related to specific plugin id 
-		// cleaning all data for storing new profiletype with application
-		$this->getModel()->delete(array('applicationid'=> $post['id']));
-		
-		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
+		// aid is also selected in otherAid then no need to add
+		if(!in_array($aid, $otherAid)) 
+			array_push($otherAid, $aid);
+			
+		//remove all rows related to specific app id		
+		foreach($otherAid as $id)
+			$model->delete(array('applicationid'=> $id));	
 		
 		$msg = XiptText::_('APPLICATION SAVED');
 		$link = XiptRoute::_('index.php?option=com_xipt&view=applications', false);
 		$this->setRedirect($link,$msg);
-				
-		if($pType0)
-			return true;
- 	
-		//there might be case that all types have been selected, then we need no storage
-		$allSelected = true;
-		foreach($allTypes as $type)
-		{
-			if($type && array_key_exists('profileTypes'.$type,$post) == false){
-				$allSelected = false;
-				break;
-			}
-		}
 		
-		//still all selected, return true
-		if($allSelected)
+		//if all selected, return true		
+		if(array_diff($allTypes, $appPtype) == array())
 			return true;
 		
-		foreach($allTypes as $type){
-			if($type && array_key_exists('profileTypes'.$type,$post) == true)
-				continue;
-			
-			if($this->getModel()->save(array('applicationid'=>$aid,'profiletype'=>$type))===false)
-			  	return false;
+		$ptypesToChange = array_diff($allTypes, $appPtype); 
+		foreach($ptypesToChange as $type){				
+			foreach($otherAid as $id)
+				if($this->getModel()->save(array('applicationid'=>$id,'profiletype'=>$type)) ==false)
+			  		return false;
 		}
 		
 		return true;		

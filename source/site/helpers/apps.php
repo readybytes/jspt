@@ -48,18 +48,18 @@ class XiptHelperApps
 	function buildProfileTypesforApplication( $aid )
 	{
 		$selectedTypes 	= XiptHelperApps::getProfileTypeArray($aid);		
-		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true);
+		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
 		
 		$html	= '';
 		
 		$html	.= '<span>';
-		$count = count($allTypes);
-		$html .= '<input type="hidden" name="profileTypesCount" value="'.$count.'" />';
 		foreach( $allTypes as $option )
 		{
-		  	$selected	= in_array($option , $selectedTypes ) ? ' checked="checked"' : '';
-			$html .= '<lable><input type="checkbox" name="profileTypes'.$option. '" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
+			// XITODO : improve following condition
+		  	$selected	= in_array($option , $selectedTypes) || in_array(XIPT_PROFILETYPE_ALL, $selectedTypes)  ? ' checked="checked"' : '';
+			$html .= '<lable><input type="checkbox" id="profileTypes'.$option. '" name="profileTypes[]" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
 			$html .= XiptHelperProfiletypes::getProfileTypeName($option).'</lable>';
+			$html .= '<div class="clr"></div>';
 		}
 		$html	.= '</span>';		
 		

@@ -7,33 +7,72 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 $aModel			= XiptFactory::getInstance( 'applications' , 'model');
 ?>
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	// for select all profile type
+	$("a#ptypeSelecAll").click(function(){
+			$('div#xiptPtype').find(':checkbox').attr('checked', true);	
+			return false;
+	});
 
+	// for select none
+	$("a#ptypeSelecNone").click(function(){	
+		$('div#xiptPtype').find(':checkbox').attr('checked', false);	
+		return false;
+	});
+
+	// for copying the same setting to another app, block
+	$("div#xiptOtherApps").css('display','none');
+	$('input#xiptApplyTo').click(function(){
+		$("div#xiptOtherApps").slideToggle('fast');	
+	});
 	
+});
+</script>
+<script type="text/javascript">jQuery.noConflict();</script>
+
+
+<form action="index.php" method="post" name="adminForm">
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
 	<?php echo XiptText::_('ASSIGN APPLICATION AS PER PROFILE TYPES FOR YOUR SITE.');?>
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
-<form action="#" method="post" name="adminForm" id="adminForm">
-<table cellspacing="0" class="admintable" border="0" width="100%">
-	<tbody>
-		<tr>
-			<td class="key"><?php echo XiptText::_('NAME');?></td>
-			<td>:</td>
-			<td>
-				<?php echo $aModel->getPlugin($this->applicationId)->name;?>
-			</td>
-		</tr>
-		<br>
-		<br>
-		<tr>
-			<td class="key"><?php echo XiptText::_('FOR PROFILETYPES');?></td>
-			<td>:</td>
-			<td colspan="4"> <?php echo XiptHelperApps::buildProfileTypesforApplication($this->applicationId);?></td>			
-		</tr>
-	</tbody>
-</table>
 
+
+<div class="col width-45" style="float:left;">
+	<fieldset class="adminform">
+	<legend><?php echo $aModel->getPlugin($this->applicationId)->name;?></legend>
+		<div id="xiptPtype">
+			<div style="float:left; font-weight:bold; margin-left:10%; padding:5px; width:27%; background: #EFEFEF;">
+				<?php echo XiptText::_('FOR PROFILETYPES');?>
+			</div>
+			<div style="float:left; margin-left:20px; width:35%;">
+				<?php echo XiptHelperApps::buildProfileTypesforApplication($this->applicationId);?>
+			</div>
+			<div>
+				<?php echo XiptText::_("SELECT");?> : <a href="#" id="ptypeSelecAll"><?php echo XiptText::_('ALL');?></a> | <a href="#" id="ptypeSelecNone"><?php echo XiptText::_('NONE');?></a> 
+			</div>
+		</div>
+	</fieldset>
+</div>
+
+<div class="col width-45" style="float:left;">
+	<fieldset class="adminform">
+	<legend>
+		<input type="checkBox" id="xiptApplyTo" />
+		<?php echo XiptText::_('APPLY THESE SETTINGS FOR')?>		
+	</legend>
+	
+	<div id="xiptOtherApps">
+		<?php foreach($this->fields as $field) : ?>
+			<input type="checkbox" name="appId[]" value="<?php echo $field->id;?>"><?php echo $field->name;?>
+			<div class='clr'></div>
+		<?php endforeach;?> 
+	</div>
+	</fieldset>
+</div>
 <div class="clr"></div>
 
 	<input type="hidden" name="option" value="com_xipt" />
@@ -43,3 +82,4 @@ $aModel			= XiptFactory::getInstance( 'applications' , 'model');
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 <?php 
+

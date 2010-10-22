@@ -3,7 +3,8 @@
 <group name="event" title="Event">	
 	<rule name="accessevent" 
 		  title="Can not Access Event" 
-		  description="Restrict users to Access Event" />
+		  description="Restrict users to Access Event" 
+		  example="Example"/>
 		  
 	<rule name="createvent"
 		  title="Can not Create Events"

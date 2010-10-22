@@ -73,6 +73,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	?>
 	</fieldset>
 </div>
+
 <div class="col width-60" style="width:60%; float:right;">
 	<fieldset class="adminform">
 	<legend><?php echo XiptText::_( 'General Parameters' ); ?></legend>
@@ -83,7 +84,19 @@ if(!defined('_JEXEC')) die('Restricted access');
 			echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>"
 		?>
 	</fieldset>
+	<br />
+	<?php if(isset($this->xmlRule['example']) && isset($this->xmlRule['title'])) :?>	
+		<fieldset class="adminform">
+		<legend><?php echo JText::_('EXAMPLE'); ?></legend>
+		<div style=" background-color:#F9F9F9; padding:5px;"> 
+			<h3 > <?php echo $this->xmlRule['title']; ?> </h3>
+			<?php echo $this->xmlRule['example']; ?>
+		</div>						
+		</fieldset>
+	
+<?php endif;?>
 </div>
+
 </div>
 <div class="clr"></div>
 

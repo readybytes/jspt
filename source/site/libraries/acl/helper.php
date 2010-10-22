@@ -85,7 +85,8 @@ class XiptAclHelper
 		return false;
 	}
 	
-//XITODO : Apply caching
+	//XITODO : Apply caching
+	//         test case
 	function getOrderedRules()
 	{
 		$parser		= JFactory::getXMLParser('Simple');
@@ -107,5 +108,18 @@ class XiptAclHelper
 		}
 		
 		return array('groups'=>$groups,'rules'=>$rules);
+	}
+	
+	// XITODO : test case
+	function getRuleXmlData($aclName)
+	{
+		$orderedRules = self::getOrderedRules();
+		foreach($orderedRules['groups'] as $group){
+			foreach($orderedRules['rules'][$group['name']] as $rule)
+				if($rule['name'] == $aclName)
+					return $rule; 
+		}
+
+		return false;
 	}
 }

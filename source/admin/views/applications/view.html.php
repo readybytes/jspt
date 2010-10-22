@@ -24,6 +24,9 @@ class XiptViewApplications extends XiptView
 	
 	function edit($id,$tpl = 'edit')
 	{
+		$fields	= $this->getModel()->getPlugin();
+		
+		$this->assignRef( 'fields' 		, $fields );
 		$this->assign( 'applicationId' , $id );
 		$this->setToolbar();
 		return parent::display($tpl);

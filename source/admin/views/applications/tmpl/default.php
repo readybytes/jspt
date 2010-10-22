@@ -10,22 +10,19 @@ if(!defined('_JEXEC')) die('Restricted access');
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
-		<tr class="title">
+		<tr class="title">		
 			<th width="1%">
-				<?php echo XiptText::_( 'Num' ); ?>
+				<?php echo XiptText::_( '#' ); ?>
 			</th>
-			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
+			<th width="5%">
+				<?php echo XiptText::_( 'APPLICATION ID' ); ?>
 			</th>
 			<th>
 				<?php echo XiptText::_( 'JOMSOCIAL APPLICATION NAME' ); ?>
 			</th>
-			<th width="20%">
+			<th width="50%">
 				<?php echo XiptText::_( 'AVAILABLE TO PROFILE TYPES' ); ?>
-			</th>
-			<th width="10%">
-				<?php echo XiptText::_( 'APPLICATION ID' ); ?>
-			</th>
+			</th>			
 		</tr>		
 	</thead>
 <?php
@@ -42,23 +39,20 @@ if(!defined('_JEXEC')) die('Restricted access');
 ?>
 		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
 			<td><?php echo $i;?></td>
-			<td>
-				<?php echo $input; ?>
+			<td align='center'>
+				<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">
+					<?php echo $field->id ; ?>
+				</span>
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&editId='.$field->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&id='.$field->id, false); ?>
 						<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 				</span>
 			</td>
 			<td align="center" id="profiletype<?php echo $field->id;?>">
 				<?php echo XiptHelperApps::getProfileTypeNames($field->id); ?>
-			</td>
-			<td>
-				<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">
-					<?php echo $field->id ; ?>
-				</span>
-			</td>
+			</td>			
 		</tr>
 <?php
 		
@@ -79,3 +73,5 @@ if(!defined('_JEXEC')) die('Restricted access');
 <input type="hidden" name="boxchecked" value="0" />
 </form>	
 <?php 
+
+
