@@ -6,6 +6,24 @@
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
+<script type="text/javascript" language="javascript">
+/**
+ * This function needs to be here because, Joomla toolbar calls it
+ **/ 
+function submitbutton( action )
+{
+	switch( action )
+	{
+		case 'unhook':
+			if( !confirm( '<?php echo XiptText::_('ARE YOU SURE YOU WANT TO UNHOOK?'); ?>' ) )
+			{
+				break;
+			}
+		default:
+			submitform( action );
+	}
+}
+</script>
 
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
 <div>

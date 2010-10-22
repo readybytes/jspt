@@ -24,7 +24,7 @@ class SetupTest extends XiSelTestCase
 		$this->assertTrue($this->isTextPresent("Uninstall Component Success"));
   }
   
-  function xtestCommunityInstall()
+  function testCommunityInstall()
   {
 	    // setup default location 
 	    $this->adminLogin();
