@@ -10,7 +10,7 @@ class XiptControllerProfileFields extends XiptController
 {	
 	function edit($fieldId=0)
 	{
-		$fieldId = JRequest::getVar('editId', $fieldId);		
+		$fieldId = JRequest::getVar('id', $fieldId);		
 		return $this->getView()->edit($fieldId,'edit');
 	}
 	

@@ -23,38 +23,26 @@ class JElementProfilefields extends JElement
 	
 	function getJomsocialProfileFields($filter = '',$join='AND')
 	{
-		//$ptype=jspcAddons::getCoreParams('jspc_profiletype',0);
-		$allField = null;
+		$query = new XiptQuery();
+		$query->select('*');
+		$query->from('#__community_fields');
 		
-		if($allField == null){
-			$db	= JFactory::getDBO();
-			
-			//setting up the search condition is there is any
-		$wheres = array();
+		
+		//setting up the search condition is there is any
 		if(! empty($filter)){
 			foreach($filter as $column => $value)
-			{
-				$wheres[] = "`$column` = " . $db->Quote($value); 	
-			}
+				$query->where(" `$column` = '$value' ", $join); 	
 		}
-			
-		$sql = "SELECT * FROM " . $db->nameQuote('#__community_fields');
-		if(! empty($wheres)){
-		   $sql .= " WHERE ".implode(' AND ', $wheres);
-		}
-		$sql .= " ORDER BY `ordering`";
-			
-		$db->setQuery($sql);
-		$fields = $db->loadObjectList();
-	    	
-		return $fields;
+	
+		$query->order('ordering');	
+		$fields =$query->dbLoadQuery("","")->loadObjectList();			 	    	
 		
-		}
+		return $fields;	
 	}
 	
 	function getFieldsHtml($name, $value, $control_name)
 	{
-		$fields = self::getJomsocialProfileFields();
+		$fields = self::getJomsocialProfileFields(array('published'=>1));
 		$html   = '';
 		if(empty($fields)) {
 			$html = "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>";
@@ -64,23 +52,18 @@ class JElementProfilefields extends JElement
 		$html .= "<table width='100%' class='paramlist admintable' cellspacing='1'>";
 		$html .= "<tr class='title'>";
 		$html .= "<th width='30%'>".XiptText::_( 'FIELD NAME' )."</th>";
-		
-		$i = 0;
-		foreach($fields as $f) {
-			if($f->published) {
-				++$i;
-				if($f->type != 'group') {
-					$html .= "<td class='paramlist_value'>".$f->name."</td>";
-					
-					$profiletypeFieldHtml = $this->buildProfileTypes($name, $value, $control_name,$f->id);
-					$html .= "<td class='paramlist_value'>".$profiletypeFieldHtml."</td>";
-					//$html .= "<td class='paramlist_value'>".$fieldsPercentage[$f->id]."</td>";
-					//$html .= "<td class='paramlist_value'>".$fieldsPercentageInTotal[$f->id]." % </td>";
-				}
+		$html .= '<tr>';
 				
-				//$html .= "<input type='text' id='params[".$f->id."]' name='params[".$f->id."]' value='' />";
-				$html .= "</tr>";
-			}
+		$i = 0;
+		foreach($fields as $f) {			
+			++$i;
+			if($f->type != 'group') {
+				$html .= "<td class='paramlist_value'>".$f->name."</td>";
+				
+				$profiletypeFieldHtml = $this->buildProfileTypes($name, $value, $control_name,$f->id);
+				$html .= "<td class='paramlist_value'>".$profiletypeFieldHtml."</td>";
+			}				
+			$html .= "</tr>";
 		}
 		
 		$html .= "</table>";

@@ -21,13 +21,13 @@ class addalbums extends XiptAclBase
 
 	function getFeatureCounts($userid)
 	{
-		$db		=& JFactory::getDBO();
-		$query	= 'SELECT COUNT(*) '
-			. ' FROM ' . $db->nameQuote( '#__community_photos_albums' )
-			. ' WHERE '.$db->nameQuote('creator').'=' . $db->Quote( $userid );
-
-		$db->setQuery( $query );
-		return $db->loadResult();
+		$query = new XiptQuery();
+    	
+    	return $query->select('COUNT(*)')
+    				 ->from('#__community_photos_albums')
+    				 ->where(" `creator` = $userid ")
+    				 ->dbLoadQuery("","")
+    				 ->loadResult();    				 
 	}
 
 

@@ -34,7 +34,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<td><?php echo $i;?></td>
 				<td>
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&id='.$field->id, false); ?>
 						&nbsp;&nbsp;|_ <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>

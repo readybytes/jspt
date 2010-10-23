@@ -18,9 +18,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '1';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  82     ;
 		$aclObject->handleViolation($data);
@@ -33,9 +34,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '2';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  83     ;
 		$aclObject->handleViolation($data);
@@ -48,9 +50,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '3';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  84     ;
 		$aclObject->handleViolation($data);
@@ -64,9 +67,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '4';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  82     ;
 		$aclObject->handleViolation($data);
@@ -79,9 +83,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '4';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  83     ;
 		$aclObject->handleViolation($data);
@@ -93,9 +98,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '4';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  84    ;
 		$aclObject->handleViolation($data);
@@ -110,9 +116,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '5';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  82     ;
 		$aclObject->handleViolation($data);
@@ -125,9 +132,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '5';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  83     ;
 		$aclObject->handleViolation($data);
@@ -140,9 +148,10 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
 		$filter['id'] = '5';
 		$filter['published'] = 1;
 		
-		$rule=XiptAclFactory::getAclRulesInfo($filter);
-		$aclObject = XiptAclFactory::getAclObject($rule[0]->aclname);
-		$aclObject->bind($rule[0]);
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
 		$data['args']['field'] = & $fields;
 		$data['viewuserid']    =  84     ;
 		$aclObject->handleViolation($data);

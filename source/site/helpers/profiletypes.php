@@ -278,18 +278,9 @@ class XiptHelperProfiletypes
 				}		    			
 			}
 			
-			//now update profiletype with new avatar or watermark
-			$db =& JFactory::getDBO();
-			$query	= 'UPDATE ' . $db->nameQuote( '#__xipt_profiletypes' ) . ' '
-	    			. 'SET ' . $db->nameQuote( $what ) . '=' . $db->Quote( $image ) . ' '
-	    			. 'WHERE ' . $db->nameQuote( 'id' ) . '=' . $db->Quote( $id );
-	    	$db->setQuery( $query );
-	    	$db->query( $query );
-
-			if($db->getErrorNum())
-			{
-				XiptError::raiseError( 500, $db->stderr());
-		    }
+			//now update profiletype with new avatar or watermark			
+			if(!XiptFactory::getInstance('profiletypes', 'model')->save(array($what => $image), $id))
+				XiptError::raiseError( 500, XiptText::_("ERROR IN DATABASE"));		    
 		}
 	}
 	

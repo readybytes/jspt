@@ -20,13 +20,15 @@ class addvideos extends XiptAclBase
 
 	function getFeatureCounts($userid)
 	{
-		$db		=& JFactory::getDBO();
-		$query  = "SELECT COUNT(*) FROM ".$db->nameQuote('#__community_videos')
-					." WHERE ".$db->nameQuote('published')."=".$db->Quote('1')
-					." AND ".$db->nameQuote('creator')."=".$db->Quote($userid)
-					." AND ".$db->nameQuote('status')."=".$db->Quote('ready');
-		$db->setQuery( $query );
-		return $db->loadResult();
+		$query = new XiptQuery();
+    	
+    	return $query->select('COUNT(*)')
+    				 ->from('#__community_videos')
+    				 ->where(" `creator` = $userid ", 'AND')
+    				 ->where(" `published` = '1' ", 'AND')
+    				 ->where(" `status` = 'ready' ")
+    				 ->dbLoadQuery("","")
+    				 ->loadResult();
 	}
 
 

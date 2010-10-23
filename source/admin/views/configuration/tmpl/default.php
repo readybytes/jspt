@@ -66,7 +66,7 @@ function submitbutton( action )
 			</td>			
 			<td>
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=edit&name='.$field->name.'&editId='.$field->id, false); ?>
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=edit&name='.$field->name.'&id='.$field->id, false); ?>
 						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
 				</span>
 			</td>

@@ -30,6 +30,7 @@ class addasfriends extends XiptAclBase
 
 	function getFeatureCounts($userid, $otherptype, $selfptype)
 	{
+		// XITODO : change this query into object
 		$db		= JFactory::getDBO();
 		$query	= 'SELECT DISTINCT(a.connect_to) AS id  FROM ' . $db->nameQuote('#__community_connection') . ' AS a '
 				. 'INNER JOIN ' . $db->nameQuote( '#__users' ) . ' AS b '

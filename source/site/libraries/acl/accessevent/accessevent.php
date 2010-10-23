@@ -45,12 +45,13 @@ class accessevent extends XiptAclBase
 
     function getownerId($id)
     {
-		$db		=& JFactory::getDBO();
-		$query	= 'SELECT `creator` '
-				. ' FROM ' . $db->nameQuote( '#__community_events' )
-				. ' WHERE '.$db->nameQuote('id').'=' . $db->Quote( $id );
-		$db->setQuery( $query );
-		return $db->loadResult();
+    	$query = new XiptQuery();
+    	
+    	return $query->select('creator')
+    				 ->from('#__community_events')
+    				 ->where(" `id` = $id ")
+    				 ->dbLoadQuery("","")
+    				 ->loadResult();
     }
 
 }

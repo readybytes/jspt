@@ -15,15 +15,8 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	
 	function doApply()
 	{
-		$db		= JFactory::getDBO();
-			
-		$query	= ' UPDATE ' . $db->nameQuote( '#__plugins' )
-				. ' SET '	 . $db->nameQuote('published').'='.$db->Quote('1')
-	          	. ' WHERE '	 . $db->nameQuote('element').'='.$db->Quote('xipt_community')
-	          	. ' OR '	 . $db->nameQuote('element').'='.$db->Quote('xipt_system');
-
-		$db->setQuery($query);		
-		if(!$db->query())
+		if(XiptHelperUtils::changePluginState('xipt_community', 1) == false
+			|| XiptHelperUtils::changePluginState('xipt_system', 1) == false)
 			return false;
 			
 		return XiptText::_("PLUGIN ENABLED SUCCESSFULLY");
@@ -31,36 +24,26 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	
 	function doRevert()
 	{
-		$db			= JFactory::getDBO();
+		if(XiptHelperUtils::changePluginState('xipt_community', 0) == false
+			|| XiptHelperUtils::changePluginState('xipt_system', 0) == false)
+			return false;
 			
-		$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
-				. ' SET '.$db->nameQuote('published').'='.$db->Quote('0')
-	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote('xipt_community')
-	          	. ' OR '.$db->nameQuote('element').'='.$db->Quote('xipt_system');
-
-		$db->setQuery($query);		
-		return $db->query();
+		return true;
 	}
 	
 	//retrun true if plugin is installed or enabled
 	//type means plugin type eg :- community , system etc.
 	function _isPluginInstalledAndEnabled()
 	{
-		$db		= JFactory::getDBO();
+		$communityPlugin = XiptHelperUtils::getPluginStatus('xipt_community');
+		if(!$communityPlugin || $communityPlugin->published == 0)
+			return false;	
 			
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__plugins' )
-	         	 . ' WHERE '.$db->nameQuote('element').'='.$db->Quote('xipt_community')
-	          	 . ' OR '.$db->nameQuote('element').'='.$db->Quote('xipt_system')
-	          	 .' AND '.$db->nameQuote('published').'='.$db->Quote(1);
-
-		$db->setQuery($query);		
-		
-		$plugin	= $db->loadObjectList();
-		
-		if(count($plugin)== 2)
-			return true;
+		$systemPlugin = XiptHelperUtils::getPluginStatus('xipt_system');
+		if(!$systemPlugin || $systemPlugin->published == 0)
+			return false;
 			
-		return false;
+		return true;
 	}
 	
 

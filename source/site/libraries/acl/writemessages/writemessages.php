@@ -56,6 +56,13 @@ class writemessages extends XiptAclBase
 			$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__community_msg' ) . ' AS a'
 					. ' WHERE a.from=' . $db->Quote( $data['userid'] )
 					. ' AND a.parent=a.id';
+			
+// 			return $query->select('COUNT(*)')
+//    				 ->from('#__community_msg AS a')
+//   				 ->where("  a.`from` = $userid ", 'AND')
+//    				 ->where("  a.`parent` = a.`id`  ")
+//   				 ->dbLoadQuery("","")
+//    				 ->loadResult();			
 		}
 		else
 		{

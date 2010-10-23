@@ -20,8 +20,7 @@ class XiptControllerConfiguration extends XiptController
 
 	function edit($id=0)
 	{
-		// XITODO : use id instead of editId
-		$id = JRequest::getVar('editId', $id);
+		$id = JRequest::getVar('id', $id);
 		return $this->getView()->edit($id,'edit');
 	}
 

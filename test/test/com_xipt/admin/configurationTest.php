@@ -29,7 +29,7 @@ class ConfigurationTest extends XiSelTestCase
     
     //now edit 2
     $p = 2;
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&editId=$p");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&id=$p");
     $this->waitPageLoad();
     $this->click("enablegroups0");
     $this->click("enablereporting0");
@@ -43,7 +43,7 @@ class ConfigurationTest extends XiSelTestCase
     	
     //edit 1
     $p = 1;
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&editId=$p");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&id=$p");
     $this->waitPageLoad();
     $this->click("enablegroups1");
     $this->click("enablereporting0");
@@ -58,7 +58,7 @@ class ConfigurationTest extends XiSelTestCase
 
     //edit 3
     $p = 3;
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&editId=$p");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&id=$p");
     $this->waitPageLoad();
     $this->click("enablegroups1");
     $this->click("enablereporting1");

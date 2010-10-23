@@ -9,27 +9,22 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptAclFactory
 {
 	public function getAclRulesInfo($filter='',$join='AND')
-	{
-		$db			= JFactory::getDBO();
+	{		 
+		$records 	= XiptFactory::getInstance('aclrules', 'model')->loadRecords();
+		
+		if(empty($filter))
+			return $records;
 
-		$filterSql = '';
-		if(!empty($filter)){
-			$filterSql = ' WHERE ';
-			$counter = 0;
-			foreach($filter as $name => $info) {
-				$filterSql .= $counter ? ' '.$join.' ' : '';
-				$filterSql .= $db->nameQuote($name).'='.$db->Quote($info);
-				$counter++;
+		foreach($records as $record){
+			foreach($filter as $name => $info){ 				
+				if($record->$name != $info){
+					unset($records[$record->id]);
+					break;
+				}									
 			}
 		}
-
-		$query = 'SELECT * FROM '.$db->nameQuote('#__xipt_aclrules')
-				.$filterSql;
-
-		$db->setQuery($query);
-		$aclRuleinfo = $db->loadObjectList();
-
-		return $aclRuleinfo;
+		
+		return $records;		
 	}
 
 

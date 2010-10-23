@@ -11,7 +11,7 @@ class ProfilefieldsTest extends XiSelTestCase
   {
  //    setup default location 
     $this->adminLogin();
-    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profilefields&task=edit&editId=2");
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profilefields&task=edit&id=2");
     $this->waitForPageToLoad("30000");
     $this->click("ptypeSelectAllALLOWED");
     //$this->click("allowedProfileType0");

@@ -21,12 +21,13 @@ class createvent extends XiptAclBase
 
 	function getFeatureCounts($userid)
 	{
-		$db		=& JFactory::getDBO();
-		$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__community_events' ) . ' '
-					. 'WHERE ' . $db->nameQuote( 'creator' ) . '=' . $db->Quote( $userid );
-
-		$db->setQuery( $query );
-		return $db->loadResult();
+		$query = new XiptQuery();
+    	
+    	return $query->select('COUNT(*)')
+    				 ->from('#__community_events')
+    				 ->where(" `creator` = $userid ", 'AND')
+    				 ->dbLoadQuery("","")
+    				 ->loadResult();
 	}
 
 

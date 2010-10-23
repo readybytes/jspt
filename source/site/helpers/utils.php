@@ -66,4 +66,27 @@ class XiptHelperUtils
 		$urlpath = preg_replace('#[/\\\\]+#', '/', $filepath);
 		return $urlpath;
 	}
+	
+	static function changePluginState($plugin, $state=0)
+	{
+		$query = new XiptQuery();
+		
+		$result= $query->update('#__plugins')
+					 ->set(" `published` = $state ")
+	          		 ->where(" `element` = '$plugin' ")
+	          		 ->dbLoadQuery("","")
+	          		 ->query();		
+	       return $result;
+	}
+	
+	
+	static function getPluginStatus($plugin)
+	{
+		$query = new XiptQuery();
+		return $query->select('*')
+					 ->from('#__plugins' )
+					 ->where(" `element` = '$plugin' ")
+					 ->dbLoadQuery("","")
+	          		 ->loadObject();
+	}
 }
