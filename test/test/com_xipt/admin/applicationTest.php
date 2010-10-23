@@ -23,7 +23,7 @@ class ApplicationTest extends XiSelTestCase
     // now check for showing application
     $this->click("//span[@id='name44']/a");
     $this->waitPageLoad();
-    $this->click("ptypeSelecNone");
+    $this->click("ptypeSelectNone");
     $this->click("profileTypes1");
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
@@ -31,7 +31,7 @@ class ApplicationTest extends XiSelTestCase
     // for 2
     $this->click("//span[@id='name45']/a");
     $this->waitPageLoad();
-    $this->click("ptypeSelecNone");
+    $this->click("ptypeSelectNone");
     $this->click("profileTypes2");    
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
@@ -39,7 +39,7 @@ class ApplicationTest extends XiSelTestCase
     //for 1,2
     $this->click("//span[@id='name46']/a");
     $this->waitPageLoad();
-    $this->click("ptypeSelecNone");
+    $this->click("ptypeSelectNone");
     $this->click("profileTypes1");
     $this->click("profileTypes2");    
     $this->click("//td[@id='toolbar-save']/a/span");
@@ -50,14 +50,14 @@ class ApplicationTest extends XiSelTestCase
     $this->waitPageLoad();
     $this->click("profileTypes1");
     $this->click("profileTypes2");
-    $this->click("ptypeSelecAll");
+    $this->click("ptypeSelectAll");
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     
     //For core application
     $this->click("//span[@id='name49']/a");
     $this->waitPageLoad();
-    $this->click("ptypeSelecNone");
+    $this->click("ptypeSelectNone");
     $this->click("profileTypes1");
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
@@ -65,7 +65,7 @@ class ApplicationTest extends XiSelTestCase
     //still ALL should reflect
     $this->click("//span[@id='name50']/a");
     $this->waitPageLoad();
-    $this->click("ptypeSelecNone");
+    $this->click("ptypeSelectNone");
     $this->click("profileTypes2");
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();

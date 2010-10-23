@@ -51,21 +51,19 @@ class XiptHelperProfilefields
 	function buildProfileTypes( $fid ,$for)
 		{
 			$selectedTypes 	= XiptHelperProfilefields::getProfileTypeArray($fid,$for);		
-			$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true);
+			$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
 			
 			$html			= '';
 			$categories		= XiptHelperProfilefields::getProfileFieldCategories();	
 			$name			= $categories[$for]['controlName'];
 			$html	   	   .= '<span>';
-			$count 			= count($allTypes)-1;
-			$html 	   	   .= '<input type="hidden" name="'.$name.'Count" value="'.$count.'" />';
 			
 			foreach( $allTypes as $option )
 			{
-			    $selected	= in_array($option , $selectedTypes ) ? ' checked="checked"' : '';
-				$html .= '<br/><lable><input type="checkbox" name= "'.$name.'' .$option. '" value="' . $option . '"' . $selected .'" style="margin: 0 5px 5px 0;" />';
+			    $selected	= in_array($option , $selectedTypes ) || (in_array(XIPT_PROFILETYPE_ALL, $selectedTypes)) ? ' checked="checked"' : '';
+				$html .= '<lable><input type="checkbox" name= "'.$name.'[]" value="' . $option . '" '. $selected .' " style="margin: 0 5px 5px 0;" />';
 				$html .= XiptHelperProfiletypes::getProfileTypeName($option).'</lable>';
-				$count--;
+				$html .= '<div class="clr"></div>';				
 			}
 			$html	.= '</span>';		
 			
@@ -76,27 +74,27 @@ class XiptHelperProfilefields
 	{
 		$categories[PROFILE_FIELD_CATEGORY_ALLOWED] = array(
 									'name'=> 'ALLOWED',
-									'controlName' => 'allowedProfileType'
+									'controlName' => 'allowedProfileTypes'
 									);
 									
 		$categories[PROFILE_FIELD_CATEGORY_REQUIRED] = array(
 									'name'=> 'REQUIRED',
-									'controlName' => 'requiredProfileType'
+									'controlName' => 'requiredProfileTypes'
 									);
 									
 		$categories[PROFILE_FIELD_CATEGORY_VISIBLE] = array(
 									'name'=> 'VISIBLE',
-									'controlName' => 'visibleProfileType'
+									'controlName' => 'visibleProfileTypes'
 									);
 									
 		$categories[PROFILE_FIELD_CATEGORY_EDITABLE_AFTER_REG] = array(
 									'name'=> 'EDITABLE_AFTER_REG',
-									'controlName' => 'editableAfterRegProfileType'
+									'controlName' => 'editableAfterRegProfileTypes'
 									);
 									
 		$categories[PROFILE_FIELD_CATEGORY_EDITABLE_DURING_REG] = array(
 									'name'=> 'EDITABLE_DURING_REG',
-									'controlName' => 'editableDuringRegProfileType'
+									'controlName' => 'editableDuringRegProfileTypes'
 									);
 		
 		return $categories;

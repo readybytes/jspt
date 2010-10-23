@@ -9,12 +9,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 	echo $this->pane->startPanel( '1. Jom Social Profile Field Configuration', 'jsprofilefield' );
 	?>
 	<ol>
-		<?php if($this->fields->published == 0){?><li>This field is <span style="color:red;">Not Published</span> in Jom Social Custom Profiles. Please Publish it.</li><?php }?>
-		<?php if($this->fields->required == 0){?><li>This field is set to <span style="color:red;">Not Required</span> in Jom Social Custom Profiles. Please make it Required.</li><?php }?>
-		<?php if($this->fields->visible == 0){?><li>This field is set to <span style="color:red;">Not Visible</span> for user in Jom Social Custom Profiles. Please make it Visible.</li><?php }?>
-		<?php if($this->fields->published == 1 
-				&& $this->fields->required == 1
-				&& $this->fields->visible == 1){
+		<?php if($this->field->published == 0){?><li>This field is <span style="color:red;">Not Published</span> in Jom Social Custom Profiles. Please Publish it.</li><?php }?>
+		<?php if($this->field->required == 0){?><li>This field is set to <span style="color:red;">Not Required</span> in Jom Social Custom Profiles. Please make it Required.</li><?php }?>
+		<?php if($this->field->visible == 0){?><li>This field is set to <span style="color:red;">Not Visible</span> for user in Jom Social Custom Profiles. Please make it Visible.</li><?php }?>
+		<?php if($this->field->published == 1 
+				&& $this->field->required == 1
+				&& $this->field->visible == 1){
 				?><li> All the settings for Profile Fields have been configured correctly.</li><?php 
 				}?>
 	</ol>

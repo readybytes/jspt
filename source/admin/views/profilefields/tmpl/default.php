@@ -10,38 +10,26 @@ if(!defined('_JEXEC')) die('Restricted access');
 <table class="adminlist" cellspacing="1">
 	<thead>
 		<tr>
-			<th width="1%">
-				<?php echo XiptText::_( 'NUM' ); ?>
-			</th>
-			<th width="29%" class="title">
-					<?php echo XiptText::_( 'FIELD NAME' ); ?>
-			</th>
-			<?php 
-			foreach($this->categories as $catIndex => $catInfo)
-			{
-				$catName = $catInfo['name'];	
-			?>
-			<th width="15%" class="title">
-					<?php echo XiptText::_( $catName ); ?>
-			</th>
-			<?php 
-			}
-			?>
+			<th width="1%"><?php echo XiptText::_( '#' ); ?></th>
+			<th width="29%" class="title"><?php echo XiptText::_( 'FIELD NAME' ); ?></th>
+			<?php foreach($this->categories as $catIndex => $catInfo) : ?>
+				<?php $catName = $catInfo['name'];?>	
+				<th width="15%" class="title">
+				<?php echo XiptText::_( $catName ); ?>
+				</th>
+			<?php endforeach;?>
 		</tr>
 	</thead>
-		<?php
-		$count = 0;
-		$i  = 0;
+	
+	<?php 
+		$count = 0; 
+		$i  = 0; 
 		
-		if(!empty($this->fields))
-		foreach($this->fields as $field)
-		{
-			//$input	= JHTML::_('grid.id', $count, $field->id);
-			
-			if($field->type != "group")
-			{
-				++$i;
-				?>
+		if(!empty($this->fields)) :
+		foreach($this->fields as $field) :
+
+			if($field->type != "group") :
+				++$i;	?>
 				<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
 				<td><?php echo $i;?></td>
 				<td>
@@ -50,58 +38,33 @@ if(!defined('_JEXEC')) die('Restricted access');
 						&nbsp;&nbsp;|_ <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>
-				<?php 
-				foreach($this->categories as $catIndex => $catInfo)
-				{		
-					$controlName = $catInfo['controlName'];	
-					?>
-					<td align="center">
+				
+				<?php foreach($this->categories as $catIndex => $catInfo) : ?>
+					  <?php $controlName = $catInfo['controlName'];	?>
+					  <td align="center">
 						<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
 						<?php 
 							echo XiptHelperProfilefields::getProfileTypeNames( $field->id,$catIndex); 
 						?>
 						</span>
-					</td>
-					<?php 
-				}
-				?>
-				
-				</tr>
-				<?php
-			}
-			else
-			{?>
+					  </td>
+				<?php endforeach; ?>				
+				</tr>			
+			<?php else :?>
 				<tr>
+				<td><?php echo ""; ?></td>
 				<td>
-				<?php echo ""; ?>
-				</td>
-				<td>
-					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&editId='.$field->id, false); ?>
-						Group <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
+					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">					
+						Group :- <?php echo $field->name; ?>
 					</span>
 				</td>
-				<?php 
-				foreach($this->categories as $catIndex => $catInfo)
-				{		
-					$controlName = $catInfo['controlName'];	
-					?>
-				<td align="center">
-					<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
-					<?php 
-						echo XiptHelperProfilefields::getProfileTypeNames( $field->id,$catIndex); 
-					?>
-					</span>
-				</td>
-				<?php 
-				}
-				?>
+					<?php foreach($this->categories as $catIndex => $catInfo) :?>
+							<td></td>
+					<?php endforeach;?>
 				</tr>
-			<?php
-			$i = 0;
-			}
-		}
-		?>
+			<?php endif;?>
+		<?php endforeach;?>
+		<?php endif;?>		
 </table>
 
 <div class="clr"></div>

@@ -11,13 +11,13 @@ $aModel			= XiptFactory::getInstance( 'applications' , 'model');
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	// for select all profile type
-	$("a#ptypeSelecAll").click(function(){
+	$("a#ptypeSelectAll").click(function(){
 			$('div#xiptPtype').find(':checkbox').attr('checked', true);	
 			return false;
 	});
 
 	// for select none
-	$("a#ptypeSelecNone").click(function(){	
+	$("a#ptypeSelectNone").click(function(){	
 		$('div#xiptPtype').find(':checkbox').attr('checked', false);	
 		return false;
 	});
@@ -52,7 +52,7 @@ jQuery(document).ready(function($){
 				<?php echo XiptHelperApps::buildProfileTypesforApplication($this->applicationId);?>
 			</div>
 			<div>
-				<?php echo XiptText::_("SELECT");?> : <a href="#" id="ptypeSelecAll"><?php echo XiptText::_('ALL');?></a> | <a href="#" id="ptypeSelecNone"><?php echo XiptText::_('NONE');?></a> 
+				<?php echo XiptText::_("SELECT");?> : <a href="#" id="ptypeSelectAll"><?php echo XiptText::_('ALL');?></a> | <a href="#" id="ptypeSelectNone"><?php echo XiptText::_('NONE');?></a> 
 			</div>
 		</div>
 	</fieldset>

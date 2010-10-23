@@ -16,16 +16,45 @@ if(!defined('_JEXEC')) die('Restricted access');
 		submitform( pressbutton );
 	}
 </script>
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	// for select all profile type
+	$("a.ptypeSelectAll").click(function(){		
+		var $this = $(this);
+		var divID = $this.attr("id").replace("ptypeSelectAll", "profileTypes");
+		var $div = $('#'+divID);
+		$div.find(':checkbox').attr('checked', true);	
+			return false;
+	});
+
+	// for select none
+	$("a.ptypeSelectNone").click(function(){	
+		var $this = $(this);
+		var divID = $this.attr("id").replace("ptypeSelectNone", "profileTypes");
+		var $div = $('#'+divID);
+		$div.find(':checkbox').attr('checked', false);	
+		return false;
+	});
+
+	// for copying the same setting to another profilefields block
+	$("div#xiptOtherApps").css('display','none');
+	$('input#xiptApplyTo').click(function(){
+		$("div#xiptOtherApps").slideToggle('fast');	
+	});
+});
+</script>
+<script type="text/javascript">jQuery.noConflict();</script>
 
 <form action=<?php echo JURI::base();?> method="post" name="adminForm" id="adminForm">
-<table class="adminlist" cellspacing="1" style="width:50%; float:left;" >
+<table class="adminlist" cellspacing="1" style="width:40%; float:left;" >
 		<thead>
 		<tr>
 			<td style="width:40%;" >
 				<?php echo XiptText::_( 'FIELD NAME' ); ?> :
 			</td>
 			<td style="width:60%;">
-					<?php echo $this->fields->name; ?>
+					<?php echo $this->field->name; ?>
 			</td>
 		</tr>
 		</thead>
@@ -38,8 +67,17 @@ if(!defined('_JEXEC')) die('Restricted access');
 					<td>
 						<?php echo XiptText::_($catName);?> :
 					</td>
-					<td colspan="4"> 
-						<?php echo XiptHelperProfilefields::buildProfileTypes($this->fieldid,$catIndex);?>
+					<td > 
+						<div id="profileTypes<?php echo $catName;?>">
+							<div style="float:left; margin-left:20px; width:60%;">
+								<?php echo XiptHelperProfilefields::buildProfileTypes($this->fieldid,$catIndex);?>
+							</div>
+							<div style="float:right; width:30%;">
+								<?php echo XiptText::_("SELECT");?> : 
+								<a href="#" class="ptypeSelectAll" id="ptypeSelectAll<?php echo $catName;?>"><?php echo XiptText::_('ALL');?></a> | 
+								<a href="#" class="ptypeSelectNone" id="ptypeSelectNone<?php echo $catName;?>"><?php echo XiptText::_('NONE');?></a>	 
+							</div>
+						</div>							
 					</td>			
 				</tr>
 				<?php 
@@ -47,7 +85,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 			?>
 		</table>
 
-<div style="width:45%; float:right;">
+<div style="width:40%; float:right;">
 <?php 
 echo $this->pane->startPane( 'stat-pane' );
 require("helppanel.php");
@@ -55,6 +93,26 @@ echo $this->pane->endPane();
 ?>
 </div>
 
+<div class="col width-10" style="float:right;">
+	<fieldset class="adminform">
+	<legend>
+		<input type="checkBox" id="xiptApplyTo" />
+		<?php echo XiptText::_('APPLY THESE SETTINGS FOR')?>		
+	</legend>
+	
+	<div id="xiptOtherApps">
+		<?php foreach($this->fields as $field) : ?>
+			<?php if($field->type == 'group') : 
+					echo $field->name;
+				  else :?>
+					<input type="checkbox" name="fieldIds[]" value="<?php echo $field->id;?>"><?php echo $field->name;?>
+			<?php endif; ?>	
+			<div class='clr'></div>
+		<?php endforeach;?> 
+	</div>
+	</fieldset>
+</div>
+<div class="clr"></div>
 
 	<input type="hidden" name="option" value="com_xipt" />
 	<input type="hidden" name="view" value="<?php echo JRequest::getCmd( 'view' , 'profilefields' );?>" />

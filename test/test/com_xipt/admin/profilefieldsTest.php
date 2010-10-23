@@ -13,7 +13,7 @@ class ProfilefieldsTest extends XiSelTestCase
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profilefields&task=edit&editId=2");
     $this->waitForPageToLoad("30000");
-    $this->click("allowedProfileType0");
+    $this->click("ptypeSelectAllALLOWED");
     //$this->click("allowedProfileType0");
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitForPageToLoad("30000");

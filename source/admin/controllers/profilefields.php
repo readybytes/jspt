@@ -25,27 +25,38 @@ class XiptControllerProfileFields extends XiptController
 		if($post === null)
 			$post	= JRequest::get('post');		
 					
-		//remove all rows related to specific field id 
-		// cleaning all data for storing new profiletype with fields		
-		$this->getModel()->delete(array('fid'=> $post['id']));
+		$fid 	  	 = isset($post['id'])? $post['id'] : 0;		
+		$otherFids 	 = isset($post['fieldIds'])? $post['fieldIds'] : array();		
+		$allTypes 	 = XiptHelperProfiletypes::getProfileTypeArray();
+		$fieldModel	 = $this->getModel();
 		
-		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
+		// fid is also selected in otherAid then no need to add
+		if(!in_array($fid, $otherFids)) 
+			array_push($otherFids, $fid);
+			
+		//remove all rows related to specific field id 
+		// cleaning all data for storing new profiletype with fields
+		foreach($otherFids as $id)		
+			$fieldModel->delete(array('fid'=>$id));
+		
+		
 		$categories		= XiptHelperProfilefields::getProfileFieldCategories();
 		// for each category
 		foreach($categories as $catIndex => $catInfo)
 		{
-			$controlName= $catInfo['controlName'];			
-			if(array_key_exists($controlName."0",$post))
+			$controlName     = $catInfo['controlName'];
+			$selectedPtypes  = isset($post[$controlName])? $post[$controlName] : array();		
+			
+			// if all profile types are selected
+			$ptypesToChange = array_diff($allTypes, $selectedPtypes); 
+			if($ptypesToChange == array())
 				continue;
 			
-			// for each profile type
-			foreach($allTypes as $type) {
-				if(!$type || array_key_exists($controlName.$type,$post)) 
-					continue;
-				
-				$this->getModel()->save(array('fid'=>$post['id'], 'pid'=>$type, 'category'=>$catIndex));
-				$msg = XiptText::_('FIELDS SAVED');															
-			}
+			// for each profile type			
+			foreach($ptypesToChange as $type)
+				foreach($otherFids as $id)
+					if($this->getModel()->save(array('fid'=>$id, 'pid'=>$type, 'category'=>$catIndex)) == false)
+						return false;											
 		}
 			
 		$msg 	= XiptText::_('FIELDS SAVED');	

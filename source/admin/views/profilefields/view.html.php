@@ -23,9 +23,13 @@ class XiptViewProfileFields extends XiptView
 
 	function edit($fieldId, $tpl = 'edit')
 	{
+		//XITODO : duplicate call, remove it
 		$field		= XiptLibJomsocial::getFieldObject($fieldId);
-		$this->assign('fields', $field);
+		$fields		= XiptLibJomsocial::getFieldObject();
 		$categories	= XiptHelperProfilefields::getProfileFieldCategories();
+				
+		$this->assign('fields', $fields);
+		$this->assign('field', $field);
 		$this->assignRef('categories', $categories);
 		$this->assign('fieldid', $fieldId);
 		// Set the titlebar text
