@@ -42,7 +42,7 @@ class AclFriendTest extends XiAclUnitTest
   		// Rule 14  : ALL cannot add ptype1 as friend
 
   		// Case 3 : pt1 -> pt2
-  		$data['userid'] = 85;  $data['args'] = array(86);
+  		$data['userid'] = 82;  $data['args'] = array(86);
   		$this->assertTrue($this->checkViolation(11, $data));
   		$this->assertFalse($this->checkViolation(12, $data));
   		$this->assertTrue($this->checkViolation(13, $data));
@@ -56,7 +56,7 @@ class AclFriendTest extends XiAclUnitTest
   		$this->assertFalse($this->checkViolation(14, $data));
 
   		// Case 5 : pt3 -> pt1
-  		$data['userid'] = 87;  $data['args'] = array(85);
+  		$data['userid'] = 87;  $data['args'] = array(82);
   		$this->assertFalse($this->checkViolation(11, $data));
   		$this->assertFalse($this->checkViolation(12, $data));
   		$this->assertTrue($this->checkViolation(13, $data));
@@ -69,7 +69,7 @@ class AclFriendTest extends XiAclUnitTest
 
   		//Reverse Cases
   		// Case 6 : pt2 -> pt1
-  		$data['userid'] = 86;  $data['args'] = array(85);
+  		$data['userid'] = 86;  $data['args'] = array(82);
   		$this->assertFalse($this->checkViolation(11, $data));
   		$this->assertFalse($this->checkViolation(12, $data));
   		$this->assertTrue($this->checkViolation(13, $data));
@@ -83,7 +83,7 @@ class AclFriendTest extends XiAclUnitTest
   		$this->assertFalse($this->checkViolation(14, $data));
 
   		// Case 8 : pt1 -> pt3
-  		$data['userid'] = 85;  $data['args'] = array(87);
+  		$data['userid'] = 82;  $data['args'] = array(87);
   		$this->assertFalse($this->checkViolation(11, $data));
   		$this->assertFalse($this->checkViolation(12, $data));
   		$this->assertTrue($this->checkViolation(13, $data));

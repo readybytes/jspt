@@ -2,5 +2,6 @@
 <config>
 <params addpath="/administrator/components/com_xipt/elements" >
 	<param name="other_profiletype" type="profiletypes" addall="true" default="" label="OTHER PROFILETYPE USERS TO ADD AS FRIEND.Lable" description="OTHER PROFILETYPE TO ADD AS FRIEND.Desc" />
+    <param name="friends_limit" type="text" default="" label="TOTAL FRIENDS LIMIT.LABEL" description="NO OF TOTAL FRIENDS MAXIMUM LIMIT.DESC" />
 </params>
 </config>

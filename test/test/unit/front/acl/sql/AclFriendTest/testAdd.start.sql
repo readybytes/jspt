@@ -75,10 +75,7 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 
 TRUNCATE TABLE `#__xipt_aclrules`;;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(11, 'RULE-11', 'addasfriends', 'core_profiletype=1\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=2\n\n', 1),
-(12, 'RULE-12', 'addasfriends', 'core_profiletype=2\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=3\n\n', 1),
-(13, 'RULE-13', 'addasfriends', 'core_profiletype=0\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=0\n\n', 1),
-(14, 'RULE-14', 'addasfriends', 'core_profiletype=0\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=1\n\n', 1)
-;;
-
-
+(11, 'RULE-11', 'addasfriends', 'core_profiletype=1\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=2\nfriends_limit=0\n\n', 1),
+(12, 'RULE-12', 'addasfriends', 'core_profiletype=2\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=3\nfriends_limit=0\n\n', 1),
+(13, 'RULE-13', 'addasfriends', 'core_profiletype=0\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=0\nfriends_limit=0\n\n', 1),
+(14, 'RULE-14', 'addasfriends', 'core_profiletype=0\ncore_display_message=NotAllowed\ncore_redirect_url=index.php\n\n', 'other_profiletype=1\nfriends_limit=0\n\n', 1);;

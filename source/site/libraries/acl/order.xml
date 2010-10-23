@@ -116,6 +116,10 @@
 	<rule name="statusbox"
 		  title="Redirect to Change Status Message"
 		  description="Redirect Users to Change Status Message"/>
+		  
+	<rule name="profilefield"
+		  title="Can not view Other's ProfileFields"
+		  description="Restrict users to view ProfileFields"/>
 </group>	
 	
 <group name="avatar" title="Avatar">

@@ -14,7 +14,7 @@ class changeavatar extends XiptAclBase
 	}
 
 
-	function checkAclApplicable($data)
+	function checkAclApplicable(&$data)
 	{
 		/*we will expect that view and task should be given
 		 * and from parsing we will find out that is this request for me

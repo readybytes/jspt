@@ -7,22 +7,12 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
   {
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
-	
-	function testSTUPID000000001()
-	{}
+
  function testProfileFieldPrivacy()
   {	
-  	return;
 
-  	$version = XiSelTestCase::get_js_version();
-    if(Jstring::stristr($version,'1.8'))
-  	{
   		$url =  dirname(__FILE__).'/sql/ProfileFieldPrivacyTest/testProfileFieldPrivacy.1.8.sql';
     	$this->_DBO->loadSql($url);
-  	}  
-	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'profiletypes.php');
-  	// ptofile type 3 visits profiletype 1
-  		
 		
 	    $fields 	= $this->getProfileFields(82); 
 		$filter['id'] = '1';
@@ -164,7 +154,7 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
   
  function getProfileFields($userId)
   {
-  	   $db		= & JFactory::getDBO();
+  	   $db		= JFactory::getDBO();
   	   $strSQL	= 'SELECT field.*, value.value '
 				. 'FROM ' . $db->nameQuote('#__community_fields') . ' AS field '
 				. 'LEFT JOIN ' . $db->nameQuote('#__community_fields_values') . ' AS value '

@@ -209,9 +209,9 @@ class XiptLibPluginhandler
 	 */
 	function onProfileLoad(&$userid, &$fields, $from)
 	{
-		$none 			 = false;
-		$args['from']    = 'onprofileload';
-		$args['field']   =  &$fields      ;
+		$none 			 			 = false;
+		$args['triggerForEvents']    = 'onprofileload';
+		$args['field']   			 =  &$fields      ;
 		XiptAclHelper::performACLCheck($none,$none, $args);
 
 		//do not filter fields in  advanced search if user do not want to restrict

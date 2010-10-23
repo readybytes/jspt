@@ -15,6 +15,7 @@ abstract class XiptAclBase
 	public $published	= 1 ;
 	public $coreparams	= '';
 	public $aclparams	= '';
+	public $triggerForEvents = array();
 
 	function __construct()
 	{
@@ -118,25 +119,23 @@ abstract class XiptAclBase
 	 */
 	function isApplicable(&$data)
 	{
-//	    $isAclApplicableOnProfile  =     $this->checkAclOnProfile($data);
+		if(isset($data['triggerForEvents']))
+		{
+			$key = $data['triggerForEvents'];
+			if($key && isset($this->triggerForEvents[$key])==false)
+				return false;			
+		}	
 		$isApplicableAccToAcl      =     $this->checkAclApplicable($data);
 		$isApplicableAccToCore     =     $this->checkCoreApplicable($data);
 
 		//These condition need to be AND as we ensure rule only apply if
 		// it is applicable as per conditions.
+	
 		if($isApplicableAccToAcl && $isApplicableAccToCore)
 			return true;
 
 		return false;
 	}
-
-//	public function checkAclOnProfile($data)
-//    {
-//	  if(is_array($data['args']) && array_key_exists('from',$data['args']) && 'onprofileload' == $data['args']['from'])
-//	    return false;
-//
-//	  return true;
-//    }
 
 	public function checkCoreApplicable($data)
 	{
@@ -154,10 +153,7 @@ abstract class XiptAclBase
 	}
 
 
-	public function checkAclApplicable($data)
-	{
-		return $this->published;
-	}
+	abstract public function checkAclApplicable(&$data);
 
 
 	function checkViolation($data)
