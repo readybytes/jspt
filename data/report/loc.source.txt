@@ -3,14 +3,14 @@ phploc 1.2.0 by Sebastian Bergmann.
 Directories:                               61
 Files:                                    151
 
-Lines of Code (LOC):                    12980
-Comment Lines of Code (CLOC):            2639
-Non-Comment Lines of Code (NCLOC):      10341
+Lines of Code (LOC):                    13003
+Comment Lines of Code (CLOC):            2641
+Non-Comment Lines of Code (NCLOC):      10362
 
 Interfaces:                                 0
 Abstract Classes:                           6
 Classes:                                  109
-Non-Static Methods:                       472
+Non-Static Methods:                       473
 Static Methods:                            11
 Functions:                                 13
 Constants:                                 72

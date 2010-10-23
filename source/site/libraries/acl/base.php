@@ -200,6 +200,21 @@ abstract class XiptAclBase
 		$objResponse->addAssign('cwin_logo', 'innerHTML', JText::_('YOU ARE NOT ALLOWED TO PERFORM THIS ACTION'));
 		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);
 		$objResponse->addScriptCall('cWindowResize', 80);
+		
+//XITODO: cleanup
+		$forcetoredirect =$this->getCoreParams('force_to_redirect','0');    	
+		if($forcetoredirect)
+		   {
+			 $redirectUrl 	= JURI::base().'/'.$this->getRedirectUrl();
+			 $script = "function sleep_message(){"
+			                                     ."window.location.href = " .$redirectUrl .";"
+			                                     ."cWindowHide();"
+			                                     ."return true;"
+			                                     ."};";
+
+		     $buttons	= '<input type="button" value="' . JText::_('CC BUTTON CLOSE') . '" class="button" onclick="cWindowHide(); window.location.href = &quot;' . $redirectUrl . '&quot;;" />';
+		     $objResponse->addScriptCall('cWindowActions', $buttons);
+		   }
 		$objResponse->sendResponse();
 	}
 

@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_aclrules` SELECT * FROM `#__xipt_aclrules
 TRUNCATE TABLE `au_#__xipt_aclrules`;;
 
 INSERT INTO `au_#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(11, 'Can not Add Album more than 5', 'addalbums', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'addalbums_limit=5\n\n', 1);;
+(11, 'Can not Add Album more than 5', 'addalbums', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\nforce_to_redirect=0\ncore_redirect_url=index.php?option=com_community\n\n', 'addalbums_limit=5\n\n', 1);;
 
 

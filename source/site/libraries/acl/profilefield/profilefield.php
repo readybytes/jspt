@@ -8,7 +8,8 @@ defined('_JEXEC') or die('Restricted access');
 
 class profilefield extends XiptAclBase
 {
-		public $triggerForEvents = array('onprofileload'=>1);      
+		public $triggerForEvents = array('onprofileload'=>1);  
+		    
         function collectParamsFromPost($postdata)
         {
                 $postdata['aclparams'] = array('Xiprofiletypes'=>serialize($postdata['aclparams']['Xiprofiletypes']));
@@ -20,7 +21,7 @@ class profilefield extends XiptAclBase
                 return true;
         }
         
-        function checkAclApplicable(&$data)
+        function checkAclOnProfile(&$data)
     	{
              if(is_array($data['args']) 
                                 && array_key_exists('from',$data['args']) 
@@ -63,7 +64,7 @@ class profilefield extends XiptAclBase
                 $fields = array_values($arr_field);     
     }
 
-    function checkAclAccesibility(&$data)
+    function checkAclApplicable(&$data)
     {
                 if('com_community' === $data['option'] 
                         && 'profile' === $data['view']
