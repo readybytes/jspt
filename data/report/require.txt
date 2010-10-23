@@ -1,5 +1,5 @@
-../packages/tmp/languages/admin/en-GB.com_xipt.ini:292:ITEMS REQUIRE AUTO APPROVAL=%s Item require Auto Approval
-../packages/tmp/languages/admin/en-GB.com_xipt.ini:293:ITEMS REQUIRE ADMIN APPROVAL=%s Item require Admin Approval
+../packages/tmp/languages/admin/en-GB.com_xipt.ini:293:ITEMS REQUIRE AUTO APPROVAL=%s Item require Auto Approval
+../packages/tmp/languages/admin/en-GB.com_xipt.ini:294:ITEMS REQUIRE ADMIN APPROVAL=%s Item require Admin Approval
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:9:// include joomla plugin framework
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:20:$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:55:	 * This function require to protect deletion of
@@ -13,7 +13,6 @@
 ../packages/tmp/admin/controllers/profiletypes.php:103:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 ../packages/tmp/admin/includes.php:19:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/admin/includes.php:24:// include JomSocial files
-../packages/tmp/admin/views/setup/tmpl/helpPanel.php:13:		  <li> JSPT system require at least one profile type to be added </li>
 ../packages/tmp/admin/views/configuration/tmpl/default_edit.php:15:					<?php require_once( $this->jsConfigPath . DS . 'registrations.php' ); ?>
 ../packages/tmp/admin/views/configuration/tmpl/default_edit.php:16:					<?php require_once( $this->jsConfigPath . DS . 'reportings.php' ); ?>
 ../packages/tmp/admin/views/configuration/tmpl/default_edit.php:17:					<?php require_once( $this->jsConfigPath  . DS . 'messaging.php' ); ?>
@@ -29,7 +28,7 @@
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:47:		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/admin/hacks/front_libraries_fields_profiletypes.php:9:require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/admin/hacks/front_libraries_fields_templates.php:10:require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-../packages/tmp/site/libraries/base/controller.php:123:			include_once(XIPT_ADMIN_PATH_VIEWS.DS.'cpanel'.DS.'tmpl'.DS.'default_footermenu.php');
+../packages/tmp/site/libraries/base/controller.php:105:			include_once(XIPT_ADMIN_PATH_VIEWS.DS.'cpanel'.DS.'tmpl'.DS.'default_footermenu.php');
 ../packages/tmp/site/libraries/base/html/grid.php:11:require_once JPATH_LIBRARIES.DS.'joomla'.DS.'html'.DS.'html' . DS . 'grid.php';
 ../packages/tmp/site/libraries/base/route.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt' .DS. 'router.php';
 ../packages/tmp/site/libraries/base/html.php:17:	 * Additional include paths are also able to be specified for third-party use
@@ -37,12 +36,12 @@
 ../packages/tmp/site/libraries/lib/pluginhandler.php:12:// include files, as we are here from plugin
 ../packages/tmp/site/libraries/lib/pluginhandler.php:14:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/site/libraries/setup/base.php:37:		include_once($msgFile);
-../packages/tmp/site/libraries/setup/rule/createprofiletypes.html:2:	  <li> JSPT system require at least one profile type to be added </li>
+../packages/tmp/site/libraries/setup/rule/createprofiletypes.html:2:	  <li> JSPT system require at least one profile type to be added. </li>
 ../packages/tmp/site/libraries/setup/rule/patchfiles.php:39:	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/site/libraries/setup/rule/patchfiles.php:57:			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/site/libraries/setup/rule/patchfiles.php:89:			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-../packages/tmp/site/libraries/acl/factory.php:58:		require_once $path;
-../packages/tmp/site/libraries/acl/helper.php:240:		//is this require to check if viewuserid and userid is same
+../packages/tmp/site/libraries/acl/factory.php:51:		require_once $path;
+../packages/tmp/site/libraries/acl/helper.php:121:		include_once($msgFile);
 ../packages/tmp/site/includes.php:14:// include JomSocial files
 ../packages/tmp/site/includes.php:20:// require_once defines.php
 ../packages/tmp/site/includes.php:21:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';

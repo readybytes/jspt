@@ -76,8 +76,8 @@ class XiptViewAclRules extends XiptView
 		//call htmlrender fn
 		$aclObject = XiptAclFactory::getAclObject($data['aclname']);
 		$aclObject->bind($data);
-		$xmlRule = XiptAclHelper::getRuleXmlData($data['aclname']);
-		$this->assign('xmlRule', $xmlRule);
+		$helpMsg = XiptAclHelper::getHelpMessage($data['aclname']);
+		$this->assign('helpMsg', $helpMsg);
 		$this->assignRef('coreParamsHtml',	$aclObject->getCoreParamsHtml());
 		$this->assignRef('aclParamsHtml',	$aclObject->getAclParamsHtml());
 		$this->assign('aclruleInfo',$data);

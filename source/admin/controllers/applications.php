@@ -22,7 +22,7 @@ class XiptControllerApplications extends XiptController
 			$post	= JRequest::get('post');	
 			
 		$aid 	  	 = isset($post['id'])? $post['id'] : 0;		
-		$otherAid 	 = isset($post['appId'])? $post['appId'] : array(); 
+		$otherAid 	 = isset($post['appIds'])? $post['appIds'] : array(); 
 		$appPtype	 = isset($post['profileTypes'])? $post['profileTypes'] : array();
 		$allTypes 	 = XiptHelperProfiletypes::getProfileTypeArray();
 		$model 		 = $this->getModel();

@@ -57,4 +57,24 @@ class XiptApplicationsControllerTest extends XiUnitTestCase
   	$this->_DBO->filterColumn('#__xipt_applications', 'id');
   }
  
+ function testCopySettings()
+  {
+  	$controller = new XiptControllerApplications();
+  	
+  	#case 1:  apply this setting to 101 and 102 apps also 
+  	$data = array('id'=>100);
+  	$data['profileTypes']=array(1,4);
+  	$data['appIds'] = array(101,102);  	
+  	$controller->save($data);
+  	
+  	#case : 4 Update Existing records 
+  	$data = array('id'=>100);
+  	$data['profileTypes']=array(4,3);
+  	$data['appIds'] = array(100);	
+  	$controller->save($data);  	
+
+  	$this->_DBO->addTable('#__xipt_applications');
+  	$this->_DBO->filterOrder('#__xipt_applications', 'profiletype');
+  	$this->_DBO->filterColumn('#__xipt_applications', 'id');
+  }
 }

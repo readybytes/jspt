@@ -111,15 +111,17 @@ class XiptAclHelper
 	}
 	
 	// XITODO : test case
-	function getRuleXmlData($aclName)
+	function getHelpMessage($aclName)
 	{
-		$orderedRules = self::getOrderedRules();
-		foreach($orderedRules['groups'] as $group){
-			foreach($orderedRules['rules'][$group['name']] as $rule)
-				if($rule['name'] == $aclName)
-					return $rule; 
-		}
-
-		return false;
+		$msgFile = dirname(__FILE__).DS.$aclName.DS.'help.html';
+		if(!JFile::exists($msgFile))
+			return false;
+			
+		ob_start();
+		include_once($msgFile);
+		$content = ob_get_contents();
+		ob_end_clean();
+		
+		return $content;
 	}
 }

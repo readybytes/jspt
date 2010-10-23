@@ -67,7 +67,7 @@ jQuery(document).ready(function($){
 	
 	<div id="xiptOtherApps">
 		<?php foreach($this->fields as $field) : ?>
-			<input type="checkbox" name="appId[]" value="<?php echo $field->id;?>"><?php echo $field->name;?>
+			<input type="checkbox" name="appIds[]" value="<?php echo $field->id;?>"><?php echo $field->name;?>
 			<div class='clr'></div>
 		<?php endforeach;?> 
 	</div>

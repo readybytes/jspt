@@ -54,4 +54,30 @@ class XiptProfilefieldsControllerTest extends XiUnitTestCase
   	$this->_DBO->filterColumn('#__xipt_profilefields', 'id');
   }
  
+   function testCopySettings()
+   {
+   		$controller = new XiptControllerProfilefields();
+   		
+   		#case 1: copy to 5 => 2,4
+	  	$data = array('id'=>5);  	
+		$data['allowedProfileTypes'] 		= array(1);	
+		$data['requiredProfileTypes'] 		= array(1);
+		$data['visibleProfileTypes'] 		= array(1);		
+		$data['editableAfterRegProfileTypes'] = array(1);
+		$data['fieldIds'] = array(2,4);	
+		$controller->save($data);
+		
+   		#case 1: copy to 5 => 2,5
+	  	$data = array('id'=>5);  	
+		$data['allowedProfileTypes'] 		= array(2);	
+		$data['requiredProfileTypes'] 		= array(2);
+		$data['visibleProfileTypes'] 		= array(2);		
+		$data['editableAfterRegProfileTypes'] = array(2);
+		$data['fieldIds'] = array(2,5);	
+		$controller->save($data);	
+		
+		$this->_DBO->addTable('#__xipt_profilefields');
+  		$this->_DBO->filterOrder('#__xipt_profilefields', 'pid');
+  		$this->_DBO->filterColumn('#__xipt_profilefields', 'id');
+   }
 }

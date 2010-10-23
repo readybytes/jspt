@@ -85,12 +85,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 		?>
 	</fieldset>
 	<br />
-	<?php if(isset($this->xmlRule['example']) && isset($this->xmlRule['title'])) :?>	
+	<?php if($this->helpMsg) :?>	
 		<fieldset class="adminform">
 		<legend><?php echo JText::_('EXAMPLE'); ?></legend>
-		<div style=" background-color:#F9F9F9; padding:5px;"> 
-			<h3 > <?php echo $this->xmlRule['title']; ?> </h3>
-			<?php echo $this->xmlRule['example']; ?>
+		<div style=" background-color:#F9F9F9; padding:5px;">			
+			<?php echo $this->helpMsg; ?>
 		</div>						
 		</fieldset>
 	
