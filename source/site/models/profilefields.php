@@ -28,7 +28,6 @@ class XiptModelProfilefields extends XiptModel
     //call fn to update fields during registration
 	function getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from, $notSelectedFields= null)
 	{
-		global $mainframe;
 		if(empty($selectedProfiletypeID)){
 		    XiptError::raiseError('XIPT_ERROR','XIPT SYSTEM ERROR');
 			return false;
@@ -73,7 +72,7 @@ class XiptModelProfilefields extends XiptModel
 			if(in_array($fieldId, $notSelectedFields['VISIBLE']) &&  $from==='getViewableProfile')
 				unset($fields[$i]);
 						
-			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && $mainframe->isAdmin()==false)
+			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && JFactory::getApplication()->isAdmin()==false)
 				unset($fields[$i]);
 
 			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile')

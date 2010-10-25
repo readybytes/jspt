@@ -23,7 +23,7 @@ class plgSystemxipt_system extends JPlugin
 	var $_eventPreText = 'event_';
 	private $_pluginHandler;
 		
-	function plgSystemxipt_system( $subject, $params )
+	function __construct( $subject, $params )
 	{
 		parent::__construct( $subject, $params );
 		$this->_pluginHandler = XiptFactory::getPluginHandler();
@@ -68,6 +68,7 @@ class plgSystemxipt_system extends JPlugin
 	 */
 	function onAfterStoreUser($properties,$isNew,$result,$error)
 	{
+		// we only store new users
 		if($isNew == false || $result == false || $error == true) {
 			$this->_pluginHandler->cleanRegistrationSession();
 			return true;
@@ -94,12 +95,12 @@ class plgSystemxipt_system extends JPlugin
 	function onBeforeProfileTypeSelection()
 	{
 		// if user comes from genaral registration link then return
-		$ptypeid = JRequest::getVar('ptypeid',0,'GET');
+		$ptypeid = JRequest::getVar('ptypeid',0);
 		
 		// if user comes from a direct link (with profile type selected) 
 		// the reset will be false or does not exist	
 		// if user comes for selecting profile type again then reset is true
-		$reset = JRequest::getVar('reset',false,'GET');
+		$reset = JRequest::getVar('reset',false);
 
 		if($ptypeid == 0 || $reset)
 			return true;
@@ -112,7 +113,7 @@ class plgSystemxipt_system extends JPlugin
 	function onAfterProfileTypeSelection($ptypeid)
 	{
 		// set the profile type in session
-		XiptHelperProfiletypes::setProfileTypeInSession($ptypeid);	
+		return XiptHelperProfiletypes::setProfileTypeInSession($ptypeid);	
 	}
 	
 	/* 
@@ -163,7 +164,7 @@ class plgSystemxipt_system extends JPlugin
 	    // check AEC exist or not 
 	    // AND check JSPT is integrated with AEC or not
 	    if(!$aecExists || !$integrateAEC)
-	        return;
+	        return false;
 
 	    // find selected profiletype from AEC
 	    $aecData = XiptLibAec::getProfiletypeInfoFromAEC();
@@ -177,6 +178,8 @@ class plgSystemxipt_system extends JPlugin
 	    // set selected profiletype in session
 	    $this->_pluginHandler->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
 	    $app->redirect(XiptHelperJomsocial::getReturnURL());
+	    
+	    return true;
 	}	
 	
 	// $userInfo ia an array and contains contains
