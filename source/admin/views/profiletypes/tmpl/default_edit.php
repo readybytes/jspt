@@ -48,8 +48,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 					<table width="100%">
 						<tr>
 							<td class="key">
-							<label class="hasTip" title="<?php echo JText::_('NAME'); ?>::<?php echo JText::_('PTYPE NAME.DESC'); ?>">
-							<?php echo JText::_('NAME'); ?>
+							<label class="hasTip" title="<?php echo JText::_('TITLE'); ?>::<?php echo JText::_('PTYPE TITLE.DESC'); ?>">
+							<?php echo JText::_('TITLE'); ?>
 							</label>	
 							<td>
 								<input type="text" value="<?php echo $this->data->name;?>" name="name" />
