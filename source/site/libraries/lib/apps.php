@@ -46,7 +46,7 @@ class XiptLibApps
 //			return $result[$profiletype];
 
     	$tempResult = XiptFactory::getInstance('applications', 'model')
-    								->loadRecords();		
+    								->loadRecords(0);		
 				
 		foreach($tempResult as $temp)
 			$result[$temp->profiletype][] = $temp->applicationid;

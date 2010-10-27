@@ -10,7 +10,7 @@ class XiptAclFactory
 {
 	public function getAclRulesInfo($filter='',$join='AND')
 	{		 
-		$records 	= XiptFactory::getInstance('aclrules', 'model')->loadRecords();
+		$records 	= XiptFactory::getInstance('aclrules', 'model')->loadRecords(0);
 		
 		if(empty($filter))
 			return $records;

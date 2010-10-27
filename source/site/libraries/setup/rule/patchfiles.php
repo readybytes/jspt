@@ -210,7 +210,9 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	
 	function isAdminUserModelPatchRequired()
 	{
-		// return false;
+		// no need to pacth the admin user model in jspt 2.0
+		if(JString::stristr(XiptHelperJomsocial::get_js_version(),2.0)) return false;
+
 		// we need to patch User Model
 		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
 		if (JFile::exists($filename)) {

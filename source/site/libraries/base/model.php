@@ -268,7 +268,7 @@ abstract class XiptModel extends JModel
 	
 	function loadParams($id, $what='')
 	{		
-		$record = $this->loadRecords();
+		$record = $this->loadRecords(0);
 		
 		$xmlPath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.JString::strtolower($this->getName().".$what.xml");
 		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");

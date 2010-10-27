@@ -71,7 +71,7 @@ class XiptModelProfiletypes extends XiptModel
 		if( isset($this->_params[$id])&& $reset == false)
 			return $this->_params[$id]; 		
 		
-		$record = $this->loadRecords();
+		$record = $this->loadRecords(0);
 		
 		// if config not found from tabale then load default config of jom social
 		if(!isset($record[$id]->params) || empty($record[$id]->params))

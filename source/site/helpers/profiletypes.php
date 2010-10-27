@@ -112,7 +112,7 @@ class XiptHelperProfiletypes
 		if($id==0)
 			return $data[$what]['value'];
 		
-		$val = XiptFactory::getInstance('profiletypes','model')->loadRecords();
+		$val = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
 		if(!$val)
 			return $data[$what]['value'];
 
@@ -135,7 +135,7 @@ class XiptHelperProfiletypes
 
 	function getProfileTypeArray($isAllReq = false, $isNoneReq= false)
 	{
-		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords();
+		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
 		
 		// results will be indexed accroding to id
 		// only get the keys

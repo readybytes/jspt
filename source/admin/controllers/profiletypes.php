@@ -57,7 +57,8 @@ class XiptControllerProfiletypes extends XiptController
 			
 		$model = $this->getModel();
 		//for Reset we will save old Data
-		$allData = $model->loadRecords();
+		// give 0 in loadRecords so that all records will be loaded
+		$allData = $model->loadRecords(0);
 		if(isset($allData[$id]))
 			$oldData = $allData[$id];
 		
@@ -80,7 +81,7 @@ class XiptControllerProfiletypes extends XiptController
 		$image = $this->_saveWatermark($id);
 		
 		//XITODO : Ensure data is reloaded, not cached
-		$newData = $model->loadRecords();
+		$newData = $model->loadRecords(0);
 		$newData = $newData[$id];
 		//to reset privacy of users need to load from loadParams
 		$newData->privacy = $model->loadParams($id,'privacy');		
@@ -185,7 +186,7 @@ class XiptControllerProfiletypes extends XiptController
 		$model = $this->getModel();
 
 		//Collect Newly saved data
-		$newData = $model->loadRecords();
+		$newData = $model->loadRecords(0);
 		$newData = $newData[$id];
 		
 		$config = new JParameter('','');

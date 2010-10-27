@@ -212,7 +212,7 @@ class XiptLibProfiletypes
 	function getProfiletypeArray($filter='')
 	{
 		//XITODO : we need to add $visible pTypes as per request.move this to model, implement WHERE
-		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords();
+		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
 		
 		if(empty($filter))
 			return $results;
@@ -273,7 +273,7 @@ class XiptLibProfiletypes
 	    }
 			
 		if($userid >= 62)	
-			$results = XiptFactory::getInstance('users','model')->loadRecords();   
+			$results = XiptFactory::getInstance('users','model')->loadRecords(0);   
 				
 		// not a valid result OR value not set
 		if(!$results || isset($results[$userid]) === false){
@@ -305,7 +305,7 @@ class XiptLibProfiletypes
 	// returns all user of profiletype
 	function getAllUsers($pid)
 	{
-		$results 	  = XiptFactory::getInstance('users', 'model')->loadRecords();
+		$results 	  = XiptFactory::getInstance('users', 'model')->loadRecords(0);
 		$defaultPtype = self::getDefaultProfiletype();
 		
 		$defaultPtypeCheck = $pid;
@@ -363,7 +363,7 @@ class XiptLibProfiletypes
 		{
 			$searchFor 	= 'avatar';
 			$allAvatars = array();
-			$records = XiptFactory::getInstance('profiletypes', 'model')->loadRecords();
+			$records = XiptFactory::getInstance('profiletypes', 'model')->loadRecords(0);
 			foreach($records as $record)
 				array_push($allAvatars, $record->$searchFor);
 				
