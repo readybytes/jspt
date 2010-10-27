@@ -33,4 +33,14 @@ class XiptProfiletypesModelTest extends XiUnitTestCase
 		
 		$this->_DBO->addTable('#__xipt_profiletypes');
 	}	
+	
+	function testResetUserAvatar()
+	{
+		$model 	= new XiptModelProfiletypes();
+		$model->resetUserAvatar(1,'components/com_community/assets/avatar1.jpg','components/com_community/assets/default.jpg','components/com_community/assets/avatar1_thumb.jpg');
+		$model->resetUserAvatar(2,'components/com_community/assets/avatar2.jpg','components/com_community/assets/default.jpg','components/com_community/assets/avatar2_thumb.jpg');
+		$model->resetUserAvatar(2,'components/com_community/assets/avatar22.jpg','components/com_community/assets/default1.jpg','components/com_community/assets/avatar22_thumb.jpg');
+		
+		$this->_DBO->addTable('#__community_users');
+	}
 }

@@ -14,7 +14,7 @@ $class	= 'XiptController' . JString::ucfirst( $controller );
 	
 // Test if the object really exists in the current context
 if(!class_exists($class, true))
-	XiptError::raiseError( 500 , 'Invalid Controller Object. Class definition does not exists in this context.' );
+	XiptError::raiseError(__CLASS__.'.'.__LINE__, sprintf(XiptText_("Invalid Controller Object. Class definition does not exists in this context."),$class));
 		
 $controller	= new $class();
 	

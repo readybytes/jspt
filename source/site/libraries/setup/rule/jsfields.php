@@ -34,7 +34,7 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 		if(isset($fields[PROFILETYPE_CUSTOM_FIELD_CODE])===false)
 			$pFieldCreated  = $this->createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
 			
-		$fieldEnabled = $this->_enableField();
+		$fieldEnabled = $this->_switchFieldState(1);;
 
 				
 		if($pFieldCreated && $tFieldCreated && $fieldEnabled)
@@ -45,32 +45,19 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 	
 	function doRevert()
 	{
-		$db			=& JFactory::getDBO();		
-		$query	= 'UPDATE ' . $db->nameQuote( '#__community_fields' )
-				. ' SET '.$db->nameQuote('published').'='.$db->Quote('0')
-	          	.' WHERE '.$db->nameQuote('type').'='.$db->Quote('profiletypes')
-	          	.' OR '.$db->nameQuote('type').'='.$db->Quote('templates');
-	
-		$db->setQuery($query);		
-		return $db->query();
+		return $this->_switchFieldState(0);
 	}
 	
 	//check existance of custom fields profiletype and template
 	function _checkExistance()
 	{
-		$db		= JFactory::getDBO();
-			
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__community_fields' ) . ' '
-				. ' WHERE '.$db->nameQuote('fieldcode').'='. $db->Quote(PROFILETYPE_CUSTOM_FIELD_CODE)
-				. ' OR '.$db->nameQuote('fieldcode').'='. $db->Quote(TEMPLATE_CUSTOM_FIELD_CODE);
-				
-		$db->setQuery( $query );
-		$results = $db->loadObjectList('fieldcode');
-		
-		if(!$results)
-			return false;
-			
-		return $results;
+		$query  = new XiptQuery();
+		return $query->select('*')
+					 ->from('#__community_fields')
+					 ->where(" fieldcode = '".PROFILETYPE_CUSTOM_FIELD_CODE."' ", 'OR')
+					 ->where(" fieldcode = '".TEMPLATE_CUSTOM_FIELD_CODE."' ")
+					 ->dbLoadQuery()
+					 ->loadObjectList('fieldcode');
 	}
 	
 	//create custome field
@@ -105,20 +92,15 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 	
 	
 	//enable template & profiletype fields in community_fields table
-	function _enableField()
+	function _switchFieldState($state)
 	{
-		$db		= JFactory::getDBO();
-			
-		$query	= 'UPDATE ' . $db->nameQuote( '#__community_fields' )
-				. ' SET '.$db->nameQuote('published').'='.$db->Quote('1')
-	          	. ' WHERE '.$db->nameQuote('type').'='. $db->Quote('profiletypes')
-				. ' OR '.$db->nameQuote('type').'='. $db->Quote('templates');
-
-		$db->setQuery($query);		
-		if(!$db->query())
-			return false;
-			
-		return true;
+		$query = new XiptQuery();
+		return $query->update('#__community_fields')
+					 ->set(" published = '$state' ")
+					 ->where(" type = 'profiletypes' ", 'OR')
+					 ->where(" type = 'templates' ")
+					 ->dbLoadQuery()
+					 ->query();					 
 	}
 	
 	

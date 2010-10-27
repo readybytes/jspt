@@ -108,18 +108,14 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			return $users;
 
 		$db 	= JFactory::getDBO();	
-		$query 	= ' SELECT `userid` FROM `#__community_users` ';
+		// XITODO : PUT into query Object
+		$xiptquery = ' SELECT `userid` FROM `#__xipt_users` ';
+		$query 	= ' SELECT `userid` FROM `#__community_users` '
+					.' WHERE `userid` NOT IN ('.$xiptquery.') ';
         			
 		$db->setQuery($query);
-		$commResult = $db->loadResultArray();
-		
-		$xiptquery = ' SELECT `userid` FROM `#__xipt_users` ';
+		$result = $db->loadResultArray();
 
-		$db->setQuery($xiptquery);
-		$xiptResult = $db->loadResultArray();
-		
-		$result = array_diff($commResult, $xiptResult);
-		
 		$query = ' SELECT `userid` FROM `#__xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `#__xipt_profiletypes` )';
 		$db->setQuery($query);
 		$userid = $db->loadResultArray();
@@ -139,14 +135,13 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		if(isset($results[$fieldcode]) && $reset == false)
 			return $results[$fieldcode]['id'];
 		
-		$db			= JFactory::getDBO();
-		$query		= 'SELECT * FROM '
-					. $db->nameQuote( '#__community_fields' );
-		
-		$db->setQuery( $query );
-		$results  = $db->loadAssocList('fieldcode');
+		$query = new XiptQuery();
+		$results = $query->select('*')
+						 ->from('#__community_fields')
+						 ->dbLoadQuery()
+						 ->loadAssocList('fieldcode');
+						 
 		if(array_key_exists($fieldcode, $results))
-			return $results[$fieldcode]['id'];
-		
+			return $results[$fieldcode]['id'];		
 	}
 }

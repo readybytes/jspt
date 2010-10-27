@@ -21,7 +21,7 @@ abstract class XiptView extends JView
 
 		$r = null;
 		if (!preg_match('/(.*)View/i', get_class($this), $r)) {
-			XiptError::raiseError (500, "XiView::getPrefix() : Can't get or parse class name.");
+			XiptError::raiseError (__CLASS__.'.'.__LINE__, "XiView::getPrefix() : Can't get or parse class name.");
 		}
 
 		$this->_prefix  =  JString::strtolower($r[1]);
@@ -41,7 +41,7 @@ abstract class XiptView extends JView
 		{
 			$r = null;
 			if (!preg_match('/View(.*)/i', get_class($this), $r)) {
-				XiptError::raiseError (500, "Can't get or parse class name.");
+				XiptError::raiseError (__CLASS__.'.'.__LINE__, "Can't get or parse class name.");
 			}
 			$name = strtolower( $r[1] );
 		}

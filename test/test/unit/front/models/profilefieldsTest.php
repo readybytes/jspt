@@ -201,4 +201,12 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   	$this->assertEquals($inputfields,$outputfields);
   	
   	}
+  	
+  	function testGetProfileTypes()
+  	{
+  		$model 	= new XiptModelProfilefields();
+  		$this->assertEquals($model->getProfileTypes(2,1), array(2,1));
+  		$this->assertEquals($model->getProfileTypes(3,0), array(1));
+  		$this->assertEquals($model->getProfileTypes(3,3), array());
+  	}
 }

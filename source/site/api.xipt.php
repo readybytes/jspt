@@ -63,13 +63,11 @@ class XiptAPI
 	        return $allPT;
 	        
 	    //return specfic array
-	    foreach($allPT as $pt)
-	        if($pt->id == $id)
-	        {
-	        	//return always an array
-	        	$retVal[] = $pt;
-	            return $retVal;
-	        }
+	    if(isset($allPT[$id])){
+	        //return always an array
+	        $retVal[] = $allPT[$id];
+	           return $retVal;
+	     }
 
 	    // invalid id 
 	    return null;  

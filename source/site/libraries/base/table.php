@@ -19,7 +19,7 @@ abstract class XiptTable extends JTable
 			
 		$r = null;
 		if (!preg_match('/Table(.*)/i', get_class($this), $r)) {
-			XiptError::raiseError (500, "XiTable : Can't get or parse class name.");
+			XiptError::raiseError (__CLASS__.'.'.__LINE__, "XiTable : Can't get or parse class name.");
 		}
 		$this->_name = strtolower( $r[1] );
 		
@@ -36,7 +36,7 @@ abstract class XiptTable extends JTable
 
 		$r = null;
 		if (!preg_match('/(.*)Table/i', get_class($this), $r)) {
-			XiError::raiseError (500, "XiModel::getName() : Can't get or parse class name.");
+			XiError::raiseError (__CLASS__.'.'.__LINE__, "XiModel::getName() : Can't get or parse class name.");
 		}
 
 		$this->_prefix  =  JString::strtolower($r[1]);
@@ -94,7 +94,7 @@ abstract class XiptTable extends JTable
 			
 		$tableName 	= $this->getTableName();
 		if(XiptHelperTable::isTableExist($tableName)===FALSE)
-			return XiptError::raiseError(500, XiptText::_("Table $this->_tbl does not exist"));
+			return XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("Table $this->_tbl does not exist"));
 			
 
 		$fields 		= $this->_db->getTableFields($tableName);

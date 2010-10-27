@@ -12,14 +12,14 @@ class XiptModelUsers extends XiptModel
 	{
 		if(isset($data)===false || count($data)<=0)
 		{			
-			XiptError::raiseError(500,XiptText::_("NO DATA TO SAVE"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("NO DATA TO SAVE IN USER TABLE.KINDLY RE-LOGIN AND RETRY TO SAVE DATA"));
 			return false;
 		}
 
 		//load the table row
 		$table = $this->getTable();
 		if(!$table){
-			XiptError::raiseError(500,XiptText::_("Table does not exist"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("TABLE DOES NOT EXIST"),$table));
 			return false;
 		}
 
@@ -30,7 +30,7 @@ class XiptModelUsers extends XiptModel
 			return true;
 
 		//some error occured
-		XiptError::raiseError(500, XiptText::_("NOT ABLE TO SAVE DATA"));
+		XiptError::raiseError(__CLASS__.'.'.__LINE__, sprintf(XiptText::_("NOT ABLE TO SAVE DATA IN TABLE.PLEASE RE-TRY"),$table));
 		return false;
 	}
 }

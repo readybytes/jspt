@@ -18,12 +18,12 @@ class XiptLibJomsocial
 //		if(isset($result[$fieldid]))
 //			return $result[$fieldid];
 			
-		$db		= JFactory::getDBO();
-		$query	= 'SELECT * FROM '
-				. $db->nameQuote( '#__community_fields' );
-		
-		$db->setQuery( $query );
-		$result	= $db->loadObjectList('id');
+		$query  = new XiptQuery();
+		$result = $query->select('*')
+						->from('#__community_fields')
+						->dbLoadQuery()
+						->loadObjectList('id');
+						
 		if($fieldid === 0)
 			return $result;
 			
@@ -40,13 +40,12 @@ class XiptLibJomsocial
 		//if(isset($results[$userid][$what]))
 		//	return $results[$userid][$what];
 
-		$db			= JFactory::getDBO();
-		$query		= 'SELECT * FROM '
-					. $db->nameQuote( '#__community_users' )
-					.' LIMIT 100';
-		
-		$db->setQuery( $query );
-		$results  = $db->loadAssocList('userid');
+		$query   = new XiptQuery();
+		$results = $query->select('*')
+						->from('#__community_users')
+						->limit(100)
+						->dbLoadQuery()
+						->loadAssocList('userid');						
 		
 		return $results[$userid][$what];
 	}
@@ -143,24 +142,27 @@ class XiptLibJomsocial
 
 	    // find the profiletype or template field
 	    // dont patch up the database.
-		$db		= JFactory::getDBO();
-		$query 	= 'SELECT * FROM `#__community_fields`'
-				 .' WHERE '.$db->nameQuote('fieldcode').'='.$db->Quote($what);
-		$db->setQuery( $query );
-		$res 	= $db->loadObject();
+	    $query   = new XiptQuery();
+		$res	 = $query->select('*')
+						->from('#__community_fields')
+						->where(" fieldcode = '$what' ")
+						->dbLoadQuery()
+						->loadObject();
 		
 		// skip these calls from backend
 		XiptHelperUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(XiptText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
 		$field_id = $res->id;
 		
 		//if row does not exist
-		$db		= JFactory::getDBO();
-		$query 	= ' SELECT * FROM '.$db->nameQuote('#__community_fields_values')
-				 .' WHERE ' .$db->nameQuote('user_id'). '='.$db->Quote($userId)
-				 .' AND '   .$db->nameQuote('field_id').'='.$db->Quote($field_id);
-		$db->setQuery( $query );
-		$res 	= $db->loadObject();
-
+		$query   = new XiptQuery();
+		$res	 = $query->select('*')
+						->from('#__community_fields_values')
+						->where(" user_id = $userId ", 'AND')
+						->where(" field_id = $field_id ")
+						->dbLoadQuery()
+						->loadObject();
+						
+		$db = JFactory::getDBO();
 		//record does not exist, insert it
 		if(!$res)
 		{
@@ -171,7 +173,7 @@ class XiptLibJomsocial
 			$db->insertObject('#__community_fields_values',$res,'id');
 			
 			if($db->getErrorNum()){
-					XiptError::raiseError( 500, $db->stderr());
+					XiptError::raiseError( __CLASS__.'.'.__LINE__, $db->stderr());
 			}
 			
 			return true;
@@ -184,7 +186,7 @@ class XiptLibJomsocial
 		$db->updateObject( '#__community_fields_values', $res, 'id');
 		
 		if($db->getErrorNum()){
-				XiptError::raiseError( 500, $db->stderr());
+				XiptError::raiseError(__CLASS__.'.'.__LINE__, $db->stderr());
 		}
 		
 		return true;
@@ -318,12 +320,16 @@ class XiptLibJomsocial
 	
 	function _isMemberOfGroup($userid, $groupid)
 	{
-		$db		= JFactory::getDBO();
-		$query	= " SELECT `memberid` FROM `#__community_groups_members` "
-  				. " WHERE `memberid`='".$userid."'   AND `groupid` IN ({$groupid})" 
-  				. " LIMIT 1";
-  		$db->setQuery($query);
-  		return $db->loadResult() ? true : false ;
+		$query  = new XiptQuery();
+		$result = $query->select('memberid')
+						->from('#__community_groups_members')
+						->where(" memberid = $userid ", 'AND')
+						->where(" groupid IN ( $groupid ) ")
+						->limit(1)
+						->dbLoadQuery()
+						->loadResult();				
+  		
+  		return $result ? true : false ;
 	}
 	
 	function _addUserToGroup( $userId , $groupIds)

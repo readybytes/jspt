@@ -49,7 +49,7 @@ class XiptLibImage
 			
 		//here check if folder exist or not. if not then create it.
 		if(JFolder::exists($path)==false && JFolder::create($path)===false){
-			XiptError::raiseError("XIPT-SYSTEM-ERROR","Folder [$path] does not exist. Even we are not able to create it. Please check file permission.");
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("Folder does not exist"), $path));
 			return false;
 		}
 			
@@ -61,7 +61,7 @@ class XiptLibImage
 		$img 			= 	ImageCreateTrueColor($this->width, $this->height);
 		
 	    if($img==false){
-            XiptError::raiseError("XIPT-SYSTEM-ERROR",'Image is not generated');
+            XiptError::raiseError(__CLASS__.'.'.__LINE__,'Image not generated. Re-Try');
 			return false;
         }
         
@@ -79,7 +79,7 @@ class XiptLibImage
 		imagettftext($img, $this->fontSize, 0, $x, $y, $Ctextcolor, $this->fontName, $this->text);
 		
 		if($img==false){
-            XiptError::raiseError("XIPT-SYSTEM-ERROR",'Image is not generated');
+            XiptError::raiseError(__CLASS__.'.'.__LINE__,'Image is not generated. Re-Try');
 			return false;
         }
         

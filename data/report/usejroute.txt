@@ -53,7 +53,7 @@
 ../packages/tmp/site/libraries/setup/rule/xiptplugin.php:55:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=xiptplugin",false);
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:76:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:90:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers",false);
-../packages/tmp/site/libraries/setup/rule/jsfields.php:130:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=jsfields",false);
+../packages/tmp/site/libraries/setup/rule/jsfields.php:112:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=jsfields",false);
 ../packages/tmp/site/libraries/setup/rule/aecmi.php:44:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=aecmi",false);
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:23: 		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=settings", false));
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:31:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=defaultprofiletype",false);

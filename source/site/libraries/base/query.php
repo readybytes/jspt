@@ -331,8 +331,11 @@ class XiptQuery
 	
 	public function limit($limit=0, $offset=0)
 	{
-		$this->_limit 	= $limit;
-		$this->_offset 	= $offset;
+		//IMP : Do not apply limit if it is Zero
+		if($limit !=0 ){
+			$this->_limit 	= $limit;
+			$this->_offset 	= $offset;
+		}
 		return $this;
 	}
 	

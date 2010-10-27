@@ -51,10 +51,10 @@ class JElementProfiletypes extends JElement
 			$html	.= '<option value="' . -1 . '"' . $selected . '>' . XiptText::_("NONE") . '</option>';
 		}
 		
-		for( $i = 0; $i < count( $options ); $i++ )
+		foreach($options as $op)
 		{
-		    $option		= $options[ $i ]->name;
-			$id			= $options[ $i ]->id;
+		    $option		= $op->name;
+			$id			= $op->id;
 		    
 		    $selected	= ( JString::trim($id) == $value ) ? ' selected="true"' : '';
 			$html	.= '<option value="' . $id . '"' . $selected . '>' . $option . '</option>';

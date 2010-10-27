@@ -82,11 +82,11 @@ class XiptapiTest extends XiUnitTestCase
 	    $obj2->visible 			= 1;
 	    $obj2->config 			= '';
 	     
-		$result = array($obj2, $obj1);
+		$result = array(2=>$obj2, 1=>$obj1);
 		$this->assertEquals(XiptAPI::getProfiletypeInfo(), $result);
 		
 		//#case 3:When PT id is < 0 , return all PTs info
-		$result = array($obj2, $obj1);
+		$result = array(2=>$obj2, 1=>$obj1);
 		$this->assertEquals(XiptAPI::getProfiletypeInfo(), $result);
 		
 		//#case 4:When PT id is given , return specific PT's info

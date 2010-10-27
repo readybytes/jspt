@@ -149,7 +149,7 @@ class XiptHelperInstall
 			$db->query();
 
 			if($db->getErrorNum()){
-				JError::raiseError( 500, $db->stderr());
+				JError::raiseError(__CLASS__.'.'.__LINE__, $db->stderr());
 				return false;
 			}
 		}
@@ -245,7 +245,7 @@ class XiptHelperInstall
 		$columns	= $db->loadObjectList();
 		if($db->getErrorNum())
 		{
-			JError::raiseError( 500, $db->stderr());
+			JError::raiseError(__CLASS__.'.'.__LINE__, $db->stderr());
 			return false;
 		}
 
@@ -306,7 +306,7 @@ class XiptHelperInstall
 		$columns = $db->loadObjectList();
 
 		if($db->getErrorNum()){
-			JError::raiseError( 500, $db->stderr());
+			JError::raiseError(__CLASS__.'.'.__LINE__, $db->stderr());
 			return false;
 		}
 

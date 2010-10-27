@@ -17,25 +17,29 @@
 ../packages/tmp/site/libraries/base/error.php:11:	//XITODO : add assertError. assertWarn, assertMessage function
 ../packages/tmp/site/libraries/base/model.php:181:		//XITODO assert for $pk
 ../packages/tmp/site/libraries/base/model.php:197:	 * XITODO Method to order rows.
-../packages/tmp/site/libraries/base/query.php:421:		//XITODO : Add limit and limitstart support in query class
+../packages/tmp/site/libraries/base/query.php:424:		//XITODO : Add limit and limitstart support in query class
 ../packages/tmp/site/libraries/lib/pluginhandler.php:136:				    //XITODO : Remove it and add assert
 ../packages/tmp/site/libraries/lib/pluginhandler.php:235:		//XITODO : check is setup required 
-../packages/tmp/site/libraries/lib/profiletypes.php:214:		//XITODO : we need to add $visible pTypes as per request.move this to model
-../packages/tmp/site/libraries/lib/profiletypes.php:249:	//XITODO : move to user model
+../packages/tmp/site/libraries/lib/profiletypes.php:214:		//XITODO : we need to add $visible pTypes as per request.move this to model, implement WHERE
+../packages/tmp/site/libraries/lib/profiletypes.php:239:	//XITODO : move to user model
+../packages/tmp/site/libraries/lib/profiletypes.php:244:		//XITODO : Instead of clean, use function call to caching function
 ../packages/tmp/site/libraries/lib/jomsocial.php:39:		//XITODO : carefully apply caching
-../packages/tmp/site/libraries/lib/jomsocial.php:205:		//	XITODO : format it in proper way
+../packages/tmp/site/libraries/lib/jomsocial.php:207:		//	XITODO : format it in proper way
 ../packages/tmp/site/libraries/lib/image.php:46:		//XITODO : move to XiptError::assert()
 ../packages/tmp/site/libraries/setup/base.php:34:		// XITODO : handle errors 
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:111:		// XITODO : PUT into query Object
 ../packages/tmp/site/libraries/acl/base.php:34:		//XITODO : CREATE INI FILE
 ../packages/tmp/site/libraries/acl/base.php:204://XITODO: cleanup
 ../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:41:		/*XITODO : we will expect that vie task and should be given
 ../packages/tmp/site/libraries/acl/addasfriends/addasfriends.php:33:		// XITODO : change this query into object
-../packages/tmp/site/libraries/acl/helper.php:88:	//XITODO : Apply caching
-../packages/tmp/site/libraries/acl/helper.php:113:	// XITODO : test case
+../packages/tmp/site/libraries/acl/helper.php:89:	//XITODO : Apply caching
+../packages/tmp/site/libraries/acl/helper.php:114:	// XITODO : test case
 ../packages/tmp/site/libraries/acl/createvent/createvent.php:42:		// XITODO : use pattern ( return false in below conditiion)
+../packages/tmp/site/models/profilefields.php:28:    // XITODO : move this function to helper or library
+../packages/tmp/site/models/profilefields.php:86:		//XITODO : Implement WHERE in load records
 ../packages/tmp/site/models/profiletypes.php:50:		// XITODO : move this to controller
 ../packages/tmp/site/models/profiletypes.php:57:		//XITODO : bind params 
-../packages/tmp/site/models/profiletypes.php:109:			// XITODO : need to improve
+../packages/tmp/site/models/profiletypes.php:103:			// XITODO : Change IN query to sub query
 ../packages/tmp/site/helpers/apps.php:58:			// XITODO : improve following condition
 ../packages/tmp/site/helpers/registration.php:24:		//XITODO : we will remove this when aec support fbc
 ../packages/tmp/site/helpers/registration.php:68:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array

@@ -16,7 +16,7 @@ abstract class XiptController extends JController
 
 		$r = null;
 		if (!preg_match('/(.*)Controller/i', get_class($this), $r)) {
-			XiError::raiseError (500, "XiptController::getName() : Can't get or parse class name.");
+			XiError::raiseError (__CLASS__.'.'.__LINE__, "XiptController::getName() : Can't get or parse class name.");
 		}
 
 		$this->_prefix  =  JString::strtolower($r[1]);
@@ -31,7 +31,7 @@ abstract class XiptController extends JController
 		{
 			$r = null;
 			if (!preg_match('/Controller(.*)/i', get_class($this), $r)) {
-				XiptError::raiseError (500, "XiusController : Can't get or parse class name.");
+				XiptError::raiseError (__CLASS__.'.'.__LINE__, "XiusController : Can't get or parse class name.");
 			}
 			$name = strtolower( $r[1] );
 		}
@@ -134,7 +134,7 @@ abstract class XiptController extends JController
 		foreach ($cids as $cid)
 		{
 			if(!$this->_doBool($column, $value, $cid))
-				XiptError::raiseError(500,XiptText::_("ERROR IN REODERRING ITEMS"));
+				XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("ERROR IN REORDERING ITEMS"));
 		}
 
 		//redirect now

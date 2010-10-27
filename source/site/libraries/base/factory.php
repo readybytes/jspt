@@ -27,7 +27,7 @@ class XiptFactory
 		//if class doesn't exist, raise error
 		if(class_exists($classname, true)===false)
 		{
-			XiptError::raiseError(500,XiptText::_("Class $className not found"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("Class not found"),$className));
 			return false;
 		}	
 		
@@ -56,7 +56,7 @@ class XiptFactory
 		// and also try auto-load class if it can
 		if(class_exists($className, true)===false)
 		{
-			XiptError::raiseError(500,XiptText::_("Class $className not found"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("Class not found"),$className));
 			return false;
 		}
 

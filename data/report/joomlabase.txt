@@ -3,8 +3,8 @@
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:142:		$selfUserid    = JFactory::getUser()->id;
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:186:		if(JFactory::getApplication()->isAdmin())
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:35:		$app = JFactory::getApplication();
-../packages/tmp/install/extensions/xipt_system/xipt_system.php:143:			JFactory::getApplication()->redirect($link);
-../packages/tmp/install/extensions/xipt_system/xipt_system.php:170:		$app	 = JFactory::getApplication();
+../packages/tmp/install/extensions/xipt_system/xipt_system.php:144:			JFactory::getApplication()->redirect($link);
+../packages/tmp/install/extensions/xipt_system/xipt_system.php:171:		$app	 = JFactory::getApplication();
 ../packages/tmp/install/helper.php:94:			JFactory::getApplication()->enqueueMessage($msg);
 ../packages/tmp/install/helper.php:103:		$db		= JFactory::getDBO();
 ../packages/tmp/install/helper.php:145:	    $db	= JFactory::getDBO();
@@ -44,7 +44,7 @@
 ../packages/tmp/site/libraries/base/controller.php:10:abstract class XiptController extends JController
 ../packages/tmp/site/libraries/base/controller.php:104:		if(JFactory::getApplication()->isAdmin() == true)		
 ../packages/tmp/site/libraries/base/html/grid.php:33:		$user   =& JFactory::getUser();
-../packages/tmp/site/libraries/base/query.php:422:		$db = JFactory::getDBO();
+../packages/tmp/site/libraries/base/query.php:425:		$db = JFactory::getDBO();
 ../packages/tmp/site/libraries/base/route.php:10:class XiptRoute extends JRoute
 ../packages/tmp/site/libraries/base/route.php:34:		$config =& JFactory::getConfig();
 ../packages/tmp/site/libraries/base/route.php:36:		if(JFactory::getApplication()->isAdmin())
@@ -52,28 +52,17 @@
 ../packages/tmp/site/libraries/lib/pluginhandler.php:29:		$this->mySess    =  JFactory::getSession();
 ../packages/tmp/site/libraries/lib/pluginhandler.php:134:					$my	= JFactory::getUser();
 ../packages/tmp/site/libraries/lib/pluginhandler.php:236:		$mysess =  JFactory::getSession();
-../packages/tmp/site/libraries/lib/profiletypes.php:215:		$db			= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/profiletypes.php:289:		    $db		= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/profiletypes.php:320:		$cache =  JFactory::getCache('com_xipt');
-../packages/tmp/site/libraries/lib/profiletypes.php:334:		$db	= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/profiletypes.php:396:			$db			= JFactory::getDBO();
+../packages/tmp/site/libraries/lib/profiletypes.php:294:		$cache =  JFactory::getCache('com_xipt');
 ../packages/tmp/site/libraries/lib/joomla.php:14:	function getJUserTypes()
-../packages/tmp/site/libraries/lib/jomsocial.php:21:		$db		= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:43:		$db			= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:69:		$authorize		= JFactory::getACL();
-../packages/tmp/site/libraries/lib/jomsocial.php:92:		if(JFactory::getApplication()->isAdmin())
-../packages/tmp/site/libraries/lib/jomsocial.php:95:		$loggedInUser = JFactory::getUser($userId);
-../packages/tmp/site/libraries/lib/jomsocial.php:146:		$db		= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:157:		$db		= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:321:		$db		= JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:346:			$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:347:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:378:		$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:396:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:68:		$authorize		= JFactory::getACL();
+../packages/tmp/site/libraries/lib/jomsocial.php:91:		if(JFactory::getApplication()->isAdmin())
+../packages/tmp/site/libraries/lib/jomsocial.php:94:		$loggedInUser = JFactory::getUser($userId);
+../packages/tmp/site/libraries/lib/jomsocial.php:165:		$db = JFactory::getDBO();
+../packages/tmp/site/libraries/lib/jomsocial.php:352:			$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:353:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:384:		$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:402:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
 ../packages/tmp/site/libraries/lib/aec.php:23:		$mySess 		= JFactory::getSession();
-../packages/tmp/site/libraries/lib/aec.php:70:		$db    = JFactory::getDBO();
-../packages/tmp/site/libraries/lib/aec.php:134:		$db    = JFactory::getDBO();
-../packages/tmp/site/libraries/lib/aec.php:147:		$db    = JFactory::getDBO();
 ../packages/tmp/site/libraries/setup/helper.php:13:		$parser		= JFactory::getXMLParser('Simple');
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:17:			global $mainframe;
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:18:			$mainframe->enqueueMessage(XiptText::_("FIRST SELECT THE DEFAULT PROFILE TYPE"));
@@ -81,22 +70,17 @@
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:76:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:80:		$mainframe->enqueueMessage($msg);
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:110:		$db 	= JFactory::getDBO();	
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:142:		$db			= JFactory::getDBO();
-../packages/tmp/site/libraries/setup/rule/jsfields.php:48:		$db			=& JFactory::getDBO();		
-../packages/tmp/site/libraries/setup/rule/jsfields.php:61:		$db		= JFactory::getDBO();
-../packages/tmp/site/libraries/setup/rule/jsfields.php:79:		// Load the JTable Object.
-../packages/tmp/site/libraries/setup/rule/jsfields.php:80:		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'tables');
-../packages/tmp/site/libraries/setup/rule/jsfields.php:81:		$row	= JTable::getInstance( 'profiles' , 'CommunityTable' );
-../packages/tmp/site/libraries/setup/rule/jsfields.php:110:		$db		= JFactory::getDBO();
+../packages/tmp/site/libraries/setup/rule/jsfields.php:66:		// Load the JTable Object.
+../packages/tmp/site/libraries/setup/rule/jsfields.php:67:		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'tables');
+../packages/tmp/site/libraries/setup/rule/jsfields.php:68:		$row	= JTable::getInstance( 'profiles' , 'CommunityTable' );
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:23: 		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=settings", false));
 ../packages/tmp/site/libraries/setup/rule/createprofiletypes.php:22:		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit", false));
 ../packages/tmp/site/libraries/acl/base.php:191:		JFactory::getApplication()->redirect(XiptRoute::_($redirectUrl,false),$msg);
 ../packages/tmp/site/libraries/acl/addasfriends/addasfriends.php:34:		$db		= JFactory::getDBO();
 ../packages/tmp/site/libraries/acl/aecredirect/aecredirect.php:38:		$user=JFactory::getUser();
-../packages/tmp/site/libraries/acl/helper.php:13:		$db 		= & JFactory::getDBO();
-../packages/tmp/site/libraries/acl/helper.php:25:		$userId 		= JFactory::getUser()->id;
-../packages/tmp/site/libraries/acl/helper.php:46:        	$userId  = JFactory::getSession()->get('tmpUser','')->id;
-../packages/tmp/site/libraries/acl/helper.php:92:		$parser		= JFactory::getXMLParser('Simple');
+../packages/tmp/site/libraries/acl/helper.php:26:		$userId 		= JFactory::getUser()->id;
+../packages/tmp/site/libraries/acl/helper.php:47:        	$userId  = JFactory::getSession()->get('tmpUser','')->id;
+../packages/tmp/site/libraries/acl/helper.php:93:		$parser		= JFactory::getXMLParser('Simple');
 ../packages/tmp/site/libraries/acl/writemessages/writemessages.php:52:		$db			=& JFactory::getDBO();
 ../packages/tmp/site/libraries/acl/writemessages/writemessages.php:112:				$db			=& JFactory::getDBO();
 ../packages/tmp/site/libraries/acl/redirect/redirect.php:40:		$user=JFactory::getUser();
@@ -107,10 +91,7 @@
 ../packages/tmp/site/views/registration/view.html.php:14:		$userId = JFactory::getUser()->id;
 ../packages/tmp/site/views/registration/view.html.php:19:			JFactory::getApplication()->redirect($redirectUrl,$msg);
 ../packages/tmp/site/views/registration/tmpl/default.php:10:$document   = JFactory::getDocument();
-../packages/tmp/site/models/profilefields.php:18:		$db			= JFactory::getDBO();
-../packages/tmp/site/models/profilefields.php:31:		global $mainframe;
-../packages/tmp/site/models/profilefields.php:76:			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && $mainframe->isAdmin()==false)
-../packages/tmp/site/models/profiletypes.php:110:			$db 	=& JFactory::getDBO();
+../packages/tmp/site/models/profilefields.php:72:			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && JFactory::getApplication()->isAdmin()==false)
 ../packages/tmp/site/tables/aclrules.php:43:	 * Overrides Joomla's JTable store method so that we can define proper values
 ../packages/tmp/site/helpers/table.php:13:		$db		 	=	JFactory::getDBO();
 ../packages/tmp/site/helpers/registration.php:13:		$mySess 	= JFactory::getSession();

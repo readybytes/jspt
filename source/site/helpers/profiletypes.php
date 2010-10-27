@@ -280,7 +280,7 @@ class XiptHelperProfiletypes
 			
 			//now update profiletype with new avatar or watermark			
 			if(!XiptFactory::getInstance('profiletypes', 'model')->save(array($what => $image), $id))
-				XiptError::raiseError( 500, XiptText::_("ERROR IN DATABASE"));		    
+				XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("ERROR IN DATABASE"));		    
 		}
 	}
 	

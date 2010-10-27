@@ -127,7 +127,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	$obj4->config = '';
   	
   	
-  	$result = array($obj1,$obj2,$obj3,$obj4);
+  	$result = array(2=>$obj1,1=>$obj2,3=>$obj3,4=>$obj4);
   	
   	$this->assertEquals($array,$result);
   }

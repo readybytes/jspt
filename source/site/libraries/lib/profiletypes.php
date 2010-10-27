@@ -211,32 +211,22 @@ class XiptLibProfiletypes
 	//return array of all published profile type id
 	function getProfiletypeArray($filter='')
 	{
-		//XITODO : we need to add $visible pTypes as per request.move this to model
-		$db			= JFactory::getDBO();
-		$where = '';
+		//XITODO : we need to add $visible pTypes as per request.move this to model, implement WHERE
+		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords();
 		
-		if($filter){
-			$i=0;
+		if(empty($filter))
+			return $results;
+			
+		foreach($results as $result){
 			foreach($filter as $key => $val){
-				if($i)
-					$where .= ' AND ';
-				else
-					$where  = ' WHERE ';
-				
-				$where .=  " ".$db->nameQuote($key)."=".$db->Quote($val) . " ";
-				$i++;
+				if($result->$key != $val){
+					unset($results[$result->id]);
+					break;
+				}
 			}
-		}
+		}	
 		
-		$query		= ' SELECT *'
-					. ' FROM ' . $db->nameQuote( '#__xipt_profiletypes' )
-					. $where
-					. ' ORDER BY '.$db->nameQuote('ordering');
-		$db->setQuery( $query );
-		
-		$profiletypes = $db->loadObjectList();
-		
-		return $profiletypes;
+		return $results;
 	}
 	
 
@@ -248,18 +238,15 @@ class XiptLibProfiletypes
 	 */
 	//XITODO : move to user model
 	function getUserData($userid, $what='PROFILETYPE', $clean=false)
-	{	
-//		static $counter=0;
-		static $result=array();
+	{
+		static $results=array();
+
+		//XITODO : Instead of clean, use function call to caching function
 		if($clean)
 		{
-			unset($result[$userid]);
+			unset($results[$userid]);
 		}
-		
-//		if(array_key_exists($userid,$result))
-//			return $result[$userid][strtolower($what)];
-	    
-//		echo "counter ".(++$counter);
+
 		switch($what)
 	    {
 	        case 'PROFILETYPE':
@@ -285,29 +272,16 @@ class XiptLibProfiletypes
 	            XiptError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
 	    }
 			
-		if($userid >= 62){
-		    $db		= JFactory::getDBO();
-			$query	= 'SELECT * FROM '
-					. $db->nameQuote( '#__xipt_users') . ' WHERE '
-					. $db->nameQuote( 'userid') . '=' . $db->Quote( $userid );
-			$db->setQuery( $query );
-			
-			$result[$userid]	= $db->loadAssoc();
-			
-			if($db->getErrorNum()) {
-				XiptError::raiseError( 500, $db->stderr());
-			}
-		}
-		
-		//print_r($result);
-		
-		
+		if($userid >= 62)	
+			$results = XiptFactory::getInstance('users','model')->loadRecords();   
+				
 		// not a valid result OR value not set
-		if(!$result || isset ($result[$userid])===false){
+		if(!$results || isset($results[$userid]) === false){
 		    return $defaultValue;
 		}
-	
-		return $result[$userid][strtolower($what)];
+		
+		$what = strtolower($what);
+		return $results[$userid]->$what;
 	}
 	
 	/**
@@ -331,27 +305,22 @@ class XiptLibProfiletypes
 	// returns all user of profiletype
 	function getAllUsers($pid)
 	{
-		$db	= JFactory::getDBO();
-		
+		$results 	  = XiptFactory::getInstance('users', 'model')->loadRecords();
 		$defaultPtype = self::getDefaultProfiletype();
 		
+		$defaultPtypeCheck = $pid;
 		if($defaultPtype == $pid)
-			$defaultPtypeCheck = ' OR `profiletype`='.$db->Quote(0);
-		else
-			$defaultPtypeCheck = ' ';
+			$defaultPtypeCheck = 0;
 			
-		$query = ' SELECT `userid` FROM `#__xipt_users`'
-				.' WHERE `profiletype`='.$db->Quote($pid)
-				. $defaultPtypeCheck;
+		foreach($results as $result){
+			if($result->profiletype == $pid 
+				|| $result->profiletype == $defaultPtypeCheck)
+				continue;
 				
-		$db->setQuery($query);
-		$result = $db->loadResultArray();
-		
-		if($db->getErrorNum()){
-					XiptError::raiseError( 500, $db->stderr());
+			unset($results[$result->userid]);			
 		}
-		
-		return $result;
+
+		return array_keys($results);
 	}
 		
 	//call fn to get fields related to ptype in getviewable and geteditable profile fn
@@ -393,20 +362,20 @@ class XiptLibProfiletypes
 		if($allAvatars == null)
 		{
 			$searchFor 	= 'avatar';
-			$db			= JFactory::getDBO();
-			$query		= 'SELECT '.$db->nameQuote($searchFor)
-						.' FROM ' . $db->nameQuote( '#__xipt_profiletypes' ) ;
-			$db->setQuery( $query );
-			$allAvatars  = $db->loadObjectList();
-			if(!$allAvatars)
+			$allAvatars = array();
+			$records = XiptFactory::getInstance('profiletypes', 'model')->loadRecords();
+			foreach($records as $record)
+				array_push($allAvatars, $record->$searchFor);
+				
+			if(empty($allAvatars))
 				return true;
 		}
 			
-		foreach($allAvatars as $one)
+		foreach($allAvatars as $av)
 		{
-			if(JString::stristr($one->avatar ,$path))
+			if(JString::stristr($av ,$path))
 				return true;
-			if(JString::stristr($path, XiptHelperImage::getThumbAvatarFromFull($one->avatar)))
+			if(JString::stristr($path, XiptHelperImage::getThumbAvatarFromFull($av)))
 				return true;
 		}
 		

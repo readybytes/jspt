@@ -40,7 +40,7 @@ abstract class XiptModel extends JModel
 		{
 			$r = null;
 			if (!preg_match('/Model(.*)/i', get_class($this), $r)) {
-				JError::raiseError (500, "XiptModel::getName() : Can't get or parse class name.");
+				JError::raiseError (__CLASS__.'.'.__LINE__, "XiptModel::getName() : Can't get or parse class name.");
 			}
 			$name = strtolower( $r[1] );
 		}
@@ -58,7 +58,7 @@ abstract class XiptModel extends JModel
 
 		$r = null;
 		if (!preg_match('/(.*)Model/i', get_class($this), $r)) {
-			XiptError::raiseError (500, "XiptModel::getPrefix() : Can't get or parse class name.");
+			XiptError::raiseError (__CLASS__.'.'.__LINE__, "XiptModel::getPrefix() : Can't get or parse class name.");
 		}
 
 		$this->_prefix  =  JString::strtolower($r[1]);
@@ -140,14 +140,14 @@ abstract class XiptModel extends JModel
 	{
 		if(isset($data)===false || count($data)<=0)
 		{			
-			XiptError::raiseError(500,XiptText::_("NO DATA TO SAVE"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("NO DATA TO SAVE"));
 			return false;
 		}
 
 		//load the table row
 		$table = $this->getTable();
 		if(!$table){
-			XiptError::raiseError(500,XiptText::_("Table does not exist"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("TABLE DOES NOT EXIST"),$table));
 			return false;
 		}
 	
@@ -169,7 +169,7 @@ abstract class XiptModel extends JModel
 			return $table->{$table->getKeyName()};
 
 		//some error occured
-		XiptError::raiseError(500, XiptText::_("NOT ABLE TO SAVE DATA"));
+		XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("NOT ABLE TO SAVE DATA"));
 		return false;
 	}
 
@@ -189,7 +189,7 @@ abstract class XiptModel extends JModel
 	    if($table->delete($filters,$glue))
 	    	return true;
 
-		XiptError::raiseError(500,XiptText::_('NOT ABLE TO DELETE DATA'));		
+		XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_('NOT ABLE TO DELETE DATA'));		
 		return false;
 	}
 
@@ -211,7 +211,7 @@ abstract class XiptModel extends JModel
 			return true;
 
 		//some error occured
-		XiptError::raiseError(500,XiptText::_("NOT ABLE TO LOAD DATA"));
+		XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("NOT ABLE TO LOAD DATA"));
 		return false;
 	}
 	

@@ -10,13 +10,14 @@ class XiptAclHelper
 {
 	function isFriend($userId, $viewUserId)
 	{
-		$db 		= & JFactory::getDBO();
-		$query		= 'SELECT '. $db->nameQuote('connection_id').'  FROM ' . $db->nameQuote( '#__community_connection')
-								.' WHERE '. $db->nameQuote('connect_from').'='.$db->Quote($userId)
-								.' AND '. $db->nameQuote('connect_to').'='.$db->Quote($viewUserId)
-								.' AND '. $db->nameQuote('status').'='.$db->Quote('1');
-		$db->setQuery( $query );
-		return $db->loadResult();
+		$query = new XiptQuery();
+		return $query->select('connection_id')
+					 ->from('#__community_connection')
+					 ->where(" connect_from = $userId ", 'AND')					 
+					 ->where(" connect_to = $viewUserId ", 'AND')
+					 ->where(" status = 1 ")
+					 ->dbLoadQuery()
+					 ->loadResult();
 	}
 
     function performACLCheck($ajax=false, $callArray, $args)

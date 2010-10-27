@@ -100,24 +100,21 @@ class XiptModelProfiletypes extends XiptModel
 		$cnt = count($users);
 		if($cnt>0)
 		{
+			// XITODO : Change IN query to sub query
 			//update user avatar and thumb of all users who doesn't have custom avatar 
-//			$this->_query = new XiptQuery();
-//			$this->_query->update('#__xipt_profiletypes');
-//			$this->_query->set('avatar',$newavatar);
-//			$this->_query->set('thumb',$newavatarthumb);
-//			$this->_query->where('avatar',$oldavatar);
-			// XITODO : need to improve
-			$db 	=& JFactory::getDBO();
-			$query 	= 'UPDATE #__community_users'
-					. ' SET `avatar` ='.$db->Quote($newavatar).''
-					.', `thumb` =' .$db->Quote($newavatarthumb).''
-					. ' WHERE `avatar` ='.$db->Quote($oldavatar)
-					."AND `userid` IN (" .implode(",", $users).")";
-			$db->setQuery( $query );
-					
-			if (!$db->query()) {
-						return XiptError::raiseWarning( 500, $db->getError() );
-					}	
+			$query = new XiptQuery();
+			$result = $query->update('#__community_users')
+							->set(" avatar = '$newavatar' ")
+							->set(" thumb = '$newavatarthumb' ")
+							->where(" avatar = '$oldavatar' ")
+							->where(" userid  IN (" .implode(",", $users).") ")
+							->dbLoadQuery()
+							->query();
+
+			if (!$result)
+				return XiptError::raiseWarning( 500, XiptText::_("ERROR IN DATABLSE WHEN SAVING AVATAR IN COOMUNITY USER TABLE"));
+
+			return true;
 		}
 	}
 	

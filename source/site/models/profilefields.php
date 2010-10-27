@@ -14,24 +14,21 @@ class XiptModelProfilefields extends XiptModel
 	function getNotSelectedFieldForProfiletype($profiletypeId,$category)
 	{
 		//XIPT_NONE means none , means not visible to any body
-		
-		$db			= JFactory::getDBO();
-		$query		= 'SELECT `fid` FROM ' . $db->nameQuote( '#__xipt_profilefields' )
-					. ' WHERE '.$db->nameQuote('pid').'='.$db->Quote($profiletypeId)
-					. ' AND '.$db->nameQuote('category').'='.$db->Quote($category);
-		$db->setQuery( $query );
-		$results = $db->loadResultArray();
-		
-		return $results;
+		$records = $this->loadRecords(0);
+		$notselectedFieldIds = array();
+		foreach($records as $record){					
+			if($record->pid == $profiletypeId && $record->category == $category)
+				array_push($notselectedFieldIds, $record->fid);
+		}
+
+		return $notselectedFieldIds;
 	}
 	
     //call fn to update fields during registration
+    // XITODO : move this function to helper or library
 	function getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from, $notSelectedFields= null)
 	{
-		if(empty($selectedProfiletypeID)){
-		    XiptError::raiseError('XIPT_ERROR','XIPT SYSTEM ERROR');
-			return false;
-		}
+		XiptError::assert($selectedProfiletypeID);
 		
 		if($notSelectedFields===null)
 		{
@@ -85,13 +82,14 @@ class XiptModelProfilefields extends XiptModel
 	}
 	
 	function getProfileTypes($fid, $cat)
-	{			
-		$query = new XiptQuery();
-		return $query->select('pid')
-					 ->from('#__xipt_profilefields')
-					 ->where(" `fid` = $fid ", 'AND')
-					 ->where(" `category` = $cat ")
-					 ->dbLoadQuery("", "")
-			  		 ->loadResultArray();		
+	{
+		//XITODO : Implement WHERE in load records
+		$records = $this->loadRecords(0);
+		$profileTypes = array();
+		foreach($records as $record)
+			if($record->fid == $fid && $record->category == $cat)
+				array_push($profileTypes, $record->pid);
+		
+		return $profileTypes;
 	}
 }

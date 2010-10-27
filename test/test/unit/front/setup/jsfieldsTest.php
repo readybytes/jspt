@@ -15,7 +15,7 @@ class JsfieldsTest extends XiUnitTestCase
 	function testEnableField()
 	{
 		$obj = new XiptSetupRuleJsfields();
-		$this->assertTrue($obj->_enableField());
+		$this->assertTrue($obj->_switchFieldState(1));
 		$this->_DBO->addTable('#__community_fields');
 		$this->_DBO->filterColumn('#__community_fields','id');
 	}

@@ -67,14 +67,13 @@ class XiptLibAec
 		
 		$validMIs = self::getExistingMI($planMIs);
 		
-		$db    = JFactory::getDBO();
-		$query = ' SELECT '.$db->nameQuote('profiletype')
-				.' FROM ' .$db->nameQuote('#__xipt_aec')
-				.' WHERE '.$db->nameQuote('planid').' IN( '. implode(",", $validMIs).' ) ';
-		$db->setQuery( $query );
-
-		$result = $db->loadResult();
-
+		$query  = new XiptQuery();
+		$result = $query->select('profiletype')
+						->from('#__xipt_aec')
+						->where(" planid IN (". implode(',', $validMIs).") ")
+						->dbLoadQuery()
+						->loadResult();
+	
 		if(!$result)
 			return $defaultPtype;
 
@@ -131,24 +130,21 @@ class XiptLibAec
 
 	static public function getExistingMI( $planMIs )
 	{		
-		$db    = JFactory::getDBO();
-		$query = ' SELECT '.$db->nameQuote('id')
-			    .' FROM '  .$db->nameQuote('#__acctexp_microintegrations')
-			    .' WHERE ' .$db->nameQuote('id').' IN( '. implode(",", $planMIs).' ) ';
-		
-		$db->setQuery( $query );
-		$result = $db->loadResultArray();
-
-		return $result;
+		$query = new XiptQuery();
+		return $query->select('id')
+					 ->from('#__acctexp_microintegrations')
+					 ->where(" id IN (". implode(',', $planMIs).") ")
+					 ->dbLoadQuery()
+					 ->loadResultArray();
 	}
 	
 	static public function getPlan($planid)
 	{
-		$db    = JFactory::getDBO();
-		$query = ' SELECT * FROM ' .$db->nameQuote('#__acctexp_plans');
-		
-		$db->setQuery( $query );
-		$result = $db->loadObjectList('id');
+		$query  = new XiptQuery();
+		$result = $query->select('*')
+						->from('#__acctexp_plans')
+						->dbLoadQuery()
+						->loadObjectList('id');
 		
 		if(!isset($result[$planid])) 
 			return null; 
