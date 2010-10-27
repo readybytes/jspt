@@ -12,13 +12,20 @@ class profilefield extends XiptAclBase
 		    
         function collectParamsFromPost($postdata)
         {
-                $postdata['aclparams'] = array('Xiprofiletypes'=>serialize($postdata['aclparams']['Xiprofiletypes']));
-                return parent::collectParamsFromPost($postdata);
+        	$postdata['aclparams']['Xiprofiletypes']=serialize($postdata['aclparams']['Xiprofiletypes']);
+            return parent::collectParamsFromPost($postdata);
         }
         
-        function checkAclViolatingRule($data)
+        function checkAclViolation($data)
         {
-                return true;
+		        if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
+				{
+					$isFriend = XiptAclHelper::isFriend($data['userid'],$data['viewuserid']);
+					if($isFriend)
+					 return false;
+				}
+				
+		        return true;
         }
         
         function checkAclOnProfile(&$data)

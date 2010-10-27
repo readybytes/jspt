@@ -126,7 +126,9 @@ class XiptHelperInstall
 	function _isMigrationRequired22to30()
 	{
 		if(self::_isTableExist('xipt_profiletypes')) {
-			if(self::_check_column_datatype('#__xipt_profiletypes','group','varchar(100)') || self::_check_column_datatype('#__xipt_profiletypes','privacy','text')|| !self::_check_column_exist('#__xipt_profiletypes','config')) 
+			if(self::_check_column_datatype('#__xipt_profiletypes','group','varchar(100)') 
+				|| self::_check_column_datatype('#__xipt_profiletypes','privacy','text')
+				|| !self::_check_column_exist('#__xipt_profiletypes','config')) 
 				return true;
 		}
 		return false;	
@@ -154,14 +156,62 @@ class XiptHelperInstall
 			}
 		}
 
-		//add column config in xipt_profiletypes table.
-		self::_add_column('config' , 'text NOT NULL', '#__xipt_profiletypes');
+		//add column config in xipt_profiletypes table and insert data from xipt_settings table.
+		self::_migrateRegistrationConfig();
 		
 		// also migrate privacy in xipt_profiletype
 		self::_migratePrivacyParams();
 		return true;
 	}
 
+	function _migrateRegistrationConfig()
+	{
+		// add config column in profiletype table
+		self::_add_column('config' , 'text NOT NULL', '#__xipt_profiletypes');
+		
+		// get the parameters of registration email checks from settings table
+		$db = JFactory::getDBO();
+		$query = 'SELECT '. $db->nameQuote('params') .' FROM '. $db->nameQuote('#__xipt_settings')
+					.' WHERE '. $db->nameQuote('name') .' = '.$db->Quote('settings');
+		$db->setQuery($query);
+		$result = $db->loadResult();
+		
+		// get the required params in array form
+		$params = new JParameter('','');
+		$params->bind($result);
+		$regconfig['jspt_restrict_reg_check'] 	= $params->get('jspt_restrict_reg_check',0);
+		$regconfig['jspt_prevent_username'] 	= $params->get('jspt_prevent_username', 'moderator; admin; support; owner; employee');
+		$regconfig['jspt_allowed_email'] 		= $params->get('jspt_allowed_email', '');
+		$regconfig['jspt_prevent_email'] 		= $params->get('jspt_prevent_email', '');		
+				
+		// convert email settings into INI
+		$regParams = new JRegistry('xipt_registraion');
+		$regParams->loadArray($regconfig);
+		$regINI = $regParams->toString();
+		
+		// update the profile types table foe column config
+		$query = 'UPDATE '. $db->nameQuote('#__xipt_profiletypes')
+					.' SET '. $db->nameQuote('config') .' = '.$db->Quote($regINI);
+		$db->setQuery($query);
+		$result = $db->query();
+		
+		// unsetthe email params which are not required for settings table
+		$settingParamsArray = $params->toArray();
+		unset($settingParamsArray['jspt_restrict_reg_check']);
+		unset($settingParamsArray['jspt_prevent_username']);
+		unset($settingParamsArray['jspt_allowed_email']);
+		unset($settingParamsArray['jspt_prevent_email']);
+		$settingParams = new JRegistry('xipt_settings');
+		$settingParams->loadarray($settingParamsArray);
+		$settingsINI = $settingParams->toString();		
+		
+		// save again the whole params (filtered by email params) in settings table
+		$query = 'UPDATE '. $db->nameQuote('#__xipt_settings')
+					.' SET '. $db->nameQuote('params') .' = '.$db->Quote($settingsINI);
+		$db->setQuery($query);
+		$result = $db->query();
+	}
+	
 	function _migratePrivacyParams()
 	{
 	    	$db     = JFactory::getDBO();

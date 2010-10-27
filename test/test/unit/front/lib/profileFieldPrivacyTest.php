@@ -186,4 +186,43 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
   		}
   	
   }
+  
+  
+  function testFrinedSupport()
+  {
+  		//	pt1 visits 2		
+		$fields 	= $this->getProfileFields(83); 
+		$filter['id'] = '2';
+		$filter['published'] = 1;
+		
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
+		$data['args']['field'] = & $fields;
+		$data['viewuserid']    =  83;
+		$data['userid']    	   =  82;
+		$this->assertTrue($aclObject->checkAclViolation($data));
+		$aclObject->handleViolation($data);
+		$unsetfield=array(8,16);
+		$this->compareProfileFields($fields,$unsetfield);
+		
+		//pt1 visits 2		
+		$fields 	= $this->getProfileFields(83); 
+		$filter['id'] = '2';
+		$filter['published'] = 1;
+		
+		$rules=XiptAclFactory::getAclRulesInfo($filter);
+		$rule = array_shift($rules);
+		$aclObject = XiptAclFactory::getAclObject($rule->aclname);
+		$aclObject->bind($rule);
+		$data['args']['field'] = & $fields;
+		$data['viewuserid']    =  83     ;
+		$data['userid']    	   =  79;
+		$data['args']['triggerForEvents'] = 'onprofileload';
+		$this->assertFalse($aclObject->checkAclViolation($data));		
+				
+		unset($data['args']['triggerForEvents']);
+		$this->assertFalse($aclObject->isApplicable($data));
+  }
 }  

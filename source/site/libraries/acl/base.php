@@ -15,7 +15,7 @@ abstract class XiptAclBase
 	public $published	= 1 ;
 	public $coreparams	= '';
 	public $aclparams	= '';
-	public $triggerForEvents = array();
+	public $triggerForEvents = array('default'=>1);
 
 	function __construct()
 	{
@@ -119,12 +119,21 @@ abstract class XiptAclBase
 	 */
 	function isApplicable(&$data)
 	{
-		if(isset($data['triggerForEvents']))
-		{
-			$key = $data['triggerForEvents'];
+		// if acl rule are invoked with any triggerForEvent then 
+		// only those acl rule will be applied which has set that trigger in 
+		// their variable triggerForEvents
+		// by default only that acl rules will be applied whci has 
+		// default value in it
+		XITODO : clean code : use default from where acl rules are being invoked
+		if(isset($data['args']['triggerForEvents'])){
+			$key = $data['args']['triggerForEvents'];
 			if($key && isset($this->triggerForEvents[$key])==false)
 				return false;			
-		}	
+		}
+		else	
+		 	if(!isset($this->triggerForEvents['default']))
+				return false;
+			
 		$isApplicableAccToAcl      =     $this->checkAclApplicable($data);
 		$isApplicableAccToCore     =     $this->checkCoreApplicable($data);
 
