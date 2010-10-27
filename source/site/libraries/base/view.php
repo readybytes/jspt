@@ -11,6 +11,13 @@ jimport('joomla.html.pane');
 
 abstract class XiptView extends JView
 {	
+	function display($tpl = null)
+	{
+		$css  		= JURI::root() . 'components/com_xipt/assets/admin.css';
+		$document   = JFactory::getDocument();
+		$document->addStyleSheet($css);
+		parent::display($tpl);
+	}
 	/*
 	 * Collect prefix auto-magically
 	 */

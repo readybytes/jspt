@@ -36,7 +36,7 @@ class XiptViewAclRules extends XiptView
 	function setToolBar($task='display')
 	{
 		// Set the titlebar text
-		JToolBarHelper::title( XiptText::_( 'ACCESS CONTROL' ), 'AclRules' );
+		JToolBarHelper::title( XiptText::_( 'ACCESS CONTROL' ), 'aclrules' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');

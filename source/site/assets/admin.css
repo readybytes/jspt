@@ -1,0 +1,56 @@
+/**
+* @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
+
+#toolbar-unhook{
+	background-image:  url(images/icon-unhook.png);
+	background-repeat:no-repeat;
+	background-position: top center;
+	}
+	
+#toolbar-aboutus{
+	 background-image:  url(images/icon-aboutus.png);
+	 background-repeat:no-repeat;
+	 background-position: top center;
+	 }
+	 
+.icon-48-xipt{
+	background-image:  url(images/home.png);
+	background-repeat:no-repeat;
+	}
+
+.icon-48-setup{
+	background-image:  url(images/setup.png);
+	background-repeat:no-repeat;
+	}
+
+.icon-48-settings{
+	background-image:  url(images/jspt-settings.png);
+	background-repeat:no-repeat;
+	}
+
+.icon-48-profiletypes{
+	background-image:  url(images/profiletypes.gif);
+	background-repeat:no-repeat;
+	}
+	
+.icon-48-configuration{
+	background-image:  url(images/jspt-config.png);
+	background-repeat:no-repeat;
+	}
+	
+.icon-48-aclrules{
+	background-image:  url(images/aclrules.gif);
+	background-repeat:no-repeat;
+	}
+	
+.icon-48-profilefields{
+	background-image:  url(images/profilefields.gif);
+	background-repeat:no-repeat;
+	}
+	
+.icon-48-applications{
+	background-image:  url(images/applications.gif);
+	background-repeat:no-repeat;
+	}

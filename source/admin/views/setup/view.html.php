@@ -24,11 +24,11 @@ class XiptViewSetup extends XiptView
 		{
 			//get object of class
 			$setupObject = XiptFactory::getSetupRule($setup['name']);
-			$helpMsg[$setup['name']] = $setupObject->getHelpMsg($setup['name']);
 			
 			if(!$setupObject->isApplicable())
 				continue;
 				
+			$helpMsg[$setup['name']] = $setupObject->getHelpMsg($setup['name']);	
 			$data = $setupObject->getMessage();
 			$requiredSetup[$setup['name']]['done'] 	  = $data['done'];
 			$requiredSetup[$setup['name']]['message'] = $data['message'];

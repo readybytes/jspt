@@ -28,20 +28,10 @@ class XiptViewCpanel extends XiptView
 	 **/
 	function setToolBar()
 	{
-		?>
-		<style type="text/css">
-		#toolbar-aboutus
-		{
-	 		background-image:  url(../components/com_xipt/assets/images/icon-aboutus.png);
-	 		background-repeat:no-repeat;
-	 		background-position: top center;
-	 	}
-		</style>
-		<?php 
 		// Set the titlebar text
-		JToolBarHelper::title( XiptText::_( 'CONTROL PANEL' ), 'Xipt' );
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-		JToolBarHelper::custom('aboutus','aboutus','',XiptText::_('ABOUT US'),0,0);
+		JToolBarHelper::title( XiptText::_( 'CONTROL PANEL' ), 'xipt' );
+		//JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+		//JToolBarHelper::custom('aboutus','aboutus','',XiptText::_('ABOUT US'),0,0);
 	}
 	
 	function addIcon( $image , $url , $text , $newWindow = false )

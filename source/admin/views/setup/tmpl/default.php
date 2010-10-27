@@ -59,11 +59,15 @@ function submitbutton( action )
 	</div>
 	<div style="float:inherit; margin-left:50%;">
 			<?php
+				$num = 1;
 				echo $this->pane->startPane( 'stat-pane' );
 					foreach($this->setupRules as $rule):
-						echo $this->pane->startPanel($rule['title'],$rule['name']);
+						if(isset($this->helpMsg[$rule['name']])==false)
+							continue;
+						echo $this->pane->startPanel($num.". ".$rule['title'],$rule['name']);
 						echo $this->helpMsg[$rule['name']];
 						echo $this->pane->endPanel();
+						$num++;
 					endforeach;	
 				echo $this->pane->endPane();
 			?>
