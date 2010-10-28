@@ -19,8 +19,8 @@
 			<option value="1">Yes</option>
 		</param>
 		<param name="aec_integrate" type="radio" default="0" label="INTEGRATE AEC" description="INTEGRATE AEC.DESC">
-			<option value="1">Yes</option>
 			<option value="0">No</option>
+			<option value="1">Yes</option>
 		</param>			
 	</params>
 	
