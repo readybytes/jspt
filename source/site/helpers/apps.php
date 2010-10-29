@@ -10,7 +10,7 @@ class XiptHelperApps
 {
 	function getProfileTypeNames($aid)
 	{	
-		XiptHelperUtils::XAssert($aid, "Application Id cannot be null.");
+		XiptError::assert($aid, XiptText::_("Application Id cannot be null."), XiptError::ERROR);
 
 		$selected = XiptHelperApps::getProfileTypeArray($aid);
 		
@@ -32,7 +32,7 @@ class XiptHelperApps
 
 	function getProfileTypeArray($aid)
 	{	
-		XiptHelperUtils::XAssert($aid, "Application ID cannot be NULL.");			
+		XiptError::assert($aid, XiptText::_("Application Id cannot be null."), XiptError::ERROR);
 		
 		$results = XiptFactory::getInstance('applications','model')
 								->getProfileTypes($aid);

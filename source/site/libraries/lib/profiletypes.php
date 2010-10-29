@@ -18,7 +18,7 @@ class XiptLibProfiletypes
 	 */
 	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
 	{
-		XiptHelperUtils::XAssert($userid) || XiptError::raiseError('XIPTERR','No User ID in '.__FUNCTION__);
+		XiptError::assert($userid, XiptText::_("USERID $userid IS NOT VALID"), XiptError::ERROR);
 		$uModel = XiptFactory::getInstance('Users','model');
 		
 		foreach($filter as $feature)
@@ -64,8 +64,7 @@ class XiptLibProfiletypes
 					break;
 					
 				default:
-					XiptHelperUtils::XAssert(0);
-					XiptError::raiseWarning('XIPT',"Not a valid filter options  ".__FUNCTION__);
+					XiptError::assert(0, XiptText::_("NOT A VALID OPTION TO FILTER"), XiptError::ERROR);
 					break;
 			}
 		}
@@ -85,7 +84,7 @@ class XiptLibProfiletypes
 	 */
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
-		XiptHelperUtils::XAssert($userid, 'No User ID in '.__FUNCTION__, "ERROR");
+		XiptError::assert($userid, XiptText::_("USERID $userid IS NOT VALID"), XiptError::ERROR);
 		$uModel = XiptFactory::getInstance('Users','model');
 		//store prev profiletype
 		//IMP : must be first line, as we want to store prev profiletype
@@ -182,10 +181,11 @@ class XiptLibProfiletypes
 
 	function getDefaultProfiletype()
 	{		
-//		static $defaultProfiletypeID = null;
-//		if($defaultProfiletypeID && $refresh===false)
-//			return $defaultProfiletypeID;
-//		
+		$refresh = XiptLibJomsocial::cleanStaticCache();
+		static $defaultProfiletypeID = null;
+		if($defaultProfiletypeID && $refresh === false)
+			return $defaultProfiletypeID;
+		
 		$defaultProfiletypeID = XiptFactory::getSettings('defaultProfiletypeID');
 		if($defaultProfiletypeID)
 			return  $defaultProfiletypeID;
@@ -237,15 +237,9 @@ class XiptLibProfiletypes
 	 * @return unknown_type
 	 */
 	//XITODO : move to user model
-	function getUserData($userid, $what='PROFILETYPE', $clean=false)
+	function getUserData($userid, $what='PROFILETYPE')
 	{
-		static $results=array();
-
-		//XITODO : Instead of clean, use function call to caching function
-		if($clean)
-		{
-			unset($results[$userid]);
-		}
+		$results=array();
 
 		switch($what)
 	    {

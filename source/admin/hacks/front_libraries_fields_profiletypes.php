@@ -55,7 +55,8 @@ class CFieldsProfiletypes
 			//not required to get data from getUser() fn b'coz we call this fn in 
 			//getViewableprofile only.
 			$userid = JRequest::getVar('userid',0);
-			XiptHelperUtils::XAssert($userid);
+
+			XiptError::assert($userid,XiptText::_("USERID = $userid DOES NOT EXIST"), XiptError::ERROR);
 			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		
@@ -110,7 +111,7 @@ class CFieldsProfiletypes
 
 			if(!(int)$pID){
 			    $pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-				XiptHelperUtils::XAssert($pID);
+				XiptError::assert($pID, XiptText::_("USERID = $pID DOES NOT EXIST"), XiptError::ERROR);
 			}
 			
 			$pName = XiptLibProfiletypes::getProfileTypeName($pID);

@@ -16,13 +16,11 @@ class SyncupusersTest extends XiUnitTestCase
 		//#case 2: when all users are already syncedup
 		$obj = new XiptSetupRuleSyncupusers();
 		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testIsRequired.start.sql');
-		XiptLibJomsocial::cleanStaticCache(true);
 		$this->assertFalse($obj->isRequired());
 		
 		//#case 3: when there are users to sync up
 		$obj = new XiptSetupRuleSyncupusers();
 		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetUsertoSyncUp.start.sql');
-		XiptLibJomsocial::cleanStaticCache(true);
 		$this->assertTrue($obj->isRequired());
 	}
 	
@@ -53,7 +51,6 @@ class SyncupusersTest extends XiUnitTestCase
 		//#case 2: sync up users
 		$obj = new XiptSetupRuleSyncupusers();
 		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testSyncUpUserPT.start.sql');
-		XiptLibJomsocial::cleanStaticCache(true);
 		$this->assertTrue($obj->syncUpUserPT(0, 10, true));
 		$this->_DBO->addTable('#__xipt_users');
 		

@@ -21,14 +21,14 @@ class XiptControllerAclRules extends XiptController
 		
 		$view = $this->getView();
 
-		XiptError::assert($acl || $id);
+		XiptError::assert($acl || $id, XiptText::_("NOT DEFINED $id or $acl"), XiptError::ERROR);
 		
 		if($acl)
 			$aclObject = XiptAclFactory::getAclObject($acl);
 		else
 			$aclObject = XiptAclFactory::getAclObjectFromId($id);
 
-		XiptError::assert($aclObject);
+		XiptError::assert($aclObject, XiptText::_("NOT DEFINED $aclObject"), XiptError::ERROR);
 			
 		$aclObject->load($id);
 

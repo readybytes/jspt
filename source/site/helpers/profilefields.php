@@ -12,7 +12,7 @@ class XiptHelperProfilefields
 	// return row from row id of fields values table
 	function getProfileTypeNames($fid,$for)
 	{
-		XiptHelperUtils::XAssert($fid, "ProfileField Id cannot be null.");
+		XiptError::assert($fid, XiptText::_("PROFILEFIELD ID CAN NOT BE NULL."), XiptError::ERROR);
 
 		$selected = XiptHelperProfilefields::getProfileTypeArray($fid,$for);
 		
@@ -33,7 +33,7 @@ class XiptHelperProfilefields
 
 	function getProfileTypeArray($fid,$for)
 	{
-		XiptHelperUtils::XAssert($fid);
+		XiptError::assert($fid, XiptText::_("PROFILEFIELD ID CAN NOT BE NULL."), XiptError::ERROR);
 			
 		//Load all profiletypes for the field
 		$results = XiptFactory::getInstance('profilefields','model')

@@ -28,7 +28,7 @@ class XiptModelProfilefields extends XiptModel
     // XITODO : move this function to helper or library
 	function getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from, $notSelectedFields= null)
 	{
-		XiptError::assert($selectedProfiletypeID);
+		XiptError::assert($selectedProfiletypeID, XiptText::_("SELECTED PROFILETYPE DOES NOT EXIST"), XiptError::ERROR);
 		
 		if($notSelectedFields===null)
 		{

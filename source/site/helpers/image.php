@@ -213,7 +213,8 @@ class XiptHelperImage
 	
 	function showWatermarkOverImage( $imagePath, $watermarkPath ,$newImageName="tmp",$position='bl' )
 	{
-		XiptHelperUtils::XAssert(JFile::exists($imagePath) && JFile::exists($watermarkPath));
+		XiptError::assert(JFile::exists($imagePath) && JFile::exists($watermarkPath)
+			, XiptText::_("FILE $imagePath AND $watermarkPath DOES NOT EXIST"), XiptError::ERROR);
 		
 		//original image
 		$destinationType = self::getImageType($imagePath);

@@ -8,12 +8,16 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptError extends JError
 {
+	const ERROR   = 1;
+	const WARNING = 2;
 	//XITODO : add assertError. assertWarn, assertMessage function
-	function assert($condition)
+	function assert($condition, $msg = '', $type = self::ERROR)
 	{
 		if($condition)
 			return;
+		if($type == self::ERROR)
+			self::raiseError('XIPT-ERROR', $msg);
 
-		self::raiseError('XIPT-ASSERT', "$condition is false");
+		self::raiseWarning('XIPT-WARNING', $msg);
 	}
 }

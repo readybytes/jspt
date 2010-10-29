@@ -89,10 +89,7 @@ class XiptAPI
 	 */
 	function getUserInfo($userid, $what='PROFILETYPE')
 	{
-		//Resetting getuserdata fn result
-		XiptLibProfiletypes::getUserData($userid, $what, true);
 		return XiptLibProfiletypes::getUserData($userid,$what);		
-		
 	}
 	
 	

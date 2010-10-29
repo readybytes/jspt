@@ -33,7 +33,8 @@ abstract class XiptAclBase
 		//load core params
 		//XITODO : CREATE INI FILE
 		$corexmlpath = dirname(__FILE__).DS.'coreparams.xml';
-		XiptError::assert(JFile::exists($corexmlpath));
+
+		XiptError::assert(JFile::exists($corexmlpath), XiptText::_("$corexmlpath FILE DOES NOT EXIST"), XiptError::ERROR);
 		$this->coreparams = new JParameter('',$corexmlpath);
 	}
 
@@ -124,7 +125,7 @@ abstract class XiptAclBase
 		// their variable triggerForEvents
 		// by default only that acl rules will be applied whci has 
 		// default value in it
-		XITODO : clean code : use default from where acl rules are being invoked
+		//XITODO : clean code : use default from where acl rules are being invoked
 		if(isset($data['args']['triggerForEvents'])){
 			$key = $data['args']['triggerForEvents'];
 			if($key && isset($this->triggerForEvents[$key])==false)

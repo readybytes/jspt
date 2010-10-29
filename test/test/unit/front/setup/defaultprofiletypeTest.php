@@ -38,18 +38,15 @@ class DefaultprofiletypeTest extends XiUnitTestCase
 	{
 		$obj = new XiptSetupRuleDefaultprofiletype();
 		
-		XiptLibJomsocial::cleanStaticCache(true);
 		//#case 1: when defaultPT doen't exist
 		$this->truncateSettings();
 		$this->assertTrue($obj->isRequired());
 		
-		XiptLibJomsocial::cleanStaticCache(true);
 		//#case 2: when defaultPT exists, but it is not valid PT
 		$this->insertSettings();
 		$this->truncateProfiletypes();
 		$this->assertTrue($obj->isRequired());
 		
-		XiptLibJomsocial::cleanStaticCache(true);
 		//#case 3: when defaultPT exists and it is valid PT
 		$this->insertSettings();
 		$this->assertFalse($obj->isRequired());

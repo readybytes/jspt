@@ -63,8 +63,8 @@ class XiptControllerProfiletypes extends XiptController
 			$oldData = $allData[$id];
 		
 		// now save model
-		$id	= $model->save($data, $id);
-		XiptError::assert($id);
+		$id	 = $model->save($data, $id);
+		XiptError::assert($id, XiptText::_("$id NOT EXISTS"), XiptError::ERROR);
 		
 		// Now store other data
 		// Handle Avatar : call uploadImage function if post(image) data is set

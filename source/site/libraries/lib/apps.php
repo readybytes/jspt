@@ -41,10 +41,6 @@ class XiptLibApps
     
     function getNotAllowedCommunityAppsArray($profiletype)
     {
-//        static $result = null;
-//        if($result !== null && isset($result[$profiletype]))
-//			return $result[$profiletype];
-
     	$tempResult = XiptFactory::getInstance('applications', 'model')
     								->loadRecords(0);		
 				
@@ -59,9 +55,11 @@ class XiptLibApps
     
 	function getPluginId( $element, $folder = 'community' )
 	{
-//		static $result = null;
-//		if($result !== null && isset($result[$folder][$element]))
-//			return $result[$folder][$element]['id'];
+		$reset = self::cleanStaticCache();
+
+		static $result = null;
+		if($result !== null && isset($result[$folder][$element]) && $reset === false)
+			return $result[$folder][$element]['id'];
 		$query = new XiptQuery();
 		$plugin = $query->select('*')
 						->from('#__plugins')

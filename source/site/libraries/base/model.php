@@ -114,12 +114,19 @@ abstract class XiptModel extends JModel
 			
 		//we want returned record indexed by columns
 		$pKey = $this->getTable()->getKeyName();
+		$query->limit($limit,$limitstart);
 
-		$this->_recordlist = $query->limit($limit,$limitstart)
-									->dbLoadQuery("", "")
-									->loadObjectList($pKey);
-
-		return $this->_recordlist;
+		//for unique indexing using md5
+		$index  = md5($query->__toString());
+		
+		$reset = XiptLibJomsocial::cleanStaticCache();
+		if(isset($this->_recordlist[$index])&& $reset ==false)
+			return $this->_recordlist[$index];
+		
+		$this->_recordlist[$index] = $query->dbLoadQuery("", "")
+										->loadObjectList($pKey);
+			
+		return $this->_recordlist[$index];
 	}
 
 
@@ -164,6 +171,10 @@ abstract class XiptModel extends JModel
 			return false;
 		}
 
+		//records should be clean after saving data in table
+		//if you will not clean records, then caching will load old data
+		$this->_recordlist = array();
+		
 		//bind, and then save, we should return the record_id updated/inserted
 	    if($table->save($data))
 			return $table->{$table->getKeyName()};
@@ -198,7 +209,7 @@ abstract class XiptModel extends JModel
 	 */
 	public function order($pk, $change)
 	{
-		XiptHelperUtils::XAssert($pk);
+		XiptError::assert($pk, XiptText::_("PRIMARY KEY $pk DOES NOT EXIST"), XiptError::ERROR);
 
 		//load the table row
 		$table = $this->getTable();
@@ -248,9 +259,10 @@ abstract class XiptModel extends JModel
 	
 	function saveParams($data, $id, $what = '')
 	{
+
+	    XiptError::assert($id, XiptText::_("ID $id DOES NOT EXIST"), XiptError::ERROR);
 		
-		XiptHelperUtils::XAssert($id);
-		XiptHelperUtils::XAssert($what);
+		XiptError::assert($what, XiptText::_("PARAM $what DOES NOT EXIST"), XiptError::ERROR);
 		
 		if(empty($data) || !is_array($data))
 			return false;
@@ -274,7 +286,7 @@ abstract class XiptModel extends JModel
 		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");
 		$iniData	= JFile::read($iniPath);
 
-		XiptHelperUtils::XAssert(JFile::exists($xmlPath));
+		XiptError::assert(JFile::exists($xmlPath), XiptText::_("FILE $xmlPath DOES NOT EXIST"), XiptError::ERROR);
 			
 		$config = new JParameter($iniData,$xmlPath);
 		if(isset($record[$id])) $config->bind($record[$id]->$what);	

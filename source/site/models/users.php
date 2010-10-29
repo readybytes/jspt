@@ -25,6 +25,8 @@ class XiptModelUsers extends XiptModel
 
 		$table->load($pk);	
 		
+		//to clean cached data, reset record list
+		$this->_recordlist = array();
 		//bind, and then save
 	    if($table->bind($data) && $table->store())
 			return true;

@@ -14,9 +14,10 @@ class XiptLibJomsocial
 	//will return object of field as per fieldId
     function getFieldObject($fieldid=0)
 	{
-//		static $result = null;
-//		if(isset($result[$fieldid]))
-//			return $result[$fieldid];
+		$reset = self::cleanStaticCache();
+		static $result = null;
+		if(isset($result[$fieldid]) && $reset === false)
+			return $result[$fieldid];
 			
 		$query  = new XiptQuery();
 		$result = $query->select('*')
@@ -33,12 +34,13 @@ class XiptLibJomsocial
     //get required user info from community_users table
 	function getUserDataFromCommunity($userid,$what)
 	{
-		XiptHelperUtils::XAssert(!empty($what));
+		XiptError::assert($what, XiptText::_("INFO IS EMPTY"), XiptError::ERROR);
 		
 		static $results = array();
-		//XITODO : carefully apply caching
-		//if(isset($results[$userid][$what]))
-		//	return $results[$userid][$what];
+		$reset = self::cleanStaticCache();
+		
+		if(isset($results[$userid][$what]) && $reset === false)
+			return $results[$userid][$what];
 
 		$query   = new XiptQuery();
 		$results = $query->select('*')
@@ -101,7 +103,7 @@ class XiptLibJomsocial
 		}
 					
 		
-		XiptHelperUtils::XAssert($pID);
+		XiptError::assert($pID, XiptText::_("PID $pID IS NOT VALID"), XiptError::ERROR);
 		$params = XiptLibProfiletypes::getParams($pID);
 
 		if($params)
@@ -138,7 +140,8 @@ class XiptLibJomsocial
 	function updateCommunityCustomField($userId, $value, $what='')
 	{
 	    //ensure we are calling it for correct field
-	    XiptHelperUtils::XAssert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE);
+	    XiptError::assert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE
+			, XiptText::_("CUSTOM FIELD DOES NOT EXIST"), XiptError::ERROR);
 
 	    // find the profiletype or template field
 	    // dont patch up the database.
@@ -150,7 +153,7 @@ class XiptLibJomsocial
 						->loadObject();
 		
 		// skip these calls from backend
-		XiptHelperUtils::XAssert($res) || XiptError::raiseError('REQ_CUST_FIELD',sprintf(XiptText::_('PLEASE CREATE CUSTOM FIELD FOR PROPER WORK'),$what));
+		XiptError::assert($res);
 		$field_id = $res->id;
 		
 		//if row does not exist
@@ -364,8 +367,8 @@ class XiptLibJomsocial
 			$member->permissions	= '0';
 			$store	= $member->store();
 	
-			// Add XiptHelperUtils::XAssertion if storing fails
-			XiptHelperUtils::XAssert( $store );
+			// Assert if storing fails
+			XiptError::assert( $store, XiptText::_("DATA IS NOT STORED"), XiptError::ERROR);
 	
 			if($member->approved)
 				$groupModel->addMembersCount($gid);

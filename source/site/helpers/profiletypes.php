@@ -14,7 +14,7 @@ class XiptHelperProfiletypes
 		$callFunc = '_build'.JString::ucfirst($what);
 		
 		if(!method_exists(new XiptHelperProfiletypes(),$callFunc))
-			XiptHelperUtils::XAssert(0);
+			XiptError::assert(0);
 				
 		return XiptHelperProfiletypes::$callFunc($value);		
 	}	
@@ -106,8 +106,7 @@ class XiptHelperProfiletypes
 					'group'		=> array('name' => 'group', 	'value' => 0)	
 					);
 		//XITODO : clean this fn	
-		if(!array_key_exists($what,$data))
-			XiptHelperUtils::XAssert(0);
+		XiptError::assert(array_key_exists($what,$data), XiptText::_("ARRAY KEY DOES NOT EXIST."));
 				
 		if($id==0)
 			return $data[$what]['value'];
@@ -118,6 +117,7 @@ class XiptHelperProfiletypes
 
 		if(isset($val[$id]))
 			return $val[$id]->$what;
+
 		return false;
 	}
 	

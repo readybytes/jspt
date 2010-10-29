@@ -15,6 +15,7 @@ class XiptSystemPluginTest extends XiUnitTestCase
 		//#case 1: clean session if $isNew =false or $result =false or $error =true
 		$user = array('id'=> 99);
 		$mySess = JFactory::getSession();
+		$mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
 		$mySess->set('SELECTED_PROFILETYPE_ID', 1, 'XIPT');
 		$this->assertTrue($obj->onAfterStoreUser($user, false, true, true));
 		$this->assertEquals($mySess->get('SELECTED_PROFILETYPE_ID'), null);

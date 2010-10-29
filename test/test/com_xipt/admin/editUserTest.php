@@ -110,7 +110,7 @@ class EditUserTest extends XiSelTestCase
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_community&view=users&layout=edit&id=".$userid);
   	$this->waitPageLoad();
   	$this->click("Basic Information-page");
-    
+    XiptLibJomsocial::cleanStaticCache(true);
 	$Avail[1] 	 = array(3,4,5,7,8,9); // 7 have no infor
     $notAvail[1] = array(2,6);
     
@@ -183,6 +183,7 @@ class EditUserTest extends XiSelTestCase
 	$this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
 	
+	XiptLibJomsocial::cleanStaticCache(true);
 	// now verify settings as per new template
 	require_once (JPATH_BASE . '/components/com_xipt/api.xipt.php' );
 	$this->assertEquals($newTemplate[$userid], XiptAPI::getUserInfo($userid,'TEMPLATE'));

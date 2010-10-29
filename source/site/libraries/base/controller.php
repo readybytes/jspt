@@ -41,8 +41,8 @@ abstract class XiptController extends JController
 
 	public function getView()
 	{
-//		if(isset($this->_view))
-//			return $this->_view;
+		if(isset($this->_view))
+			return $this->_view;
 
 		//get Instance from Factory
 		$this->_view	= 	XiptFactory::getInstance($this->getName(),'View', $this->getPrefix());
@@ -58,7 +58,7 @@ abstract class XiptController extends JController
 	public function getModel($modelName=null)
 	{
 		// support for parameter
-		if($modelName===null)
+		if($modelName === null)
 			$modelName = $this->getName();
 
 		return XiptFactory::getInstance($modelName,'Model');
@@ -74,7 +74,8 @@ abstract class XiptController extends JController
 	{		
 		// Get the ID in the correct location
  		$ids	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
- 		XiptError::assert(!empty($ids));
+ 		
+ 		XiptError::assert(!empty($ids), XiptText::_("$ids IS NOT EMPTY"), XiptError::ERROR);
 		$id	= (int) array_shift($ids);
 		
 		// Determine whether to order it up or down

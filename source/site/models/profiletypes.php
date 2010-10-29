@@ -35,7 +35,7 @@ class XiptModelProfiletypes extends XiptModel
 	 **/
 	function saveParams($data, $id, $what = 'params')
 	{
-		XiptHelperUtils::XAssert($id);
+		XiptError::assert($id, XiptText::_("ID $id IS NOT VALID"), XiptError::ERROR);
 		
 		if(empty($data) || !is_array($data))
 			return false;
