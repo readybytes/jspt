@@ -55,7 +55,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
 			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-		    $pluginHandler=& XiptFactory::getPluginHandler();
+		    $pluginHandler= XiptFactory::getPluginHandler();
 		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
 		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
 	        <?php 
@@ -87,7 +87,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
 			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
-		    $pluginHandler=& XiptFactory::getPluginHandler();
+		    $pluginHandler= XiptFactory::getPluginHandler();
 		    $pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);
 		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
 	        <?php 
@@ -198,7 +198,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 			
 			$file = JFile::read($filename);
 			
-			$searchString = '$pluginHandler=& XiptFactory::getPluginHandler()';
+			$searchString = '$pluginHandler= XiptFactory::getPluginHandler()';
 			$count = substr_count($file,$searchString);
 			if($count >= 3)
 				return false;
