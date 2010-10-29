@@ -12,16 +12,7 @@ class XiptHelperJomsocial
 	{	
 		$path	= JPATH_ROOT. DS . 'components' . DS . 'com_community' . DS . 'templates';
 		
-		$handle = @opendir($path);
-		if( $handle ){
-			while(false !== ($file = readdir($handle))) {
-				// Do not get '.' or '..' or '.svn' since we only want folders.
-				if( $file != '.' && $file != '..' 
-						&& $file != '.svn' && $file != 'index.html')
-					$templates[]	= $file;
-			}
-		}
-		return $templates;
+		return $templates = JFolder::folders($path);
 	}
 	
  	function getReturnURL()

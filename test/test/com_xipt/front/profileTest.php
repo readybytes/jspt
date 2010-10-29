@@ -197,7 +197,7 @@ class ProfileTest extends XiSelTestCase
   	{
   		$this->click("//a[@onclick=\"joms.apps.add('".$appsNames[$a]."')\"]");
 	  	//wait for ajax window
-	  	if(Jstring::stristr($version,'1.8')){  	    
+	  	if(Jstring::stristr($version,'1.8') || Jstring::stristr($version,'2.0')){  	    
            sleep(1);
            continue;
 	  	}
@@ -328,8 +328,13 @@ class ProfileTest extends XiSelTestCase
 	
 	  $this->_DBO->addTable('#__community_groups_members');
 	  $this->_DBO->filterOrder('#__users','memberid');
+	  
 	  $this->_DBO->addTable('#__community_users');
 	  $this->_DBO->filterOrder('#__community_users','userid');
+	  
+	  if(JString::stristr($this->get_js_version(), '2.0'))
+	  	$this->_DBO->filterColumn('#__community_users','thumb');
+	  	
 	  $this->_DBO->filterColumn('#__community_users','latitude');
 	  $this->_DBO->filterColumn('#__community_users','longitude');
 	  $this->_DBO->filterColumn('#__community_users','friendcount');

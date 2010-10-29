@@ -41,6 +41,10 @@ XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_ACL, 'Acl');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP, 'Setup');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP .DS. 'rule', 'SetupRule');
 
+// autoloading for fileds
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY.DS.'fields'.DS.'templates', 'FieldsTemplates');
+XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY.DS.'fields'.DS.'profiletypes', 'FieldsProfiletypes');
+
 // include JomSocial files
 if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php'))
 {
@@ -59,3 +63,29 @@ XiptLoader::addAutoLoadFile('CConfig' , JPATH_ROOT.DS.'components'.DS.'com_commu
 XiptLoader::addAutoLoadFile('CApplications' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 XiptLoader::addAutoLoadFile('CUser' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 XiptLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+
+// Aotoloading for Jom social 2.0 [ Zend Plugin ]
+
+$paths	= explode( PATH_SEPARATOR , get_include_path() );
+
+if( !in_array( JPATH_ROOT . DS . 'plugins' . DS . 'system', $paths ) )
+{
+	set_include_path('.'
+	    . PATH_SEPARATOR . JPATH_ROOT.DS.'plugins'.DS.'system'
+	    . PATH_SEPARATOR . get_include_path()
+	);
+}
+
+
+if(JFile::exists(JPATH_ROOT . DS.'plugins'.DS.'system'.DS.'Zend/Loader/Autoloader.php'))
+{
+	//check if zend plugin is enalble.
+	$zend = JPluginHelper::getPlugin('system', 'zend');	
+	if(!empty($zend) && !class_exists('Zend_Loader'))
+	{
+		// Only include the zend loader if it has not been loaded first
+		include_once(JPATH_ROOT . DS.'plugins'.DS.'system'.DS.'Zend/Loader/Autoloader.php');
+		// register auto-loader
+		$loader = Zend_Loader_Autoloader::getInstance();
+	}
+}

@@ -328,8 +328,8 @@ class RegisterTest extends XiSelTestCase
   			$this->assertEquals($jUser->usertype,"Registered");
   			if($customAvatar==0)
   			{
-  				$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
-  				$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+  				$this->assertTrue(in_array($cUser->_avatar,array("","components/com_community/assets/default.jpg")));
+  				$this->assertTrue(in_array($cUser->_thumb,array("","components/com_community/assets/default_thumb.jpg")));
   			}
   			$this->assertEquals($privacy,PRIVACY_PUBLIC);
   			$this->assertEquals($template,"default");
@@ -354,8 +354,8 @@ class RegisterTest extends XiSelTestCase
 	  		$this->assertEquals($jUser->usertype,"Publisher");
 	  		if($customAvatar==0)
   			{
-  				$this->assertEquals($cUser->_avatar,"components/com_community/assets/default.jpg");
-  				$this->assertEquals($cUser->_thumb,"components/com_community/assets/default_thumb.jpg");
+  				$this->assertTrue(in_array($cUser->_avatar,array("","components/com_community/assets/default.jpg")));
+  				$this->assertTrue(in_array($cUser->_thumb,array("","components/com_community/assets/default_thumb.jpg")));
   			}
   			$this->assertEquals($privacy,PRIVACY_MEMBERS);
   			$this->assertEquals($template,"blackout");
@@ -495,7 +495,7 @@ class RegisterTest extends XiSelTestCase
 	$this->click("//input[@type='submit']");
 	if($restrict==true){
 		$this->waitForElement("cwin_tm");
-		if(Jstring::stristr($version,'1.8'))
+		if(Jstring::stristr($version,'1.8') || Jstring::stristr($version,'2.0'))
 			$this->assertTrue($this->isTextPresent("info is required. Make sure it contains a valid value!"));
 		else
 			$this->assertTrue($this->isTextPresent("A required entry is missing or it contains an invalid value!"));

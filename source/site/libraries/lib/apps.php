@@ -55,7 +55,7 @@ class XiptLibApps
     
 	function getPluginId( $element, $folder = 'community' )
 	{
-		$reset = self::cleanStaticCache();
+		$reset = XiptLibJomsocial::cleanStaticCache();
 
 		static $result = null;
 		if($result !== null && isset($result[$folder][$element]) && $reset === false)

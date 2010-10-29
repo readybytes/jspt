@@ -115,6 +115,9 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
       // now we just want to verify that 
       // page does not have any type of error
       // XIPT SYSTEM ERROR
+      if($this->isTextPresent("COMMUNITY_FREE_VERSION"))
+      	return;
+      	
       $this->assertFalse($this->isTextPresent("( ! ) Notice:"));
       $this->assertFalse($this->isTextPresent("500 - An error has occurred."));
       $this->assertFalse($this->isTextPresent("XIPT-SYSTEM-ERROR"));

@@ -40,7 +40,13 @@ class ConfigurationTest extends XiSelTestCase
     //check for reset link
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
     $this->assertTrue($this->isElementPresent($element));
-    	
+    
+    $params = XiptFactory::getInstance('profiletypes', 'model')->loadParams(2,'params');
+    $this->assertEquals($params->get('enablegroups'), 0);
+    $this->assertEquals($params->get('enablereporting'), 0);
+    $this->assertEquals($params->get('enablevideos'), 0);
+    $this->assertEquals($params->get('enablephotos'), 0);
+    
     //edit 1
     $p = 1;
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&id=$p");
@@ -55,6 +61,11 @@ class ConfigurationTest extends XiSelTestCase
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
     $this->assertTrue($this->isElementPresent($element));
     
+    $params = XiptFactory::getInstance('profiletypes', 'model')->loadParams(1,'params');
+    $this->assertEquals($params->get('enablegroups'), 1);
+    $this->assertEquals($params->get('enablereporting'), 0);
+    $this->assertEquals($params->get('enablevideos'), 0);
+    $this->assertEquals($params->get('enablephotos'), 0);
 
     //edit 3
     $p = 3;
@@ -70,6 +81,12 @@ class ConfigurationTest extends XiSelTestCase
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
     $this->assertTrue($this->isElementPresent($element));
     
+    $params = XiptFactory::getInstance('profiletypes', 'model')->loadParams(3, 'params');
+    $this->assertEquals($params->get('enablegroups'), 1);
+    $this->assertEquals($params->get('enablereporting'), 1);
+    $this->assertEquals($params->get('enablevideos'), 1);
+    $this->assertEquals($params->get('enablephotos'), 1);
+    
     //no reset link for 4 and 5
     $p=4;
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
@@ -84,14 +101,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=reset&profileId=$p");
     $this->waitPageLoad();
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
-    $this->assertFalse($this->isElementPresent($element));
-    
-    //now verify tables
-    $this->_DBO->addTable('#__xipt_profiletypes');
-    $this->_DBO->filterOrder('#__xipt_profiletypes','id');
-    $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams'); 
-    $this->_DBO->filterColumn('#__xipt_profiletypes','visible'); 
-    $this->_DBO->filterColumn('#__xipt_profiletypes','config');
+    $this->assertFalse($this->isElementPresent($element));    
     
   }
   
