@@ -27,10 +27,11 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 			
 		$fields = $this->_checkExistance();
 			
-		
+		$tFieldCreated = true;
 		if(isset($fields[TEMPLATE_CUSTOM_FIELD_CODE])===false)
 			$tFieldCreated = $this->createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
 		
+		$pFieldCreated  = true;
 		if(isset($fields[PROFILETYPE_CUSTOM_FIELD_CODE])===false)
 			$pFieldCreated  = $this->createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
 			

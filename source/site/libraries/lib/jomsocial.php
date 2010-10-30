@@ -64,19 +64,14 @@ class XiptLibJomsocial
 		if(XiptHelperUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE)
 		    return false;
 
-		self::reloadCUser($userid);
+		//self::reloadCUser($userid);
 		
 		$user 			= CFactory::getUser($userid);
 		$authorize		= JFactory::getACL();
 		$user->set('usertype',$newUsertype);
 		$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
 		
-		if($user->save()){
-			// The issue with JomSocial, enforce clean reload of user object
-			//enforce JomSocial to clean cached user
-        	self::reloadCUser($userid);	
-		    return true;
-		}
+		$user->save();
 		
 		self::reloadCUser($userid);
 		return true;
@@ -145,16 +140,12 @@ class XiptLibJomsocial
 
 	    // find the profiletype or template field
 	    // dont patch up the database.
-	    $query   = new XiptQuery();
-		$res	 = $query->select('*')
-						->from('#__community_fields')
-						->where(" fieldcode = '$what' ")
-						->dbLoadQuery()
-						->loadObject();
+	    $res	= XiptHelperJomsocial::getFieldId($what);
 		
 		// skip these calls from backend
 		XiptError::assert($res);
-		$field_id = $res->id;
+		
+		$field_id = $res;
 		
 		//if row does not exist
 		$query   = new XiptQuery();

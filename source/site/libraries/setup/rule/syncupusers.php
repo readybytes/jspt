@@ -19,8 +19,8 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			return false;
 		}
 
-		$PTFieldId = $this->getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
-		$TMFieldId = $this->getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
+		$PTFieldId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
+		$TMFieldId = XiptHelperJomsocial::getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
 		
 		// we need first these fields to be exist
 		if(!($PTFieldId && $TMFieldId))
@@ -49,8 +49,8 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	function syncUpUserPT($start, $limit, $test = false)
 	{
 		
-		$PTFieldId = $this->getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
-		$TMFieldId = $this->getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
+		$PTFieldId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
+		$TMFieldId = XiptHelperJomsocial::getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
 		
 		// we need first these fields to be exist
 		if(!($PTFieldId && $TMFieldId))
@@ -102,10 +102,11 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	
 	function getUsertoSyncUp($start = 0, $limit = 1000)
 	{
-		static $users = null;
-		$reset = XiptLibJomsocial::cleanStaticCache();
-		if($users!== null && $reset == false)
-			return $users;
+		//XITODO : apply caching
+//		static $users = null;
+//		$reset = XiptLibJomsocial::cleanStaticCache();
+//		if($users!== null && $reset == false)
+//			return $users;
 
 		$db 	= JFactory::getDBO();	
 		// XITODO : PUT into query Object
@@ -127,21 +128,4 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		return array_slice($users, $start, $limit);
 	}
 	
-	function getFieldId($fieldcode)
-	{
-		static $results = array();
-		
-		$reset = XiptLibJomsocial::cleanStaticCache();
-		if(isset($results[$fieldcode]) && $reset == false)
-			return $results[$fieldcode]['id'];
-		
-		$query = new XiptQuery();
-		$results = $query->select('*')
-						 ->from('#__community_fields')
-						 ->dbLoadQuery()
-						 ->loadAssocList('fieldcode');
-						 
-		if(array_key_exists($fieldcode, $results))
-			return $results[$fieldcode]['id'];		
-	}
 }

@@ -17,4 +17,11 @@ class XiptJomsocialHelperTest extends XiUnitTestCase
 	{
 		//$this->assertTR(XiptHelperJomsocial::getReturnURL(),'');
 	}
+	
+	function testGetFieldId()
+	{
+		$this->assertEquals(XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE), 4);
+		
+		$this->assertEquals(XiptHelperJomsocial::getFieldId(TEMPLATE_CUSTOM_FIELD_CODE), 3);
+	}
 }

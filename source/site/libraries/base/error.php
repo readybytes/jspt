@@ -14,7 +14,7 @@ class XiptError extends JError
 	function assert($condition, $msg = '', $type = self::ERROR)
 	{
 		if($condition)
-			return;
+			return true;
 		if($type == self::ERROR)
 			self::raiseError('XIPT-ERROR', $msg);
 

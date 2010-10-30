@@ -24,15 +24,6 @@ class SyncupusersTest extends XiUnitTestCase
 		$this->assertTrue($obj->isRequired());
 	}
 	
-	function testGetFieldId()
-	{
-		$obj = new XiptSetupRuleSyncupusers();
-		$this->assertEquals($obj->getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE), 4);
-		
-		$obj = new XiptSetupRuleSyncupusers();
-		$this->assertEquals($obj->getFieldId(TEMPLATE_CUSTOM_FIELD_CODE), 3);
-	}
-	
 	function testGetUsertoSyncUp()
 	{
 		$obj = new XiptSetupRuleSyncupusers();

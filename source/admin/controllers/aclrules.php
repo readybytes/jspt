@@ -28,7 +28,7 @@ class XiptControllerAclRules extends XiptController
 		else
 			$aclObject = XiptAclFactory::getAclObjectFromId($id);
 
-		XiptError::assert($aclObject, XiptText::_("NOT DEFINED $aclObject"), XiptError::ERROR);
+		XiptError::assert(isset($aclObject), XiptText::_("NOT ABLE TO CREATE ACL OBJECT"), XiptError::ERROR);
 			
 		$aclObject->load($id);
 

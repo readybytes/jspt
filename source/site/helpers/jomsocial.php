@@ -47,4 +47,22 @@ class XiptHelperJomsocial
 	
 		return $version;
 	}
+	
+	function getFieldId($fieldcode)
+	{
+		static $results = array();
+		
+		$reset = XiptLibJomsocial::cleanStaticCache();
+		if(isset($results[$fieldcode]) && $reset == false)
+			return $results[$fieldcode]['id'];
+		
+		$query = new XiptQuery();
+		$results = $query->select('*')
+						 ->from('#__community_fields')
+						 ->dbLoadQuery()
+						 ->loadAssocList('fieldcode');
+						 
+		if(array_key_exists($fieldcode, $results))
+			return $results[$fieldcode]['id'];		
+	}
 }

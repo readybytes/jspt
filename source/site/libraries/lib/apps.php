@@ -57,18 +57,21 @@ class XiptLibApps
 	{
 		$reset = XiptLibJomsocial::cleanStaticCache();
 
-		static $result = null;
-		if($result !== null && isset($result[$folder][$element]) && $reset === false)
-			return $result[$folder][$element]['id'];
+		
+		static $plugin = null;
+		if($plugin !== null && isset($plugin[$folder][$element]) && $reset === false)
+			return $plugin[$folder][$element]->id;
+			
 		$query = new XiptQuery();
-		$plugin = $query->select('*')
+		$plugin[$folder] = $query->select('*')
 						->from('#__plugins')
 						->where(" `folder` = '$folder' ")
 						->dbLoadQuery("","")
 						->loadObjectList('element');
-						
-		if(isset($plugin[$element]))
-			return $plugin[$element]->id;
+
+		
+		if(isset($plugin[$folder][$element]))
+			return $plugin[$folder][$element]->id;
 		else
 			return false;
 	}
