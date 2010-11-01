@@ -55,4 +55,4 @@
 ../packages/tmp/site/helpers/unhook.php:9:require_once JPATH_ROOT.DS.'includes'.DS.'application.php';
 ../packages/tmp/site/helpers/unhook.php:10:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'install'.DS.'helper.php';
 ../packages/tmp/site/helpers/image.php:133:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
-../packages/tmp/site/helpers/image.php:224:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+../packages/tmp/site/helpers/image.php:222:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';

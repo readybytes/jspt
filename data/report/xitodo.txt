@@ -21,9 +21,10 @@
 ../packages/tmp/site/libraries/lib/pluginhandler.php:235:		//XITODO : check is setup required 
 ../packages/tmp/site/libraries/lib/profiletypes.php:214:		//XITODO : we need to add $visible pTypes as per request.move this to model, implement WHERE
 ../packages/tmp/site/libraries/lib/profiletypes.php:239:	//XITODO : move to user model
-../packages/tmp/site/libraries/lib/jomsocial.php:210:		//	XITODO : format it in proper way
+../packages/tmp/site/libraries/lib/jomsocial.php:201:		//	XITODO : format it in proper way
 ../packages/tmp/site/libraries/setup/base.php:34:		// XITODO : handle errors 
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:111:		// XITODO : PUT into query Object
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:105:		//XITODO : apply caching
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:112:		// XITODO : PUT into query Object
 ../packages/tmp/site/libraries/fields/templates/base.php:51:		//	XITODO : format it in proper way
 ../packages/tmp/site/libraries/acl/base.php:34:		//XITODO : CREATE INI FILE
 ../packages/tmp/site/libraries/acl/base.php:128:		//XITODO : clean code : use default from where acl rules are being invoked
@@ -49,4 +50,4 @@
 ../packages/tmp/site/helpers/profiletypes.php:300:	//XITODO : Remove funda of return url, use configuration
 ../packages/tmp/site/helpers/profiletypes.php:303:		// XITODO : move redirection to controller 
 ../packages/tmp/site/helpers/unhook.php:16:		// XITODO : remove this function
-../packages/tmp/site/helpers/image.php:176:			//XITODO : here we need to trick as per the JomSocial
+../packages/tmp/site/helpers/image.php:174:			//XITODO : here we need to trick as per the JomSocial

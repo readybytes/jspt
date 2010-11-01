@@ -20,7 +20,7 @@
 ../packages/tmp/admin/views/profiletypes/view.html.php:58:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 ../packages/tmp/admin/views/profiletypes/tmpl/default.php:30:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 ../packages/tmp/admin/views/profiletypes/tmpl/default.php:87:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$field->id, false); ?>
-../packages/tmp/admin/views/profiletypes/tmpl/default_edit.php:139:										<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&id='.$this->data->id.'&oldAvatar='.$this->data->avatar, false); ?>
+../packages/tmp/admin/views/profiletypes/tmpl/default_edit.php:149:										<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&id='.$this->data->id.'&oldAvatar='.$this->data->avatar, false); ?>
 ../packages/tmp/admin/views/profilefields/view.html.php:42:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profilefields');
 ../packages/tmp/admin/views/profilefields/view.html.php:63:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 ../packages/tmp/admin/views/profilefields/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
@@ -53,7 +53,7 @@
 ../packages/tmp/site/libraries/setup/rule/xiptplugin.php:55:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=xiptplugin",false);
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:76:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:90:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers",false);
-../packages/tmp/site/libraries/setup/rule/jsfields.php:112:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=jsfields",false);
+../packages/tmp/site/libraries/setup/rule/jsfields.php:113:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=jsfields",false);
 ../packages/tmp/site/libraries/setup/rule/aecmi.php:44:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=aecmi",false);
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:23: 		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=settings", false));
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:31:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=defaultprofiletype",false);

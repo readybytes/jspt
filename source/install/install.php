@@ -25,7 +25,5 @@ function com_install()
 	}	
 	XiptHelperInstall::show_instruction();
 	
-	XiptHelperInstall::changePluginState('xipt_system',true);
-	XiptHelperInstall::changePluginState('xipt_community',true);
 	return true;
 }
