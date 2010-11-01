@@ -33,7 +33,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
     $this->click("//h3[@id='resetall-page']/span");
     $this->click("resetAll1");
-        
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
     $this->click("//td[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
@@ -155,6 +155,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->click("watermarkparamsenableWaterMark1");
     $this->type("watermarkparamsxiText", "Profiletype1");
     $this->click("resetAll1");
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
   
@@ -164,6 +165,7 @@ class ProfiletypeTest extends XiSelTestCase
 	 $this->type("watermarkparamsxiText", "Profiletype2");
 	$this->click("watermarkparamsenableWaterMark1");
 	$this->click("resetAll1");
+	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
 	
@@ -183,6 +185,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
     $this->select("watermarkparamsxiWatermarkPosition", "label=Top Right");
     $this->click("resetAll1");
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
     $this->click("//td[@id='toolbar-save']/a");
 		
     $this->waitPageLoad();
@@ -209,6 +212,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
     $this->select("watermarkparamsxiWatermarkPosition", "label=Right Bottom");
     $this->click("resetAll1");
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
     $this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));	
@@ -227,6 +231,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
     $this->select("watermarkparamsxiWatermarkPosition", "label=Right Bottom");
     $this->click("resetAll1");
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
     $this->click("//td[@id='toolbar-save']/a");//4:png.png
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-4"));
@@ -251,6 +256,7 @@ class ProfiletypeTest extends XiSelTestCase
   	$this->waitPageLoad();
   	$this->type("file-upload", JOOMLA_FTP_LOCATION.'/test/test/com_xipt/admin/avatar_2.png');
 	$this->click("resetAll1");
+	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
      	
@@ -276,6 +282,7 @@ class ProfiletypeTest extends XiSelTestCase
     //previous was PNG, now adding GIF, so all users must be updated
     $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
     $this->click("resetAll1");
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));   
@@ -285,6 +292,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
     $this->select("jusertype", "label=Manager");
     $this->click("resetAll1");
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
@@ -296,6 +304,7 @@ class ProfiletypeTest extends XiSelTestCase
     $this->removeSelection("group[]", "value=4");
     $this->addSelection("group[]", "value=2");
     $this->click("resetAll1");
+    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
 	$this->click("//td[@id='toolbar-save']/a");
     $this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-3"));

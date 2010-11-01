@@ -146,8 +146,7 @@ class XiptHelperImage
 
 		if($wType == 'image/jpg')
 		{
-			global $mainframe;
-			$mainframe->enqueueMessage("Watermark must be PNG or GIF image, no watermark applied");
+			JFactory::getApplication()->enqueueMessage("Watermark must be PNG or GIF image, no watermark applied");
 			return false;
 		}
 
@@ -155,8 +154,7 @@ class XiptHelperImage
 		
 		if($imageInfo == false)
 		{
-			global $mainframe;
-			$mainframe->enqueueMessage("Unable to open through getimage the file $image");
+			JFactory::getApplication()->enqueueMessage("Unable to open through getimage the file $image");
 			return false;
 		}
 		

@@ -24,7 +24,7 @@ else
 ?>
 </div>
 <div class="clr" title="Next"></div>
-<input type="submit" id="ptypesavebtn" name="save" value="Next"/> 
+<input type="submit" id="ptypesavebtn" name="save" value="<?php echo XiptText::_('NEXT');?>"/> 
 <input type="hidden" name="view" value="registration" /> 
 <input type="hidden" name="task" value="" /> 
 <input type="hidden" name="option" value="com_xipt" /> 

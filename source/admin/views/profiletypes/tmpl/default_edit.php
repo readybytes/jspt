@@ -4,8 +4,10 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 if(!defined('_JEXEC')) die('Restricted access');
-?>
 
+?>
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">jQuery.noConflict();</script>
 <script language="javascript" type="text/javascript">
 	function submitbutton(action) {
 		var form = document.adminForm;
@@ -28,6 +30,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 			submitform( action );
 		}
 	}
+	
+	jQuery(document).ready(function($){
+    	$('#resetAll1').click(function(){
+           if(!confirm('Are you confirm to reset properties of all existing users')){
+				$('#resetAll0').attr("checked", "checked"); 
+           }
+        });
+	});
 </script>
 
 
