@@ -10,7 +10,7 @@ jimport( 'joomla.filesystem.folder' );
 jimport('joomla.filesystem.file');
 
 
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers' .DS. 'unhook.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 function com_uninstall()
 {

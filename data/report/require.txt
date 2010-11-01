@@ -6,7 +6,7 @@
 ../packages/tmp/install/extensions/xipt_community/xipt_community.php:97:		//	for that we don't require to add watermark
 ../packages/tmp/install/extensions/xipt_system/xipt_system.php:15:$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
 ../packages/tmp/install/install.php:9:require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt' .DS. 'install' .DS. 'helper.php';
-../packages/tmp/install/uninstall.php:13:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'helpers' .DS. 'unhook.php';
+../packages/tmp/install/uninstall.php:13:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/install/helper.php:264:				require_once( $filename );
 ../packages/tmp/install/helper.php:266:				require_once JPATH_ROOT.DS.'components'.DS.'com_xipt' .DS. 'defines.xipt.php';
 ../packages/tmp/admin/jax.xipt.php:22://	require_once( JPATH_COMPONENT . DS . 'libraries' . DS . 'apps.php');
