@@ -182,6 +182,38 @@ class plgSystemxipt_system extends JPlugin
 	    return true;
 	}	
 	
+	function onAfterDispatch()
+    {
+        // get option, view and task       
+        $option     = JRequest::getVar('option');
+        $view         = JRequest::getVar('view');       
+        $task         = JRequest::getVar('task');
+       
+        if($option != 'com_community' || $view != 'search' || $task != 'advancesearch')
+            return true;
+            
+        $allTypes = XiptLibProfiletypes::getProfiletypeArray(array('published'=>1, 'visible'=>1));
+		
+        if (!$allTypes)
+			return false;
+
+		$profileType = JHTML::_('select.genericlist',  $allTypes, 'profiletypes', 'class="inputbox"', 'id', 'name');
+      
+        ob_start();
+        $this->_addXiptSearchScript($profileType);
+
+        $content = ob_get_contents();
+        ob_clean();
+        $doc = JFactory::getDocument();
+       
+        JHTML::script('jquery1.4.2.js','components/com_xipt/assets/js/', true);
+        $doc->addCustomTag( '<script type="text/javascript">jQuery.noConflict();</script>' );
+       
+        $doc->addScriptDeclaration($content);
+        return true;       
+    }
+
+	
 	// $userInfo ia an array and contains contains
 	// userid
 	// oldPtype
@@ -194,5 +226,63 @@ class plgSystemxipt_system extends JPlugin
 	function onAfterProfileTypeChange($newPtype, $result)
 	{
 		return false;
+	}
+	
+	function _addXiptSearchScript($profileType)
+	{
+	   //CAssets::attach(JURI::root().'components/com_community/assets/joms.jquery', 'js');
+		?>
+			$(function($){
+			 // find all select list object
+			 var sel = document.getElementsByTagName("select");
+	
+		     for (i=0 ; i !=sel.length ; i++){
+		        joms.jQuery.xipt.getProfileTypesFields($, $(sel[i]).attr("id"));
+		        }
+			
+			// change on select list
+			$("select[id^='field']").live('change', function(){ 
+				joms.jQuery.xipt.getProfileTypesFields($, $(this).attr("id"));
+				});
+				
+			$("#profiletypes").live('change', function(){
+			
+			 		//set profileType value in  hidden textbox
+					profileFieldValue= $(this).val();
+					parentId = $(this).prev().attr("id");
+					$("#"+ $("#" + parentId + ":first-child" ).attr("id")).val(profileFieldValue);
+				});
+				
+			});
+
+    	joms.jQuery.extend({
+    		xipt:{
+			  getProfileTypesFields : function($, id){
+					var value = $('#'+id).val();
+              		
+              		if(value != "XIPT_PROFILETYPE")
+                      return true;
+                      
+                    ptHtml = '<?php echo $profileType; ?>';
+                    // valueinputId is parent id of valueId and  profiletype List
+                    valueinputId = $('#'+id).attr("id").replace("field", "valueinput");
+                    
+				    // find hidden text box
+				    valueId = $('#'+id).attr("id").replace("field", "value");
+				    $('#'+valueId).css('display', 'none');
+				    $(ptHtml).appendTo('div#'+valueinputId);
+				    
+				    
+				    // set profileType value in select list by hidden textbox
+				    if($('#'+valueId).val())
+				    	 $('#'+valueId).next().val($('#'+valueId).val());
+				     else
+				         $('#'+valueId).val($('#'+valueId).next().val());			//set default value of hidden textbox
+				    }	  
+				  
+				}
+			});		
+		
+		<?php 
 	}
 }
