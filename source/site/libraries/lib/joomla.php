@@ -13,7 +13,7 @@ class XiptLibJoomla
 {
 	function getJUserTypes()
 	{
-		$values=array();
+		$values= array(JOOMLA_USER_TYPE_NONE);
 		$query 	= new XiptQuery();				
 		$val	=	$query->select('*')
 			  			  ->from('#__core_acl_aro_groups' )
@@ -24,10 +24,10 @@ class XiptLibJoomla
 			  			  ->where(" `name` <> 'Super Administrator' ", 'AND')
 			  			  ->dbLoadQuery("","")
 			  			  ->loadObjectList('name');
-		 
+		
 		if($val)
-				return array_keys($val);			
+			return array_merge($values, array_keys($val)); 		
 		    
-		return 'None';	
+		return $values;	
 	}	
 }

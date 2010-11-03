@@ -146,5 +146,9 @@
 	<rule name="writemessages"
 		  title="Restrict to Send Message"
 		  description="Restrict Users to Send Message" />
+		  
+	<rule name="readmessage"
+		  title="Restrict to Read Message"
+		  description="Restrict Users to Read Message" />
 </group>		
 </rules>
