@@ -104,8 +104,8 @@ class XiptLibPluginhandler
 		XiptAclHelper::performACLCheck($ajax, $callArray, $args);
 
 		// If we come here means ACL Check was passed
-		$controller	=	JString::strtolower($callArray[0]);
-		$function	=	JString::strtolower($callArray[1]);
+		$controller	=	$callArray[0];
+		$function	=	$callArray[1];
 	
 		switch($controller.'_'.$function)
 		{
@@ -129,8 +129,8 @@ class XiptLibPluginhandler
 					return XiptHelperRegistration::$function($args,$response);
 					
 			//when controller == apps
-			case 'apps_ajaxaddapp' : 
-			case 'apps_ajaxadd' : 
+			case 'apps_ajaxAddApp' : 
+			case 'apps_ajaxAdd' : 
 					$my	= JFactory::getUser();
 
 				    //XITODO : Remove it and add assert

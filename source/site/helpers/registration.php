@@ -103,10 +103,13 @@ class XiptHelperRegistration
 	function ajaxCheckEmailDuringFacebook(&$args, &$response)
 	{
 		//Added Profiletype Specific support
-		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
+		$pluginHandler = new XiptLibPluginhandler();
+		$ptype  = $pluginHandler->isPTypeExistInSession();		
 		
-		if(XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING))
+		if(!$ptype){
+			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
 			return false;
+		}
 		
 		// as per JomSocial code
 		$email = $args[0];
@@ -124,10 +127,13 @@ class XiptHelperRegistration
 	
 	function ajaxCheckUsernameDuringFacebook(&$args, &$response)
 	{
-		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
+		$pluginHandler = new XiptLibPluginhandler();
+		$ptype  = $pluginHandler->isPTypeExistInSession();
 		
-		if(XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING))
+		if(!$ptype){
+			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
 			return false;
+		}
 			
 		// as per JomSocial code
 		$email = $args[0];
@@ -146,10 +152,13 @@ class XiptHelperRegistration
 	
 	function ajaxCheckEmail(&$args, &$response)
 	{
-		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
+		$pluginHandler = new XiptLibPluginhandler();
+		$ptype  = $pluginHandler->isPTypeExistInSession();
 		
-		if(XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING))
+		if(!$ptype){
+			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
 			return false;
+		}
 		
 		// as per JomSocial code
 		$email = $args[0];
@@ -168,11 +177,13 @@ class XiptHelperRegistration
 
 	function ajaxCheckUserName(&$args, &$response)
 	{
-		$ptype = XiptLibPluginhandler::isPTypeExistInSession();
-		
-		if(XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING))
+		$pluginHandler = new XiptLibPluginhandler();
+		$ptype  = $pluginHandler->isPTypeExistInSession();
+				
+		if(!$ptype){
+			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
 			return false;
-		
+		}		
 		// as per JomSocial code
 		$uname = $args[0];
 		if(XiptHelperRegistration::checkIfUsernameAllowed($uname, $ptype))

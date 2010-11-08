@@ -255,20 +255,21 @@ class XiptHelperImage
 		$newImageRefPath = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$newImageName.'.'.JFile::getExt($imagePath);
 		
 		imagesavealpha($imageImage, true);
+		
+		ob_start();
 		// Test if type is png
 		if( $destinationType == 'image/png' || $destinationType == 'image/x-png' )
-		{
-			$output = imagepng( $imageImage, $newImagePath  );
-		}
+			imagepng($imageImage);			
 		elseif ( $destinationType == 'image/gif')
-		{
-			$output = imagegif( $imageImage , $newImagePath );
-		}
-		else
-		{
+			imagegif($imageImage);
+		else{
 			// We default to use jpeg
-			$output =  imagejpeg($imageImage, $newImagePath ,100);
+			imagejpeg($imageImage, null, 100);		
 		}
+
+		$output = ob_get_contents();
+		ob_end_clean();
+		JFile::write( $newImagePath , $output );
 		
 		// Free any memory from the existing image resources
 		imagedestroy( $imageImage );
