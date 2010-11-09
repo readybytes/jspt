@@ -69,10 +69,10 @@ jQuery(document).ready(function($){
 					</td>
 					<td > 
 						<div id="profileTypes<?php echo $catName;?>">
-							<div style="float:left; margin-left:20px; width:60%;">
+							<div style="float:left; margin-left:5%; width:50%;">
 								<?php echo XiptHelperProfilefields::buildProfileTypes($this->fieldid,$catIndex);?>
 							</div>
-							<div style="float:right; width:30%;">
+							<div style="float:right; width:40%;">
 								<?php echo XiptText::_("SELECT");?> : 
 								<a href="#" class="ptypeSelectAll" id="ptypeSelectAll<?php echo $catName;?>"><?php echo XiptText::_('ALL');?></a> | 
 								<a href="#" class="ptypeSelectNone" id="ptypeSelectNone<?php echo $catName;?>"><?php echo XiptText::_('NONE');?></a>	 

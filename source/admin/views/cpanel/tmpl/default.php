@@ -13,7 +13,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 			<div id="cpanel">
 				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', XiptText::_('SETUP'));?>
 				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', XiptText::_('SETTINGS'));?>
-				<?php echo $this->addIcon('profiletypes.gif','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
+				<?php echo $this->addIcon('profiletypes.png','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
 				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', XiptText::_('JSCONFIGURATION'));?>
 			</div>
 			<div class='clr'></div>

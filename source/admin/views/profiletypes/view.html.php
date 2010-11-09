@@ -70,6 +70,7 @@ class XiptViewProfiletypes extends XiptView
 		JToolBarHelper::publishList('switchOnpublished', XiptText::_( 'PUBLISH' ));
 		JToolBarHelper::unpublishList('switchOffpublished', XiptText::_( 'UNPUBLISH' ));
 		JToolBarHelper::divider();
+		JToolBarHelper::custom('copy','copy','',XiptText::_('COPY'),0,0);
 		JToolBarHelper::trash('remove', XiptText::_( 'DELETE' ));
 		JToolBarHelper::addNew('edit', XiptText::_( 'ADD PROFILETYPES' ));
 		return true;

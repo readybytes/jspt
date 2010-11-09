@@ -127,4 +127,14 @@ class XiptProfiletypesControllerTest extends XiUnitTestCase
 		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
   		$this->_DBO->addTable('#__community_users');  		
   	}
+	
+  	function testCopy()
+  	{ 		
+  		$controller = new XiptControllerProfiletypes();
+  		$controller->copy(array(1));
+  		$controller->copy(array(2,4));
+  		$controller->copy(array(1,2,3));
+  		$this->_DBO->addTable('#__xipt_profiletypes');
+		$this->_DBO->filterOrder('#__xipt_profiletypes','id');
+  	}
 }

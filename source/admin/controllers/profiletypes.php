@@ -208,5 +208,32 @@ class XiptControllerProfiletypes extends XiptController
 		$model->save($data, $id);
 		return $image;
 	}
+	
+	function copy($ids = array())
+	{
+		//get selected profile type ids
+		$cid	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
+		if (count($cid) == 0)
+ 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+		
+		//get profile type data by id
+		$model = $this->getModel();
+		$data  = $model->loadRecords(0);
+		
+		// get last profile type from array ( will be last in ordering )
+ 		$lastOrder = end($data)->ordering + 1;
+
+		foreach($cid as $id){		
+			$data[$id]->id        = 0;
+			$data[$id]->name      = XiptText::_('Copy of ').$data[$id]->name;
+			$data[$id]->published = 0;
+			$data[$id]->ordering  = $lastOrder++;
+			$model->save($data[$id],0);
+		}
+
+		$this->setRedirect('index.php?option=com_xipt&view=profiletypes');
+		return false;
+	}
+
 }
 

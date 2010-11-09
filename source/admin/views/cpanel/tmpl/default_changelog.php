@@ -12,7 +12,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <iframe 	
 		id="blockrandom"
 		name="iframe"
-		src="http://www.joomlaxi.com/jspt-changelog/item/jspt-22-beta--14th-may.html?tmpl=component"
+		src="http://www.joomlaxi.com/support/change-log/item/jspt-30xx-beta.html?tmpl=component"
 		width="100%"
 		height="200"
 		scrolling="auto"
