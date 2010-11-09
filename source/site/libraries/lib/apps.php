@@ -56,19 +56,17 @@ class XiptLibApps
 	function getPluginId( $element, $folder = 'community' )
 	{
 		$reset = XiptLibJomsocial::cleanStaticCache();
-
 		
 		static $plugin = null;
-		if($plugin !== null && isset($plugin[$folder][$element]) && $reset === false)
-			return $plugin[$folder][$element]->id;
-			
-		$query = new XiptQuery();
-		$plugin[$folder] = $query->select('*')
-						->from('#__plugins')
-						->where(" `folder` = '$folder' ")
-						->dbLoadQuery("","")
-						->loadObjectList('element');
-
+		if($plugin == null || !isset($plugin[$folder]) || $reset)
+		{			
+			$query = new XiptQuery();
+			$plugin[$folder] = $query->select('*')
+							->from('#__plugins')
+							->where(" `folder` = '$folder' ")
+							->dbLoadQuery("","")
+							->loadObjectList('element');
+		}
 		
 		if(isset($plugin[$folder][$element]))
 			return $plugin[$folder][$element]->id;

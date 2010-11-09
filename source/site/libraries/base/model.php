@@ -25,7 +25,8 @@ abstract class XiptModel extends JModel
 
 		//now construct the parent
 		parent::__construct($options);
-		$this->getPagination();
+		// IMP : This is running an extra query, eah time when an object is created
+		//$this->getPagination();
 	}
 
 	/*
