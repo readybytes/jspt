@@ -60,10 +60,17 @@ jQuery(document).ready(function($){
 		</thead>
 		<?php 
 		foreach($this->categories as $catIndex => $catInfo)
-			{
+			{	
+				
 				$catName = $catInfo['name'];
-				?>	
-				<tr  class="row<?php echo $catIndex%2;?>">
+				$display = true;
+				if($this->field->type == "group") :
+					if($catName != 'VISIBLE'):
+						$display = false;
+					endif;
+				 endif;	 ?>
+				
+				<tr  class="row<?php echo $catIndex%2;?>" <?php echo $display ? '' : 'style="display:none"' ; ?>;">
 					<td>
 						<?php echo XiptText::_($catName);?> :
 					</td>

@@ -39,6 +39,17 @@ if(!defined('_JEXEC')) die('Restricted access');
 					</span>
 				</td>
 				
+				<?php else :?>
+				<tr>
+				<td><?php echo ""; ?></td>
+				<td>
+					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&id='.$field->id, false); ?>				
+						Group :- <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
+					</span>
+				</td>
+				<?php endif;?>
+				
 				<?php foreach($this->categories as $catIndex => $catInfo) : ?>
 					  <?php $controlName = $catInfo['controlName'];	?>
 					  <td align="center">
@@ -49,21 +60,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 						</span>
 					  </td>
 				<?php endforeach; ?>				
-				</tr>			
-			<?php else :?>
-				<tr>
-				<td><?php echo ""; ?></td>
-				<td>
-					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">					
-						Group :- <?php echo $field->name; ?>
-					</span>
-				</td>
-					<?php foreach($this->categories as $catIndex => $catInfo) :?>
+				</tr><!--			
+			
+					<?php //foreach($this->categories as $catIndex => $catInfo) :?>
 							<td></td>
-					<?php endforeach;?>
+					<?php //endforeach;?>
 				</tr>
-			<?php endif;?>
-		<?php endforeach;?>
+			
+		--><?php endforeach;?>
 		<?php endif;?>		
 </table>
 
