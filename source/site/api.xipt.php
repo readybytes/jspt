@@ -106,4 +106,39 @@ class XiptAPI
 			
 		return XiptFactory::getSettings($paramName ,$defaultValue);
 	}
+	
+/*
+	 * Get Profile Type Name
+	 * @profileTypeId, Profile Id
+	 */
+	function getProfileTypeName($profileTypeId) {
+		
+		return XiptLibProfiletypes::getProfiletypeName($profileTypeId);
+	}
+	
+	/*
+	 * return array of all published Profile Type id
+	 * @filter, use for filter Profile Type 
+	 */
+	function getProfileTypeIds($filter= '') {
+		
+		return XiptLibProfiletypes::getProfiletypeArray($filter);
+	}
+	
+	/*
+	 * return JomSocial Profile Fields
+	 */
+	function getJSProfileFields($fieldId=0) {
+		return XiptLibJomsocial::getFieldObject($fieldId);
+	}
+	
+	/*
+	 * filter Profile-Type fields according to Profile Type
+	 */
+
+	function filterProfileTypeFields(&$fields, $selectedProfiletypeID, $from) {
+		
+		return XiptFactory::getInstance('profilefields','model')
+							->getFieldsForProfiletype($fields, $selectedProfiletypeID, $from);
+	}
 }
