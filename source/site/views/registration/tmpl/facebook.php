@@ -3,7 +3,7 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 ?>
-	<?php echo JHTML::stylesheet('style.css','components/com_xipt/assets'); ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo JURI::root() . '/components/com_xipt/assets/style.css'; ?>" />    
 	<div class="registerProfileType">
 	<h3 id="Title"><?php
 	echo XiptText::_ ( 'CHOOSE PROFILE TYPE' );
@@ -13,9 +13,9 @@
 	echo XiptText::_ ( 'PROFILE TYPE DESCRIPTION FOR SELECTBOX' )."<br />";
 	
 	if(XiptFactory::getSettings('jspt_fb_show_radio', 0))
-		echo $this->loadTemplate('radio');
+		include(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views'.DS.'registration'.DS.'tmpl'.DS.'facebook_radio.php');
 	else
-		echo $this->loadTemplate('select');
+		include(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views'.DS.'registration'.DS.'tmpl'.DS.'facebook_select.php');
 	?>
 	</div>
 <?php 

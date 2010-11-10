@@ -70,7 +70,7 @@ class XiptHelperRegistration
 		$filter 				= 	array('published'=>1,'visible'=>1);
 	    $allProfileTypes 		= 	XiptLibProfiletypes::getProfiletypeArray($filter);
 	    $defaultPType 			= 	XiptLibProfiletypes::getDefaultProfiletype();
-		$selectedProfileTypeID  = 	$defaultPType;
+		$selectedPT                =     $defaultPType;
 		
 		$params = XiptFactory::getSettings('', 0);
 		$showAsRadio = $params->get('jspt_fb_show_radio',false);
