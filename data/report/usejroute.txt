@@ -12,6 +12,7 @@
 ../packages/tmp/admin/controllers/profiletypes.php:37:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 ../packages/tmp/admin/controllers/profiletypes.php:138:		$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes', false);
 ../packages/tmp/admin/controllers/profiletypes.php:180:		$this->setRedirect('index.php?option=com_xipt&view=profiletypes');
+../packages/tmp/admin/controllers/profiletypes.php:234:		$this->setRedirect('index.php?option=com_xipt&view=profiletypes');
 ../packages/tmp/admin/controllers/settings.php:16:		$this->setRedirect("index.php?option=com_xipt&view=settings",$msg);
 ../packages/tmp/admin/views/applications/view.html.php:41:			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 ../packages/tmp/admin/views/applications/view.html.php:47:			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
@@ -29,7 +30,7 @@
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:14:				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', XiptText::_('SETUP'));?>
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:15:				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', XiptText::_('SETTINGS'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:16:				<?php echo $this->addIcon('profiletypes.gif','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:16:				<?php echo $this->addIcon('profiletypes.png','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:17:				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', XiptText::_('JSCONFIGURATION'));?>
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:21:				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', XiptText::_('ACCESS CONTROL'));?>
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:22:				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', XiptText::_('PROFILE FIELDS'));?>
@@ -51,8 +52,8 @@
 ../packages/tmp/site/libraries/lib/pluginhandler.php:167:				$this->app->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration".$itemInfo,false));
 ../packages/tmp/site/libraries/lib/pluginhandler.php:183:			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
 ../packages/tmp/site/libraries/setup/rule/xiptplugin.php:55:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=xiptplugin",false);
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:76:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:90:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers",false);
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:72:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:86:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers",false);
 ../packages/tmp/site/libraries/setup/rule/jsfields.php:113:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=jsfields",false);
 ../packages/tmp/site/libraries/setup/rule/aecmi.php:44:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=aecmi",false);
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:23: 		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=settings", false));

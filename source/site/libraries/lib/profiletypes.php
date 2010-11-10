@@ -111,7 +111,7 @@ class XiptLibProfiletypes
 				$template = XiptLibProfiletypes::getProfileTypeData($ptype,'template');
 				
 			//set profiletype and template for user in #__xipt_users table	
-			$result = $uModel->save(	array('userid' => $userid,'profiletype'=>$ptype,'template'=>$template),
+			$result = $uModel->save(array('userid' => $userid,'profiletype'=>$ptype,'template'=>$template),
 								 	$userid
 								 );
 
@@ -270,7 +270,7 @@ class XiptLibProfiletypes
 			$results = XiptFactory::getInstance('users','model')->loadRecords(0);   
 				
 		// not a valid result OR value not set
-		if(!$results || isset($results[$userid]) === false){
+		if(!$results || isset($results[$userid]) == false){
 		    return $defaultValue;
 		}
 		
@@ -394,11 +394,10 @@ class XiptLibProfiletypes
 		if(empty($allProfileTypes))
 			return false;
 			
-		foreach($allProfileTypes as $pType) {
-			if($profileTypeID == $pType->id)
-				return true;
-		}
-		
+		$profiletypeIDs = array_keys($allProfileTypes);
+		if(in_array($profileTypeID, $profiletypeIDs))
+			return true;
+
 		return false;
 	}
 	

@@ -40,7 +40,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	{
 		$start=JRequest::getVar('start', 0);
 		$limit=JRequest::getVar('limit',SYNCUP_USER_LIMIT);
-		if(self::syncUpUserPT($start,$limit))
+		if($this->syncUpUserPT($start,$limit))
         	return XiptText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZED SUCCESSFULLY');
         
         return XiptText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZATION FAILED');
@@ -57,20 +57,16 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			return false;
 			
 		$result = $this->getUsertoSyncUp($start, $limit);
-
+		$profiletype = XiPTLibProfiletypes::getDefaultProfiletype();
+		$template	 = XiPTLibProfiletypes::getProfileTypeData($profiletype,'template');			
+		
 		foreach ($result as $userid)
-		{
-			$profiletype = XiPTLibProfiletypes::getDefaultProfiletype();
-			$template	 = XiPTLibProfiletypes::getProfileTypeData($profiletype,'template');;
 			XiPTLibProfiletypes::updateUserProfiletypeData($userid, $profiletype, $template, 'ALL');
-		}
-		
+			
 		if($test)
-		{
 			return true;
-		}
 		
-		global $mainframe;
+		$mainframe = JFactory::getApplication();
 		if(sizeof($result)== $limit){			
 			$start+=$limit;
     		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));

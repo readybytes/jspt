@@ -14,8 +14,8 @@
 ../packages/tmp/site/libraries/base/factory.php:22:	//XITODO : apply caching 
 ../packages/tmp/site/libraries/base/table.php:140:		// XITODO : generate warning if record does not exists
 ../packages/tmp/site/libraries/base/error.php:13:	//XITODO : add assertError. assertWarn, assertMessage function
-../packages/tmp/site/libraries/base/model.php:192:		//XITODO assert for $pk
-../packages/tmp/site/libraries/base/model.php:208:	 * XITODO Method to order rows.
+../packages/tmp/site/libraries/base/model.php:193:		//XITODO assert for $pk
+../packages/tmp/site/libraries/base/model.php:209:	 * XITODO Method to order rows.
 ../packages/tmp/site/libraries/base/query.php:424:		//XITODO : Add limit and limitstart support in query class
 ../packages/tmp/site/libraries/lib/pluginhandler.php:136:				    //XITODO : Remove it and add assert
 ../packages/tmp/site/libraries/lib/pluginhandler.php:235:		//XITODO : check is setup required 
@@ -23,8 +23,8 @@
 ../packages/tmp/site/libraries/lib/profiletypes.php:239:	//XITODO : move to user model
 ../packages/tmp/site/libraries/lib/jomsocial.php:201:		//	XITODO : format it in proper way
 ../packages/tmp/site/libraries/setup/base.php:34:		// XITODO : handle errors 
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:105:		//XITODO : apply caching
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:112:		// XITODO : PUT into query Object
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:101:		//XITODO : apply caching
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:108:		// XITODO : PUT into query Object
 ../packages/tmp/site/libraries/fields/templates/base.php:51:		//	XITODO : format it in proper way
 ../packages/tmp/site/libraries/acl/base.php:34:		//XITODO : CREATE INI FILE
 ../packages/tmp/site/libraries/acl/base.php:128:		//XITODO : clean code : use default from where acl rules are being invoked

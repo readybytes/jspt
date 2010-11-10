@@ -50,18 +50,18 @@
 ../packages/tmp/site/libraries/lib/jomsocial.php:88:		if(JFactory::getApplication()->isAdmin())
 ../packages/tmp/site/libraries/lib/jomsocial.php:91:		$loggedInUser = JFactory::getUser($userId);
 ../packages/tmp/site/libraries/lib/jomsocial.php:159:		$db = JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:346:			$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:347:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:378:		$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:396:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:365:			$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:366:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:397:		$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:415:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
 ../packages/tmp/site/libraries/lib/aec.php:23:		$mySess 		= JFactory::getSession();
 ../packages/tmp/site/libraries/setup/helper.php:13:		$parser		= JFactory::getXMLParser('Simple');
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:17:			global $mainframe;
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:18:			$mainframe->enqueueMessage(XiptText::_("FIRST SELECT THE DEFAULT PROFILE TYPE"));
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:73:		global $mainframe;
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:76:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:80:		$mainframe->enqueueMessage($msg);
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:111:		$db 	= JFactory::getDBO();	
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:69:		$mainframe = JFactory::getApplication();
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:72:    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:76:		$mainframe->enqueueMessage($msg);
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:107:		$db 	= JFactory::getDBO();	
 ../packages/tmp/site/libraries/setup/rule/jsfields.php:67:		// Load the JTable Object.
 ../packages/tmp/site/libraries/setup/rule/jsfields.php:68:		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'tables');
 ../packages/tmp/site/libraries/setup/rule/jsfields.php:69:		$row	= JTable::getInstance( 'profiles' , 'CommunityTable' );

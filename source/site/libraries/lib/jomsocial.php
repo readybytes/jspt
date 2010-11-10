@@ -253,7 +253,7 @@ class XiptLibJomsocial
 		 * */
 		
 		//reload : so that we do not override previous information if any updated in database.
-		self::reloadCUser($userid);
+		//self::reloadCUser($userid);
 		$user    	= CFactory::getUser($userid);
 		$userAvatar = $user->_avatar;
 		
@@ -265,12 +265,22 @@ class XiptLibJomsocial
 			return false;
 
 		// we can safely update avatar so perform the operation		
-		$user->set('_avatar',$newAvatar);
-		$user->set('_thumb', XiptHelperImage::getThumbAvatarFromFull($newAvatar));
-		
-		if(!$user->save())
-		    return false;
-		
+//		$user->set('_avatar',$newAvatar);
+//		$user->set('_thumb', XiptHelperImage::getThumbAvatarFromFull($newAvatar));
+//		
+//		if(!$user->save())
+//		    return false;
+//	
+
+		$query = new XiptQuery();
+		if(! $query->update('#__community_users')
+			  	   ->set(" avatar = '$newAvatar' ")
+			  	   ->set(" thumb = '".XiptHelperImage::getThumbAvatarFromFull($newAvatar)."' ")
+			       ->where(" userid = $userid ")
+			       ->dbLoadQuery()
+			       ->query())
+			       return false;
+			  
 		//enforce JomSocial to clean cached user
         self::reloadCUser($userid);
 		return true;
@@ -281,16 +291,25 @@ class XiptLibJomsocial
 	function updateCommunityUserPrivacy($userid,$myprivacy)
 	{	
 		// get params
-		self::reloadCUser($userid);
+		//self::reloadCUser($userid);
 		
 		$cuser    = CFactory::getUser($userid);
 		$myparams = $cuser->getParams();
 		foreach( $myprivacy as $key => $val ){
 			$myparams->set( $key , $val );
 		}
-
-		if(!$cuser->save( 'params' ))
-			return false ;
+		
+		$params = $myparams->toString();
+		$query = new XiptQuery();
+		if(! $query->update('#__community_users')
+			  	   ->set(" params = '$params' ")			  	   
+			       ->where(" userid = $userid ")
+			       ->dbLoadQuery()
+			       ->query())
+			       return false;
+	
+//		if(!$cuser->save( 'params' ))
+//			return false ;
 
 		 //enforce JomSocial to clean cached user
    		self::reloadCUser($userid);	
