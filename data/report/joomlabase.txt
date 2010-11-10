@@ -46,14 +46,14 @@
 ../packages/tmp/site/libraries/lib/pluginhandler.php:236:		$mysess =  JFactory::getSession();
 ../packages/tmp/site/libraries/lib/profiletypes.php:288:		$cache =  JFactory::getCache('com_xipt');
 ../packages/tmp/site/libraries/lib/joomla.php:14:	function getJUserTypes()
-../packages/tmp/site/libraries/lib/jomsocial.php:70:		$authorize		= JFactory::getACL();
-../packages/tmp/site/libraries/lib/jomsocial.php:88:		if(JFactory::getApplication()->isAdmin())
-../packages/tmp/site/libraries/lib/jomsocial.php:91:		$loggedInUser = JFactory::getUser($userId);
-../packages/tmp/site/libraries/lib/jomsocial.php:159:		$db = JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:365:			$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:366:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:397:		$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:415:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:71:		$authorize		= JFactory::getACL();
+../packages/tmp/site/libraries/lib/jomsocial.php:89:		if(JFactory::getApplication()->isAdmin())
+../packages/tmp/site/libraries/lib/jomsocial.php:92:		$loggedInUser = JFactory::getUser($userId);
+../packages/tmp/site/libraries/lib/jomsocial.php:160:		$db = JFactory::getDBO();
+../packages/tmp/site/libraries/lib/jomsocial.php:366:			$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:367:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:398:		$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:416:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
 ../packages/tmp/site/libraries/lib/aec.php:23:		$mySess 		= JFactory::getSession();
 ../packages/tmp/site/libraries/setup/helper.php:13:		$parser		= JFactory::getXMLParser('Simple');
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:17:			global $mainframe;

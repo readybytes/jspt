@@ -26,6 +26,7 @@
 ../packages/tmp/admin/views/profilefields/view.html.php:63:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 ../packages/tmp/admin/views/profilefields/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 ../packages/tmp/admin/views/profilefields/tmpl/default.php:37:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&id='.$field->id, false); ?>
+../packages/tmp/admin/views/profilefields/tmpl/default.php:47:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profilefields&task=edit&id='.$field->id, false); ?>				
 ../packages/tmp/admin/views/cpanel/view.html.php:33:		//JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:9:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:14:				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', XiptText::_('SETUP'));?>

@@ -22,6 +22,7 @@ class XiptLibJomsocial
 		$query  = new XiptQuery();
 		$result = $query->select('*')
 						->from('#__community_fields')
+						->order('ordering')
 						->dbLoadQuery()
 						->loadObjectList('id');
 						

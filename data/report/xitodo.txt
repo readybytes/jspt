@@ -21,7 +21,7 @@
 ../packages/tmp/site/libraries/lib/pluginhandler.php:235:		//XITODO : check is setup required 
 ../packages/tmp/site/libraries/lib/profiletypes.php:214:		//XITODO : we need to add $visible pTypes as per request.move this to model, implement WHERE
 ../packages/tmp/site/libraries/lib/profiletypes.php:239:	//XITODO : move to user model
-../packages/tmp/site/libraries/lib/jomsocial.php:201:		//	XITODO : format it in proper way
+../packages/tmp/site/libraries/lib/jomsocial.php:202:		//	XITODO : format it in proper way
 ../packages/tmp/site/libraries/setup/base.php:34:		// XITODO : handle errors 
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:101:		//XITODO : apply caching
 ../packages/tmp/site/libraries/setup/rule/syncupusers.php:108:		// XITODO : PUT into query Object
