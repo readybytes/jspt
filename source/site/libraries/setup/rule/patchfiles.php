@@ -257,15 +257,32 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	
 	function isCustomLibraryFieldRequired()
 	{
-		$pFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.PROFILETYPE_FIELD_TYPE_NAME.'.php';
-		$pLibrary = JFile::exists($pFileName);
-    	$tFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.TEMPLATE_FIELD_TYPE_NAME.'.php';
-    	$tLibrary = JFile::exists($tFileName);
+		$pFileName 	 = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.PROFILETYPE_FIELD_TYPE_NAME.'.php';
+		$pXiFileName = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'front_libraries_fields_profiletypes.php';
+		$pLibrary    = $this->deleteJSOldFile($pFileName,$pXiFileName);
+		
+		$tFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.TEMPLATE_FIELD_TYPE_NAME.'.php';
+    	$tXiFileName = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'front_libraries_fields_templates.php';
+		$tLibrary = $this->deleteJSOldFile($tFileName,$tXiFileName);
 
-    	if($pLibrary && $tLibrary)
-    		return false;
-    		
+		if($pLibrary && $tLibrary)
+			return false;
+
     	return true;
+	}
+	
+	function deleteJSOldFile($file1,$file2){
+		if(!JFile::exists($file1))
+			return false;
+			
+		$md5JsPFile = md5(JFile::read($file1));
+		$md5XiPFile = md5(JFile::read($file2));
+		if($md5JsPFile != $md5XiPFile){
+			JFile::delete($file1);
+			return false;
+		}
+		
+		return true;
 	}
 	
 	function copyLibraryFiles()
