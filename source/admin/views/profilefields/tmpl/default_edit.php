@@ -92,7 +92,7 @@ jQuery(document).ready(function($){
 			?>
 		</table>
 
-<div style="width:40%; float:right;">
+<div style="width:30%; float:right;">
 <?php 
 echo $this->pane->startPane( 'stat-pane' );
 require("helppanel.php");

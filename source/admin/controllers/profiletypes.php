@@ -62,6 +62,14 @@ class XiptControllerProfiletypes extends XiptController
 		if(isset($allData[$id]))
 			$oldData = $allData[$id];
 		
+		// set ordering
+		if(end($allData)){
+			if($allData[$id]->id == 0)
+			$data['ordering'] = end($allData)->ordering + 1;
+		}
+		else
+			$data['ordering'] =  1;
+			
 		// now save model
 		$id	 = $model->save($data, $id);
 		XiptError::assert($id, XiptText::_("$id NOT EXISTS"), XiptError::ERROR);

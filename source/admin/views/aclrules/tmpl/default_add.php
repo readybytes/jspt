@@ -9,29 +9,16 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 	function checkForm()
 	{
-		var form = document.adminForm;
-		if( form.acl.value == 0 )
+		var myvalue= document.getElementById('acl');
+		
+		if( myvalue.value == 0)
 		{
+			alert( "<?php echo XiptText::_( 'PLEASE SELECT A ACL FROM LIST'); ?>" );
 			return false;
 		}
 		return true;
 	}
 
-	function submitbutton(action) {
-		var form = document.adminForm;
-		switch(action)
-		{
-			case 'renderacl' :
-				if( form.acl.value == 0 )
-				{
-					alert( "<?php echo XiptText::_( 'PLEASE SELECT A ACL FROM LIST'); ?>" );
-					break;
-				}
-			case 'cancel':
-			default:
-				submitform( action );
-		}
-	}
 </script>
 
 <script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
@@ -73,7 +60,7 @@ jQuery(document).ready(function($){
 	</select>
 	</div>
 	<div style="margin-top:10px; margin-left:160px;";>				
-	<input type="submit" name="aclnext" value="<?php echo XiptText::_('NEXT');?>" onclick="submitbutton('edit');"/>
+	<input type="submit" name="aclnext" value="<?php echo XiptText::_('NEXT');?>" />
 	</div>				
 </div>
 
