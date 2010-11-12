@@ -27,7 +27,27 @@
 		<file>test/ui/aclRuleTest.php</file>
 	 </testsuite>
 	
+
 	<listeners>
 		<listener class="XiTestListener" file="./system/XiTestListener.php" />
 	</listeners>
+
+<!-- 
+        #####to run coverage create a directory report in test folder
+	
+
+  	<logging>
+  		  <log type="coverage-html" target="./report" charset="UTF-8"
+      			   yui="true" highlight="false"
+      			   lowUpperBound="35" highLowerBound="70"/>
+ 	</logging>
+
+	 <filter>
+	    <whitelist>
+	      <directory suffix=".php">../components/com_xipt</directory>
+              <directory suffix=".php">../administrator/components/com_xipt</directory>
+	    </whitelist>
+	  </filter>
+-->
+
 </phpunit>

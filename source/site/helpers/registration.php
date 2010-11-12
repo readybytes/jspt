@@ -229,7 +229,7 @@ class XiptHelperRegistration
 			
 		$invalidemails = explode(';', $config->get('jspt_prevent_email',''));		
 				
-		if($invalidemails != '')
+		if(!empty($invalidemails) && !empty($invalidemails[0]))
 		{
 			foreach($invalidemails as $invalidemail)
 			{
@@ -244,7 +244,7 @@ class XiptHelperRegistration
 
 		// if allowed email
 		$validemails		= explode(';',$config->get('jspt_allowed_email',''));
-		if($validemails != '')
+		if(!empty($validemails) && !empty($validemails[0]))
 		{
 			foreach($validemails as $validemail)
 			{
@@ -273,7 +273,7 @@ class XiptHelperRegistration
 			
 		$invalidUsernames = explode(';', $config->get('jspt_prevent_username',''));
 		
-		if($invalidUsernames == '' || empty($invalidUsernames))
+		if(empty($invalidUsernames) || empty($invalidUsernames[0]))
 			return true;
 		
 		foreach($invalidUsernames as $invalidUsername){

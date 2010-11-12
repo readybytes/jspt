@@ -21,9 +21,19 @@ class XiptRegistrationHelperTest extends XiUnitTestCase
 	function testAjaxCheckEmail()
 	{	
 		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('admin@yahoo.com',1));
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yaahoo.com',1));
 		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('moderator@gmail.com',1));
 
 		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yahoo.com',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yaahoo.com',2));
 		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('moderator@gmail.com',2));		
+		
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yahoo.com',3));
+		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('admin@yaahoo.com',3));
+		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('moderator@gmail.com',3));
+		
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yaahoo.com',4));
+		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('admin@yahoo.com',4));
+		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('moderator@gmail.com',4));
 	}
 }

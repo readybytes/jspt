@@ -59,7 +59,7 @@
 ../packages/tmp/site/libraries/setup/rule/aecmi.php:44:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=aecmi",false);
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:23: 		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=settings", false));
 ../packages/tmp/site/libraries/setup/rule/defaultprofiletype.php:31:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=defaultprofiletype",false);
-../packages/tmp/site/libraries/setup/rule/patchfiles.php:292:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=patchfiles",false);
+../packages/tmp/site/libraries/setup/rule/patchfiles.php:309:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=patchfiles",false);
 ../packages/tmp/site/libraries/setup/rule/createprofiletypes.php:22:		JFactory::getApplication()->redirect(XiptRoute::_("index.php?option=com_xipt&view=profiletypes&task=edit", false));
 ../packages/tmp/site/libraries/setup/rule/createprofiletypes.php:31:			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=createprofiletypes",false);
 ../packages/tmp/site/views/registration/tmpl/default.php:13:<form action="<?php echo XiptRoute::_( 'index.php?option=com_xipt&view=registration&reset=true',false ); ?>" method="post" name="ptypeForm">
