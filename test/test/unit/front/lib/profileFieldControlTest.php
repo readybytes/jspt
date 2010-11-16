@@ -97,4 +97,39 @@ class ProfileFieldControlTest extends XiUnitTestCase
   		}
   }
   
+  function testProfileFieldGroup()
+  {
+  		$model 	= new XiptModelProfilefields();
+  		// ptofile type 1 when all categories are set to all
+		$fields 	= $this->getProfileFields(82);
+		$compare=array();
+		$require=array();
+	        $pTypeID = XiptLibProfiletypes::getUserData(0,'PROFILETYPE',true);	
+		XiptLibProfiletypes::filterCommunityFields(82,$fields,'getEditableProfile');
+		$this->compareProfileFields($fields,$compare,$require);
+		
+  	  	// profile type 2 , set to all		
+		$fields 	= $this->getProfileFields(83);
+
+		XiptLibProfiletypes::filterCommunityFields(83,$fields,'getViewableProfile');
+		$this->compareProfileFields($fields,$compare,$require);
+		
+		// profile type 3 , set to all		
+		$fields 	= $this->getProfileFields(84);
+		XiptLibProfiletypes::filterCommunityFields(84,$fields,'getViewableProfile');
+		$this->compareProfileFields($fields,$compare,$require);
+		
+		
+		// profile type 1 at viewable, when some conditions are applied
+		$url=dirname(__FILE__).'/sql/ProfileFieldControlTest/testProfileFieldControl1.sql';
+		$this->_DBO->loadSql($url);
+		// the time of registration
+		$compare[3]=1;
+		$compare[4]=1;
+		$require[5]=0;
+		$fields 	= $this->getProfileFields(82);
+		XiptLibProfiletypes::filterCommunityFields(82,$fields,'getViewableProfile');
+		$this->compareProfileFields($fields,$compare,$require);  	
+  }
+  
 }

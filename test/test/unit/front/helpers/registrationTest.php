@@ -15,7 +15,11 @@ class XiptRegistrationHelperTest extends XiUnitTestCase
 		
 		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('admin',2));
 		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('moderator',2));
-		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed('moderator',1));		
+		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed('moderator',1));
+
+		// test with space
+		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed('  moderator  ',1));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('  moderator  ',2));
 	}
 	
 	function testAjaxCheckEmail()
@@ -35,5 +39,12 @@ class XiptRegistrationHelperTest extends XiUnitTestCase
 		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yaahoo.com',4));
 		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('admin@yahoo.com',4));
 		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('moderator@gmail.com',4));
+		
+		// test with space in emailid
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed('admin@yaahoo.com ',4));
+		$this->assertTrue(XiptHelperRegistration::checkIfEmailAllowed('  admin@yahoo.com  ',4));
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed(' admin@yahoo.com',3));
+		$this->assertFalse(XiptHelperRegistration::checkIfEmailAllowed(' admin@yahoo.com ',2));
+		 
 	}
 }

@@ -27,10 +27,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 		
 		if(!empty($this->fields)) :
 		foreach($this->fields as $field) :
-
+			?><tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>"><?php 
 			if($field->type != "group") :
-				++$i;	?>
-				<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
+				++$i;	?>				
 				<td><?php echo $i;?></td>
 				<td>
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
@@ -39,8 +38,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 					</span>
 				</td>
 				
-				<?php else :?>
-				<tr>
+				<?php else :?>				
 				<td><?php echo ""; ?></td>
 				<td>
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
@@ -48,26 +46,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 						<?php echo XiptText::_('GROUP');?> :- <A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>
-				<?php endif;?>
+			<?php endif;?>
 				
-				<?php foreach($this->categories as $catIndex => $catInfo) : ?>
-					  <?php $controlName = $catInfo['controlName'];	?>
-					  <td align="center">
-						<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
-						<?php 
-							echo XiptHelperProfilefields::getProfileTypeNames( $field->id,$catIndex); 
-						?>
-						</span>
-					  </td>
+			<?php foreach($this->categories as $catIndex => $catInfo) : ?>
+				<?php $controlName = $catInfo['controlName'];	?>
+				<td align="center">
+					<span id="<?php echo "$controlName"."$field->id";?>" onclick="$('typeOption').style.display = 'block';$(this).style.display = 'none';">
+					<?php echo XiptHelperProfilefields::getProfileTypeNames( $field->id,$catIndex);	?>
+					</span>
+				 </td>
 				<?php endforeach; ?>				
-				</tr><!--			
-			
-					<?php //foreach($this->categories as $catIndex => $catInfo) :?>
-							<td></td>
-					<?php //endforeach;?>
-				</tr>
-			
-		--><?php endforeach;?>
+			</tr>
+		<?php endforeach;?>
 		<?php endif;?>		
 </table>
 

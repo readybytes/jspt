@@ -58,19 +58,9 @@ jQuery(document).ready(function($){
 			</td>
 		</tr>
 		</thead>
-		<?php 
-		foreach($this->categories as $catIndex => $catInfo)
-			{	
-				
-				$catName = $catInfo['name'];
-				$display = true;
-				if($this->field->type == "group") :
-					if($catName != 'VISIBLE'):
-						$display = false;
-					endif;
-				 endif;	 ?>
-				
-				<tr  class="row<?php echo $catIndex%2;?>" <?php echo $display ? '' : 'style="display:none"' ; ?>;">
+		<?php foreach($this->categories as $catIndex => $catInfo) :?> 
+				<?php $catName = $catInfo['name']; ?>
+				<tr  class="row<?php echo $catIndex%2;?>" >
 					<td>
 						<?php echo XiptText::_($catName);?> :
 					</td>
@@ -87,9 +77,7 @@ jQuery(document).ready(function($){
 						</div>							
 					</td>			
 				</tr>
-				<?php 
-			}
-			?>
+		<?php endforeach; ?>
 		</table>
 
 <div style="width:30%; float:right;">

@@ -10,7 +10,7 @@
 ../packages/tmp/install/helper.php:264:				require_once( $filename );
 ../packages/tmp/install/helper.php:266:				require_once JPATH_ROOT.DS.'components'.DS.'com_xipt' .DS. 'defines.xipt.php';
 ../packages/tmp/admin/jax.xipt.php:22://	require_once( JPATH_COMPONENT . DS . 'libraries' . DS . 'apps.php');
-../packages/tmp/admin/controllers/profiletypes.php:104:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
+../packages/tmp/admin/controllers/profiletypes.php:112:		require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'helpers'.DS.'image.php';
 ../packages/tmp/admin/includes.php:19:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/admin/includes.php:24:// include JomSocial files
 ../packages/tmp/admin/views/configuration/tmpl/default_edit.php:15:					<?php require_once( $this->jsConfigPath . DS . 'registrations.php' ); ?>
@@ -36,6 +36,7 @@
 ../packages/tmp/site/libraries/lib/pluginhandler.php:12:// include files, as we are here from plugin
 ../packages/tmp/site/libraries/lib/pluginhandler.php:14:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/site/libraries/setup/base.php:37:		include_once($msgFile);
+../packages/tmp/site/libraries/setup/rule/adminapproval.html:2:	<li> Admin Approval require to be install or enable.
 ../packages/tmp/site/libraries/setup/rule/createprofiletypes.html:2:	  <li> JSPT system require at least one profile type to be added. </li>
 ../packages/tmp/site/libraries/setup/rule/patchfiles.php:39:	    	require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 ../packages/tmp/site/libraries/setup/rule/patchfiles.php:57:			require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');

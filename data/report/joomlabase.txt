@@ -18,7 +18,7 @@
 ../packages/tmp/install/helper.php:342:		return in_array( $mainframe->getCfg( 'dbprefix' ) . $tableName, $tables );
 ../packages/tmp/install/helper.php:350:		$db		= JFactory::getDBO();
 ../packages/tmp/admin/jax.xipt.php:35:		$lang =& JFactory::getLanguage();
-../packages/tmp/admin/controllers/profiletypes.php:149:				JFactory::getApplication()->enqueueMessage($message);
+../packages/tmp/admin/controllers/profiletypes.php:157:				JFactory::getApplication()->enqueueMessage($message);
 ../packages/tmp/admin/includes.php:28:		JFactory::getApplication()->redirect("index.php",XiptText::_("PLEASE INSTALL JOMSOCIAL"));
 ../packages/tmp/admin/views/profiletypes/tmpl/default_edit.php:23:	                $editor =& JFactory::getEditor();
 ../packages/tmp/admin/views/setup/view.html.php:39:		$mysess = JFactory::getSession();

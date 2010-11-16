@@ -237,7 +237,7 @@ class XiptHelperRegistration
 				$email	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $email);
 				$regex	= "/^(.*$email)$/i";
 			
-				if(preg_match($regex, $testEmail))
+				if(preg_match($regex, JString::trim($testEmail)))
 					return false;
 			}
 		}
@@ -252,7 +252,7 @@ class XiptHelperRegistration
 				$email	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $email);
 				$regex	= "/^(.*$email)$/i";
 			
-				if(preg_match($regex, $testEmail))
+				if(preg_match($regex, JString::trim($testEmail)))
 					return true;
 			}
 			// not in allowed list, must return false
@@ -281,7 +281,7 @@ class XiptHelperRegistration
 			$username	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $username);
 			$regex		= "#^(?:$username)$#i";
 			
-			if(preg_match($regex, $testUsername))
+			if(preg_match($regex, JString::trim($testUsername)))
 				return false;
 		}
 		
