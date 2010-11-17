@@ -22,7 +22,7 @@ class CFieldsTemplates
 	
 	function getFieldData( $value )
 	{
-		return $this->_field->getFieldDAta($value);		
+		return $this->_field->getFieldData($value);		
 	}
 	
 	function getFieldHTML($field, $required )

@@ -109,7 +109,10 @@ class XiptLibPluginhandler
 	
 		switch($controller.'_'.$function)
 		{
-			//when controller == connect
+			//before creating new account, validate email and username
+			case 'connect_ajaxCreateNewAccount' :
+				return XiptHelperRegistration::ajaxCreateNewAccountFacebook($args,$response);
+
 			case 'connect_ajaxCheckEmail' 	 :
 				return XiptHelperRegistration::ajaxCheckEmailDuringFacebook($args,$response);
 

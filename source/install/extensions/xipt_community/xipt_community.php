@@ -192,15 +192,14 @@ class plgCommunityxipt_community extends CApplications
 
 		// user is allowed or not.
         $allowToChangePType    = XiptFactory::getSettings('allow_user_to_change_ptype_after_reg',0);
-        $allowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData($userid,'allowt');
+        $oldPtype 			   = XiptLibProfiletypes::getUserData($userid, 'PROFILETYPE');
+        $allowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData($oldPtype,'allowt');
 
         // not changing anything get data from table and set it
-		if(!$allowToChangeTemplate || !empty($templateValue)){
+		if(!$allowToChangeTemplate || empty($templateValue)){
 			//reset to old users value
-			$templateValue = XiptLibProfiletypes::getUserData($userid,'TEMPLATE');
-			
-			//if user is changing profiletype then we should pick the template as per profiletype
-			$oldPtype = XiptLibProfiletypes::getUserData($userid, 'PROFILETYPE');
+			$templateValue = XiptLibProfiletypes::getUserData($userid,'TEMPLATE');			
+			//if user is changing profiletype then we should pick the template as per profiletype			
 			if($allowToChangePType && $oldPtype != $profileTypeValue)
 				$templateValue = XiptLibProfiletypes::getProfiletypeData($profileTypeValue, 'template');
 		}

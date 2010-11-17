@@ -94,10 +94,49 @@ class XiptHelperRegistration
 			$response->addScriptCall('cWindowResize' ,PTYPE_POPUP_WINDOW_HEIGHT_SELECT, PTYPE_POPUP_WINDOW_WIDTH_SELECT);
 			$buttons	= '<input type="button" value="' . XiptText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'#profiletypes\').val()), \'\', 450, 200); return false;" />';
 		}
+		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_ ( 'CHOOSE PROFILE TYPE' ) . '");');
 		$response->addAssign('cWindowContent' , 'innerHTML' , $html);
 		$response->addScriptCall('cWindowActions', $buttons);
 		$response->sendResponse();
 		
+	}
+	
+	function ajaxCreateNewAccountFacebook(&$args, &$response)
+	{
+		//Added Profiletype Specific support
+		$pluginHandler = new XiptLibPluginhandler();
+		$ptype  = $pluginHandler->isPTypeExistInSession();		
+		
+		if(!$ptype){
+			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
+			return false;
+		}
+		
+		// as per JomSocial code
+		$username = $args[1];
+		$email    = $args[2];
+			
+		$isValidUsername = XiptHelperRegistration::checkIfUsernameAllowed($username, $ptype);
+		$isValidEmail	 = XiptHelperRegistration::checkIfEmailAllowed($email, $ptype);
+		if($isValidUsername && $isValidEmail)  
+			return true;
+		
+		ob_start();
+		include(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views'.DS.'registration'.DS.'tmpl'.DS.'facebook_error.php');
+		$contents = ob_get_contents();
+		ob_end_clean();
+		
+		$html  = '';
+		$html .= $contents;
+		
+		$buttons = '';		
+		
+		//$response->addScriptCall('cWindowResize' , PTYPE_POPUP_WINDOW_HEIGHT_RADIO , PTYPE_POPUP_WINDOW_WIDTH_RADIO);
+		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_('REGISTRATION VALIDATION') . '");');
+		$buttons	= '<input type="button" value="' . XiptText::_('BACK') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'[name=profiletypes]:checked\').val()), \'\', 450, 200); return false;" />';
+		$response->addAssign('cWindowContent' , 'innerHTML' , $html);
+		$response->addScriptCall('cWindowActions', $buttons);
+		$response->sendResponse();
 	}
 	
 	function ajaxCheckEmailDuringFacebook(&$args, &$response)

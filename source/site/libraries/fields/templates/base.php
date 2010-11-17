@@ -47,7 +47,7 @@ class XiptFieldsTemplatesBase
 		$templates = XiptHelperJomsocial::getTemplatesList();
 		$class	= ($required == 1) ? ' required' : '';
 		
-		$selectedValue = XiptText::_($this->getTemplateValue($tName,$user->id));
+		$selectedValue = $this->getTemplateValue($tName,$user->id);
 		//	XITODO : format it in proper way
 		$allowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData(XiptLibProfiletypes::getUserData($user->id),'allowt');
 		$allowToChangeTemplate = $allowToChangeTemplate || XiptHelperUtils::isAdmin($user->id);
@@ -78,6 +78,24 @@ class XiptFieldsTemplatesBase
 		return $html;
 	}
 	
+	function getTemplateValue($value,$userid)
+	{
+		// during registration
+        if($this->_view =='register'){
+            $pID = XiptFactory::getPluginHandler()->getRegistrationPType();
+		    $tName = XiptLibProfiletypes::getProfileTypeData($pID,'template');
+		    return $tName;
+        }
+		
+        if($value)
+            $tName=$value;
+        else
+        {
+	        //a valid or default value
+	        $tName = XiptLibProfiletypes::getUserData($userid,'TEMPLATE');
+        }
+        return $tName;
+	}
 	
 }
  

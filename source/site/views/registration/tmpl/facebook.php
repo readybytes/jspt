@@ -5,10 +5,6 @@
 ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo JURI::root() . '/components/com_xipt/assets/style.css'; ?>" />    
 	<div class="registerProfileType">
-	<h3 id="Title"><?php
-	echo XiptText::_ ( 'CHOOSE PROFILE TYPE' );
-	?></h3>
-	<div class='clr'></div>
 	<?php
 	echo XiptText::_ ( 'PROFILE TYPE DESCRIPTION FOR SELECTBOX' )."<br />";
 	

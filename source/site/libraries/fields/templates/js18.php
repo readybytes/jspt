@@ -10,25 +10,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptFieldsTemplatesJs18 extends XiptFieldsTemplatesBase
 {
-	function getTemplateValue($value,$userid)
-	{
-		// during registration
-        if($this->_view =='register'){
-            $pID = XiptFactory::getPluginHandler()->getRegistrationPType();
-		    $tName = XiptLibProfiletypes::getProfileTypeData($pID,'template');
-		    return $tName;
-        }
-		
-        if($value)
-            $tName=$value;
-        else
-        {
-	        //a valid or default value
-	        $tName = XiptLibProfiletypes::getUserData($userid,'TEMPLATE');
-        }
-        return $tName;
-	}
-	
 	function getFieldData( $value = null)
 	{
 		$tName = $value; 
