@@ -9,7 +9,7 @@
 	<state>
 		<name>Default Layout</name>
 		<description>Through this link you will be able to redirect user to registration page withot going on Profile Type selection page.</description>
-		<url addpath="/administrator/components/com_xipt/elements">
+		<url addpath="/components/com_xipt/elements">
 		<param name="ptypeid" type="profiletypes" default="0" label="PROFILETYPE" description="PROFILETYPE.DESC" />
 		</url>
 	</state>
