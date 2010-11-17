@@ -6,7 +6,9 @@
 <h4><u><?php echo XiptText::_("INVALID USERNAME OR PASSWORD AS FACEBOOK CONNECT");?></u></h4><br/>
 <?php 
 if(!$isValidUsername)
-	echo XiptText::_("INVALID USER NAME AS FACEBOOK CONNECT")."\n \n";
+	echo XiptText::_("INVALID USER NAME AS FACEBOOK CONNECT");
+
+?><br /><br /><?php 
 
 if(!$isValidEmail)
 	echo XiptText::_("INVALID EMAIL AS FACEBOOK CONNECT");
