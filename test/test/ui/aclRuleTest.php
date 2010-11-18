@@ -189,12 +189,34 @@ class AclRulesUITest extends XiSelTestCase
 		sleep(1);
 		return $this->checkAccess();
 	}
-
+	
+	function checkRedirectToAec($id)
+	{
+		$this->open("index.php?option=com_community&view=profile&userid=$id&Itemid=53");
+		$this->waitPageLoad();
+		sleep(1);
+		return $this->checkAccess();
+	}
+	
+	function checkAddApplication($id)
+	{
+		$this->open("index.php?option=com_community&view=profile&Itemid=53");
+		$this->click("link=Applications");
+  		$this->waitForPageToLoad("30000");
+  		$this->click("//div[@id='community-wrap']/div[4]/div[1]/div[2]/a/span");
+		$this->waitForElement("cwin_tm");
+		sleep(5);
+  		$this->click('//a[@class="app-action-add"][@onclick="joms.editLayout.addApp(\'myarticles\', \'sidebar-top\');"]');
+  		$this->waitForElement("cwin_tm");
+  		sleep(5);
+  		return $this->checkAccess();
+	}
+	
 	function enableACLRule($id)
 	{
 		$acl = new XiptModelAclrules();
 		if($id) $acl->boolean($id,'published',1);
-		for($i=11; $i <=31; $i++)
+		for($i=11; $i <=33; $i++)
 		{
 			if($i != $id)
 			$acl->boolean($i,'published',0);
@@ -274,8 +296,13 @@ class AclRulesUITest extends XiSelTestCase
 		$this->assertFalse($this->checkAddAsFriend(83));
 
 		$this->enableACLRule(31);
-		$this->assertFalse($this->checkStatusBox($userid));
+		$this->assertFalse($this->checkRedirectToAec(82));
 
+		$this->enableACLRule(32);
+		$this->assertFalse($this->checkAddApplication(85));
+		
+		$this->enableACLRule(33);
+		$this->assertFalse($this->checkStatusBox($userid));
 		// Nothing should be blocked for PType -2
 
 		$user = JFactory::getUser(83);
@@ -299,11 +326,13 @@ class AclRulesUITest extends XiSelTestCase
 		$this->assertTrue($this->checkAddVideos($userid));
 		$this->assertTrue($this->checkAccessVideo($userid, 2));
 		$this->assertTrue($this->checkAddProfileVideo(3));
-		$this->assertTrue($this->checkDeleteProfileVideo($userid,3));
+		//$this->assertTrue($this->checkDeleteProfileVideo($userid,3));
 		$this->assertTrue($this->checkAccessProfileVideo(82));
 		$this->assertTrue($this->checkSendMessage(82));
 		//$this->assertTrue($this->checkReplyMessage($userid));
 		$this->assertTrue($this->checkAddAsFriend(82));
+		$this->assertTrue($this->checkRedirectToAec(82));
+		$this->assertTrue($this->checkAddApplication(85));
 		$this->assertTrue($this->checkStatusBox($userid));
 	}
 

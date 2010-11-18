@@ -4,11 +4,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addapplication extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		return true;
+		return $data['userid'];	
 	}
-
+	
 	function aclAjaxBlock($msg)
 	{
 		$objResponse   	= new JAXResponse();

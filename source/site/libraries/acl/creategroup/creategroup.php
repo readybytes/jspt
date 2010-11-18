@@ -8,25 +8,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class creategroup extends XiptAclBase
 {
-
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		$count = $this->getFeatureCounts($data['userid']);
-		$maxmimunCount = $this->aclparams->get('creategroup_limit',0);
-		if($count >= $maxmimunCount)
-			return true;
-
-		return false;
+		return $data['userid'];
 	}
-
-
-	function getFeatureCounts($userid)
+	
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		$query = new XiptQuery();
     	
     	return $query->select('COUNT(*)')
     				 ->from('#__community_groups')
-    				 ->where(" `ownerid` = $userid ", 'AND')
+    				 ->where(" `ownerid` = $resourceAccesser ", 'AND')
     				 ->dbLoadQuery("","")
     				 ->loadResult();
 	}

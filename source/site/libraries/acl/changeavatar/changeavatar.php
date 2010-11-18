@@ -8,12 +8,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class changeavatar extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		return true;
+		return $data['userid'];	
 	}
-
-
+	
 	function checkAclApplicable(&$data)
 	{
 		/*we will expect that view and task should be given

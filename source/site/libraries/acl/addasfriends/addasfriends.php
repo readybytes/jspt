@@ -8,36 +8,21 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addasfriends extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		$otherptype = $this->aclparams->get('other_profiletype',-1);
-		$otherpid	= XiptLibProfiletypes::getUserData($data['args'][0],'PROFILETYPE');
-		$selfptype  = $this->coreparams->get('core_profiletype',-1);
-		
-		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
-			return false;
-			
-		$count = $this->getFeatureCounts($data['userid'], $otherptype, $selfptype);
-
-		$maxmimunCount = $this->aclparams->get('friends_limit',0);
-
-		if(($count >= $maxmimunCount))
-			return true;
-
-		return false;
-
+		return $data['args'][0];	
 	}
-
-	function getFeatureCounts($userid, $otherptype, $selfptype)
+	
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		// XITODO : change this query into object
 		$db		= JFactory::getDBO();
 		$query	= 'SELECT DISTINCT(a.connect_to) AS id  FROM ' . $db->nameQuote('#__community_connection') . ' AS a '
 				. 'INNER JOIN ' . $db->nameQuote( '#__users' ) . ' AS b '
-				. 'ON a.connect_from=' . $db->Quote( $userid ) . ' '
+				. 'ON a.connect_from=' . $db->Quote( $resourceAccesser ) . ' '
 				. 'AND a.connect_to=b.id '
 				. ' LEFT JOIN #__xipt_users as ptfrom ON a.`connect_to`=ptfrom.`userid`'
-				. ' AND ptfrom .`profiletype`=' . $db->Quote($selfptype)
+				. ' AND ptfrom .`profiletype`=' . $db->Quote($aclSelfPtype)
 				. ' LEFT JOIN #__xipt_users as ptto ON a.`connect_to`=ptto.`userid`'
 				. ' AND ptto .`profiletype`=' . $db->Quote($otherptype);
 		$db->setQuery( $query );

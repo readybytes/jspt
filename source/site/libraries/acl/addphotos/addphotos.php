@@ -8,21 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addphotos extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		$count = $this->getFeatureCounts($data['userid']);
-		$maxmimunCount = $this->aclparams->get('addphotos_limit',0);
-		if($count >= $maxmimunCount)
-			return true;
-
-		return false;
+		return $data['userid'];	
 	}
 
-
-	function getFeatureCounts($userid)
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		$photoModel		=& CFactory::getModel('photos');
-		return $photoModel->getPhotosCount($userid);
+		return $photoModel->getPhotosCount($resourceAccesser);
 	}
 
 	public function handleViolation($info)

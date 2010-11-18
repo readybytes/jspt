@@ -172,12 +172,107 @@ abstract class XiptAclBase
 	}
 
 
-	public function checkAclViolation($data)
+	function isApplicableOnSelfProfiletype($resourceAccesser)
 	{
+		$aclSelfPtype = $this->getACLAccesserProfileType();
+		$selfPid	= XiptLibProfiletypes::getUserData($resourceAccesser,'PROFILETYPE');
+		if(in_array($aclSelfPtype, array(XIPT_PROFILETYPE_ALL,$selfPid)))
+			return true;
+
 		return false;
 	}
+	
+	function isApplicableOnOtherProfiletype($resourceOwner)
+	{
+		$otherptype = $this->getACLOwnerProfileType();
+		$otherpid	= XiptLibProfiletypes::getUserData($resourceOwner,'PROFILETYPE');
 
+		// REMOVING ,XIPT_PROFILETYPE_NONE, as it should not be here		
+		if(in_array($otherptype, array(XIPT_PROFILETYPE_ALL, $otherpid)))
+			return true;
+			
+		return false;
+	}
+	
+	function getACLAccesserProfileType()
+	{
+		return $this->coreparams->get('core_profiletype',XIPT_PROFILETYPE_NONE);		
+	}
+	
+	function getACLOwnerProfileType()
+	{
+		return $this->aclparams->get('other_profiletype',XIPT_PROFILETYPE_ALL);
+	}
+	
+	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner)
+	{	
+		$aclSelfPtype = $this->getACLAccesserProfileType();
+		$otherptype = $this->getACLOwnerProfileType();
+		
+		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		$paramName = get_class($this).'_limit';
+		$maxmimunCount = $this->aclparams->get($paramName,0);
+		if($count >= $maxmimunCount)
+			return true;
+			
+		return false;
+	}
+	
+	public function checkAclViolation($data)
+	{	
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+				
+		if($this->isApplicableOnSelfProfiletype($resourceAccesser) === false)
+			return false;
+		
+		if($this->isApplicableOnOtherProfiletype($resourceOwner) === false)
+			return false;
+		
+		//XITODO if allwoed to self
+		
+		
+		// if resource owner is friend of resource accesser 
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false; 
+		
+		// if feature count is greater then limit
+		if($this->isApplicableOnMaxFeature($resourceAccesser,$resourceOwner) === false)
+			return false;
+				
+		return true;
+	}
 
+	function getFeatureCounts($resourceAccesser)
+	{
+		return 0;
+	}
+	
+	abstract function getResourceOwner($data);
+	
+	function getResourceAccesser($data)
+	{
+		return $data['userid'];
+	} 
+	
+	function isApplicableonFriend($accesserid,$ownerid)
+	{   
+		//check rule applicable on friend if yes than return true
+		if($this->aclparams->get('acl_applicable_to_friend',1) == true)
+			return true;
+		
+		//check accesser is friend of resource owner, 
+		//if they are friend then do not apply rule
+		$isFriend = XiptAclHelper::isFriend($accesserid,$ownerid);
+		if($isFriend) 
+			return false;
+		
+		return true;
+	}
+	
+	
+	
+	
 	public function checkCoreViolation($data)
 	{
 		return false;

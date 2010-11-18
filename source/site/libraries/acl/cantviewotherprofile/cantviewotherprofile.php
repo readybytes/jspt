@@ -8,29 +8,22 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class cantviewotherprofile extends XiptAclBase
 {
-
 	public function checkAclViolation($data)
-	{
-		$otherptype = $this->aclparams->get('other_profiletype',-1);
-		$otherpid	= XiptLibProfiletypes::getUserData($data['viewuserid'],'PROFILETYPE');
-
-		// do not restrict self
-		if($data['userid'] == $data['viewuserid'])
+	{	
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+				
+		// if allwoed to self
+		if($resourceAccesser == $resourceOwner)
 			return false;
-
-		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
-			return false;
-
-		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
-		{
-			$isFriend = XiptAclHelper::isFriend($data['userid'],$data['viewuserid']);
-			if($isFriend)
-			 return false;
-		}
-
-		return true;
+		
+		return parent::checkAclViolation($data);
 	}
-
+	
+	function getResourceOwner($data)
+	{
+		return $data['viewuserid'];
+	}
 
 	function checkAclApplicable(&$data)
 	{

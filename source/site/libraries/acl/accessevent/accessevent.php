@@ -8,26 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class accessevent extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	
+	function getResourceOwner($data)
 	{
-		$otherptype = $this->aclparams->get('other_profiletype',-1);
 		$eventId	= isset($data['eventid']) ? $data['eventid'] : 0;
 		$eventId	= JRequest::getVar( 'eventid' , $eventId, 'REQUEST');
 		$ownerid	= $this->getownerId($eventId);
-		$otherpid	= XiptLibProfiletypes::getUserData($ownerid,'PROFILETYPE');
-
-		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
-			return false;
-
-		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
-		{
-			$isFriend = XiptAclHelper::isFriend($data['userid'],$ownerid);
-			if($isFriend) return false;
-		}
-
-		return true;
+		return $ownerid;
 	}
-
+	
 
 	function checkAclApplicable(&$data)
 	{

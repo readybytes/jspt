@@ -8,23 +8,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class addvideos extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		$count = $this->getFeatureCounts($data['userid']);
-		$maxmimunCount = $this->aclparams->get('addvideos_limit',0);
-		if($count >= $maxmimunCount)
-			return true;
-
-		return false;
+		return $data['userid'];	
 	}
-
-	function getFeatureCounts($userid)
+	
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		$query = new XiptQuery();
     	
     	return $query->select('COUNT(*)')
     				 ->from('#__community_videos')
-    				 ->where(" `creator` = $userid ", 'AND')
+    				 ->where(" `creator` = $resourceAccesser ", 'AND')
     				 ->where(" `published` = '1' ", 'AND')
     				 ->where(" `status` = 'ready' ")
     				 ->dbLoadQuery("","")

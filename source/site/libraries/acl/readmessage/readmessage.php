@@ -4,9 +4,9 @@ defined('_JEXEC') or die('Restricted access');
 
 class readmessage extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		return true;
+		return $data['userid'];	
 	}
 	
 	function checkAclApplicable(&$data)

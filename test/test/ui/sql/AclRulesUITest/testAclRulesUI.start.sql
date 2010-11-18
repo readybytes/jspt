@@ -109,7 +109,9 @@ INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclp
 
 (29, 'RULE-29', 'writemessages', 	'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php\n\n', '\n\n', 0),
 (30, 'RULE-20', 'addasfriends', 	'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php\n\n', '\n\n', 0),
-(31, 'RULE-31', 'statusbox', 		'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php\n\n', '\n\n', 1)
+(31, 'RULE-31', 'redirect',		'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php\n\n', '\n\n', 0),
+(32, 'RULE-32', 'addapplication',	'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php\n\n', '\n\n', 0),
+(33, 'RULE-33', 'statusbox', 		'core_profiletype=1\ncore_display_message=You are not allowed to access this resource\ncore_redirect_url=index.php\n\n', '\n\n', 1)
 ;;
 
 
@@ -148,6 +150,7 @@ VALUES
 (3, 3, 83, 82, 0, 1, 0)
 ;;
 
+TRUNCATE TABLE `#__community_apps`;;
 
 TRUNCATE TABLE `#__community_photos_albums`;;
 INSERT INTO `#__community_photos_albums` 

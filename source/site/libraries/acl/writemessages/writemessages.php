@@ -8,45 +8,26 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class writemessages extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		/* messagecountlimit = 2
-		 * otherprofiletype -1 means none
-		 * menas users can write PTYPE1 message to any profiletype user
-		 * else if otherprofiletype is PTYPE1 means
-		 * particular profiletype user can 't write message
-		 * to ptype PTYPE1 users more than 2
-		 */
-
+		return $data['viewuserid'];	
+	}
+	
+	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner)
+	{	
+		$aclSelfPtype = $this->coreparams->get('core_profiletype',-1);
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
-
-		if((0 != $otherptype)
-			&& (-1 != $otherptype)
-				&& ($data['viewuserid'] == 0))
-				return false;
-
-		$otherpid	= XiptLibProfiletypes::getUserData($data['viewuserid'],'PROFILETYPE');
-
-		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
-			return false;
-
-		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
-		{
-			$isFriend = XiptAclHelper::isFriend($data['userid'],$data['viewuserid']);
-			if($isFriend)
-			 return false;
-		}
-
-		$count = $this->getFeatureCounts($data,$otherptype);
-		$maxmimunCount = $this->aclparams->get('writemessage_limit',0);
+		
+		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		$paramName ='writemessage_limit';
+		$maxmimunCount = $this->aclparams->get($paramName,0);
 		if($count >= $maxmimunCount)
 			return true;
-
+			
 		return false;
 	}
-
-
-	function getFeatureCounts($data,$otherptype)
+	
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		CFactory::load( 'helpers' , 'time' );
 		$db			=& JFactory::getDBO();
@@ -54,22 +35,15 @@ class writemessages extends XiptAclBase
 		/* otherptype o means rule is defined to count message written to any one */
 		if($otherptype == -1 || $otherptype == 0) {
 			$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__community_msg' ) . ' AS a'
-					. ' WHERE a.from=' . $db->Quote( $data['userid'] )
+					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
 					. ' AND a.parent=a.id';
-			
-// 			return $query->select('COUNT(*)')
-//    				 ->from('#__community_msg AS a')
-//   				 ->where("  a.`from` = $userid ", 'AND')
-//    				 ->where("  a.`parent` = a.`id`  ")
-//   				 ->dbLoadQuery("","")
-//    				 ->loadResult();			
 		}
 		else
 		{
 			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
 					." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
 					."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
-					."  WHERE a.`msg_from` = ".$data['userid']
+					."  WHERE a.`msg_from` = ".$resourceAccesser
 					."  AND c.`profiletype`='$otherptype'" ;
 		}
 
@@ -101,10 +75,6 @@ class writemessages extends XiptAclBase
 		}
 
 		if($data['task'] == 'write') {
-//			$otherptype = $this->aclparams->get('other_profiletype',-1);
-//			if($otherptype == 0 || $otherptype == -1)
-//				return true;
-
 			//if username give then find user-id
 			$data['viewusername'] = isset($data['viewusername']) ? $data['viewusername']:  '';
 			$viewusername = JRequest::getVar('to',$data['viewusername']);

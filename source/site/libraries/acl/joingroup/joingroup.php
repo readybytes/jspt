@@ -8,29 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class joingroup extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		/* otherprofiletype -1 means none
-		 * menas users can join any profiletype user group
-		 * else if otherprofiletype is 2 means
-		 * particular profiletype user can 't join
-		 * ptype 2 users group more than 2
-
-		$otherptype = $this->getCoreParams('other_profiletype',-1);*/
-
-		$count = $this->getFeatureCounts($data['userid']);
-		$maxmimunCount = $this->aclparams->get('joingroup_limit',0);
-		if($count >= $maxmimunCount)
-			return true;
-
-		return false;
+		return $data['userid'];	
 	}
-
-
-	function getFeatureCounts($userid)
+	
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		$groupsModel	=& CFactory::getModel('groups');
-		return $groupsModel->getGroupsCount($userid);
+		return $groupsModel->getGroupsCount($resourceAccesser);
 	}
 
 

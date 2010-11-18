@@ -32,6 +32,10 @@ class aecredirect extends XiptAclBase
 		return false;
 	}
 
+	function getResourceOwner($data)
+	{
+		return $data['userid'];	
+	}
 
 	function checkAclApplicable(&$data)
 	{

@@ -8,33 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class accessvideo extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		$otherptype = $this->aclparams->get('other_profiletype',-1);
-
 		$videoId = isset($data['videoid']) ? $data['videoid'] : '';
 		$videoId	= JRequest::getVar( 'videoid' , $videoId );
 		$video	    = CFactory::getModel('videos');
 		$videoData  = $video->getVideos(array('id'=>$videoId));
 		$creatorid	= $videoData[0]->creator;
-
-		$otherpid	= XiptLibProfiletypes::getUserData($creatorid,'PROFILETYPE');
-
-
-		if(!in_array($otherptype, array(XIPT_PROFILETYPE_ALL,XIPT_PROFILETYPE_NONE,$otherpid)))
-			return false;
-
-		if($this->aclparams->get('acl_applicable_to_friend',1) == 0)
-		{
-			//this was a bug
-			$isFriend = XiptAclHelper::isFriend($data['userid'],$creatorid);
-			if($isFriend)
-			 return false;
-		}
-
-		return true;
+		return $creatorid;
 	}
-
 
 	function checkAclApplicable(&$data)
 	{

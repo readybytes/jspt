@@ -8,24 +8,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class createvent extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		$count = $this->getFeatureCounts($data['userid']);
-		$maxmimunCount = $this->aclparams->get('createvent_limit',0);
-		if($count >= $maxmimunCount)
-			return true;
-
-		return false;
+		return $data['userid'];	
 	}
 
-
-	function getFeatureCounts($userid)
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		$query = new XiptQuery();
     	
     	return $query->select('COUNT(*)')
     				 ->from('#__community_events')
-    				 ->where(" `creator` = $userid ", 'AND')
+    				 ->where(" `creator` = $resourceAccesser ", 'AND')
     				 ->dbLoadQuery("","")
     				 ->loadResult();
 	}

@@ -8,11 +8,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class deletevent extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function getResourceOwner($data)
 	{
-		return true;
+		return $data['userid'];	
 	}
-
+	
 	function checkAclApplicable(&$data)
 	{
 		if('com_community' == $data['option']
