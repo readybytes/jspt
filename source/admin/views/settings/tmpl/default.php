@@ -84,6 +84,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 			<?php echo $this->settingsParams->render('settings','advAecSettings');?>
 			</fieldset>
 		</div>
+		
+		<div>
+			<fieldset class="adminform" id="others">
+			<legend><?php echo XiptText::_( 'OTHERS'); ?></legend>
+			<?php echo $this->settingsParams->render('settings','others');?>
+			</fieldset>
+		</div>
+		
 	</div>
 </fieldset>	
 </div>

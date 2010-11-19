@@ -59,4 +59,12 @@
 		</param>			
 	</params>
 	
+	<!-- OTHERS -->
+	<params group="others">		
+		<param name="restrict_advancesearchfield" type="radio" default="0" label="ENABLE RESTRICT PROFILEFIELD IN ADVANCE SEARCH" description="ENABLE RESTRICT ADVANCE SEARCH FIELD.DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+		</param>			
+	</params>
+	
 </config>

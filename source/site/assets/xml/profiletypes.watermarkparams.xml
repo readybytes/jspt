@@ -8,7 +8,7 @@
 		</param>
 		<param name="xiText" type="text" default="P" label="DISPLAY TEXT" description="ENTER WATERMARK DISPLAY TEXT.DESC" />		
 		<param name="xiWidth" type="text" default="40" label="WIDTH" description="SET WIDTH.DESC"/>
-		<param name="xiHeight" type="text" default="40" label="HEIGHT " description="HEIGHT.DESC"/>
+		<param name="xiHeight" type="text" default="40" label="HEIGHT" description="HEIGHT.DESC"/>
 		<param name="xiThumbWidth" type="text" default="20" label="WIDTH OF THUMB" description="WIDTH OF THUMB.DESC"/>
 		<param name="xiThumbHeight" type="text" default="20" label="HEIGHT OF THUMB" description="HEIGHT OF THUMB.DESC"/>
 						
