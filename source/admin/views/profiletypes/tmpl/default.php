@@ -86,7 +86,9 @@ function submitbutton( action )
 				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
 					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$field->id, false); ?>
 						<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
-						<?php echo JString::substr($field->tip, 0,100); ?>
+						<?php $tmp = $field->tip; ?>
+                        <?php JFilterOutput::cleanText($tmp); ?><br/>
+                        <?php echo JString::substr($tmp, 0,100); ?>
 				</span>
 			</td>
 			
