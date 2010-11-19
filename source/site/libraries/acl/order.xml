@@ -114,8 +114,8 @@
 		  example="Suppose you want Profile Type1 users Can not Edit Self Profile Details of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 	
 	<rule name="statusbox"
-		  title="Redirect to Change Status Message"
-		  description="Redirect Users to Change Status Message"/>
+		  title="Change Status Message"
+		  description="Restrict users to Change Status Message"/>
 		  
 	<rule name="profilefield"
 		  title="Can not view Other's ProfileFields"
@@ -136,7 +136,7 @@
 
 <group name="other" title="Others">
 	<rule name="aecredirect"
-		  title="Redirect to AEC or Custom URL"
+		  title="Redirect to Custom URL"
 		  description="Redirect Users to AEC Subscription or Other Page" />
 		
 	<rule name="redirect"
@@ -144,11 +144,11 @@
 		  description="Redirect Users to AEC Subscription Page"/>
 	
 	<rule name="writemessages"
-		  title="Restrict to Send Message"
+		  title="Can not Send Message"
 		  description="Restrict Users to Send Message" />
 		  
 	<rule name="readmessage"
-		  title="Restrict to Read Message"
+		  title="Can not Read Message"
 		  description="Restrict Users to Read Message" />
 </group>		
 </rules>
