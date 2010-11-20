@@ -151,4 +151,22 @@ class XiptLibAec
 
 		return $result[$planid]; 
 	}
+	
+	static function getVersion()
+	{
+		$parser		= JFactory::getXMLParser('Simple');
+		$xml		= JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_acctexp'.DS.'acctexp.xml';
+		$parser->loadFile( $xml );
+		$order	= array();
+		$childrens = $parser->document->children();
+		$groups = array();
+		foreach($childrens as $child){
+			if($child->name() == 'version') 
+				$aecversion  =	$child->data();
+							
+		}
+		
+		return $aecversion;
+	}
+	
 }
