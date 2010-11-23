@@ -60,4 +60,14 @@ class XiptHelperUtils
 					 ->dbLoadQuery("","")
 	          		 ->loadObject();
 	}
+/**
+* Change filePath according to machine.
+*/
+	function getRealPath($filepath){
+	
+		if(JString::stristr($filepath,JPATH_ROOT) === false)
+			$filepath = JPATH_ROOT.DS.$filepath;
+		
+		return str_replace(realpath(JPATH_ROOT),"",realpath($filepath));
+	}
 }

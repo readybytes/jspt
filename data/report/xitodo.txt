@@ -1,53 +1,56 @@
-../packages/tmp/install/extensions/xipt_community/xipt_community.php:98:		//	XITODO : format it in proper way
-../packages/tmp/admin/controllers/aclrules.php:41:	// XITODO :need test case
-../packages/tmp/admin/controllers/aclrules.php:62:		// Save it // XITODO : clean it
-../packages/tmp/admin/controllers/configuration.php:56:		//XITODO : what to do if invalid id comes 
-../packages/tmp/admin/controllers/applications.php:14:		//XITODO : remove edit it
+../packages/tmp/admin/views/configuration/view.html.php:95:			// XITODO : show name of profiltype for which configuration is being edited
+../packages/tmp/admin/views/profilefields/view.html.php:26:		//XITODO : duplicate call, remove it
 ../packages/tmp/admin/controllers/profiletypes.php:41:	// XITODO : needs test case
 ../packages/tmp/admin/controllers/profiletypes.php:91:		//XITODO : Ensure data is reloaded, not cached
 ../packages/tmp/admin/controllers/profiletypes.php:126:		//XITODO : also support other formats
 ../packages/tmp/admin/controllers/profiletypes.php:149:		//XITODO : Clean and commonize it
 ../packages/tmp/admin/controllers/profiletypes.php:204:		//XITODO : improve nomenclature
 ../packages/tmp/admin/controllers/profiletypes.php:210:		//XITODO : assert on filename
-../packages/tmp/admin/views/profilefields/view.html.php:26:		//XITODO : duplicate call, remove it
-../packages/tmp/admin/views/configuration/view.html.php:88:			// XITODO : show name of profiltype for which configuration is being edited
-../packages/tmp/site/libraries/base/factory.php:22:	//XITODO : apply caching 
-../packages/tmp/site/libraries/base/table.php:140:		// XITODO : generate warning if record does not exists
-../packages/tmp/site/libraries/base/error.php:13:	//XITODO : add assertError. assertWarn, assertMessage function
-../packages/tmp/site/libraries/base/model.php:193:		//XITODO assert for $pk
-../packages/tmp/site/libraries/base/model.php:209:	 * XITODO Method to order rows.
-../packages/tmp/site/libraries/base/query.php:424:		//XITODO : Add limit and limitstart support in query class
-../packages/tmp/site/libraries/lib/pluginhandler.php:139:				    //XITODO : Remove it and add assert
-../packages/tmp/site/libraries/lib/pluginhandler.php:238:		//XITODO : check is setup required 
+../packages/tmp/admin/controllers/configuration.php:56:		//XITODO : what to do if invalid id comes 
+../packages/tmp/admin/controllers/aclrules.php:41:	// XITODO :need test case
+../packages/tmp/admin/controllers/aclrules.php:62:		// Save it // XITODO : clean it
+../packages/tmp/admin/controllers/applications.php:14:		//XITODO : remove edit it
 ../packages/tmp/site/libraries/lib/profiletypes.php:214:		//XITODO : we need to add $visible pTypes as per request.move this to model, implement WHERE
 ../packages/tmp/site/libraries/lib/profiletypes.php:239:	//XITODO : move to user model
 ../packages/tmp/site/libraries/lib/jomsocial.php:202:		//	XITODO : format it in proper way
-../packages/tmp/site/libraries/setup/base.php:34:		// XITODO : handle errors 
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:101:		//XITODO : apply caching
-../packages/tmp/site/libraries/setup/rule/syncupusers.php:108:		// XITODO : PUT into query Object
-../packages/tmp/site/libraries/fields/templates/base.php:51:		//	XITODO : format it in proper way
-../packages/tmp/site/libraries/acl/base.php:34:		//XITODO : CREATE INI FILE
-../packages/tmp/site/libraries/acl/base.php:128:		//XITODO : clean code : use default from where acl rules are being invoked
-../packages/tmp/site/libraries/acl/base.php:214://XITODO: cleanup
-../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:41:		/*XITODO : we will expect that vie task and should be given
-../packages/tmp/site/libraries/acl/addasfriends/addasfriends.php:33:		// XITODO : change this query into object
+../packages/tmp/site/libraries/lib/pluginhandler.php:139:				    //XITODO : Remove it and add assert
+../packages/tmp/site/libraries/lib/pluginhandler.php:238:		//XITODO : check is setup required 
+../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:23:		/*XITODO : we will expect that vie task and should be given
+../packages/tmp/site/libraries/acl/profilefield/profilefield.php:41:		//XITODO try to set return
+../packages/tmp/site/libraries/acl/addasfriends/addasfriends.php:18:		// XITODO : change this query into object
+../packages/tmp/site/libraries/acl/createvent/createvent.php:36:		// XITODO : use pattern ( return false in below conditiion)
 ../packages/tmp/site/libraries/acl/helper.php:89:	//XITODO : Apply caching
 ../packages/tmp/site/libraries/acl/helper.php:114:	// XITODO : test case
-../packages/tmp/site/libraries/acl/createvent/createvent.php:42:		// XITODO : use pattern ( return false in below conditiion)
-../packages/tmp/site/models/profilefields.php:28:    // XITODO : move this function to helper or library
-../packages/tmp/site/models/profilefields.php:86:		//XITODO : Implement WHERE in load records
-../packages/tmp/site/models/profiletypes.php:50:		// XITODO : move this to controller
-../packages/tmp/site/models/profiletypes.php:57:		//XITODO : bind params 
-../packages/tmp/site/models/profiletypes.php:103:			// XITODO : Change IN query to sub query
-../packages/tmp/site/helpers/apps.php:58:			// XITODO : improve following condition
-../packages/tmp/site/helpers/registration.php:24:		//XITODO : we will remove this when aec support fbc
-../packages/tmp/site/helpers/registration.php:68:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
+../packages/tmp/site/libraries/acl/base.php:34:		//XITODO : CREATE INI FILE
+../packages/tmp/site/libraries/acl/base.php:128:		//XITODO : clean code : use default from where acl rules are being invoked
+../packages/tmp/site/libraries/acl/base.php:232:		//XITODO if allwoed to self
+../packages/tmp/site/libraries/acl/base.php:309://XITODO: cleanup
+../packages/tmp/site/libraries/base/factory.php:22:	//XITODO : apply caching 
+../packages/tmp/site/libraries/base/table.php:140:		// XITODO : generate warning if record does not exists
+../packages/tmp/site/libraries/base/query.php:424:		//XITODO : Add limit and limitstart support in query class
+../packages/tmp/site/libraries/base/error.php:13:	//XITODO : add assertError. assertWarn, assertMessage function
+../packages/tmp/site/libraries/base/model.php:193:		//XITODO assert for $pk
+../packages/tmp/site/libraries/base/model.php:209:	 * XITODO Method to order rows.
+../packages/tmp/site/libraries/fields/templates/base.php:51:		//	XITODO : format it in proper way
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:101:		//XITODO : apply caching
+../packages/tmp/site/libraries/setup/rule/syncupusers.php:108:		// XITODO : PUT into query Object
+../packages/tmp/site/libraries/setup/rule/seturipath.php:20:		// XiTODO:: "\\" Search by query 
+../packages/tmp/site/libraries/setup/base.php:34:		// XITODO : handle errors 
 ../packages/tmp/site/helpers/profiletypes.php:95:		//XITODO : Caching can be added
 ../packages/tmp/site/helpers/profiletypes.php:108:		//XITODO : clean this fn	
 ../packages/tmp/site/helpers/profiletypes.php:126:		//XITODO : Clean ALL / NONE, and cache results
 ../packages/tmp/site/helpers/profiletypes.php:172:		// //XITODO : needs cleanup Remove hardcoding
 ../packages/tmp/site/helpers/profiletypes.php:187:	// XITODO : needs cleanup
-../packages/tmp/site/helpers/profiletypes.php:300:	//XITODO : Remove funda of return url, use configuration
-../packages/tmp/site/helpers/profiletypes.php:303:		// XITODO : move redirection to controller 
+../packages/tmp/site/helpers/profiletypes.php:301:	//XITODO : Remove funda of return url, use configuration
+../packages/tmp/site/helpers/profiletypes.php:304:		// XITODO : move redirection to controller 
+../packages/tmp/site/helpers/registration.php:24:		//XITODO : we will remove this when aec support fbc
+../packages/tmp/site/helpers/registration.php:68:		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 ../packages/tmp/site/helpers/unhook.php:16:		// XITODO : remove this function
 ../packages/tmp/site/helpers/image.php:174:			//XITODO : here we need to trick as per the JomSocial
+../packages/tmp/site/helpers/apps.php:58:			// XITODO : improve following condition
+../packages/tmp/site/models/profiletypes.php:50:		// XITODO : move this to controller
+../packages/tmp/site/models/profiletypes.php:57:		//XITODO : bind params 
+../packages/tmp/site/models/profiletypes.php:103:			// XITODO : Change IN query to sub query
+../packages/tmp/site/models/profilefields.php:28:    // XITODO : move this function to helper or library
+../packages/tmp/site/models/profilefields.php:86:		//XITODO : Implement WHERE in load records
+../packages/tmp/install/extensions/xipt_community/xipt_community.php:101:		//	XITODO : format it in proper way

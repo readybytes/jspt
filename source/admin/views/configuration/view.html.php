@@ -63,6 +63,13 @@ class XiptViewConfiguration extends XiptView
 		$uploadLimit = ini_get('upload_max_filesize');
 		$uploadLimit = JString::str_ireplace('M', ' MB', $uploadLimit);
 		
+		// Group discussion order option
+		$groupDiscussionOrder = array(
+			JHTML::_('select.option', 'ASC', 'Older first'),
+			JHTML::_('select.option', 'DESC', 'Newer first'),
+		);
+		$lists['groupDicussOrder'] = JHTML::_('select.genericlist',  $groupDiscussionOrder, 'group_discuss_order', 'class="inputbox" size="1"', 'value', 'text', $params->get('group_discuss_order'));
+		
 		$this->assign( 'lists', $lists );
 		$this->assign( 'uploadLimit' , $uploadLimit );
 		$this->assign( 'config'	, $params );
