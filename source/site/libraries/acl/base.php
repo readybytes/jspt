@@ -222,7 +222,10 @@ abstract class XiptAclBase
 	{	
 		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);		
-				
+		
+		if($this->isApplicableOnSelf($resourceAccesser,$resourceOwner) === false)
+			return false;
+		
 		if($this->isApplicableOnSelfProfiletype($resourceAccesser) === false)
 			return false;
 		
@@ -254,6 +257,17 @@ abstract class XiptAclBase
 	{
 		return $data['userid'];
 	} 
+	
+	function isApplicableOnSelf($accesserid,$ownerid)
+	{
+		if($this->aclparams->get('acl_applicable_to_self',1) == true)
+			return true;
+			
+		if($accesserid == $ownerid)
+			return false;
+			
+		return true;
+	}
 	
 	function isApplicableonFriend($accesserid,$ownerid)
 	{   

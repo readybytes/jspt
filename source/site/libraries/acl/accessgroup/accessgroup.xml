@@ -6,5 +6,9 @@
 		<option value="0">No</option>
 		<option value="1">Yes</option>
 	</param>
+	<param name="acl_applicable_to_self" type="radio" size="50" default="0" label="APPLICABLE TO SELF.Label" description="APPLICABLE TO SELF.Desc">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</param>
 </params>
 </config>
