@@ -172,7 +172,7 @@ class plgCommunityxipt_community extends CApplications
 	 * @param $fieldValueCodes
 	 * @return true
 	 */
-	function onBeforeProfileUpdate($userid, &$fieldValueCodes)
+	function onBeforeProfileUpdate($userid, $fieldValueCodes)
 	{
 		// We NEVER send false from here. If profiletype should not be changed then 
 		// we simply store previous values. so correct values are always there during the 

@@ -45,6 +45,7 @@ class mi_jomsocialjspt
 	function Settings()
 	{
 		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
+		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'api.xipt.php');
 		
 		$database	=& JFactory::getDBO();
         $settings = array();
@@ -52,29 +53,34 @@ class mi_jomsocialjspt
 		$settings['profiletype_after_exp'] 		= array( 'list' );
 
 		$filter = array ('published'=>1);
-	 	$profiletypes = XiptLibProfiletypes::getProfiletypeArray($filter);
+		
+		//new concept
+		$profiletypes = XiptAPI::getProfiletypeInfo(0, $filter);
+	 	
+		//old concept
+		//$profiletypes = XiptLibProfiletypes::getProfiletypeArray($filter);
 
 		$spt = array();
 		$spte = array();
 
 		$ptype = array();
 		foreach($profiletypes as $profiletype ) {
-			$ptype[] = mosHTML::makeOption( $profiletype->id, $profiletype->name );
+			$ptype[] = JHTML::_('select.option', $profiletype->id, $profiletype->name );
 			if ( !empty( $this->settings['profiletype'] ) ){
 				if ( in_array( $profiletype->id, $this->settings['profiletype'] ) ) {
-					$spt[] = mosHTML::makeOption( $profiletype->id, $profiletype->name );
+					$spt[] = JHTML::_('select.option', $profiletype->id, $profiletype->name );
 				}
 			}
 
 			if ( !empty( $this->settings['profiletype_after_exp'] ) ) {
 				if ( in_array( $profiletype->id, $this->settings['profiletype_after_exp'] ) ) {
-					$spte[] = mosHTML::makeOption( $profiletype->id, $profiletype->name );
+					$spte[] = JHTML::_('select.option', $profiletype->id, $profiletype->name );
 				}
 			}
 		}
 
-		$settings['lists']['profiletype']			= mosHTML::selectList( $ptype, 'profiletype[]', 'size="4"' , 'value', 'text', $spt );
-		$settings['lists']['profiletype_after_exp'] 	= mosHTML::selectList( $ptype, 'profiletype_after_exp[]', 'size="4"', 'value', 'text', $spte );
+		$settings['lists']['profiletype']			= JHTML::_('select.genericlist', $ptype, 'profiletype[]', 'size="4"' , 'value', 'text', $spt );
+		$settings['lists']['profiletype_after_exp'] 	= JHTML::_('select.genericlist', $ptype, 'profiletype_after_exp[]', 'size="4"', 'value', 'text', $spte );
 
 		return $settings;
 	}
@@ -105,10 +111,21 @@ class mi_jomsocialjspt
 			
 		//IMP : if MI are attached but aec_integrate is set to false
 		// then dont apply any action 
-		$aec_integrate =  XiptFactory::getSettings('aec_integrate');
+		
+		//old
+		//$aec_integrate =  XiptFactory::getSettings('aec_integrate');
+		//new
+		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'api.xipt.php');
+		$aec_integrate = XiptAPI::getGlobalConfig('aec_integrate');	
 		if($aec_integrate == 0)
 			return;
-		XiptLibProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
+			
+		//old	
+		//XiptLibProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
+		
+		//new 
+		XiptAPI::setUserProfiletype($userId, $pId, 'ALL');
+
 	}
 
 	function saveparams( $request )

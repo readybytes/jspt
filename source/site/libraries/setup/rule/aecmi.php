@@ -70,13 +70,13 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 	
 	function getMiFileName()
 	{
-		//get the verson of aec
-		$version = XiptLibAec::getVersion();
-
-		//if version is 0.14 something than change source file to mi_jomsocialjspt_14.php
-		if(stristr($version,'0.14'))
-			return JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'mi_jomsocialjspt_14.php';
-
+//		//get the verson of aec
+//		$version = XiptLibAec::getVersion();
+//
+//		//if version is 0.14 something than change source file to mi_jomsocialjspt_14.php
+//		if(stristr($version,'0.14'))
+//			return JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'mi_jomsocialjspt_14.php';
+//
 		return JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'mi_jomsocialjspt.php';
 	}
 }
