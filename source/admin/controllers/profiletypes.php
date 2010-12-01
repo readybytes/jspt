@@ -209,7 +209,7 @@ class XiptControllerProfiletypes extends XiptController
 				
 		//XITODO : assert on filename
 		$image = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$filename;
-		$data 	= array('watermark' => $image);
+		$data 	= array('watermark' => XiptHelperUtils::getUrlpathFromFilePath($image));
 		$this->generateThumbnail($imageName,$filename,$storage,$newData,$config);
 		
 		// now save model

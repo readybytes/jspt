@@ -261,7 +261,6 @@ class XiptHelperProfiletypes
 			//here due to extension mismatch we can break the functionality of avatar
 			if($what === 'avatar')
 			{
-				$newAvatar	= $image;
 				/* No need to update thumb here , script will update both avatar and thumb */
 				//$newThumb   = XiptHelperImage::getThumbAvatarFromFull($newAvatar);
 				$oldAvatar  = XiptLibProfiletypes::getProfiletypeData($id,'avatar');
@@ -270,7 +269,7 @@ class XiptHelperProfiletypes
 				if($allUsers) {
 					
 					$filter[] = 'avatar';
-					$newData['avatar'] = $newAvatar;
+					$newData['avatar'] = $image;
 					$oldData['avatar'] = $oldAvatar;  
 					foreach ($allUsers as $userid)
 						XiptLibProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
@@ -279,7 +278,8 @@ class XiptHelperProfiletypes
 			}
 			
 			//now update profiletype with new avatar or watermark			
-			if(!XiptFactory::getInstance('profiletypes', 'model')->save(array($what => $image), $id))
+			if(!XiptFactory::getInstance('profiletypes', 'model')->
+					save(array($what => XiptHelperUtils::getUrlpathFromFilePath($image)),$id))
 				XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("ERROR IN DATABASE"));		    
 		}
 	}

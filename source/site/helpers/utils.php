@@ -68,6 +68,6 @@ class XiptHelperUtils
 		if(JString::stristr($filepath,JPATH_ROOT) === false)
 			$filepath = JPATH_ROOT.DS.$filepath;
 		
-		return str_replace(realpath(JPATH_ROOT),"",realpath($filepath));
+		return str_replace(realpath(JPATH_ROOT).DS,"",realpath($filepath));
 	}
 }

@@ -87,6 +87,10 @@ class XiptModelProfiletypes extends XiptModel
 		//get all users for profiletype
 		$users = XiptLibProfiletypes::getAllUsers($pid);
 		
+		//Change all avatar and thumb path in url formate  
+		$newavatar	= XiptHelperUtils::getUrlpathFromFilePath($newavatar);
+		$newavatarthumb = XiptHelperUtils::getUrlpathFromFilePath($newavatarthumb);
+
 		$cnt = count($users);
 		for($i=0; $i < $cnt; $i++)
 		{

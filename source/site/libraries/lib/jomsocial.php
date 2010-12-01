@@ -232,6 +232,7 @@ class XiptLibJomsocial
 	
 	function restoreBackUpAvatar($currImagePath)
 	{
+		$currImagePath	= XiptHelperUtils::getRealPath($currImagePath);
 		$avatarFileName = JFile::getName($currImagePath);
 		if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
 			return true;
@@ -258,8 +259,11 @@ class XiptLibJomsocial
 		$user    	= CFactory::getUser($userid);
 		$userAvatar = $user->_avatar;
 		
+		//Before save, avatar path Change in URL formate
+		$newAvatar	= XiptHelperUtils::getUrlpathFromFilePath($newAvatar);
+		
 		//We must enforce this as we never want to overwrite a custom avatar
-		$isDefault			  = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
+		$isDefault	 = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
 //		$changeAvatarOnSyncUp = self::_changeAvatarOnSyncUp($userAvatar); 
 		
 		if($isDefault == false )

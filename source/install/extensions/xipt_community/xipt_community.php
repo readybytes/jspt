@@ -69,7 +69,9 @@ class plgCommunityxipt_community extends CApplications
 		$isAdmin = XiptHelperUtils::isAdmin(JFactory::getUser()->id);
 		$view    = JRequest::getVar('view','','GET');
 		$task    = JRequest::getVar('task','','GET');
-		//
+
+		$new_avatar_path = XiptHelperUtils::getRealPath($new_avatar_path);
+
 		if($isAdmin && $view == 'profile' && $task == 'removepicture')
 		{
 			//setup $new_avatar

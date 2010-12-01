@@ -43,14 +43,14 @@ define('PTYPE_POPUP_WINDOW_WIDTH_SELECT',160);
 define('PTYPE_POPUP_WINDOW_HEIGHT_SELECT',140);
 
 define('SYNCUP_USER_LIMIT',1000);
-define('DEFAULT_AVATAR','components/com_community/assets/default.jpg');
-define('DEFAULT_AVATAR_THUMB','components/com_community/assets/default_thumb.jpg');
+define('DEFAULT_AVATAR','components'.DS.'com_community'.DS.'assets'.DS.'default.jpg');
+define('DEFAULT_AVATAR_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'default_thumb.jpg');
 
-define('DEFAULT_DEMOAVATAR','components/com_xipt/assets/images/default_avatar.png');
-define('DEFAULT_DEMOAVATAR_THUMB','components/com_xipt/assets/images/default_thumb.png');
+define('DEFAULT_DEMOAVATAR','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'default_avatar.png');
+define('DEFAULT_DEMOAVATAR_THUMB','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'default_thumb.png');
 
 //where to store profiletype avatars
-define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images' . DS . 'profiletype');
+define('PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH', 'images'.DS.'profiletype');
 define('PROFILETYPE_AVATAR_STORAGE_PATH', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH);
 define('USER_AVATAR_BACKUP', JPATH_ROOT .DS. PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'useravatar');
 

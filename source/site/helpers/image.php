@@ -126,6 +126,9 @@ class XiptHelperImage
 	//When we do not modify original image path, then we should not call it by reference.
 	function addWatermarkOnAvatar($userid, $originalImage, $waterMark, $what)
 	{		
+		//Original Image in machine formate
+		$originalImage	= XiptHelperUtils::getRealPath($originalImage);
+		
 		//IMP : do not modify original image.
 		$image = JPATH_ROOT. DS. $originalImage;
 		
