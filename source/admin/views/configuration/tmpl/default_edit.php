@@ -16,6 +16,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 					<?php require_once( $this->jsConfigPath . DS . 'reportings.php' ); ?>
 					<?php require_once( $this->jsConfigPath  . DS . 'messaging.php' ); ?>
 					<?php require_once( $this->jsConfigPath  . DS . 'walls.php' ); ?>
+					<?php require_once( $this->jsConfigPath . DS . 'events.php' ); ?>				
 				</td>
 				<td>
 					<?php require_once( $this->jsConfigPath . DS . 'groups.php' ); ?>

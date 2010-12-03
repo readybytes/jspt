@@ -43,7 +43,7 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (79, 1, 'default'),
 (99, 0, 'blueface');;
 
-
+DROP TABLE IF EXISTS `au_#__community_users`;;
 CREATE TABLE IF NOT EXISTS `au_#__community_users` 
 	SELECT * FROM `#__community_users` ;; 
 TRUNCATE TABLE `au_#__community_users` ;;
