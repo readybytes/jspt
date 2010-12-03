@@ -80,6 +80,10 @@ class XiptControllerProfiletypes extends XiptController
 		if(isset($fileAvatar['tmp_name']) && !empty($fileAvatar['tmp_name']))
 			XiptHelperProfiletypes::uploadAndSetImage($fileAvatar,$id,'avatar');
 
+		//display demo on watermark profile according ProfileType
+		if($post['watermarkparams']['enableWaterMark'])
+			$post['watermarkparams']['demo']= $id;
+		
 		// Handle Params : watermarkparams, privacy, config
 		$model->saveParams($post['watermarkparams'],$id, 'watermarkparams');
 		$model->saveParams($post['config'], 		$id, 'config');
