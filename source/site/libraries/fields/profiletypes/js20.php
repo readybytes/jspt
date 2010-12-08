@@ -49,23 +49,4 @@ class XiptFieldsProfiletypesJs20 extends XiptFieldsProfiletypesBase
 		return XiptText::_($pName);
 	}
 	
-	/* if data not available,
-	 * then find user's profiletype and return
-	 * else present defaultProfiletype to community
-	 *
-	 * So there will be always a valid value returned
-	 * */
-	function formatData($field=array())
-	{
-	    $pID = 0;
-		if(!empty($field) && isset($field['value']))
-            $pID=$field['value'];	
-            
-		if(!$pID){
-			//get value from profiletype field from xipt_users table
-			$userid = JRequest::getVar('userid',0);
-			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-		}
-		return $pID;
-	}	
 } 

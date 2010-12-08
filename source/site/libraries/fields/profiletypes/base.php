@@ -128,5 +128,17 @@ class XiptFieldsProfiletypesBase
 		    
 		return true;
 	}
+	
+	function formatData($value=0)
+	{
+	    $pID = $value;
+		
+		if(!$pID){
+			//get value from profiletype field from xipt_users table
+			$userid = JRequest::getVar('userid',0);
+			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
+		}
+		return $pID;
+	}	
 }
  

@@ -12,4 +12,5 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
 (79, 1, 'default'),
-(99, 0, 'blueface');;
+(99, 0, 'blueface'),
+(89, 10, 'default');;

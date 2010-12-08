@@ -37,6 +37,24 @@ class ProfiletypeUnitTest extends XiUnitTestCase
 	$name = XiptLibProfiletypes::getProfiletypeName(4);
 	$this->assertEquals($name,'PROFILETYPE-4');
 	
+	$name = XiptLibProfiletypes::getProfiletypeName(5);
+	$this->assertEquals($name,'PROFILETYPE-5');
+	
+	$name = XiptLibProfiletypes::getProfiletypeName(6);
+	$this->assertEquals($name,'PROFILETYPE-6');
+	
+	$name = XiptLibProfiletypes::getProfiletypeName(7);
+	$this->assertEquals($name,'PROFILETYPE-7');
+	
+	$name = XiptLibProfiletypes::getProfiletypeName(8);
+	$this->assertEquals($name,'PROFILETYPE-8');
+	
+	$name = XiptLibProfiletypes::getProfiletypeName(9);
+	$this->assertEquals($name,'PROFILETYPE-9');
+	
+	$name = XiptLibProfiletypes::getProfiletypeName(10);
+	$this->assertEquals($name,'PROFILETYPE-10');
+	
 //	$name = XiptLibProfiletypes::getProfiletypeName(0);
 //	$this->assertEquals($name,'PROFILETYPE-2');
 	       
@@ -204,6 +222,14 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	//this will return Profiletype name.
   	$profileData = XiptLibProfiletypes::getProfiletypeData(1,'group');
   	$this->assertEquals($profileData,1);
+  	
+  	//this will return Profiletype name.
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(10);
+  	$this->assertEquals($profileData,'PROFILETYPE-10');
+  	
+  	//this will return Profiletype name.
+  	$profileData = XiptLibProfiletypes::getProfiletypeData(10,'template');
+  	$this->assertEquals($profileData,'default');
   }
   
   function testAllUser()
@@ -227,6 +253,11 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	//this will return userId of all users of Profiletype 4.
   	$userid = XiptLibProfiletypes::getAllUsers(4);
   	$result =array();
+  	$this->assertEquals($userid,$result);
+  	
+  	//this will return userId of all users of Profiletype 10.
+  	$userid = XiptLibProfiletypes::getAllUsers(10);
+  	$result =array(89);
   	$this->assertEquals($userid,$result);
  
   }
@@ -258,6 +289,8 @@ class ProfiletypeUnitTest extends XiUnitTestCase
  		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(3),true);
  		
  		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(4),false);
+ 		
+ 		$this->assertEquals(XiptLibProfiletypes::validateProfiletype(10),true);
  		
  		$filter=array('published'=>0);
  		//validate unpublished Profiletypes
