@@ -100,12 +100,16 @@ class XiptControllerProfiletypes extends XiptController
 		
 	    // Reset existing user's 
 		if($post['resetAll']) {
+			// if watermark disable then restore avatar
+			if(!$post['watermarkparams']['enableWaterMark'])
+					$newData->watermark='';
+									
 			//If not uploaded data then by default save the previous values 
 			XiptHelperProfiletypes::resetAllUsers($id, $oldData, $newData);	
 		}
 					
 		$info['id'] = $id;
-		$info['msg'] .= XiptText::_('PROFILETYPE SAVED');
+		$info['msg'] = XiptText::_('PROFILETYPE SAVED');
 
 		return $info;
 	}

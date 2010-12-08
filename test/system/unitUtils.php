@@ -131,4 +131,10 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
 	{
 		XiptLibJomsocial::cleanStaticCache(true);
 	}
+   	//Remove caching data
+   	function reloadUser($userId = array())
+   	{
+   		foreach($userId as $id)
+   			$bogus=XiptLibJomsocial::reloadCUser($id);
+   	}
 }

@@ -88,7 +88,8 @@ class XiptProfiletypesHelperTest extends XiUnitTestCase
 	}
 	
 	function testResetAllUsers()
-	{
+	{	// remove cache data
+		$bogusData=$this->reloadUser(array(62,63));
 		// profiletype1 watermark images/profiletypes/watermark_1.png
 		$records = XiptFactory::getInstance('profiletypes','model')->loadRecords();
 		$p1Data = clone $records[1];

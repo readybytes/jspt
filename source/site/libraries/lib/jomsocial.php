@@ -198,11 +198,11 @@ class XiptLibJomsocial
 	 */
 	function updateCommunityUserWatermark($userid,$watermark='')
 	{
-		//check if watermark is enable
-		//	XITODO : format it in proper way
-		if(!XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0))
-			return false;
-		
+		//check if watermark is enable, Also check its not call from Reset
+		if(!XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0)
+		   && !JRequest::getVar('resetAll', 0 , 'POST'))
+			return false;			
+	
 		//update watermark on user's avatar
 		$pTypeAvatar  	   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'avatar');
 		$pTypeThumbAvatar  = XiptLibJomsocial::getUserDataFromCommunity($userid, 'thumb');
@@ -211,12 +211,14 @@ class XiptLibJomsocial
 		// no watermark on default avatars
 		if($isDefault)
 			return false;
-		
-		//no watermark then resotre backup avatar
+
+		 //XITODO: if watermark is already disable in old data then return before it restore.
+		//no watermark then resotre backup avatar and return
 		if($watermark == '')	
 		{
 			self::restoreBackUpAvatar($pTypeAvatar);
 			self::restoreBackUpAvatar($pTypeThumbAvatar);
+			return true;
 		}
 		
 		//add watermark on user avatar image
@@ -237,7 +239,7 @@ class XiptLibJomsocial
 		if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
 			return true;
 				
-		XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar in backup folder does not exist.");
+		XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar {USER_AVATAR_BACKUP.DS.$avatarFileName} in backup folder does not exist.");
 		return false;
 	}
 	/**
