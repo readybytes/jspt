@@ -294,6 +294,11 @@ class ProfileTest extends XiSelTestCase
       $filter['allow_templatechange']=1;
   	  $this->changeJSPTConfig($filter);
 
+  	  $user = JFactory::getUser(79);
+  	  $this->frontLogin($user->username,$user->username);
+  	  $this->verifyChangeProfiletype(79,10); // 10 -> 1
+  	  $this->frontLogout();
+  	  
   	  $user = JFactory::getUser(82);
   	  $this->frontLogin($user->username,$user->username);
 	  $this->verifyChangeProfiletype(82,2); // 1 -> 2
@@ -313,6 +318,12 @@ class ProfileTest extends XiSelTestCase
   	  $this->verifyChangeProfiletype(84,1); // 3 -> 1
   	  $this->frontLogout();
   	  
+  	  $user = JFactory::getUser(88);
+  	  $this->frontLogin($user->username,$user->username);
+  	  $this->verifyChangeProfiletype(88,1); // 10 -> 1
+  	  $this->frontLogout();
+  	  
+  	    
   	  //test for admin too, no change is usertype
   	  // and also it have custom avatar
   	  $user = JFactory::getUser(62);
@@ -355,7 +366,7 @@ class ProfileTest extends XiSelTestCase
 	  	$this->assertTrue($this->isTextPresent("Edit profile"));
 	  	$this->assertTrue($this->isElementPresent("field17"));
 	  	$this->select("field17", "value=$newProfiletype");
-	  	$this->assertFalse($this->isElementPresent("//option[@value=\"5\"]"));
+	  	$this->assertFalse($this->isElementPresent("//option[@value=\"11\"]"));
 	  	$this->click("//input[@value='Save']");
 	  	$this->waitPageLoad();
   }

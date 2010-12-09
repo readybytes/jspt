@@ -74,7 +74,10 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (129, 81, 5, 'regtest8635954'),
 (128, 81, 17, '3'),
 (127, 81, 16, 'blackout'),
-(126, 80, 9, 'regtest6208627');;
+(126, 80, 9, 'regtest6208627'),
+(170, 88, 3, 'regtest9754090'),
+(171, 88,17, '10'),
+(172, 88,16, 'default');;
 
 DROP TABLE IF EXISTS `au_#__community_fields_values`;;
 CREATE TABLE IF NOT EXISTS `au_#__community_fields_values` SELECT * FROM `#__community_fields_values`;;
@@ -127,7 +130,7 @@ INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value
 (120, 80, 17, '2'),
 (115, 79, 4, 'regtest7046025'),
 (114, 79, 3, 'regtest7046025'),
-(113, 79, 17, '1'),
+(113, 79, 17, '10'),
 (112, 79, 16, 'default'),
 (162, 86, 6, 'regtest1504555'),
 (161, 86, 5, 'regtest1504555'),
@@ -138,7 +141,10 @@ INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value
 (129, 81, 5, 'regtest8635954'),
 (128, 81, 17, '3'),
 (127, 81, 16, 'blackout'),
-(126, 80, 9, 'regtest6208627');;
+(126, 80, 9, 'regtest6208627'),
+(170, 88,3, 'regtest9754090'),
+(171, 88,17, '1'),
+(172, 88,16, 'default');;
 -- --------------------------------------------------------
 
 --
@@ -169,7 +175,8 @@ INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `p
 (1, 82, 1, 0),
 (4, 84, 1, 0),
 (1, 85, 1, 0),
-(4, 87, 1, 0);;
+(4, 87, 1, 0),
+(1, 88, 1, 0);;
 
 DROP TABLE IF EXISTS `au_#__community_groups_members`;;
 CREATE TABLE IF NOT EXISTS  `au_#__community_groups_members` SELECT * FROM `#__community_groups_members`;;
@@ -184,7 +191,8 @@ INSERT INTO `au_#__community_groups_members` (`groupid`, `memberid`, `approved`,
 (4, 83, 1, 0),
 (1, 84, 1, 0),
 (1, 85, 1, 0),
-(4, 87, 1, 0);;
+(4, 87, 1, 0),
+(1, 88, 1, 0);;
 
 
 TRUNCATE TABLE `#__community_users`;;
@@ -198,7 +206,8 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 (79, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (80, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (81, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
+(82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
+(88, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
 
 DROP TABLE IF EXISTS `au_#__community_users`;;
 CREATE TABLE IF NOT EXISTS `au_#__community_users` SELECT * FROM `#__community_users`;;
@@ -210,10 +219,11 @@ INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, 
 (85, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (86, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (87, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(79, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
+(79, '', 3, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (80, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (81, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-(82, '', 3, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
+(82, '', 3, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
+(88, '', 3, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
 
 TRUNCATE TABLE `#__users`;;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
@@ -226,7 +236,8 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (87, 'regtest1674526', 'regtest1674526', 'regtest1674526@gmail.com', '948b72e649363975c49ba818d6880843:PezoDwP9dbIXQETtPbG0IfkpE0jogLi2', 'Publisher', 0, 0, 21, '2009-12-03 08:17:17', '0000-00-00 00:00:00', '51bcf29e8ec7bbaf00dc2160257b8987', '\n'),
 (79, 'regtest7046025', 'regtest7046025', 'regtest7046025@gmail.com', '64d5a5a65e0433fefad4d52255857f59:rBhZVyCqDIKioTNuCNBkpQNhRXsCHb1t', 'Registered', 0, 0, 18, '2009-12-03 08:16:09', '0000-00-00 00:00:00', 'd45373ce0b2c4bfa6065235a5c353add', '\n'),
 (80, 'regtest6208627', 'regtest6208627', 'regtest6208627@gmail.com', '73e7830c01e705a5adeaaa3e278fbdec:uQb0sUh0KdTyybJuHnYHAtpOmtfVNxr2', 'Editor', 0, 0, 20, '2009-12-03 08:16:18', '0000-00-00 00:00:00', '0e24ede794209ad6de9624f89077daed', '\n'),
-(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');;
+(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n'),
+(88, 'regtest9754090', 'regtest9754090', 'regtest9754090@gmail.com', 'b5d1561e631ee61c2c1d6520eb9a5d53:Sn8uEOI2T0obmxNMnhEIdOS0hrKyIsAQ', 'Registered', 0, 0, 18, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '7a8681dabe3df14e97f9df40701007a0', '\n');;
 
 DROP TABLE IF EXISTS `au_#__users`;;
 CREATE TABLE IF NOT EXISTS  `au_#__users` SELECT * FROM `#__users`;;
@@ -239,11 +250,10 @@ INSERT INTO `au_#__users` (`id`, `name`, `username`, `email`, `password`, `usert
 (85, 'regtest3843261', 'regtest3843261', 'regtest3843261@gmail.com', '0f2e8c8f8433fd1604880e9ac0d33fc1:d4b8PHWIkuHEI4AfHM1XWkFh4sR4t1gj', 'Registered', 0, 0, 18, '2009-12-03 08:17:00', '0000-00-00 00:00:00', '0e11cd0ed924846a11c84e3618f2c5eb', '\n'),
 (86, 'regtest1504555', 'regtest1504555', 'regtest1504555@gmail.com', '78c3901d9d2c31108f9f758a18ee7f89:UIbbRXlJUORtEqogoLPr9ZP0bouM0lLT', 'Editor', 0, 0, 20, '2009-12-03 08:17:09', '0000-00-00 00:00:00', '77981cae5948a5be5e553db5dcb8d00f', '\n'),
 (87, 'regtest1674526', 'regtest1674526', 'regtest1674526@gmail.com', '948b72e649363975c49ba818d6880843:PezoDwP9dbIXQETtPbG0IfkpE0jogLi2', 'Publisher', 0, 0, 21, '2009-12-03 08:17:17', '0000-00-00 00:00:00', '51bcf29e8ec7bbaf00dc2160257b8987', '\n'),
-(79, 'regtest7046025', 'regtest7046025', 'regtest7046025@gmail.com', '64d5a5a65e0433fefad4d52255857f59:rBhZVyCqDIKioTNuCNBkpQNhRXsCHb1t', 'Registered', 0, 0, 18, '2009-12-03 08:16:09', '0000-00-00 00:00:00', 'd45373ce0b2c4bfa6065235a5c353add', '\n'),
+(79, 'regtest7046025', 'regtest7046025', 'regtest7046025@gmail.com', '64d5a5a65e0433fefad4d52255857f59:rBhZVyCqDIKioTNuCNBkpQNhRXsCHb1t', 'Registered', 0, 0, 18, '2009-12-03 08:16:09', '2009-12-28 06:28:75', 'd45373ce0b2c4bfa6065235a5c353add', '\n'),
 (80, 'regtest6208627', 'regtest6208627', 'regtest6208627@gmail.com', '73e7830c01e705a5adeaaa3e278fbdec:uQb0sUh0KdTyybJuHnYHAtpOmtfVNxr2', 'Editor', 0, 0, 20, '2009-12-03 08:16:18', '0000-00-00 00:00:00', '0e24ede794209ad6de9624f89077daed', '\n'),
-(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');;
-
-
+(81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n'),
+(88, 'regtest9754090', 'regtest9754090', 'regtest9754090@gmail.com', 'b5d1561e631ee61c2c1d6520eb9a5d53:Sn8uEOI2T0obmxNMnhEIdOS0hrKyIsAQ', 'Registered', 0, 0, 18, '2009-12-03 08:16:26', '2009-12-28 06:28:65', '7a8681dabe3df14e97f9df40701007a0', '\n');;
 
 TRUNCATE TABLE `#__xipt_profilefields` ;;
 INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
@@ -262,7 +272,9 @@ INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
 (13, 7, 3),
 (14, 7, 4),
 (15, 8, 3),
-(16, 8, 4);;
+(16, 8, 4),
+(17, 2, 10),
+(19, 6, 10);;
 
 
 TRUNCATE TABLE `#__xipt_profiletypes` ;;
@@ -271,7 +283,12 @@ INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`
 (2, 'PROFILETYPE-2', 1, 1, 'PROFILETYPE-TWO-TIP', 'privacyProfileView=30\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blueface', 'Editor', 'images/profiletype/avatar_2.gif', 0, 0, 0, '', '','1'),
 (3, 'PROFILETYPE-3', 3, 1, 'PROFILETYPE-THREE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, '', '','1'),
 (4, 'PROFILETYPE-4', 4, 0, 'PROFILETYPE-THREE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
-(5, 'PROFILETYPE-5', 5, 0, 'PROFILETYPE-FIVE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','0');;
+(5, 'PROFILETYPE-5', 5, 1, 'PROFILETYPE-FIVE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
+(6, 'PROFILETYPE-6', 6, 1, 'PROFILETYPE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
+(7, 'PROFILETYPE-7', 7, 1, 'PROFILETYPE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
+(8, 'PROFILETYPE-8', 8, 1, 'PROFILETYPE-FIVE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
+(9, 'PROFILETYPE-9', 9, 1, 'PROFILETYPE-NINE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
+(10, 'PROFILETYPE-10', 10, 1, 'PROFILETYPE-TEN-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 1, '', '','1');;
 
 TRUNCATE TABLE `#__xipt_users`;;
 INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
@@ -284,7 +301,8 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (82, 1, 'default'),
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
-(79, 1, 'default');;
+(79, 1, 'default'),
+(88, 10, 'default');;
 
 
 DROP TABLE IF EXISTS `au_#__xipt_users`;; 
@@ -300,7 +318,8 @@ INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (82, 2, 'blueface'),
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
-(79, 1, 'default');;
+(79, 10, 'default'),
+(88, 1, 'default');;
 
 
 TRUNCATE TABLE `#__core_acl_aro`;;
@@ -314,7 +333,8 @@ INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `n
 (34, 'users', '86', 0, 'regtest1504555', 0),
 (29, 'users', '81', 0, 'regtest8635954', 0),
 (27, 'users', '79', 0, 'regtest7046025', 0),
-(30, 'users', '82', 0, 'regtest8774090', 0);;
+(30, 'users', '82', 0, 'regtest8774090', 0),
+(36, 'users', '88', 0, 'regtest9754090', 0);;
 
 
 TRUNCATE TABLE `#__core_acl_groups_aro_map`;;
@@ -328,7 +348,8 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 29),
 (21, '', 32),
 (21, '', 35),
-(25, '', 10);;
+(25, '', 10),
+(18, '', 36);;
 
 DROP TABLE IF EXISTS `au_#__core_acl_groups_aro_map`;;
 CREATE TABLE IF NOT EXISTS `au_#__core_acl_groups_aro_map` SELECT * FROM `#__core_acl_groups_aro_map`;;
@@ -343,4 +364,5 @@ INSERT INTO `au_#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_i
 (21, '', 29),
 (21, '', 31),
 (21, '', 35),
-(25, '', 10);;
+(25, '', 10),
+(18, '', 36);;
