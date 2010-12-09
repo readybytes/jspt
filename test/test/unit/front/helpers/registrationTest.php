@@ -14,7 +14,17 @@ class XiptRegistrationHelperTest extends XiUnitTestCase
 		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed($uname,2));
 		
 		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('admin',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('admin'.rand(111111,999999),2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('TrueAdmin',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('admin123',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('admin#%$@',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('#%$admin@',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('#%$admin   @',2));
 		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('moderator',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('moderator'.rand(111111,999999),2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('moderatorTrue',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('moderator01',2));
+		$this->assertFalse(XiptHelperRegistration::checkIfUsernameAllowed('ActualModerator',2));
 		$this->assertTrue(XiptHelperRegistration::checkIfUsernameAllowed('moderator',1));
 
 		// test with space

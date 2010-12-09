@@ -281,6 +281,8 @@ class XiptHelperRegistration
 		{
 			foreach($invalidemails as $invalidemail)
 			{
+				if(empty($invalidemail))
+				    continue;
 				$email	= preg_quote(trim($invalidemail), '/');
 				$email	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $email);
 				$regex	= "/^(.*$email)$/i";
@@ -296,6 +298,8 @@ class XiptHelperRegistration
 		{
 			foreach($validemails as $validemail)
 			{
+				if(empty($validemail))
+				    continue;    
 				$email	= preg_quote(trim($validemail), '/');
 				$email	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $email);
 				$regex	= "/^(.*$email)$/i";
@@ -327,7 +331,10 @@ class XiptHelperRegistration
 		foreach($invalidUsernames as $invalidUsername){
 			$username	= preg_quote(trim($invalidUsername), '#');
 			$username	= str_replace(array("\r\<br /\>", '\*'), array('|', '.*'), $username);
-			$regex		= "#^(?:$username)$#i";
+			$regex		= "/$username/i"; 
+			
+			if(empty($invalidUsername))
+				continue;   
 			
 			if(preg_match($regex, JString::trim($testUsername)))
 				return false;
