@@ -108,8 +108,12 @@ class XiptHelperRegistration
 		$ptype  = $pluginHandler->isPTypeExistInSession();		
 		
 		if(!$ptype){
-			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
-			return false;
+			
+			//when no profiletype selected select default
+			$ptype = XiptLibProfiletypes::getDefaultProfiletype();
+			
+//			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
+//			return false;
 		}
 		
 		// as per JomSocial code
@@ -146,8 +150,11 @@ class XiptHelperRegistration
 		$ptype  = $pluginHandler->isPTypeExistInSession();		
 		
 		if(!$ptype){
-			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
-			return false;
+			
+			//when no profiletype selected select default
+			$ptype = XiptLibProfiletypes::getDefaultProfiletype();
+			//XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
+			//return false;
 		}
 		
 		// as per JomSocial code
@@ -170,8 +177,10 @@ class XiptHelperRegistration
 		$ptype  = $pluginHandler->isPTypeExistInSession();
 		
 		if(!$ptype){
-			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
-			return false;
+			//when no profiletype selected select default
+			$ptype = XiptLibProfiletypes::getDefaultProfiletype();
+			//XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
+			//return false;
 		}
 			
 		// as per JomSocial code
