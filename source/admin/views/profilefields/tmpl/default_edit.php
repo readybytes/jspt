@@ -46,7 +46,7 @@ jQuery(document).ready(function($){
 </script>
 <script type="text/javascript">jQuery.noConflict();</script>
 
-<form action=<?php echo JURI::base();?> method="post" name="adminForm" id="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
 <table class="adminlist" cellspacing="1" style="width:40%; float:left;" >
 		<thead>
 		<tr>
