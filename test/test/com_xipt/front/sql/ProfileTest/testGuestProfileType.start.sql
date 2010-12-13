@@ -45,7 +45,7 @@ INSERT INTO `#__xipt_applications` (`id`, `applicationid`, `profiletype`) VALUES
 
 TRUNCATE TABLE `#__xipt_aclrules` ;;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(1, 'Can''t View Other Profile ', 'cantviewotherprofile', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=1\nacl_applicable_to_friend=1\n\n', 1);;
+(1, 'Can''t View Other Profile ', 'cantviewotherprofile', 'core_profiletype=2\ncore_display_message=WU9VIEFSRSBOT1QgQUxMT1dFRCBUTyBBQ0NFU1MgVEhJUyBSRVNPVVJDRQ==\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=1\nacl_applicable_to_friend=1\n\n', 1);;
 
 
 TRUNCATE TABLE `#__community_fields` ;;

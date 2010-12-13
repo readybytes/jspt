@@ -120,6 +120,8 @@ class XiptHelperInstall
 		if($migrationRequired22to30 && self::_migration22to30() == false)
 			return false;
 		
+		self::_migration460();
+
 		return true;
 	}
 
@@ -364,5 +366,76 @@ class XiptHelperInstall
 			return false;
 		}
 		return true;
+	}
+	
+	function _migration460()
+	{	
+		$ver = intval(self::getXiptVersion());
+		//echo $ver;
+		if( $ver >= 460)
+  			return true;
+  		
+  			echo $ver;
+		$db = JFactory::getDBO();
+		$query  = 'SELECT `id`, `coreparams` FROM `#__xipt_aclrules`';
+		$db->setQuery($query);
+		$aclrules = $db->loadObjectList();
+	
+		foreach($aclrules as $data){
+			$registry	= new JRegistry();
+			
+			$registry->loadINI($data->coreparams);
+			$params = $registry->toArray();
+			$params['core_display_message'] = base64_encode($params['core_display_message']);
+	
+			$registry->loadArray($params);
+			$iniParamData	= $registry->toString('INI');
+			$query = 'UPDATE `#__xipt_aclrules`' 
+					.' SET `coreparams`='.$db->Quote($iniParamData)
+					.'WHERE '.$db->nameQuote('id').'='.$db->Quote($data->id).'';
+	 		$db->setQuery($query);
+			$db->query();
+		}
+	}
+	
+	function ensureXiptVersion()
+	{
+		
+		if(!is_null(self::getXiptVersion()))
+			return true;
+			
+		$db		= JFactory::getDBO();
+		$query  = ' INSERT INTO `#__xipt_settings` '
+				.' ( '.$db->nameQuote('name'). ','.$db->nameQuote('params').') '
+				.'VALUES 
+				(' .$db->Quote('version').','.$db->Quote('3.0.460').')';
+		
+		$db->setQuery($query);
+		return $db->query();
+	}
+
+	function updateXiptVersion()
+	{
+		require_once JPATH_ROOT .DS. 'components' .DS. 'com_xipt' .DS. 'defines.php';
+		$db		= JFactory::getDBO();
+		$query	= 'UPDATE #__xipt_settings'
+				.' SET '. $db->nameQuote('params') .' = '.$db->Quote(XIPT_VERSION)
+				.' WHERE '. $db->nameQuote('name') .' = '.$db->Quote('version');
+		$db->setQuery($query);
+		return $db->query();
+	}
+	
+	
+	function getXiptVersion()
+	{
+		$db		= JFactory::getDBO();
+		$query  = " SELECT `params` FROM `#__xipt_settings` WHERE `name`='version' ";
+		$db->setQuery($query);
+		if(is_null($db->loadResult()))
+			return null;
+			
+		list($main, $mid, $svn) = explode(".", $db->loadResult());
+		return $svn;
+		
 	}
 }

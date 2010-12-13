@@ -50,6 +50,7 @@ class XiptControllerAclRules extends XiptController
 		
 		// Get the complete INI string of params
 		$registry	= JRegistry::getInstance( 'xipt' );
+		$post['coreparams']['core_display_message'] = base64_encode($post['coreparams']['core_display_message']);
 		$registry->loadArray($post['coreparams'],'xipt_coreparams');
 		$data['coreparams']	= $registry->toString('INI' , 'xipt_coreparams' );
 		$data['aclname'] 	= $post['aclname'];

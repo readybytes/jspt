@@ -33,9 +33,13 @@ abstract class XiptAclBase
 		//load core params
 		//XITODO : CREATE INI FILE
 		$corexmlpath = dirname(__FILE__).DS.'coreparams.xml';
-
+		$coreinipath = dirname(__FILE__).DS.'coreparams.ini';		
+		$iniData	= JFile::read($coreinipath);
+	
 		XiptError::assert(JFile::exists($corexmlpath), XiptText::_("$corexmlpath FILE DOES NOT EXIST"), XiptError::ERROR);
-		$this->coreparams = new JParameter('',$corexmlpath);
+		XiptError::assert(JFile::exists($coreinipath), XiptText::_("$coreinipath FILE DOES NOT EXIST"), XiptError::ERROR);
+		
+		$this->coreparams = new JParameter($iniData,$corexmlpath);
 	}
 
 
@@ -345,7 +349,8 @@ abstract class XiptAclBase
 
 	public function getDisplayMessage()
 	{
-		$message = $this->getCoreParams('core_display_message','YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE');
+		$message = $this->getCoreParams('core_display_message','');		
+		$message = base64_decode($message);
 		return JText::_($message);
 	}
 

@@ -9,7 +9,7 @@ class AclRulesUITest extends XiSelTestCase
 
 	function checkAccess()
 	{
-		$value  = !($this->isTextPresent("You are not allowed to access this resource"));
+		$value  = !($this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE"));
 		//echo "Value is [$value]";
 		return $value;
 	}
