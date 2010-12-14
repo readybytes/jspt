@@ -375,59 +375,19 @@ class ProfileTest extends XiSelTestCase
   // check if it does accidentaly delete default avatar of profiletye
   // check if watermark is applied or not
   // check what happend if Picture is removed by admin
-  function xtestUploadAvatar()
+  function testUploadAvatar()
   {
   	  //ensure we have watermarks in place
-  	  require_once (JPATH_ROOT . '/components/com_xipt/includes.php' );
-  	  if(JFolder::exists(JPATH_ROOT.DS.'images/profiletype')==false)
-			JFolder::create(JPATH_ROOT.DS.'images/profiletype');
-  	  
-	  $fname = JPATH_ROOT.DS.'images/profiletype';
-	  system("sudo chmod -R 777 $fname");
-		
-  	  $watermarks[]='watermark_1.png';
-  	  $watermarks[]='watermark_1_thumb.png';
-  	  $watermarks[]='watermark_2.png';
-  	  $watermarks[]='watermark_2_thumb.png';
-  	  $watermarks[]='watermark_3.png';
-  	  $watermarks[]='watermark_3_thumb.png';
-  	  foreach($watermarks as $src)
-  	  {
-  	  	$dest = JPATH_ROOT.DS.'images/profiletype'.DS.$src;
-  	  	$src  = JPATH_ROOT.DS.'test/test/com_xipt/front/images'.DS.$src;
-  	  	
-  	  	if(JFile::exists($dest))
-  	  		JFile::delete($dest);
-  	  	
-  	  	if(!JFile::copy($src, $dest))
-  	  		echo "\n Failed copy from $src to $dest ";
-  	  	$this->assertTrue(JFile::exists($dest));
-  	  }
+  	  $this->assertTrue(JFolder::exists(JPATH_ROOT.DS.'images/profiletype'));
+ 	  
 
    	  //ensure that default profiletype avatars in place
   	  $avatars[] = array('group.jpg','avatar_2.jpg');
   	  $avatars[] = array('group_thumb.jpg','avatar_2_thumb.jpg');
   	  $avatars[] = array('group.jpg','avatar_3.jpg');
   	  $avatars[] = array('group_thumb.jpg','avatar_3_thumb.jpg');
-  	  
-  	  foreach($avatars as $arr)
-  	  {
-  	  	  $src = $arr[0];
-  	  	  $dest = $arr[1];
-  	  	  
-	  	  $dest = JPATH_ROOT.DS.'images/profiletype'.DS.$dest;
-	  	  $src  = JPATH_ROOT.DS.'components/com_community/assets'.DS.$src;
-	  	  if(JFile::exists($dest))
-	  	  		JFile::delete($dest);
-	  	  
-	  	  if(!JFile::copy($src, $dest))
-  	  		echo "\n Failed copy from $src to $dest ";
-	  	  $this->assertTrue(JFile::exists($dest));
-  	  }
-  	  
-  	  $filter['show_watermark']=1;
-  	  $this->changeJSPTConfig($filter);
-	
+  	  $this->preConditions($avatars);
+
   	  //updates from Default JomSocial avatar
   	  $user = JFactory::getUser(82);
   	  $this->frontLogin($user->username,$user->username);
@@ -456,7 +416,40 @@ class ProfileTest extends XiSelTestCase
   	  $this->verifyRemovePicture(82,1); 
   	  $this->verifyRemovePicture(83,2);
   	  $this->verifyRemovePicture(84,3);
-  	  $this->frontLogout(); 	  
+  	  $this->frontLogout();
+
+  	  $this->postConditions($avatars);
+  }
+  /*
+   * Preconditons for testUploadAvatar
+   */
+  function preConditions($avatars) {
+  	
+  	//Copy water-mark
+  	for($i=1; $i<4; $i++){
+  		JFile::copy(JPATH_ROOT.DS."test/test/com_xipt/front/images/watermark_$i.png" , JPATH_ROOT.DS."images/profiletype/watermark_$i.png");
+  		JFile::copy(JPATH_ROOT.DS."test/test/com_xipt/front/images/watermark_".$i."_thumb.png" , JPATH_ROOT.DS."images/profiletype/watermark_".$i."_thumb.png");
+  		}
+  	//copy Avatar
+	foreach($avatars as $arr)
+  	  {
+  	  $dest = JPATH_ROOT.DS.'images/profiletype'.DS.$arr[1];
+	  $src  = JPATH_ROOT.DS.'components/com_community/assets'.DS.$arr[0];
+	  JFile::copy($src, $dest);
+  	  }
+  }
+  
+  function postConditions($avatars) { 	
+        //delete watr-mark
+    	for($i=1; $i<4; $i++)
+    	{
+  		JFile::delete(JPATH_ROOT.DS."images/profiletype/watermark_$i.png");
+  		JFile::delete(JPATH_ROOT.DS."images/profiletype/watermark_".$i."_thumb.png");
+  		}
+  	   // delete avatar	
+      foreach($avatars as $arr)
+      		JFile::delete(JPATH_ROOT.DS.'images/profiletype'.DS.$arr[1]);
+  	
   }
   
   function verifyUploadAvatar($userid, $ptype, $newAvatar, $newAvatarAU)
@@ -483,25 +476,20 @@ class ProfileTest extends XiSelTestCase
 	  	$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$defaultAvatar));
 	  	
 	  	//2. watermark have been applied to it 	  	//try MD5 compare for now
-	  	$query = " SELECT * FROM `#__community_users` "
-	  			." WHERE `userid`='$userid' ";
-	  	
-	  	$db		=& JFactory::getDBO();
-	  	$db->setQuery($query);
-	  	$cuser =  $db->loadObject();
-	  	/*system("sudo chmod -R 777 ". JPATH_ROOT.DS.$cuser->avatar);
-	  	system("sudo chmod -R 777 ". JPATH_ROOT.DS.$cuser->thumb);
-	  	system("sudo chmod -R 777 ". JPATH_ROOT.DS.$newAvatarAU);
-	  	system("sudo chmod -R 777 ". JPATH_ROOT.DS.$newAvatarAU);
-	  	*/
-	  	$md5_avatar = md5(JFile::read(JPATH_ROOT.DS.$cuser->avatar));
-	  	$md5_thumb  = md5(JFile::read(JPATH_ROOT.DS.$cuser->thumb));
-	  	$md5_avatar_gold = md5(JFile::read(JPATH_ROOT.DS.$newAvatarAU));
-	  	$md5_thumb_gold = md5(JFile::read(XiptHelperImage::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU)));
-	  	
-		//XITODO : Change image here for comparision , i think it's system specific
-	  /*	$this->assertEquals($md5_avatar, $md5_avatar_gold);
-	  	$this->assertEquals($md5_thumb, $md5_thumb_gold);	  	*/
+		$db		= new XiptQuery();
+		$cuser 	= $db->select('*')
+				  	 ->from('#__community_users')
+				  	 ->where("`userid`=$userid")
+				  	 ->dbLoadQuery()
+				  	 ->loadObject();
+
+	  	$md5_avatar 	 = md5_file(JPATH_ROOT.DS.$cuser->avatar);
+	  	$md5_thumb  	 = md5_file(JPATH_ROOT.DS.$cuser->thumb);
+	  	$md5_avatar_gold = md5_file(JPATH_ROOT.DS.$newAvatarAU);
+	  	$md5_thumb_gold	 = md5_file(XiptHelperImage::getThumbAvatarFromFull(JPATH_ROOT.DS.$newAvatarAU));
+
+	 	$this->assertEquals($md5_avatar, $md5_avatar_gold);
+	  	$this->assertEquals($md5_thumb, $md5_thumb_gold);	
   }
   
   function verifyRemovePicture($userid, $ptype)
@@ -514,8 +502,8 @@ class ProfileTest extends XiSelTestCase
 	  	
 	  	$this->click("//a[@onclick=\"joms.users.removePicture('$userid');\"]");
 	  	//onclick="joms.users.removePicture('82');"
-	  	$this->waitForElement("cwin_tm");
-	  	$this->assertTrue($this->isTextPresent("Remove profile picture"));
+	  	$this->waitForElement("cWindowContentTop");
+	  	$this->assertTrue($this->isTextPresent("Remove Avatar"));
 	  	sleep(2);
 	  	$this->click("//input[@value='Yes']");
     	$this->waitPageLoad();
@@ -524,14 +512,14 @@ class ProfileTest extends XiSelTestCase
     	//now check if default avavatra exist 
     	$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$defaultAvatar));
     	
-    	//avatar is correct
-    	$query = " SELECT * FROM `#__community_users` "
-	  			." WHERE `userid`='$userid' ";
-	  	
-	  	$db		=& JFactory::getDBO();
-	  	$db->setQuery($query);
-	  	$cuser =  $db->loadObject();
-	  	
+    	//get avatar path from database
+    	$db		= new XiptQuery();
+		$cuser 	= $db->select('*')
+				  	 ->from('#__community_users')
+				  	 ->where("`userid`=$userid")
+				  	 ->dbLoadQuery()
+				  	 ->loadObject();
+	  	//compare default avatar path
 	  	$this->assertEquals($cuser->avatar,$defaultAvatar); 
 	  	$this->assertEquals($cuser->thumb,$defaultThumb);
   }

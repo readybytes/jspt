@@ -196,25 +196,23 @@ class XiptLibJomsocial
 	 * @param $watermarkInfo
 	 * @return unknown_type
 	 */
+	//Before take any action for watre-mark, avatar must be manipulat.
 	function updateCommunityUserWatermark($userid,$watermark='')
 	{
-		//check if watermark is enable, Also check its not call from Reset
-		if(!XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0)
-		   && !JRequest::getVar('resetAll', 0 , 'POST'))
-			return false;			
-	
+		// Get water is enable or disable
+		$isWaterMarkEnable = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0);
+		
 		//update watermark on user's avatar
 		$pTypeAvatar  	   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'avatar');
 		$pTypeThumbAvatar  = XiptLibJomsocial::getUserDataFromCommunity($userid, 'thumb');
-		$isDefault		   = XiptLibProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true);
-		
+			
 		// no watermark on default avatars
-		if($isDefault)
+		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true))
 			return false;
 
-		 //XITODO: if watermark is already disable in old data then return before it restore.
 		//no watermark then resotre backup avatar and return
-		if($watermark == '')	
+		//if water-mark disable then restore avatar(hit both by resete & by update any user profile ) 
+		if(false == $isWaterMarkEnable || $watermark == '')	
 		{
 			self::restoreBackUpAvatar($pTypeAvatar);
 			self::restoreBackUpAvatar($pTypeThumbAvatar);
@@ -238,8 +236,9 @@ class XiptLibJomsocial
 		$avatarFileName = JFile::getName($currImagePath);
 		if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
 			return true;
-				
-		XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar {USER_AVATAR_BACKUP.DS.$avatarFileName} in backup folder does not exist.");
+
+		if(JFactory::getConfig()->getValue('debug'))
+			XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar {".USER_AVATAR_BACKUP.DS.$avatarFileName."} in backup folder does not exist.");
 		return false;
 	}
 	/**

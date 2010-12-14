@@ -130,3 +130,34 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (128, 81, 17, '2'),
 (127, 81, 16, 'blackout'),
 (126, 80, 9, 'regtest6208627');;
+
+TRUNCATE TABLE  `#__xipt_settings`;;
+INSERT INTO `#__xipt_settings` (`name`, `params`) VALUES
+('settings', 'show_ptype_during_reg=1\nallow_user_to_change_ptype_after_reg=1\ndefaultProfiletypeID=1\nguestProfiletypeID=1\njspt_show_radio=0\njspt_fb_show_radio=1\njspt_block_dis_app=1\nuser_reg=jomsocial\naec_integrate=1\naec_message=pl\nrestrict_advancesearchfield=1\n\n');;
+
+TRUNCATE TABLE  `#__core_acl_aro`;;
+INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
+(10, 'users', '62', 0, 'Administrator', 0),
+(31, 'users', '83', 0, 'regtest1789672', 0),
+(28, 'users', '80', 0, 'regtest6208627', 0),
+(32, 'users', '84', 0, 'regtest6461827', 0),
+(35, 'users', '87', 0, 'regtest1674526', 0),
+(33, 'users', '85', 0, 'regtest3843261', 0),
+(34, 'users', '86', 0, 'regtest1504555', 0),
+(29, 'users', '81', 0, 'regtest8635954', 0),
+(27, 'users', '79', 0, 'regtest7046025', 0),
+(30, 'users', '82', 0, 'regtest8774090', 0);;
+
+TRUNCATE TABLE `#__core_acl_groups_aro_map`;;
+INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
+(18, '', 27),
+(18, '', 29),
+(18, '', 30),
+(18, '', 33),
+(18, '', 34),
+(20, '', 28),
+(20, '', 31),
+(21, '', 32),
+(21, '', 35),
+(25, '', 10);;
+
