@@ -369,11 +369,11 @@ class XiptHelperInstall
 	}
 	
 	function _migration460()
-	{	
+	{				
 		$ver = intval(self::getXiptVersion());
 		//echo $ver;
-		if( $ver >= 460)
-  			return true;
+		if( $ver > 460)
+  			return false;
   		
   			echo $ver;
 		$db = JFactory::getDBO();
@@ -396,12 +396,14 @@ class XiptHelperInstall
 	 		$db->setQuery($query);
 			$db->query();
 		}
+		
+		 return true;
 	}
 	
 	function ensureXiptVersion()
 	{
 		
-		if(!is_null(self::getXiptVersion()))
+		if(self::getXiptVersion() != false)
 			return true;
 			
 		$db		= JFactory::getDBO();
@@ -419,7 +421,7 @@ class XiptHelperInstall
 		require_once JPATH_ROOT .DS. 'components' .DS. 'com_xipt' .DS. 'defines.php';
 		$db		= JFactory::getDBO();
 		$query	= 'UPDATE #__xipt_settings'
-				.' SET '. $db->nameQuote('params') .' = '.$db->Quote(XIPT_VERSION)
+				.' SET '. $db->nameQuote('params') .' = '.$db->Quote('@global.version@.@svn.lastrevision@')
 				.' WHERE '. $db->nameQuote('name') .' = '.$db->Quote('version');
 		$db->setQuery($query);
 		return $db->query();
@@ -431,10 +433,14 @@ class XiptHelperInstall
 		$db		= JFactory::getDBO();
 		$query  = " SELECT `params` FROM `#__xipt_settings` WHERE `name`='version' ";
 		$db->setQuery($query);
-		if(is_null($db->loadResult()))
-			return null;
+		$result = $db->loadResult();
+	
+		if($result == 0)
+			return false;
 			
 		list($main, $mid, $svn) = explode(".", $db->loadResult());
+              // echo $svn;
+
 		return $svn;
 		
 	}

@@ -49,7 +49,7 @@ class InstallHelperTest extends XiUnitTestCase
 	function testGetXiptVersion()
 	{
 		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'install'.DS.'helper.php');
-		$this->assertNull(XiptHelperInstall::getXiptVersion());
+		$this->assertFalse(XiptHelperInstall::getXiptVersion());
 	}
 
 	function testGetXiptVersion1()

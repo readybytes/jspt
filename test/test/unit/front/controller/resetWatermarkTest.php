@@ -112,7 +112,10 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   
 	//Case3: wtr-mark already disable den Reset all. Test watr-mark not apply 
   	function testResetAllCase3()
-  	{
+  	{	
+		$filter['debug']=0;
+		$this->updateJoomlaConfig($filter);
+
   		$this->cleanStaticCache();
   		$post = $this->getPostValue();
   		$path = $this->setPath();
@@ -125,6 +128,8 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   		$this->checkImage($path['custom_thumb'], $path['copy_thumb_custom_avatar']);
   		$this->cleanStaticCache();
   		$this->reloadUser(Array(62,79,80,81,82,83,84,85,86,87));
+		$filter['debug']=1;
+		$this->updateJoomlaConfig($filter);
   	}
    	
   	// case:4 Test, Watr-mark not apply on default avatar

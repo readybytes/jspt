@@ -11,6 +11,10 @@ class XiptCommunityPluginTest extends XiUnitTestCase
 	function testOnAfterProfileUpdate()
 	{	
 		global $mainframe;
+
+		$filter['debug']=0;
+		$this->updateJoomlaConfig($filter);
+		
 		$mainframe = JFactory::getApplication();
 		$this->changePluginState('aecuser', 0);
 		$this->changePluginState('aecaccess', 0);
@@ -32,6 +36,9 @@ class XiptCommunityPluginTest extends XiUnitTestCase
 		JDispatcher::getInstance()->_observers= array();
 		JPluginHelper::importPlugin('system');
 		
+		$filter['debug']=1;
+		$this->updateJoomlaConfig($filter);	
+	
 		$this->_DBO->addTable('#__xipt_users');
 	}
 	

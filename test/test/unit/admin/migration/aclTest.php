@@ -23,5 +23,11 @@ class AclMigrationTest extends XiUnitTestCase
   		XiptHelperInstall::_migration460();
   		$this->_DBO->addTable('#__xipt_aclrules');
   	}
+  	
+	function testACLDoNotMigration()
+  	{
+  		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'install'.DS.'helper.php');
+  		$this->assertFalse(XiptHelperInstall::_migration460());
+  	}
 
 }

@@ -24,6 +24,7 @@ class XiptapiTest extends XiUnitTestCase
 	
 	function testSetUserProfiletype()
 	{
+		$this->reloadUser(array(62,79,80,81,82,83,84,85,86,87));
 		//#case 1: update user PTData, by default it will update all data
 		$this->assertTrue(XiptAPI::setUserProfiletype(79, 2));
 		
@@ -33,6 +34,7 @@ class XiptapiTest extends XiUnitTestCase
 		$this->_DBO->addTable('#__xipt_users');
 		$this->_DBO->addTable('#__community_users');
 		$this->_DBO->addTable('#__users');
+		$this->reloadUser(array(62,79,80,81,82,83,84,85,86,87));
 	}
 	
 	function testGetProfiletypeInfo()
