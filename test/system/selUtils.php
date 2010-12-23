@@ -7,10 +7,10 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   protected $captureScreenshotOnFailure = TRUE;
   protected $screenshotPath = SCREENSHOT_PATH;
   protected $screenshotUrl  = SCREENSHOT_URL;
-/*  
+
   protected $collectCodeCoverageInformation = TRUE;
-  protected $coverageScriptUrl = 'http://localhost/phpunit_coverage.php';
- */ 
+  protected $coverageScriptUrl = 'http://localhost/dummy/phpunit_coverage.php';
+
   function setUp()
   {
   	$this->parentSetup();

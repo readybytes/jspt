@@ -2,6 +2,10 @@
 
 class InstallTest extends XiSelTestCase 
 { 
+
+  protected $collectCodeCoverageInformation = false;
+
+
   function getSqlPath()
   {
       return dirname(__FILE__).'/sql/'.__CLASS__;
