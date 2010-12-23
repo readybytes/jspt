@@ -6,19 +6,19 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
-class XiptHelperProfiletypes 
-{	
+class XiptHelperProfiletypes
+{
 	function buildTypes($value, $what)
 	{
 		$allValues	= array();
 		$callFunc = '_build'.JString::ucfirst($what);
-		
+
 		if(!method_exists(new XiptHelperProfiletypes(),$callFunc))
 			XiptError::assert(0);
-				
-		return XiptHelperProfiletypes::$callFunc($value);		
-	}	
-	
+
+		return XiptHelperProfiletypes::$callFunc($value);
+	}
+
 	function _buildProfiletypes($value)
 	{
 		$allTypes = XiptLibProfiletypes::getProfiletypeArray();
@@ -27,90 +27,90 @@ class XiptHelperProfiletypes
 
 		return JHTML::_('select.genericlist',  $allTypes, 'profiletypes', 'class="inputbox"', 'id', 'name', $value);
 	}
-	
+
 	// not being used
 	function _buildPrivacy($value)
 	{
 		$allValues[]['value'] =  'friends';
 		$allValues[]['value'] =  'members';
-		$allValues[]['value'] =  'public';		
- 
+		$allValues[]['value'] =  'public';
+
 		return JHTML::_('select.genericlist',  $allValues, 'privacy', 'class="inputbox"', 'value', 'value', $value);
 	}
-	
+
 	function _buildTemplate($value)
 	{
 		$templates = XiptHelperJomsocial::getTemplatesList();
 		if(!$templates)
 			return false;
-			
+
 		foreach($templates as $t)
 			$allValues[]['value']=$t;
-			
+
 		return JHTML::_('select.genericlist',  $allValues, 'template', 'class="inputbox"', 'value', 'value', $value);
 	}
-	
+
 	function _buildJusertype($value)
 	{
 		$usertypes= XiptLibJoomla::getJUserTypes();
 		if(!$usertypes)
 			return false;
-			 
-		foreach($usertypes as $u)		
+
+		foreach($usertypes as $u)
 			$allValues[]['value']=$u;
-			
+
 		return JHTML::_('select.genericlist',  $allValues, 'jusertype', 'class="inputbox"', 'value', 'value', $value);
-	}				 
-	
+	}
+
 	function _buildGroup($value)
 	{
 		//We should add none also.
 		$allValues 		= new stdClass();
 		$allValues->id 	= 0;
 		$allValues->name= 'None';
-		
+
 		$groups = XiptHelperProfiletypes::getGroups();
 		array_push($groups, $allValues);
 		$value=explode(',',$value);
 		return JHTML::_('select.genericlist',  $groups, 'group[]', 'class="inputbox" size="3" multiple ', 'id', 'name', $value);
 	}
-			
+
 	function getGroups($id='')
 	{
 		$query = new XiptQuery();
 		$query->select(' `id`, `name` ')
 				->from('#__community_groups');
-		
-		if(!empty($id))		
+
+		if(!empty($id))
 				$query->where(" `id`  = $id ");
-				
+
 		return $query->dbLoadQuery("","")
 					 ->loadObjectList();
-					 
-		/* TODO : what if group list is empty */		
+
+		/* TODO : what if group list is empty */
 	}
-	
+
 	function getProfileTypeData($id,$what='name')
-	{		
+	{
 		//XITODO : Caching can be added
 		$searchFor 		= 'name';
 		$defaultValue	= 'NONE';
 		$data = array(
-					'name' 		=> array('name' => 'name', 		'value' => 'All'),					
+					'name' 		=> array('name' => 'name', 		'value' => 'All'),
 					'template' 	=> array('name' => 'template', 	'value' => 'default'),
 					'jusertype'	=> array('name' => 'jusertype', 'value' => 'Registered'),
 					'avatar' 	=> array('name' => 'avatar', 	'value' => DEFAULT_AVATAR),
 					'watermark'	=> array('name' => 'watermark', 'value' => ''),
 					'approve'	=> array('name' => 'approve', 	'value' => true),
 					'allowt'	=> array('name' => 'allowt', 	'value' => false),
-					'group'		=> array('name' => 'group', 	'value' => 0)	
+					'group'		=> array('name' => 'group', 	'value' => 0)
 					);
-		//XITODO : clean this fn	
+		//XITODO : clean this fn
 		XiptError::assert(array_key_exists($what,$data), XiptText::_("ARRAY KEY DOES NOT EXIST."));
-				
+
 		if($id==0)
 			return $data[$what]['value'];
-		
+
 		$val = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
 		if(!$val)
 			return $data[$what]['value'];
@@ -120,7 +120,7 @@ class XiptHelperProfiletypes
 
 		return false;
 	}
-	
+
 	function getProfileTypeName($id)
 	{
 		//XITODO : Clean ALL / NONE, and cache results
@@ -129,25 +129,25 @@ class XiptHelperProfiletypes
 
 		if($id == XIPT_PROFILETYPE_NONE)
 			return XiptText::_("NONE");
-			
+
 		return XiptHelperProfiletypes::getProfileTypeData($id,'name');
 	}
 
 	function getProfileTypeArray($isAllReq = false, $isNoneReq= false)
 	{
 		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
-		
+
 		// results will be indexed accroding to id
 		// only get the keys
 		$retVal = array_keys($results);
-		
+
 		//add all value also
 		if($isAllReq === true)
 			$retVal[] = XIPT_PROFILETYPE_ALL;
-			
+
 		if($isNoneReq === true)
 			$retVal[] = XIPT_PROFILETYPE_NONE;
-			
+
 		return $retVal;
 	}
 
@@ -155,7 +155,7 @@ class XiptHelperProfiletypes
 	 * The function will reapply attributes to every user of profiletype $pid
 	 * IMP : if user have custom avatar, then it will not be updated
 	 * IMP : we will re-apply watermark on custom avatar
-	 * IMP : Users other attribute will be reset irrespective of there settings 
+	 * IMP : Users other attribute will be reset irrespective of there settings
 	 *
 	 * @param $pid
 	 * @param $oldData
@@ -165,25 +165,25 @@ class XiptHelperProfiletypes
 	function resetAllUsers($pid, $oldData, $newData)
 	{
 		$allUsers = XiptLibProfiletypes::getAllUsers($pid);
-		
+
 		if(!$allUsers)
 			return;
-	
+
 		// //XITODO : needs cleanup Remove hardcoding
 		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
 		$filteredOldData = array();
 		$filteredNewData = array();
-		
+
 		foreach($featuresToReset  as $feature)
 		{
 			$filteredOldData[$feature]= $oldData->$feature;
 			$filteredNewData[$feature]= $newData->$feature;
 		}
-		
+
 		foreach ($allUsers as $user)
 			XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
 	}
-	
+
 	// XITODO : needs cleanup
 	function uploadAndSetImage($file,$id,$what)
 	{
@@ -199,7 +199,7 @@ class XiptHelperProfiletypes
 			$mainframe->enqueueMessage( XiptText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
 			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$id, false) );
 		}
-		
+
 		if( !cValidImage($file['tmp_name'] ) )
 		{
 			$mainframe->enqueueMessage(XiptText::_('IMAGE FILE NOT SUPPORTED'), 'error');
@@ -220,13 +220,13 @@ class XiptHelperProfiletypes
 					$imgPrefix 		= 'watermark_';
 					break;
 			}
-			
+
 			$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
 			$storageImage		= $storage . DS .$imgPrefix. $id . cImageTypeToExt( $file['type'] );
 			$storageThumbnail	= $storage . DS . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 			$image				= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
 			//$thumbnail			= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
-			
+
 			//here check if folder exist or not. if not then create it.
 			if(JFolder::exists($storage)==false)
 				JFolder::create($storage);
@@ -241,51 +241,51 @@ class XiptHelperProfiletypes
 			if(!cImageCreateThumb( $file['tmp_name'] , $storageThumbnail , $file['type'],$thumbWidth,$thumbHeight ))
 			{
 				$mainframe->enqueueMessage(XiptText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
-			}			
+			}
 
 			$oldFile = XiptLibProfiletypes::getProfiletypeData($id,$what);
 
 			// If old file is default_thumb or default, we should not remove it.
-			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR ) 
-				&& !Jstring::stristr( $oldFile , DEFAULT_AVATAR_THUMB ) 
+			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR )
+				&& !Jstring::stristr( $oldFile , DEFAULT_AVATAR_THUMB )
 					&& $oldFile != $image
 					&& $oldFile != ''){
 				// File exists, try to remove old files first.
 				$oldFile	= JString::str_ireplace( '/' , DS , $oldFile );
 
 				//only delete when required
-				if(JFile::exists($oldFile))			
+				if(JFile::exists($oldFile))
 					JFile::delete($oldFile);
 			}
-			
+
 			//here due to extension mismatch we can break the functionality of avatar
 			if($what === 'avatar')
 			{
 				/* No need to update thumb here , script will update both avatar and thumb */
 				//$newThumb   = XiptHelperImage::getThumbAvatarFromFull($newAvatar);
 				$oldAvatar  = XiptLibProfiletypes::getProfiletypeData($id,'avatar');
-					
+
 				$allUsers = XiptLibProfiletypes::getAllUsers($id);
 				if($allUsers) {
-					
+
 					$filter[] = 'avatar';
 					$newData['avatar'] = $image;
-					$oldData['avatar'] = $oldAvatar;  
+					$oldData['avatar'] = $oldAvatar;
 					foreach ($allUsers as $userid)
 						XiptLibProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
 
-				}		    			
+				}
 			}
-			
-			//now update profiletype with new avatar or watermark			
+
+			//now update profiletype with new avatar or watermark
 			if(!XiptFactory::getInstance('profiletypes', 'model')->
 					save(array($what => XiptHelperUtils::getUrlpathFromFilePath($image)),$id))
-				XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("ERROR IN DATABASE"));		    
+				XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("ERROR IN DATABASE"));
 		}
 	}
-	
+
 	function checkSessionForProfileType()
-    {   	
+    {
     	$mySess = JFactory::getSession();
     	if($mySess)
 			return true;
@@ -293,24 +293,24 @@ class XiptHelperProfiletypes
 		// session expired, redirect to community page
 		$redirectUrl	= XiptRoute::_('index.php?option=com_community&view=register',false);
 		$msg 			= XiptText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
-    	
+
 		return JFactory::getApplication()->redirect($redirectUrl,$msg);
     }
-        
+
 	//XITODO : Remove funda of return url, use configuration
     function setProfileTypeInSession($selectedProfiletypeID)
     {
-		// XITODO : move redirection to controller 
+		// XITODO : move redirection to controller
     	$mySess = & JFactory::getSession();
     	$redirectUrl = XiptHelperJomsocial::getReturnURL();
 
 		// validate values
 		if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {
 			$msg = XiptText::_('PLEASE ENTER VALID PROFILETYPE');
-			JFactory::getApplication()->redirect('index.php?option=com_xipt&view=registration',$msg);
+			JFactory::getApplication()->redirect(XiptRoute::_('index.php?option=com_xipt&view=registration'),$msg);
 			return;
 		}
-		
+
 		//set value in session and redirect to destination url
 		$mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
 		JFactory::getApplication()->redirect($redirectUrl);
