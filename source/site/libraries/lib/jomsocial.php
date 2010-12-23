@@ -46,7 +46,7 @@ class XiptLibJomsocial
 		$query   = new XiptQuery();
 		$results = $query->select('*')
 						->from('#__community_users')
-						->limit(100)
+						->where("userid <= ($userid+50) OR userid >= ($userid-50)")
 						->dbLoadQuery()
 						->loadAssocList('userid');						
 		
