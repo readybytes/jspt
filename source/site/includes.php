@@ -39,6 +39,8 @@ XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_ELEMENTS, 'Element', 'J');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_BASE,'');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_LIB,'Lib');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_ACL, 'Acl');
+//rules should be autoloaded
+XiptLoader::addAutoLoadACLRules(XIPT_FRONT_PATH_LIBRARY_ACL, 'Acl');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP, 'Setup');
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY_SETUP .DS. 'rule', 'SetupRule');
 

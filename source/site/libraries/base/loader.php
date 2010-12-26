@@ -38,4 +38,14 @@ class XiptLoader
 				JLoader::register($className, $baseFolders.DS.$folder.DS.$fileName);
 			}
 		}
+
+        function addAutoLoadACLRules($baseFolders)
+		{
+			foreach(JFolder::folders($baseFolders) as $folder )
+			{
+				$className 	= $folder;
+				$fileName	= JString::strtolower("$folder.php");
+				JLoader::register($className, $baseFolders.DS.$folder.DS.$fileName);
+			}
+		}
 }

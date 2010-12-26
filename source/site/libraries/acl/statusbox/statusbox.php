@@ -18,6 +18,4 @@ class statusbox extends XiptAclBase
 
 		return false;
 	}
-
-
 }
