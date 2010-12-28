@@ -115,6 +115,23 @@ class AclPhotoTest extends XiAclUnitTest
 //  function testDelete()
 //  {}
 //
-//  function testView()
-//  {}
+	function testAccessPhoto()
+	{
+		$data = array();
+  		$data['userid'] 	= 85;
+  		$data['viewuserid'] = 0;
+  		$data['ajax'] 		= false;
+  		$data['args'] 		= array();
+  		$data['option'] 	= 'com_community';
+  		$data['view'] 		= 'photos';
+  		$data['task'] 		= '';
+  		
+  		// case 1: not applicable
+  		$data['task'] 		= '';
+  		$this->assertFalse($this->checkApplicable(1, $data));
+  		
+  		$data['task'] 		= 'photo';
+  		$data['userid'] 	= 86;
+  		$this->assertTrue($this->checkApplicable(1, $data));
+	}
 }

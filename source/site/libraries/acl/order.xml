@@ -95,6 +95,10 @@
 		  title="Can not Add Photos"
 		  description="Restrict users to Add Photos" 
 		  example="Suppose you want Profile Type1 users Can not Add Photos of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
+	<rule name="accessphoto" 
+		  title="Can not Access Photos"
+          description="Restrict users to Access Albums" 
+          example="Suppose you want Profile Type1 users Can not Add Albums of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />          
 </group>
 
 <group name="profile" title="Profile">
@@ -150,5 +154,26 @@
 	<rule name="readmessage"
 		  title="Can not Read Message"
 		  description="Restrict Users to Read Message" />
+</group>
+<group name="likedislike" title="LikeDisLike">
+	<rule name="likephotos"
+		  title="Can not Like Dislike Photos"
+		  description="Restrict User to Like Photos" />
+		  
+	<rule name="likevideo"
+		  title="Can not Like Dislike Video"
+		  description="Restrict User to Like Dislike Video" />
+		  
+	<rule name="likegroup"
+		  title="Can not Like Dislike Group"
+		  description="Restrict User to Like Dislike Group" />
+		  
+	<rule name="likeprofile"
+		  title="Can not Like Dislike Profile"
+		  description="Restrict User to Like Dislike Profile" />
+		  
+	<rule name="likeevent"
+		  title="Can not Like Dislike Event"
+		  description="Restrict User to Like Dislike event" />
 </group>		
 </rules>
