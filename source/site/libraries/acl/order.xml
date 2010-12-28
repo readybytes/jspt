@@ -37,8 +37,13 @@
 		  title="Can not Join Groups"
 		  description="Restrict users to Join Gorups"
 		  example="Suppose you want Profile Type1 users Can not Join Groups of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
-</group>
-		  
+
+	<rule name="accessgroupcategory"
+		  title="Can Access Groups Category"
+		  description="Allow users to Access Gorups Category"
+		  example="Suppose you want Profile Type1 users Can Access Groups Category / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Select Group Category -> Select Group Category " />
+</group>	
+	  
 <group name="albums" title="Albums">
 	<rule name="addalbums" 
 		  title="Can not Add Albums"
