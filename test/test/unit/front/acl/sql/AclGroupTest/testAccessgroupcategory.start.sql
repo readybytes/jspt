@@ -84,11 +84,11 @@ INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `
 ;;
 
 TRUNCATE TABLE `#__community_groups_category`;;
-INSERT INTO `#__community_groups_category` (`id`,`parent`,`name`,`description`) VALUES
-(1,0,'General1','For general1 users'),
-(2,0,'General2','For general2 users'),
-(3,0,'General3','For general3 users'),
-(4,0,'General4','For general4 users'),
-(5,0,'General5','For general5 users');;
+INSERT INTO `#__community_groups_category` (`id`,`name`,`description`) VALUES
+(1,'General1','For general1 users'),
+(2,'General2','For general2 users'),
+(3,'General3','For general3 users'),
+(4,'General4','For general4 users'),
+(5,'General5','For general5 users');;
 
 
