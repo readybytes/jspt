@@ -35,9 +35,6 @@ class plgSystemxipt_system extends JPlugin
 		$app = JFactory::getApplication();
 
 		if($app->isAdmin()){
- 			if($this->_pluginHandler->checkSetupRequired())
- 				$app->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'));
-
  			return false;
  		}
 
@@ -187,6 +184,11 @@ class plgSystemxipt_system extends JPlugin
 
 	function onAfterDispatch()
     {
+    	$app = JFactory::getApplication();
+		
+ 		if($app->isAdmin() && $this->_pluginHandler->checkSetupRequired())
+ 			$app->enqueueMessage(JText::_('JSPT SETUP SCREEN IS NOT CLEAN, PLEASE CLEAN IT.'), 'error');
+ 		 		
         // get option, view and task
         $option     = JRequest::getVar('option');
         $view         = JRequest::getVar('view');

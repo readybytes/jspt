@@ -109,7 +109,7 @@ class AclVideoTest extends XiAclUnitTest
   }
   
  
-function testAccessvideocategory()
+function xtestAccessvideocategory()
   {
   		$data = array();
   		$data['userid'] 	= 0;

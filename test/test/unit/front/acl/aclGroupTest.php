@@ -228,7 +228,7 @@ class AclGroupTest extends XiAclUnitTest
   		$this->assertTrue($this->checkViolation(12, $data));
   }
   
-function testAccessgroupcategory()
+function xtestAccessgroupcategory()
   {
   		$data = array();
   		$data['userid'] 	= 0;
