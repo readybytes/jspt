@@ -107,4 +107,55 @@ class AclVideoTest extends XiAclUnitTest
   		$this->assertFalse($this->checkViolation(12, $data));
 
   }
+  
+ 
+function testAccessvideocategory()
+  {
+  		$data = array();
+  		$data['userid'] 	= 0;
+  		$data['viewuserid'] = 0;
+  		$data['ajax'] 		= false;
+  		$data['args'] 		= array();
+  		$data['option'] 	= 'com_community';
+  		$data['view'] 		= 'videos';
+
+  		// case 1: not applicable
+  		$data['task'] 		= '';
+  		$this->assertFalse($this->checkApplicable(10, $data));
+
+  		// case 2 : should be applicable
+  		$data['task'] 		= 'video';
+  		$data['userid'] 	= 87;
+  		$this->assertTrue($this->checkApplicable(10, $data));
+
+
+  		// Profiletypes:
+  		//  	1=users(79,82,85) ,  
+  		//   	2=users(80,83,86) ,  
+  		//  	3=users(81,84,87) ,  
+  		//Rule 10: pt3  can access video category 4
+
+  		$data['userid'] 	= 87;
+  		$data['videoid'] 	= 7;
+  		$this->assertTrue($this->checkViolation(10, $data));
+
+  		$data['userid'] 	= 87;
+  		$data['videoid'] 	= 6;
+  		$this->assertTrue($this->checkViolation(10, $data));
+
+  		$data['userid'] 	= 87;
+  		$data['videoid'] 	= 5;
+  		$this->assertFalse($this->checkViolation(10, $data));
+  		
+  		// Case 4 : Rule 11  : ALL PT can access video category 3
+  		$data['userid'] 	= 85;
+  		$this->assertTrue($this->checkViolation(11, $data));
+
+  		$data['userid'] 	= 86;
+  		$this->assertTrue($this->checkViolation(11, $data));
+
+  		$data['userid'] 	= 87;
+  		$this->assertTrue($this->checkViolation(11, $data));
+
+  	  }
 }

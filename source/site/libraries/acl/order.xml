@@ -61,6 +61,11 @@
 		  title="Can not Add Videos"
 	 	  description="Restrict users to Add Videos" 
 	 	  example="Suppose you want Profile Type1 users Can not Add Videos of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
+	
+	<rule name="accessvideocategory" 
+		  title="Can Access Videos Category"
+		  description="Allow users to Access Videos Category" 
+		  example="Suppose you want Profile Type1 users Can Access Videos Category/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Video Category -> Select Video Category " />
 </group>
 	
 <group name="profileVideos" title="Profile Videos">
