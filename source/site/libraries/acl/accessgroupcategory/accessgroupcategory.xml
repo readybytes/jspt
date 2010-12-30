@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 <params addpath="/components/com_xipt/elements" >
-	<param name="group_category" type="groupcategory" addall="true" default="" label="GROUP CATEGARIES.Lable" description="GROUP CATEGORY TO APPLY.Desc" />
+	<param name="group_category" type="groupcategory" addall="true" default="" label="GROUP CATEGARIES.Label" description="GROUP CATEGORY TO APPLY.Desc" />
 	
 </params>
 </config>

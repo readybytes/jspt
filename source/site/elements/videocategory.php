@@ -38,7 +38,7 @@ class JElementVideocategory extends JElement
 		$class				= ($required == 1) ? ' required' : '';
 		$options			= $this->getVideocategory();
 		
-		$html	.= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']" title="' . "Select Group Category" . '">';
+		$html	.= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']" title="' . "Select Video Category" . '">';
 		
 		foreach($options as $op)
 		{
