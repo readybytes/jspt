@@ -68,4 +68,38 @@ class InstallHelperTest extends XiUnitTestCase
 		$this->assertEquals(XiptHelperInstall::getXiptVersion(), $svn);
 	}
 	
+	function testModifyGroupDataType(){
+		require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'install'.DS.'helper.php');
+				
+		$this->assertTrue(XiptHelperInstall::_isTableExist('xipt_profiletypes'),"Table Does not exist");
+		$this->assertFalse(XiptHelperInstall::_check_column_datatype('#__xipt_profiletypes','group','varchar(100)'),
+							"Column data type is not varchar(100)");
+
+		//echo "\n converting type";
+		XiptHelperInstall::modifyGroupDataType();
+		
+		$this->assertTrue(XiptHelperInstall::_check_column_datatype('#__xipt_profiletypes','group','varchar(100)'),
+								"Column data type is still varchar(100) ");
+		$this->assertFalse(XiptHelperInstall::_check_column_datatype('#__xipt_profiletypes','group','text'),
+								"Column data type is not TEXT");
+	
+		$this->_DBO->addTable('#__xipt_profiletypes');
+	}
+	
+	function test_check_column_datatype(){
+		$this->assertFalse(XiptHelperInstall::_check_column_datatype('#__xipt_profiletypes','group','text'),
+							"Column data type is not text ");
+		
+		$this->assertFalse(XiptHelperInstall::_check_column_datatype('#__xipt_profiletypes','name','varchar(255)'),
+							"Column data type is not varchar(255) ");
+		
+		$this->assertFalse(XiptHelperInstall::_check_column_datatype('#__xipt_profiletypes','published','tinyint(1)'),
+							"Column data type is not tinyint(1) ");
+		
+		$this->assertFalse(XiptHelperInstall::_check_column_datatype('#__xipt_profiletypes','tip','text'),
+							"Column data type is not text ");
+		
+		
+	}
+	
 }

@@ -121,6 +121,8 @@ class XiptHelperInstall
 			return false;
 		
 		self::_migration460();
+		// this will modify group field datatype varchar to text in xipt_profiletype
+		self::modifyGroupDataType();
 
 		return true;
 	}
@@ -444,4 +446,19 @@ class XiptHelperInstall
 		return $svn;
 		
 	}
+	
+	function modifyGroupDataType(){
+		
+		if(!self::_isTableExist('xipt_profiletypes'))
+			return;
+		
+		if(self::_check_column_datatype('#__xipt_profiletypes','group','varchar(100)'))
+			return;
+				    
+		$query	= 'ALTER TABLE `#__xipt_profiletypes` MODIFY `group` text not null';
+		$db		=  JFactory::getDBO();
+		$db->setQuery($query);
+		$db->query();	
+		
+	}	
 }
