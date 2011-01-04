@@ -142,6 +142,8 @@ class XiptControllerProfiletypes extends XiptController
 			$info['msg'] = XiptText::_('PROFILETYPE SAVED');
 			$preTask = $session->set('preTask','','jspt');
 			$preTask = ($preTask =='apply') ? 'edit':'display';
+			$session->clear('oldPtData','jspt');
+			$session->clear('newPtData','jspt');
 			$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task='.$preTask.'&id='.$id.'', false);
 			$mainframe = JFactory::getApplication();
 			$mainframe->redirect($link, $info['msg']);
@@ -166,7 +168,8 @@ class XiptControllerProfiletypes extends XiptController
 		$mainframe = JFactory::getApplication();
 		$start = $start+1;
 		
-		//echo "<<<{".JSPT_TEST_MODE."}>>>";
+		
+		//XITODO : check if defined not true
 		if(JSPT_TEST_MODE == "true")
     		return $start;
     		
