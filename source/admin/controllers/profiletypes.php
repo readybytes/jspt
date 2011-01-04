@@ -101,7 +101,16 @@ class XiptControllerProfiletypes extends XiptController
 	    // Reset existing user's 
 		if($post['resetAll']) {
 			//If not uploaded data then by default save the previous values 
-			XiptHelperProfiletypes::resetAllUsers($id, $oldData, $newData);	
+			
+			//new method 
+			$preTask = JRequest::getVar('task', 'save');
+			$session = JFactory::getSession();
+			$session->set('oldPtData',$oldData,'jspt');
+			$session->set('newPtData',$newData,'jspt');
+			$session->set('preTask',$preTask,'jspt');
+			$this->resetall($id);			
+			//old method
+			//XiptHelperProfiletypes::resetAllUsers($id, $oldData, $newData);	
 		}
 					
 		$info['id'] = $id;
@@ -109,7 +118,63 @@ class XiptControllerProfiletypes extends XiptController
 
 		return $info;
 	}
+	
+	//this function wil reset users in chunks 
+	function resetall($id = 0, $limit = 500, $start = 0){
+		
+		
+		$start	=JRequest::getVar('start', $start);
+		$id		=JRequest::getVar('id', $id);
+		//getting from session
+		$session   = JFactory::getSession();
+		$oldPtData = $session->get('oldPtData', '','jspt');
+		$newPtData = $session->get('newPtData', '', 'jspt');
+		
+		$allUsers = XiptLibProfiletypes::getAllUsers($id);
 
+		if(!$allUsers)
+			return false;
+
+		$users = array_chunk($allUsers, $limit);
+
+		if(empty($users[$start])){
+			$info['id'] = $id;
+			$info['msg'] = XiptText::_('PROFILETYPE SAVED');
+			$preTask = $session->set('preTask','','jspt');
+			$preTask = ($preTask =='apply') ? 'edit':'display';
+			$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task='.$preTask.'&id='.$id.'', false);
+			$mainframe = JFactory::getApplication();
+			$mainframe->redirect($link, $info['msg']);
+		}
+		
+		$users = $users[$start];
+	
+		//XITODO : needs cleanup Remove hardcoding
+		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
+		$filteredOldData = array();
+		$filteredNewData = array();
+		
+		foreach($featuresToReset  as $feature)
+		{
+			$filteredOldData[$feature]= $oldPtData->$feature;
+			$filteredNewData[$feature]= $newPtData->$feature;
+		}
+
+		foreach ($users as $user)
+			XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
+	
+		$mainframe = JFactory::getApplication();
+		$start = $start+1;
+		
+		//echo "<<<{".JSPT_TEST_MODE."}>>>";
+		if(JSPT_TEST_MODE == "true")
+    		return $start;
+    		
+		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=resetall&start=$start&id=$id",false));
+    	
+			
+	}
+	
 	// this function generates thumbnail of watermark
 	function generateThumbnail($imageName,$filename,$storage,$newData,$config)
 	{
