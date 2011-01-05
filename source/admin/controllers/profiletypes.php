@@ -99,16 +99,21 @@ class XiptControllerProfiletypes extends XiptController
 		$newData->privacy = $model->loadParams($id,'privacy');		
 		
 	    // Reset existing user's 
-		if($post['resetAll']) {
-			//If not uploaded data then by default save the previous values 
-			
+		if($post['resetAll'] && isset($oldData)) {
+					
 			//new method 
 			$preTask = JRequest::getVar('task', 'save');
 			$session = JFactory::getSession();
 			$session->set('oldPtData',$oldData,'jspt');
 			$session->set('newPtData',$newData,'jspt');
 			$session->set('preTask',$preTask,'jspt');
-			$this->resetall($id);			
+			
+			if(!XIPT_TEST_MODE)
+			{
+				JFactory::getApplication()->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=resetall&id=$id",false));
+			}
+
+			$this->resetall($id,25000);			
 			//old method
 			//XiptHelperProfiletypes::resetAllUsers($id, $oldData, $newData);	
 		}
@@ -134,7 +139,7 @@ class XiptControllerProfiletypes extends XiptController
 
 		if(!$allUsers)
 			return false;
-
+		$total = count($allUsers);
 		$users = array_chunk($allUsers, $limit);
 
 		if(empty($users[$start])){
@@ -168,12 +173,11 @@ class XiptControllerProfiletypes extends XiptController
 		$mainframe = JFactory::getApplication();
 		$start = $start+1;
 		
-		
-		//XITODO : check if defined not true
-		if(JSPT_TEST_MODE == "true")
+		if(!XIPT_TEST_MODE == 0)
     		return $start;
-    		
-		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=resetall&start=$start&id=$id",false));
+    	
+    	return $this->getView()->resetall($id,$start,$total,$limit);
+		//$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=resetall&start=$start&id=$id",false));
     	
 			
 	}

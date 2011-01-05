@@ -75,4 +75,12 @@ class XiptViewProfiletypes extends XiptView
 		JToolBarHelper::addNew('edit', XiptText::_( 'ADD PROFILETYPES' ));
 		return true;
 	}
+	
+	function resetall($id, $start, $total= 0, $limit, $tpl = 'resetall'){
+		$this->assignRef('id', $id);
+		$this->assignRef('start', $start);
+		$this->assignRef('limit', $limit);
+		$this->assignRef('total', $total);
+		parent::display($tpl);
+	}
 }

@@ -10,6 +10,9 @@ define('XIPT_VERSION','@global.version@.@svn.lastrevision@');
 define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
 define('XIPT_NONE','XIPT_NONE');
 
+if (!defined('XIPT_TEST_MODE'))
+define('XIPT_TEST_MODE', false);
+
 
 define('PROFILETYPE_FIELD_TYPE_NAME','profiletypes');
 define('TEMPLATE_FIELD_TYPE_NAME','templates');

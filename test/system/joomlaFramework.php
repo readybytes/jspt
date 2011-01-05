@@ -22,8 +22,7 @@ require_once JPATH_BASE .DS.'libraries'.DS.'joomla'.DS.'factory.php';
 $mainframe =& JFactory::getApplication('site');
 $mainframe->initialise();
 
-if (!defined('XIPT_TEST_MODE'))
-	define('XIPT_TEST_MODE', true);
+define('XIPT_TEST_MODE', true);
 
 if(file_exists(JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php')){
 	require_once JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php';

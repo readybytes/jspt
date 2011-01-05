@@ -214,9 +214,9 @@ class ProfiletypeTest extends XiSelTestCase
     $this->click("resetAll1");
     $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
     $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
+    $this->waitPageLoad(10000);
     $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));	
-    
+     $this->waitPageLoad(10000);
     //now add profiletype-4
     $this->click("//td[@id='toolbar-new']/a");
     $this->waitPageLoad();
