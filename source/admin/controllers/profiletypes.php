@@ -125,7 +125,7 @@ class XiptControllerProfiletypes extends XiptController
 	}
 	
 	//this function wil reset users in chunks 
-	function resetall($id = 0, $limit = 500, $start = 0){
+	function resetall($id = 0, $limit = 100, $start = 0){
 		
 		
 		$start	=JRequest::getVar('start', $start);
