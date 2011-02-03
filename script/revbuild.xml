@@ -75,12 +75,12 @@
 				</fileset>
 	        </copy>
 	        
-			<move file="${target}/source/admin/manifest.xml" 
-	                        tofile="${target}/source/manifest.xml" 
+			<move file="${target}/source/admin/xipt.xml" 
+	                        tofile="${target}/source/xipt.xml" 
 	         />
 			
 			<!-- Copy plguin files again into folder -->
-			<copy   file="${source}/plugins/system/xipt_system.php" 
+<!--			<copy   file="${source}/plugins/system/xipt_system.php" 
 	                        tofile="${target}/source/install/extensions/xipt_system/xipt_system.php" 
 	                         />
 	
@@ -96,7 +96,7 @@
 			<copy   file="${source}/plugins/community/xipt_community.xml" 
 	                        tofile="${target}/source/install/extensions/xipt_community/xipt_community.xml" 
 	                         />                  
-	            
+-->	            
                  
                                               
 		<!-- first copy -->

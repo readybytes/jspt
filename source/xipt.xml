@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="component" version="1.5.0" method="upgrade">
+<extension type="component" version="1.6.0" method="upgrade">
 	<name>XIPT</name>
 	<creationDate>2009-08-01</creationDate>
 	<author>Team JoomlaXi</author>
@@ -54,6 +54,7 @@
 			<folder>controllers</folder>
 			<folder>views</folder>
 			<folder>hacks</folder>
+			<folder>install</folder>
 		</files>
 		
 		<files>
@@ -83,4 +84,4 @@
 	<plugins>
 		<plugin plugin="xipt_system" publish="true" group="system" />
 	</plugins>
-</install>
+</extension>

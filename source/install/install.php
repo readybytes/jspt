@@ -22,7 +22,7 @@ function com_install()
 		JError::raiseError('INSTERR', "Not able to replace MI files, Check permissions.");
 	
 	if(XiptHelperInstall::installExtensions() == false){
-		JError::raiseError('INSTERR', XiptText::_("NOT ABLE TO INSTALL EXTENSIONS"));
+		JError::raiseError('INSTERR', "NOT ABLE TO INSTALL EXTENSIONS");
 		return false;
 	}	
 	XiptHelperInstall::show_instruction();

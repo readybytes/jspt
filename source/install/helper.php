@@ -336,7 +336,7 @@ class XiptHelperInstall
 
 	function _isTableExist($tableName)
 	{
-		global $mainframe;
+		$mainframe=JFactory::getApplication();;
 
 		$tables	= array();
 	

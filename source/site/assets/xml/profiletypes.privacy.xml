@@ -3,7 +3,7 @@
 	<params>
 	
 		<param name="privacyProfileView" type="radio" label="Default Profile Privacy" default="30" description="Default Profile Privacy">
-			<option value="10">public</option>
+			<option value="0">public</option>
   			<option value="20">member</option>
   			<option value="30">friend</option>	
 		</param>
