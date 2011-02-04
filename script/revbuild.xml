@@ -80,23 +80,17 @@
 	         />
 			
 			<!-- Copy plguin files again into folder -->
-<!--			<copy   file="${source}/plugins/system/xipt_system.php" 
-	                        tofile="${target}/source/install/extensions/xipt_system/xipt_system.php" 
-	                         />
-	
-			<copy   file="${source}/plugins/system/xipt_system.xml" 
-	                        tofile="${target}/source/install/extensions/xipt_system/xipt_system.xml" 
-	                         />
-	
-	
-			<copy   file="${source}/plugins/community/xipt_community.php" 
-	                        tofile="${target}/source/install/extensions/xipt_community/xipt_community.php" 
-	                         />
-	
-			<copy   file="${source}/plugins/community/xipt_community.xml" 
-	                        tofile="${target}/source/install/extensions/xipt_community/xipt_community.xml" 
-	                         />                  
--->	            
+			<copy  todir="${target}/source/install/extensions/xipt_system/" >
+					<fileset dir="${source}/plugins/system/xipt_system">
+					<include name="**/*.*" />
+				</fileset>
+            </copy>
+
+			<copy  todir="${target}/source/install/extensions/xipt_community/" >
+					<fileset dir="${source}/plugins/community/xipt_community">
+					<include name="**/*.*" />
+				</fileset>
+            </copy>
                  
                                               
 		<!-- first copy -->

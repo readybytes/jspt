@@ -101,9 +101,9 @@ class XiptHelperInstall
 	{
 	  
 		$db		= JFactory::getDBO();
-		$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
+		$query	= 'UPDATE ' . $db->nameQuote( '#__extensions' )
 				. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
-			  .' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
+			  .' WHERE '. $db->nameQuote('element').'='.$db->Quote($pluginname) . "  AND `type`='plugin' ";
 	
 		$db->setQuery($query);		
 	

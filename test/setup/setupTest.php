@@ -281,15 +281,15 @@ class SetupTest extends XiSelTestCase
 	//XITODO : use verifyPluginState fn here
 	
     $db	=& JFactory::getDBO();
-    $query	= " SELECT `published` FROM `#__plugins`"
-			." WHERE `element` ='xipt_system'"
+    $query	= " SELECT `published` FROM `#__extensions`"
+			." WHERE `element` ='xipt_system' AND `type`='plugin'"
 			." LIMIT 1";
 	$db->setQuery($query);
 	$result = $db->loadObject();
 	$this->assertEquals($result->published,0);
 	//check xipt_community plugin disabled or not
-	$query	= " SELECT `published` FROM `#__plugins`"
-			." WHERE `element` ='xipt_community'"
+	$query	= " SELECT `published` FROM `#__extensions`"
+			." WHERE `element` ='xipt_community' AND `type`='plugin'"
 			." LIMIT 1";
 	$db->setQuery($query);
 	$result = $db->loadObject();
