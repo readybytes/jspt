@@ -9,7 +9,9 @@
 	<license>GNU GPL v2.0</license>
 	<version>@global.version@.@svn.lastrevision@</version>
 	<description>JSPT (code name is XIPT) is a component to setup multiple user profile types in JomSocial</description>
-	
+	<installfile>install/install.php</installfile>
+	<uninstallfile>install/uninstall.php</uninstallfile>
+
 	<files folder="site">
 		<filename>index.html</filename>
 		<filename>xipt.php</filename>
@@ -50,7 +52,6 @@
 			<filename>index.html</filename>
 			<filename>xipt.php</filename>
 			<filename>includes.php</filename>
-			
 			<folder>controllers</folder>
 			<folder>views</folder>
 			<folder>hacks</folder>
@@ -66,18 +67,17 @@
 		</languages>
 	</administration>
 	
-	<installfile>install/install.php</installfile>
-	<uninstallfile>install/uninstall.php</uninstallfile>
+	
 
 	<install>
                 <sql>
-                        <file driver="mysql" charset="utf8">install/install.sql</file>
+                        <file driver="mysql" charset="utf8">admin/install/install.sql</file>
                 </sql>
         </install>
 
 	 <uninstall>
                 <sql>
-                        <file driver="mysql" charset="utf8">install/uninstall.sql</file>
+                        <file driver="mysql" charset="utf8">admin/install/uninstall.sql</file>
                 </sql>
         </uninstall>
 
