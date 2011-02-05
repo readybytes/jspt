@@ -14,7 +14,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		
 		if(!$defaultProfiletypeID){
-			global $mainframe;
+			$mainframe = JFactory::getApplication();
 			$mainframe->enqueueMessage(XiptText::_("FIRST SELECT THE DEFAULT PROFILE TYPE"));
 			return false;
 		}

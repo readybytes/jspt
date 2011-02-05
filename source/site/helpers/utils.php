@@ -42,8 +42,8 @@ class XiptHelperUtils
 	{
 		$query = new XiptQuery();
 		
-		$result= $query->update('#__plugins')
-					 ->set(" `published` = $state ")
+		$result= $query->update('#__extensions')
+					 ->set(" `enabled` = $state ")
 	          		 ->where(" `element` = '$plugin' ")
 	          		 ->dbLoadQuery("","")
 	          		 ->query();		
@@ -55,7 +55,7 @@ class XiptHelperUtils
 	{
 		$query = new XiptQuery();
 		return $query->select('*')
-					 ->from('#__plugins' )
+					 ->from('#__extensions' )
 					 ->where(" `element` = '$plugin' ")
 					 ->dbLoadQuery("","")
 	          		 ->loadObject();

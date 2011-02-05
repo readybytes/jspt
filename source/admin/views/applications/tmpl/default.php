@@ -29,34 +29,35 @@ if(!defined('_JEXEC')) die('Restricted access');
 	$count	= 0;
 	$i		= 0;
 
-	
-	foreach($this->fields as $field)
-	{
-		$input	= JHTML::_('grid.id', $count, $field->id);
-		
-		// Process publish / unpublish images
-		++$i;
-?>
-		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
-			<td><?php echo $i;?></td>
-			<td align='center'>
-				<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">
-					<?php echo $field->id ; ?>
-				</span>
-			</td>
-			<td>
-				<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&id='.$field->id, false); ?>
-						<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
-				</span>
-			</td>
-			<td align="center" id="profiletype<?php echo $field->id;?>">
-				<?php echo XiptHelperApps::getProfileTypeNames($field->id); ?>
-			</td>			
-		</tr>
-<?php
-		
-		$count++;
+	if(isset($this->fields) && is_array($this->fields)){
+		foreach($this->fields as $field)
+		{
+			$input	= JHTML::_('grid.id', $count, $field->id);
+			
+			// Process publish / unpublish images
+			++$i;
+	?>
+			<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
+				<td><?php echo $i;?></td>
+				<td align='center'>
+					<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">
+						<?php echo $field->id ; ?>
+					</span>
+				</td>
+				<td>
+					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
+						<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&id='.$field->id, false); ?>
+							<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
+					</span>
+				</td>
+				<td align="center" id="profiletype<?php echo $field->id;?>">
+					<?php echo XiptHelperApps::getProfileTypeNames($field->id); ?>
+				</td>			
+			</tr>
+	<?php
+			
+			$count++;
+		}
 	}
 ?>
 	<tfoot>

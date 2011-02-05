@@ -35,18 +35,16 @@ abstract class XiptModel extends JModel
 	 */
 	function getName()
 	{
-		$name = $this->_name;
-
-		if (empty( $name ))
+		if (!isset($this->_name))
 		{
 			$r = null;
 			if (!preg_match('/Model(.*)/i', get_class($this), $r)) {
 				JError::raiseError (__CLASS__.'.'.__LINE__, "XiptModel::getName() : Can't get or parse class name.");
 			}
-			$name = strtolower( $r[1] );
+			$this->_name = strtolower( $r[1] );
 		}
 
-		return $name;
+		return $this->_name;
 	}
 
 	/*

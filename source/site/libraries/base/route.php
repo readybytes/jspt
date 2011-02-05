@@ -29,7 +29,7 @@ class XiptRoute extends JRoute
 		return $url."&Itemid=".$query['Itemid'];		
 	}
 	
-	function _($url, $xhtml = true, $ssl = null)
+	static function _($url, $xhtml = true, $ssl = null)
 	{
 		$config =& JFactory::getConfig();
 	

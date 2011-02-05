@@ -25,18 +25,16 @@ abstract class XiptController extends JController
 
 	function getName()
 	{
-		$name = $this->_name;
-
-		if (empty( $name ))
+		if (!isset($this->_name))
 		{
 			$r = null;
 			if (!preg_match('/Controller(.*)/i', get_class($this), $r)) {
 				XiptError::raiseError (__CLASS__.'.'.__LINE__, "XiusController : Can't get or parse class name.");
 			}
-			$name = strtolower( $r[1] );
+			$this->_name = strtolower( $r[1] );
 		}
 
-		return $name;
+		return $this->_name;
 	}
 
 	public function getView()

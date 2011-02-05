@@ -36,11 +36,11 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	function _isPluginInstalledAndEnabled()
 	{
 		$communityPlugin = XiptHelperUtils::getPluginStatus('xipt_community');
-		if(!$communityPlugin || $communityPlugin->published == 0)
+		if(!$communityPlugin || $communityPlugin->enabled == 0)
 			return false;	
 			
 		$systemPlugin = XiptHelperUtils::getPluginStatus('xipt_system');
-		if(!$systemPlugin || $systemPlugin->published == 0)
+		if(!$systemPlugin || $systemPlugin->enabled == 0)
 			return false;
 			
 		return true;

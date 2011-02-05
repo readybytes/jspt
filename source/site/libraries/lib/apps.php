@@ -62,7 +62,7 @@ class XiptLibApps
 		{			
 			$query = new XiptQuery();
 			$plugin[$folder] = $query->select('*')
-							->from('#__plugins')
+							->from('#__extensions')
 							->where(" `folder` = '$folder' ")
 							->dbLoadQuery("","")
 							->loadObjectList('element');

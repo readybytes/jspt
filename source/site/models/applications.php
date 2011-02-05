@@ -19,7 +19,7 @@ class XiptModelApplications extends XiptModel
 			$query = new XiptQuery();
 			
 			$result = $query->select('*')
-							->from('#__plugins')
+							->from('#__extensions')
 							->where(" `folder` = 'community' ")
 							->order('ordering')
 							->dbLoadQuery("","")
