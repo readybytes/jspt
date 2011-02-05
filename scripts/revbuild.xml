@@ -7,15 +7,7 @@
         <!-- Copy Target -->
         <target name="copy_to_svn" description="copy target">
                 
-                <copy   file="${source}/language/en-GB/en-GB.com_xipt.ini" 
-                        tofile="${target}/source/languages/site/en-GB.com_xipt.ini" 
-                         />
-
-                <copy   file="${source}/administrator/language/en-GB/en-GB.com_xipt.ini" 
-                        tofile="${target}/source/languages/admin/en-GB.com_xipt.ini" 
-                         />
-
-				<php function="file_exists" returnProperty="fileExist">
+		<php function="file_exists" returnProperty="fileExist">
                   <param value="${source}/components/com_community/libraries/fields/profiletypes.php"/>
                 </php>
 
@@ -32,7 +24,7 @@
                 </if>
 				
 				
-				<php function="file_exists" returnProperty="fileExist">
+		<php function="file_exists" returnProperty="fileExist">
                   <param value="${source}/components/com_community/libraries/fields/templates.php"/>
                 </php>
 
@@ -48,7 +40,7 @@
                  </else>
                 </if>
 				
-				<php function="file_exists" returnProperty="fileExist">
+		<php function="file_exists" returnProperty="fileExist">
                   <param value="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php"/>
                 </php>
 
@@ -67,48 +59,51 @@
 				
 				
 								
-			<delete dir="${source}/administrator/components/com_xipt/install/extensions" />
-	
-			<copy todir="${target}/source/admin">
-				<fileset dir="${source}/administrator/components/com_xipt">
-					<include name="**/*.*" />
-				</fileset>
-	        </copy>
-	        
-			<move file="${target}/source/admin/xipt.xml" 
-	                        tofile="${target}/source/xipt.xml" 
-	         />
-			
-			<!-- Copy plguin files again into folder -->
-			<copy  todir="${target}/source/install/extensions/xipt_system/" >
-					<fileset dir="${source}/plugins/system/xipt_system">
-					<include name="**/*.*" />
-				</fileset>
-            </copy>
+		<delete dir="${source}/administrator/components/com_xipt/install/extensions" />
 
-			<copy  todir="${target}/source/install/extensions/xipt_community/" >
-					<fileset dir="${source}/plugins/community/xipt_community">
-					<include name="**/*.*" />
-				</fileset>
-            </copy>
-                 
-                                              
-		<!-- first copy -->
-		<copy todir="${target}/source/install">
-			<fileset dir="${target}/source/admin/install">
+	
+		<copy todir="${target}/source/admin">
+			<fileset dir="${source}/administrator/components/com_xipt">
 				<include name="**/*.*" />
 			</fileset>
-       		 </copy>
-
-		<!-- delete admin installer -->
-		<delete dir="${target}/source/admin/install" />
-
-       		 <copy todir="${target}/source/site">
+	        </copy>
+	        
+		<copy todir="${target}/source/site">
 			<fileset dir="${source}/components/com_xipt">
 				<include name="**/*.*" />
 			</fileset>
-                </copy>        
+                </copy>
+			
+		 <copy   file="${source}/language/en-GB/en-GB.com_xipt.ini" 
+                        tofile="${target}/source/languages/site/en-GB.com_xipt.ini" 
+                         />
 
+                <copy   file="${source}/administrator/language/en-GB/en-GB.com_xipt.ini" 
+                        tofile="${target}/source/languages/admin/en-GB.com_xipt.ini" 
+                         />
+
+		<!-- Copy plguin files again into folder -->
+		<copy  todir="${target}/source/admin/install/extensions/xipt_system/" >
+			<fileset dir="${source}/plugins/system/xipt_system">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+		<copy  todir="${target}/source/admin/install/extensions/xipt_community/" >
+			<fileset dir="${source}/plugins/community/xipt_community">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+                 
+                                             
+		<!-- first copy -->
+		<move file="${target}/source/admin/install/install.php" tofile="${target}/source/install/install.php" />      
+		<move file="${target}/source/admin/install/uninstall.php" tofile="${target}/source/install/uninstall.php" />
+		<move file="${target}/source/admin/xipt.xml" tofile="${target}/source/xipt.xml" />
+		<!-- DO NOT delete admin installer for J1.6 -->
+		<!-- <delete dir="${target}/source/admin/install" /> -->
+
+      
 		<copy todir="${target}/test">
 			<fileset dir="${source}/test/">
 				<include name="**/*.*" />
@@ -116,7 +111,6 @@
                 </copy>
 
 		<copy   file="${source}/build.xml" 
-                        tofile="${target}/script/revbuild.xml" 
-                         />
+                        tofile="${target}/scripts/revbuild.xml" />
         </target>
 </project>

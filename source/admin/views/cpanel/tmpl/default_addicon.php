@@ -8,8 +8,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <div style="float:left;">
 	<div class="icon">
-		<a	href="<?php echo $this->url; ?>" <?php echo $this->newWindow; ?> >		
-			<?php echo JHTML::_('image', 'components/com_xipt/assets/images/' . $this->image , NULL, NULL, $this->text ); ?>		
+		<a	href="<?php echo $this->url; ?>" <?php echo $this->newWindow; ?> >
+			<img alt="<?php echo $this->text; ?>" src="../components/com_xipt/assets/images/<?php echo $this->image; ?>">
 			<span><?php echo $this->text; ?></span>
 		</a>		
 	</div>

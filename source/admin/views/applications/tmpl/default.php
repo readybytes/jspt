@@ -30,28 +30,28 @@ if(!defined('_JEXEC')) die('Restricted access');
 	$i		= 0;
 
 	if(isset($this->fields) && is_array($this->fields)){
-		foreach($this->fields as $field)
+		foreach($this->fields as $id => $field)
 		{
-			$input	= JHTML::_('grid.id', $count, $field->id);
+			$input	= JHTML::_('grid.id', $count, $id);
 			
 			// Process publish / unpublish images
 			++$i;
 	?>
-			<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $field->id;?>">
+			<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $id;?>">
 				<td><?php echo $i;?></td>
 				<td align='center'>
-					<span class="editlinktip" title="<?php echo $field->id; ?>" id="<?php echo $field->id;?>">
-						<?php echo $field->id ; ?>
+					<span class="editlinktip" title="<?php echo $id; ?>" id="<?php echo $id;?>">
+						<?php echo $id ; ?>
 					</span>
 				</td>
 				<td>
-					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $field->id;?>">
-						<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&id='.$field->id, false); ?>
+					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $id;?>">
+						<?php $link = XiptRoute::_('index.php?option=com_xipt&view=applications&task=edit&id='.$id, false); ?>
 							<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
 					</span>
 				</td>
-				<td align="center" id="profiletype<?php echo $field->id;?>">
-					<?php echo XiptHelperApps::getProfileTypeNames($field->id); ?>
+				<td align="center" id="profiletype<?php echo $id;?>">
+					<?php echo XiptHelperApps::getProfileTypeNames($id); ?>
 				</td>			
 			</tr>
 	<?php

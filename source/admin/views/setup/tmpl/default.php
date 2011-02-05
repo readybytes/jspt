@@ -30,8 +30,8 @@ function submitbutton( action )
 	<div style="float:left;"> 
 		<?php $counter = 1;	?>
 		<table>
-			<?php 	$complete 		= '<img src="images/tick.png" alt="done" />'; ?>
-			<?php 	$notcomplete 	= '<img src="images/publish_x.png" alt="not complete" />'; ?>
+			<?php 	$complete 		= '<img src="../images/tick.png" alt="done" />'; ?>
+			<?php 	$notcomplete 	= '<img src="../images/publish_x.png" alt="not complete" />'; ?>
 			<?php 	$warningImage	= '<img src="../components/com_xipt/assets/images/warning.png" alt="warning" />'; ?>
 			
 			<?php  foreach($this->requiredSetup as $util) :	?>

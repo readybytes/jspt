@@ -259,9 +259,9 @@ class SetupTest extends XiSelTestCase
   function testUnhook()
   {
 	//XITODO : use changepluginState fn here  	
-	$sql = " UPDATE `#__plugins` SET `published` = '1' WHERE `element` ='xipt_system' LIMIT 1";
+	$sql = " UPDATE `#__extensions` SET `published` = '1' WHERE  `type`='plugin' AND `element` ='xipt_system' LIMIT 1";
   	$this->_DBO->execSql($sql);
-	$sql="UPDATE `#__plugins` SET `published` = '1' WHERE `element` ='xipt_community' LIMIT 1";
+	$sql="UPDATE `#__extensions` SET `published` = '1' WHERE `type`='plugin' AND element` ='xipt_community' LIMIT 1";
     $this->_DBO->execSql($sql);
   	// setup default location 
     $this->adminLogin();

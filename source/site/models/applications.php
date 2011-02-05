@@ -12,7 +12,7 @@ class XiptModelApplications extends XiptModel
 	 * Returns the Application name
 	 * @return string
 	 **/
-	function getPlugin($pluginId=null, $indexBy='id')
+	function getPlugin($pluginId=null, $indexBy='extension_id')
 	{		
 		static $result=null;
 		if($result== null){
@@ -23,7 +23,7 @@ class XiptModelApplications extends XiptModel
 							->where(" `folder` = 'community' ")
 							->order('ordering')
 							->dbLoadQuery("","")
-							->loadObjectList('id');			
+							->loadObjectList($indexBy);			
 		}
 		
 		if($pluginId == null && $result)
