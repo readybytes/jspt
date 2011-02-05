@@ -1,3 +1,3 @@
 ../packages/tmp/admin/jax.xipt.php:43:		$func		= $_REQUEST['func'];
-../packages/tmp/site/libraries/acl/redirect/redirect.php:54:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 ../packages/tmp/site/libraries/acl/aecredirect/aecredirect.php:52:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+../packages/tmp/site/libraries/acl/redirect/redirect.php:54:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
