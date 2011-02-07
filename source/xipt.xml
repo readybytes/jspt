@@ -36,7 +36,7 @@
 	</languages>
 
 	<administration>
-		<menu link="option=com_xipt" img="components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
+		<menu link="option=com_xipt" img="../components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
 		<submenu>
 			<menu view="cpanel" 		img="../components/com_xipt/assets/images/icon-cpanel.png">Home</menu>
 			<menu view="setup" 			img="../components/com_xipt/assets/images/icon-setup.gif">Setup</menu>

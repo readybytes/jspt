@@ -32,6 +32,7 @@
 ../packages/tmp/admin/views/aclrules/tmpl/default_add.php:46:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm" onSubmit="return checkForm();" >
 ../packages/tmp/admin/views/aclrules/view.html.php:42:		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 ../packages/tmp/admin/views/setup/tmpl/default.php:28:<form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
+../packages/tmp/admin/toolbar.xipt.php:29:	JSubMenuHelper::addEntry( $val , 'index.php?option=com_xipt&view=' . $key , $active );
 ../packages/tmp/admin/controllers/aclrules.php:75:		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);		
 ../packages/tmp/admin/controllers/aclrules.php:82:		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules&task=edit&id='.$data['id'], false);
 ../packages/tmp/admin/controllers/aclrules.php:97:				$this->setRedirect( 'index.php?option=com_xipt&view=aclrules' , $message);
