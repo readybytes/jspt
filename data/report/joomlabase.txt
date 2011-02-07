@@ -45,7 +45,7 @@
 ../packages/tmp/site/elements/editor.php:23:		$editor = JFactory::getEditor();
 ../packages/tmp/site/includes.php:25:JFactory::getLanguage()->load('com_xipt');
 ../packages/tmp/site/includes.php:26:JFactory::getLanguage()->load('com_community');
-../packages/tmp/site/includes.php:54:	global $mainframe;
+../packages/tmp/site/includes.php:54:	$mainframe = JFactory::getApplication();
 ../packages/tmp/site/includes.php:57:		$mainframe->redirect("index.php",XiptText::_("PLEASE INSTALL JOMSOCIAL"));
 ../packages/tmp/site/views/registration/tmpl/default.php:10:$document   = JFactory::getDocument();
 ../packages/tmp/site/views/registration/view.html.php:14:		$userId = JFactory::getUser()->id;

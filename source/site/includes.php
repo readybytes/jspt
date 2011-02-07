@@ -51,7 +51,7 @@ XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_LIBRARY.DS.'fields'.DS.'profiletyp
 // include JomSocial files
 if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php'))
 {
-	global $mainframe;
+	$mainframe = JFactory::getApplication();
 	$option=JRequest::getVar('option','','GET');
 	if($option=='com_xipt'){
 		$mainframe->redirect("index.php",XiptText::_("PLEASE INSTALL JOMSOCIAL"));

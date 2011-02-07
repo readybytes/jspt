@@ -104,8 +104,9 @@ class XiptLibJomsocial
 
 		if($params)
 		{		
-			$allParams = $params->_registry['_default']['data']; 
-			//$params->getParams();
+			//$allParams = $params->_registry['_default']['data']; 
+		    $allParams = $params->renderToArray();
+		    if($allParams)
 			foreach($allParams as $key => $value)
 				$instance->set($key,$value); 
 		}

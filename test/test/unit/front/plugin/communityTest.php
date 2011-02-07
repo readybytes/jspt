@@ -10,7 +10,7 @@ class XiptCommunityPluginTest extends XiUnitTestCase
 	
 	function testOnAfterProfileUpdate()
 	{	
-		global $mainframe;
+		$mainframe = JFactory::getApplication();
 
 		$filter['debug']=0;
 		$this->updateJoomlaConfig($filter);

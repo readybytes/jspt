@@ -52,6 +52,7 @@
 			<filename>index.html</filename>
 			<filename>xipt.php</filename>
 			<filename>includes.php</filename>
+			<filename>toolbar.xipt.php</filename>
 			<folder>controllers</folder>
 			<folder>views</folder>
 			<folder>hacks</folder>
