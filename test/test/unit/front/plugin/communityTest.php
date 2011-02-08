@@ -1,5 +1,11 @@
 <?php
+//Require File in Joomla 1.5 
+if(JFile::exists(JPATH_ROOT.DS.'plugins'.DS.'community'.DS.'xipt_community.php'))
 require_once (JPATH_ROOT.DS.'plugins'.DS.'community'.DS.'xipt_community.php');	
+//Require File in Joomla 1.6 
+if(JFile::exists(JPATH_ROOT.DS.'plugins'.DS.'community'.DS.'xipt_community'.DS.'xipt_community.php'))
+require_once (JPATH_ROOT.DS.'plugins'.DS.'community'.DS.'xipt_community'.DS.'xipt_community.php');	
+
 
 class XiptCommunityPluginTest extends XiUnitTestCase
 {

@@ -59,7 +59,19 @@ class XiptViewConfiguration extends XiptView
 		);
 
 		$lists['videosSize'] = JHTML::_('select.genericlist',  $videosSize, 'videosSize', 'class="inputbox" size="1"', 'value', 'text', $params->get('videosSize'));
-				
+		// FOR JomSocial 2.1
+		//Add image quality in view file for JS Configuration page error
+		$imgQuality = array
+		(
+			JHTML::_('select.option', '60', 'Low'),
+			JHTML::_('select.option', '80', 'Medium'),
+			JHTML::_('select.option', '90', 'High'),
+			JHTML::_('select.option', '95', 'Very High'),
+		);
+
+		$lists['imgQuality'] = JHTML::_('select.genericlist',  $imgQuality, 'output_image_quality', 'class="inputbox" size="1"', 'value', 'text', $params->get('output_image_quality'));
+		
+		
 		$uploadLimit = ini_get('upload_max_filesize');
 		$uploadLimit = JString::str_ireplace('M', ' MB', $uploadLimit);
 		

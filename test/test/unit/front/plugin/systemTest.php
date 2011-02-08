@@ -1,5 +1,11 @@
 <?php
-require_once (JPATH_ROOT.DS.'plugins'.DS.'system'.DS.'xipt_system.php');	
+//Require File in Joomla 1.5 
+if(JFile::exists(JPATH_ROOT.DS.'plugins'.DS.'system'.DS.'xipt_system.php'))
+require_once (JPATH_ROOT.DS.'plugins'.DS.'system'.DS.'xipt_system.php');
+//Require File in Joomla 1.6
+if(JFile::exists(JPATH_ROOT.DS.'plugins'.DS.'system'.DS.'xipt_system'.DS.'xipt_system.php'))
+require_once (JPATH_ROOT.DS.'plugins'.DS.'system'.DS.'xipt_system'.DS.'xipt_system.php');	
+	
 class XiptSystemPluginTest extends XiUnitTestCase
 {
 	function getSqlPath()

@@ -15,7 +15,8 @@ define('DEFINE_FRONT_INCLUDES','DEFINE_FRONT_INCLUDES');
 jimport( 'joomla.filesystem.file' );
 jimport( 'joomla.filesystem.folder' );
 jimport( 'joomla.application.component.helper' );
-
+//import JParameter for making joomla 1.6 compatible
+jimport('joomla.html.parameter');
 
 // require_once defines.php
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';

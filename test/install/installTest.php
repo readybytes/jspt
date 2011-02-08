@@ -46,9 +46,9 @@ class InstallTest extends XiSelTestCase
 //    $this->_DBO->addTable('#__xipt_profilefields');
 //    $this->_DBO->addTable('#__xipt_profiletypes');
 //    $this->_DBO->addTable('#__xipt_users');
-//    $this->_DBO->addTable('#__components');
-//    $this->_DBO->filterRow('#__components',"`parent`='0' AND `option` ='com_xipt'");
-//    $this->_DBO->filterColumn('#__components','id');
+//    $this->_DBO->addTable('#__extensions');
+//    $this->_DBO->filterRow('#__extensions',"`client_id`='0' AND `element` ='com_xipt'");
+//    $this->_DBO->filterColumn('#__extensions','extension_id');
     //now compare that AEC MI deleted or not
 	$this->assertFalse(JFile::exists($AEC_MI_FILE));
   }        
@@ -118,9 +118,9 @@ function testXiptUninstallReinstall()
   function getUninstallOrder($component, $what = "COMPONENT")
   {
   	$db = JFactory::getDBO();
-  	$sql = "SELECT * FROM `#__components`
-  			WHERE `parent` = '0'
-  			ORDER BY `iscore`, `name`";
+  	$sql = "SELECT * FROM `#__extensions`
+  			WHERE `parent` = '0'";
+  			//ORDER BY `iscore`, `name`";
   	$db->setQuery($sql);
     $results = $db->loadAssocList();
     

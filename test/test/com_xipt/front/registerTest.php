@@ -51,10 +51,10 @@ class RegisterTest extends XiSelTestCase
   		$params->set('useractivation',0);
   		
   		$config = $params->toString();
-  		
+  		//#__etension for joomla 1.6 , parent is replaced by client_id and option is replaced by element
   		$db	    = JFactory::getDBO();
-  		$query  = "UPDATE `#__components` SET `params`='".$config."'"
-  				." WHERE `parent`='0' AND `option` ='com_users' LIMIT 1";	
+  		$query  = "UPDATE `#__extensions` SET `params`='".$config."'"
+  				." WHERE `client_id`='0' AND `element` ='com_users' LIMIT 1";	
 		$db->setQuery($query);
 		$db->query();
   		
