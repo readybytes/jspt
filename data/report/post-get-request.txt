@@ -7,5 +7,6 @@
 ../packages/tmp/languages/admin/en-GB.com_xipt.ini:142:BLOCK_THESE_EMAIL_ADDRESSES_TO_GET_REGISTERED="Blocked email addresses" 
 ../packages/tmp/languages/admin/en-GB.com_xipt.ini:143:BLOCK_THESE_EMAIL_ADDRESSES_TO_GET_REGISTERED_DESC="Block only these email addresses to get registered. Separate each one by ; character. Use * as wildcard. For example, you might want to deny unwanted email addresses that can be registered by specifying *@abccompany.com; *@xyz.com"
 ../packages/tmp/languages/admin/en-GB.com_xipt.ini:144:ALLOW_ONLY_THESE_EMAIL_ADDRESSES_TO_GET_REGISTERED="Allowed Email addresses"  
+../packages/tmp/languages/site/en-GB.com_xipt.ini:8:YOUR_SESSION_HAVE_BEEN_EXPIRED_PLEASE_PERFORM_THE_OPERATION_AGAIN="Your session has been expired, please perform the action again."
 ../packages/tmp/site/libraries/acl/redirect/redirect.php:54:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 ../packages/tmp/site/libraries/acl/aecredirect/aecredirect.php:52:		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
