@@ -29,7 +29,7 @@
 	</target>
 
 	<target name="copy_revbuild">
-		<copy 	file="${dir.root}/script/revbuild.xml" 
+		<copy 	file="${dir.root}/scripts/revbuild.xml" 
 				tofile="${joomla.rootpath}/${joomla.folder}/build.xml" />
 
 	<!-- Replace current location path in revbuild.xml for replacing the code -->
