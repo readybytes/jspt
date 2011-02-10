@@ -11,6 +11,106 @@ class InstallTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
 
+ /** Install Test Case For Jomsocial or com_community**/
+ /* function communityUnInstall()
+  {
+		 // go to installation
+	     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+	     $this->waitPageLoad();
+	     if(TEST_XIPT_JOOMLA_15){
+	    	$this->click("//a[@onclick=\"javascript:document.adminForm.type.value='components';submitbutton('manage');\"]");
+			$this->waitPageLoad("30000");
+			$this->click("cb2");
+			$this->click("//td[@id='toolbar-delete']/a/span");
+			$this->waitPageLoad();
+			$this->assertTrue($this->isTextPresent("Uninstall Component Success"));
+	    }
+	    if (TEST_XIPT_JOOMLA_16){
+	    	$this->click("link=Manage");
+    		$this->waitPageLoad();
+    		$this->type("filters_search", "community");
+		    $this->click("//button[@type='submit']");
+    		$this->waitPageLoad();
+    		$this->click("cb0");
+    		$this->click("//li[@id='toolbar-delete']/a/span");
+    		$this->waitPageLoad();	
+	    }
+  }	    
+  
+  function testCommunityInstall()
+  {
+	    // setup default location 
+	    $this->adminLogin();
+	    // uninstall community first
+	    $this->communityUnInstall();
+	    // go to installation
+	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+	    $this->waitPageLoad("60000");
+
+		// add profiletype-one
+	    $this->type("install_url", JOMSOCIAL_PKG);
+	    if(TEST_XIPT_JOOMLA_15)
+	    	$this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+	    if (TEST_XIPT_JOOMLA_16)
+	    	$this->click("//input[@value='Install' and @type='button' and @onclick='Joomla.submitbutton4()']"); 	
+	    $this->waitPageLoad();
+        if(TEST_XIPT_JOOMLA_15){
+	    	$this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+		    $this->waitForPageToLoad("60000");
+		    $this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    	$this->click("//form[@id='installform']/div/div/input");
+	    	$this->waitForPageToLoad("60000");
+	    }
+        if (TEST_XIPT_JOOMLA_16){
+        	$this->click("//input[@value='Complete your installation']");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    		$this->click("input-button-next");
+    		$this->waitPageLoad();
+    	}
+    	$this->assertTrue($this->isTextPresent("Jom Social"));	
+  }*/
+  
+  /**End Of JomSocial Install Test Case**/
+
    /**
    */
   function testXiptInstall()
@@ -29,14 +129,24 @@ class InstallTest extends XiSelTestCase
     
     // go to installation
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
-    $this->waitPageLoad("60000");
+    $this->waitPageLoad();
       
 	// add profiletype-one
-    $this->type("install_url", COM_XIPT_PKG);
-    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
-   
+   	$this->type("install_url", COM_XIPT_PKG);
+   	if(TEST_XIPT_JOOMLA_16){ 
+   		$this->click("//input[@value='Install' and @type='button' and @onclick='Joomla.submitbutton4()']");
+   	}
+   	if(TEST_XIPT_JOOMLA_15){
+   	  	$this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+   	}
+   	
+	    
     $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("Install Component Success"));
+    if(TEST_XIPT_JOOMLA_16)
+    	$this->assertTrue($this->isTextPresent("Installing component was successful."));
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->assertTrue($this->isTextPresent("Install Component Success"));
+    
     $this->assertFalse($this->isElementPresent("//dl[@id='system-error']/dd/ul/li"));
     
     //check migration tables
@@ -62,26 +172,51 @@ function testXiptUninstallReinstall()
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
     $this->waitPageLoad();
 
-     $this->click("//a[@onclick=\"javascript:document.adminForm.type.value='components';submitbutton('manage');\"]");
+     if(TEST_XIPT_JOOMLA_16)
+     	$this->click("link=Manage");
+     if(TEST_XIPT_JOOMLA_15)
+     	$this->click("//a[@onclick=\"javascript:document.adminForm.type.value='components';submitbutton('manage');\"]");
      $this->waitPageLoad();
      
      //now find the component order in uninstall list
-     $order = $this->getUninstallOrder('com_xipt');
-     $this->click("cb$order");
-     $this->click("link=Uninstall");
+     if(TEST_XIPT_JOOMLA_16){
+      	$this->type("filters_search", "xipt");
+    	$this->click("//button[@type='submit']");
+    	$this->waitPageLoad();
+    	$this->click("cb0");
+    	$this->click("//li[@id='toolbar-delete']/a/span");	
+     }
+     if(TEST_XIPT_JOOMLA_15){
+     	$order = $this->getUninstallOrder('com_xipt');
+     	$this->click("cb$order");
+     	$this->click("link=Uninstall");
+     }
      $this->waitPageLoad();
-     $this->assertTrue($this->isTextPresent("Uninstall Component Success"));
+     
+     if(TEST_XIPT_JOOMLA_16)
+     	$this->assertTrue($this->isTextPresent("Uninstalling component was successful."));
+     if(TEST_XIPT_JOOMLA_15)
+     	$this->assertTrue($this->isTextPresent("Uninstall Component Success"));
+     
      $this->assertFalse($this->isElementPresent("//dl[@id='system-error']/dd/ul/li"));
      $this->verifyUninstall();
      // now reinstallation
      $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+     
      $this->waitPageLoad();
      
-	// add profiletype-one
-    $this->type("install_url", COM_XIPT_PKG);
-    $this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+    // add profiletype-one
+   	$this->type("install_url", COM_XIPT_PKG);
+   	if(TEST_XIPT_JOOMLA_16){ 
+   		$this->click("//input[@value='Install' and @type='button' and @onclick='Joomla.submitbutton4()']");
+   	}else{
+   	  	$this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+   	}
     $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("Install Component Success"));
+    if(TEST_XIPT_JOOMLA_16)
+    	$this->assertTrue($this->isTextPresent("Installing component was successful."));
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->assertTrue($this->isTextPresent("Install Component Success"));
     $this->assertFalse($this->isElementPresent("//dl[@id='system-error']/dd/ul/li"));
   }
   
@@ -93,8 +228,15 @@ function testXiptUninstallReinstall()
   		//4. AEC MI should not apply any action
 
   		//1.
-  		$this->verifyPluginState('plg_xipt_community',false);
-  		$this->verifyPluginState('plg_xipt_system',false);
+  		if (TEST_XIPT_JOOMLA_16){
+  			$this->verifyPluginState('xipt_community',false);	
+  			$this->verifyPluginState('xipt_system',false);
+  		}
+  		if (TEST_XIPT_JOOMLA_15){
+  			$this->verifyPluginState('plg_xipt_community',false);
+  			$this->verifyPluginState('plg_xipt_system',false);	
+  		}
+  		
 
   		//2.
   		$CMP_PATH_FRNTEND = JPATH_ROOT .DS. 'components' . DS . 'com_community';
@@ -118,9 +260,16 @@ function testXiptUninstallReinstall()
   function getUninstallOrder($component, $what = "COMPONENT")
   {
   	$db = JFactory::getDBO();
-  	$sql = "SELECT * FROM `#__extensions`
-  			WHERE `parent` = '0'";
-  			//ORDER BY `iscore`, `name`";
+  	if(TEST_XIPT_JOOMLA_16){
+  		$sql = "SELECT * FROM `#__extensions`
+  		WHERE `client_id` = '0'
+  		ORDER BY `name`";
+  	}
+  	elseif(TEST_XIPT_JOOMLA_15){
+  		$sql = "SELECT * FROM `#__components`
+  		WHERE `parent` = '0'
+  		ORDER BY `iscore`, `name`";
+  	}
   	$db->setQuery($sql);
     $results = $db->loadAssocList();
     

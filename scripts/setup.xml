@@ -47,7 +47,7 @@
 
 	<!-- Copy latest JomSocial -->
 	<target name="copy_community">
-		<copy 	file="${pkg.location}/com_community.zip" 
+		<copy 	file="${pkg.location}/com_community_${pkg.version}.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
 	</target>
 

@@ -24,4 +24,8 @@ define('JOOMLA_ADMIN_PASSWORD',	'ssv445');
 define('COM_XIPT_PKG',		JOOMLA_LOCATION.'/xipt.zip');
 define('JOMSOCIAL_PKG',		JOOMLA_LOCATION.'/com_community.zip');
 
+$version = new JVersion();
+
+define('TEST_XIPT_JOOMLA_16',($version->RELEASE === '1.6'));
+define('TEST_XIPT_JOOMLA_15',($version->RELEASE === '1.5'));
 require_once dirname(__FILE__).'/xipt.php';

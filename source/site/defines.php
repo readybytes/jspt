@@ -120,3 +120,6 @@ define('NONE', 0);
 // define contants for type of setup rule
 define('XIPT_SETUP_ERROR','error');
 define('XIPT_SETUP_WARNING','warning');
+$version = new JVersion();
+define('XIPT_JOOMLA_16',($version->RELEASE === '1.6'));
+define('XIPT_JOOMLA_15',($version->RELEASE === '1.5'));
