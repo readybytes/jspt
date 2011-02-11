@@ -73,7 +73,7 @@ abstract class XiptController extends JController
 		// Get the ID in the correct location
  		$ids	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
  		
- 		XiptError::assert(!empty($ids), XiptText::_("$ids IS NOT EMPTY"), XiptError::ERROR);
+ 		XiptError::assert(!empty($ids), XiptText::_("$ids IS_NOT_EMPTY"), XiptError::ERROR);
 		$id	= (int) array_shift($ids);
 		
 		// Determine whether to order it up or down
@@ -133,7 +133,7 @@ abstract class XiptController extends JController
 		foreach ($cids as $cid)
 		{
 			if(!$this->_doBool($column, $value, $cid))
-				XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("ERROR IN REORDERING ITEMS"));
+				XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("ERROR_IN_REORDERING_ITEMS"));
 		}
 
 		//redirect now

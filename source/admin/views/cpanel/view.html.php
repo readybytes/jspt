@@ -29,7 +29,7 @@ class XiptViewCpanel extends XiptView
 	function setToolBar()
 	{
 		// Set the titlebar text
-		JToolBarHelper::title( XiptText::_( 'CONTROL PANEL' ), 'xipt' );
+		JToolBarHelper::title( XiptText::_( 'CONTROL_PANEL' ), 'xipt' );
 		//JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		//JToolBarHelper::custom('aboutus','aboutus','',XiptText::_('ABOUT US'),0,0);
 	}
@@ -51,3 +51,4 @@ class XiptViewCpanel extends XiptView
 		return $this->display( $tpl);
 	}
 }
+?>

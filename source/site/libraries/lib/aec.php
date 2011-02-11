@@ -47,7 +47,7 @@ class XiptLibAec
 	{
 		//check existance of plan
 		if(!self::isPlanExists($planid))
-			return XiptText::_('INVALID PLAN');
+			return XiptText::_('INVALID_PLAN');
 			
 		$result = self::getPlan($planid);
 
@@ -98,12 +98,12 @@ class XiptLibAec
 	    $pTypeName = XiptLibProfiletypes::getProfiletypeName($data['profiletype']);
 	    
     	if($msgOption==='pl')
-        	return  XiptText::sprintf('ALREADY SELECTED PLAN AS.ONLYPLAN',$data['plan']);
+        	return  XiptText::sprintf('ALREADY_SELECTED_PLAN_AS_ONLY_PLAN',$data['plan']);
                 
         if($msgOption==='pt')
-            return  XiptText::sprintf('ALREADY SELECTED PLAN AS.ONLY PTYPE',$pTypeName);                
+            return  XiptText::sprintf('ALREADY_SELECTED_PLAN_AS_ONLY_PTYPE',$pTypeName);                
     	
-        return XiptText::sprintf('ALREADY SELECTED PLAN AS.BOTH',$data['plan'],$pTypeName);
+        return XiptText::sprintf('ALREADY_SELECTED_PLAN_AS_BOTH',$data['plan'],$pTypeName);
 	}
 	
 	static public function isPlanExists($planid)

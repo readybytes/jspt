@@ -106,7 +106,7 @@ class XiptHelperProfiletypes
 					'group'		=> array('name' => 'group', 	'value' => 0)
 					);
 		//XITODO : clean this fn
-		XiptError::assert(array_key_exists($what,$data), XiptText::_("ARRAY KEY DOES NOT EXIST."));
+		XiptError::assert(array_key_exists($what,$data), XiptText::_("ARRAY_KEY_DOES_NOT_EXIST"));
 
 		if($id==0)
 			return $data[$what]['value'];
@@ -128,7 +128,7 @@ class XiptHelperProfiletypes
 			return XiptText::_("ALL");
 
 		if($id == XIPT_PROFILETYPE_NONE)
-			return XiptText::_("NONE");
+			return XiptText::_("JNONE");
 
 		return XiptHelperProfiletypes::getProfileTypeData($id,'name');
 	}
@@ -196,13 +196,13 @@ class XiptHelperProfiletypes
 		// @rule: Limit image size based on the maximum upload allowed.
 		if( filesize( $file['tmp_name'] ) > $uploadLimit )
 		{
-			$mainframe->enqueueMessage( XiptText::_('IMAGE FILE SIZE EXCEEDED') , 'error' );
+			$mainframe->enqueueMessage( XiptText::_('IMAGE_FILE_SIZE_EXCEEDED') , 'error' );
 			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$id, false) );
 		}
 
 		if( !cValidImage($file['tmp_name'] ) )
 		{
-			$mainframe->enqueueMessage(XiptText::_('IMAGE FILE NOT SUPPORTED'), 'error');
+			$mainframe->enqueueMessage(XiptText::_('IMAGE_FILE_NOT_SUPPORTED'), 'error');
 		}
 		else
 		{
@@ -234,13 +234,13 @@ class XiptHelperProfiletypes
 			// Only resize when the width exceeds the max.
 			if( !cImageResizePropotional( $file['tmp_name'] , $storageImage , $file['type'] , $imageMaxWidth ) )
 			{
-				$mainframe->enqueueMessage(XiptText::sprintf('ERROR MOVING UPLOADED FILE' , $storageImage), 'error');
+				$mainframe->enqueueMessage(XiptText::sprintf('ERROR_MOVING_UPLOADED_FILE' , $storageImage), 'error');
 			}
 
 			// Generate thumbnail
 			if(!cImageCreateThumb( $file['tmp_name'] , $storageThumbnail , $file['type'],$thumbWidth,$thumbHeight ))
 			{
-				$mainframe->enqueueMessage(XiptText::sprintf('ERROR MOVING UPLOADED FILE' , $storageThumbnail), 'error');
+				$mainframe->enqueueMessage(XiptText::sprintf('ERROR_MOVING_UPLOADED_FILE' , $storageThumbnail), 'error');
 			}
 
 			$oldFile = XiptLibProfiletypes::getProfiletypeData($id,$what);
@@ -280,7 +280,7 @@ class XiptHelperProfiletypes
 			//now update profiletype with new avatar or watermark
 			if(!XiptFactory::getInstance('profiletypes', 'model')->
 					save(array($what => XiptHelperUtils::getUrlpathFromFilePath($image)),$id))
-				XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("ERROR IN DATABASE"));
+				XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("ERROR_IN_DATABASE"));
 		}
 	}
 
@@ -292,7 +292,7 @@ class XiptHelperProfiletypes
 
 		// session expired, redirect to community page
 		$redirectUrl	= XiptRoute::_('index.php?option=com_community&view=register',false);
-		$msg 			= XiptText::_('YOUR SESSION HAVE BEEN EXPIRED, PLEASE PERFORM THE OPERATION AGAIN');
+		$msg 			= XiptText::_('YOUR_SESSION_HAVE_BEEN_EXPIRED_PLEASE_PERFORM_THE_OPERATION_AGAIN');
 
 		return JFactory::getApplication()->redirect($redirectUrl,$msg);
     }
@@ -306,7 +306,7 @@ class XiptHelperProfiletypes
 
 		// validate values
 		if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {
-			$msg = XiptText::_('PLEASE ENTER VALID PROFILETYPE');
+			$msg = XiptText::_('PLEASE_ENTER_VALID_PROFILETYPE');
 			JFactory::getApplication()->redirect(XiptRoute::_('index.php?option=com_xipt&view=registration'),$msg);
 			return;
 		}

@@ -15,7 +15,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 		// validation
 		var form = document.adminForm;
 		if (form.rulename.value == "") {
-			alert( "<?php echo XiptText::_( 'RULE MUST HAVE A NAME', true ); ?>" );
+			alert( "<?php echo XiptText::_( 'RULE_MUST_HAVE_A_NAME', true ); ?>" );
 		} else {
 			submitform(pressbutton);
 		}
@@ -30,7 +30,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<table class="admintable">
 		<tr>
 			<td width="100" class="key">
-				<label for="name" class="hasTip" title="<?php echo XiptText::_('NAME'); ?>::<?php echo XiptText::_('ACL NAME.DESC'); ?>">
+				<label for="name" class="hasTip" title="<?php echo XiptText::_('NAME'); ?>::<?php echo XiptText::_('ACL_NAME_DESC'); ?>">
 					<?php echo XiptText::_( 'NAME' ); ?>
 				</label>
 			</td>
@@ -40,8 +40,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 		</tr>
 		<tr>
 			<td width="100" class="key">
-				<label for="featurename" class="hasTip" title="<?php echo XiptText::_('RULE NAME'); ?>::<?php echo XiptText::_('RULE NAME.DESC'); ?>">
-					<?php echo XiptText::_( 'RULE NAME' ); ?>
+				<label for="featurename" class="hasTip" title="<?php echo XiptText::_('RULE_NAME'); ?>::<?php echo XiptText::_('RULE_NAME_DESC'); ?>">
+					<?php echo XiptText::_( 'RULE_NAME' ); ?>
 				</label>
 			</td>
 			<td>
@@ -50,7 +50,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 		</tr>
 		<tr>
 			<td valign="top" class="key">
-				<label class="hasTip" title="<?php echo XiptText::_('PUBLISHED'); ?>::<?php echo XiptText::_('ACL PUBLISHED.DESC'); ?>">
+				<label class="hasTip" title="<?php echo XiptText::_('PUBLISHED'); ?>::<?php echo XiptText::_('ACL_PUBLISHED_DESC'); ?>">
 				<?php echo XiptText::_( 'PUBLISHED' ); ?>
 				</label>
 			</td>
@@ -64,7 +64,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<br />
 
 	<fieldset class="adminform">
-	<legend><?php echo XiptText::_( 'Rule Parameters' ); ?></legend>
+	<legend><?php echo XiptText::_( 'RULE_PARAMETER' ); ?></legend>
 	<?php
 		if($this->aclParamsHtml)
 			echo $this->aclParamsHtml;

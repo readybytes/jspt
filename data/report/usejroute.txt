@@ -37,8 +37,8 @@
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:15:				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', XiptText::_('SETTINGS'));?>
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:16:				<?php echo $this->addIcon('profiletypes.png','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:17:				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', XiptText::_('JSCONFIGURATION'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:21:				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', XiptText::_('ACCESS CONTROL'));?>
-../packages/tmp/admin/views/cpanel/tmpl/default.php:22:				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', XiptText::_('PROFILE FIELDS'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:21:				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', XiptText::_('ACCESS_CONTROL'));?>
+../packages/tmp/admin/views/cpanel/tmpl/default.php:22:				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', XiptText::_('PROFILE_FIELDS'));?>
 ../packages/tmp/admin/views/cpanel/tmpl/default.php:23:				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', XiptText::_('APPLICATIONS'));?>
 ../packages/tmp/admin/views/cpanel/view.html.php:33:		//JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 ../packages/tmp/admin/views/aclrules/tmpl/default.php:35:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">

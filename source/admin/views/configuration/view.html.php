@@ -106,7 +106,7 @@ class XiptViewConfiguration extends XiptView
 		if($task === 'edit'){
 			// XITODO : show name of profiltype for which configuration is being edited
 			$name 	= JRequest :: getVar('name');	
-			JToolBarHelper::title( sprintf(XiptText::_( 'EDIT CONFIGURATION'),$name), 'configuration' );
+			JToolBarHelper::title( sprintf(XiptText::_( 'EDIT_CONFIGURATION'),$name), 'configuration' );
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
 			JToolBarHelper::divider();
 			JToolBarHelper::save('save',XiptText::_('SAVE'));

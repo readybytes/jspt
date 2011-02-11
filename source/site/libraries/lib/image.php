@@ -43,12 +43,12 @@ class XiptLibImage
 	/*return a valid filename ( with extension ) to store image */
 	function genImage($path,$filename) 
 	{
-		XiptError::assert(!empty($path), XiptText::_("PATH IS EMPTY"), XiptError::ERROR);
-		XiptError::assert(!empty($filename), XiptText::_("FILE IS EMPTY"), XiptError::ERROR);
+		XiptError::assert(!empty($path), XiptText::_("PATH_IS_EMPTY"), XiptError::ERROR);
+		XiptError::assert(!empty($filename), XiptText::_("FILE_IS_EMPTY"), XiptError::ERROR);
 			
 		//here check if folder exist or not. if not then create it.
 		if(JFolder::exists($path)==false && JFolder::create($path)===false){
-			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("Folder does not exist"), $path));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("FOLDER_DOES_NOT_EXIST"), $path));
 			return false;
 		}
 			
@@ -60,7 +60,7 @@ class XiptLibImage
 		$img 			= 	ImageCreateTrueColor($this->width, $this->height);
 		
 	    if($img==false){
-            XiptError::raiseError(__CLASS__.'.'.__LINE__,'Image not generated. Re-Try');
+            XiptError::raiseError(__CLASS__.'.'.__LINE__,'IMAGE_NOT_GENERATED_RE-TRY');
 			return false;
         }
         
@@ -78,7 +78,7 @@ class XiptLibImage
 		imagettftext($img, $this->fontSize, 0, $x, $y, $Ctextcolor, $this->fontName, $this->text);
 		
 		if($img==false){
-            XiptError::raiseError(__CLASS__.'.'.__LINE__,'Image is not generated. Re-Try');
+            XiptError::raiseError(__CLASS__.'.'.__LINE__,'IMAGE_NOT_GENERATED_RE-TRY');
 			return false;
         }
         

@@ -185,10 +185,10 @@ class XiptLibPluginhandler
 			{
 			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.$itemInfo.'&reset=true',false);
 			    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
-			    $msg 			   = sprintf(XiptText::_('CURRENT PTYPE AND CHANGE PTYPE OPTION'),$selectedpTypeName);
+			    $msg 			   = sprintf(XiptText::_('CURRENT_PTYPE_AND_CHANGE_PTYPE_OPTION'),$selectedpTypeName);
 			}
 
-			$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK HERE").'</a>';
+			$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
 			$this->app->enqueueMessage($msg.' '.$link);
 			return;
 		}

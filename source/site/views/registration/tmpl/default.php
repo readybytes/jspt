@@ -14,7 +14,7 @@ $document->addStyleSheet($css);
  
 	<div class="registerProfileType">
 	<h3 id="Title"><?php
-	echo XiptText::_ ( 'CHOOSE PROFILE TYPE' );
+	echo XiptText::_ ( 'CHOOSE_PROFILE_TYPE' );
 	?></h3>
 <?php
 if(XiptFactory::getSettings('jspt_show_radio'))

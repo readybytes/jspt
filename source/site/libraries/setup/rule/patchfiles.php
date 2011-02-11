@@ -26,7 +26,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
     		
 	    	//	create a backup file first
     	    if(!JFile::copy($filename, $filename.'.jxibak'))
-    	    	return XiptText::_("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
+    	    	return XiptText::_("NOT_ABLE_TO_CREATE_A_BACKUP_FILE_CHECK_PERMISSION");
     	    	 
     		//1. Replace _ fields calling in _loadAllFields function
 	    	$funcName = 'function _loadAllFields';
@@ -77,7 +77,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
     		
     		//	create a backup file first
     	    if(!JFile::copy($filename, $filename.'.jxibak'))
-    	    	return XiptText::_("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
+    	    	return XiptText::_("NOT_ABLE_TO_CREATE_A_BACKUP_FILE_CHECK_PERMISSION");
     		
 	    	$funcName = 'function getEditableProfile($userId	= null)';
 	    	
@@ -112,7 +112,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
         	if (JFile::exists($filename)) {
 		
 				if(!is_readable($filename)) 
-					XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+					XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
 				
 				$file =JFile::read($filename);				
 			    $searchString = '</fields>';
@@ -132,14 +132,14 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		        
 	        	// create a backup file first
 	    	    if(!JFile::copy($filename, $filename.'.jxibak'))
-	    	    	return XiptText::_("NOT ABLE TO CREATE A BACKUP FILE CHECK PERMISSION");
+	    	    	return XiptText::_("NOT_ABLE_TO_CREATE_A_BACKUP_FILE_CHECK_PERMISSION");
 
 	    	    JFile::write($filename,$file);
 	        	 	
         	}
         }
      
-        return XiptText::_('FILES PATCHED SUCCESSFULLY');
+        return XiptText::_('FILES_PATCHED_SUCCESSFULLY');
 	}
 	
 	function doRevert()
@@ -167,7 +167,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		if (JFile::exists($filename)) {
 		
 			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			if(!$file)
@@ -194,7 +194,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			
@@ -218,7 +218,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
 			
 			$file =JFile::read($filename);
 			
@@ -238,7 +238,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		if (JFile::exists($filename)) {
 			
 			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(XiptText::_('FILE IS NOT READABLE PLEASE CHECK PERMISSION'),$filename));
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
 			
 			$file = JFile::read($filename);
 			
@@ -307,13 +307,13 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=patchfiles",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO PATCH FILES").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_PATCH_FILES").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message']  = XiptText::_("FILES ARE PATCHED");
+			$requiredSetup['message']  = XiptText::_("FILES_ARE_PATCHED");
 			$requiredSetup['done']  = true;
 		}
 		return $requiredSetup;

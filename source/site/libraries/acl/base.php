@@ -36,8 +36,8 @@ abstract class XiptAclBase
 		$coreinipath = dirname(__FILE__).DS.'coreparams.ini';		
 		$iniData	= JFile::read($coreinipath);
 	
-		XiptError::assert(JFile::exists($corexmlpath), XiptText::_("$corexmlpath FILE DOES NOT EXIST"), XiptError::ERROR);
-		XiptError::assert(JFile::exists($coreinipath), XiptText::_("$coreinipath FILE DOES NOT EXIST"), XiptError::ERROR);
+		XiptError::assert(JFile::exists($corexmlpath), XiptText::_("$corexmlpath FILE_DOES_NOT_EXIST"), XiptError::ERROR);
+		XiptError::assert(JFile::exists($coreinipath), XiptText::_("$coreinipath FILE_DOES_NOT_EXIST"), XiptError::ERROR);
 		
 		$this->coreparams = new JParameter($iniData,$corexmlpath);
 	}
@@ -320,7 +320,7 @@ abstract class XiptAclBase
 		if($objResponse === null)
 			$objResponse   	= new JAXResponse();
 
-		$objResponse->addAssign('cwin_logo', 'innerHTML', JText::_('YOU ARE NOT ALLOWED TO PERFORM THIS ACTION'));
+		$objResponse->addAssign('cwin_logo', 'innerHTML', JText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
 		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);
 		$objResponse->addScriptCall('cWindowResize', 80);
 		
@@ -335,7 +335,7 @@ abstract class XiptAclBase
 			                                     ."return true;"
 			                                     ."};";
 
-		     $buttons	= '<input type="button" value="' . JText::_('CC BUTTON CLOSE') . '" class="button" onclick="cWindowHide(); window.location.href = &quot;' . $redirectUrl . '&quot;;" />';
+		     $buttons	= '<input type="button" value="' . JText::_('CC_BUTTON_CLOSE') . '" class="button" onclick="cWindowHide(); window.location.href = &quot;' . $redirectUrl . '&quot;;" />';
 		     $objResponse->addScriptCall('cWindowActions', $buttons);
 		   }
 		$objResponse->sendResponse();

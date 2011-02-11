@@ -43,7 +43,7 @@ class XiptViewApplications extends XiptView
 		}
 		
 		if($task === 'edit'){
-			JToolBarHelper::title( XiptText::_( 'EDIT APPLICATIONS' ), 'applications' );
+			JToolBarHelper::title( XiptText::_( 'EDIT_APPLICATIONS' ), 'applications' );
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
 			JToolBarHelper::divider();
 			JToolBarHelper::save('save',XiptText::_('SAVE'));

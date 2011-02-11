@@ -11,7 +11,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<thead>
 		<tr>
 			<th width="1%"><?php echo XiptText::_( '#' ); ?></th>
-			<th width="29%" class="title"><?php echo XiptText::_( 'FIELD NAME' ); ?></th>
+			<th width="29%" class="title"><?php echo XiptText::_( 'FIELD_NAME' ); ?></th>
 			<?php foreach($this->categories as $catIndex => $catInfo) : ?>
 				<?php $catName = $catInfo['name'];?>	
 				<th width="15%" class="title">

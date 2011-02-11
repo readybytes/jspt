@@ -56,7 +56,7 @@ class XiptHelperRegistration
 				return true;
 			}
 			else
-				$html .= XiptText::_('PLEASE ENTER VALID PROFILETYPE');
+				$html .= XiptText::_('PLEASE_ENTER_VALID_PROFILETYPE');
 		}
 		
 		return self::getPtypeDisplayPageForFacebook($response,$html);		
@@ -94,7 +94,7 @@ class XiptHelperRegistration
 			$response->addScriptCall('cWindowResize' ,PTYPE_POPUP_WINDOW_HEIGHT_SELECT, PTYPE_POPUP_WINDOW_WIDTH_SELECT);
 			$buttons	= '<input type="button" value="' . XiptText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'#profiletypes\').val()), \'\', 450, 200); return false;" />';
 		}
-		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_ ( 'CHOOSE PROFILE TYPE' ) . '");');
+		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_ ( 'CHOOSE_PROFILE_TYPE' ) . '");');
 		$response->addAssign('cWindowContent' , 'innerHTML' , $html);
 		$response->addScriptCall('cWindowActions', $buttons);
 		$response->sendResponse();
@@ -136,7 +136,7 @@ class XiptHelperRegistration
 		$buttons = '';		
 		
 		//$response->addScriptCall('cWindowResize' , PTYPE_POPUP_WINDOW_HEIGHT_RADIO , PTYPE_POPUP_WINDOW_WIDTH_RADIO);
-		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_('REGISTRATION VALIDATION') . '");');
+		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_('REGISTRATION_VALIDATION') . '");');
 		$buttons	= '<input type="button" value="' . XiptText::_('BACK') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'[name=profiletypes]:checked\').val()), \'\', 450, 200); return false;" />';
 		$response->addAssign('cWindowContent' , 'innerHTML' , $html);
 		$response->addScriptCall('cWindowActions', $buttons);
@@ -163,7 +163,7 @@ class XiptHelperRegistration
 			return true;
 
 		// invalid emails
-		$msg = XiptText::_('XIPT EMAIL NOT ALLOWED');
+		$msg = XiptText::_('XIPT_EMAIL_NOT_ALLOWED');
 		$response->addScriptCall('jQuery("#newemail").addClass("invalid");');
 		$response->addScriptCall('jQuery("#error-newemail").show();');
 		$response->addScriptCall('jQuery("#error-newemail").html("' . $msg . '");');
@@ -189,7 +189,7 @@ class XiptHelperRegistration
 			return true;
 
 		// invalid emails
-		$msg = XiptText::_('XIPT USERNAME NOT ALLOWED');
+		$msg = XiptText::_('XIPT_USERNAME_NOT_ALLOWED');
 		$response->addScriptCall('jQuery("#newusername").addClass("invalid");');
 		$response->addScriptCall('jQuery("#error-newusername").show();');
 		$response->addScriptCall('jQuery("#error-newusername").html("' . $msg . '");');
@@ -204,7 +204,7 @@ class XiptHelperRegistration
 		$ptype  = $pluginHandler->isPTypeExistInSession();
 		
 		if(!$ptype){
-			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
+			XiptError::assert($ptype, XiptText::_('PROFILE_TYPE_IS_NOT_SELECTED'), XiptError::WARNING);
 			return false;
 		}
 		
@@ -214,7 +214,7 @@ class XiptHelperRegistration
 			return true;
 
 		// invalid emails
-		$msg = XiptText::_('XIPT EMAIL NOT ALLOWED');
+		$msg = XiptText::_('XIPT_EMAIL_NOT_ALLOWED');
 		$response->addScriptCall('jQuery("#jsemail").addClass("invalid");');
 		$response->addScriptCall('jQuery("#errjsemailmsg").show();');
 		$response->addScriptCall('jQuery("#errjsemailmsg").html("<br/>'.$msg.'");');
@@ -229,7 +229,7 @@ class XiptHelperRegistration
 		$ptype  = $pluginHandler->isPTypeExistInSession();
 				
 		if(!$ptype){
-			XiptError::assert($ptype, XiptText::_('PROFILE TYPE IS NOT SELECTED'), XiptError::WARNING);
+			XiptError::assert($ptype, XiptText::_('PROFILE_TYPE_IS_NOT_SELECTED'), XiptError::WARNING);
 			return false;
 		}		
 		// as per JomSocial code
@@ -238,7 +238,7 @@ class XiptHelperRegistration
 			return true;
 
 		// username not allowed
-		$msg = XiptText::_('XIPT USERNAME NOT ALLOWED');
+		$msg = XiptText::_('XIPT_USERNAME_NOT_ALLOWED');
 		$response->addScriptCall('jQuery("#jsusername").addClass("invalid");');
 		$response->addScriptCall('jQuery("#errjsusernamemsg").show();');
 		$response->addScriptCall('jQuery("#errjsusernamemsg").html("<br/>'.$msg.'");');

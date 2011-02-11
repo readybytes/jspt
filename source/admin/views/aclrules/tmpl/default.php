@@ -16,7 +16,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'remove':
-			if( !confirm( '<?php echo XiptText::_('ARE YOU SURE YOU WANT TO REMOVE THIS RULE?'); ?>' ) )
+			if( !confirm( '<?php echo XiptText::_('ARE_YOU_SURE_YOU_WANT_TO_REMOVE_THIS_RULE'); ?>' ) )
 			{
 				break;
 			}
@@ -29,7 +29,7 @@ function submitbutton( action )
 </script>
 
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo XiptText::_('FOLLOWING PUBLISHED RULES WILL BE APPLIED FOR RESTRICTION');?>
+	<?php echo XiptText::_('FOLLOWING_PUBLISHED_RULES_WILL_BE_APPLIED_FOR_RESTRICTION');?>
 </div>
 
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
@@ -43,13 +43,13 @@ function submitbutton( action )
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->rules ); ?>);" />
 			</th>
 			<th>
-				<?php echo XiptText::_( 'RULE NAME' ); ?>
+				<?php echo XiptText::_( 'RULE_NAME' ); ?>
 			</th>
 			<th>
-				<?php echo XiptText::_( 'ACL NAME' ); ?>
+				<?php echo XiptText::_( 'ACL_NAME' ); ?>
 			</th>
 			<th>
-				<?php echo XiptText::_( 'APPLICABLE PROFILETYPE' ); ?>
+				<?php echo XiptText::_( 'APPLICABLE_PROFILETYPE' ); ?>
 			</th>
 			<th width="5%">
 				<?php echo XiptText::_( 'PUBLISHED' ); ?>

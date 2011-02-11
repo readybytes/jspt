@@ -31,7 +31,7 @@ class XiptSetupRuleWatermark extends XiptSetupBase
 	{
 		if($this->isRequired()){		
 			$requiredSetup['done']  = true;			
-			$requiredSetup['message']  = XiptText::_("WATER MARKING IS NOT ENABLED IN SETTINGS BUT ENABLE FOR PROFILE TYPES.");
+			$requiredSetup['message']  = XiptText::_("WATER_MARKING_IS_NOT_ENABLED_IN_SETTINGS_BUT_ENABLE_FOR_PROFILE_TYPES");
 			return $requiredSetup;
 		}
 	}

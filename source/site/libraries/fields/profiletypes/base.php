@@ -31,7 +31,7 @@ class XiptFieldsProfiletypesBase
 		
 		if(class_exists($classname, true)===false)
 		{
-			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("$className : Class not found"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("$className : CLASS_NOT_FOUND"));
 			return false;
 		}
 			
@@ -77,7 +77,7 @@ class XiptFieldsProfiletypesBase
 
 			if(!(int)$pID){
 			    $pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-				XiptError::assert($pID, XiptText::_("USERID = $pID DOES NOT EXIST"), XiptError::ERROR);
+				XiptError::assert($pID, XiptText::_("USERID $pID DOES_NOT_EXIST"), XiptError::ERROR);
 			}
 			
 			$pName = XiptLibProfiletypes::getProfileTypeName($pID);

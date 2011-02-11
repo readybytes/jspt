@@ -18,7 +18,7 @@ class XiptLibProfiletypes
 	 */
 	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
 	{
-		XiptError::assert($userid, XiptText::_("USERID $userid IS NOT VALID"), XiptError::ERROR);
+		XiptError::assert($userid, XiptText::_("USERID $userid IS_NOT_VALID"), XiptError::ERROR);
 		$uModel = XiptFactory::getInstance('Users','model');
 		
 		foreach($filter as $feature)
@@ -64,7 +64,7 @@ class XiptLibProfiletypes
 					break;
 					
 				default:
-					XiptError::assert(0, XiptText::_("NOT A VALID OPTION TO FILTER"), XiptError::ERROR);
+					XiptError::assert(0, XiptText::_("NOT_A_VALID_OPTION_TO_FILTER"), XiptError::ERROR);
 					break;
 			}
 		}
@@ -84,7 +84,7 @@ class XiptLibProfiletypes
 	 */
 	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
-		XiptError::assert($userid, XiptText::_("USERID $userid IS NOT VALID"), XiptError::ERROR);
+		XiptError::assert($userid, XiptText::_("USERID $userid IS_NOT_VALID"), XiptError::ERROR);
 		$uModel = XiptFactory::getInstance('Users','model');
 		//store prev profiletype
 		//IMP : must be first line, as we want to store prev profiletype

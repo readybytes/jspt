@@ -21,14 +21,14 @@ class XiptControllerAclRules extends XiptController
 		
 		$view = $this->getView();
 
-		XiptError::assert($acl || $id, XiptText::_("NOT DEFINED $id or $acl"), XiptError::ERROR);
+		XiptError::assert($acl || $id, XiptText::_("NOT_DEFINED $id or $acl"), XiptError::ERROR);
 		
 		if($acl)
 			$aclObject = XiptAclFactory::getAclObject($acl);
 		else
 			$aclObject = XiptAclFactory::getAclObjectFromId($id);
 
-		XiptError::assert(isset($aclObject), XiptText::_("NOT ABLE TO CREATE ACL OBJECT"), XiptError::ERROR);
+		XiptError::assert(isset($aclObject), XiptText::_("NOT_ABLE_TO_CREATE_ACL_OBJECT"), XiptError::ERROR);
 			
 		$aclObject->load($id);
 
@@ -62,9 +62,9 @@ class XiptControllerAclRules extends XiptController
 		
 		// Save it // XITODO : clean it
 		if(!($info['id'] = $model->save($data,$id)) )
-			$info['msg'] = XiptText::_('ERROR IN SAVING RULE');
+			$info['msg'] = XiptText::_('ERROR_IN_SAVING_RULE');
 		else
-			$info['msg'] = XiptText::_('RULE SAVED');	
+			$info['msg'] = XiptText::_('RULE_SAVED');	
 
 		return $info;
 	}
@@ -93,14 +93,14 @@ class XiptControllerAclRules extends XiptController
 		foreach( $ids as $id ){		
 			if(!$this->getModel()->delete( $id )){
 				// If there are any error when deleting, we just stop and redirect user with error.
-				$message	= XiptText::_('ERROR IN REMOVING RULE');
+				$message	= XiptText::_('ERROR_IN_REMOVING_RULE');
 				$this->setRedirect( 'index.php?option=com_xipt&view=aclrules' , $message);
 				return false;
 			}
 			$i++;
 		}
 		
-		$message	= $count.' '.XiptText::_('RULE REMOVED');		
+		$message	= $count.' '.XiptText::_('RULE_REMOVED');		
 		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$this->setRedirect($link, $message);
 	}			

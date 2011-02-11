@@ -35,7 +35,7 @@ class XiptModelProfiletypes extends XiptModel
 	 **/
 	function saveParams($data, $id, $what = 'params')
 	{
-		XiptError::assert($id, XiptText::_("ID $id IS NOT VALID"), XiptError::ERROR);
+		XiptError::assert($id, XiptText::_("ID $id IS_NOT_VALID"), XiptError::ERROR);
 		
 		if(empty($data) || !is_array($data))
 			return false;
@@ -116,7 +116,7 @@ class XiptModelProfiletypes extends XiptModel
 							->query();
 
 			if (!$result)
-				return XiptError::raiseWarning( 500, XiptText::_("ERROR IN DATABLSE WHEN SAVING AVATAR IN COOMUNITY USER TABLE"));
+				return XiptError::raiseWarning( 500, XiptText::_("ERROR_IN_DATABLSE_WHEN_SAVING_AVATAR_IN_COOMUNITY_USER_TABLE"));
 
 			return true;
 		}

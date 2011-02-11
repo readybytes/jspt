@@ -35,7 +35,7 @@ class XiptControllerRegistration extends XiptController {
 			$selectedProfiletypeID = JRequest::getVar( 'profiletypes' , $pt , 'POST' );
 			if(XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID,array('published'=>1,'visible'=>1)) == false)
 			{
-				$msg  = XiptText::_('INVALID PROFILE TYPE SELECTED');
+				$msg  = XiptText::_('INVALID_PROFILE_TYPE_SELECTED');
 				$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
 				$this->setRedirect($link, $msg);	
 			}

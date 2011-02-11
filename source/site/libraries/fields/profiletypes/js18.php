@@ -38,7 +38,7 @@ class XiptFieldsProfiletypesJs18 extends XiptFieldsProfiletypesBase
 			//not required to get data from getUser() fn b'coz we call this fn in 
 			//getViewableprofile only.
 			$userid = JRequest::getVar('userid',0);
-			XiptError::assert($userid,XiptText::_("USERID = $userid DOES NOT EXIST"), XiptError::ERROR);
+			XiptError::assert($userid,XiptText::_("USERID $userid DOES_NOT_EXIST"), XiptError::ERROR);
 			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		

@@ -35,7 +35,7 @@ jQuery(document).ready(function($){
 
 <form action="index.php" method="post" name="adminForm">
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo XiptText::_('ASSIGN APPLICATION AS PER PROFILE TYPES FOR YOUR SITE.');?>
+	<?php echo XiptText::_('ASSIGN_APPLICATION_AS_PER_PROFILE_TYPES_FOR_YOUR_SITE');?>
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
@@ -46,13 +46,13 @@ jQuery(document).ready(function($){
 	<legend><?php echo $aModel->getPlugin($this->applicationId)->name;?></legend>
 		<div id="xiptPtype">
 			<div style="float:left; font-weight:bold; margin-left:10%; padding:5px; width:27%; background: #EFEFEF;">
-				<?php echo XiptText::_('FOR PROFILETYPES');?>
+				<?php echo XiptText::_('FOR_PROFILETYPES');?>
 			</div>
 			<div style="float:left; margin-left:20px; width:35%;">
 				<?php echo XiptHelperApps::buildProfileTypesforApplication($this->applicationId);?>
 			</div>
 			<div>
-				<?php echo XiptText::_("SELECT");?> : <a href="#" id="ptypeSelectAll"><?php echo XiptText::_('ALL');?></a> | <a href="#" id="ptypeSelectNone"><?php echo XiptText::_('NONE');?></a> 
+				<?php echo XiptText::_("SELECT");?> : <a href="#" id="ptypeSelectAll"><?php echo XiptText::_('ALL');?></a> | <a href="#" id="ptypeSelectNone"><?php echo XiptText::_('JNONE');?></a> 
 			</div>
 		</div>
 	</fieldset>
@@ -62,7 +62,7 @@ jQuery(document).ready(function($){
 	<fieldset class="adminform">
 	<legend>
 		<input type="checkBox" id="xiptApplyTo" />
-		<?php echo XiptText::_('APPLY THESE SETTINGS FOR')?>		
+		<?php echo XiptText::_('APPLY_THESE_SETTINGS_FOR')?>		
 	</legend>
 	
 	<div id="xiptOtherApps">

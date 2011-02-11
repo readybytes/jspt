@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 	<params addpath="/components/com_xipt/elements" >
-		<param name="demo" type="watermarkpreview" default="" label="Demo" description="Demo according to set watermark Params" />
-		<param name="enableWaterMark" type="radio" label="ENABLE WATER MARK" default="0" description="ENABLE WATER MARK.DESC">
+		<param name="demo" type="watermarkpreview" default="" label="DEMO" description="DEMO_ACCORDING_TO_SET_WATERMARK_PARAMS" />
+		<param name="enableWaterMark" type="radio" label="ENABLE_WATER_MARK" default="0" description="ENABLE_WATER_MARK_DESC">
 			<option value="0">No</option>
   			<option value="1">Yes</option>		
 		</param>
-		<param name="xiText" type="text" default="P" label="DISPLAY TEXT" description="ENTER WATERMARK DISPLAY TEXT.DESC" />		
-		<param name="xiWidth" type="text" default="40" label="WIDTH" description="SET WIDTH.DESC"/>
-		<param name="xiHeight" type="text" default="40" label="HEIGHT" description="HEIGHT.DESC"/>
-		<param name="xiThumbWidth" type="text" default="20" label="WIDTH OF THUMB" description="WIDTH OF THUMB.DESC"/>
-		<param name="xiThumbHeight" type="text" default="20" label="HEIGHT OF THUMB" description="HEIGHT OF THUMB.DESC"/>
+		<param name="xiText" type="text" default="P" label="DISPLAY_TEXT" description="ENTER_WATERMARK_DISPLAY_TEXT_DESC" />		
+		<param name="xiWidth" type="text" default="40" label="WIDTH" description="SET_WIDTH_DESC"/>
+		<param name="xiHeight" type="text" default="40" label="HEIGHT" description="HEIGHT_DESC"/>
+		<param name="xiThumbWidth" type="text" default="20" label="WIDTH_OF_THUMB" description="WIDTH_OF_THUMB_DESC"/>
+		<param name="xiThumbHeight" type="text" default="20" label="HEIGHT_OF_THUMB" description="HEIGHT_OF_THUMB_DESC"/>
 						
-		<param name="xiFontName" type="fonts" default="monofont"  label="FONT" description="FONT.DESC"/>
-		<param name="xiFontSize" type="text" default="26" label="FONT SIZE" description="FONT SIZE.DESC" />
-		<param name="xiTextColor" type="colorbox" default="FFFFFF"  label="TEXT COLOR" description="TEXT COLOR.DESC"/>
-		<param name="xiBackgroundColor"  type="colorbox" default="9CD052"  label="FILL BAR COLOR" description="FILL BAR COLOR.DESC"/>
-		<param name="xiWatermarkPosition"  type="watermarkposition" default="rightbottom"  label="WATER MARK POSITION" description="WATER MARK POSITION.DESC"/>
+		<param name="xiFontName" type="fonts" default="monofont"  label="FONT" description="FONT_DESC"/>
+		<param name="xiFontSize" type="text" default="26" label="FONT_SIZE" description="FONT_SIZE_DESC" />
+		<param name="xiTextColor" type="colorbox" default="FFFFFF"  label="TEXT_COLOR" description="TEXT_COLOR_DESC"/>
+		<param name="xiBackgroundColor"  type="colorbox" default="9CD052"  label="FILL_BAR_COLOR" description="FILL_BAR_COLOR_DESC"/>
+		<param name="xiWatermarkPosition"  type="watermarkposition" default="rightbottom"  label="WATER_MARK_POSITION" description="WATER_MARK_POSITION_DESC"/>
 	</params>
 </config>
 

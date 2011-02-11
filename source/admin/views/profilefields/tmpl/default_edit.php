@@ -51,7 +51,7 @@ jQuery(document).ready(function($){
 		<thead>
 		<tr>
 			<td style="width:40%;" >
-				<?php echo XiptText::_( 'FIELD NAME' ); ?> :
+				<?php echo XiptText::_( 'FIELD_NAME' ); ?> :
 			</td>
 			<td style="width:60%;">
 					<?php echo $this->field->name; ?>
@@ -72,7 +72,7 @@ jQuery(document).ready(function($){
 							<div style="float:right; width:40%;">
 								<?php echo XiptText::_("SELECT");?> : 
 								<a href="#" class="ptypeSelectAll" id="ptypeSelectAll<?php echo $catName;?>"><?php echo XiptText::_('ALL');?></a> | 
-								<a href="#" class="ptypeSelectNone" id="ptypeSelectNone<?php echo $catName;?>"><?php echo XiptText::_('NONE');?></a>	 
+								<a href="#" class="ptypeSelectNone" id="ptypeSelectNone<?php echo $catName;?>"><?php echo XiptText::_('JNONE');?></a>	 
 							</div>
 						</div>							
 					</td>			
@@ -92,7 +92,7 @@ echo $this->pane->endPane();
 	<fieldset class="adminform">
 	<legend>
 		<input type="checkBox" id="xiptApplyTo" />
-		<?php echo XiptText::_('APPLY THESE SETTINGS FOR')?>		
+		<?php echo XiptText::_('APPLY_THESE_SETTINGS_FOR')?>		
 	</legend>
 	
 	<div id="xiptOtherApps">

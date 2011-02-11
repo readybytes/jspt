@@ -36,12 +36,12 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';
 		
 		if(JFile::exists($miFilename))
-			return XiptText::_('AEC MI ALREADY EXIST');
+			return XiptText::_('AEC_MI_ALREADY_EXIST');
 
 		if(JFile::copy($sourceMIFilename , $miFilename))
-			return XiptText::_('AEC MI COPIED SUCCESSFULLY');
+			return XiptText::_('AEC_MI_COPIED_SUCCESSFULLY');
         
-        return XiptText::_('AEC MI COPY FAILED');
+        return XiptText::_('AEC_MI_COPY_FAILED');
 	}
 	
 	function isApplicable()
@@ -61,7 +61,7 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		
 		else
 		{
-			$requiredSetup['message']  = XiptText::_("AEC MI ALREADY THERE");
+			$requiredSetup['message']  = XiptText::_("AEC_MI_ALREADY_THERE");
 			$requiredSetup['done'] = true;
 		}
 			

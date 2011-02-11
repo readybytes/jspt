@@ -72,7 +72,7 @@ class XiptControllerProfiletypes extends XiptController
 			
 		// now save model
 		$id	 = $model->save($data, $id);
-		XiptError::assert($id, XiptText::_("$id NOT EXISTS"), XiptError::ERROR);
+		XiptError::assert($id, XiptText::_("$id NOT_EXISTS"), XiptError::ERROR);
 		
 		// Now store other data
 		// Handle Avatar : call uploadImage function if post(image) data is set
@@ -119,7 +119,7 @@ class XiptControllerProfiletypes extends XiptController
 		}
 					
 		$info['id'] = $id;
-		$info['msg'] = XiptText::_('PROFILETYPE SAVED');
+		$info['msg'] = XiptText::_('PROFILETYPE_SAVED');
 
 		return $info;
 	}
@@ -144,7 +144,7 @@ class XiptControllerProfiletypes extends XiptController
 
 		if(empty($users[$start])){
 			$info['id'] = $id;
-			$info['msg'] = XiptText::_('PROFILETYPE SAVED');
+			$info['msg'] = XiptText::_('PROFILETYPE_SAVED');
 			$preTask = $session->set('preTask','','jspt');
 			$preTask = ($preTask =='apply') ? 'edit':'display';
 			$session->clear('oldPtData','jspt');
@@ -229,7 +229,7 @@ class XiptControllerProfiletypes extends XiptController
 			// can not delete default profiletype
 			if($id == $defaultPtype)
 			{
-				$message= XiptText::_('CAN NOT DELETE DEFAULT PROFILE TYPE');
+				$message= XiptText::_('CAN_NOT_DELETE_DEFAULT_PROFILE_TYPE');
 				JFactory::getApplication()->enqueueMessage($message);
 				continue;
 			}
@@ -237,14 +237,14 @@ class XiptControllerProfiletypes extends XiptController
 			if(!$this->getModel()->delete($id))
 			{
 				// If there are any error when deleting, we just stop and redirect user with error.
-				$message	= XiptText::_('ERROR IN REMOVING PROFILETYPE');
+				$message	= XiptText::_('ERROR_IN_REMOVING_PROFILETYPE');
 				$this->setRedirect($link, $message);
 				return false;
 			}
 			$i++;
 		}	
 		
-		$message	= ($i - 1).' '.XiptText::_('PROFILETYPE REMOVED');		
+		$message	= ($i - 1).' '.XiptText::_('PROFILETYPE_REMOVED');		
 		$this->setRedirect($link, $message);
 	}
 	
@@ -298,7 +298,7 @@ class XiptControllerProfiletypes extends XiptController
 		//get selected profile type ids
 		$cid	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
 		if (count($cid) == 0)
- 			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+ 			return JError::raiseWarning( 500, JText::_( 'NO_ITEMS_SELECTED' ) );
 		
 		//get profile type data by id
 		$model = $this->getModel();
@@ -309,7 +309,7 @@ class XiptControllerProfiletypes extends XiptController
 
 		foreach($cid as $id){		
 			$data[$id]->id        = 0;
-			$data[$id]->name      = XiptText::_('Copy of ').$data[$id]->name;
+			$data[$id]->name      = XiptText::_('COPY_OF').$data[$id]->name;
 			$data[$id]->published = 0;
 			$data[$id]->ordering  = $lastOrder++;
 			$model->save($data[$id],0);

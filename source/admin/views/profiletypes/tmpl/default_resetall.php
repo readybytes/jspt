@@ -13,7 +13,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <?php 
 //show user reseted
 //can show 'reseting next 500 user'
-echo "Reset Page : DO NOT CLOSE THIS WINDOW WHILE RESETING USERS";
+echo "Reset Page : DO NOT CLOSE THIS WINDOW WHILE RESETTING USERS";
 ?>
 </h3>
 <?php  

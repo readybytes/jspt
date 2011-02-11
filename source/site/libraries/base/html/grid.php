@@ -61,7 +61,7 @@ class XiHtmlGrid extends JHTMLGrid
 			$date 	= XiHTML::_('date',  $row->checked_out_time, XiptText::_('DATE_FORMAT_LC1') );
 			$time	= XiHTML::_('date',  $row->checked_out_time, '%H:%M' );
 
-			$hover = '<span class="editlinktip hasTip" title="'. XiText::_( 'Checked Out' ) .'::'. $text .'<br />'. $date .'<br />'. $time .'">';
+			$hover = '<span class="editlinktip hasTip" title="'. XiText::_( 'CHECKED_OUT' ) .'::'. $text .'<br />'. $date .'<br />'. $time .'">';
 		}
 		$checked = $hover .'<img src="images/checked_out.png"/></span>';
 

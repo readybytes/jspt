@@ -72,7 +72,7 @@ class XiptViewProfiletypes extends XiptView
 		JToolBarHelper::divider();
 		JToolBarHelper::custom('copy','copy','',XiptText::_('COPY'),0,0);
 		JToolBarHelper::trash('remove', XiptText::_( 'DELETE' ));
-		JToolBarHelper::addNew('edit', XiptText::_( 'ADD PROFILETYPES' ));
+		JToolBarHelper::addNew('edit', XiptText::_( 'ADD_PROFILETYPES' ));
 		return true;
 	}
 	

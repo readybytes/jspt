@@ -35,7 +35,7 @@ class XiptControllerApplications extends XiptController
 		foreach($otherAid as $id)
 			$model->delete(array('applicationid'=> $id));	
 		
-		$msg = XiptText::_('APPLICATION SAVED');
+		$msg = XiptText::_('APPLICATION_SAVED');
 		$link = XiptRoute::_('index.php?option=com_xipt&view=applications', false);
 		$this->setRedirect($link,$msg);
 		

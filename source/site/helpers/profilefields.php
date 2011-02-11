@@ -12,13 +12,13 @@ class XiptHelperProfilefields
 	// return row from row id of fields values table
 	function getProfileTypeNames($fid,$for)
 	{
-		XiptError::assert($fid, XiptText::_("PROFILEFIELD ID CAN NOT BE NULL."), XiptError::ERROR);
+		XiptError::assert($fid, XiptText::_("PROFILEFIELD_ID_CAN_NOT_BE_NULL"), XiptError::ERROR);
 
 		$selected = XiptHelperProfilefields::getProfileTypeArray($fid,$for);
 		
 		//if selected is empty means field is invisible, then return none
 		if(empty($selected))
-			return XiptText::_("NONE");
+			return XiptText::_("JNONE");
 		
 		//if 0 exist in selected ptype means , field is available to all
 		if(in_array(XIPT_PROFILETYPE_ALL, $selected))
@@ -33,7 +33,7 @@ class XiptHelperProfilefields
 
 	function getProfileTypeArray($fid,$for)
 	{
-		XiptError::assert($fid, XiptText::_("PROFILEFIELD ID CAN NOT BE NULL."), XiptError::ERROR);
+		XiptError::assert($fid, XiptText::_("PROFILEFIELD_ID_CAN_NOT_BE_NULL"), XiptError::ERROR);
 			
 		//Load all profiletypes for the field
 		$results = XiptFactory::getInstance('profilefields','model')

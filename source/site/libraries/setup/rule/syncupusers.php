@@ -15,7 +15,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		
 		if(!$defaultProfiletypeID){
 			$mainframe = JFactory::getApplication();
-			$mainframe->enqueueMessage(XiptText::_("FIRST SELECT THE DEFAULT PROFILE TYPE"));
+			$mainframe->enqueueMessage(XiptText::_("FIRST_SELECT_THE_DEFAULT_PROFILE_TYPE"));
 			return false;
 		}
 
@@ -41,9 +41,9 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		$start=JRequest::getVar('start', 0);
 		$limit=JRequest::getVar('limit',SYNCUP_USER_LIMIT);
 		if($this->syncUpUserPT($start,$limit))
-        	return XiptText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZED SUCCESSFULLY');
+        	return XiptText::_('USERS_PROFILETYPE_AND_TEMPLATES_SYNCRONIZED_SUCCESSFULLY');
         
-        return XiptText::_('USERs PROFILETYPE AND TEMPLATES SYNCRONIZATION FAILED');
+        return XiptText::_('USERS_PROFILETYPE_AND_TEMPLATES_SYNCRONIZATION_FAILED');
 	}
 	
 	function syncUpUserPT($start, $limit, $test = false)
@@ -72,7 +72,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
     		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
 		}
 		
-		$msg = 'Total '. ($start+count($result)) . ' users '.XiptText::_('synchornized');
+		$msg = 'Total '. ($start+count($result)) . ' users '.XiptText::_('SYNCHORNIZED');
 		$mainframe->enqueueMessage($msg);
 		return true;
 	}
@@ -84,13 +84,13 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO SYNC UP USERS PROFILETYPES").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_SYNC_UP_USERS_PROFILETYPES").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message']  = XiptText::_("USERS PROFILETYPES ALREADY IN SYNC");
+			$requiredSetup['message']  = XiptText::_("USERS_PROFILETYPES_ALREADY_IN_SYNC");
 			$requiredSetup['done']  = true;
 		}
 		return $requiredSetup;

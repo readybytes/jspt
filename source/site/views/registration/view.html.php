@@ -15,7 +15,7 @@ class XiptViewRegistration extends XiptView
 		if($userId)
 		{
 			$redirectUrl	= XiptRoute::_('index.php?option=com_community&view=profile',false);
-			$msg		    = XiptText::_('YOU ARE ALREADY REGISTERED, NEED NOT TO REGISTER AGAIN');
+			$msg		    = XiptText::_('YOU_ARE_ALREADY_REGISTERED_NEED_NOT_TO_REGISTER_AGAIN');
 			JFactory::getApplication()->redirect($redirectUrl,$msg);
 		}
 

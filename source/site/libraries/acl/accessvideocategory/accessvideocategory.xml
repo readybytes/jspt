@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 <params addpath="/components/com_xipt/elements" >
-	<param name="video_category" type="videocategory" addall="true" default="" label="VIDEO CATEGARIES.Label" description="VIDEO CATEGORY TO APPLY.Desc" />
+	<param name="video_category" type="videocategory" addall="true" default="" label="VIDEO_CATEGARIES_LABEL" description="VIDEO_CATEGORY_TO_APPLY_DESC" />
 	
 </params>
 </config>

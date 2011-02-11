@@ -10,13 +10,13 @@ class XiptHelperApps
 {
 	function getProfileTypeNames($aid)
 	{	
-		XiptError::assert($aid, XiptText::_("Application Id cannot be null."), XiptError::ERROR);
+		XiptError::assert($aid, XiptText::_("APPLICATION_ID_CANNOT_BE_NULL"), XiptError::ERROR);
 
 		$selected = XiptHelperApps::getProfileTypeArray($aid);
 		
 		//if selected is empty means field is invisible, then return none
 		if(empty($selected))
-			return XiptText::_("NONE");
+			return XiptText::_("JNONE");
 		
 		//if 0 exist in selected ptype means , field is available to all
 		if(in_array(XIPT_PROFILETYPE_ALL, $selected))
@@ -32,7 +32,7 @@ class XiptHelperApps
 
 	function getProfileTypeArray($aid)
 	{	
-		XiptError::assert($aid, XiptText::_("Application Id cannot be null."), XiptError::ERROR);
+		XiptError::assert($aid, XiptText::_("APPLICATION_ID_CANNOT_BE_NULL"), XiptError::ERROR);
 		
 		$results = XiptFactory::getInstance('applications','model')
 								->getProfileTypes($aid);

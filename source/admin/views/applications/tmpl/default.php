@@ -15,13 +15,13 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<?php echo XiptText::_( '#' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo XiptText::_( 'APPLICATION ID' ); ?>
+				<?php echo XiptText::_( 'APPLICATION_ID' ); ?>
 			</th>
 			<th>
-				<?php echo XiptText::_( 'JOMSOCIAL APPLICATION NAME' ); ?>
+				<?php echo XiptText::_( 'JOMSOCIAL_APPLICATION_NAME' ); ?>
 			</th>
 			<th width="50%">
-				<?php echo XiptText::_( 'AVAILABLE TO PROFILE TYPES' ); ?>
+				<?php echo XiptText::_( 'AVAILABLE_TO_PROFILE_TYPES' ); ?>
 			</th>			
 		</tr>		
 	</thead>

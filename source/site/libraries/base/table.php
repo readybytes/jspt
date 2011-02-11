@@ -94,7 +94,7 @@ abstract class XiptTable extends JTable
 			
 		$tableName 	= $this->getTableName();
 		if(XiptHelperTable::isTableExist($tableName)===FALSE)
-			return XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("Table $this->_tbl does not exist"));
+			return XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("Table $this->_tbl DOES_NOT_EXIST"));
 			
 
 		$fields 		= $this->_db->getTableFields($tableName);

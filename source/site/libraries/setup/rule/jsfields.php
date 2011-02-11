@@ -23,7 +23,7 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 	function doApply()
 	{
 		if($this->isRequired()== false)
-			return XiptText::_("CUSTOM FIELD ALREADY CREATED AND ENABLED SUCCESSFULLY");
+			return XiptText::_("CUSTOM_FIELD_ALREADY_CREATED_AND_ENABLED_SUCCESSFULLY");
 			
 		$fields = $this->_checkExistance();
 			
@@ -39,9 +39,9 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 
 				
 		if($pFieldCreated && $tFieldCreated && $fieldEnabled)
-			return XiptText::_("CUSTOM FIELD CREATED AND ENABLED SUCCESSFULLY");
+			return XiptText::_("CUSTOM_FIELD_CREATED_AND_ENABLED_SUCCESSFULLY");
 			
-		return XiptText::_("CUSTOM FIELDS ARE NOT CREATED OR ENABLED");
+		return XiptText::_("CUSTOM_FIELDS_ARE_NOT_CREATED_OR_ENABLED");
 	}
 	
 	function doRevert()
@@ -111,13 +111,13 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=jsfields",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO CREATE AND ENABLE CUSTOM FIELDS").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_CREATE_AND_ENABLE_CUSTOM_FIELDS").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message']  = XiptText::_("CUSTOM FIELDS EXIST");
+			$requiredSetup['message']  = XiptText::_("CUSTOM_FIELDS_EXIST");
 			$requiredSetup['done']  = true;
 		}
 			

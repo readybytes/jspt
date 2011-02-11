@@ -59,7 +59,7 @@ class XiptControllerProfileFields extends XiptController
 						return false;											
 		}
 			
-		$msg 	= XiptText::_('FIELDS SAVED');	
+		$msg 	= XiptText::_('FIELDS_SAVED');	
 		$link 	= XiptRoute::_('index.php?option=com_xipt&view=profilefields', false);
 		$this->setRedirect($link,$msg);
 		return true;

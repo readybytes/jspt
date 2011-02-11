@@ -28,7 +28,7 @@ class XiptSetupRuleAdminapproval extends XiptSetupBase
 	{
 		if($this->isRequired()){		
 			$requiredSetup['done']     = true;			
-			$requiredSetup['message']  = XiptText::_("INSTALL OR ENABLE ADMIN APPROVAL PLUGIN");
+			$requiredSetup['message']  = XiptText::_("INSTALL_OR_ENABLE_ADMIN_APPROVAL_PLUGIN");
 			return $requiredSetup;
 		}
 	}

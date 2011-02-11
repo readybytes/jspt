@@ -15,7 +15,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'remove':
-			if( !confirm( '<?php echo XiptText::_('ARE YOU SURE YOU WANT TO DELETE THIS PROFILE TYPE?'); ?>' ) )
+			if( !confirm( "<?php echo XiptText::_('ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_PROFILE_TYPE'); ?>" ) )
 			{
 				break;
 			}

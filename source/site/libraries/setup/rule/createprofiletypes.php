@@ -29,13 +29,13 @@ class XiptSetupRuleCreateprofiletypes extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=createprofiletypes",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO CREATE PROFILETYPES").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_CREATE_PROFILETYPES").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message']  = XiptText::_("PROFILETYPE VALIDATION SUCCESSFULL");
+			$requiredSetup['message']  = XiptText::_("PROFILETYPE_VALIDATION_SUCCESSFULL");
 			$requiredSetup['done'] = true;
 		}
 		

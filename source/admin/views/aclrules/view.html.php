@@ -36,7 +36,7 @@ class XiptViewAclRules extends XiptView
 	function setToolBar($task='display')
 	{
 		// Set the titlebar text
-		JToolBarHelper::title( XiptText::_( 'ACCESS CONTROL' ), 'aclrules' );
+		JToolBarHelper::title( XiptText::_( 'ACCESS_CONTROL' ), 'aclrules' );
 
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
@@ -54,7 +54,7 @@ class XiptViewAclRules extends XiptView
 			return;
 		}
 
-		JToolBarHelper::addNew('add', XiptText::_( 'ADD ACL RULES' ));
+		JToolBarHelper::addNew('add', XiptText::_( 'ADD_ACL_RULES' ));
 		JToolBarHelper::trash('remove', XiptText::_( 'DELETE' ));
 		JToolBarHelper::divider();
 		JToolBarHelper::publishList('switchOnpublished', XiptText::_( 'PUBLISH' ));
@@ -86,3 +86,4 @@ class XiptViewAclRules extends XiptView
 		return parent::display($tpl);
 	}
 }
+?>

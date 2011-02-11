@@ -2,37 +2,37 @@
 <config>
 	<params>
 	
-		<param name="privacyProfileView" type="radio" label="Default Profile Privacy" default="30" description="Default Profile Privacy">
+		<param name="privacyProfileView" type="radio" label="CC_PROFILE_PRIVACY" default="30" description="CC_PROFILE_PRIVACY_TIPS">
 			<option value="0">public</option>
   			<option value="20">member</option>
   			<option value="30">friend</option>	
 		</param>
 	
-		<param name="privacyFriendsView" type="radio" label="Default Friends Privacy" default="0" description="Default Friends Privacy">
-			<option value="0">public</option>
-  			<option value="20">member</option>
-  			<option value="30">friend</option>	
-  			<option value="40">self</option>		
-		</param>
-	
-		<param name="privacyPhotoView" type="radio" label="Default Photos Privacy" default="0" description="Default Photos Privacy">
+		<param name="privacyFriendsView" type="radio" label="CC_FRIENDS_PRIVACY" default="0" description="CC_FRIENDS_PRIVACY_TIPS">
 			<option value="0">public</option>
   			<option value="20">member</option>
   			<option value="30">friend</option>	
   			<option value="40">self</option>		
 		</param>
 	
-		<param name="notifyEmailSystem" type="radio" label="Receive system e-mails" default="0" description="Receive system e-mails">
+		<param name="privacyPhotoView" type="radio" label="CC_PHOTOS_PRIVACY" default="0" description="CC_PHOTOS_PRIVACY_TIPS">
+			<option value="0">public</option>
+  			<option value="20">member</option>
+  			<option value="30">friend</option>	
+  			<option value="40">self</option>		
+		</param>
+	
+		<param name="notifyEmailSystem" type="radio" label="CC_RECEIVE_SYSTEM_MAIL" default="0" description="_CC_RECEIVE_SYSTEM_MAIL_TIPS">
 			<option value="0">No</option>
   			<option value="1">Yes</option>		
 		</param>
 	
-		<param name="notifyEmailApps" type="radio" label="Allow Applications" default="0" description="Allow Applications">
+		<param name="notifyEmailApps" type="radio" label="CC_ALLOW_APPLICATIONS" default="0" description="CC_ALLOW_APPLICATIONS_TIPS">
 			<option value="0">No</option>
   			<option value="1">Yes</option>		
 		</param>
 	
-		<param name="notifyWallComment" type="radio" label="Receive wall comment notification" default="0" description="Receive wall comment notification">
+		<param name="notifyWallComment" type="radio" label="CC_RECEIVE_WALL_COMMENT_NOTIFICATION" default="0" description="CC_RECEIVE_WALL_COMMENT_NOTIFICATION_TIPS">
 			<option value="0">No</option>
   			<option value="1">Yes</option>		
 		</param>

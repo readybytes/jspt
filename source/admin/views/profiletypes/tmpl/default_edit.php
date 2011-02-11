@@ -16,7 +16,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 		case 'save':case 'apply':			
 			if( form.name.value == '' )
 			{
-				alert( "<?php echo XiptText::_( 'You must provide a Profiletype name.', true ); ?>" );
+				alert( "<?php echo XiptText::_( 'YOU_MUST_PROVIDE_A_PROFILETYPE_NAME', true ); ?>" );
 				break;
 			}
 			<?php
@@ -42,7 +42,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo XiptText::_('Create new profile types for your site.');?>
+	<?php echo XiptText::_('CREATE_NEW_PROFILE_TYPE_FOR_YOUR_SITE');?>
 </div>
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
@@ -53,12 +53,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 			<td width="60%">
 				<fieldset>
 					<legend>
-						<?php echo XiptText::_( 'Profiletype Settings' ); ?>
+						<?php echo XiptText::_( 'PROFILETYPE_SETTINGS' ); ?>
 					</legend>
 					<table width="100%">
 						<tr>
 							<td class="key">
-							<label class="hasTip" title="<?php echo JText::_('TITLE'); ?>::<?php echo JText::_('PTYPE TITLE.DESC'); ?>">
+							<label class="hasTip" title="<?php echo JText::_('TITLE'); ?>::<?php echo JText::_('PTYPE_TITLE_DESC'); ?>">
 							<?php echo JText::_('TITLE'); ?></label>
 							</td>	
 							<td>
@@ -67,8 +67,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 						</tr>
 						<tr>
 							<td class="key">
-								<label class="hasTip" title="<?php echo JText::_('Published'); ?>::<?php echo JText::_('PTYPE PUBLISHED.DESC'); ?>">
-								<?php echo XiptText::_('Published');?></label>
+								<label class="hasTip" title="<?php echo JText::_('PUBLISHED'); ?>::<?php echo JText::_('PTYPE_PUBLISHED_DESC'); ?>">
+								<?php echo XiptText::_('PUBLISHED');?></label>
 								</td>
 							<td>
 								<span><?php echo JHTML::_('select.booleanlist',  'published', '', $this->data->published);?></span>
@@ -76,8 +76,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 						</tr>						
 						<tr>	
 						<td class="key">
-								<label class="hasTip" title="<?php echo JText::_('REQUIRE APPROVAL'); ?>::<?php echo JText::_('PTYPE REQUIRE APPROVAL.DESC'); ?>">
-								<?php echo XiptText::_('REQUIRE APPROVAL');?>
+								<label class="hasTip" title="<?php echo JText::_('REQUIRE_APPROVAL'); ?>::<?php echo JText::_('PTYPE_REQUIRE_APPROVAL_DESC'); ?>">
+								<?php echo XiptText::_('REQUIRE_APPROVAL');?>
 								</label>
 						</td>		
 							<td>
@@ -86,8 +86,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 						</tr>
 						<tr>
 							<td class="key">
-								<label class="hasTip" title="<?php echo JText::_('DEFAULT JOOMLA USER TYPE SETTINGS FOR PROFILE'); ?>::<?php echo JText::_('PTYPE DEFAULT JOOMLA USER TYPE SETTINGS FOR PROFILE.DESC'); ?>">
-								<?php echo XiptText::_('DEFAULT JOOMLA USER TYPE SETTINGS FOR PROFILE');?></label>
+								<label class="hasTip" title="<?php echo JText::_('DEFAULT_JOOMLA_USER_TYPE_SETTINGS_FOR_PROFILE'); ?>::<?php echo JText::_('PTYPE_DEFAULT_JOOMLA_USER_TYPE_SETTINGS_FOR_PROFILE_DESC'); ?>">
+								<?php echo XiptText::_('DEFAULT_JOOMLA_USER_TYPE_SETTINGS_FOR_PROFILE');?></label>
 								</td>
 							<!--<td colspan="4"> -->
 							<td>
@@ -96,8 +96,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 						</tr>
 						<tr>	
 							<td class="key">
-								<label class="hasTip" title="<?php echo JText::_('DEFAULT TEMPLATE SETTINGS FOR PROFILE'); ?>::<?php echo JText::_('PTYPE DEFAULT TEMPLATE SETTINGS FOR PROFILE.DESC'); ?>">
-								<?php echo XiptText::_('DEFAULT TEMPLATE SETTINGS FOR PROFILE');?></label>
+								<label class="hasTip" title="<?php echo JText::_('DEFAULT_TEMPLATE_SETTINGS_FOR_PROFILE'); ?>::<?php echo JText::_('PTYPE_DEFAULT_TEMPLATE_SETTINGS_FOR_PROFILE_DESC'); ?>">
+								<?php echo XiptText::_('DEFAULT_TEMPLATE_SETTINGS_FOR_PROFILE');?></label>
 							</td>
 							<td>
 								<?php echo XiptHelperProfiletypes::buildTypes($this->data->template, 'template');?>
@@ -105,8 +105,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 						</tr>
 						<tr>
 							<td class="key">
-								<label class="hasTip" title="<?php echo JText::_('DESCRIPTION OF PROFILE TYPE'); ?>::<?php echo JText::_('PTYPE DESCRIPTION OF PROFILE TYPE.DESC'); ?>">
-								<?php echo XiptText::_('DESCRIPTION OF PROFILE TYPE');?></label>
+								<label class="hasTip" title="<?php echo JText::_('DESCRIPTION_OF_PROFILE_TYPE'); ?>::<?php echo JText::_('PTYPE_DESCRIPTION_OF_PROFILE_TYPE_DESC'); ?>">
+								<?php echo XiptText::_('DESCRIPTION_OF_PROFILE_TYPE');?></label>
 							</td>	
 							<td>
 							<?php 
@@ -121,7 +121,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				
 				<td width="60%">
 					<fieldset>
-						<legend><?php echo XiptText::_( 'Parameters' ); ?>	</legend>
+						<legend><?php echo XiptText::_( 'PARAMETERS' ); ?>	</legend>
 						<table width="100%">
 							<tr><td>
 							<?php echo $this->pane->startPane("parameters-pane");?>
@@ -129,8 +129,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<table>
 								<tr>
 								<td class="key" >
-								<label class="hasTip" title="<?php echo XiptText::_('DEFAULT AVATAR');?>::<?php echo JText::_('DEFAULT AVATAR.DESC'); ?>">
-									<?php echo XiptText::_('DEFAULT AVATAR');?></label>
+								<label class="hasTip" title="<?php echo XiptText::_('DEFAULT_AVATAR');?>::<?php echo JText::_('DEFAULT_AVATAR_DESC'); ?>">
+									<?php echo XiptText::_('DEFAULT_AVATAR');?></label>
 									</td>
 
 									<td><div>							
@@ -148,14 +148,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 								<tr><td></td>						
 									<td><span class="editlinktip">
 										<?php $link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task=removeAvatar&id='.$this->data->id.'&oldAvatar='.$this->data->avatar, false); ?>
-										<a href="<?php echo $link; ?>"><?php echo XiptText::_('Remove Avatar'); ?></a>
+										<a href="<?php echo $link; ?>"><?php echo XiptText::_('REMOVE_AVTAR'); ?></a>
 										</span>								
 									</td>
 								</tr>
 										
 								<tr>
 								<td class="key" >
-								<label class="hasTip" title="<?php echo XiptText::_('VISIBLE');?>::<?php echo JText::_('VISIBLE.DESC'); ?>">
+								<label class="hasTip" title="<?php echo XiptText::_('VISIBLE');?>::<?php echo JText::_('VISIBLE_DESC'); ?>">
 									<?php echo XiptText::_('VISIBLE');?>
 								</label></td>
 								<td><span><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->data->visible);?></span></td>
@@ -163,15 +163,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 									
 								<tr>
 								<td class="key" >
-								<label class="hasTip" title="<?php echo XiptText::_('ALLOW TEMPLATE');?>::<?php echo JText::_('ALLOW TEMPLATE.DESC'); ?>">
-									<?php echo XiptText::_('ALLOW TEMPLATE');?>
+								<label class="hasTip" title="<?php echo XiptText::_('ALLOW_TEMPLATE');?>::<?php echo JText::_('ALLOW_TEMPLATE_DESC'); ?>">
+									<?php echo XiptText::_('ALLOW_TEMPLATE');?>
 								</label></td>
 									<td><span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->data->allowt );?></span></td>
 								</tr>
 								<tr>	
 								<td class="key" >
-								<label class="hasTip" title="<?php echo XiptText::_('SELECT DEFAULT GROUP TO ASSIGN');?>::<?php echo JText::_('SELECT DEFAULT GROUP TO ASSIGN.DESC'); ?>">
-									<?php echo XiptText::_('SELECT DEFAULT GROUP TO ASSIGN');?>
+								<label class="hasTip" title="<?php echo XiptText::_('SELECT_DEFAULT_GROUP_TO_ASSIGN');?>::<?php echo JText::_('SELECT_DEFAULT_GROUP_TO_ASSIGN_DESC'); ?>">
+									<?php echo XiptText::_('SELECT_DEFAULT_GROUP_TO_ASSIGN');?>
 								</label>
 								</td>
 									<td><span><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></span></td>			
@@ -181,11 +181,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 							<?php 
 								echo $this->pane->endPanel();								
 								
-								echo $this->pane->startPanel(XiptText :: _('PRIVACY SETTINGS'), 'xiprivacysettings-page');
+								echo $this->pane->startPanel(XiptText :: _('PRIVACY_SETTINGS'), 'xiprivacysettings-page');
 								echo $this->privacyParams->render('privacy');
 								echo $this->pane->endPanel();
 								
-								echo $this->pane->startPanel(XiptText :: _('REGISTRATION'), 'xiconfiguration-page');
+								echo $this->pane->startPanel(XiptText::_('REGISTRATION'), 'xiconfiguration-page');
 								echo $this->configParams->render('config');
 								echo $this->pane->endPanel();
 							
@@ -193,8 +193,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 								echo $this->watermarkParams->render('watermarkparams');
 								echo $this->pane->endPanel();
 								
-								echo $this->pane->startPanel(XiptText :: _('RESET ALL'), 'resetall-page');
-								echo XiptText::_('On saving, do you want to reset properties of all existing users');	
+								echo $this->pane->startPanel(XiptText::_('RESET_ALL'), 'resetall-page');
+								echo XiptText::_('ON_SAVING_DO_YOU_WANT_TO_RESET_PROPERTIES_OF_ALL_EXISTING_USERS');	
 								echo JHTML::_('select.booleanlist',  'resetAll', '', '0' );
 								echo $this->pane->endPanel();
 								
@@ -216,5 +216,4 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 <?php 
-
 

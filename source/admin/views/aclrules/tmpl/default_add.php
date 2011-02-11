@@ -13,7 +13,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 		
 		if( myvalue.value == 0)
 		{
-			alert( "<?php echo XiptText::_( 'PLEASE SELECT A ACL FROM LIST'); ?>" );
+			alert( "<?php echo XiptText::_( 'PLEASE_SELECT_A_ACL_FROM_LIST'); ?>" );
 			return false;
 		}
 		return true;
@@ -37,7 +37,7 @@ jQuery(document).ready(function($){
 </script>
 
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
-	<?php echo XiptText::_('SELECT ACL TO USE');?>
+	<?php echo XiptText::_('SELECT_ACL_TO_USE');?>
 </div>
 
 <div id="error-notice" style="color: red; font-weight:700;"></div>

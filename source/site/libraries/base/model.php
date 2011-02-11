@@ -146,14 +146,14 @@ abstract class XiptModel extends JModel
 	{
 		if(isset($data)===false || count($data)<=0)
 		{			
-			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("NO DATA TO SAVE"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("NO_DATA_TO_SAVE"));
 			return false;
 		}
 
 		//load the table row
 		$table = $this->getTable();
 		if(!$table){
-			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("TABLE DOES NOT EXIST"),$table));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,sprintf(XiptText::_("TABLE_DOES_NOT_EXIST"),$table));
 			return false;
 		}
 	
@@ -166,7 +166,7 @@ abstract class XiptModel extends JModel
 		//if we have itemid then we MUST load the record
 		// else this is a new record
 		if($pk && $table->load($pk)===false){
-			XiptError::raiseError(XiptText::_("NOT ABLE TO LOAD DATA"));
+			XiptError::raiseError(XiptText::_("NOT_ABLE_TO_LOAD_DATA"));
 			return false;
 		}
 
@@ -179,7 +179,7 @@ abstract class XiptModel extends JModel
 			return $table->{$table->getKeyName()};
 
 		//some error occured
-		XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("NOT ABLE TO SAVE DATA"));
+		XiptError::raiseError(__CLASS__.'.'.__LINE__, XiptText::_("NOT_ABLE_TO_SAVE_DATA"));
 		return false;
 	}
 
@@ -199,7 +199,7 @@ abstract class XiptModel extends JModel
 	    if($table->delete($filters,$glue))
 	    	return true;
 
-		XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_('NOT ABLE TO DELETE DATA'));		
+		XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_('NOT_ABLE_TO_DELETE_DATA'));		
 		return false;
 	}
 
@@ -208,7 +208,7 @@ abstract class XiptModel extends JModel
 	 */
 	public function order($pk, $change)
 	{
-		XiptError::assert($pk, XiptText::_("PRIMARY KEY $pk DOES NOT EXIST"), XiptError::ERROR);
+		XiptError::assert($pk, XiptText::_("PRIMARY_KEY $pk DOES_NOT_EXIST"), XiptError::ERROR);
 
 		//load the table row
 		$table = $this->getTable();
@@ -221,7 +221,7 @@ abstract class XiptModel extends JModel
 			return true;
 
 		//some error occured
-		XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("NOT ABLE TO LOAD DATA"));
+		XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("NOT_ABLE_TO_LOAD_DATA"));
 		return false;
 	}
 	
@@ -259,9 +259,9 @@ abstract class XiptModel extends JModel
 	function saveParams($data, $id, $what = '')
 	{
 
-	    XiptError::assert($id, XiptText::_("ID $id DOES NOT EXIST"), XiptError::ERROR);
+	    XiptError::assert($id, XiptText::_("ID $id DOES_NOT_EXIST"), XiptError::ERROR);
 		
-		XiptError::assert($what, XiptText::_("PARAM $what DOES NOT EXIST"), XiptError::ERROR);
+		XiptError::assert($what, XiptText::_("PARAM $what DOES_NOT_EXIST"), XiptError::ERROR);
 		
 		if(empty($data) || !is_array($data))
 			return false;
@@ -285,7 +285,7 @@ abstract class XiptModel extends JModel
 		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");
 		$iniData	= JFile::read($iniPath);
 
-		XiptError::assert(JFile::exists($xmlPath), XiptText::_("FILE $xmlPath DOES NOT EXIST"), XiptError::ERROR);
+		XiptError::assert(JFile::exists($xmlPath), XiptText::_("FILE $xmlPath DOES_NOT_EXIST"), XiptError::ERROR);
 			
 		$config = new JParameter($iniData,$xmlPath);
 		if(isset($record[$id])) $config->bind($record[$id]->$what);	

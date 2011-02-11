@@ -30,7 +30,7 @@ class XiptFieldsTemplatesBase
 				
 		if(class_exists($classname, true)===false)
 		{
-			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("$className : Class not found"));
+			XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_("$className : CLASS_NOT_FOUND"));
 			return false;
 		}
 			

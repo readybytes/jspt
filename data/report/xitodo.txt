@@ -12,7 +12,6 @@
 ../packages/tmp/admin/views/profilefields/view.html.php:26:		//XITODO : duplicate call, remove it
 ../packages/tmp/admin/views/configuration/view.html.php:107:			// XITODO : show name of profiltype for which configuration is being edited
 ../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:100:		//	XITODO : format it in proper way
-../packages/tmp/install/extensions/xipt_community/xipt_community.php:100:		//	XITODO : format it in proper way
 ../packages/tmp/site/helpers/unhook.php:16:		// XITODO : remove this function
 ../packages/tmp/site/helpers/image.php:177:			//XITODO : here we need to trick as per the JomSocial
 ../packages/tmp/site/helpers/apps.php:58:			// XITODO : improve following condition

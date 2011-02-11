@@ -19,7 +19,7 @@ class XiptSetupRuleJsversion extends XiptSetupBase
 	{
 		if($this->isRequired()){		
 			$requiredSetup['done']     = true;			
-			$requiredSetup['message']  = XiptText::_("UPGRADE JOMSOCIAL, VERSION 1.8.x IS SUPPORTED");
+			$requiredSetup['message']  = XiptText::_("UPGRADE_JOMSOCIAL_VERSION_1_8_x_IS_SUPPORTED");
 			return $requiredSetup;
 		}
 	}

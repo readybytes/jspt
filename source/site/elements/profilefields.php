@@ -51,7 +51,7 @@ class JElementProfilefields extends JElement
 
 		$html .= "<table width='100%' class='paramlist admintable' cellspacing='1'>";
 		$html .= "<tr class='title'>";
-		$html .= "<th width='30%'>".XiptText::_( 'FIELD NAME' )."</th>";
+		$html .= "<th width='30%'>".XiptText::_( 'FIELD_NAME' )."</th>";
 		$html .= '<tr>';
 				
 		$i = 0;

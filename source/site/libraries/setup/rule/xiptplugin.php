@@ -19,7 +19,7 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 			|| XiptHelperUtils::changePluginState('xipt_system', 1) == false)
 			return false;
 			
-		return XiptText::_("PLUGIN ENABLED SUCCESSFULLY");
+		return XiptText::_("PLUGIN_ENABLED_SUCCESSFULLY");
 	}
 	
 	function doRevert()
@@ -53,13 +53,13 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=xiptplugin",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO ENABLE PLUGIN").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_ENABLE_PLUGIN").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message']  = XiptText::_("PLUGINS ARE ENABLED");
+			$requiredSetup['message']  = XiptText::_("PLUGINS_ARE_ENABLED");
 			$requiredSetup['done']  = true;
 		}
 			

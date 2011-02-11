@@ -15,7 +15,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'remove':
-			if( !confirm( '<?php echo XiptText::_('ARE YOU SURE YOU WANT TO DELETE THIS PROFILE TYPE?'); ?>' ) )
+			if( !confirm( "<?php echo XiptText::_('ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_PROFILE_TYPE'); ?>" ) )
 			{
 				break;
 			}
@@ -47,10 +47,10 @@ function submitbutton( action )
 				<?php echo XiptText::_( 'WATERMARK' ); ?>
 			</th>
 			<th width="10%">
-				<?php echo XiptText::_( 'JOOMLA USER TYPE' ); ?>
+				<?php echo XiptText::_( 'JOOMLA_USER_TYPE' ); ?>
 			</th>
 			<th width="5%">
-				<?php echo XiptText::_( 'REQUIRE APPROVAL' ); ?>
+				<?php echo XiptText::_( 'REQUIRE_APPROVAL' ); ?>
 			</th>
 			<th width="5%">
 				<?php echo XiptText::_( 'PUBLISHED' ); ?>

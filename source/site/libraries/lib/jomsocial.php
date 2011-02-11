@@ -35,7 +35,7 @@ class XiptLibJomsocial
     //get required user info from community_users table
 	function getUserDataFromCommunity($userid,$what)
 	{
-		XiptError::assert($what, XiptText::_("INFO IS EMPTY"), XiptError::ERROR);
+		XiptError::assert($what, XiptText::_("INFO_IS_EMPTY"), XiptError::ERROR);
 		
 		static $results = array();
 		$reset = self::cleanStaticCache();
@@ -99,7 +99,7 @@ class XiptLibJomsocial
 		}
 					
 		
-		XiptError::assert($pID, XiptText::_("PID $pID IS NOT VALID"), XiptError::ERROR);
+		XiptError::assert($pID, XiptText::_("PID $pID IS_NOT_VALID"), XiptError::ERROR);
 		$params = XiptLibProfiletypes::getParams($pID);
 
 		if($params)
@@ -138,7 +138,7 @@ class XiptLibJomsocial
 	{
 	    //ensure we are calling it for correct field
 	    XiptError::assert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE
-			, XiptText::_("CUSTOM FIELD DOES NOT EXIST"), XiptError::ERROR);
+			, XiptText::_("CUSTOM_FIELD_DOES_NOT_EXIST"), XiptError::ERROR);
 
 	    // find the profiletype or template field
 	    // dont patch up the database.
@@ -385,7 +385,7 @@ class XiptLibJomsocial
 			$store	= $member->store();
 	
 			// Assert if storing fails
-			XiptError::assert( $store, XiptText::_("DATA IS NOT STORED"), XiptError::ERROR);
+			XiptError::assert( $store, XiptText::_("DATA_IS_NOT_STORED"), XiptError::ERROR);
 	
 			if($member->approved)
 				$groupModel->addMembersCount($gid);

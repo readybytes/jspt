@@ -29,13 +29,13 @@ class XiptSetupRuleDefaultprofiletype extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=defaultprofiletype",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO SET DEFAULT PROFILETYPE").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_SET_DEFAULT_PROFILETYPE").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message'] = XiptText::_("DEFAULT PROFILETYPE EXIST");
+			$requiredSetup['message'] = XiptText::_("DEFAULT_PROFILETYPE_EXIST");
 			$requiredSetup['done'] = true;
 		}
 			

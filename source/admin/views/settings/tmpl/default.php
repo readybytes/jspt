@@ -33,17 +33,17 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 <div class="col width-45" style="float:left;">
 <fieldset class="adminform">
-<legend><?php echo XiptText::_( 'BASIC SETTINGS' ); ?></legend>
+<legend><?php echo XiptText::_( 'BASIC_SETTINGS' ); ?></legend>
 	<div>
 		<fieldset class="adminform" id="basicPtypeSettings">
-		<legend><?php echo XiptText::_( 'PROFILE TYPE SETTINGS' ); ?></legend>
+		<legend><?php echo XiptText::_( 'PROFILE_TYPE_SETTINGS' ); ?></legend>
 		<?php echo $this->settingsParams->render('settings','basicPtypeSettings');?>
 		</fieldset>
 	</div>
 	
 	<div>
 		<fieldset class="adminform" id="basicIntegrationSettings">
-		<legend><?php echo XiptText::_( 'INTEGRATION SETTINGS' ); ?></legend>
+		<legend><?php echo XiptText::_( 'INTEGRATION_SETTINGS' ); ?></legend>
 		<?php echo $this->settingsParams->render('settings','basicIntegrationSettings');?>
 		</fieldset>
 	</div>
@@ -54,33 +54,33 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 <div class="col width-45" style="float:right;">
 <fieldset class="adminform">
-<legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE SETTINGS' ); ?></legend>
+<legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE_SETTINGS' ); ?></legend>
 	<div id="xiptAdvanceSettings">
 	
 		<div>
 			<fieldset class="adminform" id="advPtypeSettings">
-			<legend><?php echo XiptText::_( 'PROFILE TYPE SETTINGS' ); ?></legend>
+			<legend><?php echo XiptText::_( 'PROFILE_TYPE_SETTINGS' ); ?></legend>
 			<?php echo $this->settingsParams->render('settings','advPtypeSettings');?>
 			</fieldset>
 		</div>
 		
 		<div>
 			<fieldset class="adminform" id="advRegistrationSettings">
-			<legend><?php echo XiptText::_( 'REGISTRATION SETTINGS' ); ?></legend>
+			<legend><?php echo XiptText::_( 'REGISTRATION_SETTINGS' ); ?></legend>
 			<?php echo $this->settingsParams->render('settings','advRegistrationSettings');?>
 			</fieldset>
 		</div>	
 		
 		<div>
 			<fieldset class="adminform" id="advAppsSettings">
-			<legend><?php echo XiptText::_( 'APPLICATION SETTINGS' ); ?></legend>
+			<legend><?php echo XiptText::_( 'APPLICATION_SETTINGS' ); ?></legend>
 			<?php echo $this->settingsParams->render('settings','advAppsSettings');?>
 			</fieldset>
 		</div>		
 				
 		<div>
 			<fieldset class="adminform" id="advAecSettings">
-			<legend><?php echo XiptText::_( 'AEC SETTINGS' ); ?></legend>
+			<legend><?php echo XiptText::_( 'AEC_SETTINGS' ); ?></legend>
 			<?php echo $this->settingsParams->render('settings','advAecSettings');?>
 			</fieldset>
 		</div>

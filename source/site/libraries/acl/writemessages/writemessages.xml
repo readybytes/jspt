@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 <params addpath="/administrator/components/com_xipt/elements" >
-	<param name="other_profiletype" type="profiletypes" addall="true" default="" label="OTHER PROFILETYPE TO WRITE MESSAGES.Lable" description="OTHER PROFILETYPE TO WRITE MESSAGES.Desc" />
-	<param name="writemessage_limit" type="text" default="" label="TOTAL WRITE MESSAGE LIMIT.LABEL" description="NO OF TOTAL WRITE MESSAGE MAXIMUM LIMIT.DESC" />
-	<param name="acl_applicable_to_friend" type="radio" size="50" default="0" label="APPLICABLE TO FRIEND.Label" description="APPLICABLE TO FRIEND.Desc">
+	<param name="other_profiletype" type="profiletypes" addall="true" default="" label="OTHER_PROFILETYPE_TO_WRITE_MESSAGES_LABLE" description="OTHER_PROFILETYPE_TO_WRITE_MESSAGES_DESC" />
+	<param name="writemessage_limit" type="text" default="" label="TOTAL_WRITE_MESSAGE_LIMIT_LABEL" description="NO_OF_TOTAL_WRITE_MESSAGE_MAXIMUM_LIMIT_DESC" />
+	<param name="acl_applicable_to_friend" type="radio" size="50" default="0" label="APPLICABLE_TO_FRIEND_LABLE" description="APPLICABLE_TO_FRIEND_DESC">
 		<option value="0">No</option>
 		<option value="1">Yes</option>
 	</param>
