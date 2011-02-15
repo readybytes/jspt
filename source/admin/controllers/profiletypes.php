@@ -150,7 +150,7 @@ class XiptControllerProfiletypes extends XiptController
 			$session->clear('oldPtData','jspt');
 			$session->clear('newPtData','jspt');
 			$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task='.$preTask.'&id='.$id.'', false);
-			$mainframe = JFactory::getApplication();
+			$mainframe	=& JFactory::getApplication();
 			$mainframe->redirect($link, $info['msg']);
 		}
 		
@@ -170,7 +170,7 @@ class XiptControllerProfiletypes extends XiptController
 		foreach ($users as $user)
 			XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
 	
-		$mainframe = JFactory::getApplication();
+		$mainframe	=& JFactory::getApplication();
 		$start = $start+1;
 		
 		if(!XIPT_TEST_MODE == 0)

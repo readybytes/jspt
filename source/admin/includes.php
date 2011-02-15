@@ -14,8 +14,6 @@ define('DEFINE_ADMIN_INCLUDES','DEFINE_ADMIN_INCLUDES');
 //	This is file for BACKEND only, should be included in starting file only.
 jimport( 'joomla.filesystem.file' );
 jimport( 'joomla.filesystem.folder' );
-
-
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 XiptLoader::addAutoLoadViews(XIPT_ADMIN_PATH_VIEWS, JRequest::getCmd('format','html'),	'Xipt');

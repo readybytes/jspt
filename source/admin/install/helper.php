@@ -336,7 +336,7 @@ class XiptHelperInstall
 
 	function _isTableExist($tableName)
 	{
-		$mainframe=JFactory::getApplication();;
+		$mainframe	=& JFactory::getApplication();
 
 		$tables	= array();
 	
@@ -423,7 +423,7 @@ class XiptHelperInstall
 		require_once JPATH_ROOT .DS. 'components' .DS. 'com_xipt' .DS. 'defines.php';
 		$db		= JFactory::getDBO();
 		$query	= 'UPDATE #__xipt_settings'
-				.' SET '. $db->nameQuote('params') .' = '.$db->Quote('@global.version@.@svn.lastrevision@')
+				.' SET '. $db->nameQuote('params') .' = '.$db->Quote('3.0.507')
 				.' WHERE '. $db->nameQuote('name') .' = '.$db->Quote('version');
 		$db->setQuery($query);
 		return $db->query();

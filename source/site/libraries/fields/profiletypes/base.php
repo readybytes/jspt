@@ -89,7 +89,7 @@ class XiptFieldsProfiletypesBase
 			return $html.$pName;
 		}
 		
-		global $mainframe;
+		$mainframe	=& JFactory::getApplication();
 		if($mainframe->isAdmin()==true)
 			$filter	= array('published'=>1);
 		else

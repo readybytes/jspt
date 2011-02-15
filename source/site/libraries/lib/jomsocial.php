@@ -70,7 +70,13 @@ class XiptLibJomsocial
 		$user 			= CFactory::getUser($userid);
 		$authorize		= JFactory::getACL();
 		$user->set('usertype',$newUsertype);
-		$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
+		if (XIPT_JOOMLA_15){
+			$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
+		}
+		if (XIPT_JOOMLA_16){
+			$group = CACL::getInstance();
+			JUserHelper::addUserToGroup($userid, $group->getGroupID($newUsertype));
+		}
 		
 		$user->save();
 		

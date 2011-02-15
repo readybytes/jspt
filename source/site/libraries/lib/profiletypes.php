@@ -265,9 +265,8 @@ class XiptLibProfiletypes
 	        default :
 	            XiptError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
 	    }
-			
-		if($userid >= 62)	
-			$results = XiptFactory::getInstance('users','model')->loadRecords(0);   
+
+		$results = XiptFactory::getInstance('users','model')->loadRecords(0);
 				
 		// not a valid result OR value not set
 		if(!$results || isset($results[$userid]) == false){
