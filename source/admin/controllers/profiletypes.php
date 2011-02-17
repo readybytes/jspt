@@ -124,7 +124,7 @@ class XiptControllerProfiletypes extends XiptController
 		return $info;
 	}
 	
-	//this function wil reset users in chunks 
+	//this function will reset users in chunks 
 	function resetall($id = 0, $limit = 100, $start = 0){
 		
 		

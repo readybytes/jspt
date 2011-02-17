@@ -75,7 +75,8 @@ class XiptLibJomsocial
 		}
 		if (XIPT_JOOMLA_16){
 			$group = CACL::getInstance();
-			JUserHelper::addUserToGroup($userid, $group->getGroupID($newUsertype));
+			$groups[]=$group->getGroupID($newUsertype);			
+			JUserHelper::setUserGroups($userid,$groups);
 		}
 		
 		$user->save();

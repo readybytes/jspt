@@ -13,7 +13,6 @@ class XiptControllerProfiletypesTest extends XiUnitTestCase
   		$limit = 2;
   		require_once(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'libraries'.DS.'base'.DS.'model.php');
   		$model = XiptFactory::getInstance('profiletypes','Model');
-  		
   		$oldData = $model->loadRecords(0);
   		$oldData = $oldData[$id];
   		$newData = $model->loadRecords(0);

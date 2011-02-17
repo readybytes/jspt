@@ -31,12 +31,12 @@
 ../packages/tmp/site/api.xipt.php:8:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/site/elements/colorbox/jscolor.js:826:		// require images
 ../packages/tmp/site/includes.php:14:// include JomSocial files
-../packages/tmp/site/includes.php:21:// require_once defines.php
-../packages/tmp/site/includes.php:22:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
-../packages/tmp/site/includes.php:23:require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
-../packages/tmp/site/includes.php:52:// include JomSocial files
-../packages/tmp/site/includes.php:90:		// Only include the zend loader if it has not been loaded first
-../packages/tmp/site/includes.php:91:		include_once(JPATH_ROOT . DS.'plugins'.DS.'system'.DS.'Zend/Loader/Autoloader.php');
+../packages/tmp/site/includes.php:23:// require_once defines.php
+../packages/tmp/site/includes.php:24:require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
+../packages/tmp/site/includes.php:25:require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
+../packages/tmp/site/includes.php:54:// include JomSocial files
+../packages/tmp/site/includes.php:92:		// Only include the zend loader if it has not been loaded first
+../packages/tmp/site/includes.php:93:		include_once(JPATH_ROOT . DS.'plugins'.DS.'system'.DS.'Zend/Loader/Autoloader.php');
 ../packages/tmp/site/xipt.php:9:require_once JPATH_SITE.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 ../packages/tmp/site/libraries/acl/factory.php:46:		require_once $path;
 ../packages/tmp/site/libraries/acl/helper.php:122:		include_once($msgFile);

@@ -83,6 +83,17 @@ class XiDBCheck
         		$auArr=array();
         	if(!$logArr)
         		$logArr=array();
+        			
+			// supporting JSON v/s INI formats in parameters
+        	$param = new JParameter();
+        	foreach($allcol as $columnName){
+        		$format = JString::strpos($logArr[$columnName], '{') ? 'JSON' : 'INI';
+        		$logArr[$columnName] = $param->loadString($logArr[$columnName], $format);
+        		
+        		$format = JString::strpos($auArr[$columnName], '{') ? 'JSON' : 'INI';
+        		$auArr[$columnName]  = $param->loadArray($auArr[$columnName], $format);
+        	}
+     	
             if($diff = array_diff_assoc($auArr,$logArr))
             {
                 $error = "\n \n \n Table " . $tableName . " mismatched"

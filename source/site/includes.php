@@ -18,6 +18,8 @@ jimport( 'joomla.application.component.helper' );
 //import JParameter for making joomla 1.6 compatible
 jimport('joomla.html.parameter');
 jimport('joomla.user.helper');
+jimport('joomla.plugin.helper');
+
 // require_once defines.php
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
 require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
