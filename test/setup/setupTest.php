@@ -24,7 +24,7 @@ class SetupTest extends XiSelTestCase
 		$this->assertTrue($this->isTextPresent("Uninstall Component Success"));
   }
   
-  function testCommunityInstall()
+  function XtestCommunityInstall()
   {
 	    // setup default location 
 	    $this->adminLogin();
@@ -258,11 +258,8 @@ class SetupTest extends XiSelTestCase
   
   function testUnhook()
   {
-	//XITODO : use changepluginState fn here  	
-	$sql = " UPDATE `#__extensions` SET `published` = '1' WHERE  `type`='plugin' AND `element` ='xipt_system' LIMIT 1";
-  	$this->_DBO->execSql($sql);
-	$sql="UPDATE `#__extensions` SET `published` = '1' WHERE `type`='plugin' AND element` ='xipt_community' LIMIT 1";
-    $this->_DBO->execSql($sql);
+  	$this->changePluginState('xipt_system', 1);
+  	$this->changePluginState('xipt_community', 1);
   	// setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup&task=display");
@@ -277,23 +274,11 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage5']/img[contains(@src,'images/publish_x.png')]"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupMessage1']/a"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage1']/img[contains(@src,'images/publish_x.png')]"));
+    
     //check xipt_system plugin disabled or not
-	//XITODO : use verifyPluginState fn here
-	
-    $db	=& JFactory::getDBO();
-    $query	= " SELECT `published` FROM `#__extensions`"
-			." WHERE `element` ='xipt_system' AND `type`='plugin'"
-			." LIMIT 1";
-	$db->setQuery($query);
-	$result = $db->loadObject();
-	$this->assertEquals($result->published,0);
-	//check xipt_community plugin disabled or not
-	$query	= " SELECT `published` FROM `#__extensions`"
-			." WHERE `element` ='xipt_community' AND `type`='plugin'"
-			." LIMIT 1";
-	$db->setQuery($query);
-	$result = $db->loadObject();
-	$this->assertEquals($result->published,0);  	
+	$this->verifyPluginState('xipt_system',false);
+	$this->verifyPluginState('xipt_community',false);
+
     $this->click("//td[@id='setupMessage4']/a");
     $this->waitPageLoad();
     $this->click("//td[@id='setupMessage5']/a");

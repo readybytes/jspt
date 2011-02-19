@@ -86,7 +86,7 @@ class XiDBCheck
         			
 			// supporting JSON v/s INI formats in parameters
         	$param = new JParameter();
-        	foreach($allcol as $columnName){
+        	foreach($fields as $columnName){
         		$format = JString::strpos($logArr[$columnName], '{') ? 'JSON' : 'INI';
         		$logArr[$columnName] = $param->loadString($logArr[$columnName], $format);
         		

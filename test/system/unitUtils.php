@@ -59,7 +59,7 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
 		$newParams->set($key,$value);
 		
 	$paraStr = '';
-	$allData = $newParams->_registry['_default']['data']; 
+	$allData = $newParams->toArray(); 
 	foreach ($allData as $key => $value)
 		$paraStr .= "$key=$value\n";
 		
@@ -86,7 +86,7 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
 		$newParams->set($key,$value);
 		
 	$paraStr = '';
-	$allData = $newParams->_registry['_default']['data']; 
+	$allData = $newParams->toArray(); 
 	foreach ($allData as $key => $value)
 		$paraStr .= "$key=$value\n";
 		

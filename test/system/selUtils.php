@@ -160,7 +160,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
 		$newParams->set($key,$value);
 		
 	$paraStr = '';
-	$allData = $newParams->_registry['_default']['data']; 
+	$allData = $newParams->toArray(); 
 	foreach ($allData as $key => $value)
 		$paraStr .= "$key=$value\n";
 		
@@ -187,7 +187,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
 		$newParams->set($key,$value);
 		
 	$paraStr = '';
-	$allData = $newParams->_registry['_default']['data']; 
+	$allData = $newParams->toArray(); 
 	foreach ($allData as $key => $value)
 		$paraStr .= "$key=$value\n";
 		
@@ -229,16 +229,16 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   {
   	
 		$db			=& JFactory::getDBO();
+		// when Jommla Version 1.6
 		if(TEST_XIPT_JOOMLA_16){
 			$query	= 'UPDATE ' . $db->nameQuote( '#__extensions' )
 			. ' SET '.$db->nameQuote('enabled').'='.$db->Quote($action)
 	        .' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
 		}
-		elseif(TEST_XIPT_JOOMLA_15){
+		else{
 				$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
 				. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
-	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
-			
+	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);			
 		}
 		
 		$db->setQuery($query);		
