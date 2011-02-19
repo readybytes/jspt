@@ -158,7 +158,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 								<label class="hasTip" title="<?php echo XiptText::_('VISIBLE');?>::<?php echo JText::_('VISIBLE_DESC'); ?>">
 									<?php echo XiptText::_('VISIBLE');?>
 								</label></td>
-								<td><span><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->data->visible);?></span></td>
+								<td><?php echo JHTML::_('select.booleanlist',  'visible', '', $this->data->visible);?></td>
 								</tr>
 									
 								<tr>
@@ -166,7 +166,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 								<label class="hasTip" title="<?php echo XiptText::_('ALLOW_TEMPLATE');?>::<?php echo JText::_('ALLOW_TEMPLATE_DESC'); ?>">
 									<?php echo XiptText::_('ALLOW_TEMPLATE');?>
 								</label></td>
-									<td><span><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->data->allowt );?></span></td>
+									<td><?php echo JHTML::_('select.booleanlist',  'allowt', '', $this->data->allowt );?></td>
 								</tr>
 								<tr>	
 								<td class="key" >
@@ -174,7 +174,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 									<?php echo XiptText::_('SELECT_DEFAULT_GROUP_TO_ASSIGN');?>
 								</label>
 								</td>
-									<td><span><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></span></td>			
+									<td><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></td>			
 								</tr>
 									
 							</table>

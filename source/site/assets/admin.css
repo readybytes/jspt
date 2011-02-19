@@ -54,3 +54,47 @@
 	background-image:  url(images/applications.gif);
 	background-repeat:no-repeat;
 	}
+	
+/* CSS for Joomla1.6 */
+
+fieldset.adminform { /* General use */
+	margin: 5px;
+	overflow: hidden;
+	}
+	
+.hasTip, .admintable td.key { /* Key text - General use */
+	background-color: #F6F6F6;
+	border-bottom: 1px solid #E9E9E9;
+	border-right: 1px solid #E9E9E9;
+	color: #666666;
+	font-size: 12px;
+	font-weight: bold;
+	margin-right: 5px;
+	padding-right: 5px;
+	width: 150px;
+	}
+	
+label.radiobtn-no, label.radiobtn-yes, label.radiobtn-joomla, label.radiobtn-jomsocial, .radiobtn-owner, .radiobtn-visitor, .radiobtn-both{ /* Value text */
+	clear:none;
+	padding-right:5px;
+	}
+		
+label[class="radiobtn-select box"], label[class="radiobtn-radio options"]{
+	clear:none;
+	padding-right:	5px;
+	}
+	
+label[class="radiobtn-both, plan and profiletype"], label[class="radiobtn-only plan"], label[class="radiobtn-only profiletype"]{
+	clear:none;
+	padding-right:	5px;
+	}
+	
+.radiobtn-public , .radiobtn-member, .radiobtn-friend, .radiobtn-self {
+	clear:none;
+	padding-right:	5px;
+}
+
+.admintable td .radiobtn-no, .admintable td .radiobtn-yes, .admintable td .radiobtn-show, .admintable td .radiobtn-hide, .admintable td .radiobtn-sidebar, .admintable td label[class="radiobtn-main content"]{ /* Value text */
+	clear:none;
+	padding-right:5px;
+	}

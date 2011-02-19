@@ -29,9 +29,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 <script type="text/javascript">jQuery.noConflict();</script>
 
 
-<form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm">
+<form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm" id="adminForm">
 
-<div class="col width-45" style="float:left;">
+<div class="width-50" style="float:left;">
 <fieldset class="adminform">
 <legend><?php echo XiptText::_( 'BASIC_SETTINGS' ); ?></legend>
 	<div>
@@ -52,7 +52,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 </div>
 
 
-<div class="col width-45" style="float:right;">
+<div class="width-50" style="float:right;">
 <fieldset class="adminform">
 <legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE_SETTINGS' ); ?></legend>
 	<div id="xiptAdvanceSettings">

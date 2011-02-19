@@ -6,12 +6,12 @@
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
-<form action="index.php" method="post" name="adminForm" enctype="multipart/form-data">
+<form action="index.php" id="application-form" method="post" name="adminForm" enctype="multipart/form-data">
 <div id="config-document">
 	<div id="page-main">
-		<table class="noshow">
+		<table class="admintable" cellspacing="1">
 			<tr>
-				<td>
+				<td width="44%">
 					<?php require_once( $this->jsConfigPath . DS . 'registrations.php' ); ?>
 					<?php require_once( $this->jsConfigPath . DS . 'reportings.php' ); ?>
 					<?php require_once( $this->jsConfigPath . DS . 'messaging.php' ); ?>
