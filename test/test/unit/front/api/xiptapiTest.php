@@ -4,7 +4,10 @@ class XiptapiTest extends XiUnitTestCase
 {
 	function getSqlPath()
 	{
-		return dirname(__FILE__).'/sql/'.__CLASS__;
+		if (TEST_XIPT_JOOMLA_15)
+			return dirname(__FILE__).'/sql/'.__CLASS__;
+		if (TEST_XIPT_JOOMLA_16)
+			return dirname(__FILE__).'/sql16/'.__CLASS__;
 	}
 	
 	function testGetUserProfiletype()
@@ -24,7 +27,11 @@ class XiptapiTest extends XiUnitTestCase
 	
 	function testSetUserProfiletype()
 	{
-		$this->reloadUser(array(62,79,80,81,82,83,84,85,86,87));
+		if (TEST_XIPT_JOOMLA_16)
+			$this->reloadUser(array(42,79,80,81,82,83,84,85,86,87));
+		if (TEST_XIPT_JOOMLA_15)
+			$this->reloadUser(array(62,79,80,81,82,83,84,85,86,87));
+		
 		//#case 1: update user PTData, by default it will update all data
 		$this->assertTrue(XiptAPI::setUserProfiletype(79, 2));
 		
@@ -34,17 +41,27 @@ class XiptapiTest extends XiUnitTestCase
 		$this->_DBO->addTable('#__xipt_users');
 		$this->_DBO->addTable('#__community_users');
 		$this->_DBO->addTable('#__users');
-		$this->reloadUser(array(62,79,80,81,82,83,84,85,86,87));
+
+		if (TEST_XIPT_JOOMLA_16)
+			$this->reloadUser(array(42,79,80,81,82,83,84,85,86,87));
+		if (TEST_XIPT_JOOMLA_15)
+			$this->reloadUser(array(62,79,80,81,82,83,84,85,86,87));
 	}
 	
 	function testGetProfiletypeInfo()
 	{
 		//#case 1:When no PT is available
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo1.start.sql');
+		if (TEST_XIPT_JOOMLA_16)
+			$this->_DBO->loadSql(dirname(__FILE__).'/sql16/'.__CLASS__.'/testGetProfiletypeInfo1.start.sql');
+		if (TEST_XIPT_JOOMLA_15)
+			$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo1.start.sql');
 		$this->assertEquals(XiptAPI::getProfiletypeInfo(1), null);
 		
 		//#case 2:When no PT id is given, return all PTs info
-		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo2.start.sql');
+		if (TEST_XIPT_JOOMLA_16)
+			$this->_DBO->loadSql(dirname(__FILE__).'/sql16/'.__CLASS__.'/testGetProfiletypeInfo2.start.sql');
+		if (TEST_XIPT_JOOMLA_15)
+			$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo2.start.sql');
 		
 		$obj1 					= new stdClass();
 	  	$obj1->id 				= 1;

@@ -85,12 +85,12 @@
 ../packages/tmp/site/libraries/lib/jomsocial.php:79:			JUserHelper::setUserGroups($userid,$groups);
 ../packages/tmp/site/libraries/lib/jomsocial.php:96:		if(JFactory::getApplication()->isAdmin())
 ../packages/tmp/site/libraries/lib/jomsocial.php:99:		$loggedInUser = JFactory::getUser($userId);
-../packages/tmp/site/libraries/lib/jomsocial.php:168:		$db = JFactory::getDBO();
-../packages/tmp/site/libraries/lib/jomsocial.php:248:		if(JFactory::getConfig()->getValue('debug'))
-../packages/tmp/site/libraries/lib/jomsocial.php:379:			$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:380:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:411:		$group		= JTable::getInstance( 'Group' , 'CTable' );
-../packages/tmp/site/libraries/lib/jomsocial.php:429:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:177:		$db = JFactory::getDBO();
+../packages/tmp/site/libraries/lib/jomsocial.php:257:		if(JFactory::getConfig()->getValue('debug'))
+../packages/tmp/site/libraries/lib/jomsocial.php:388:			$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:389:			$member		= JTable::getInstance( 'GroupMembers' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:420:		$group		= JTable::getInstance( 'Group' , 'CTable' );
+../packages/tmp/site/libraries/lib/jomsocial.php:438:			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
 ../packages/tmp/site/libraries/fields/profiletypes/base.php:14:	var $_mainframe;
 ../packages/tmp/site/libraries/fields/profiletypes/base.php:21:		$this->_mainframe = JFactory::getApplication();
 ../packages/tmp/site/libraries/fields/profiletypes/base.php:69:		$user    =& JFactory::getUser();

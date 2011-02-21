@@ -114,8 +114,12 @@ class XiptLibJomsocial
 			//$allParams = $params->_registry['_default']['data']; 
 		    $allParams = $params->renderToArray();
 		    if($allParams)
-			foreach($allParams as $key => $value)
-				$instance->set($key,$value); 
+			foreach($allParams as $key => $value){
+				//if(XIPT_JOOMLA_16)
+					//$instance->_jparams->set($key,$value);
+				//else
+					$instance->set($key,$value);
+			}
 		}
 
 		//means guest is looking user profile ,
@@ -135,8 +139,12 @@ class XiptLibJomsocial
 		$template = XiptLibProfiletypes::getUserData($visitingUser,'TEMPLATE');
 
 		//now update template @template
-		if($template) 
-			$instance->set('template',$template);
+		if($template){
+			//if(XIPT_JOOMLA_16)
+					//$instance->_jparams->set('template',$template);
+			//else 
+				$instance->set('template',$template);
+		}
 			
 		return true;
 	}
