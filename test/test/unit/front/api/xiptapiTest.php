@@ -4,10 +4,7 @@ class XiptapiTest extends XiUnitTestCase
 {
 	function getSqlPath()
 	{
-		if (TEST_XIPT_JOOMLA_15)
 			return dirname(__FILE__).'/sql/'.__CLASS__;
-		if (TEST_XIPT_JOOMLA_16)
-			return dirname(__FILE__).'/sql16/'.__CLASS__;
 	}
 	
 	function testGetUserProfiletype()
@@ -51,17 +48,11 @@ class XiptapiTest extends XiUnitTestCase
 	function testGetProfiletypeInfo()
 	{
 		//#case 1:When no PT is available
-		if (TEST_XIPT_JOOMLA_16)
-			$this->_DBO->loadSql(dirname(__FILE__).'/sql16/'.__CLASS__.'/testGetProfiletypeInfo1.start.sql');
-		if (TEST_XIPT_JOOMLA_15)
-			$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo1.start.sql');
+		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo1.start.sql');
 		$this->assertEquals(XiptAPI::getProfiletypeInfo(1), null);
 		
 		//#case 2:When no PT id is given, return all PTs info
-		if (TEST_XIPT_JOOMLA_16)
-			$this->_DBO->loadSql(dirname(__FILE__).'/sql16/'.__CLASS__.'/testGetProfiletypeInfo2.start.sql');
-		if (TEST_XIPT_JOOMLA_15)
-			$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo2.start.sql');
+		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testGetProfiletypeInfo2.start.sql');
 		
 		$obj1 					= new stdClass();
 	  	$obj1->id 				= 1;
