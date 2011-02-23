@@ -12,7 +12,13 @@ class XiptRegistrationControllerTest extends XiUnitTestCase
   	$controller = new XiptControllerRegistration();
   	$this->assertTrue($controller->display('Next', 5));
   	$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
-  	$this->assertEquals($controller->_redirect, $link);
-  	$this->assertEquals($controller->_message, 'INVALID PROFILE TYPE SELECTED');
+    if (TEST_XIPT_JOOMLA_16){
+  		$this->assertEquals($controller->get('redirect'), $link);
+  		$this->assertEquals($controller->get('message'), 'INVALID PROFILE TYPE SELECTED');	
+  	}
+  	if (TEST_XIPT_JOOMLA_15){
+  		$this->assertEquals($controller->_redirect, $link);
+  		$this->assertEquals($controller->_message, 'INVALID PROFILE TYPE SELECTED');
+  	}
   }
 }
