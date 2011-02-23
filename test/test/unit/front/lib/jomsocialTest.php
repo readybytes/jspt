@@ -26,6 +26,10 @@ class JomsocialTest extends XiUnitTestCase
     $result->registration 	= 1;
     $result->options 		= '';
     $result->fieldcode 		= '';
+    
+    if(XIPT_JOOMLA_16)
+    	 $result->params = '';
+    	
 
   	$this->assertEquals($fieldobj, $result);
   	
@@ -45,6 +49,8 @@ class JomsocialTest extends XiUnitTestCase
     $result->registration   = 1;
     $result->options 		= '';
     $result->fieldcode 		= 'FIELD_HOMETOWN4';
+    if(XIPT_JOOMLA_16)
+    	 $result->params = '';
 
   	$this->assertEquals($fieldobj, $result);
   	
@@ -65,14 +71,21 @@ class JomsocialTest extends XiUnitTestCase
     $result->registration   = 1;
     $result->options 		= '';
     $result->fieldcode 		= '';
-
+    
+    if(XIPT_JOOMLA_16)
+    	 $result->params = '';
+    
   	$this->assertEquals($fieldobj, $result);
   }
   
   function testUpdateJoomlaUserType()
   {
   	//case #1: no updates for admin
-  	$this->assertFalse(XiptLibJomsocial::updateJoomlaUserType(62));
+  	$adminId = 62;
+  	if(XIPT_JOOMLA_16)
+  		$adminId = 42;
+
+  	$this->assertFalse(XiptLibJomsocial::updateJoomlaUserType($adminId));
 	
   	//case #2: no updates for nonuser
   	$this->assertFalse(XiptLibJomsocial::updateJoomlaUserType(0));
@@ -212,19 +225,15 @@ class JomsocialTest extends XiUnitTestCase
   {
   	//assert false when group is blank
  	$this->assertFalse(XiptLibJomsocial:: _addUserToGroup(82, ''));
-	$this->_DBO->addTable('#__community_groups_members');
 	
   	//assert false when group is none
   	$this->assertFalse(XiptLibJomsocial:: _addUserToGroup(83, NONE));
-  	$this->_DBO->addTable('#__community_groups_members');
   	
   	//already a member of this group, then don't add it
   	$this->assertTrue(XiptLibJomsocial:: _addUserToGroup(84, 4));
-  	$this->_DBO->addTable('#__community_groups_members');
   	
   	//if user is not a member of group then add it
   	$this->assertTrue(XiptLibJomsocial:: _addUserToGroup(83, 2));
-  	$this->_DBO->addTable('#__community_groups_members');
   	
   	//if user is not a member of group then add it
   	$this->assertTrue(XiptLibJomsocial:: _addUserToGroup(83, '3,4'));
@@ -235,19 +244,15 @@ class JomsocialTest extends XiUnitTestCase
   {
   	//assert false when group is blank
  	$this->assertFalse(XiptLibJomsocial:: _removeUserFromGroup(82, ''));
-	$this->_DBO->addTable('#__community_groups_members');
 	
   	//don't remove user when user is owner of group
   	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(62, 1));
-  	$this->_DBO->addTable('#__community_groups_members');
   	
   	//do nothing when user is not member of group
   	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(84, 1));
-  	$this->_DBO->addTable('#__community_groups_members');
   	
   	//remove user from group
   	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(83, 2));
-  	$this->_DBO->addTable('#__community_groups_members');
   	
   	//remove user from group where user exists
   	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(83, '2,3'));
