@@ -259,7 +259,20 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     if(file_exists($dbDump))
     	$test->_DBO->loadSql($dbDump);
 
-    
+  	if (TEST_XIPT_JOOMLA_15){
+    	$dbDump15      =  $sqlPath.'/15/'.$testName.'.start.sql';
+    	if(file_exists($dbDump15)){
+    		$test->_DBO->loadSql($dbDump15);
+    	}
+    }
+    if (TEST_XIPT_JOOMLA_16){
+    	$dbDump16      =  $sqlPath.'/16/'.$testName.'.start.sql';
+    	if(file_exists($dbDump16)){
+    		$test->_DBO->loadSql($dbDump16);
+		}
+	}
+
+
   }
  
   public function endTest(PHPUnit_Framework_Test $test, $time)
@@ -276,6 +289,19 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     $dbDump        =  $sqlPath.'/'.$testName.'.end.sql';
     if(file_exists($dbDump))
     	$test->_DBO->loadSql($dbDump);
+    	
+  	if (TEST_XIPT_JOOMLA_15){
+    	$dbDump15      =  $sqlPath.'/15/'.$testName.'.end.sql';
+    	if(file_exists($dbDump15)){
+    		$test->_DBO->loadSql($dbDump15);
+    	}
+    }
+    if (TEST_XIPT_JOOMLA_16){
+    	$dbDump16      =  $sqlPath.'/16/'.$testName.'.end.sql';
+    	if(file_exists($dbDump16)){
+    		$test->_DBO->loadSql($dbDump16);
+    	}
+    }
     
     $errors = $test->_DBO->getErrorLog();
     if(!empty($errors)){
