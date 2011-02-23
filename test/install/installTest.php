@@ -12,7 +12,7 @@ class InstallTest extends XiSelTestCase
   }
 
  /** Install Test Case For Jomsocial or com_community**/
- /* function communityUnInstall()
+  function communityUnInstall()
   {
 		 // go to installation
 	     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
@@ -53,7 +53,7 @@ class InstallTest extends XiSelTestCase
 	    	$this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
 	    if (TEST_XIPT_JOOMLA_16)
 	    	$this->click("//input[@value='Install' and @type='button' and @onclick='Joomla.submitbutton4()']"); 	
-	    $this->waitPageLoad();
+	    $this->waitPageLoad("60000");
         if(TEST_XIPT_JOOMLA_15){
 	    	$this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
 	    	$this->waitForPageToLoad("60000");
@@ -84,30 +84,30 @@ class InstallTest extends XiSelTestCase
         	$this->click("//input[@value='Complete your installation']");
     		$this->waitPageLoad();
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
-    		$this->waitPageLoad();
+    		$this->waitPageLoad("60000");
     	}
     	$this->assertTrue($this->isTextPresent("Jom Social"));	
-  }*/
+  }
   
   /**End Of JomSocial Install Test Case**/
 
@@ -285,4 +285,3 @@ function testXiptUninstallReinstall()
     return -1;
   }
 }
-
