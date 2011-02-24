@@ -10,7 +10,7 @@ class ImagePathTest extends XiUnitTestCase
 	function testSaveAvatar() {
 		
 		//Test Plugin function onProfileAvatarUpdate
-	    JDispatcher::getInstance()->_observers= array();
+	    JDispatcher::getInstance()->set('_observers',array());
 		JPluginHelper::importPlugin('community');
 		$subject = JDispatcher::getInstance();
 		$obj = new plgCommunityxipt_community($subject, array());

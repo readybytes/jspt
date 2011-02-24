@@ -24,12 +24,8 @@ class XiptCommunityPluginTest extends XiUnitTestCase
 		$mainframe = JFactory::getApplication();
 		$this->changePluginState('aecuser', 0);
 		$this->changePluginState('aecaccess', 0);
-		if(TEST_XIPT_JOOMLA_15){
-			JDispatcher::getInstance()->_observers= array();
-		}
-		if(TEST_XIPT_JOOMLA_16){
-			JDispatcher::getInstance()->set('_observers',array());
-		}
+		
+		JDispatcher::getInstance()->set('_observers',array());
 		JPluginHelper::importPlugin('system');
 		$subject = JDispatcher::getInstance();
 		$obj = new plgCommunityxipt_community($subject, array());
@@ -42,12 +38,8 @@ class XiptCommunityPluginTest extends XiUnitTestCase
 		$this->assertTrue($obj->onAfterProfileUpdate(84, true));
 		$this->changePluginState('aecuser', 1);
 		$this->changePluginState('aecaccess', 1);
-		if(TEST_XIPT_JOOMLA_15){
-			JDispatcher::getInstance()->_observers= array();
-		}
-		if(TEST_XIPT_JOOMLA_16){
-			JDispatcher::getInstance()->set('_observers',array());
-		}
+		
+		JDispatcher::getInstance()->set('_observers',array());
 		JPluginHelper::importPlugin('system');
 		
 		$filter['debug']=1;

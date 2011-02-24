@@ -44,12 +44,20 @@ class XiptHelperUtils
 	static function changePluginState($plugin, $state=0)
 	{
 		$query = new XiptQuery();
-		
-		$result= $query->update('#__extensions')
+		if (TEST_XIPT_JOOMLA_16){
+			$result= $query->update('#__extensions')
 					 ->set(" `enabled` = $state ")
 	          		 ->where(" `element` = '$plugin' ")
 	          		 ->dbLoadQuery("","")
-	          		 ->query();		
+	          		 ->query();
+		}
+		if (TEST_XIPT_JOOMLA_15){
+			$result= $query->update('#__plugins')
+					 ->set(" `published` = $state ")
+	          		 ->where(" `element` = '$plugin' ")
+	          		 ->dbLoadQuery("","")
+	          		 ->query();
+		}		
 	       return $result;
 	}
 	
@@ -57,11 +65,20 @@ class XiptHelperUtils
 	static function getPluginStatus($plugin)
 	{
 		$query = new XiptQuery();
-		return $query->select('*')
+		if (TEST_XIPT_JOOMLA_16){
+			return $query->select('*')
 					 ->from('#__extensions' )
 					 ->where(" `element` = '$plugin' ")
 					 ->dbLoadQuery("","")
 	          		 ->loadObject();
+		}
+		if (TEST_XIPT_JOOMLA_15){
+			return $query->select('*')
+					 ->from('#__plugins' )
+					 ->where(" `element` = '$plugin' ")
+					 ->dbLoadQuery("","")
+	          		 ->loadObject();
+		}
 	}
 /**
 * Change filePath according to machine.

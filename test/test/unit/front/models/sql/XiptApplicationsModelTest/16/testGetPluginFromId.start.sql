@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS `bk_#__extensions`;;
 CREATE TABLE IF NOT EXISTS `bk_#__extensions` SELECT * FROM `#__extensions`;;
-
 TRUNCATE TABLE `#__extensions`;;
 
 INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`, `client_id`, `enabled`, `access`, `protected`, `manifest_cache`, `params`, `custom_data`, `system_data`, `checked_out`, `checked_out_time`, `ordering`, `state`) VALUES
