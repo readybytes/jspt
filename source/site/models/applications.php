@@ -18,12 +18,22 @@ class XiptModelApplications extends XiptModel
 		if($result== null){
 			$query = new XiptQuery();
 			
-			$result = $query->select('*')
-							->from('#__extensions')
-							->where(" `folder` = 'community' ")
-							->order('ordering')
-							->dbLoadQuery("","")
-							->loadObjectList($indexBy);			
+			if (TEST_XIPT_JOOMLA_16){
+				$result = $query->select('*')
+				        		->from('#__extensions')
+							    ->where(" `folder` = 'community' ")
+								->order('ordering')
+								->dbLoadQuery("","")
+								->loadObjectList($indexBy);
+			}
+			if (TEST_XIPT_JOOMLA_15){
+				$result = $query->select('*')
+				        		->from('#__plugins')
+							    ->where(" `folder` = 'community' ")
+								->order('ordering')
+								->dbLoadQuery("","")
+								->loadObjectList($indexBy);
+			}			
 		}
 		
 		if($pluginId == null && $result)

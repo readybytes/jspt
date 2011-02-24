@@ -12,8 +12,8 @@ class XiptApplicationsModelTest extends XiUnitTestCase
 	function testGetPluginFromId()
 	{
 		$model 	= new XiptModelApplications();
-		$this->assertEquals($model->getPlugin(44)->name,'Walls');
-		$this->assertEquals($model->getPlugin(45)->name,'Feeds');
-		$this->assertEquals($model->getPlugin(46)->name,'Groups'); 
+		$this->assertEquals($model->getPlugin(XIPT_TEST_COMMUNITY_WALLS)->name, 'Walls');
+		$this->assertEquals($model->getPlugin(XIPT_TEST_COMMUNITY_FEEDS)->name, 'Feeds');
+		$this->assertEquals($model->getPlugin(XIPT_TEST_COMMUNITY_ARTICLES)->name, 'My Articles');	
 	}
 }
