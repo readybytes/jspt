@@ -120,10 +120,16 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   {
   	
 		$db		= JFactory::getDBO();
-		$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
+		if(TEST_XIPT_JOOMLA_16){
+			$query	= 'UPDATE ' . $db->nameQuote( '#__extenstions' )
+				. ' SET '.$db->nameQuote('enabled').'='.$db->Quote($action)
+	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
+		}
+		if(TEST_XIPT_JOOMLA_15){
+			$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
 				. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
 	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
-
+		}
 		$db->setQuery($query);		
 		
 		if(!$db->query())

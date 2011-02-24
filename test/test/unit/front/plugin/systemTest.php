@@ -80,7 +80,7 @@ class XiptSystemPluginTest extends XiUnitTestCase
 		$obj = new plgSystemxipt_system($subject, array());
 		$this->assertFalse($obj->onBeforeProfileTypeChange(array()));
 	}
-	
+	//XiToDo :test with AEC0.14.4
 	function testEvent_com_xipt_registration_blank()
 	{
 		$subject = JDispatcher::getInstance();
