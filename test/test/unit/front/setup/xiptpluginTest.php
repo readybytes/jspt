@@ -10,7 +10,8 @@ class XiptpluginTest extends XiUnitTestCase
 	{
 		$obj = new XiptSetupRuleXiptplugin();
 		$this->assertTrue($obj->doRevert());
-		$this->_DBO->addTable('#__plugins');
+		$this->assertFalse($obj->_isPluginInstalledAndEnabled());
+		//$this->_DBO->addTable('#__plugins');
 	}
 	
 	function testIsApplicable()
@@ -65,6 +66,6 @@ class XiptpluginTest extends XiUnitTestCase
 	{
 		$obj = new XiptSetupRuleXiptplugin();
 		$this->assertEquals($obj->doApply(), 'PLUGIN ENABLED SUCCESSFULLY');
-		$this->_DBO->addTable('#__plugins');
+		//$this->_DBO->addTable('#__plugins');
 	}
 }

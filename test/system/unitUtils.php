@@ -121,7 +121,7 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   	
 		$db		= JFactory::getDBO();
 		if(TEST_XIPT_JOOMLA_16){
-			$query	= 'UPDATE ' . $db->nameQuote( '#__extenstions' )
+			$query	= 'UPDATE ' . $db->nameQuote( '#__extensions' )
 				. ' SET '.$db->nameQuote('enabled').'='.$db->Quote($action)
 	          	.' WHERE '.$db->nameQuote('element').'='.$db->Quote($pluginname);
 		}
