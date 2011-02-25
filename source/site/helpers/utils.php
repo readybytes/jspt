@@ -44,14 +44,14 @@ class XiptHelperUtils
 	static function changePluginState($plugin, $state=0)
 	{
 		$query = new XiptQuery();
-		if (TEST_XIPT_JOOMLA_16){
+		if (XIPT_JOOMLA_16){
 			$result= $query->update('#__extensions')
 					 ->set(" `enabled` = $state ")
 	          		 ->where(" `element` = '$plugin' ")
 	          		 ->dbLoadQuery("","")
 	          		 ->query();
 		}
-		if (TEST_XIPT_JOOMLA_15){
+		if (XIPT_JOOMLA_15){
 			$result= $query->update('#__plugins')
 					 ->set(" `published` = $state ")
 	          		 ->where(" `element` = '$plugin' ")
@@ -65,14 +65,14 @@ class XiptHelperUtils
 	static function getPluginStatus($plugin)
 	{
 		$query = new XiptQuery();
-		if (TEST_XIPT_JOOMLA_16){
+		if (XIPT_JOOMLA_16){
 			return $query->select('*')
 					 ->from('#__extensions' )
 					 ->where(" `element` = '$plugin' ")
 					 ->dbLoadQuery("","")
 	          		 ->loadObject();
 		}
-		if (TEST_XIPT_JOOMLA_15){
+		if (XIPT_JOOMLA_15){
 			return $query->select('*')
 					 ->from('#__plugins' )
 					 ->where(" `element` = '$plugin' ")

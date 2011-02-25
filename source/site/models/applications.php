@@ -18,7 +18,7 @@ class XiptModelApplications extends XiptModel
 		if($result== null){
 			$query = new XiptQuery();
 			
-			if (TEST_XIPT_JOOMLA_16){
+			if (XIPT_JOOMLA_16){
 				$result = $query->select('*')
 				        		->from('#__extensions')
 							    ->where(" `folder` = 'community' ")
@@ -26,7 +26,7 @@ class XiptModelApplications extends XiptModel
 								->dbLoadQuery("","")
 								->loadObjectList($indexBy);
 			}
-			if (TEST_XIPT_JOOMLA_15){
+			if (XIPT_JOOMLA_15){
 				$result = $query->select('*')
 				        		->from('#__plugins')
 							    ->where(" `folder` = 'community' ")
