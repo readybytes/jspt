@@ -11,30 +11,3 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (79, 'regtest7046025', 'regtest7046025', 'regtest7046025@gmail.com', '64d5a5a65e0433fefad4d52255857f59:rBhZVyCqDIKioTNuCNBkpQNhRXsCHb1t', 'Registered', 0, 0, 18, '2009-12-03 08:16:09', '0000-00-00 00:00:00', 'd45373ce0b2c4bfa6065235a5c353add', '\n'),
 (80, 'regtest6208627', 'regtest6208627', 'regtest6208627@gmail.com', '73e7830c01e705a5adeaaa3e278fbdec:uQb0sUh0KdTyybJuHnYHAtpOmtfVNxr2', 'Editor', 0, 0, 20, '2009-12-03 08:16:18', '0000-00-00 00:00:00', '0e24ede794209ad6de9624f89077daed', '\n'),
 (81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');;
-
-TRUNCATE TABLE `#__core_acl_aro`;;
-INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
-(10, 'users', '62', 0, 'Administrator', 0),
-(31, 'users', '83', 0, 'regtest1789672', 0),
-(28, 'users', '80', 0, 'regtest6208627', 0),
-(32, 'users', '84', 0, 'regtest6461827', 0),
-(35, 'users', '87', 0, 'regtest1674526', 0),
-(33, 'users', '85', 0, 'regtest3843261', 0),
-(34, 'users', '86', 0, 'regtest1504555', 0),
-(29, 'users', '81', 0, 'regtest8635954', 0),
-(27, 'users', '79', 0, 'regtest7046025', 0),
-(30, 'users', '82', 0, 'regtest8774090', 0);;
-
-
-TRUNCATE TABLE `#__core_acl_groups_aro_map`;;
-INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
-(18, '', 27),
-(18, '', 30),
-(18, '', 33),
-(20, '', 28),
-(20, '', 31),
-(20, '', 34),
-(21, '', 29),
-(21, '', 32),
-(21, '', 35),
-(25, '', 10);;
