@@ -11,9 +11,6 @@ class ProfileFieldPrivacyTest extends XiUnitTestCase
  function testProfileFieldPrivacy()
   {	
 
-  		$url =  dirname(__FILE__).'/sql/ProfileFieldPrivacyTest/testProfileFieldPrivacy.1.8.sql';
-    	$this->_DBO->loadSql($url);
-		
 	    $fields 	= $this->getProfileFields(82); 
 		$filter['id'] = '1';
 		$filter['published'] = 1;

@@ -24,10 +24,12 @@ abstract class XiptAclBase
 		//Load ACL Params, if not already loaded
 		if(!$this->aclparams){
 			$aclxmlpath =  dirname(__FILE__).DS.strtolower($className).DS.strtolower($className).'.xml';
-			if(JFile::exists($aclxmlpath))
-				$this->aclparams = new JParameter('',$aclxmlpath);
-			else
-				$this->aclparams = new JParameter('','');
+			if(JFile::exists($aclxmlpath)){
+				$this->aclparams = new XiptParameter('',$aclxmlpath); 
+			}
+			else{
+				$this->aclparams = new XiptParameter('',''); 
+				}
 		}
 
 		//load core params
@@ -39,7 +41,7 @@ abstract class XiptAclBase
 		XiptError::assert(JFile::exists($corexmlpath), XiptText::_("$corexmlpath FILE_DOES_NOT_EXIST"), XiptError::ERROR);
 		XiptError::assert(JFile::exists($coreinipath), XiptText::_("$coreinipath FILE_DOES_NOT_EXIST"), XiptError::ERROR);
 		
-		$this->coreparams = new JParameter($iniData,$corexmlpath);
+		$this->coreparams = new XiptParameter($iniData,$corexmlpath);
 	}
 
 
@@ -97,7 +99,15 @@ abstract class XiptAclBase
 	function bind($data)
 	{
 		if(is_object($data)) {
-			$this->aclparams->bind($data->aclparams);
+
+			// It must be required other-wise Joomla treat serialize String as JSON String
+			if (XIPT_JOOMLA_16){
+				if(	   (JString::substr($data->aclparams, 0, 1) != '{') 
+					&& (JString::substr($data->aclparams, -1, 1) != '}')) {
+					$data->aclparams .= 'dummy=';
+				}
+			}
+			$this->aclparams->bind($data->aclparams); 
 			$this->coreparams->bind($data->coreparams);
 			$this->rulename 	= $data->rulename;
 			$this->published 	= $data->published;
@@ -106,8 +116,13 @@ abstract class XiptAclBase
 		}
 
 		if(is_array($data)) {
-			$this->aclparams->bind($data['aclparams']);
-			$this->coreparams->bind($data['coreparams']);
+			//XiTODO:: need to test for Joomla 1.5 
+			$aclParam   = $data['aclparams']->toArray();
+			$coreParams = $data['coreparams']->toArray();
+			$this->aclparams->bind($aclParam);
+			$this->coreparams->bind($coreParams);
+			//$this->aclparams->bind($data['aclparams']);
+			//$this->coreparams->bind($data['coreparams']);
 			$this->rulename 	= $data['rulename'];
 			$this->published 	= $data['published'];
 			$this->id			= $data['id'];
