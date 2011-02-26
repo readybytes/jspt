@@ -61,15 +61,30 @@ class XiptLibApps
 		if($plugin == null || !isset($plugin[$folder]) || $reset)
 		{			
 			$query = new XiptQuery();
-			$plugin[$folder] = $query->select('*')
-							->from('#__extensions')
+			if(XIPT_JOOMLA_15){
+				$plugin[$folder] = $query->select('*')
+							->from('#__plugins')
 							->where(" `folder` = '$folder' ")
 							->dbLoadQuery("","")
 							->loadObjectList('element');
+			}
+			if (XIPT_JOOMLA_16){
+				$plugin[$folder] = $query->select('*')
+							->from('#__extensions')
+							->where(" `folder` = '$folder' ")
+							->dbLoadQuery("","")
+							->loadObjectList('element');	
+			}
+			
 		}
 		
-		if(isset($plugin[$folder][$element]))
-			return $plugin[$folder][$element]->extension_id;
+		if(isset($plugin[$folder][$element])){
+			if (XIPT_JOOMLA_15)
+				return $plugin[$folder][$element]->id;
+			if (XIPT_JOOMLA_16)
+				return $plugin[$folder][$element]->extension_id;
+		}
+			
 		else
 			return false;
 	}

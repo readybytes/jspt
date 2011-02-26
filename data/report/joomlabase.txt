@@ -52,7 +52,7 @@
 ../packages/tmp/site/views/registration/view.html.php:19:			JFactory::getApplication()->redirect($redirectUrl,$msg);
 ../packages/tmp/site/router.php:16:	$dbo = JFactory::getDBO();
 ../packages/tmp/site/libraries/acl/accessgroupcategory/accessgroupcategory.php:47:		$db 		= JFactory::getDBO();
-../packages/tmp/site/libraries/acl/base.php:314:		JFactory::getApplication()->redirect(XiptRoute::_($redirectUrl,false),$msg);
+../packages/tmp/site/libraries/acl/base.php:329:		JFactory::getApplication()->redirect(XiptRoute::_($redirectUrl,false),$msg);
 ../packages/tmp/site/libraries/acl/addasfriends/addasfriends.php:19:		$db		= JFactory::getDBO();
 ../packages/tmp/site/libraries/acl/helper.php:26:		$userId 		= JFactory::getUser()->id;
 ../packages/tmp/site/libraries/acl/helper.php:47:        	$userId  = JFactory::getSession()->get('tmpUser','')->id;

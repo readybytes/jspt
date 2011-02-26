@@ -15,10 +15,11 @@
 ../packages/tmp/site/elements/groupcategory.php:34:	// XITODO : remove extra code for addnone and addall
 ../packages/tmp/site/libraries/acl/accessvideo/accessvideo.php:23:		/*XITODO : we will expect that vie task and should be given
 ../packages/tmp/site/libraries/acl/createvent/createvent.php:36:		// XITODO : use pattern ( return false in below conditiion)
-../packages/tmp/site/libraries/acl/base.php:34:		//XITODO : CREATE INI FILE
-../packages/tmp/site/libraries/acl/base.php:132:		//XITODO : clean code : use default from where acl rules are being invoked
-../packages/tmp/site/libraries/acl/base.php:239:		//XITODO if allwoed to self
-../packages/tmp/site/libraries/acl/base.php:327://XITODO: cleanup
+../packages/tmp/site/libraries/acl/base.php:36:		//XITODO : CREATE INI FILE
+../packages/tmp/site/libraries/acl/base.php:119:			//XiTODO:: need to test for Joomla 1.5 
+../packages/tmp/site/libraries/acl/base.php:147:		//XITODO : clean code : use default from where acl rules are being invoked
+../packages/tmp/site/libraries/acl/base.php:254:		//XITODO if allwoed to self
+../packages/tmp/site/libraries/acl/base.php:342://XITODO: cleanup
 ../packages/tmp/site/libraries/acl/addasfriends/addasfriends.php:18:		// XITODO : change this query into object
 ../packages/tmp/site/libraries/acl/helper.php:89:	//XITODO : Apply caching
 ../packages/tmp/site/libraries/acl/helper.php:114:	// XITODO : test case

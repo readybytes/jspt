@@ -116,13 +116,13 @@ class RouterTest extends XiUnitTestCase
 
      function getMenuURL()
 		{
-			$url =
-			array(
+			if (TEST_XIPT_JOOMLA_15){
+				$url =array(
 		
 				// if option= com_community return CRoute
 				
 				"index.php?option=com_community&view=frontpage"
-		   		 => "/usr/bin/index.php?option=com_community&view=frontpage&Itemid=53" ,
+		   		 =>"/usr/bin/index.php?option=com_community&view=frontpage&Itemid=53",
 			     
 			    // if option != com_xipt return URL
 			    
@@ -140,7 +140,35 @@ class RouterTest extends XiUnitTestCase
 			   =>"/usr/bin/index.php?option=com_xipt&view=registration"
 			   
 				);
-
+				
+			}
+			
+			if (TEST_XIPT_JOOMLA_16){
+				$url = array(
+		
+				// if option= com_community return CRoute
+				
+				"index.php?option=com_community&view=frontpage"
+		   		 => "/usr/bin/index.php?option=com_community&view=frontpage&Itemid=118",
+			     
+			    // if option != com_xipt return URL
+			    
+			    "administrator/index.php?option=com_xipt"
+			   => "administrator/index.php?option=com_xipt",
+			   
+			   // if option=com_xipt & itemid exist ,return url
+			   
+			   "index.php?option=com_xipt&view=registration&Itemid=201"
+			   =>"/usr/bin/index.php?option=com_xipt&view=registration&Itemid=201",
+			   
+			   // if option=com_xipt & itemid does not exist ,return url
+			   
+			   "index.php?option=com_xipt&view=registration"
+			   =>"/usr/bin/index.php?option=com_xipt&view=registration"
+			   
+				);
+				
+			}
 			return $url;
 	   }
 	   
