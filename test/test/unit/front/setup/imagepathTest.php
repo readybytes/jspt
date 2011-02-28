@@ -15,10 +15,10 @@ class ImagePathTest extends XiUnitTestCase
 		$subject = JDispatcher::getInstance();
 		$obj = new plgCommunityxipt_community($subject, array());
 		
-		$avatarPath			= JPATH_ROOT.DS.'test/test/unit/front/setup/images/avatar_1.gif';
-		$thumbPath			= JPATH_ROOT.DS.'test/test/unit/front/setup/images/avatar_1_thumb.gif';
-		$watarmart_avatar	= JPATH_ROOT.DS."test/test/unit/front/setup/images/watr_avatar_1.gif";
-		$watarmart_thumb	= JPATH_ROOT.DS."test/test/unit/front/setup/images/watr_avatar_1_thumb.gif";
+		$avatarPath			= 'test/test/unit/front/setup/images/avatar_1.gif';
+		$thumbPath			= 'test/test/unit/front/setup/images/avatar_1_thumb.gif';
+		$watarmart_avatar	= "test/test/unit/front/setup/images/watr_avatar_1.gif";
+		$watarmart_thumb	= "test/test/unit/front/setup/images/watr_avatar_1_thumb.gif";
 		
 		// Check Avatar is save in Correct folder
 		$this->assertTrue($obj->onProfileAvatarUpdate(88,'test/test/unit/front/images/avatar.jpg', $avatarPath ));
@@ -26,16 +26,16 @@ class ImagePathTest extends XiUnitTestCase
 		$this->assertTrue($obj->onProfileAvatarUpdate(88,'test/test/unit/front/images/thumb_avatar.jpg', $thumbPath ));
 			
 		// Test water-mark apply on Avatar and thumb
-		$this->assertEquals(md5_file($avatarPath),md5_file($watarmart_avatar));
-		$this->assertEquals(md5_file($thumbPath),md5_file($watarmart_thumb));
+		$this->assertEquals(md5_file(JPATH_ROOT.DS.$avatarPath),md5_file(JPATH_ROOT.DS.$watarmart_avatar));
+		$this->assertEquals(md5_file(JPATH_ROOT.DS.$thumbPath),md5_file(JPATH_ROOT.DS.$watarmart_thumb));
 		
 		//Check Backup File Exist or not and delete thease files for dont effect other test case
 		$this->assertTrue(JFile::delete(USER_AVATAR_BACKUP.'/avatar_1.gif'));
 		$this->assertTrue(JFile::delete(USER_AVATAR_BACKUP.'/avatar_1_thumb.gif'));
 
 		// Replace avtar and thumb (wid watrmark)
-		JFile::copy(JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1.gif', $avatarPath);
-		JFile::copy(JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1_thumb.gif', $thumbPath);
+		JFile::copy(JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1.gif', JPATH_ROOT.DS. $avatarPath);
+		JFile::copy(JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1_thumb.gif', JPATH_ROOT.DS.$thumbPath);
 	}
 	
 	//Test all image path save in URI formate in DataBase
@@ -84,7 +84,56 @@ class ImagePathTest extends XiUnitTestCase
 		
 		//Case::4 When Watermark not apply on Profile Type
 		$this->assertFalse(XiptLibJomsocial::updateCommunityUserWatermark(86,$watermark ));
+	}
+	
+	
+//testing getRealPath Function
+	/**
+	 * @dataProvider getConditions
+	 */
+	function testRealPath($path, $seprator, $result)
+	{
+		$resultPath = XiptHelperUtils::getRealPath($path, $seprator);
+		$this->assertEquals($resultPath, $result);
+	}
+	
+	function getConditions()
+	{
+		$path1		= '/test/manish\\Trivedi\\RBSL';
+		$seprator1	= '/'; 
+		$result1	= '/test/manish/Trivedi/RBSL';
 		
+		$seprator2	= "\\"; 
+		$result2	= "\\test\\manish\\Trivedi\\RBSL";
 		
+		$path3		= 'test/gaurav\\Jain\\RBSL/Developer.jpg';
+		$seprator3	= '/'; 
+		$result3	= 'test/gaurav/Jain/RBSL/Developer.jpg';
+		
+		$path4		= 'test/gaurav/Jain/RBSL/Developer.jpg';
+		$seprator4	= "\\"; 
+		$result4	= "test\\gaurav\\Jain\\RBSL\\Developer.jpg";
+		
+		$path5		= '\\SSV/GJ/VJ/MT/Developer.jpg';
+		$seprator5	= "\\"; 
+		$result5	= "\\SSV\\GJ\\VJ\\MT\\Developer.jpg";
+		
+		$path6		= '/test/manish\\Trivedi\\RBSL/';
+		$seprator6	= '/'; 
+		$result6	= '/test/manish/Trivedi/RBSL/';
+		
+		$path7		= '\\test/manish/Trivedi/RBSL/';
+		$seprator7	= "\\"; 
+		$result7	= "\\test\\manish\\Trivedi\\RBSL\\";
+		
+		return Array(
+					array($path1, $seprator1, $result1),
+					array($path1, $seprator2, $result2),
+					array($path3, $seprator3, $result3),
+					array($path4, $seprator4, $result4),
+					array($path5, $seprator5, $result5),
+					array($path6, $seprator6, $result6),
+					array($path7, $seprator7, $result7)
+					);	
 	}
 }

@@ -83,11 +83,9 @@ class XiptHelperUtils
 /**
 * Change filePath according to machine.
 */
-	function getRealPath($filepath){
+	function getRealPath($filepath, $seprator = DS)
+	{ 
+		return JPath::clean($filepath, $seprator);
 	
-		if(JString::stristr($filepath,JPATH_ROOT) === false)
-			$filepath = JPATH_ROOT.DS.$filepath;
-		
-		return str_replace(realpath(JPATH_ROOT).DS,"",realpath($filepath));
 	}
 }
