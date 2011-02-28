@@ -1,6 +1,6 @@
 TRUNCATE TABLE `#__community_users`;;
 INSERT INTO `#__community_users` (`userid`) VALUES
-(42),
+(62),
 (43),
 (44),
 (45),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `au_#__xipt_users` LIKE `#__xipt_users`;;
 
 TRUNCATE TABLE `#__xipt_users`;;
 INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(42, 1, 'blueface'),
+(62, 1, 'blueface'),
 (43, 1, 'blueface'),
 (44, 1, 'blueface'),
 (45, 1, 'blueface'),
@@ -42,7 +42,7 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 
 TRUNCATE TABLE `au_#__xipt_users`;;
 INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(42, 1, 'default'),
+(62, 1, 'default'),
 (43, 1, 'default'),
 (44, 1, 'default'),
 (45, 1, 'default'),
@@ -60,7 +60,7 @@ INSERT INTO `bk_#__users` SELECT * FROM `#__users`;;
 CREATE TABLE IF NOT EXISTS `au_#__users` LIKE `#__users`;;
 TRUNCATE TABLE `#__users`;;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
-(42, 'Super User', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'deprecated', 0, 1,  '2009-10-27 14:21:57', '2010-06-15 10:40:57', '', '\n'),
+(62, 'Super User', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'deprecated', 0, 1,  '2009-10-27 14:21:57', '2010-06-15 10:40:57', '', '\n'),
 (43, 'regtest8774090', 'regtest8774090', 'regtest8774090@gmail.com', 'f478ff7ef92fcb7a7cb62d4c1f08e43a:7rptUeQifMIkdyqE59fnxb0o74NE4sk8', 'Registered', 0, 0,  '2009-12-03 08:16:35', '2010-06-15 08:36:29', 'a3a9fc5ff08868ee458cda29142e6e36', '\n'),
 (44, 'regtest1789672', 'regtest1789672', 'regtest1789672@gmail.com', 'c33a3ac03bfbc13368383edc0e6ae42d:bUwtJXMI49daOhAPzdaLBdRY1IOOgm0D', 'Editor', 0, 0,  '2009-12-03 08:16:44', '0000-00-00 00:00:00', 'a25e8cbbf5a534e0d5b934589be66756', '\n'),
 (45, 'regtest6461827', 'regtest6461827', 'regtest6461827@gmail.com', '56f606098f0631341e8c398eaae179c6:aOJ5ghvQqtSCPnIH8SwFw90001MNaRI6', 'Publisher', 0, 0,  '2009-12-03 08:16:52', '0000-00-00 00:00:00', 'd8e2cc8000b17d6791a451354a281937', '\n'),
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `au_#__community_fields_values` LIKE `#__community_fi
 
 TRUNCATE TABLE `#__community_fields_values`;;
 INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) VALUES
-(1, 42, 3, 'blueface'),
+(1, 62, 3, 'blueface'),
 (2, 43, 3, 'blueface'),
 (3, 44, 3, 'blueface'),
 (4, 45, 3, 'blueface'),
@@ -135,7 +135,7 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 
 TRUNCATE TABLE `au_#__community_fields_values`;;
 INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) VALUES
-(1, 42, 3, 'default'),
+(1, 62, 3, 'default'),
 (2, 43, 3, 'default'),
 (3, 44, 3, 'default'),
 (4, 45, 3, 'default'),
