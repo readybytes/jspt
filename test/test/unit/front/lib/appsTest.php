@@ -1,6 +1,6 @@
 <?php
 
-class dummyOPD
+class dummyOPD extends JObject
 {
 	function onProfileDisplay()
 	{}
@@ -54,7 +54,7 @@ class AppsTest extends XiUnitTestCase
 	
 	
 	// case #3 do not work on non-community plugins
-  	$obj1 = new stdClass();
+  	$obj1 = new JObject();
 	$obj1->_type = 'system';
 	$obj1->_name = 'xipt_system';
 	
@@ -65,7 +65,7 @@ class AppsTest extends XiUnitTestCase
 	
 	
 	// case #4 community but xipt_community, then also do not work
-	$obj2 = new stdClass();
+	$obj2 = new JObject();
 	$obj2->_type = 'community';
 	$obj2->_name = 'xipt_community';
 	
@@ -75,7 +75,7 @@ class AppsTest extends XiUnitTestCase
 	$this->assertEquals($result, $apps);
 	
 	// case #5 
-	$obj3 = new stdClass();
+	$obj3 = new JObject();
 	$obj3->_type = 'community';
 	$obj3->_name = 'walls';
 	
@@ -144,14 +144,14 @@ class AppsTest extends XiUnitTestCase
   function testPluginId()
   {
 	 //valid searches retrun PluginId of element
-	 $this->assertEquals(XiptLibApps::getPluginId('joomla', 'authentication'),1);
-	 $this->assertEquals(XiptLibApps::getPluginId('legacy', 'system'),29);	 
-	 
+	 $this->assertEquals(XiptLibApps::getPluginId('joomla', 'authentication'),XIPT_TEST_AUTHENTICATION_PLUGIN);
+	 $this->assertEquals(XiptLibApps::getPluginId('content', 'search'),XIPT_TEST_SEARCH_PLUGIN);	 
+	 	
 	 // invalid search
 	 $this->assertEquals(XiptLibApps::getPluginId('joomla', 'stupid'),false);
 	 
 	 // cached search
-	 $this->assertEquals(XiptLibApps::getPluginId('legacy', 'system'),29);
+	 $this->assertEquals(XiptLibApps::getPluginId('content', 'search'),XIPT_TEST_SEARCH_PLUGIN);
 	 $this->assertEquals(XiptLibApps::getPluginId('joomla', 'stupid'),false);
 	 
 
