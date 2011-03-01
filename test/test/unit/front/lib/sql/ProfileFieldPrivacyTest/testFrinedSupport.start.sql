@@ -163,6 +163,11 @@ INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`
 (3, 'PROFILETYPE-3', 3, 1, 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, '', '', '', 1),
 (4, 'PROFILETYPE-4', 4, 0, 'PROFILETYPE-THREE-TIP', 'members', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', '', 1);;
 
+TRUNCATE TABLE `#__xipt_aclrules`;;
+INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
+(1, 'pt3 visit pt1', 'profilefield', 'core_profiletype=3\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'Xiprofiletypes=a:2:{i:8;a:1:{i:0;s:1:"1";}i:16;a:1:{i:0;s:1:"1";}}\n\n', 1),
+(2, 'pt1 visit pt2', 'profilefield', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'Xiprofiletypes=a:2:{i:8;a:1:{i:0;s:1:"2";}i:16;a:1:{i:0;s:1:"2";}}\nacl_applicable_to_friend=0\n\n', 1);;
+
 
 TRUNCATE TABLE `#__community_connection`;;
 INSERT INTO `#__community_connection` (`connection_id`, `connect_from`, `connect_to`, `status`, `group`, `created`, `msg`) VALUES
