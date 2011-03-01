@@ -21,7 +21,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->waitPageLoad();
       
 	// add profiletype-one
-    $this->click("//td[@id='toolbar-new']/a");
+    if(TEST_XIPT_JOOMLA_15){
+		$this->click("//td[@id='toolbar-new']/a");
+    }
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-new']/a/span");
+    }
     $this->waitPageLoad();
     $this->type("name", "PROFILETYPE-ONE");
     $this->click("watermarkparamsenableWaterMark1");
@@ -31,10 +36,18 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparamsxiThumbWidth", "20");
     $this->type("watermarkparamsxiThumbHeight", "20");
     $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
-    $this->click("//h3[@id='resetall-page']/span");
-    $this->click("resetAll1");
-    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    $this->click("//td[@id='toolbar-save']/a/span");
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//h3[@id='resetall-page']/a/span");
+    	$this->click("resetAll1");
+    	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	 $this->click("//h3[@id='resetall-page']/span");
+    	 $this->click("resetAll1");
+    	 $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
+    	 $this->click("//td[@id='toolbar-save']/a/span");
+    }
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
 	
@@ -94,24 +107,46 @@ class ProfiletypeTest extends XiSelTestCase
         $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
         $this->waitPageLoad();
     
-	    // p -> u
-		$this->click("//td[@id='published1']/a/"); // 1 st row
-		$this->waitPageLoad();
+        if(TEST_XIPT_JOOMLA_15){
+        		// p -> u
+			$this->click("//td[@id='published1']/a/"); // 1 st row
+			$this->waitPageLoad();
 		
-		// u -> p
-		$this->click("//input[@id='cb1']"); // its 2 row
-		$this->click("//td[@id='toolbar-publish']/a"); 
-		$this->waitPageLoad();
+			// u -> p
+			$this->click("//input[@id='cb1']"); // its 2 row
+			$this->click("//td[@id='toolbar-publish']/a"); 
+			$this->waitPageLoad();
 		
-		//p ->u 
-    	$this->click("//input[@id='cb2']"); // its 3 row
-		$this->click("//td[@id='toolbar-unpublish']/a"); 
-		$this->waitPageLoad();
+			//p ->u 
+    		$this->click("//input[@id='cb2']"); // its 3 row
+			$this->click("//td[@id='toolbar-unpublish']/a"); 
+			$this->waitPageLoad();
 		
-		// u -> p
-    	//5th one is unpublished mark it publisj
-		$this->click("//td[@id='published4']/a/");
-		$this->waitPageLoad();
+			// u -> p
+    		//5th one is unpublished mark it publisj
+			$this->click("//td[@id='published4']/a/");
+			$this->waitPageLoad();
+        }
+        if(TEST_XIPT_JOOMLA_16){
+	    	// p -> u
+			$this->click("//img[@alt='Published']"); // 1 st row
+			$this->waitPageLoad();
+		
+			// 	u -> p
+			$this->click("//input[@id='cb1']"); // its 2 row
+			$this->click("//li[@id='toolbar-publish']/a/span"); 
+			$this->waitPageLoad();
+		
+			//	p ->u 
+    		$this->click("//input[@id='cb2']"); // its 3 row
+			$this->click("//li[@id='toolbar-unpublish']/a/span"); 
+			$this->waitPageLoad();
+		
+			// u -> p
+	    	//	5th one is unpublished mark it publish
+			$this->click("//img[@alt='Unpublished']");
+			$this->waitPageLoad();
+        }
 	}
 
 	
@@ -130,8 +165,14 @@ class ProfiletypeTest extends XiSelTestCase
     	$this->click("//input[@id='cb0']");
     	$this->click("//input[@id='cb2']");
     	$this->click("//input[@id='cb4']");
-    	$this->click("//td[@id='toolbar-trash']/a");
-    	$this->assertTrue((bool)$this->getConfirmation());
+    	if(TEST_XIPT_JOOMLA_16){
+    		$this->click("//li[@id='toolbar-trash']/a/span");
+    	}
+    	if(TEST_XIPT_JOOMLA_15){
+    		$this->click("//td[@id='toolbar-trash']/a");
+    		$this->assertTrue((bool)$this->getConfirmation());
+    	}
+    	
     	//proivde yes to popup box.
     	$this->waitPageLoad();
     	  
@@ -156,7 +197,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparamsxiText", "Profiletype1");
     $this->click("resetAll1");
     $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");
+    }
     $this->waitPageLoad();
   
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=2");
@@ -166,14 +212,24 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->click("watermarkparamsenableWaterMark1");
 	$this->click("resetAll1");
 	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-	$this->click("//td[@id='toolbar-save']/a");
+	if(TEST_XIPT_JOOMLA_16){
+		$this->click("//li[@id='toolbar-save']/a/span");
+	}
+	if(TEST_XIPT_JOOMLA_15){
+		$this->click("//td[@id='toolbar-save']/a");
+	}
     $this->waitPageLoad();
 	
 	// Edit entry 3 with default avatar and watermark as blank
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=3");
     $this->waitPageLoad();//3: jpg,-
-    $this->click("//td[@id='toolbar-save']/a");
-    $this->waitPageLoad();
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");
+    }
+     $this->waitPageLoad();
     
 	// now edit first entry, and change watermark
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=1");
@@ -186,7 +242,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->select("watermarkparamsxiWatermarkPosition", "label=Top Right");
     $this->click("resetAll1");
     $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");
+    } 
 		
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
@@ -196,7 +257,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=1");
     $this->waitPageLoad(); //1: gif,png
 	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
-	$this->click("//td[@id='toolbar-save']/a");
+	if(TEST_XIPT_JOOMLA_16){
+		$this->click("//li[@id='toolbar-save']/a/span");
+	}
+	if(TEST_XIPT_JOOMLA_15){
+		$this->click("//td[@id='toolbar-save']/a");
+	}
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
 	
@@ -213,12 +279,23 @@ class ProfiletypeTest extends XiSelTestCase
     $this->select("watermarkparamsxiWatermarkPosition", "label=Right Bottom");
     $this->click("resetAll1");
     $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");
+    }
     $this->waitPageLoad(10000);
     $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));	
      $this->waitPageLoad(10000);
     //now add profiletype-4
-    $this->click("//td[@id='toolbar-new']/a");
+  	if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-new']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-new']/a");
+    }
+    
     $this->waitPageLoad();
     
     $this->type("name", "PROFILETYPE-4");
@@ -232,7 +309,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->select("watermarkparamsxiWatermarkPosition", "label=Right Bottom");
     $this->click("resetAll1");
     $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    $this->click("//td[@id='toolbar-save']/a");//4:png.png
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");//4:png.png
+    }
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-4"));
         
@@ -257,7 +339,12 @@ class ProfiletypeTest extends XiSelTestCase
   	$this->type("file-upload", JOOMLA_FTP_LOCATION.'/test/test/com_xipt/admin/avatar_2.png');
 	$this->click("resetAll1");
 	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-	$this->click("//td[@id='toolbar-save']/a");
+  if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");
+    }
     $this->waitPageLoad();
      	
   	$this->_DBO->addTable('#__xipt_profiletypes');
@@ -276,14 +363,26 @@ class ProfiletypeTest extends XiSelTestCase
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes&task=edit&id=2");
     $this->waitPageLoad();
     $this->select("jusertype", "label=Editor");
-    $this->click("//h3[@id='xiprivacysettings-page']/span");
-    $this->click("privacyprivacyProfileView10");
-    $this->select("template", "value=default");
-    //previous was PNG, now adding GIF, so all users must be updated
-    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
-    $this->click("resetAll1");
-    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-	$this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16){
+	    $this->click("//h3[@id='xiprivacysettings-page']/a/span");
+	    $this->click("privacyprivacyProfileView0");
+	    $this->select("template", "value=default");
+	    //previous was PNG, now adding GIF, so all users must be updated
+	    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
+	    $this->click("resetAll1");
+	    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
+		$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//h3[@id='xiprivacysettings-page']/span");
+	    $this->click("privacyprivacyProfileView10");
+	    $this->select("template", "value=default");
+	    //previous was PNG, now adding GIF, so all users must be updated
+	    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
+	    $this->click("resetAll1");
+	    $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
+		$this->click("//td[@id='toolbar-save']/a");
+    }
     $this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));   
 	
@@ -293,7 +392,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->select("jusertype", "label=Manager");
     $this->click("resetAll1");
     $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-	$this->click("//td[@id='toolbar-save']/a");
+  	if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");
+    }
     $this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
 
@@ -305,7 +409,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->addSelection("group[]", "value=2");
     $this->click("resetAll1");
     $this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-	$this->click("//td[@id='toolbar-save']/a");
+  	if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a");
+    }
     $this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("PROFILETYPE-3"));
 	
@@ -315,13 +424,15 @@ class ProfiletypeTest extends XiSelTestCase
 	$this->_DBO->addTable('#__users');
 	$this->_DBO->addTable('#__xipt_profiletypes');
 	$this->_DBO->addTable('#__xipt_users');
-	$this->_DBO->addTable('#__core_acl_groups_aro_map');
+	if(TEST_XIPT_JOOMLA_15){
+		$this->_DBO->addTable('#__core_acl_groups_aro_map');
+		$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
+	}
 	$this->_DBO->filterColumn('#__users','lastvisitDate');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','tip');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','watermark');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
 	$this->_DBO->filterColumn('#__xipt_profiletypes','config');
-	$this->_DBO->filterOrder('#__core_acl_groups_aro_map','aro_id');
   }
   
   function testCantDeleteDefaultProfileType()
@@ -340,8 +451,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->click("//input[@id='cb2']");
     $this->click("//input[@id='cb3']");
     $this->click("//input[@id='cb4']");
-    $this->click("//td[@id='toolbar-trash']/a");
-    
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-trash']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-trash']/a");
+    }    
     
     $this->waitPageLoad();
       
@@ -363,7 +478,12 @@ class ProfiletypeTest extends XiSelTestCase
    // $this->click("//h3[@id='xiconfiguration-page']/span");
     $this->click("configjspt_restrict_reg_check1");
     $this->type("configjspt_prevent_username", "admin;moderator;");
-    $this->click("//td[@id='toolbar-save']/a/span");
+  	if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//td[@id='toolbar-save']/a/span");
+    }
     $this->waitPageLoad();
     
     $this->_DBO->addTable('#__xipt_profiletypes');
