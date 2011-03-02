@@ -482,7 +482,7 @@ class ProfiletypeTest extends XiSelTestCase
     	$this->click("//li[@id='toolbar-save']/a/span");
     }
     if(TEST_XIPT_JOOMLA_15){
-    	$this->click("//td[@id='toolbar-save']/a/span");
+    	$this->click("//td[@id='toolbar-save']/a");//4:png.png
     }
     $this->waitPageLoad();
     
