@@ -21,7 +21,12 @@ class SyncUpTest extends XiSelTestCase
     $this->type("//input[@id='watermarkparamsxiText']", "P1");
     $this->click("//input[@id='watermarkparamsenableWaterMark1']");
     $this->type("file-upload", JPATH_ROOT.DS.'test'.DS.'test'.DS.'com_xipt'.DS.'admin'.DS.'avatar_1.png');
-    $this->click("//td[@id='toolbar-save']/a/span");
+  	if(TEST_XIPT_JOOMLA_15){
+		$this->click("//td[@id='toolbar-save']/a/span");
+    }
+    if(TEST_XIPT_JOOMLA_16){
+    	$this->click("//li[@id='toolbar-save']/a/span");
+    }
     $this->waitPageLoad();
   }
   
