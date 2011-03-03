@@ -25,7 +25,7 @@
 		<file>test/com_xipt/front/aclRuleTest.php</file>
 		-->
 <!--		<file>test/com_xipt/front/applicationForFrontTest.php</file>-->
-<!--		<file>test/ui/aclRuleTest.php</file>-->
+		<file>test/ui/aclRuleTest.php</file>
 	 </testsuite>
 	
 

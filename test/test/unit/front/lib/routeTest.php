@@ -149,7 +149,7 @@ class RouterTest extends XiUnitTestCase
 				// if option= com_community return CRoute
 				
 				"index.php?option=com_community&view=frontpage"
-		   		 => "/usr/bin/index.php?option=com_community&view=frontpage&Itemid=118",
+		   		 => "/usr/bin/index.php?option=com_community&view=frontpage&Itemid=133",
 			     
 			    // if option != com_xipt return URL
 			    

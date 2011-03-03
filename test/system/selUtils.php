@@ -102,22 +102,41 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   function frontLogin($username=JOOMLA_ADMIN_USERNAME, $password= JOOMLA_ADMIN_PASSWORD)
   {
     $this->open(JOOMLA_LOCATION."/index.php");
-    $this->waitForPageToLoad("60000");
-    $this->type("modlgn_username", $username);
-    $this->type("modlgn_passwd", $password);
-    $this->click("//form[@id='form-login']/fieldset/input");
+    $this->waitPageLoad();
+    if (TEST_XIPT_JOOMLA_15){
+    	$this->type("modlgn_username", $username);
+    	$this->type("modlgn_passwd", $password);
+    	$this->click("//form[@id='form-login']/fieldset/input");
+    }
+    if (TEST_XIPT_JOOMLA_16){
+    	$this->type("modlgn-username", $username);
+    	$this->type("modlgn-passwd", $password);
+    	$this->click("Submit");
+    }
     $this->waitForPageToLoad();
-    $this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
+    if (TEST_XIPT_JOOMLA_15)
+    	$this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
+    if (TEST_XIPT_JOOMLA_16)
+    	$this->assertEquals("Log out", $this->getValue("//form[@id='login-form']/div[2]/input"));
   }
   
   function frontLogout()
   {
   	$this->open(JOOMLA_LOCATION."/index.php");
     $this->waitForPageToLoad("60000");
-    $this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
-    $this->click("//form[@id='form-login']/div[2]/input");
+    if (TEST_XIPT_JOOMLA_15){
+       	$this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
+       	$this->click("//form[@id='form-login']/div[2]/input");
+    }
+    if (TEST_XIPT_JOOMLA_16){
+    	$this->assertEquals("Log out", $this->getValue("//form[@id='login-form']/div[2]/input"));
+    	 $this->click("//form[@id='login-form']/div[2]/input");
+    }
     $this->waitForPageToLoad("60000");
-    $this->assertTrue($this->isElementPresent("modlgn_username"));
+    if (TEST_XIPT_JOOMLA_15)
+    	$this->assertTrue($this->isElementPresent("modlgn_username"));
+    if (TEST_XIPT_JOOMLA_16)
+    	$this->assertTrue($this->isElementPresent("modlgn-username"));
   }
   
   function waitPageLoad($time=TIMEOUT_SEC)

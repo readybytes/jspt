@@ -11,6 +11,13 @@ class statusbox extends XiptAclBase
 	
 	function checkAclApplicable(&$data)
 	{
+		//check data value for JomSocial 2.x.x
+		if('com_community' == $data['option']
+		    	&& 'system' == $data['view']
+		    	&& $data['task'] == 'ajaxstreamadd')
+				return true;
+		
+		
 		if('com_community' == $data['option']
 		    	&& 'status' == $data['view']
 		    	&& $data['task'] == 'ajaxupdate')

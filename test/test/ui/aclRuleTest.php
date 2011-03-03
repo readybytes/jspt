@@ -126,9 +126,15 @@ class AclRulesUITest extends XiSelTestCase
 	{
 		$this->open("index.php?option=com_community&view=profile&Itemid=53");
 		$this->waitPageLoad();
-		$this->type("statustext", "TESTING CHANGE STATUS");
-		$this->click("save-status");
-		sleep(1);
+		if (TEST_XIPT_JOOMLA_15){
+			$this->type("statustext", "TESTING CHANGE STATUS");
+			$this->click("save-status");
+		}
+		if (TEST_XIPT_JOOMLA_16){
+			$this->type("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[2]/textarea[1]", "TESTING CHANGE STATUS");
+    		$this->click("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[3]/button");
+		}
+		sleep(11);
 		return $this->isTextPresent("TESTING CHANGE STATUS");
 	}
 
@@ -160,8 +166,11 @@ class AclRulesUITest extends XiSelTestCase
 	{
 		$this->open("index.php?option=com_community&view=profile&task=linkVideo&Itemid=53");
 		$this->waitPageLoad();
-
-		$this->click("//div[@id='video-$vid']/div/div[2]/div[3]/a/span");
+		if (TEST_XIPT_JOOMLA_15)
+			$this->click("//div[@id='video-$vid']/div/div[2]/div[3]/a/span");
+		if (TEST_XIPT_JOOMLA_16)
+			$this->click("//div[@id='video-$vid']/div/div[1]/div/a");	
+			
 		$this->waitForElement("cwin_tm");
 		sleep(1);
 		$this->click("//button[@onclick='joms.videos.linkProfileVideo($vid);']");
@@ -201,7 +210,11 @@ class AclRulesUITest extends XiSelTestCase
 	function checkAddApplication($id)
 	{
 		$this->open("index.php?option=com_community&view=profile&Itemid=53");
-		$this->click("link=Applications");
+		$this->waitForPageToLoad("30000");
+		if (TEST_XIPT_JOOMLA_15)
+			$this->click("link=Applications");
+		if (TEST_XIPT_JOOMLA_16)
+			$this->click("link=Edit My Page");
   		$this->waitForPageToLoad("30000");
   		$this->click("//div[@id='community-wrap']/div[4]/div[1]/div[2]/a/span");
 		$this->waitForElement("cwin_tm");
