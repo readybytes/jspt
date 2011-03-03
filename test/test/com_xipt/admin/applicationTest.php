@@ -3,12 +3,9 @@
 class ApplicationTest extends XiSelTestCase 
 {
   
-  function getSqlPath()
+function getSqlPath()
   {
-  	  if (TEST_XIPT_JOOMLA_15)
-      	return dirname(__FILE__).'/sql/'.__CLASS__;
-      if (TEST_XIPT_JOOMLA_16)
-      	return dirname(__FILE__).'/sql16/'.__CLASS__;
+      return dirname(__FILE__).'/sql/'.__CLASS__;
   }
 
 
