@@ -35,7 +35,12 @@ class XiptViewConfiguration extends XiptView
     }
 	
 	function edit($id, $tpl = 'edit' )
-	{				
+	{			
+		// For joomla 1.6 and JomSocial 2.x.x to Getting js Constant.
+		if (XIPT_JOOMLA_16){
+			require_once JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.community.php';
+		}
+				
 		$params	= $this->getModel()->loadParams($id);
 
 		$lists = array();
