@@ -25,7 +25,7 @@ function getSqlPath()
     
     // now check for showing application
     if (TEST_XIPT_JOOMLA_16)
-    	$this->click("//span[@id='name10003']/a");
+    	$this->click("//span[@id='name10004']/a");
     if (TEST_XIPT_JOOMLA_15)
     	$this->click("//span[@id='name44']/a");
     $this->waitPageLoad();
@@ -39,7 +39,7 @@ function getSqlPath()
     
     // for 2
     if (TEST_XIPT_JOOMLA_16)
-    	$this->click("//span[@id='name10007']/a");
+    	$this->click("//span[@id='name10008']/a");
     if (TEST_XIPT_JOOMLA_15)
     	$this->click("//span[@id='name45']/a");
     $this->waitPageLoad();
@@ -53,7 +53,7 @@ function getSqlPath()
     
     //for 1,2
     if (TEST_XIPT_JOOMLA_16)
-    	$this->click("link=Walls");
+    	$this->click("//span[@id='name10004']/a");
     if (TEST_XIPT_JOOMLA_15)
     	$this->click("//span[@id='name46']/a");
     $this->waitPageLoad();
@@ -68,7 +68,7 @@ function getSqlPath()
     
     //still ALL should reflect
     if (TEST_XIPT_JOOMLA_16)
-    	$this->click("link=JSPT Community Plugin");
+    	$this->click("//span[@id='name10008']/a");
     if (TEST_XIPT_JOOMLA_15)
     	$this->click("//span[@id='name47']/a");
     $this->waitPageLoad();
@@ -83,7 +83,7 @@ function getSqlPath()
     
     //For core application
     if (TEST_XIPT_JOOMLA_16)
-    	$this->click("link=Walls");
+    	$this->click("//span[@id='name10004']/a");
     if (TEST_XIPT_JOOMLA_15)
     	$this->click("//span[@id='name49']/a");
     $this->waitPageLoad();
@@ -97,7 +97,7 @@ function getSqlPath()
     
     //still ALL should reflect
     if (TEST_XIPT_JOOMLA_16)
-    	$this->click("link=JSPT Community Plugin");
+    	$this->click("//span[@id='name10008']/a");
     if (TEST_XIPT_JOOMLA_15)
     	$this->click("//span[@id='name50']/a");
     $this->waitPageLoad();

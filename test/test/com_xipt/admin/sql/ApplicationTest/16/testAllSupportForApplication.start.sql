@@ -135,16 +135,12 @@ DROP TABLE IF EXISTS `au_#__xipt_applications`;;
 CREATE TABLE `au_#__xipt_applications` SELECT * FROM `#__xipt_applications`;;
 
 INSERT INTO `au_#__xipt_applications` (`applicationid`, `profiletype`) VALUES
-(10003, 2),
-(10003, 3),
-(10003, 4),
-(10003, 5),
-(10007, 1),
-(10007, 3),
-(10007, 4),
-(10007, 5),
-(10012, 1),
-(10012, 3),
-(10012, 4),
-(10012, 5);;
+(10004, 2),
+(10004, 3),
+(10004, 4),
+(10004, 5),
+(10008, 1),
+(10008, 3),
+(10008, 4),
+(10008, 5);;
 
