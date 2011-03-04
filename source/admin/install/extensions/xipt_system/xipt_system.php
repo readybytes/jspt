@@ -79,11 +79,33 @@ class plgSystemxipt_system extends JPlugin
 		$this->_pluginHandler->cleanRegistrationSession();
 		return true;
 	}
-
+	
+	/**
+	 * for Joomla 1.5
+	 * @param unknown_type $properties
+	 * @param unknown_type $result
+	 * @param unknown_type $error
+	 */
 	function onAfterDeleteUser($properties,$result,$error)
 	{
-		if($result == false || $error == true)
+		if($result == false || $error == true){
 			return true;
+		}
+
+		return XiptFactory::getInstance('users','model')->delete($properties['id']);
+	}
+	
+	/**
+	 * fo Joomla 1.6
+	 * @param $properties
+	 * @param $result
+	 * @param $error
+	 */
+	function onUserAfterDelete($properties,$result,$error)
+	{
+		if($result == false || $error == true){
+			return true;
+		}
 
 		return XiptFactory::getInstance('users','model')->delete($properties['id']);
 	}

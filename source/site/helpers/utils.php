@@ -88,4 +88,58 @@ class XiptHelperUtils
 		return JPath::clean($filepath, $seprator);
 	
 	}
+	
+/**
+	get field value of $userId accordimg to $fieldCode
+*/
+	public function getInfo($userId, $fieldCode )
+	{
+		// Run Query to return 1 value
+		$db		= JFactory::getDBO();
+		$query	= 'SELECT b.* FROM ' . $db->nameQuote( '#__community_fields' ) . ' AS a '
+				. 'INNER JOIN ' . $db->nameQuote( '#__community_fields_values' ) . ' AS b '
+				. 'ON b.' . $db->nameQuote( 'field_id' ) . '=a.' . $db->nameQuote( 'id' ) . ' '
+				. 'AND b.' . $db->nameQuote( 'user_id' ) . '=' . $db->Quote( $userId ) . ' '
+				. 'INNER JOIN ' . $db->nameQuote( '#__community_users' ) . ' AS c '
+				. 'ON c.' . $db->nameQuote( 'userid' ) . '= b.' . $db->nameQuote( 'user_id' ) 
+				. 'WHERE a.' . $db->nameQuote( 'fieldcode' ) . ' =' . $db->Quote( $fieldCode ); 
+		
+		$db->setQuery( $query );
+		$result	= $db->loadObject();
+
+		$field	= JTable::getInstance( 'FieldValue' , 'CTable' );
+		$field->bind( $result );
+		
+		if($db->getErrorNum())
+		{
+			JError::raiseError( 500, $db->stderr());
+		}
+		
+		$config	= CFactory::getConfig();
+
+		// @rule: Only trigger 3rd party apps whenever they override extendeduserinfo configs
+		if( $config->getBool( 'extendeduserinfo' ) )
+		{
+			CFactory::load( 'libraries' , 'apps' );
+			$apps	= CAppPlugins::getInstance();
+			$apps->loadApplications();
+			
+			$params		= array();
+			$params[]	= $fieldCode;
+			$params[]	=& $field->value;
+			
+			$apps->triggerEvent( 'onGetUserInfo' , $params );
+		}
+
+		// Respect privacy settings.
+		if(XIPT_JOOMLA_16){
+			$my	= CFactory::getUser();
+			CFactory::load( 'libraries' , 'privacy' );
+			if( !CPrivacy::isAccessAllowed( $my->id , $userId , 'custom' , $field->access ) ){
+				return false;
+			}
+		}
+		
+		return $field->value;
+	}
 }

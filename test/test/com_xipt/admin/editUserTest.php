@@ -42,7 +42,11 @@ class EditUserTest extends XiSelTestCase
   	//load editing page
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_community&view=users&layout=edit&id=".$userid);
     $this->waitPageLoad();
-    $this->click("Basic Information-page");
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->click("Basic Information-page");
+    	
+    if(TEST_XIPT_JOOMLA_16) 
+    	$this->click("//dl[@id='profile-fields']/dt[2]/span");
     
     //
     //check fields
@@ -70,15 +74,25 @@ class EditUserTest extends XiSelTestCase
 	$randomStr = "UpdateAdmin_".$userid."_".$ptype;
 	foreach ($Avail[$ptype] as $p)
 	  	$this->type("field".$p, $randomStr);
-	  	
-	$this->click("//td[@id='toolbar-save']/a/span");
+
+//	if(TEST_XIPT_JOOMLA_15)
+//		$this->click("//td[@id='toolbar-save']/a/span");
+//	if(TEST_XIPT_JOOMLA_16) 
+	    $this->click("//li[@id='toolbar-save']/a/span");
+	
 	$this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
 
 	//verify
 	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_community&view=users&layout=edit&id=".$userid);
     $this->waitPageLoad();
-    $this->click("Basic Information-page");
+     
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->click("Basic Information-page");
+    	
+    if(TEST_XIPT_JOOMLA_16) 
+    	$this->click("//dl[@id='profile-fields']/dt[2]/span");
+    
     foreach ($Avail[$ptype] as $p){
 	  	$this->assertElementValueEquals("field".$p,$randomStr );
     } 
@@ -109,7 +123,13 @@ class EditUserTest extends XiSelTestCase
   	//load editing page
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_community&view=users&layout=edit&id=".$userid);
   	$this->waitPageLoad();
-  	$this->click("Basic Information-page");
+  	
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->click("Basic Information-page");
+    	
+    if(TEST_XIPT_JOOMLA_16) 
+    	$this->click("//dl[@id='profile-fields']/dt[2]/span"); 
+    	
     XiptLibJomsocial::cleanStaticCache(true);
 	$Avail[1] 	 = array(3,4,5,7,8,9); // 7 have no infor
     $notAvail[1] = array(2,6);
@@ -132,7 +152,13 @@ class EditUserTest extends XiSelTestCase
 	$newPType[2]=3;
 	$newPType[3]=1;
 	$this->select("field17", "value=".$newPType[$ptype]);
-	$this->click("//td[@id='toolbar-save']/a/span");
+	
+	if(TEST_XIPT_JOOMLA_15)
+		$this->click("//td[@id='toolbar-save']/a/span");
+	    	
+    if(TEST_XIPT_JOOMLA_16) 
+    	$this->click("link=Save & Close");
+	
 	$this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
 	
@@ -170,7 +196,11 @@ class EditUserTest extends XiSelTestCase
   	//load editing page
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_community&view=users&layout=edit&id=".$userid);
     $this->waitPageLoad();
-    $this->click("Basic Information-page");
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->click("Basic Information-page");
+    	
+    if(TEST_XIPT_JOOMLA_16) 
+    	$this->click("//dl[@id='profile-fields']/dt[2]/span"); 
 	  		
 	// template field id is 16 (from sql)
 	// existing template : default-82, blueface-83, blackout-84
@@ -211,7 +241,12 @@ function testEditUserTemplateProfiletype()
   	//load editing page
   	$this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_community&view=users&layout=edit&id=".$userid);
   	$this->waitPageLoad();
-  	$this->click("Basic Information-page");
+  	
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->click("Basic Information-page");
+    	
+    if(TEST_XIPT_JOOMLA_16) 
+    	$this->click("//dl[@id='profile-fields']/dt[2]/span"); 
     
 	
 	//update profiletype and see effect 1->2, 2->3, 3->1
@@ -261,7 +296,10 @@ function testEditUserTemplateProfiletype()
     $this->waitPageLoad();
    
     $this->click("//input[contains(@type,'checkbox')][contains(@value,'".$userid."')]");
-    $this->click("//td[@id='toolbar-delete']/a/span");
+    if(TEST_XIPT_JOOMLA_15)
+       $this->click("//td[@id='toolbar-delete']/a/span");
+    if(TEST_XIPT_JOOMLA_16)
+       $this->click("//li[@id='toolbar-delete']/a/span");
     $this->waitPageLoad();
     $this->assertTrue($this->checkDeletedUser($userid));
   }

@@ -229,9 +229,12 @@ class plgCommunityxipt_community extends CApplications
 
 	    // the JomSocial already store values in field tables
 	    // now we need to apply that information to our tables
-	    $cuser        = CFactory::getUser($userId);
-	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
-	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
+//	    $cuser        = CFactory::getUser($userId);
+//	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
+//	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
+
+		$profiletype  = XiptHelperUtils::getInfo($userId, PROFILETYPE_CUSTOM_FIELD_CODE);
+	    $template     = XiptHelperUtils::getInfo($userId,TEMPLATE_CUSTOM_FIELD_CODE);
 
 	    //update profiletype only
 	    XiptLibProfiletypes::updateUserProfiletypeData($userId,$profiletype,$template,'ALL');
