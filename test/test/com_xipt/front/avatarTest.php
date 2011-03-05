@@ -28,8 +28,11 @@ class AvatarTest extends XiSelTestCase
 	 $this->type("file-upload", JPATH_ROOT.DS.$newAvatar);
 	 $this->click("file-upload-submit");
 	 $this->waitPageLoad();
-	 $this->click("//li[@id='toolbar-item-profile']/a");
-     $this->waitPageLoad();
+	 if(TEST_XIPT_JOOMLA_15)
+		 $this->click("//li[@id='toolbar-item-profile']/a");
+     if(TEST_XIPT_JOOMLA_16)
+	 	$this->click("link=Profile");
+	 $this->waitPageLoad();
      
      //Check avatar uploaded and watr-mrk apply
      $this->verifyAvatar($newAvatarAU);
@@ -82,13 +85,20 @@ class AvatarTest extends XiSelTestCase
   
   function editProfiletype($pid)
   {
-  		$this->click("link=Edit profile");
-		$this->waitPageLoad();
-		$this->select("field4", "label=PROFILETYPE-$pid");
-		$this->click("//input[@value='Save']");
-		$this->waitPageLoad();
-		$this->click("//li[@id='toolbar-item-profile']/a");
-		$this->waitPageLoad();
+  	if(TEST_XIPT_JOOMLA_15)	
+  		$this->click("link=Edit profile"); 
+  	if(TEST_XIPT_JOOMLA_16)	
+  		$this->click("link=Edit Profile");
+	$this->waitPageLoad();
+	$this->select("field4", "label=PROFILETYPE-$pid");
+	$this->click("//input[@value='Save']");
+	$this->waitPageLoad();
+	
+	if(TEST_XIPT_JOOMLA_15)
+		 $this->click("//li[@id='toolbar-item-profile']/a");
+    if(TEST_XIPT_JOOMLA_16)
+		$this->click("link=Profile");
+	$this->waitPageLoad();
   }
   /*
    * Full-fill all conditions which are required for testing

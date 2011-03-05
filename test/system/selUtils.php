@@ -117,7 +117,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
     if (TEST_XIPT_JOOMLA_15)
     	$this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
     if (TEST_XIPT_JOOMLA_16)
-    	$this->assertEquals("Log out", $this->getValue("//form[@id='login-form']/div[2]/input"));
+    	$this->assertEquals("Log out", $this->getValue("//form[@id='login-form']/div[2]/input[1]"));
   }
   
   function frontLogout()
