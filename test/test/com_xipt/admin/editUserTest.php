@@ -209,7 +209,10 @@ class EditUserTest extends XiSelTestCase
 	$newTemplate[84]='default';
 
 	$this->select("field16", "value=".$newTemplate[$userid]);
-	$this->click("//td[@id='toolbar-save']/a/span");
+	if (TEST_XIPT_JOOMLA_15)
+		$this->click("//td[@id='toolbar-save']/a/span");
+	if (TEST_XIPT_JOOMLA_16)
+		$this->click("//li[@id='toolbar-save']/a/span");
 	$this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
 	
@@ -227,14 +230,17 @@ function testEditUserTemplateProfiletype()
     $this->updateConfig(0,0);
     $this->editUserTempPT(82,1);
     
+    // avoid caching issue
+  	XiptLibJomsocial::cleanStaticCache(true);
+  	
     $this->updateConfig(1,0);
     $this->editUserTempPT(83,2);
     
     $this->updateConfig(1,0);
-   	$this->editUserTempPT(84,3);
+	$this->editUserTempPT(84,3);
     
 	$this->updateConfig(1,1);
-   	$this->editUserTempPT(85,1);
+	$this->editUserTempPT(85,1);
   }
   
   function editUserTempPT($userid, $ptype) {
@@ -251,9 +257,9 @@ function testEditUserTemplateProfiletype()
 	
 	//update profiletype and see effect 1->2, 2->3, 3->1
 	// profiletype field id is 17 (from sql)
-	$newPType[1]=2;
-	$newPType[2]=3;
-	$newPType[3]=1;
+	$newPType[1]='1';
+	$newPType[2]='2';
+	$newPType[3]='3';
 	$this->select("field17", "value=".$newPType[$ptype]);
 
 	$newTemplate[82]='blueface';
@@ -261,8 +267,11 @@ function testEditUserTemplateProfiletype()
 	$newTemplate[84]='default';
 	$newTemplate[85]='bubble';
 	$this->select("field16", "value=".$newTemplate[$userid]);
-		
-	$this->click("//td[@id='toolbar-save']/a/span");
+
+	if (TEST_XIPT_JOOMLA_15)
+		$this->click("//td[@id='toolbar-save']/a/span");
+	if (TEST_XIPT_JOOMLA_16)
+		$this->click("//li[@id='toolbar-save']/a/span");
 	$this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
 	
