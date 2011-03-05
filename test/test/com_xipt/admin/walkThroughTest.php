@@ -24,12 +24,16 @@ class WalkThroughTest extends XiSelTestCase
   	$this->waitPageLoad();
   	
   	$this->assertTrue($this->isTextPresent("mi_jomsocialjspt"));
-  	$this->click("Settings");
-  	if(TEST_XIPT_JOOMLA_15)
+  	
+  	if(TEST_XIPT_JOOMLA_15){
+  		$this->click("Settings");
   		$this->click("//td[@id='toolbar-save']/a/span");
-  	if(TEST_XIPT_JOOMLA_16)
+  	}
+  		
+  	if(TEST_XIPT_JOOMLA_16){
+  		$this->click("//dl[@id='createMicroIntegration']/dt[2]/span");
   		$this->click("//li[@id='toolbar-save']/a/span");
-  		  	
+  	}
   	$this->waitPageLoad();
   	$this->assertTrue($this->isTextPresent("Changes successfully saved"));
   }
