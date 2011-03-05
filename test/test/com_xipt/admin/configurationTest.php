@@ -35,7 +35,10 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablereporting0");
     $this->click("enablevideos0");
     $this->click("enablephotos0");
-    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_15)
+	    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16)
+	    $this->click("//li[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     //check for reset link
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
@@ -46,7 +49,8 @@ class ConfigurationTest extends XiSelTestCase
     $this->assertEquals($params->get('enablereporting'), 0);
     $this->assertEquals($params->get('enablevideos'), 0);
     $this->assertEquals($params->get('enablephotos'), 0);
-    
+    // avoid caching issue
+  	XiptLibJomsocial::cleanStaticCache(true);  
     //edit 1
     $p = 1;
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=configuration&task=edit&id=$p");
@@ -55,7 +59,10 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablereporting0");
     $this->click("enablevideos0");
     $this->click("enablephotos0");
-    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_15)
+	    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16)
+	    $this->click("//li[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
@@ -63,9 +70,9 @@ class ConfigurationTest extends XiSelTestCase
     
     $params = XiptFactory::getInstance('profiletypes', 'model')->loadParams(1,'params');
     $this->assertEquals($params->get('enablegroups'), 1);
-    $this->assertEquals($params->get('enablereporting'), 0);
-    $this->assertEquals($params->get('enablevideos'), 0);
-    $this->assertEquals($params->get('enablephotos'), 0);
+    $this->assertEquals($params->get('enablereporting'), 0); //default value 1 in JS 2.1.3
+    $this->assertEquals($params->get('enablevideos'), 0);  //default value 1 in JS 2.1.3
+    $this->assertEquals($params->get('enablephotos'), 0);  //default value 1 in JS 2.1.3
 
     //edit 3
     $p = 3;
@@ -75,7 +82,10 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablereporting1");
     $this->click("enablevideos1");
     $this->click("enablephotos1");
-    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_15)
+	    $this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16)
+	    $this->click("//li[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     
     $element = " //a[@href='index.php?option=com_xipt&view=configuration&task=reset&profileId=$p']";
@@ -116,8 +126,10 @@ class ConfigurationTest extends XiSelTestCase
     $this->select("settings[defaultProfiletypeID]", "label=PROFILETYPE-1");
     $this->select("settings[guestProfiletypeID]", "label=PROFILETYPE-3");
     $this->click("settingsaec_integrate1");
-      	
-  	$this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_15)      	
+  		$this->click("//td[@id='toolbar-save']/a");
+    if(TEST_XIPT_JOOMLA_16)
+  	 	$this->click("//li[@id='toolbar-save']/a/span");
   	$this->waitPageLoad();
   }
 }

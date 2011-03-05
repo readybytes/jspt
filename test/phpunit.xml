@@ -13,7 +13,7 @@
 	<file>test/com_xipt/admin/applicationTest.php</file>
 		<file>test/com_xipt/admin/aclRulesTest.php</file>
 		<file>test/com_xipt/admin/profilefieldsTest.php</file>
-<!--		<file>test/com_xipt/admin/configurationTest.php</file>-->
+		<file>test/com_xipt/admin/configurationTest.php</file>
 		<file>test/com_xipt/admin/syncUpTest.php</file>
 	<!--	<file>test/com_xipt/admin/walkThroughTest.php</file>-->
 <!--		<file>test/com_xipt/front/registerTest.php</file>-->

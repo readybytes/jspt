@@ -17,12 +17,19 @@ class WalkThroughTest extends XiSelTestCase
 
   	//try to edit one MI
   	$this->click("cb0");
-  	$this->click("//td[@id='toolbar-edit']/a/span");
+  	if(TEST_XIPT_JOOMLA_15)
+  		$this->click("//td[@id='toolbar-edit']/a/span");
+  	if(TEST_XIPT_JOOMLA_16)
+  		$this->click("//li[@id='toolbar-edit']/a/span");
   	$this->waitPageLoad();
   	
   	$this->assertTrue($this->isTextPresent("mi_jomsocialjspt"));
   	$this->click("Settings");
-  	$this->click("//td[@id='toolbar-save']/a/span");
+  	if(TEST_XIPT_JOOMLA_15)
+  		$this->click("//td[@id='toolbar-save']/a/span");
+  	if(TEST_XIPT_JOOMLA_16)
+  		$this->click("//li[@id='toolbar-save']/a/span");
+  		  	
   	$this->waitPageLoad();
   	$this->assertTrue($this->isTextPresent("Changes successfully saved"));
   }
