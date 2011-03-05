@@ -19,8 +19,8 @@ require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 //This class should be only access from it's static object.
 class XiptLibPluginhandler
 {
-	private $mySess ;
-	private $app;
+	public $mySess ;
+	public $app;
 
 
 	function __construct()
