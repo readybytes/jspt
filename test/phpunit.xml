@@ -17,7 +17,7 @@
 		<file>test/com_xipt/admin/syncUpTest.php</file>
 		<file>test/com_xipt/admin/walkThroughTest.php</file>
 <!--		<file>test/com_xipt/front/registerTest.php</file>-->
-<!--		<file>test/com_xipt/front/profileTest.php</file>-->
+		<file>test/com_xipt/front/profileTest.php</file>
 <!--		<file>test/com_xipt/front/searchprofiletypeTest.php</file>-->
 		<file>test/com_xipt/front/avatarTest.php</file>
 		<!--
