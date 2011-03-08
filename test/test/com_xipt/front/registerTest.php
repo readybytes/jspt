@@ -77,7 +77,10 @@ class RegisterTest extends XiSelTestCase
   	//Prerequiste = clean session + No AEC + Our system plugin is working
   	//1. session cleaned via SQL
     // go to register location 
-    $this->open(JOOMLA_LOCATION."/index.php?option=com_user&view=register");
+   if(TEST_XIPT_JOOMLA_16)
+    	$this->open(JOOMLA_LOCATION."index.php?option=com_users&view=registration");
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->open(JOOMLA_LOCATION."/index.php?option=com_user&view=register");
     $this->waitPageLoad();
     $this->click("profiletypes".$ptype);
     $this->click("ptypesavebtn");
@@ -87,8 +90,12 @@ class RegisterTest extends XiSelTestCase
     // now fille reg + field information
     
     $username =  $this->fillJoomlaRrgistrationPT($ptype);
+    if(TEST_XIPT_JOOMLA_15)
+ 	    $this->assertTrue($this->isTextPresent("You may now log in."));
     
-    $this->assertTrue($this->isTextPresent("You may now log in."));
+// 	if(TEST_XIPT_JOOMLA_16)
+// 	    $this->assertTrue($this->isTextPresent("Thank you for registering. You may now log in using username and password you registered with."));
+ 	
     
     //verify users
     $this->assertTrue($this->verifyJoomlaUser($username, $ptype, $template));
@@ -104,12 +111,24 @@ class RegisterTest extends XiSelTestCase
     $randomStr = "regtest".$randomNo;
     
     // fill some random values in register page
-    $this->type("name", $randomStr);
-    $this->type("username", $randomStr);
-    $this->type("email", $randomStr.'@gmail.com');
-    $this->type("password", $randomStr);
-    $this->type("password2", $randomStr);
-    $this->click("//button[@type='submit']");
+    if(TEST_XIPT_JOOMLA_15){
+	    $this->type("name", $randomStr);
+	    $this->type("username", $randomStr);
+	    $this->type("email", $randomStr.'@gmail.com');
+	    $this->type("password", $randomStr);
+	    $this->type("password2", $randomStr);
+    }
+    
+    if(TEST_XIPT_JOOMLA_16){
+        $this->type("jform_name", $randomStr);
+   		$this->type("jform_username", $randomStr);
+    	$this->type("jform_password1", $randomStr);
+    	$this->type("jform_password2", $randomStr);
+    	$this->type("jform_email1", $randomStr.'@gmail.com');
+    	$this->type("jform_email2", $randomStr.'@gmail.com');
+    }
+    
+    $this->click("//button[@type='submit']");   
     $this->waitPageLoad();
     return $randomStr;
   }
@@ -305,9 +324,11 @@ class RegisterTest extends XiSelTestCase
   	
   	$cUser 			= CFactory::getUser($userid);
   	$privacy		= $cUser->getParams()->get('privacyProfileView');
-  	$profiletype  	= $cUser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
-    $template     	= $cUser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
-
+//  	$profiletype  	= $cUser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
+//    $template     	= $cUser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
+    
+  	$profiletype  	= XiptHelperUtils::getInfo($userid,PROFILETYPE_CUSTOM_FIELD_CODE);
+    $template     	= XiptHelperUtils::getInfo($userid,TEMPLATE_CUSTOM_FIELD_CODE);
     // find groups of user
     $query	= " SELECT `groupid` FROM #__community_groups_members "
   			." WHERE `memberid`='". $userid ."' LIMIT 1";
@@ -431,11 +452,18 @@ class RegisterTest extends XiSelTestCase
 	
   	$this->open(JOOMLA_LOCATION.'/index.php');
   	$this->waitPageLoad();
-  	$this->assertTrue($this->isElementPresent("//li[@class='item61']/a"));
-  	$this->click("//li[@class='item61']/a");
+  	
+  	if(TEST_XIPT_JOOMLA_15){
+  		$this->assertTrue($this->isElementPresent("//li[@class='item61']/a"));
+  		$this->click("//li[@class='item61']/a");
+  	}
+  	 if(TEST_XIPT_JOOMLA_16){
+  	 	  	$this->assertTrue($this->isElementPresent("//img[@alt='Profile Type 1 Registration']"));
+  	 	  	$this->click("//img[@alt='Profile Type 1 Registration']");
+  	 }	
   	$this->waitPageLoad();
   		
-  	$this->assertFalse($this->isTextPresent("PROFILETYPE-1"));
+  	$this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
   	// the selected profile is PROFILETYPE-2 
   	// $this->assertTrue($this->isTextPresent("PROFILETYPE-2"));
     $this->assertFalse($this->isTextPresent("PROFILETYPE-3"));
@@ -489,16 +517,16 @@ class RegisterTest extends XiSelTestCase
 	$this->type("jsemail",$email);
 	$this->type("jspassword",$username);
 	$this->type("jspassword2",$username);
-	sleep(2);
-	$this->click("//input[@type='submit']");
-	sleep(2);
-	$this->click("//input[@type='submit']");
+	sleep(4);
+	    $this->click("btnSubmit");
+	sleep(4);
+	    $this->click("btnSubmit");
 	if($restrict==true){
 		$this->waitForElement("cwin_tm");
-		if(Jstring::stristr($version,'1.8') || Jstring::stristr($version,'2.0'))
+//		if(Jstring::stristr($version,'1.8') || Jstring::stristr($version,'2.0'))
 			$this->assertTrue($this->isTextPresent("info is required. Make sure it contains a valid value!"));
-		else
-			$this->assertTrue($this->isTextPresent("A required entry is missing or it contains an invalid value!"));
+//		else
+//			$this->assertTrue($this->isTextPresent("A required entry is missing or it contains an invalid value!"));
 		
 		$this->click("cwin_close_btn");
 	}

@@ -1,16 +1,48 @@
-TRUNCATE TABLE `#__xipt_aec`;;
-INSERT INTO `#__xipt_aec` (`id`, `planid`, `profiletype`) VALUES
-(1, 0, 0),
-(2, 1, 1),
-(3, 5, 3),
-(4, 6, 4),
-(5, 8, 2),
-(6, 2, 1);;
 
 TRUNCATE TABLE `#__acctexp_config` ;;
 INSERT INTO `#__acctexp_config` (`id`, `settings`) VALUES
 (1, 'YTo5Mzp7czoyMDoicmVxdWlyZV9zdWJzY3JpcHRpb24iO3M6MToiMCI7czoxMToiYWRtaW5hY2Nlc3MiO3M6MToiMSI7czoxMToiYWxlcnRsZXZlbDIiO3M6MToiNyI7czoxMToiYWxlcnRsZXZlbDEiO3M6MToiMyI7czoxODoiZXhwaXJhdGlvbl9jdXNoaW9uIjtzOjI6IjEyIjtzOjE1OiJoZWFydGJlYXRfY3ljbGUiO3M6MjoiMjQiO3M6MjM6ImhlYXJ0YmVhdF9jeWNsZV9iYWNrZW5kIjtzOjE6IjEiO3M6MjQ6ImFsbG93X2Zyb250ZW5kX2hlYXJ0YmVhdCI7czoxOiIwIjtzOjI1OiJkaXNhYmxlX3JlZ3VsYXJfaGVhcnRiZWF0IjtzOjE6IjAiO3M6Mjc6ImN1c3RvbV9oZWFydGJlYXRfc2VjdXJlaGFzaCI7czowOiIiO3M6ODoibm9lbWFpbHMiO3M6MToiMCI7czoxNzoibm9qb29tbGFyZWdlbWFpbHMiO3M6MToiMCI7czoxNzoiYnlwYXNzaW50ZWdyYXRpb24iO3M6MDoiIjtzOjExOiJvdmVycmlkZUoxNSI7czoxOiIwIjtzOjEyOiJjdXJsX2RlZmF1bHQiO3M6MToiMSI7czoxMDoic2ltcGxldXJscyI7czoxOiIwIjtzOjI0OiJlcnJvcl9ub3RpZmljYXRpb25fbGV2ZWwiO3M6MjoiMzIiO3M6MjQ6ImVtYWlsX25vdGlmaWNhdGlvbl9sZXZlbCI7czozOiIxMjgiO3M6MTY6ImJyZWFrb25fbWlfZXJyb3IiO3M6MToiMCI7czo5OiJkZWJ1Z21vZGUiO3M6MToiMCI7czoxMToicGxhbnNfZmlyc3QiO3M6MToiMSI7czoyMjoiaW50ZWdyYXRlX3JlZ2lzdHJhdGlvbiI7czoxOiIwIjtzOjE4OiJzaG93X2ZpeGVkZGVjaXNpb24iO3M6MToiMCI7czoxNzoic2tpcF9jb25maXJtYXRpb24iO3M6MToiMCI7czoxMzoidGVtcF9hdXRoX2V4cCI7czoyOiIxNSI7czoxMzoiZGlzcGxheWNjaW5mbyI7czoxOiIxIjtzOjE0OiJlbmFibGVfY291cG9ucyI7czoxOiIxIjtzOjIwOiJjb25maXJtYXRpb25fY291cG9ucyI7czoxOiIwIjtzOjEwOiJyb290X2dyb3VwIjtzOjE6IjEiO3M6MTM6InJvb3RfZ3JvdXBfcnciO3M6MDoiIjtzOjEwOiJlbnRyeV9wbGFuIjtzOjE6IjAiO3M6MTk6ImVuYWJsZV9zaG9wcGluZ2NhcnQiO3M6MToiMCI7czoyNzoiY3VzdG9tbGlua19jb250aW51ZXNob3BwaW5nIjtzOjA6IiI7czoxODoiYWRkaXRlbV9zdGF5b25wYWdlIjtzOjE6IjAiO3M6MzoidG9zIjtzOjA6IiI7czoxMDoidG9zX2lmcmFtZSI7czoxOiIwIjtzOjI5OiJjaGVja291dF9kaXNwbGF5X2Rlc2NyaXB0aW9ucyI7czoxOiIwIjtzOjE2OiJjaGVja291dF9hc19naWZ0IjtzOjE6IjAiO3M6MjM6ImNoZWNrb3V0X2FzX2dpZnRfYWNjZXNzIjtzOjI6IjIzIjtzOjE1OiJjb25maXJtX2FzX2dpZnQiO3M6MToiMCI7czoxMDoic3NsX3NpZ251cCI7czoxOiIwIjtzOjExOiJzc2xfcHJvZmlsZSI7czoxOiIwIjtzOjE1OiJvdmVycmlkZV9yZXFzc2wiO3M6MToiMCI7czo5OiJhbHRzc2x1cmwiO3M6MDoiIjtzOjE0OiJzc2xfdmVyaWZ5cGVlciI7czoxOiIwIjtzOjE0OiJzc2xfdmVyaWZ5aG9zdCI7czowOiIiO3M6MTA6InNzbF9jYWluZm8iO3M6MDoiIjtzOjEwOiJzc2xfY2FwYXRoIjtzOjA6IiI7czoxMToiY3VzdG9taW50cm8iO3M6MDoiIjtzOjE4OiJjdXN0b21pbnRyb191c2VyaWQiO3M6MToiMCI7czoxODoiY3VzdG9taW50cm9fYWx3YXlzIjtzOjE6IjEiO3M6MTI6ImN1c3RvbXRoYW5rcyI7czowOiIiO3M6MTI6ImN1c3RvbWNhbmNlbCI7czowOiIiO3M6MTY6ImN1c3RvbW5vdGFsbG93ZWQiO3M6MDoiIjtzOjk6InVzZV9wcm94eSI7czoxOiIwIjtzOjU6InByb3h5IjtzOjA6IiI7czoxMDoicHJveHlfcG9ydCI7czowOiIiO3M6MTQ6InByb3h5X3VzZXJuYW1lIjtzOjA6IiI7czoxNDoicHJveHlfcGFzc3dvcmQiO3M6MDoiIjtzOjEzOiJnZXRob3N0YnlhZGRyIjtzOjE6IjEiO3M6MTg6InJlbmV3X2J1dHRvbl9uZXZlciI7czoxOiIwIjtzOjMyOiJyZW5ld19idXR0b25fbm9saWZldGltZXJlY3VycmluZyI7czoxOiIxIjtzOjE1OiJjb250aW51ZV9idXR0b24iO3M6MToiMSI7czoyMToiZGlzcGxheV9kYXRlX2Zyb250ZW5kIjtzOjg6IiVkICViICVZIjtzOjIwOiJkaXNwbGF5X2RhdGVfYmFja2VuZCI7czoxODoiJWEsICVkICViICVZICVUICVaIjtzOjIyOiJhbW91bnRfY3VycmVuY3lfc3ltYm9sIjtzOjE6IjAiO3M6Mjc6ImFtb3VudF9jdXJyZW5jeV9zeW1ib2xmaXJzdCI7czoxOiIwIjtzOjE2OiJhbW91bnRfdXNlX2NvbW1hIjtzOjE6IjAiO3M6MTk6Imludm9pY2VudW1fZG9mb3JtYXQiO3M6MToiMCI7czoyMToiaW52b2ljZW51bV9mb3JtYXR0aW5nIjtzOjE3MDoie2FlY2pzb259eyJjbWQiOiJjb25jYXQiLCJ2YXJzIjpbeyJjbWQiOiJkYXRlIiwidmFycyI6WyJZIix7ImNtZCI6InJ3X2NvbnN0YW50IiwidmFycyI6Imludm9pY2VfY3JlYXRlZF9kYXRlIn1dfSwiLSIseyJjbWQiOiJyd19jb25zdGFudCIsInZhcnMiOiJpbnZvaWNlX2lkIn1dfXsvYWVjanNvbn0iO3M6MTM6InVzZV9yZWNhcHRjaGEiO3M6MToiMCI7czoyMDoicmVjYXB0Y2hhX3ByaXZhdGVrZXkiO3M6MDoiIjtzOjE5OiJyZWNhcHRjaGFfcHVibGlja2V5IjtzOjA6IiI7czoxNjoiY3VzdG9tdGV4dF9wbGFucyI7czowOiIiO3M6MzE6ImN1c3RvbXRleHRfY29uZmlybV9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tdGV4dF9jb25maXJtIjtzOjA6IiI7czozMjoiY3VzdG9tdGV4dF9jaGVja291dF9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxOToiY3VzdG9tdGV4dF9jaGVja291dCI7czowOiIiO3M6MzM6ImN1c3RvbXRleHRfZXhjZXB0aW9uX2tlZXBvcmlnaW5hbCI7czoxOiIxIjtzOjIwOiJjdXN0b210ZXh0X2V4Y2VwdGlvbiI7czowOiIiO3M6MzQ6ImN1c3RvbXRleHRfbm90YWxsb3dlZF9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoyMToiY3VzdG9tdGV4dF9ub3RhbGxvd2VkIjtzOjA6IiI7czozMToiY3VzdG9tdGV4dF9wZW5kaW5nX2tlZXBvcmlnaW5hbCI7czoxOiIxIjtzOjE4OiJjdXN0b210ZXh0X3BlbmRpbmciO3M6MDoiIjtzOjI4OiJjdXN0b210ZXh0X2hvbGRfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTU6ImN1c3RvbXRleHRfaG9sZCI7czowOiIiO3M6MzE6ImN1c3RvbXRleHRfZXhwaXJlZF9rZWVwb3JpZ2luYWwiO3M6MToiMSI7czoxODoiY3VzdG9tdGV4dF9leHBpcmVkIjtzOjA6IiI7czozMDoiY3VzdG9tdGV4dF90aGFua3Nfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTc6ImN1c3RvbXRleHRfdGhhbmtzIjtzOjA6IiI7czozMDoiY3VzdG9tdGV4dF9jYW5jZWxfa2VlcG9yaWdpbmFsIjtzOjE6IjEiO3M6MTc6ImN1c3RvbXRleHRfY2FuY2VsIjtzOjA6IiI7czoxMToiYWVjX3ZlcnNpb24iO3M6NjoiMC4xMi42Ijt9');;
 
+
+
+DROP TABLE IF EXISTS `#__community_fields`;; /*Create fields*/
+
+CREATE TABLE IF NOT EXISTS `#__community_fields` (
+  `id` int(10) NOT NULL auto_increment,
+  `type` varchar(255) NOT NULL,
+  `ordering` int(11) default '0',
+  `published` tinyint(1) NOT NULL default '0',
+  `min` int(5) NOT NULL,
+  `max` int(5) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `tips` text NOT NULL,
+  `visible` tinyint(1) default '0',
+  `required` tinyint(1) default '0',
+  `searchable` tinyint(1) default '1',
+  `registration` tinyint(1) default '1',
+  `options` text,
+  `fieldcode` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `fieldcode` (`fieldcode`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;;
+
+--
+-- Dumping data for table `#__community_fields`
+--
+
+INSERT INTO `#__community_fields` 
+(`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES
+(1, 'group', 1, 1, 10, 100, 'Basic Information', 'Basicr', 1, 1, 1, 1, '', ''),
+(2, 'text', 2, 1, 5, 250, 'Hometown2', 'Hometown2', 1, 1, 1, 1, '', 'FIELD_HOMETOWN2'),
+(3, 'text', 3, 1, 5, 250, 'Hometown3', 'Hometown3', 1, 0, 1, 1, '', 'FIELD_HOMETOWN3'),
+(4, 'text', 4, 1, 5, 250, 'Hometown4', 'Hometown4', 1, 0, 1, 1, '', 'FIELD_HOMETOWN4'),
+(5, 'text', 5, 1, 5, 250, 'Hometown5', 'Hometown5', 1, 0, 1, 1, '', 'FIELD_HOMETOWN5'),
+(6, 'text', 6, 1, 5, 250, 'Hometown6', 'Hometown6', 0, 0, 1, 1, '', 'FIELD_HOMETOWN6'),
+(7, 'text', 7, 1, 5, 250, 'Hometown7', 'Hometown7', 1, 0, 1, 0, '', 'FIELD_HOMETOWN7'),
+(8, 'text', 8, 1, 5, 250, 'Hometown8', 'Hometown8', 1, 0, 1, 1, '', 'FIELD_HOMETOWN8'),
+(9, 'text', 9, 1, 5, 250, 'Hometown9', 'Hometown9', 1, 0, 0, 1, '', 'FIELD_HOMETOWN9'),
+(16, 'templates', 10, 1, 10, 100, 'Template', 'Template Of User', 1, 1, 1, 1, '', 'XIPT_TEMPLATE'),
+(17, 'profiletypes', 11, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');;
 
 TRUNCATE TABLE `#__acctexp_microintegrations`;;
 INSERT INTO `#__acctexp_microintegrations` (`id`, `active`, `system`, `hidden`, `ordering`, `name`, `desc`, `class_name`, `params`, `auto_check`, `on_userchange`, `pre_exp_check`) VALUES

@@ -65,6 +65,17 @@ class plgSystemxipt_system extends JPlugin
 	 */
 	function onAfterStoreUser($properties,$isNew,$result,$error)
 	{
+		$this->onUserAfterSave($properties,$isNew,$result,$error);
+	}
+	/**
+	 * 
+	 * @param unknown_type $properties : Holds the new user data.
+	 * @param unknown_type $isNew: True if a new user is stored.
+	 * @param unknown_type $result: True if user was succesfully stored in the database.
+	 * @param unknown_type $error : Error Message
+	 */
+	function onUserAfterSave($properties,$isNew,$result,$error)
+	{
 		// we only store new users
 		if($isNew == false || $result == false || $error == true) {
 			$this->_pluginHandler->cleanRegistrationSession();
@@ -151,6 +162,15 @@ class plgSystemxipt_system extends JPlugin
 	function event_com_user_register_blank()
 	{
 	    return $this->_pluginHandler->integrateRegistrationWithPType();
+	}
+	
+	/**
+	 * for Joomla 1.6 
+	 * replace (option) user to users and (view) register to registration.
+	 */
+	function event_com_users_registration_blank()
+	{
+	    return $this->event_com_user_register_blank();
 	}
 
 	function event_com_community_profile_blank()
