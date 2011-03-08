@@ -19,11 +19,11 @@
 		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
 
 		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
-		<exec command="tar -xvzf ${pkg.location}/Joomla_${pkg.version}.tar.gz -C ${joomla.rootpath}/${joomla.folder}" />
-		<exec command="mv -f ${joomla.rootpath}/${joomla.folder}/Joomla_${pkg.version}/* ${joomla.rootpath}/${joomla.folder}" passthru="true" />
+		<exec command="tar -xvzf ${pkg.location}/${pkg.version}/Joomla.tar.gz -C ${joomla.rootpath}/${joomla.folder}" />
+		<exec command="mv -f ${joomla.rootpath}/${joomla.folder}/Joomla/* ${joomla.rootpath}/${joomla.folder}" passthru="true" />
 
-		<copy file="${pkg.location}/database_${pkg.version}.sql" tofile="${joomla.rootpath}/${joomla.folder}/database.sql" overwrite="true"/>
-		<copy file="${pkg.location}/configuration_${pkg.version}.php" tofile="${joomla.rootpath}/${joomla.folder}/configuration.php" overwrite="true"/>
+		<copy file="${pkg.location}/${pkg.version}/database.sql" tofile="${joomla.rootpath}/${joomla.folder}/database.sql" overwrite="true"/>
+		<copy file="${pkg.location}/${pkg.version}/configuration.php" tofile="${joomla.rootpath}/${joomla.folder}/configuration.php" overwrite="true"/>
 
 		<!-- replace configuration-->
 		<reflexive>

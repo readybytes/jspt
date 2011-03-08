@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project name="jspt30" default="build" basedir="."> 
-	<target name="build" depends="checkout,php-documentor,build-package,setup-package,phpunit,phpunitsetup,phpunitfinal" />
+	<target name="build" depends="checkout,build-package,setup-package,phpunit,phpunitsetup,phpunitfinal" />
 
 	<target name="checkout">  
 		<exec executable="svn" dir="${basedir}">  
@@ -8,22 +8,16 @@
 		</exec>  
 	</target>  
 
-	<target name="php-documentor">  
-		<exec executable="phpdoc" dir="${basedir}/source">  
-			<arg line=" -ct type -ue on -t ${basedir}/build/api -tb /usr/share/php/data/phpUnderControl/data/phpdoc -o HTML:Phpuc:phpuc -d ."/>  
-		</exec>  
-	</target>  
-
 	<target name="build-package">
-		<exec executable="phing" dir="${basedir}/script" />
+		<exec executable="phing" dir="${basedir}/scripts" />
 	</target>
 	
 	<target name="setup-package">
 		<tstamp>
    		 	<format property="tstamped-file-name" pattern="dd_MMM_hh_mm" locale="en,UK"/>
   		</tstamp> 
-		<exec executable="phing" dir="${basedir}/script">
-			<arg line=" -f setup.xml -Djoomla.now=${tstamped-file-name}"/> 
+		<exec executable="phing" dir="${basedir}/scripts">
+			<arg line=" -f setup.xml -Djoomla.now=${tstamped-file-name} -Dpkg.version=${build_pkg_version}"/> 
 		</exec>
 	</target>
 
@@ -52,7 +46,8 @@
 
 	<target name="phpunitfinal"> 
 		<exec executable="phpunit" dir="/var/www/jspt${tstamped-file-name}/test" failonerror="off"> 
-		<arg line="--log-xml ${basedir}/build/logs/phpunit.xml
+		<arg line=" --configuration nightly.xml
+				--log-xml ${basedir}/build/logs/phpunit.xml
  			 	--log-pmd ${basedir}/build/logs/phpunit.pmd.xml
  				 --log-metrics ${basedir}/build/logs/phpunit.metrics.xml
  				 --coverage-xml ${basedir}/build/logs/phpunit.coverage.xml 

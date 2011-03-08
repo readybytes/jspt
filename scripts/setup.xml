@@ -16,6 +16,13 @@
 		</if>
 		<echo msg="${joomla.now}" />
 
+		<if>
+		 <isset property="${pkg.version}"/>
+		  <then>
+		 	<echo msg="pkg.version already set to {pkg.version}" />
+		 </then>
+		</if>
+
 		<php expression="rand(100,999)" returnProperty="joomla.random3"/>
 		<property file="setup.prop"  override="false" />
 	</target>
@@ -47,7 +54,7 @@
 
 	<!-- Copy latest JomSocial -->
 	<target name="copy_community">
-		<copy 	file="${pkg.location}/com_community_${pkg.version}.zip" 
+		<copy 	file="${pkg.location}/${pkg.version}/com_community.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
 	</target>
 

@@ -7,3 +7,10 @@ define('SCREENSHOT_PATH','/var/www/selRC');
 define('SCREENSHOT_URL','http://'.SEL_RC_SERVER.'/selRC');
 
 define('JOOMLA_HOST','localhost');
+
+jimport('joomla.filesystem.folder');
+if(!JFolder::exists(SCREENSHOT_PATH)){
+	
+	if(!JFolder::create(SCREENSHOT_PATH,0777))
+		echo "\nIMP : Please create selRC folder at ".SCREENSHOT_PATH."\n";
+}
