@@ -155,14 +155,16 @@ class plgCommunityxipt_community extends CApplications
 		 * #2: otherwise block display application of user whose profile is being visited
 		 * #3: block the functional application of logged in user
 		*/ 		
+		$apps = $dispatcher->get('_observers');
+		
 		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_OWNER || $blockDisplayApp == BLOCK_DISPLAY_APP_OF_BOTH)
-			XiptLibApps::filterCommunityApps($dispatcher->get('_observers'), $othersProfiletype, true);
+			XiptLibApps::filterCommunityApps($apps, $othersProfiletype, true);
 			
 		if($blockDisplayApp == BLOCK_DISPLAY_APP_OF_VISITOR || $blockDisplayApp == BLOCK_DISPLAY_APP_OF_BOTH)
-			XiptLibApps::filterCommunityApps($dispatcher->get('_observers'), $selfProfiletype, true);
+			XiptLibApps::filterCommunityApps($apps, $selfProfiletype, true);
 
-		XiptLibApps::filterCommunityApps($dispatcher->get('_observers'), $selfProfiletype,	  false);
-		
+		XiptLibApps::filterCommunityApps($apps, $selfProfiletype,	  false);
+		$dispatcher->set('_observers',$apps);
 	    return true;
 	}
 

@@ -9,7 +9,7 @@ class ProfileTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
-  XiTODO:: improv in code
+  //XiTODO:: improv in code
   //cross check page exists and comes
   function testViewableProfiles()
   {

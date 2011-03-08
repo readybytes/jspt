@@ -12,3 +12,19 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (80, 'regtest6208627', 'regtest6208627', 'regtest6208627@gmail.com', '73e7830c01e705a5adeaaa3e278fbdec:uQb0sUh0KdTyybJuHnYHAtpOmtfVNxr2', 'Editor', 0, 0, '2009-12-03 08:16:18', '0000-00-00 00:00:00', '0e24ede794209ad6de9624f89077daed', '\n'),
 (81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n'),
 (88, 'regtest9754090', 'regtest9754090', 'regtest9754090@gmail.com', 'b5d1561e631ee61c2c1d6520eb9a5d53:Sn8uEOI2T0obmxNMnhEIdOS0hrKyIsAQ', 'Registered', 0, 0, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '7a8681dabe3df14e97f9df40701007a0', '\n');;
+
+
+
+TRUNCATE TABLE `#__user_usergroup_map`;;
+INSERT INTO `#__user_usergroup_map` (`user_id`, `group_id`) VALUES
+(62, 8),
+(79, 2),
+(80, 2),
+(81, 2),
+(82, 2),
+(83, 2),
+(84, 2),
+(85, 2),
+(86, 2),
+(87, 2),
+(88, 2);;

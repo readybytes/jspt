@@ -113,7 +113,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
     	$this->type("modlgn-passwd", $password);
     	$this->click("Submit");
     }
-    $this->waitForPageToLoad();
+  	$this->waitPageLoad();
     if (TEST_XIPT_JOOMLA_15)
     	$this->assertEquals("Log out", $this->getValue("//form[@id='form-login']/div[2]/input"));
     if (TEST_XIPT_JOOMLA_16)
