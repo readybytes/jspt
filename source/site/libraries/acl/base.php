@@ -335,7 +335,7 @@ abstract class XiptAclBase
 		if($objResponse === null)
 			$objResponse   	= new JAXResponse();
 
-		$objResponse->addAssign('cwin_logo', 'innerHTML', JText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
+		$objResponse->addAssign('cwin_logo', 'innerHTML', XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
 		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);
 		$objResponse->addScriptCall('cWindowResize', 80);
 		
@@ -350,7 +350,7 @@ abstract class XiptAclBase
 			                                     ."return true;"
 			                                     ."};";
 
-		     $buttons	= '<input type="button" value="' . JText::_('CC_BUTTON_CLOSE') . '" class="button" onclick="cWindowHide(); window.location.href = &quot;' . $redirectUrl . '&quot;;" />';
+		     $buttons	= '<input type="button" value="' . XiptText::_('CC_BUTTON_CLOSE') . '" class="button" onclick="cWindowHide(); window.location.href = &quot;' . $redirectUrl . '&quot;;" />';
 		     $objResponse->addScriptCall('cWindowActions', $buttons);
 		   }
 		$objResponse->sendResponse();
@@ -366,7 +366,7 @@ abstract class XiptAclBase
 	{
 		$message = $this->getCoreParams('core_display_message','');		
 		$message = base64_decode($message);
-		return JText::_($message);
+		return XiptText::_($message);
 	}
 
 	public function getRedirectUrl()

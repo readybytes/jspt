@@ -28,24 +28,26 @@
 ../packages/tmp/admin/install/helper.php:435:		$db		= JFactory::getDBO();
 ../packages/tmp/admin/install/helper.php:459:		$db		=  JFactory::getDBO();
 ../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:35:		$app = JFactory::getApplication();
-../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:144:			JFactory::getApplication()->redirect($link);
-../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:171:		$app	 = JFactory::getApplication();
-../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:187:    	$app = JFactory::getApplication();
-../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:212:        $doc = JFactory::getDocument();
+../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:186:			JFactory::getApplication()->redirect($link);
+../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:213:		$app	 = JFactory::getApplication();
+../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:229:    	$app = JFactory::getApplication();
+../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:254:        $doc = JFactory::getDocument();
 ../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:69:		$isAdmin = XiptHelperUtils::isAdmin(JFactory::getUser()->id);
 ../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:138:		if(JFactory::getApplication()->isAdmin())
 ../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:144:		$selfUserid    = JFactory::getUser()->id;
-../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:188:		if(JFactory::getApplication()->isAdmin())
+../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:190:		if(JFactory::getApplication()->isAdmin())
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:50:		$database	=& JFactory::getDBO();
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:134:		$db =& JFactory::getDBO();
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:156:class jomsocialjspt_restriction extends JTable {
 ../packages/tmp/admin/hacks/mi_jomsocialjspt.php:170:		$db = &JFactory::getDBO();
 ../packages/tmp/site/controllers/registration.php:13:		$this->mySess 	= JFactory::getSession();
-../packages/tmp/site/helpers/jomsocial.php:39:		$parser		= JFactory::getXMLParser('Simple');
+../packages/tmp/site/helpers/jomsocial.php:42:		$parser		= JFactory::getXMLParser('Simple');
 ../packages/tmp/site/helpers/image.php:152:			JFactory::getApplication()->enqueueMessage("Watermark must be PNG or GIF image, no watermark applied");
 ../packages/tmp/site/helpers/image.php:160:			JFactory::getApplication()->enqueueMessage("Unable to open through getimage the file $image");
 ../packages/tmp/site/helpers/table.php:13:		$db		 	=	JFactory::getDBO();
 ../packages/tmp/site/helpers/utils.php:13:		$my	= JFactory::getUser($id);
+../packages/tmp/site/helpers/utils.php:98:		$db		= JFactory::getDBO();
+../packages/tmp/site/helpers/utils.php:110:		$field	= JTable::getInstance( 'FieldValue' , 'CTable' );
 ../packages/tmp/site/helpers/profiletypes.php:55:		$usertypes= XiptLibJoomla::getJUserTypes();
 ../packages/tmp/site/helpers/profiletypes.php:190:		$mainframe	=& JFactory::getApplication();
 ../packages/tmp/site/helpers/profiletypes.php:199:			$mainframe->enqueueMessage( XiptText::_('IMAGE_FILE_SIZE_EXCEEDED') , 'error' );

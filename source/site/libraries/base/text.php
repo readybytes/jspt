@@ -8,6 +8,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptText extends JText
 {
-	
+		static function _($string, $jsSafe = false)
+        {
+        		$string='COM_XIPT_'.$string;
+                return parent::_($string, $jsSafe);
+        }
 }
 

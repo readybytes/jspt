@@ -215,7 +215,7 @@ class plgSystemxipt_system extends JPlugin
 	    // as user want to integrate the AEC so a plan must be selected
         // send user to profiletype selection page
 	    if($aecData['planSelected'] == false)
-	        $app->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),JText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
+	        $app->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),XiptText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
 
 	    // set selected profiletype in session
 	    $this->_pluginHandler->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
@@ -229,7 +229,7 @@ class plgSystemxipt_system extends JPlugin
     	$app = JFactory::getApplication();
 		
  		if($app->isAdmin() && $this->_pluginHandler->checkSetupRequired())
- 			$app->enqueueMessage(JText::_('JSPT_SETUP_SCREEN_IS_NOT_CLEAN_PLEASE_CLEAN_IT'), 'error');
+ 			$app->enqueueMessage(XiptText::_('JSPT_SETUP_SCREEN_IS_NOT_CLEAN_PLEASE_CLEAN_IT'), 'error');
  		 		
         // get option, view and task
         $option     = JRequest::getVar('option');

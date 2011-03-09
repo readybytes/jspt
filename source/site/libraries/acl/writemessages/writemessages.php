@@ -55,7 +55,7 @@ class writemessages extends XiptAclBase
 	function aclAjaxBlock($msg)
 	{
 		$objResponse   	= new JAXResponse();
-		$title		= JText::_('CC_WRITE_MESSAGE');
+		$title		= XiptText::_('CC_WRITE_MESSAGE');
 		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
 		return parent::aclAjaxBlock($msg, $objResponse);
 	}

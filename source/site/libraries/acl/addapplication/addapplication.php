@@ -12,7 +12,7 @@ class addapplication extends XiptAclBase
 	function aclAjaxBlock($msg)
 	{
 		$objResponse   	= new JAXResponse();
-		$title		= JText::_('CC_PROFILE_VIDEO');
+		$title		= XiptText::_('CC_PROFILE_VIDEO');
 		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
 		return parent::aclAjaxBlock($msg, $objResponse);
 	}  

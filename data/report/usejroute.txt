@@ -49,8 +49,8 @@
 ../packages/tmp/admin/views/configuration/tmpl/default.php:30:<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 ../packages/tmp/admin/views/configuration/tmpl/default.php:69:					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=edit&name='.$field->name.'&id='.$field->id, false); ?>
 ../packages/tmp/admin/views/configuration/tmpl/default.php:76:					 $link = XiptRoute::_('index.php?option=com_xipt&view=configuration&task=reset&profileId='.$field->id, false); ?>
-../packages/tmp/admin/views/configuration/view.html.php:102:			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-../packages/tmp/admin/views/configuration/view.html.php:110:			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
+../packages/tmp/admin/views/configuration/view.html.php:107:			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+../packages/tmp/admin/views/configuration/view.html.php:115:			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
 ../packages/tmp/admin/toolbar.xipt.php:29:	JSubMenuHelper::addEntry( $val , 'index.php?option=com_xipt&view=' . $key , $active );
 ../packages/tmp/site/controllers/registration.php:39:				$link = XiptRoute::_('index.php?option=com_xipt&view=registration', false);
 ../packages/tmp/site/helpers/profiletypes.php:200:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$id, false) );

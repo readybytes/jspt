@@ -26,7 +26,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <div>
 <div class="col width-40" style="width:40%; float:left;">
 	<fieldset class="adminform">
-	<legend><?php echo JText::_( 'Details' ); ?></legend>
+	<legend><?php echo XiptText::_( 'DETAILS' ); ?></legend>
 	<table class="admintable">
 		<tr>
 			<td width="100" class="key">
@@ -87,7 +87,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<br />
 	<?php if($this->helpMsg) :?>	
 		<fieldset class="adminform">
-		<legend><?php echo JText::_('EXAMPLE'); ?></legend>
+		<legend><?php echo XiptText::_('EXAMPLE'); ?></legend>
 		<div style=" background-color:#F9F9F9; padding:5px;">			
 			<?php echo $this->helpMsg; ?>
 		</div>						
