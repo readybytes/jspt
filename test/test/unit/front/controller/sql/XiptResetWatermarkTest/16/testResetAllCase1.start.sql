@@ -8,7 +8,7 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 TRUNCATE TABLE `#__users`;;
 
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
-(42, 'Super User', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'deprecated', 0, 1,  '2009-10-27 14:21:57', '2010-07-20 15:33:59', '', '\n'),
+(62, 'Super User', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'deprecated', 0, 1,  '2009-10-27 14:21:57', '2010-07-20 15:33:59', '', '\n'),
 (63, '123', '123', '123@gg.com', '37a7633c128d44bd93629348a746ee82:TVa8P2R0wf8tHDitikdUDOTpNMLj5jtG', 'Registered', 0, 0, '2010-12-03 12:08:03', '2010-12-04 05:52:26', 'b39ac6adf13f344ce78a26a7a8f14527', '\n'),
 (64, '1234', '1234', '1234@gg.com', '53403598fcc62b2d65ecf9ce2a322a55:p495nv2jRhMwzrqh25Y9niFuED76tbtk', 'Registered', 0, 0, '2010-12-04 05:36:47', '2010-12-04 05:52:21', 'bb28b660e01fc9e1782d07aaec9045d3', '\n');;
 
