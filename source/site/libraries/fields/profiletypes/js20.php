@@ -46,7 +46,7 @@ class XiptFieldsProfiletypesJs20 extends XiptFieldsProfiletypesBase
 		}
 		
 		$pName = XiptLibProfiletypes::getProfiletypeName($pID);
-		return XiptText::_($pName);
+		return $pName;
 	}
 	
 } 

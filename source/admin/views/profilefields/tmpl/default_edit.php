@@ -62,7 +62,7 @@ jQuery(document).ready(function($){
 				<?php $catName = $catInfo['name']; ?>
 				<tr  class="row<?php echo $catIndex%2;?>" >
 					<td>
-						<?php echo XiptText::_($catName);?> :
+						<?php echo $catName ;?> :
 					</td>
 					<td > 
 						<div id="profileTypes<?php echo $catName;?>">
@@ -72,7 +72,7 @@ jQuery(document).ready(function($){
 							<div style="float:right; width:40%;">
 								<?php echo XiptText::_("SELECT");?> : 
 								<a href="#" class="ptypeSelectAll" id="ptypeSelectAll<?php echo $catName;?>"><?php echo XiptText::_('ALL');?></a> | 
-								<a href="#" class="ptypeSelectNone" id="ptypeSelectNone<?php echo $catName;?>"><?php echo XiptText::_('JNONE');?></a>	 
+								<a href="#" class="ptypeSelectNone" id="ptypeSelectNone<?php echo $catName;?>"><?php echo XiptText::_('NONE');?></a>	 
 							</div>
 						</div>							
 					</td>			

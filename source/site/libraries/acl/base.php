@@ -366,7 +366,7 @@ abstract class XiptAclBase
 	{
 		$message = $this->getCoreParams('core_display_message','');		
 		$message = base64_decode($message);
-		return XiptText::_($message);
+		return $message;
 	}
 
 	public function getRedirectUrl()

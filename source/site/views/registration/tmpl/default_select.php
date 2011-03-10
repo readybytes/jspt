@@ -18,7 +18,7 @@ foreach ( $this->allProfileTypes as $pType ):
 		$selected = 'checked="true"';
 
 	// show as selectbox	
-    $option		= XiptText::_($pType->name);
+    $option		= $pType->name;
 	$id			= $pType->id;
     
     $selected	= ( JString::trim($id) == $this->selectedPT ) ? ' selected="true"' : '';

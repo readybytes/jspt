@@ -18,7 +18,7 @@ class XiptFieldsTemplatesJs20 extends XiptFieldsTemplatesBase
 		
 		if($tName == null){
 			$userid = JRequest::getVar('userid',0);
-			$tName = XiptText::_($this->getTemplateValue($tName,$userid));
+			$tName = $this->getTemplateValue($tName,$userid);
 		}
 		
 		return $tName;

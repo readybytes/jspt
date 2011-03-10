@@ -45,7 +45,7 @@ class JElementProfilefields extends JElement
 		$fields = self::getJomsocialProfileFields(array('published'=>1));
 		$html   = '';
 		if(empty($fields)) {
-			$html = "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>";
+			$html = "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('THERE_ARE_NO_PARAMETERS_FOR_THIS_ITEM')."</div>";
 			return $html;
 		}
 

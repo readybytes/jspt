@@ -69,19 +69,19 @@ if(!defined('_JEXEC')) die('Restricted access');
 		if($this->aclParamsHtml)
 			echo $this->aclParamsHtml;
 		else
-			echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>" ;
+			echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('THERE_ARE_NO_PARAMETERS_FOR_THIS_ITEM')."</div>" ;
 	?>
 	</fieldset>
 </div>
 
 <div class="col width-60" style="width:60%; float:right;">
 	<fieldset class="adminform">
-	<legend><?php echo XiptText::_( 'General Parameters' ); ?></legend>
+	<legend><?php echo XiptText::_( 'GENERAL_PARAMETERS' ); ?></legend>
 	<?php
 		if ($this->coreParamsHtml)
 			echo $this->coreParamsHtml;
 		else
-			echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('There are no parameters for this item')."</div>"
+			echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('THERE_ARE_NO_PARAMETERS_FOR_THIS_ITEM')."</div>"
 		?>
 	</fieldset>
 	<br />

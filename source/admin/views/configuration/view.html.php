@@ -103,7 +103,7 @@ class XiptViewConfiguration extends XiptView
 	{	
 		$task = JRequest::getVar('task',$task);
 		if($task === 'display'){		
-			JToolBarHelper::title( XiptText::_( 'Jom Social Configuration' ), 'configuration' );		
+			JToolBarHelper::title( XiptText::_( 'JOM_SOCIAL_CONFIGURATION' ), 'configuration' );		
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 			return true;
 		}

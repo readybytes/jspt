@@ -215,7 +215,7 @@ class plgSystemxipt_system extends JPlugin
 	    // as user want to integrate the AEC so a plan must be selected
         // send user to profiletype selection page
 	    if($aecData['planSelected'] == false)
-	        $app->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),XiptText::_('PLEASE SELECT AEC PLAN, IT IS RQUIRED'));
+	        $app->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),XiptText::_('PLEASE_SELECT_AEC_PLAN_IT_IS_RQUIRED'));
 
 	    // set selected profiletype in session
 	    $this->_pluginHandler->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');

@@ -48,7 +48,7 @@ class JElementGroupcategory extends JElement
 		
 		if($reqnone) {
 			$selected	= ( JString::trim(-1) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . -1 . '"' . $selected . '>' . XiptText::_("JNONE") . '</option>';
+			$html	.= '<option value="' . -1 . '"' . $selected . '>' . XiptText::_("NONE") . '</option>';
 		}
 		
 		foreach($options as $op)

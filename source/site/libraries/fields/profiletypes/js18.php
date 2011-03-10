@@ -43,7 +43,7 @@ class XiptFieldsProfiletypesJs18 extends XiptFieldsProfiletypesBase
 		}
 		
 		$pName = XiptLibProfiletypes::getProfiletypeName($pID);
-		return XiptText::_($pName);
+		return $pName;
 	}	
 	
 	/* if data not available,

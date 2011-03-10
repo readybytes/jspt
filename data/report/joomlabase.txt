@@ -31,7 +31,7 @@
 ../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:186:			JFactory::getApplication()->redirect($link);
 ../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:213:		$app	 = JFactory::getApplication();
 ../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:229:    	$app = JFactory::getApplication();
-../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:254:        $doc = JFactory::getDocument();
+../packages/tmp/admin/install/extensions/xipt_system/xipt_system.php:261:        $doc = JFactory::getDocument();
 ../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:69:		$isAdmin = XiptHelperUtils::isAdmin(JFactory::getUser()->id);
 ../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:138:		if(JFactory::getApplication()->isAdmin())
 ../packages/tmp/admin/install/extensions/xipt_community/xipt_community.php:144:		$selfUserid    = JFactory::getUser()->id;
@@ -53,8 +53,8 @@
 ../packages/tmp/site/helpers/profiletypes.php:199:			$mainframe->enqueueMessage( XiptText::_('IMAGE_FILE_SIZE_EXCEEDED') , 'error' );
 ../packages/tmp/site/helpers/profiletypes.php:200:			$mainframe->redirect( CRoute::_('index.php?option=com_xipt&view=profiletypes&task=edit&id='.$id, false) );
 ../packages/tmp/site/helpers/profiletypes.php:205:			$mainframe->enqueueMessage(XiptText::_('IMAGE_FILE_NOT_SUPPORTED'), 'error');
-../packages/tmp/site/helpers/profiletypes.php:237:				$mainframe->enqueueMessage(XiptText::sprintf('ERROR_MOVING_UPLOADED_FILE' , $storageImage), 'error');
-../packages/tmp/site/helpers/profiletypes.php:243:				$mainframe->enqueueMessage(XiptText::sprintf('ERROR_MOVING_UPLOADED_FILE' , $storageThumbnail), 'error');
+../packages/tmp/site/helpers/profiletypes.php:237:				$mainframe->enqueueMessage(XiptText::sprintf('COM_XIPT_ERROR_MOVING_UPLOADED_FILE' , $storageImage), 'error');
+../packages/tmp/site/helpers/profiletypes.php:243:				$mainframe->enqueueMessage(XiptText::sprintf('COM_XIPT_ERROR_MOVING_UPLOADED_FILE' , $storageThumbnail), 'error');
 ../packages/tmp/site/helpers/profiletypes.php:289:    	$mySess = JFactory::getSession();
 ../packages/tmp/site/helpers/profiletypes.php:297:		return JFactory::getApplication()->redirect($redirectUrl,$msg);
 ../packages/tmp/site/helpers/profiletypes.php:304:    	$mySess = & JFactory::getSession();

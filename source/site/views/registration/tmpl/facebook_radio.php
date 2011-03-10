@@ -15,7 +15,7 @@ foreach($allProfileTypes as $pType ):
 				id="profiletypes<?php echo $pType->id?>" 
 				name="profiletypes" 
 				value="<?php echo $pType->id;?>" <?php echo $selected; ?> />
-			<?php echo XiptText::_($pType->name); ?>
+			<?php echo $pType->name; ?>
 		</div>
 
 		<div id="Details">
@@ -24,7 +24,7 @@ foreach($allProfileTypes as $pType ):
 				     height="60px" 
  			  	     width="60px"/>
 			</div>
-			<p id="Description"> <?php echo XiptText::_($pType->tip); ?> </p>
+			<p id="Description"> <?php echo $pType->tip; ?> </p>
 		</div>
 	</div>
 <?php endforeach; ?>

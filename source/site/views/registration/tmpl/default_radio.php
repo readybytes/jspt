@@ -18,14 +18,14 @@ foreach ( $this->allProfileTypes as $pType ) :
 		<div id="Name">
 				<input type="radio" id="profiletypes<?php echo $pType->id?>" name="profiletypes" 
 						value="<?php echo $pType->id;?>" <?php echo $selected; ?> />
-				<?php echo XiptText::_($pType->name); ?>
+				<?php echo $pType->name; ?>
 		</div>
 
 		<div id="Details">
 			<div id="Avatar">
 				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($pType->avatar); ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"/>
 			</div>
-			<p id="Description"> <?php echo XiptText::_($pType->tip); ?> </p>
+			<p id="Description"> <?php echo $pType->tip; ?> </p>
 			
 		</div>
 	</div>

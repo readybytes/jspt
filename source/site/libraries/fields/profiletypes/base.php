@@ -60,7 +60,7 @@ class XiptFieldsProfiletypesBase
 							value="'.$pID.'" />';
 			
 			$pName = XiptLibProfiletypes::getProfiletypeName($pID);
-			$html .= XiptText::_($pName);
+			$html .= $pName;
 			
 			return $html;
 		}
@@ -81,7 +81,7 @@ class XiptFieldsProfiletypesBase
 			}
 			
 			$pName = XiptLibProfiletypes::getProfileTypeName($pID);
-			$pName =XiptText::_($pName);
+			$pName =$pName;
 			$html = '<input type="hidden"
 							id="field'.$field->id.'"
 							name="field' . $field->id.'"
@@ -107,7 +107,7 @@ class XiptFieldsProfiletypesBase
 				if( !empty( $selected ) )
 					$selectedElement++;
 				
-				$html	.= '<option value="' . $pType->id . '"' . $selected . '>' .XiptText::_($pType->name)  . '</option>';
+				$html	.= '<option value="' . $pType->id . '"' . $selected . '>' .$pType->name  . '</option>';
 			}
 		}
 		

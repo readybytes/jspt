@@ -52,7 +52,7 @@ jQuery(document).ready(function($){
 				<?php echo XiptHelperApps::buildProfileTypesforApplication($this->applicationId);?>
 			</div>
 			<div>
-				<?php echo XiptText::_("SELECT");?> : <a href="#" id="ptypeSelectAll"><?php echo XiptText::_('ALL');?></a> | <a href="#" id="ptypeSelectNone"><?php echo XiptText::_('JNONE');?></a> 
+				<?php echo XiptText::_("SELECT");?> : <a href="#" id="ptypeSelectAll"><?php echo XiptText::_('ALL');?></a> | <a href="#" id="ptypeSelectNone"><?php echo XiptText::_('NONE');?></a> 
 			</div>
 		</div>
 	</fieldset>

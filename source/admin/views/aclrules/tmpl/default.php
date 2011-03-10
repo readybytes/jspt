@@ -80,7 +80,7 @@ function submitbutton( action )
 				</span>
 			</td>
 			<td>
-				<?php echo XiptText::_($rule->aclname); ?>
+				<?php echo $rule->aclname; ?>
 			</td>
 			<td>
 				<?php echo $this->ruleProfiletype[$rule->id]; ?>

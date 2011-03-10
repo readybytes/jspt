@@ -69,7 +69,7 @@ class XiptFieldsTemplatesBase
 				if( !empty( $selected ) )
 					$selectedElement++;
 				
-				$html	.= '<option value="' . $tmpl . '"' . $selected . '>' . XiptText::_( $tmpl ) . '</option>';
+				$html	.= '<option value="' . $tmpl . '"' . $selected . '>' . $tmpl . '</option>';
 			}
 		}
 		$html	.= '</select>';

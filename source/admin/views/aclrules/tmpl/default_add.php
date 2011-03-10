@@ -51,10 +51,10 @@ jQuery(document).ready(function($){
 		if(!empty($this->groups))
 		foreach($this->groups as $acl) : ?>
 			<option disabled="disabled"></option>
-		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo XiptText::_($acl['title']);?></option>
+		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo $acl['title'];?></option>
 		    
 			<?php foreach($this->rules[$acl['name']] as $rule) : ?>
-		    		<option value="<?php echo $rule['name'];?>" ><?php echo XiptText::_($rule['title']);?></option>
+		    		<option value="<?php echo $rule['name'];?>" ><?php echo $rule['title'];?></option>
 			<?php endforeach; ?> 
 	<?php endforeach; ?>
 	</select>
