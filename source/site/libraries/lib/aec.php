@@ -98,12 +98,12 @@ class XiptLibAec
 	    $pTypeName = XiptLibProfiletypes::getProfiletypeName($data['profiletype']);
 	    
     	if($msgOption==='pl')
-        	return  XiptText::sprintf('ALREADY_SELECTED_PLAN_AS_ONLY_PLAN',$data['plan']);
+        	return  XiptText::sprintf('COM_XIPT_ALREADY_SELECTED_PLAN_AS_ONLYPLAN',$data['plan']);
                 
         if($msgOption==='pt')
-            return  XiptText::sprintf('ALREADY_SELECTED_PLAN_AS_ONLY_PTYPE',$pTypeName);                
+            return  XiptText::sprintf('COM_XIPT_ALREADY_SELECTED_PLAN_AS_ONLY_PTYPE',$pTypeName);                
     	
-        return XiptText::sprintf('ALREADY_SELECTED_PLAN_AS_BOTH',$data['plan'],$pTypeName);
+        return XiptText::sprintf('COM_XIPT_ALREADY_SELECTED_PLAN_AS_BOTH',$data['plan'],$pTypeName);
 	}
 	
 	static public function isPlanExists($planid)

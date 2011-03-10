@@ -243,6 +243,13 @@ class plgSystemxipt_system extends JPlugin
 
         if (!$allTypes)
 			return false;
+		// when we are getting Html of select list(for Profile-Types) 
+		//then  don't addd "\n" at end of line
+		if(XIPT_JOOMLA_16){
+			JHtml::$formatOptions= array_merge(
+								   JHtml::$formatOptions,
+									array('format.eol' => ""));
+		}
 
 		$profileType = JHTML::_('select.genericlist',  $allTypes, 'profiletypes', 'class="inputbox"', 'id', 'name');
 
@@ -252,8 +259,12 @@ class plgSystemxipt_system extends JPlugin
         $content = ob_get_contents();
         ob_clean();
         $doc = JFactory::getDocument();
-
-        JHTML::script('jquery1.4.2.js','components/com_xipt/assets/js/', true);
+		if(XIPT_JOOMLA_15)
+        	JHTML::script('jquery1.4.2.js','components/com_xipt/assets/js/', true);
+		
+       	if(XIPT_JOOMLA_16)
+        	JHTML::script('components/com_xipt/assets/js/jquery1.4.2.js');
+        
         $doc->addCustomTag( '<script type="text/javascript">jQuery.noConflict();</script>' );
 
         $doc->addScriptDeclaration($content);
@@ -279,15 +290,18 @@ class plgSystemxipt_system extends JPlugin
 	{
 	   //CAssets::attach(JURI::root().'components/com_community/assets/joms.jquery', 'js');
 		?>
-			$(function($){
+		$(document).ready(function(){
 			 // find all select list object
 			 var sel = document.getElementsByTagName("select");
+			 var selLength =  sel.length;
 
-		     for (i=0 ; i !=sel.length ; i++){
-		        joms.jQuery.xipt.getProfileTypesFields($, $(sel[i]).attr("id"));
+		     for (i=0 ; i <= selLength; i++){
+		        joms.jQuery.xipt.getProfileTypesFields(joms.jQuery, joms.jQuery(sel[i]).attr("id"));
 		        }
+		    });
 
-			// change on select list
+			joms.jQuery(function($){
+			// change on select list then attach our HTML
 			$("select[id^='field']").live('change', function(){
 				joms.jQuery.xipt.getProfileTypesFields($, $(this).attr("id"));
 				});

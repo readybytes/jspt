@@ -18,7 +18,7 @@ class XiptHelperProfilefields
 		
 		//if selected is empty means field is invisible, then return none
 		if(empty($selected))
-			return XiptText::_("JNONE");
+			return XiptText::_("NONE");
 		
 		//if 0 exist in selected ptype means , field is available to all
 		if(in_array(XIPT_PROFILETYPE_ALL, $selected))

@@ -128,7 +128,7 @@ class XiptHelperProfiletypes
 			return XiptText::_("ALL");
 
 		if($id == XIPT_PROFILETYPE_NONE)
-			return XiptText::_("JNONE");
+			return XiptText::_("NONE");
 
 		return XiptHelperProfiletypes::getProfileTypeData($id,'name');
 	}
@@ -234,13 +234,13 @@ class XiptHelperProfiletypes
 			// Only resize when the width exceeds the max.
 			if( !cImageResizePropotional( $file['tmp_name'] , $storageImage , $file['type'] , $imageMaxWidth ) )
 			{
-				$mainframe->enqueueMessage(XiptText::sprintf('ERROR_MOVING_UPLOADED_FILE' , $storageImage), 'error');
+				$mainframe->enqueueMessage(XiptText::sprintf('COM_XIPT_ERROR_MOVING_UPLOADED_FILE' , $storageImage), 'error');
 			}
 
 			// Generate thumbnail
 			if(!cImageCreateThumb( $file['tmp_name'] , $storageThumbnail , $file['type'],$thumbWidth,$thumbHeight ))
 			{
-				$mainframe->enqueueMessage(XiptText::sprintf('ERROR_MOVING_UPLOADED_FILE' , $storageThumbnail), 'error');
+				$mainframe->enqueueMessage(XiptText::sprintf('COM_XIPT_ERROR_MOVING_UPLOADED_FILE' , $storageThumbnail), 'error');
 			}
 
 			$oldFile = XiptLibProfiletypes::getProfiletypeData($id,$what);
