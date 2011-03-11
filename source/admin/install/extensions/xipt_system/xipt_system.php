@@ -65,7 +65,7 @@ class plgSystemxipt_system extends JPlugin
 	 */
 	function onAfterStoreUser($properties,$isNew,$result,$error)
 	{
-		$this->onUserAfterSave($properties,$isNew,$result,$error);
+		return $this->onUserAfterSave($properties,$isNew,$result,$error);
 	}
 	/**
 	 * 

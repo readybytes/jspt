@@ -5,6 +5,7 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (89, 'gaurav2', 'gaurav2', 'gaurav2@email.com', '3688599367fa4ccb75f1f82e0da4c3fa:TBJDUAeXQpYtcK95gacn0PRvMRtHsjwO', 'Registered', 0, 0, '2010-02-20 12:22:15', '0000-00-00 00:00:00', '', '\n'),
 (90, 'gaurav3', 'gaurav3', 'gaurav3@email.com', '5aacacd8c3e381e61b32814decec70d4:v9wphm1c0mMlRfZkErrqVdqk4bqfhPDL', 'Registered', 0, 0, '2010-02-20 12:23:24', '0000-00-00 00:00:00', '', '\n');;
 
+TRUNCATE TABLE `#__user_usergroup_map`;;
 INSERT INTO `#__user_usergroup_map` (`user_id`, `group_id`) VALUES
 (88, 2),
 (89, 2),

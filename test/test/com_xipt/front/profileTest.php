@@ -9,7 +9,7 @@ class ProfileTest extends XiSelTestCase
       return dirname(__FILE__).'/sql/'.__CLASS__;
   }
   
-  //XiTODO:: improv in code
+ //XiTODO :: WIth Joomla 1.6
   //cross check page exists and comes
   function testViewableProfiles()
   {
@@ -18,8 +18,8 @@ class ProfileTest extends XiSelTestCase
 	$this->verifyViewProfile(82,1);
 	$this->verifyViewProfile(83,2);
 	$this->verifyViewProfile(84,3);   
-   $this->frontLogout();
-//ssee profiles publicly
+    $this->frontLogout();
+	//see profiles publicly
 	$this->verifyViewProfile(79,1);
 	$this->verifyViewProfile(82,1);
 	$this->verifyViewProfile(85,1); 
@@ -394,7 +394,7 @@ class ProfileTest extends XiSelTestCase
 	  	$this->click("//input[@value='Save']");
 	  	$this->waitPageLoad();
   }
-  
+//XiTODO :: testing with latest JS WIth Joomla 1.6 
   // It test uploading an avatar
   // check if it does accidentaly delete default avatar of profiletye
   // check if watermark is applied or not
@@ -552,17 +552,24 @@ class ProfileTest extends XiSelTestCase
 	  	$this->assertEquals($cuser->avatar,$defaultAvatar); 
 	  	$this->assertEquals($cuser->thumb,$defaultThumb);
   }
-  
+//XiTODO :: testing with latest JS WIth Joomla 1.6 
   function testTemplate()
   {
   	$this->frontLogin("gaurav2","gaurav2");
-  	$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
+  	If(TEST_XIPT_JOOMLA_15)
+  		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
+	// see jom-socaial front page
+  	If(TEST_XIPT_JOOMLA_16)
+		    $this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(2);
   	$this->frontLogout();
   	  	
   	$this->frontLogin("gaurav1","gaurav1");
-  	$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
+  	If(TEST_XIPT_JOOMLA_15)
+  		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
+	If(TEST_XIPT_JOOMLA_16)
+		    $this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(1);
   	$this->frontLogout();
