@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 <params>
-	<param name="createvent_limit" type="text" default="" label="TOTAL_EVENT_CREATE_LIMIT_LABEL" description="NO_OF_TOTAL_EVENT_CREATE_MAXIMUM_LIMIT_DESC" />
+	<param name="createvent_limit" type="text" default="" label="COM_XIPT_TOTAL_EVENT_CREATE_LIMIT_LABEL" description="COM_XIPT_NO_OF_TOTAL_EVENT_CREATE_MAXIMUM_LIMIT_DESC" />
 </params>
 </config>

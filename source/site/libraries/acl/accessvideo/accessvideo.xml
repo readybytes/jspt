@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <config>
 <params addpath="/administrator/components/com_xipt/elements" >
-	<param name="other_profiletype" type="profiletypes" addall="true" default="" label="OTHER_PROFILETYPE_USERS_TO_APPLY_LABLE" description="OTHER_PROFILETYPE_TO_APPLY_DESC" />
-	<param name="acl_applicable_to_friend" type="radio" size="50" default="0" label="APPLICABLE_TO_FRIEND_LABEL" description="APPLICABLE_TO_FRIEND_DESC">
+	<param name="other_profiletype" type="profiletypes" addall="true" default="" label="COM_XIPT_OTHER_PROFILETYPE_USERS_TO_APPLY_LABLE" description="COM_XIPT_OTHER_PROFILETYPE_TO_APPLY_DESC" />
+	<param name="acl_applicable_to_friend" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_TO_FRIEND_LABEL" description="COM_XIPT_APPLICABLE_TO_FRIEND_DESC">
 		<option value="0">No</option>
 		<option value="1">Yes</option>
 	</param>
-	<param name="acl_applicable_to_self" type="radio" size="50" default="0" label="APPLICABLE_TO_SELF_LABEL" description="APPLICABLE_TO_SELF_DESC">
+	<param name="acl_applicable_to_self" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_TO_SELF_LABEL" description="COM_XIPT_APPLICABLE_TO_SELF_DESC">
 		<option value="0">No</option>
 		<option value="1">Yes</option>
 	</param>

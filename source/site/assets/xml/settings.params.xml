@@ -2,11 +2,11 @@
 <config>
 	<!-- PROFILETYPE SETTINGS -->
 	<params group="basicPtypeSettings" addpath="/components/com_xipt/elements">
-		<param name="defaultProfiletypeID" type="profiletypes" default="0" label="DEFAULT_PROFILETYPE_ID" description="DEFAULT_PROFILETYPE_ID_DESC" />
-		<param name="guestProfiletypeID" type="profiletypes" default="0" label="GUEST_PROFILETYPE_ID" description="GUEST_PROFILETYPE_ID_DESC" />
+		<param name="defaultProfiletypeID" type="profiletypes" default="0" label="COM_XIPT_DEFAULT_PROFILETYPE_ID" description="COM_XIPT_DEFAULT_PROFILETYPE_ID_DESC" />
+		<param name="guestProfiletypeID" type="profiletypes" default="0" label="COM_XIPT_GUEST_PROFILETYPE_ID" description="COM_XIPT_GUEST_PROFILETYPE_ID_DESC" />
 	</params>
 	<params group="advPtypeSettings">
-		<param name="allow_user_to_change_ptype_after_reg" type="radio" default="1" label="ALLOW_USER_TO_CHANGE_PROFILE_TYPE_AFTER_REGISTRATION" description="ALLOW_USER_TO_CHANGE_PROFILE_TYPE_AFTER_REGISTRATION_DESC">
+		<param name="allow_user_to_change_ptype_after_reg" type="radio" default="1" label="COM_XIPT_ALLOW_USER_TO_CHANGE_PROFILE_TYPE_AFTER_REGISTRATION" description="COM_XIPT_ALLOW_USER_TO_CHANGE_PROFILE_TYPE_AFTER_REGISTRATION_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>	
@@ -14,11 +14,11 @@
 	
 	<!-- INTEGRATION SETTINGS -->
 	<params group="basicIntegrationSettings">
-		<param name="show_ptype_during_reg" type="radio" default="1" label="INTEGRATE_JSPT_WITH_REGISTRATION" description="INTEGRATE_JSPT_WITH_REGISTRATION_DESC">
+		<param name="show_ptype_during_reg" type="radio" default="1" label="COM_XIPT_INTEGRATE_JSPT_WITH_REGISTRATION" description="COM_XIPT_INTEGRATE_JSPT_WITH_REGISTRATION_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="aec_integrate" type="radio" default="0" label="INTEGRATE_AEC" description="INTEGRATE_AEC_DESC">
+		<param name="aec_integrate" type="radio" default="0" label="COM_XIPT_INTEGRATE_AEC" description="COM_XIPT_INTEGRATE_AEC_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>			
@@ -27,15 +27,15 @@
 	
 	<!-- REGISTRATIN SETTINGS -->	
 	<params group="advRegistrationSettings">
-		<param name="jspt_show_radio" type="radio" default="1" label="DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
+		<param name="jspt_show_radio" type="radio" default="1" label="COM_XIPT_DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="COM_XIPT_DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
 			<option value="0">Select Box</option>
 			<option value="1">Radio Options</option>
 		</param>
-		<param name="jspt_fb_show_radio" type="radio" default="0" label="DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
+		<param name="jspt_fb_show_radio" type="radio" default="0" label="COM_XIPT_DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="COM_XIPT_DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
 			<option value="0">Select Box</option>
 			<option value="1">Radio Options</option>
 		</param>
-		<param name="user_reg" type="radio" default="jomsocial" label="AFTER_PROFILETYPE_SELECTION_GO_TO_REGISTRATION" description="AFTER_PROFILETYPE_SELECTION_GO_TO_REGISTRATION_DESC">
+		<param name="user_reg" type="radio" default="jomsocial" label="COM_XIPT_AFTER_PROFILETYPE_SELECTION_GO_TO_REGISTRATION" description="COM_XIPT_AFTER_PROFILETYPE_SELECTION_GO_TO_REGISTRATION_DESC">
                <option value="jomsocial">JomSocial</option>
                <option value="joomla">Joomla</option>
        </param>	
@@ -43,7 +43,7 @@
 	
 	<!-- APPLICATION SETTINGS -->
 	<params group="advAppsSettings">
-		<param name="jspt_block_dis_app" type="radio" default="0" label="BLOCK_DISPLAY_APPLICATION" description="BLOCK_DISPLAY_APPLICATION_WHEN_VISITING_OTHERS_PROFILE_DESC">
+		<param name="jspt_block_dis_app" type="radio" default="0" label="COM_XIPT_BLOCK_DISPLAY_APPLICATION" description="COM_XIPT_BLOCK_DISPLAY_APPLICATION_WHEN_VISITING_OTHERS_PROFILE_DESC">
 				<option value="0">Owner</option>
 				<option value="1">Visitor</option>
 				<option value="2">Both</option>
@@ -52,7 +52,7 @@
 		
 	<!-- AEC SETTINGS -->
 	<params group="advAecSettings" addpath="/components/com_xipt/elements">		
-		<param name="aec_message" type="radio" default="b" label="DISPLAY_MESSAGE_AFTER_PLAN_SELECTION" description="DISPLAY_MESSAGE_AFTER_PLAN_SELECTION_DESC">
+		<param name="aec_message" type="radio" default="b" label="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION" description="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION_DESC">
 			<option value="b">Both, Plan and Profiletype</option>
 			<option value="pl">Only Plan</option>
 			<option value="pt">Only Profiletype</option>
@@ -61,7 +61,7 @@
 	
 	<!-- OTHERS -->
 	<params group="others">		
-		<param name="restrict_advancesearchfield" type="radio" default="0" label="ENABLE_RESTRICT_PROFILEFIELD_IN_ADVANCE_SEARCH" description="ENABLE_RESTRICT_ADVANCE_SEARCH_FIELD_DESC">
+		<param name="restrict_advancesearchfield" type="radio" default="0" label="COM_XIPT_ENABLE_RESTRICT_PROFILEFIELD_IN_ADVANCE_SEARCH" description="COM_XIPT_ENABLE_RESTRICT_ADVANCE_SEARCH_FIELD_DESC">
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 		</param>			
