@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<extension version="1.6" type="plugin" group="community" method="upgrade">
+<install version="1.6" type="plugin" group="community" method="upgrade">
   <name>JSPT Community Plugin</name>
   <version>@global.version@.@svn.lastrevision@</version>
   <creationDate>Nov 2009</creationDate>
@@ -12,4 +12,4 @@
   <files>  	
 	<filename plugin="xipt_community">xipt_community.php</filename>
   </files>
-</extension>
+</install>

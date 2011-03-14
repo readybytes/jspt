@@ -42,44 +42,47 @@ class InstallTest extends XiSelTestCase
 	    // setup default location 
 	    $this->adminLogin();
 	    // uninstall community first
-	    $this->communityUnInstall();
+	    if (TEST_XIPT_JOOMLA_16)
+	    	$this->communityUnInstall();
 	    // go to installation
 	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
-	    $this->waitPageLoad("60000");
+	    $this->waitPageLoad();
 
 		// add profiletype-one
 	    $this->type("install_url", JOMSOCIAL_PKG);
-	    if(TEST_XIPT_JOOMLA_15)
-	    	$this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
-	    if (TEST_XIPT_JOOMLA_16)
+//	    if(TEST_XIPT_JOOMLA_15)
+//	    	$this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+	    if (TEST_XIPT_JOOMLA_16){
 	    	$this->click("//input[@value='Install' and @type='button' and @onclick='Joomla.submitbutton4()']"); 	
-	    $this->waitPageLoad("60000");
-        if(TEST_XIPT_JOOMLA_15){
-	    	$this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-		    $this->waitForPageToLoad("60000");
-		    $this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
-	    	$this->click("//form[@id='installform']/div/div/input");
-	    	$this->waitForPageToLoad("60000");
+	   		$this->waitPageLoad();
 	    }
+//XiTODO:: Working On this Test Case For 1.5
+//        if(TEST_XIPT_JOOMLA_15){
+//	    	$this->click("//div[@id='element-box']/div[2]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//		    $this->waitForPageToLoad("60000");
+//		    $this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    	$this->click("//form[@id='installform']/div/div/input");
+//	    	$this->waitForPageToLoad("60000");
+//	    }
         if (TEST_XIPT_JOOMLA_16){
         	$this->click("//input[@value='Complete your installation']");
     		$this->waitPageLoad();
@@ -105,8 +108,8 @@ class InstallTest extends XiSelTestCase
     		$this->waitPageLoad("60000");
     		$this->click("input-button-next");
     		$this->waitPageLoad("60000");
-    	}
-    	$this->assertTrue($this->isTextPresent("Jom Social"));	
+    		$this->assertTrue($this->isTextPresent("Jom Social"));
+        }
   }
   
   /**End Of JomSocial Install Test Case**/
