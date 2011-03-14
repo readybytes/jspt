@@ -123,3 +123,7 @@ define('XIPT_SETUP_WARNING','warning');
 $version = new JVersion();
 define('XIPT_JOOMLA_16',($version->RELEASE === '1.6'));
 define('XIPT_JOOMLA_15',($version->RELEASE === '1.5'));
+if (XIPT_JOOMLA_15)
+define('XIPT_JOOMLA_EXT_ID','id');
+if (XIPT_JOOMLA_16)
+define('XIPT_JOOMLA_EXT_ID','extension_id');

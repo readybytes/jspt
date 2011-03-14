@@ -14,21 +14,29 @@ function _GetXiptMenus()
 		return $menus;
 
 	$dbo = JFactory::getDBO();
-	//use #__extensions for joomla 1.6 				
-	$dbo->setQuery(  " SELECT `extension_id` "
+	//use #__extensions for joomla 1.6
+	if (XIPT_JOOMLA_16){ 				
+		$dbo->setQuery(  " SELECT `extension_id` "
 					." FROM `#__extensions` "
 					." WHERE `element`='com_xipt' AND `client_id`=0"
 				);
+	}
+	if (XIPT_JOOMLA_15){ 				
+		$dbo->setQuery(  " SELECT `id` "
+					." FROM `#__components` "
+					." WHERE `option`='com_xipt' AND `iscore`=0"
+				);
+	}
 	$XIPTCmpId 	= $dbo->loadResult();
 	$menu 		= &JSite::getMenu();
 	//$menus 		= $menu->getItems('extension_id',$XIPTCmpId);
       //check query is empty or not fro joomla 1.6
-    if(empty($XIPTCmpId['extension_id'])){
+    if(empty($XIPTCmpId[XIPT_JOOMLA_EXT_ID])){
 		$menus = $menu->getActive();
 	}
 	else {
     	//Pass Atribute and value in getItems() for joomla 1.6
-    	$menus = $menu->getItems('component_id',array($XIPTCmpId['extension_id']));
+    	$menus = $menu->getItems('component_id',array($XIPTCmpId[XIPT_JOOMLA_EXT_ID]));
 	}
 
 	return $menus;

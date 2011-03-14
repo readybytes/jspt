@@ -12,8 +12,6 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, 21, '2009-12-03 08:16:26', '2010-06-15 10:24:50', '1ebc22393cc2619be62d28fe7c960e5a', '\n')
 ;;
 
-T
-
 TRUNCATE TABLE `#__core_acl_aro`;;
 INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
 (10, 'users', '62', 0, 'Administrator', 0),

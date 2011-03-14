@@ -101,9 +101,16 @@ class XiptHelperInstall
 	{
 	  
 		$db		= JFactory::getDBO();
-		$query	= 'UPDATE ' . $db->nameQuote( '#__extensions' )
-				. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
-			  .' WHERE '. $db->nameQuote('element').'='.$db->Quote($pluginname) . "  AND `type`='plugin' ";
+		if (TEST_XIPT_JOOMLA_16){
+			$query	= 'UPDATE ' . $db->nameQuote( '#__extensions' )
+					. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
+			  		.' WHERE '. $db->nameQuote('element').'='.$db->Quote($pluginname) . "  AND `type`='plugin' ";
+		}
+	if (TEST_XIPT_JOOMLA_15){
+			$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
+					. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
+			  		.' WHERE '. $db->nameQuote('element').'='.$db->Quote($pluginname);
+		}
 	
 		$db->setQuery($query);		
 	

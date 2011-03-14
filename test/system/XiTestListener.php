@@ -84,15 +84,17 @@ class XiDBCheck
         	if(!$logArr)
         		$logArr=array();
         			
-			// supporting JSON v/s INI formats in parameters
-        	$param = new JParameter();
-        	foreach($fields as $columnName){
-        		$format = JString::strpos($logArr[$columnName], '{') ? 'JSON' : 'INI';
-        		$logArr[$columnName] = $param->loadString($logArr[$columnName], $format);
+			// supporting JSON v/s INI formats in parameters For Joomla1.6
+			if (XIPT_JOOMLA_16){
+        		$param = new JParameter();
+        		foreach($fields as $columnName){
+        			$format = JString::strpos($logArr[$columnName], '{') ? 'JSON' : 'INI';
+        			$logArr[$columnName] = $param->loadString($logArr[$columnName], $format);
         		
-        		$format = JString::strpos($auArr[$columnName], '{') ? 'JSON' : 'INI';
-        		$auArr[$columnName]  = $param->loadArray($auArr[$columnName], $format);
-        	}
+        			$format = JString::strpos($auArr[$columnName], '{') ? 'JSON' : 'INI';
+        			$auArr[$columnName]  = $param->loadArray($auArr[$columnName], $format);
+        		}
+			}
      	
             if($diff = array_diff_assoc($auArr,$logArr))
             {

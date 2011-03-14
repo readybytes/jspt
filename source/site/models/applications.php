@@ -12,7 +12,7 @@ class XiptModelApplications extends XiptModel
 	 * Returns the Application name
 	 * @return string
 	 **/
-	function getPlugin($pluginId=null, $indexBy='extension_id')
+	function getPlugin($pluginId=null, $indexBy=XIPT_JOOMLA_EXT_ID)
 	{		
 		static $result=null;
 		if($result== null){
