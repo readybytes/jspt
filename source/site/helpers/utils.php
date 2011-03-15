@@ -11,10 +11,12 @@ class XiptHelperUtils
 	function isAdmin($id)
 	{
 		$my	= JFactory::getUser($id);
-		if (XIPT_JOOMLA_15)		
+		if (XIPT_JOOMLA_15){	
 			return ( $my->usertype == 'Super Administrator');
-		if (XIPT_JOOMLA_16)
+		}
+		if (XIPT_JOOMLA_16){
 			return ( $my->usertype == 'deprecated');
+		}
 	}
 	
 	function getFonts()

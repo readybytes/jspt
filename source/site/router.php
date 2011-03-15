@@ -36,7 +36,7 @@ function _GetXiptMenus()
 	}
 	else {
     	//Pass Atribute and value in getItems() for joomla 1.6
-    	$menus = $menu->getItems('component_id',array($XIPTCmpId[XIPT_JOOMLA_EXT_ID]));
+    	$menus = $menu->getItems(XIPT_JOOMLA_MENU_COMP_ID,array($XIPTCmpId[XIPT_JOOMLA_EXT_ID]));
 	}
 
 	return $menus;
