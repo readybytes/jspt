@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS `bk_#__users`;;
+CREATE TABLE IF NOT EXISTS `bk_#__users` SELECT * FROM `#__users`;;
+TRUNCATE TABLE `#__users`;;
+
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
 (62, 'Administrator', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'Super Administrator', 0, 1, 25, '2009-10-27 14:21:57', '2010-07-20 15:33:59', '', '\n'),
 (63, 'regtest8774090', 'regtest8774090', 'regtest8774090@gmail.com', 'f478ff7ef92fcb7a7cb62d4c1f08e43a:7rptUeQifMIkdyqE59fnxb0o74NE4sk8', 'Registered', 0, 0, 18, '2009-12-03 08:16:35', '2010-07-20 04:58:32', 'a3a9fc5ff08868ee458cda29142e6e36', '\n'),

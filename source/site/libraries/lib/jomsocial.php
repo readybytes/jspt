@@ -110,18 +110,19 @@ class XiptLibJomsocial
 		$params = XiptLibProfiletypes::getParams($pID);
 
 		if($params)
-		{		
-			//$allParams = $params->_registry['_default']['data']; 
-		    $allParams = $params->renderToArray();
-		    if($allParams)
-			foreach($allParams as $key => $value){
-				//if(XIPT_JOOMLA_16)
-					//$instance->_jparams->set($key,$value);
-				//else
+		{
+			$allParams = $params->toArray();	
+			if (XIPT_JOOMLA_15){	
+				foreach($allParams as $key => $value)
 					$instance->set($key,$value);
+			}	 
+			if (XIPT_JOOMLA_16){
+		    	if($allParams)
+					foreach($allParams as $key => $value){
+					//$instance->_jparams->set($key,$value);
+					}
 			}
 		}
-
 		//means guest is looking user profile ,
 		// so we will show them default template
 		$visitingUser	= JRequest::getInt('userid',$loggedInUser->id);

@@ -72,5 +72,3 @@ INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (81, 1, 'default'),
 (79, 1, 'default'),
 (80, 1, 'default');;
-
-TRUNCATE TABLE `#__users`;;

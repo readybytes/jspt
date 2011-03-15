@@ -32,6 +32,3 @@ INSERT INTO `au_#__community_users` (`userid`, `avatar`, `thumb`) VALUES
 (65, 'components/com_community/assets/avatar1.jpg', 'components/com_community/assets/avatar1_thumb.jpg'),
 (66, 'components/com_community/assets/avatar2.jpg', 'components/com_community/assets/avatar2_thumb.jpg');;
 
-DROP TABLE IF EXISTS `bk_#__users`;;
-CREATE TABLE IF NOT EXISTS `bk_#__users` SELECT * FROM `#__users`;;
-TRUNCATE TABLE `#__users`;;

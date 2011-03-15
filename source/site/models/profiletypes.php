@@ -95,8 +95,9 @@ class XiptModelProfiletypes extends XiptModel
 		for($i=0; $i < $cnt; $i++)
 		{
 			//if user is admin unset value
-			if(XiptHelperUtils::isAdmin($users[$i]))
+			if(XiptHelperUtils::isAdmin($users[$i])){ 
 				unset($users[$i]);
+			}
 		}
 		
 		$users = array_values($users);
