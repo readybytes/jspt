@@ -67,24 +67,10 @@
 
 	<target name="create_database" depends="jconfig">
 		<echo msg="Creating database and dumping sql into it." />
-		<!-- fill data base -->
-		<if>
-			<equals arg1="${host.fstype}" arg2="UNIX" />
-				<then>	
-					<exec command="sudo mysql -uroot -ppassword --execute=${joomla.createDBQuery}" passthru="true" />
-					<exec command="sudo mysql -uroot -ppassword --execute=${joomla.createUserQuery}" passthru="true" />
-					<exec command="sudo mysql -uroot -ppassword --execute=${joomla.createAcessQuery}"  passthru="true" />
-					<!-- <exec command="sudo mysql -uroot -ppassword - -execute='FLUSH PRIVILEGES';"  passthru="true" /> -->
-					<exec command="sudo mysql -uroot -ppassword --database=${joomla.dbname} --execute=${joomla.importDBQuery} "  passthru="true" />
-				</then>
-				<else>
-					<exec command="C:\xampp\mysql\bin\mysql.exe -uroot -ppassword --execute=${joomla.createDBQuery}" passthru="true" />
-					<exec command="C:\xampp\mysql\bin\mysql.exe -uroot -ppassword --execute=${joomla.createUserQuery}" passthru="true" />
-					<exec command="C:\xampp\mysql\bin\mysql.exe -uroot -ppassword --execute=${joomla.createAcessQuery}"  passthru="true" />
-					<!-- <exec command="sudo mysql -uroot -ppassword - -execute='FLUSH PRIVILEGES';"  passthru="true" /> -->
-					<exec command="C:\xampp\mysql\bin\mysql.exe -uroot -ppassword --database=${joomla.dbname} --execute=${joomla.importDBQuery} "  passthru="true" />
-				</else>
-		</if>
+		<exec command="${joomla.mysqlpath} -uroot -ppassword --execute=${joomla.createDBQuery}" passthru="true" />
+		<exec command="${joomla.mysqlpath} -uroot -ppassword --execute=${joomla.createUserQuery}" passthru="true" />
+		<exec command="${joomla.mysqlpath} -uroot -ppassword --execute=${joomla.createAcessQuery}"  passthru="true" />
+		<exec command="${joomla.mysqlpath} -uroot -ppassword --database=${joomla.dbname} --execute=${joomla.importDBQuery} "  passthru="true" />
 		<echo msg="Database work done." />
 	</target>
 
