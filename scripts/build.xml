@@ -242,16 +242,5 @@
 		   <formatter type="pmd" outfile="${dir.report}/cpd-report.xml"/>
 		 </phpcpd>-->
 		
-<!--		<exec command="phploc   ${dir.tmp} > ${dir.report}/loc.source.txt " escape="false" />
-		<exec command="phploc   --count-tests ${dir.root}/test > ${dir.report}/loc.test.txt " escape="false" />
-
-		<exec command="find  ${dir.tmp} | xargs -l1 grep -Hni xitodo     > ${dir.report}/xitodo.txt " escape="false" />
-		<exec command="find  ${dir.tmp} | xargs -l1 grep -Hn JSITE_PATH > ${dir.report}/jsite-path.txt " escape="false" />
-		<exec command="find  ${dir.tmp} | xargs -l1 egrep -Hn '_REQUEST|_POST|_GET|_SESSION|_GLOBAL' > ${dir.report}/post-get-request.txt " escape="false" />
-		<exec command="find  ${dir.tmp} | xargs -l1 egrep -Hn 'require_once|include_once| require | include '   > ${dir.report}/require.txt " escape="false" />
-		<exec command="find  ${dir.tmp} | xargs -l1 egrep -Hn 'JFactory|JDocument|JTable|JController|JDatabase|JRoute|JUser|JConfig|mainframe'  > ${dir.report}/joomlabase.txt " escape="false" />
-		<exec command="find  ${dir.tmp} -name '*.php' | xargs -l1 grep -Hn 'index.php?option=com_xipt' | grep -v 'JRoute'  > ${dir.report}/usejroute.txt " escape="false" />
--->
-
 	</target>
 </project>
