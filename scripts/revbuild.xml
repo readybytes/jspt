@@ -6,7 +6,6 @@
         
         <!-- Copy Target -->
         <target name="copy_to_svn" description="copy target">
-                
 		<php function="file_exists" returnProperty="fileExist">
                   <param value="${source}/components/com_community/libraries/fields/profiletypes.php"/>
                 </php>
@@ -83,19 +82,38 @@
                          />
 
 		<!-- Copy plguin files again into folder -->
-		<copy  todir="${target}/source/admin/install/extensions/xipt_system/" >
-			<fileset dir="${source}/plugins/system/xipt_system">
-				<include name="**/*.*" />
-			</fileset>
-		</copy>
+		<!-- for J1.6.0 -->
+		<php function="file_exists" returnProperty="fileExist">
+                  <param value="${source}/plugins/system/xipt_system/xipt_system.php"/>
+                </php>
 
-		<copy  todir="${target}/source/admin/install/extensions/xipt_community/" >
-			<fileset dir="${source}/plugins/community/xipt_community">
-				<include name="**/*.*" />
-			</fileset>
-		</copy>
-                 
+                <if>
+                 	<equals arg1="${fileExist}" arg2="1" />		
+			<then>	
+				<copy file="${source}/plugins/system/xipt_system/xipt_system.php" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.php" />
+				<copy file="${source}/plugins/system/xipt_system/xipt_system.xml" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.xml" />
+				<copy file="${source}/plugins/community/xipt_community/xipt_community.php" tofile="${target}/source/admin/install/extensions/xipt_community/xipt_community.php" />
+				<copy file="${source}/plugins/community/xipt_community/xipt_community.xml" tofile="${target}/source/admin/install/extensions/xipt_community/xipt_community.xml" />
+			</then>
+		</if>
+		
+		
+		<!-- for J1.5 -->
+		<php function="file_exists" returnProperty="fileExist">
+                  <param value="${source}/plugins/system/xipt_system.php"/>
+                </php>
+
+                <if>
+                 	<equals arg1="${fileExist}" arg2="1" />		
+			<then>	
+				<copy file="${source}/plugins/system/xipt_system.php" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.php" />
+				<copy file="${source}/plugins/system/xipt_system.xml" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.xml" />
+				<copy file="${source}/plugins/community/xipt_community.php" tofile="${target}/source/admin/install/extensions/xipt_community/xipt_community.php" />
+				<copy file="${source}/plugins/community/xipt_community.xml" tofile="${target}/source/admin/install/extensions/xipt_community/xipt_community.xml" />
+			</then>
+		</if>
                                              
+		
 		<!-- first copy -->
 		<move file="${target}/source/admin/install/install.php" tofile="${target}/source/install/install.php" />      
 		<move file="${target}/source/admin/install/uninstall.php" tofile="${target}/source/install/uninstall.php" />

@@ -2,7 +2,8 @@
 <project name="Setup builder" basedir="." default="setup" description="Phing setup script for package.">
 
 	<target name="config" description="Load configuration file">
-		<property file="global.prop"  override="true" />		
+		<php expression="(PHP_OS == 'WINNT') ? '_win' : '_unix'" returnproperty="IF_OS" />
+		<property file="global${IF_OS}.prop"  override="true" />		
 		<svnlastrevision workingcopy="${dir.root}" propertyname="svn.lastrevision" />
 		
 		<if>
@@ -24,7 +25,7 @@
 		</if>
 
 		<php expression="rand(100,999)" returnProperty="joomla.random3"/>
-		<property file="setup.prop"  override="false" />
+		<property file="setup${IF_OS}.prop"  override="false" />
 	</target>
 	
 	<target name="setup" description="build installable package only" depends="config">
@@ -60,12 +61,7 @@
 
 	<target name="copy_testcase">
 		<!-- Copy testcases -->
-		<copy todir="${joomla.rootpath}/${joomla.folder}/test">
-			<fileset dir="${dir.root}/test">
-			     <include name="**/*.*" />
-			</fileset>
-		</copy>
-
+		<exec command="svn export ${dir.root}/test ${joomla.rootpath}/${joomla.folder}/test" />
 		<exec command="sudo chmod -R test" dir="${joomla.rootpath}/${joomla.folder}" />
 
 		<!-- replace configuration-->
