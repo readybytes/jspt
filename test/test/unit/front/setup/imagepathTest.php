@@ -48,6 +48,9 @@ class ImagePathTest extends XiUnitTestCase
 		$this->assertTrue(XiptModelProfiletypes::resetUserAvatar(1,$newavatar,$oldavatar,$newavatarthumb));
 
 		$this->_DBO->addTable('#__community_users');
+		$this->_DBO->filterColumn('#__community_users','profile_id');
+		$this->_DBO->filterColumn('#__community_users','watermark_hash');
+		$this->_DBO->filterColumn('#__community_users','storage');
 	}
 	
 	//Test watrmark Apply or not

@@ -26,9 +26,7 @@ class JomsocialTest extends XiUnitTestCase
     $result->registration 	= 1;
     $result->options 		= '';
     $result->fieldcode 		= '';
-    
-    if(XIPT_JOOMLA_16)
-    	 $result->params = '';
+	$result->params 		= '';
     	
 
   	$this->assertEquals($fieldobj, $result);
@@ -49,8 +47,7 @@ class JomsocialTest extends XiUnitTestCase
     $result->registration   = 1;
     $result->options 		= '';
     $result->fieldcode 		= 'FIELD_HOMETOWN4';
-    if(XIPT_JOOMLA_16)
-    	 $result->params = '';
+    $result->params 		= '';
 
   	$this->assertEquals($fieldobj, $result);
   	
@@ -71,9 +68,7 @@ class JomsocialTest extends XiUnitTestCase
     $result->registration   = 1;
     $result->options 		= '';
     $result->fieldcode 		= '';
-    
-    if(XIPT_JOOMLA_16)
-    	 $result->params = '';
+	$result->params 		= '';
     
   	$this->assertEquals($fieldobj, $result);
   }

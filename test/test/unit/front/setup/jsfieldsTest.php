@@ -18,6 +18,7 @@ class JsfieldsTest extends XiUnitTestCase
 		$this->assertTrue($obj->_switchFieldState(1));
 		$this->_DBO->addTable('#__community_fields');
 		$this->_DBO->filterColumn('#__community_fields','id');
+		$this->_DBO->filterColumn('#__community_fields','params');
 	}
 
 	function testCreateCustomField()
@@ -46,6 +47,7 @@ class JsfieldsTest extends XiUnitTestCase
 		$this->assertTrue($obj->doRevert());
 		$this->_DBO->addTable('#__community_fields');
 		$this->_DBO->filterColumn('#__community_fields','id');
+		$this->_DBO->filterColumn('#__community_fields','params');
 	}
 
 	function truncateCommunityFields()
