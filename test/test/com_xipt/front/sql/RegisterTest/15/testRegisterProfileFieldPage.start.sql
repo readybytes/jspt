@@ -1,5 +1,3 @@
-T
-
 DROP TABLE IF EXISTS `#__community_fields`;; /*Create fields*/
 
 CREATE TABLE IF NOT EXISTS `#__community_fields` (
