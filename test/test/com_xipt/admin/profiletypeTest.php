@@ -375,7 +375,7 @@ class ProfiletypeTest extends XiSelTestCase
     }
     if(TEST_XIPT_JOOMLA_15){
     	$this->click("//h3[@id='xiprivacysettings-page']/span");
-	    $this->click("privacyprivacyProfileView10");
+	    $this->click("privacyprivacyProfileView0");
 	    $this->select("template", "value=default");
 	    //previous was PNG, now adding GIF, so all users must be updated
 	    $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/admin/avatar_3.gif");
