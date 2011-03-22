@@ -137,7 +137,7 @@ class XiptHelperInstall
 	function _isMigrationRequired22to30()
 	{
 		if(self::_isTableExist('xipt_profiletypes')) {
-			if(self::_check_column_datatype('#__xipt_profiletypes','group','varchar(100)') 
+			if(!self::_check_column_datatype('#__xipt_profiletypes','group','int(11)')  
 				|| self::_check_column_datatype('#__xipt_profiletypes','privacy','text')
 				|| !self::_check_column_exist('#__xipt_profiletypes','config')) 
 				return true;
