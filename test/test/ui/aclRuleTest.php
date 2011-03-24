@@ -216,7 +216,7 @@ class AclRulesUITest extends XiSelTestCase
 		if (TEST_XIPT_JOOMLA_16)
 			$this->click("link=Edit My Page");
   		$this->waitForPageToLoad("30000");
-  		$this->click("//div[@id='community-wrap']/div[3]/div[1]/div[2]/a/span");
+  		$this->click("//div[@id='community-wrap']/div[4]/div[1]/div[2]/a/span");
   		//$this->click("//div[@id='community-wrap']/div[4]/div[1]/div[2]/a/span");
 		$this->waitForElement("cwin_tm");
 		sleep(5);
