@@ -249,8 +249,8 @@ class plgCommunityxipt_community extends CApplications
 	    
 	    //update template seperately
 	    $filter[] 				= 'template';
-
-	    if ($NewallowToChangeTemplate == 0 || $OldallowToChangeTemplate == 0)
+		$allowToChangeTemplate    = XiptFactory::getSettings('allow_templatechange',0);
+	    if ( ($NewallowToChangeTemplate == 0 || $OldallowToChangeTemplate == 0) && $allowToChangeTemplate==0)
         	$newData['template']	= XiptLibProfiletypes::getProfiletypeData($profiletype, 'template');      
 	    else
 	    	$newData['template'] = $template;

@@ -4,7 +4,7 @@
 		colors="true" 
 		syntaxCheck="false"
 		bootstrap="bootstrap.php"
-		stopOnFailure="false" >
+		stopOnFailure="true" >
 
 	<testsuite name="AllTest">		
 		<directory>test/unit</directory>

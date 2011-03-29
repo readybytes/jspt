@@ -205,9 +205,9 @@ class EditUserTest extends XiSelTestCase
 	  		
 	// template field id is 16 (from sql)
 	// existing template : default-82, blueface-83, blackout-84
-	$newTemplate[82]='blueface';
-	$newTemplate[83]='blackout';
-	$newTemplate[84]='default';
+	$newTemplate[82]='default';
+	$newTemplate[83]='blueface';
+	$newTemplate[84]='blackout';
 
 	$this->select("field16", "value=".$newTemplate[$userid]);
 	if (TEST_XIPT_JOOMLA_15)
@@ -263,9 +263,9 @@ function testEditUserTemplateProfiletype()
 	$newPType[3]='3';
 	$this->select("field17", "value=".$newPType[$ptype]);
 
-	$newTemplate[82]='blueface';
-	$newTemplate[83]='blackout';
-	$newTemplate[84]='default';
+	$newTemplate[82]='default';
+	$newTemplate[83]='blueface';
+	$newTemplate[84]='blackout';
 	$newTemplate[85]='bubble';
 	$this->select("field16", "value=".$newTemplate[$userid]);
 
