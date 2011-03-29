@@ -527,12 +527,7 @@ class ProfileTest extends XiSelTestCase
 	  	$this->click("//a[@onclick=\"joms.users.removePicture('$userid');\"]");
 	  	//onclick="joms.users.removePicture('82');"
 	  	$this->waitForElement("cWindowContentTop");
-		if(TEST_XIPT_JOOMLA_15){
-			$this->assertTrue($this->isTextPresent("Remove Avatar"));
-		}
-		if(TEST_XIPT_JOOMLA_16){
-	  		$this->assertTrue($this->isTextPresent("Remove profile picture"));
-		}	  	
+  		$this->assertTrue($this->isTextPresent("Remove profile picture"));
 		sleep(2);
 	  	$this->click("//input[@value='Yes']");
     	$this->waitPageLoad();
@@ -659,12 +654,7 @@ class ProfileTest extends XiSelTestCase
   	$this->waitPageLoad();
   	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=82");
   	$this->waitPageLoad();
-	if(TEST_XIPT_JOOMLA_15){
-		$this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
-	}
-	if(TEST_XIPT_JOOMLA_16){
-  		$this->assertTrue($this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE"));
-	}
+	$this->assertTrue($this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE"));
   	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&userid=84");
   	$this->waitPageLoad();
   	

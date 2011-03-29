@@ -28,10 +28,7 @@ class AvatarTest extends XiSelTestCase
 	 $this->type("file-upload", JPATH_ROOT.DS.$newAvatar);
 	 $this->click("file-upload-submit");
 	 $this->waitPageLoad();
-	 if(TEST_XIPT_JOOMLA_15)
-		 $this->click("//li[@id='toolbar-item-profile']/a");
-     if(TEST_XIPT_JOOMLA_16)
-	 	$this->click("link=Profile");
+	 $this->click("link=Profile");
 	 $this->waitPageLoad();
      
      //Check avatar uploaded and watr-mrk apply
@@ -85,19 +82,13 @@ class AvatarTest extends XiSelTestCase
   
   function editProfiletype($pid)
   {
-  	if(TEST_XIPT_JOOMLA_15)	
-  		$this->click("link=Edit profile"); 
-  	if(TEST_XIPT_JOOMLA_16)	
-  		$this->click("link=Edit Profile");
+	$this->click("link=[ Edit profile ]");
 	$this->waitPageLoad();
 	$this->select("field4", "label=PROFILETYPE-$pid");
 	$this->click("//input[@value='Save']");
 	$this->waitPageLoad();
 	
-	if(TEST_XIPT_JOOMLA_15)
-		 $this->click("//li[@id='toolbar-item-profile']/a");
-    if(TEST_XIPT_JOOMLA_16)
-		$this->click("link=Profile");
+	$this->click("link=Profile");
 	$this->waitPageLoad();
   }
   /*

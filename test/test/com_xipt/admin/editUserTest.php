@@ -75,9 +75,10 @@ class EditUserTest extends XiSelTestCase
 	foreach ($Avail[$ptype] as $p)
 	  	$this->type("field".$p, $randomStr);
 
-//	if(TEST_XIPT_JOOMLA_15)
-//		$this->click("//td[@id='toolbar-save']/a/span");
-//	if(TEST_XIPT_JOOMLA_16) 
+	if(TEST_XIPT_JOOMLA_15)
+		$this->click("//td[@id='toolbar-save']/a/span");
+
+	if(TEST_XIPT_JOOMLA_16) 
 	    $this->click("//li[@id='toolbar-save']/a/span");
 	
 	$this->waitPageLoad();

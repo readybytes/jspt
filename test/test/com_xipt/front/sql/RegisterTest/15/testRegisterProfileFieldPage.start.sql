@@ -1,27 +1,4 @@
-DROP TABLE IF EXISTS `#__community_fields`;; /*Create fields*/
-
-CREATE TABLE IF NOT EXISTS `#__community_fields` (
-  `id` int(10) NOT NULL auto_increment,
-  `type` varchar(255) NOT NULL,
-  `ordering` int(11) default '0',
-  `published` tinyint(1) NOT NULL default '0',
-  `min` int(5) NOT NULL,
-  `max` int(5) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `tips` text NOT NULL,
-  `visible` tinyint(1) default '0',
-  `required` tinyint(1) default '0',
-  `searchable` tinyint(1) default '1',
-  `registration` tinyint(1) default '1',
-  `options` text,
-  `fieldcode` varchar(255) NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `fieldcode` (`fieldcode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;;
-
---
--- Dumping data for table `#__community_fields`
---
+TRUNCATE TABLE `#__community_fields`;; /*Create fields*/
 
 INSERT INTO `#__community_fields` 
 (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES
@@ -36,5 +13,4 @@ INSERT INTO `#__community_fields`
 (9, 'text', 9, 1, 5, 250, 'Hometown9', 'Hometown9', 1, 0, 0, 1, '', 'FIELD_HOMETOWN9'),
 (16, 'templates', 10, 1, 10, 100, 'Template', 'Template Of User', 1, 1, 1, 1, '', 'XIPT_TEMPLATE'),
 (17, 'profiletypes', 11, 1, 10, 100, 'Profiletype', 'Profiletype Of User', 1, 1, 1, 1, '', 'XIPT_PROFILETYPE');;
-
 

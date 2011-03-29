@@ -237,13 +237,24 @@ class plgCommunityxipt_community extends CApplications
 
 		$profiletype  = XiptHelperUtils::getInfo($userId, PROFILETYPE_CUSTOM_FIELD_CODE);
 	    $template     = XiptHelperUtils::getInfo($userId,TEMPLATE_CUSTOM_FIELD_CODE);
-
-	    //update profiletype only
+ 		
+	    // Changing Profile From Front End If The Template allow is None then Set Profiletype template.
+	    // If Template is Allowed on Profile Type Then Take User Define Template From Front End. 
+	    $oldPtype 			   = XiptLibProfiletypes::getUserData($userId, 'PROFILETYPE');
+        $OldallowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData($oldPtype,'allowt');
+        $NewallowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData($profiletype,'allowt');
+	    
+        //update profiletype only
 	    XiptLibProfiletypes::updateUserProfiletypeData($userId,$profiletype,$template,'ALL');
 	    
 	    //update template seperately
 	    $filter[] 				= 'template';
-	    $newData['template']	= $template;
+
+	    if ($NewallowToChangeTemplate == 0 || $OldallowToChangeTemplate == 0)
+        	$newData['template']	= XiptLibProfiletypes::getProfiletypeData($profiletype, 'template');      
+	    else
+	    	$newData['template'] = $template;
+	    
 	    XiptLibProfiletypes::updateUserProfiletypeFilteredData($userId,$filter,null,$newData);
 	    return true;
 	}

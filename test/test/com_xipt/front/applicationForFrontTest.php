@@ -33,7 +33,7 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
 	  $this->waitPageLoad();
 	  if (TEST_XIPT_JOOMLA_15){
-	  	$this->verifyApps(array(44=>14,45=>15,48=>18),2,true,false);
+	  	$this->verifyApps(array(45=>15,48=>18),2,true,false);
   	  	$this->verifyApps(array(46=>0,47=>17),2, false,false);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){
@@ -56,7 +56,7 @@ class ApplicationForFrontTest extends XiSelTestCase
 	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
 	  $this->waitPageLoad();
 	  if (TEST_XIPT_JOOMLA_15){
-	  	$this->verifyApps(array(44=>14,45=>15,48=>18),2,true,true);
+	  	$this->verifyApps(array(45=>15,48=>18),2,true,true);
   	  	$this->verifyApps(array(46=>0,47=>17),2, false,true);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){
@@ -68,7 +68,7 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=84');
 	  $this->waitPageLoad();
 	  if (TEST_XIPT_JOOMLA_15){
-	  	$this->verifyApps(array(44=>20,45=>21,48=>24),3,true,false);
+	  	$this->verifyApps(array(45=>21,48=>24),3,true,false);
   	  	$this->verifyApps(array(46=>22,47=>23),3, false,false);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){
@@ -89,7 +89,7 @@ class ApplicationForFrontTest extends XiSelTestCase
 	  $this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
 	  $this->waitPageLoad();
 	  if (TEST_XIPT_JOOMLA_15){
-	  	$this->verifyApps(array(44=>14,45=>15,48=>18),2,true,true);
+	  	$this->verifyApps(array(45=>15,48=>18),2,true,true);
   	  	$this->verifyApps(array(46=>0,47=>17),2, false,true);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){

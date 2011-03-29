@@ -1,15 +1,15 @@
 TRUNCATE TABLE `#__community_users`;;
-INSERT INTO `#__community_users` (`userid`) VALUES
-(62),
-(83),
-(84),
-(85),
-(86),
-(87),
-(79),
-(80),
-(81),
-(82)
+INSERT INTO `#__community_users` (`userid`, `params`) VALUES
+(62,''),
+(83,'profileVideo=3\n'),
+(84,''),
+(85,''),
+(86,''),
+(87,''),
+(79,''),
+(80,''),
+(81,''),
+(82,'')
 ;;
 TRUNCATE TABLE `#__users`;;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
