@@ -60,7 +60,7 @@ class ImagePathTest extends XiUnitTestCase
 		$thumbPath			= JPATH_ROOT.DS.'test/test/unit/front/setup/images/avatar_1_thumb.gif';
 		$au_avatar			= JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1.gif';
 		$au_thumb 			= JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1_thumb.gif';
-		$watermark			= JPATH_ROOT.DS.'test/test/unit/front/setup/images/watermark_1.png';
+		$watermark			= 'test/test/unit/front/setup/images/watermark_1.png';
 		$watarmart_avatar	= JPATH_ROOT.DS.'test/test/unit/front/setup/images/watr_avatar_1.gif';
 		$watarmart_thumb	= JPATH_ROOT.DS.'test/test/unit/front/setup/images/watr_avatar_1_thumb.gif';
 		

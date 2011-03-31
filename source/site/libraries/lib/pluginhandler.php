@@ -141,6 +141,10 @@ class XiptLibPluginhandler
 
 		    		$profiletype = XiptLibProfiletypes::getUserData($my->id,'PROFILETYPE');
 		    		return XiptLibApps::filterAjaxAddApps($args[0],$profiletype,$response);
+		    		
+			case 'profile_ajaxConfirmRemoveAvatar':
+			//case 'profile_ajaxConfirmRemovePicture': 
+						return XiptLibAvatar::removeAvatar($response);
 				
 			default :
 				// 	we do not want to interfere, go ahead JomSocial

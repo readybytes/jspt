@@ -173,6 +173,14 @@ class plgSystemxipt_system extends JPlugin
 	    return $this->event_com_user_register_blank();
 	}
 
+	function event_com_community_profile_removepicture(){
+		return $this->event_com_community_profile_removeavatar();		
+	}
+	
+	function event_com_community_profile_removeavatar()
+	{
+		return XiptLibAvatar::removeProfilePicture();
+	}
 	function event_com_community_profile_blank()
 	{
 		if(!$this->_pluginHandler->getDataInSession('FROM_FACEBOOK',false))
