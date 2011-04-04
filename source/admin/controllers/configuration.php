@@ -46,7 +46,7 @@ class XiptControllerConfiguration extends XiptController
 			return false;
 
 		$link = XiptRoute::_('index.php?option=com_xipt&view=configuration', false);
-		$msg  = XiptText::_('Configuration Updated');
+		$msg  = XiptText::_('CONFIGURATION_UPDATED');
 		$this->setRedirect($link,$msg);
 		return true;
 	}
