@@ -11,6 +11,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 /**
  * This function needs to be here because, Joomla toolbar calls it
  **/ 
+//for joomla 1.6
+ Joomla.submitbutton=function(action) {
+ 	submitbutton(action);
+ }
+ 
 function submitbutton( action )
 {
 	switch( action )

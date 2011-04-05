@@ -7,6 +7,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 ?>
 
 <script language="javascript" type="text/javascript">
+
+//for joomla 1.6
+Joomla.submitbutton=function(action) {
+	submitbutton(action);
+}
+
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
 		if (pressbutton == 'cancel') {
