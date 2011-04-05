@@ -51,7 +51,7 @@
 		</reflexive>
 	
 		<!-- apply only if linux is OS -->
-		<if>
+<!--		<if>
 			<equals arg1="${host.fstype}" arg2="UNIX" />
 			<then>		
 				<analyze analyzerPath="/usr/local/bin/joomlaxi/zca" disable="var-ref-notmodified,if-if-else,include-var" >
@@ -61,7 +61,7 @@
 				</analyze>
 			</then>
 		</if>
-
+-->
 		
 <!--
  Squiz_Sniffs_Objects_DisallowObjectStringIndexSniff
