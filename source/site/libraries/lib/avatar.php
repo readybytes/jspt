@@ -16,13 +16,20 @@ class XiptLibAvatar
 	 * @param unknown_type $response
 	 * @return string|string
 	 */
-	static function removeAvatar(&$response)
+	static function removeAvatar($args, &$response)
 	{		
+		$userId = null;
+		if(is_array($args) && isset($args[0])){
+			$userId = $args[0];
+		}			
+		if(empty($userId)){
+			$userId = JFactory::getUser()->id;
+		}
 		// get user Avatar
-		$myCurrnetAvatar= self::getUserAvatar();		
-		
+		$myCurrnetAvatar= self::getUserInfo($userId);		
+	
 		//get User Profile Type and  ProfileType Avatar
-		$myPType  		= XiptLibProfiletypes::getUserData(JFactory::getUser()->id, 'PROFILETYPE');
+		$myPType  		= XiptLibProfiletypes::getUserData($userId, 'PROFILETYPE');
 		$myPType_avatar = XiptLibProfiletypes::getProfiletypeData($myPType, 'avatar');
 
 		//Compare User Avatar and Profile-type Avatar
@@ -38,9 +45,9 @@ class XiptLibAvatar
 	 * return user field ($what) from community user table
 	 * @param $what
 	 */
-	static function getUserAvatar($what='_avatar')
+	static function getUserInfo($userId=null, $what='_avatar')
 	{
-		return CFactory::getUser()->$what;
+		return CFactory::getUser($userId)->$what;
 	}
 	/**
 	 * if default avatar remove then set response message.
@@ -56,7 +63,7 @@ class XiptLibAvatar
 		$actions	.=	'&nbsp;<button class="button" onclick="cWindowHide();return false;">' . XiptText::_('OK') . '</button>';
 		$actions	.= '</form>';
 
-		$response->addAssign('cwin_logo', 'innerHTML', JText::_('CC_REMOVE_PROFILE_PICTURE') );
+		$response->addAssign('cwin_logo', 'innerHTML', XiptText::_('REMOVE_PROFILE_PICTURE') );
 		$response->addScriptCall('cWindowAddContent', $content, $actions);
 	}
 	
@@ -65,12 +72,17 @@ class XiptLibAvatar
 	 */
 	static function removeProfilePicture()
 	{
-		$userId = JFactory::getUser()->id;
+		//when admin remove any avatar of user by admin panel then get userid
+		// at default value,if user remove self avatar.(when fron end user login) 
+		$userId = JRequest::getVar('userid',JFactory::getUser()->id,'POST');
+		
 		$pType  = XiptLibProfiletypes::getUserData($userId, 'PROFILETYPE');
 		$newPath = XiptLibProfiletypes::getProfiletypeData($pType, 'avatar');
 			
 		self::_removeProfilePicture($userId,$pType, $newPath);
-		JFactory::getApplication()->redirect( CRoute::_( 'index.php?option=com_community&view=profile' , false ) , JText::_('CC_PROFILE_PICTURE_REMOVED') );
+		$view = JRequest::getVar('view','profile','GET');
+		//$task =	JRequest::getVar('task','profile','GET');
+		JFactory::getApplication()->redirect( CRoute::_( "index.php?option=com_community&view=$view&userid=$userId" , false ) , JText::_('CC_PROFILE_PICTURE_REMOVED') );
 		
 	}
 	
@@ -78,7 +90,7 @@ class XiptLibAvatar
 	{
 		$db = JFactory::getDBO();
 		// Test if the record exists.
-		$oldAvatar	= self::getUserAvatar();
+		$oldAvatar	= self::getUserInfo($id);
 		
 		//If avatar is default then not remove it
 		if(JString::stristr( $oldAvatar , $newPath ))
@@ -87,12 +99,15 @@ class XiptLibAvatar
 			return;
 		}
 		//get avatar_PROFILE-TYPE_thumb.jpg path
-		$thumbPath = JString::str_ireplace(".jpg","_thumb.jpg",$newPath);
+		if(JString::substr($newPath,-4) == ".png")
+			$thumbPath = JString::str_ireplace(".png","_thumb.png",$newPath);
+		else
+			$thumbPath = JString::str_ireplace(".jpg","_thumb.jpg",$newPath);	
 		
 		// create query for update Avatar and thumb
 		$query	=   'UPDATE ' . $db->nameQuote( '#__community_users' ) . ' '
 			    	.'SET ' . $db->nameQuote( $type ) . '=' . $db->Quote( $newPath ) . ', '
-			    			. '`thumb` = '. $db->Quote( $newPath ) . ' '
+			    			. '`thumb` = '. $db->Quote( $thumbPath ) . ' '
 			    	.'WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $id );
 		
 		$db->setQuery( $query );
@@ -103,7 +118,7 @@ class XiptLibAvatar
 		}
 	    
 		//get thumb Path
-		$oldAvatarThumb	= self::getUserAvatar('_thumb');
+		$oldAvatarThumb	= self::getUserInfo($id,'_thumb');
 		// If old file is default avatar thumb or default avatar , we should not remove it.
 		// if old file is not default avatar then remove it.
 		// Need proper way to test it
