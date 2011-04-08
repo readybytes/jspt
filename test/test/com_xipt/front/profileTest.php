@@ -16,7 +16,7 @@ class ProfileTest extends XiSelTestCase
   	//login as admin user
     $this->frontLogin();
 	$this->verifyViewProfile(82,1);
-	$this->verifyViewProfile(83,2);
+	//$this->verifyViewProfile(83,2);
 	$this->verifyViewProfile(84,3);   
     $this->frontLogout();
 	//see profiles publicly

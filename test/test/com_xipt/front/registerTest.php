@@ -77,7 +77,7 @@ class RegisterTest extends XiSelTestCase
   		/*we know that template must be default 
   		 * for ptype 1 and etc.. */
 		$this->joomlaRegistrationForPT(1,'default');
-		$this->joomlaRegistrationForPT(2,'blueface');	
+		$this->joomlaRegistrationForPT(2,'blackout');	
   }
 
   
@@ -504,20 +504,20 @@ class RegisterTest extends XiSelTestCase
   	$random=rand(111,999);
   	$filter['jspt_restrict_reg_check'] = 1;
 	$filter['aec_integrate']           = 0;
-	
-	$filter['jspt_prevent_username']='moderator; admin; support; owner; employee';
-	$filter['jspt_allowed_email']='yahoo.com';
-  	$filter['jspt_prevent_email']='gmail.com';
+	//XITODO:: Add to sql file
+	//$filter['jspt_prevent_username']='moderator; admin; support; owner; employee';
+	//$filter['jspt_allowed_email']='yahoo.com';
+  	//$filter['jspt_prevent_email']='gmail.com';
 	
 	$this->changeJSPTConfig($filter);
 	
 	//restrict usernames to register
 	$this->fillDataForRestriction("moderator","moderator@email.com",true);
-	$this->isTextPresent("The username selected is not a vaild username.");
+	$this->assertTrue($this->isTextPresent("The username selected is not a vaild username."));
 	
   	//restrict user to regiser by email doman name
 	$this->fillDataForRestriction("user$random","user$random@gmail.com",true);
-	$this->isTextPresent("The email is not allowed to register.");
+	$this->assertTrue($this->isTextPresent("The email is not allowed to register."));
 	
 	$this->fillDataForRestriction("user$random","user$random@yahoo.com",false);
 	$this->assertFalse($this->isTextPresent("The email is not allowed to register."));

@@ -51,7 +51,6 @@ class ImagePathTest extends XiUnitTestCase
 		$this->_DBO->filterColumn('#__community_users','profile_id');
 		$this->_DBO->filterColumn('#__community_users','watermark_hash');
 		$this->_DBO->filterColumn('#__community_users','storage');
-		$this->_DBO->filterColumn('#__community_users','status_access');
 	}
 	
 	//Test watrmark Apply or not

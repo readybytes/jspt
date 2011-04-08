@@ -180,14 +180,14 @@ class EditUserTest extends XiSelTestCase
     $this->updateConfig(0,0);
     
     $this->editUserTemp(82,1);
-    $this->editUserTemp(83,2);
+    //$this->editUserTemp(83,2);
     $this->editUserTemp(84,3);
     
     //set configuration to allow to edit
 	$this->updateConfig(0,1);
 	
     $this->editUserTemp(82,2);
-    $this->editUserTemp(83,3);
+    //$this->editUserTemp(83,3);
     $this->editUserTemp(84,1);
     
   }
@@ -206,7 +206,7 @@ class EditUserTest extends XiSelTestCase
 	// template field id is 16 (from sql)
 	// existing template : default-82, blueface-83, blackout-84
 	$newTemplate[82]='default';
-	$newTemplate[83]='blueface';
+	//$newTemplate[83]='blueface';
 	$newTemplate[84]='blackout';
 
 	$this->select("field16", "value=".$newTemplate[$userid]);
@@ -235,13 +235,13 @@ function testEditUserTemplateProfiletype()
   	XiptLibJomsocial::cleanStaticCache(true);
   	
     $this->updateConfig(1,0);
-    $this->editUserTempPT(83,2);
+//    $this->editUserTempPT(83,2);
     
     $this->updateConfig(1,0);
 	$this->editUserTempPT(84,3);
     
 	$this->updateConfig(1,1);
-	$this->editUserTempPT(85,1);
+	//$this->editUserTempPT(85,1);
   }
   
   function editUserTempPT($userid, $ptype) {
@@ -264,9 +264,9 @@ function testEditUserTemplateProfiletype()
 	$this->select("field17", "value=".$newPType[$ptype]);
 
 	$newTemplate[82]='default';
-	$newTemplate[83]='blueface';
+	//$newTemplate[83]='blueface';
 	$newTemplate[84]='blackout';
-	$newTemplate[85]='bubble';
+	//$newTemplate[85]='bubble';
 	$this->select("field16", "value=".$newTemplate[$userid]);
 
 	if (TEST_XIPT_JOOMLA_15)

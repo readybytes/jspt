@@ -182,7 +182,7 @@ class ProfiletypeUnitTest extends XiUnitTestCase
   	
   	//this will return template of user.
   	$userData = XiptLibProfiletypes::getUserData(0,'TEMPLATE');
-  	$this->assertEquals($userData,'blueface');
+  	$this->assertEquals($userData,'default');
   }
   
   function testProfiletypeData()
