@@ -68,7 +68,7 @@ jQuery(document).ready(function($){
 				<?php $catName = $catInfo['name']; ?>
 				<tr  class="row<?php echo $catIndex%2;?>" >
 					<td>
-						<?php echo $catName ;?> :
+						<?php echo XiptText::_($catName) ;?> :
 					</td>
 					<td > 
 						<div id="profileTypes<?php echo $catName;?>">

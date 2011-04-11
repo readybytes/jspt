@@ -20,7 +20,7 @@ function submitbutton( action )
 	switch( action )
 	{
 		case 'unhook':
-			if( !confirm( '<?php echo XiptText::_('ARE_YOU_SURE_YOU_WANT_TO_UNHOOK?'); ?>' ) )
+			if( !confirm( '<?php echo XiptText::_('ARE_YOU_SURE_YOU_WANT_TO_UNHOOK'); ?>' ) )
 			{
 				break;
 			}
