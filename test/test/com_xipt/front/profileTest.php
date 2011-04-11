@@ -531,7 +531,8 @@ class ProfileTest extends XiSelTestCase
 		sleep(2);
 	  	$this->click("//input[@value='Yes']");
     	$this->waitPageLoad();
-    	$this->assertTrue($this->isTextPresent("Profile picture removed"));
+    	//$this->assertTrue($this->isTextPresent("Profile picture removed"));
+    	$this->assertTrue($this->isTextPresent("CC_PROFILE_PICTURE_REMOVED"));
     	
     	//now check if default avavatra exist 
     	$this->assertTrue(JFile::exists(JPATH_ROOT.DS.$defaultAvatar));

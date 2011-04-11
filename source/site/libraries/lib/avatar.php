@@ -106,7 +106,7 @@ class XiptLibAvatar
 		
 		//if (Applied)Avatar is default user.png (JomSocial default Profile pix) then not insert our default avatar (user.png) path in database.	
 		if(JString::stristr($newPath, DEFAULT_AVATAR) && JString::stristr($thumbPath, DEFAULT_AVATAR_THUMB)){
-			$newPath   = ''
+			$newPath   = '';
             $thumbPath = '';
 		}		
 		

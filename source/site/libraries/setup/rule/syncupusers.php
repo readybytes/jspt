@@ -14,8 +14,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
 		
 		if(!$defaultProfiletypeID){
-			$mainframe = JFactory::getApplication();
-			$mainframe->enqueueMessage(XiptText::_("FIRST_SELECT_THE_DEFAULT_PROFILE_TYPE"));
+			JFactory::getApplication()->enqueueMessage(XiptText::_("FIRST_SELECT_THE_DEFAULT_PROFILE_TYPE"));
 			return false;
 		}
 
@@ -38,12 +37,17 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	
 	function doApply()
 	{
+		
 		$start=JRequest::getVar('start', 0);
 		$limit=JRequest::getVar('limit',SYNCUP_USER_LIMIT);
-		if($this->syncUpUserPT($start,$limit))
+		$reply = $this->syncUpUserPT($start,$limit);
+
+		if($reply === -1)
+			return false;
+		else if($reply)
         	return XiptText::_('USERS_PROFILETYPE_AND_TEMPLATES_SYNCRONIZED_SUCCESSFULLY');
-        
-        return XiptText::_('USERS_PROFILETYPE_AND_TEMPLATES_SYNCRONIZATION_FAILED');
+        else 
+        	return XiptText::_('USERS_PROFILETYPE_AND_TEMPLATES_SYNCRONIZATION_FAILED');
 	}
 	
 	function syncUpUserPT($start, $limit, $test = false)
@@ -55,25 +59,36 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		// we need first these fields to be exist
 		if(!($PTFieldId && $TMFieldId))
 			return false;
-			
+		// get userids for syn-cp	
 		$result = $this->getUsertoSyncUp($start, $limit);
 		$profiletype = XiPTLibProfiletypes::getDefaultProfiletype();
 		$template	 = XiPTLibProfiletypes::getProfileTypeData($profiletype,'template');			
 		
-		foreach ($result as $userid)
-			XiPTLibProfiletypes::updateUserProfiletypeData($userid, $profiletype, $template, 'ALL');
+		$total = $this->totalUsers;
+		$flag = false;
+		if($total > $limit){
+			//echo msg when users are syn-cp
+			echo $this->getHTML($start,$total,$limit);
+			if(JRequest::getVar('step',false) == false ){
+				$this->_SynCpUser($result,$profiletype,$template);
+				return -1;
+			}
+			//$start+=$limit;
+			$flag = true;
+		}
+		
+		$this->_SynCpUser($result,$profiletype,$template);
+		// Continue user are continuesyn-cp
+		if($flag === true){ 
+			return -1;
+		}
 			
 		if($test)
 			return true;
-		
-		$mainframe = JFactory::getApplication();
-		if(sizeof($result)== $limit){			
-			$start+=$limit;
-    		$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=setup&task=syncUpUserPT&start=$start",false));
-		}
-		
-		$msg = 'Total '. ($start+count($result)) . ' users '.XiptText::_('SYNCHORNIZED');
-		$mainframe->enqueueMessage($msg);
+
+		$step=JRequest::getVar('step');
+		$msg = 'Total '. (($limit*$step)+count($result)) . ' users '.XiptText::_('SYNCHORNIZED');
+		JFactory::getApplication()->enqueueMessage($msg);
 		return true;
 	}
 	
@@ -96,7 +111,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		return $requiredSetup;
 	}
 	
-	function getUsertoSyncUp($start = 0, $limit = 1000)
+	function getUsertoSyncUp($start = 0, $limit = SYNCUP_USER_LIMIT)
 	{
 		//XITODO : apply caching
 //		static $users = null;
@@ -120,8 +135,70 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		$users = array_merge($result, $userid);
 		
 		sort($users);
-		
+		$this->totalUsers = count($users);
+//		echo "=======get user to sync=======";
+//		$reslt=array_slice($users, $start, $limit);
+//		echo "result is :::";
+//		print_r($reslt);
 		return array_slice($users, $start, $limit);
 	}
 	
+	function getHTML($start, $total, $limit)
+	{
+		ob_start();
+		?>
+		<div>
+			<h3 style="width:100%; background:#7ac047;text-align:center;color:RED;padding:5px;font-weight:bold;">
+			<?php 
+			//show user reseted
+			//can show 'reseting next 500 user'
+			echo "Reset Page : DO NOT CLOSE THIS WINDOW WHILE SYNCRONIZATION ";
+			?>
+			</h3>
+			<?php
+			$step=JRequest::getVar('step',0);
+			$end = ($step+1)*$limit;
+			//Number of user syn-cp when limit is greater then remaining user 
+			//if($limit > $total){
+				//$remain=$end = $total;
+			//}
+			// display Total users
+			echo "<br /> Total ". $total=$total+($limit*$step)." users for Syn-cp";	
+			
+			//dispaly syn-cp users
+			echo "<br />Syncing-Up Users  ". ($step)*$limit ." To ". $end ." ";
+			$step++;
+			$remain = $total-($limit*$step);
+			//dispaly remaning users 
+			echo "<br />Remaining " .$remain . " Users";
+							
+			?>
+			<script>
+			window.onload = function() {
+				  setTimeout("xiredirect()", 3000);
+			}
+			
+			function xiredirect(){
+				window.location = "<?php echo XiPTRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers&start=$start&limit=$limit&step=$step");?>"					
+			}
+			
+			</script>
+			</div>
+		<?php 
+		$html = ob_get_contents();
+		ob_end_clean();
+		return $html;
+	}
+	/**
+	 * 
+	 * @param unknown_type $result number of user for syncp
+	 * @param unknown_type $profiletype : default profile-typr
+	 * @param unknown_type $template: default-template
+	 */
+	function _SynCpUser($result,$profiletype,$template) {
+		foreach ($result as $userid){
+			XiPTLibProfiletypes::updateUserProfiletypeData($userid, $profiletype, $template, 'ALL');
+			}
+	}
+
 }
