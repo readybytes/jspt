@@ -88,11 +88,23 @@ class plgCommunityxipt_community extends CApplications
 		
 		//check if avatar is ptype default avatar
 		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($old_avatar_path,false)){
-			//HERE we should search for _thumb, not for thumb_			
-			if (JString::stristr($old_avatar_path,'thumb'))
-				$old_avatar_path = DEFAULT_AVATAR_THUMB;
-			else
-				$old_avatar_path = DEFAULT_AVATAR;
+			//HERE we should search for _thumb, not for thumb_
+		/**XITODO:: Properly test following::
+		* In JS2.2 :: When our default avatar is user.png then JS delete this avatar from(Community/assets/user.png)
+		* becoz at delete time its only consider default.jpg (components/com_community/assets/default.jpg)as default value and 
+		* if avatar is user.png (Community/assets/user.png) then this path is not set into database
+		* but it saved by XiPT 3.1.
+		* JS2.2 does not delete default.jpg(Community/assets/default.jpg) So we changed path.
+		* (Not understanding:: Call 2 manish) :)
+		*/			
+			if (JString::stristr($old_avatar_path,'thumb')){
+				//$old_avatar_path = DEFAULT_AVATAR_THUMB;
+				$old_avatar_path = 'components/com_community/assets/default_thumb.jpg' ;
+			}
+			else{
+				//$old_avatar_path = DEFAULT_AVATAR;
+				$old_avatar_path = 'components/com_community/assets/default.jpg';
+			}
 		}		
 		
 		//Now apply watermark to images
@@ -102,8 +114,16 @@ class plgCommunityxipt_community extends CApplications
 			return true;
 					
 		//check if uploadable avatar is not default ptype avatar
-		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($new_avatar_path,true))
+		/**XITODO:: Properly testing following
+		 * In JS 2.2:: user.png consider as a default avatar for every user and dont save this avatar path in community user table
+		 * So XiPT 3.1 also consider user.png as default avatar
+		 * But may be Xipt installed on existing data then at reset all time, may b apply watr-mrk on
+		 * community/assets/defauult.jpg  (not usr.png).
+		 * Need properly testing and if get above thing then restict. :)   
+		 */
+		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($new_avatar_path,true)){
 			return true;
+		}
 		
 		//check what is new image , if thumb or original
 		$what = JString::stristr($new_avatar_path,'thumb')? 'thumb' : 'avatar';

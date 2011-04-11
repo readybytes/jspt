@@ -104,6 +104,12 @@ class XiptLibAvatar
 		else
 			$thumbPath = JString::str_ireplace(".jpg","_thumb.jpg",$newPath);	
 		
+		//if (Applied)Avatar is default user.png (JomSocial default Profile pix) then not insert our default avatar (user.png) path in database.	
+		if(JString::stristr($newPath, DEFAULT_AVATAR) && JString::stristr($thumbPath, DEFAULT_AVATAR_THUMB)){
+			$newPath   = ''
+            $thumbPath = '';
+		}		
+		
 		// create query for update Avatar and thumb
 		$query	=   'UPDATE ' . $db->nameQuote( '#__community_users' ) . ' '
 			    	.'SET ' . $db->nameQuote( $type ) . '=' . $db->Quote( $newPath ) . ', '
