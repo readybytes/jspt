@@ -66,19 +66,33 @@ class RegisterTest extends XiSelTestCase
 
 		$db->setQuery($query);
 		$db->query();
-  		
-		/*$configFilter = array();
+  		// XITODO :: Change According To Joomla 1.6 
+		$configFilter = array();
   		$configFilter['useractivation'] = 0;
-  		$this->updateJoomlaConfig($configFilter);*/
+  		$this->updateJoomlaConfig($configFilter);
   		
   		$filter['aec_integrate']=0;
   		$this->changeJSPTConfig($filter);
   		
   		/*we know that template must be default 
   		 * for ptype 1 and etc.. */
+  		$this->setEmailSettings();
 		$this->joomlaRegistrationForPT(1,'default');
 		$this->joomlaRegistrationForPT(2,'blackout');	
   }
+
+	function setEmailSettings()
+	{
+		$filter['mailer'] 	= 'smtp';
+		$filter['mailfrom'] = 'teamjoomlaxi@gmail.com';
+		$filter['smtpauth'] = '1';
+		$filter['smtpsecure'] = 'ssl';
+		$filter['smtpport'] = '465';
+		$filter['smtpuser'] = 'teamjoomlaxi@gmail.com';
+		$filter['smtppass'] = 'joomlaxireadybytes';
+		$filter['smtphost'] = 'smtp.gmail.com';		
+		$this->updateJoomlaConfig($filter);	
+	}
 
   
   function joomlaRegistrationForPT($ptype,$template)
@@ -99,11 +113,11 @@ class RegisterTest extends XiSelTestCase
     // now fille reg + field information
     
     $username =  $this->fillJoomlaRrgistrationPT($ptype);
-    if(TEST_XIPT_JOOMLA_15)
- 	     $this->assertTrue($this->isTextPresent("Your account has been created and an activation link has been sent to the e-mail address you entered."));
+    //if(TEST_XIPT_JOOMLA_15)
+ 	     //$this->assertTrue($this->isTextPresent("Your account has been created and an activation link has been sent to the e-mail address you entered."));
     
- 	if(TEST_XIPT_JOOMLA_16)
- 	    $this->assertTrue($this->isTextPresent("Thank you for registering. You may now log in using username and password you registered with."));
+ 	//if(TEST_XIPT_JOOMLA_16)
+ 	    $this->assertTrue($this->isTextPresent("Thank you for registering. You may now log in using the username and password you registered with."));
  	
     
     //verify users
@@ -517,10 +531,10 @@ class RegisterTest extends XiSelTestCase
 	
   	//restrict user to regiser by email doman name
 	$this->fillDataForRestriction("user$random","user$random@gmail.com",true);
-	$this->assertTrue($this->isTextPresent("The email is not allowed to register."));
+	$this->assertTrue($this->isTextPresent("The Email is not allowed to register."));
 	
 	$this->fillDataForRestriction("user$random","user$random@yahoo.com",false);
-	$this->assertFalse($this->isTextPresent("The email is not allowed to register."));
+	$this->assertFalse($this->isTextPresent("The Email is not allowed to register."));
 	
 	$filter['jspt_allowed_email']='';
   	$filter['jspt_prevent_email']='';
@@ -559,6 +573,11 @@ class RegisterTest extends XiSelTestCase
 	}
 	else
 	{
+		if($this->isTextPresent("info is required. Make sure it contains a valid value!")){
+			$this->click("cwin_close_btn");
+			sleep(2);
+			$this->click("btnSubmit");
+		}
 		$this->waitPageLoad();
 		$this->assertTrue($this->isTextPresent("Register new user"));	
 	}
