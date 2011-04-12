@@ -271,12 +271,12 @@ class RegisterTest extends XiSelTestCase
     $this->click("btnSubmit");
     sleep(1);
     //Check Page is Redirect or Showing Pop Message
-    if($this->isTextPresent("Register new user")){
+    if($this->isElementPresent("cwin_close_btn")){
 		$this->click("cwin_close_btn");
     	$this->click("btnSubmit");
     	sleep(1);
     	//Check Page is Redirect or Still Showing Pop Message
-    	if ($this->isTextPresent("Register new user") && TEST_XIPT_JOOMLA_16){
+    	if ($this->isElementPresent("cwin_close_btn")){
     		$this->click("cwin_close_btn");
     		sleep(1);	
     		$this->click("btnSubmit");	
