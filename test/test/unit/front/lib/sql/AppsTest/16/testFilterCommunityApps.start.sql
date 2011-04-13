@@ -50,7 +50,7 @@ INSERT INTO `#__extensions` (`extension_id`, `name`,  `element`, `folder`, `acce
 (49, 'JomSocial User List', 'testing001', 'community', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', 'coreapp=1\n'),
 (50, 'JomSocial User List', 'testing002', 'community', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', ''),
 (51, 'JSPT Community Plugin', 'xipt_community', 'community', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', ''),
-(52, 'JSPT System Plugin', 'xipt_system', 'system', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');;
+(52, 'JSPT System Plugin', 'xipt_system', 'system', 0, 0, 0, 0, 1, 0, '0000-00-00 00:00:00', '');;
 
 DROP TABLE IF EXISTS `bk_#__xipt_applications`;;
 CREATE TABLE IF NOT EXISTS `bk_#__xipt_applications` SELECT * FROM `#__xipt_applications`;;

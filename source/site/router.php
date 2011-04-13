@@ -18,7 +18,7 @@ function _GetXiptMenus()
 	if (XIPT_JOOMLA_16){ 				
 		$dbo->setQuery(  " SELECT `extension_id` "
 					." FROM `#__extensions` "
-					." WHERE `element`='com_xipt' AND `client_id`=0"
+					." WHERE `element`='com_xipt' AND `client_id`=1"
 				);
 	}
 	if (XIPT_JOOMLA_15){ 				
