@@ -37,7 +37,7 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  	$this->verifyApps(array(46=>0,47=>17),2, false,false);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){
-	  	$this->verifyApps(array(10022=>14,10009=>15,10011=>18),2,true,false);
+	  	$this->verifyApps(array(10009=>15,10011=>18),2,true,false);
   	  	$this->verifyApps(array(10008=>0,10010=>17),2, false,false);
 	  }
   	  
@@ -60,7 +60,7 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  	$this->verifyApps(array(46=>0,47=>17),2, false,true);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){
-	  	$this->verifyApps(array(10022=>14,10009=>15,10011=>18),2,true,true);
+	  	$this->verifyApps(array(10009=>15,10011=>18),2,true,true);
   	  	$this->verifyApps(array(10008=>0,10010=>17),2, false,true);
 	  }
   	  
@@ -72,7 +72,7 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  	$this->verifyApps(array(46=>22,47=>23),3, false,false);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){
-	  	$this->verifyApps(array(10022=>20,10009=>21,10011=>24),3,true,false);
+	  	$this->verifyApps(array(10009=>21,10011=>24),3,true,false);
   	  	$this->verifyApps(array(10008=>22,10010=>23),3, false,false);
 	  }
   	  
@@ -93,7 +93,7 @@ class ApplicationForFrontTest extends XiSelTestCase
   	  	$this->verifyApps(array(46=>0,47=>17),2, false,true);	
 	  }
 	  if (TEST_XIPT_JOOMLA_16){
-	  	$this->verifyApps(array(10022=>14,10009=>15,10011=>18),2,true,true);
+	  	$this->verifyApps(array(10009=>15,10011=>18),2,true,true);
   	  	$this->verifyApps(array(10008=>0,10010=>17),2, false,true);
 	  }
   	  
