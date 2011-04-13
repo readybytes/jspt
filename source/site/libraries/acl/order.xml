@@ -138,7 +138,10 @@
 <group name="avatar" title="Avatar">
 	<rule name="changeavatar"
 		  title="Can not Change Avatar"
-		  description="Restrict users to Change Avatar" />	
+		  description="Restrict users to Change Avatar" />
+	<rule name="uploadavatar"
+		  title="Force to Upload-Avatar"
+		  description="Force to users for upload avatar." />
 </group>
 	
 <group name="privacy" title="Privacy">
