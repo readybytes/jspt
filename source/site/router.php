@@ -63,9 +63,9 @@ function _findXiptMatchCount($menu, $query)
 
 		//exist but do not match
 		if($menu[$var] !== $query[$var])
-			continue;
+			return 0;
 
-		$count;
+		$count++;
 	}
 	return $count;
 }
