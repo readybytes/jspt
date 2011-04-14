@@ -9,10 +9,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 <script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
 <script type="text/javascript">jQuery.noConflict();</script>
 <script language="javascript" type="text/javascript">
-//for joomla 1.6
+<?php 
+If(XIPT_JOOMLA_16)
+{
+	?>
+/** FOR JOOMLA1.6 **/
 Joomla.submitbutton=function(action) {
 	submitbutton(action);
 }
+<?php }?>
 
 function submitbutton(action){	
 	var form = document.adminForm;

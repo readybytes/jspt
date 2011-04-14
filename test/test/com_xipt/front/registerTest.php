@@ -113,10 +113,10 @@ class RegisterTest extends XiSelTestCase
     // now fille reg + field information
     
     $username =  $this->fillJoomlaRrgistrationPT($ptype);
-    //if(TEST_XIPT_JOOMLA_15)
- 	     //$this->assertTrue($this->isTextPresent("Your account has been created and an activation link has been sent to the e-mail address you entered."));
+    if(TEST_XIPT_JOOMLA_15)
+ 	     $this->assertTrue($this->isTextPresent("Your account has been created and an activation link has been sent to the e-mail address you entered."));
     
- 	//if(TEST_XIPT_JOOMLA_16)
+ 	if(TEST_XIPT_JOOMLA_16)
  	    $this->assertTrue($this->isTextPresent("Thank you for registering. You may now log in using the username and password you registered with."));
  	
     

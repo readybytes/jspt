@@ -8,10 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 <script language="javascript" type="text/javascript">
 
-//for joomla 1.6
-Joomla.submitbutton=function(action) {
-	submitbutton(action);
-}
+<?php 
+		If(XIPT_JOOMLA_16)
+		{
+			?>
+		/** FOR JOOMLA1.6 **/
+		Joomla.submitbutton=function(action) {
+			submitbutton(action);
+		}
+  <?php }?>
 
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
