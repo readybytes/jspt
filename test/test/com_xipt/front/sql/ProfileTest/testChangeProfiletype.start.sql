@@ -279,13 +279,13 @@ DROP TABLE IF EXISTS `au_#__xipt_users`;;
 CREATE TABLE IF NOT EXISTS  `au_#__xipt_users` SELECT * FROM `#__xipt_users`;;
 TRUNCATE TABLE `au_#__xipt_users`;;
 INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 3, 'default'),
+(62, 3, 'blackout'),
 (87, 3, 'blackout'),
 (86, 2, 'blueface'),
 (85, 1, 'default'),
 (84, 1, 'default'),
-(83, 3, 'blackout'),
-(82, 2, 'blueface'),
+(83, 3, 'blueface'),
+(82, 2, 'default'),
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
 (79, 10, 'default'),

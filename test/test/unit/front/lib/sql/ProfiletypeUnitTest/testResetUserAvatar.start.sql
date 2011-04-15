@@ -40,8 +40,7 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (82, 1, 'default'),
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
-(79, 1, 'default'),
-(99, 0, 'blueface');;
+(79, 1, 'default');;
 
 DROP TABLE IF EXISTS `au_#__community_users`;;
 CREATE TABLE IF NOT EXISTS `au_#__community_users` 

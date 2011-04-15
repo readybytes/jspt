@@ -7,7 +7,7 @@ class DefaultAvatarPathTest extends XiUnitTestCase
 	{
 		// get avatar coloumn schema
 		$avatarSchema=XiptHelperInstall::_getColumnStructure('#__xipt_profiletypes','avatar');
-		$this->assertTrue((0 == JString::strcmp($avatarSchema->Default,'components/com_community/assets/user.png')));	
+		$this->assertTrue((true == JString::stristr($avatarSchema->Default,'components/com_community/assets/user.png')));	
 	} 
 	
 	function testMigrationOnAvatarPath(){
