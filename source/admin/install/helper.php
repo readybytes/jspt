@@ -430,7 +430,7 @@ class XiptHelperInstall
 		require_once JPATH_ROOT .DS. 'components' .DS. 'com_xipt' .DS. 'defines.php';
 		$db		= JFactory::getDBO();
 		$query	= 'UPDATE #__xipt_settings'
-				.' SET '. $db->nameQuote('params') .' = '.$db->Quote('3.0.507')
+				.' SET '. $db->nameQuote('params') .' = '.$db->Quote('@global.version@.@svn.lastrevision@')
 				.' WHERE '. $db->nameQuote('name') .' = '.$db->Quote('version');
 		$db->setQuery($query);
 		return $db->query();
@@ -467,5 +467,64 @@ class XiptHelperInstall
 		$db->setQuery($query);
 		$db->query();	
 		
-	}	
+	}
+
+	/**
+	 * If You are used JS 2.2 or upper version 
+	 * then XiPT3.1 change deafault value of avatar.
+	 * (because JS2.2 also changed their dfafult avatar value)
+	 */
+	function changeDefaultAvatar() {
+		// if table is not exist(It means, Not exist older version) then no need for maigration
+		//because deafault value of avatar automatic set by "install.sql". 
+		if(
+			!self::_isTableExist('#__xipt_settings') &&
+			!self::_isTableExist('#__xipt_profiletypes')
+		)
+		{
+			return false;	
+		}
+
+		// get installed Xipt version
+		$myVersion = self::getXiptVersion();
+		// If XiPT version greather than 608. then default path already added in sql file. 
+		if($myVersion > 608)
+		{
+			return false;
+		}
+
+		// get avatar coloumn schema
+		$avatarSchema=self::_getColumnStructure('#__xipt_profiletypes','avatar');
+		
+		// Apply migration
+		if(JString::strcmp($avatarSchema->Default,'components/com_community/assets/default.jpg') == 0)
+		{
+			$query = "ALTER TABLE `#__xipt_profiletypes` MODIFY `avatar` varchar(250) Default 'components/com_community/assets/user.png' NOT NULL";
+			$db = JFactory::getDBO();
+			$db->setQuery($query);
+			$db->query();
+			return true;
+		}
+	}
+	
+	/**
+	 * return column structure
+	 * @param unknown_type $tableName :: table name
+	 * @param unknown_type $columnName:: column name
+	 */
+	function _getColumnStructure($tableName,$columnName)
+	{
+		assert($tableName  != '');
+		assert($columnName != '');
+
+		$db	    = JFactory::getDBO();
+		$query	=  'DESC ' 
+			   . ' '.$db->nameQuote($tableName)
+			   . ' '.$db->nameQuote($columnName);
+
+		$db->setQuery( $query );
+		$columns= $db->loadObjectList();
+	
+		return $columns[0];
+	}
 }
