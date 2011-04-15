@@ -33,7 +33,7 @@ class XiptLibAvatar
 		$myPType_avatar = XiptLibProfiletypes::getProfiletypeData($myPType, 'avatar');
 
 		//Compare User Avatar and Profile-type Avatar
-		if(JString::strcmp($myCurrnetAvatar,$myPType_avatar) == 0){
+		if(JString::stristr($myCurrnetAvatar,$myPType_avatar)){
 			self::setResponse($response);
 			return false;
 		}

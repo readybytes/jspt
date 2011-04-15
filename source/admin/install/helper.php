@@ -495,7 +495,7 @@ class XiptHelperInstall
 		$avatarSchema=self::_getColumnStructure('#__xipt_profiletypes','avatar');
 		
 		// Apply migration
-		if(JString::strcmp($avatarSchema->Default,'components/com_community/assets/default.jpg') == 0)
+		if(JString::stristr($avatarSchema->Default,'components/com_community/assets/default.jpg'))
 		{
 			$query = "ALTER TABLE `#__xipt_profiletypes` MODIFY `avatar` varchar(250) Default 'components/com_community/assets/user.png' NOT NULL";
 			$db = JFactory::getDBO();
