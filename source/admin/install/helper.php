@@ -478,20 +478,18 @@ class XiptHelperInstall
 		// if table is not exist(It means, Not exist older version) then no need for maigration
 		//because deafault value of avatar automatic set by "install.sql". 
 		if(
-			!self::_isTableExist('#__xipt_settings') &&
-			!self::_isTableExist('#__xipt_profiletypes')
+			!self::_isTableExist('xipt_settings') &&
+			!self::_isTableExist('xipt_profiletypes')
 		)
 		{
 			return false;	
 		}
 
 		// get installed Xipt version
-		$myVersion = self::getXiptVersion();
+		//$myVersion = self::getXiptVersion();
 		// If XiPT version greather than 608. then default path already added in sql file. 
-		if($myVersion > 608)
-		{
-			return false;
-		}
+		//if($myVersion > 608)
+		//{ return false;	}
 
 		// get avatar coloumn schema
 		$avatarSchema=self::_getColumnStructure('#__xipt_profiletypes','avatar');
@@ -505,6 +503,7 @@ class XiptHelperInstall
 			$db->query();
 			return true;
 		}
+		return false;
 	}
 	
 	/**

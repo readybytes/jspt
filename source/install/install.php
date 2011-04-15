@@ -13,10 +13,10 @@ function com_install()
 //	if(XiptHelperInstall::check_version() == false)
 //		JError::raiseWarning('INSTERR', "XIPT Only support Jomsocial 1.8 or greater releases");
 
-//	XiptHelperInstall::ensureXiptVersion();
-//	
-//	if(XiptHelperInstall::setup_database() == false)
-//		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
+	XiptHelperInstall::ensureXiptVersion();
+	
+	if(XiptHelperInstall::setup_database() == false)
+		JError::raiseError('INSTERR', "Not able to setup JSPT database correctly");
 
 	/* When you have old JSPT version
 	 * then apply migration on 'avatar' coloumn of 'xipt_profiletype' table

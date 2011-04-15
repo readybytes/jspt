@@ -12,7 +12,7 @@ class DefaultAvatarPathTest extends XiUnitTestCase
 	
 	function testMigrationOnAvatarPath(){
 
-		//If XiPT CURRENT_VERSION > 608 then dont apply migration.
+		//If you have already user.png then dont apply migration.
 		$this->assertFalse(XiptHelperInstall::changeDefaultAvatar());
 		
 		// change XiPT version
