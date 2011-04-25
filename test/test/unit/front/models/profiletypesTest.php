@@ -15,7 +15,7 @@ class XiptProfiletypesModelTest extends XiUnitTestCase
 		$this->assertEquals($model->loadParams(1), CFactory::getConfig());
 		
 		$str= "enableterms=1\nregistrationTerms=\nrecaptcha=0\nrecaptchapublic=\nrecaptchaprivate=\nrecaptchatheme=red\nrecaptchalang=en\nenablereporting=1\nmaxReport=50\nnotifyMaxReport=\nenableguestreporting=0\npredefinedreports=Spamming / Advertisement\\nProfanity / Inappropriate content.\\nAbusive.\nprivacyprofile=0\nprivacyfriends=0\nprivacyphotos=0\nprivacyemail=1\nprivacyapps=1\nprivacywallcomment=0\nenablepm=1\npmperday=30\nwallediting=1\nlockprofilewalls=1\nlockvideoswalls=1\nlockgroupwalls=1\nlockeventwalls=1\nenablegroups=0\nmoderategroupcreation=1\ncreategroups=1\ngroupcreatelimit=300\ngroupphotouploadlimit=500\ngroupvideouploadlimit=500\ncreatediscussion=1\ngroupphotos=0\ngroupvideos=0\ngroupdiscussnotification=0\ngroupdiscussionmaxlist=5\nenablevideos=0\nenableprofilevideo=0\nenablevideosupload=1\nvideouploadlimit=500\ndeleteoriginalvideos=0\nvideofolder=images\nmaxvideouploadsize=8\nffmpegPath=\nflvtool2=\nqscale=11\nvideosSize=400x300\ncustomCommandForVideo=\nenablevideopseudostream=0\nvideodebug=1\nenablephotos=1\nphotouploadlimit=500\nmaxuploadsize=8\ndeleteoriginalphotos=0\nmagickPath=\nflashuploader=0\nautoalbumcover=1\nenablemyblogicon=0\n\n";
-		$compareParams = new JParameter($str);		
+		$compareParams = new XiptParameter($str);		
 		$this->assertEquals($model->loadParams(2), $compareParams );
 	}
 	

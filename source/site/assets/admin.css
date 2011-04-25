@@ -156,9 +156,10 @@ margin-top: 3px;
 
 #JSPT .paramValue label{
 clear:none;
-text-align: left;
 float:left;
+margin-top:4px;
 min-width:50px;
+text-align:left;
 }
 
 /*  params */
