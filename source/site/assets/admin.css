@@ -71,7 +71,7 @@ fieldset.adminform { /* General use */
 	font-weight: bold;
 	margin-right: 5px;
 	padding-right: 5px;
-	width: 160px;
+	width: 150px;
 	}
 	
 label.radiobtn-no, label.radiobtn-yes, label.radiobtn-joomla, label.radiobtn-jomsocial, .radiobtn-owner, .radiobtn-visitor, .radiobtn-both{ /* Value text */
@@ -133,14 +133,14 @@ float:left;
 font-weight: bold;
 padding:1px 3px 1px 1px;
 text-align: right;
-width:160px;
+width:150px;
 }
 
 #JSPT .paramValue{
 float:left;
 margin-left:1%;
 padding:1px 1px 1px 3px;
-width:50%;
+width:67%;
 }
 
 #JSPT .paramValue input{
@@ -187,7 +187,7 @@ float:left;
 font-weight: bold;
 padding:1px 4px 1px 1px;
 text-align: right;
-width:160px;
+width:150px;
 }
 
 #JSPT .xiColValue{	
@@ -234,7 +234,7 @@ font-size:12px;
 font-weight:bold;
 margin-right:2px;
 padding-right:2px;
-width:160px
+width:150px
 }
 /********** JSConfiguration **************/
 
