@@ -286,7 +286,10 @@ abstract class XiptModel extends JModel
 		$iniData	= JFile::read($iniPath);
 
 		XiptError::assert(JFile::exists($xmlPath), XiptText::_("FILE $xmlPath DOES_NOT_EXIST"), XiptError::ERROR);
-			
+		
+		/**	
+		//XiTODO Use XiptParatmeter Class
+		**/
 		$config = new JParameter($iniData,$xmlPath);
 		if(isset($record[$id])) $config->bind($record[$id]->$what);	
 		

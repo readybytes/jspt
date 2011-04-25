@@ -273,7 +273,7 @@ class XiptControllerProfiletypes extends XiptController
 		$newData = $model->loadRecords(0);
 		$newData = $newData[$id];
 		
-		$config = new JParameter('','');
+		$config = new XiptParameter('','');
 		$config->bind($newData->watermarkparams);
 
 		// generate watermark image		

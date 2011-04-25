@@ -37,7 +37,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	
 </script>
 <script type="text/javascript">jQuery.noConflict();</script>
-
+<div id="JSPT">
 
 <form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm" id="adminForm">
 
@@ -115,4 +115,5 @@ if(!defined('_JEXEC')) die('Restricted access');
 	
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>	
+</div>
 <?php 

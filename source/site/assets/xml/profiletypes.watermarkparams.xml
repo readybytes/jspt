@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<params addpath="/components/com_xipt/elements" >
+	<params addpath="/components/com_xipt/elements">
 		<param name="demo" type="watermarkpreview" default="" label="COM_XIPT_DEMO" description="COM_XIPT_DEMO_ACCORDING_TO_SET_WATERMARK_PARAMS" />
-		<param name="enableWaterMark" type="radio" label="COM_XIPT_ENABLE_WATER_MARK" default="0" description="COM_XIPT_ENABLE_WATER_MARK_DESC">
+		<param name="enableWaterMark" type="xiradio" label="COM_XIPT_ENABLE_WATER_MARK" default="0" description="COM_XIPT_ENABLE_WATER_MARK_DESC">
 			<option value="0">No</option>
   			<option value="1">Yes</option>		
 		</param>

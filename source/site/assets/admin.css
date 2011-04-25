@@ -71,7 +71,7 @@ fieldset.adminform { /* General use */
 	font-weight: bold;
 	margin-right: 5px;
 	padding-right: 5px;
-	width: 150px;
+	width: 160px;
 	}
 	
 label.radiobtn-no, label.radiobtn-yes, label.radiobtn-joomla, label.radiobtn-jomsocial, .radiobtn-owner, .radiobtn-visitor, .radiobtn-both{ /* Value text */
@@ -96,5 +96,207 @@ label[class="radiobtn-both, plan and profiletype"], label[class="radiobtn-only p
 
 .admintable td .radiobtn-no, .admintable td .radiobtn-yes, .admintable td .radiobtn-show, .admintable td .radiobtn-hide, .admintable td .radiobtn-sidebar, .admintable td label[class="radiobtn-main content"]{ /* Value text */
 	clear:none;
-	padding-right:5px;
+	padding-right:2px;
 	}
+/******** XiptParameter *********/
+
+/* common css for all entites */
+#JSPT .xippElements{
+width: 100%;
+overflow: hidden;
+}
+
+#JSPT .elementColumn{
+width:49%;
+float:left;
+overflow:hidden;
+}
+
+#JSPTedit #planeditheader .paramValue input{
+padding: 2px;
+}
+
+#JSPT .elementParams{
+overflow:hidden;
+margin-top:5px;
+width:100%;
+margin:auto;
+margin-top:2px;
+}
+
+#JSPT .paramTitle{
+background-color: #F0F0F0;
+border-bottom:1px solid #e9e9e9;
+border-right:1px solid #e9e9e9;
+color:#666;
+float:left;
+font-weight: bold;
+padding:1px 3px 1px 1px;
+text-align: right;
+width:160px;
+}
+
+#JSPT .paramValue{
+float:left;
+margin-left:1%;
+padding:1px 1px 1px 3px;
+width:50%;
+}
+
+#JSPT .paramValue input{
+float:left;
+margin-top: 3px;
+
+}
+
+#JSPT .paramValue select{
+float:left;
+margin-top: 3px;
+}
+
+#JSPT .paramValue label{
+clear:none;
+text-align: left;
+float:left;
+min-width:50px;
+}
+
+/*  params */
+
+#JSPT .xiptParameter{
+}
+
+#JSPT .xiRow{
+overflow:hidden;
+margin-top:5px;
+width:100%;
+margin:auto;
+margin-top:2px;
+}
+
+#JSPT .xiCol{
+	float:left;
+}
+
+#JSPT .xiColKey{	
+background-color: #F0F0F0;
+border-bottom:1px solid #e9e9e9;
+border-right:1px solid #e9e9e9;
+color:#666;
+float:left;
+font-weight: bold;
+padding:1px 4px 1px 1px;
+text-align: right;
+width:160px;
+}
+
+#JSPT .xiColValue{	
+float:left;
+margin-left:1%;
+padding:3px 1px 1px 3px;
+width:50%;
+}
+
+#JSPT .xiColDescription{	
+float:left;
+line-height: 22px;
+font-weight: bold;
+color:#666;
+text-decoration: underline;
+}
+
+#JSPT .xiColValue input{
+float:left;
+margin-top:3px;
+}
+
+#JSPT .xiColValue select{
+float:left;
+margin-top:3px;
+}
+
+#JSPT .xiColValue label{
+clear:none;
+float:left;
+margin-top:4px;
+margin:3px 0;
+min-width:50px;
+}
+
+
+.hasTip{
+background-color:#F0F0F0;
+border-bottom:0px;
+border-right:0px;
+text-align: right;
+color:#666666;
+font-size:12px;
+font-weight:bold;
+margin-right:2px;
+padding-right:2px;
+width:160px
+}
+/********** JSConfiguration **************/
+
+#content-box fieldset {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#FDFDFD none repeat scroll 0 0;
+}
+
+#config-document td {
+float:left;
+vertical-align:top;
+}
+fieldset.adminform {
+margin:5px;
+overflow:hidden;
+}
+.admintable td.key {
+background-color:#F6F6F6;
+color:#666666;
+font-size:12px;
+font-weight:bold;
+margin-right:5px;
+margin-top: 5px;
+padding-right:5px;
+width:150px;
+}
+.admintable td.key + td {
+}
+.admintable td .radiobtn-no, .admintable td .radiobtn-yes, .admintable td .radiobtn-show, .admintable td .radiobtn-hide, .admintable td .radiobtn-sidebar, .admintable td label[class="radiobtn-main content"] {
+clear:none;
+padding-right:5px;
+}
+#page-media td.key + td div {
+float:left;
+}
+#config-document #page-antispam td {
+float:none;
+}
+#page-groups td {
+float:none;
+}
+#page-events td {
+float:none;
+}
+#page-privacy td {
+float:none;
+}
+#page-privacy .privacyfriends input, #page-privacy .privacyprofile input, #page-privacy .privacyphotos input {
+float:none;
+margin:5px;
+}
+#page-network td {
+float:none;
+}
+#page-integrations td {
+float:none;
+}
+table.admintable td label {
+clear:none;
+display:inline;
+margin-right:20px;
+min-width:0;
+}

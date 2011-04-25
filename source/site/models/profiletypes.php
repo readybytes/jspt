@@ -77,7 +77,7 @@ class XiptModelProfiletypes extends XiptModel
 		if(!isset($record[$id]->params) || empty($record[$id]->params))
 			$this->_params[$id] = CFactory::getConfig();
 		else
-			$this->_params[$id] = new JParameter( $record[$id]->params );
+			$this->_params[$id] = new XiptParameter( $record[$id]->params );
 			
 		return $this->_params[$id];
 	}
