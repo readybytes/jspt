@@ -87,7 +87,7 @@ INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value
 (130, 81, 9, 'regtest8635954'),
 (133, 82, 3, 'regtest8774090'),
 (132, 82, 17, '2'),
-(131, 82, 16, 'blueface'),
+(131, 82, 16, 'default'),
 (159, 86, 2, 'regtest1504555'),
 (158, 86, 17, '2'),
 (157, 86, 16, 'blueface'),

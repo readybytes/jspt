@@ -143,7 +143,10 @@ class XiptLibProfiletypes
 		{
 			$feature[]='avatar';
 			$oldData['avatar'] = self::getProfiletypeData($prevProfiletype,'avatar');
-			$newData['avatar'] = self::getProfiletypeData($ptype,'avatar');
+			$newAvatar	 = self::getProfiletypeData($ptype,'avatar');
+			if(JString::stristr( $newAvatar , 'components/com_community/assets/user.png'))
+				$newAvatar = '';
+			$newData['avatar'] = $newAvatar;
 		}
 
 		//set user watermark

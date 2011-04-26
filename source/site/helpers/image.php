@@ -283,6 +283,9 @@ class XiptHelperImage
 	
 	function getThumbAvatarFromFull($avatar)
 	{
+		if(empty($avatar)){
+			return '';
+		}
 		$ext   = JFile::getExt($avatar);
 		$thumb = JFile::stripExt($avatar).'_thumb.'.$ext;
 		return $thumb;
