@@ -69,16 +69,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 					</div>
 				</div>
 				
-				<div class="elementParams">
-					<div class="paramTitle">
-						<label class="hasTip" title="<?php echo XiptText::_('PUBLISHED'); ?>::<?php echo XiptText::_('ACL_PUBLISHED_DESC'); ?>">
-							<?php echo XiptText::_( 'PUBLISHED' ); ?>
-						</label>
-					</div>
-					<div class="paramValue">
-						<?php echo JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $this->aclruleInfo['published'] ); ?>
-					</div>
-				</div>
+
 				
 			</fieldset>
 			
