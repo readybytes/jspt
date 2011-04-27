@@ -285,7 +285,7 @@ class ProfiletypeTest extends XiSelTestCase
     if(TEST_XIPT_JOOMLA_15){
     	$this->click("//td[@id='toolbar-save']/a");
     }
-    $this->waitPageLoad(10000);
+    $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));	
      $this->waitPageLoad(10000);
     //now add profiletype-4

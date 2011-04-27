@@ -1,4 +1,8 @@
+<<<<<<< .mine
+pkg.version=J1.6.3_JS2.2.1
+=======
 pkg.version=J1.5.23_JS2.2.1std_AEC0.14.4
+>>>>>>> .r621
 pkg.location=${user.home}/Dropbox/TEAM/dev/xipt
 
 
