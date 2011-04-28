@@ -21,7 +21,14 @@
   			<option value="30">friend</option>	
   			<option value="40">self</option>		
 		</param>
-	
+
+		<param name="privacyVideoView" type="xiradio" label="COM_XIPT_VIDEO_PRIVACY" default="0" description="COM_XIPT_VIDEO_PRIVACY_TIPS">
+			<option value="0">public</option>
+  			<option value="20">member</option>
+  			<option value="30">friend</option>
+  			<option value="40">self</option>
+		</param>
+
 		<param name="notifyEmailSystem" type="xiradio" label="COM_XIPT_RECEIVE_SYSTEM_MAIL" default="0" description="COM_XIPT_RECEIVE_SYSTEM_MAIL_TIPS">
 			<option value="0">No</option>
   			<option value="1">Yes</option>		

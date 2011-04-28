@@ -111,21 +111,14 @@ class XiptLibJomsocial
 
 		if($params)
 		{
-			//Change _jparam Privat to Public in core.php file. 	
-			$allParams = $params->toArray();	
-//			$instance->_jparam->bind($allParams);
-//			if (XIPT_JOOMLA_15){	
+			$allParams = $params->toArray();
+		
+
 			if(!empty($allParams)){
 				foreach($allParams as $key => $value)
 					$instance->set($key,$value);
 			}
-//			}	 
-//			if (XIPT_JOOMLA_16){
-//		    	if($allParams)
-//					foreach($allParams as $key => $value){
-//					$instance->_jparam->set($key,$value);
-//					}
-//			}
+
 		}
 		//means guest is looking user profile ,
 		// so we will show them default template
@@ -335,6 +328,29 @@ class XiptLibJomsocial
 			       ->dbLoadQuery()
 			       ->query())
 			       return false;
+		/**
+		 *  Update user Photo Privacy Setting in user Album Tables
+		 */
+		$params = $myparams->toArray();
+		$query = new XiptQuery();
+		if(! $query->update('#__community_photos_albums')
+			  	   ->set(" permissions = '$params[privacyPhotoView]' ")			  	   
+			       ->where(" creator = $userid ")
+			       ->dbLoadQuery()
+			       ->query())
+			       return false;
+		/**
+		 *  Update user Vedio Privacy Setting in user Album Tables
+		 */
+
+		$params = $myparams->toArray();
+		$query = new XiptQuery();
+		if(! $query->update('#__community_videos')
+			  	   ->set(" permissions = '$params[privacyVideoView]' ")			  	   
+			       ->where(" creator = $userid ")
+			       ->dbLoadQuery()
+			       ->query())
+			       return false;		
 	
 //		if(!$cuser->save( 'params' ))
 //			return false ;
