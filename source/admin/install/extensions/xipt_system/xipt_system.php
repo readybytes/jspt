@@ -231,18 +231,37 @@ class plgSystemxipt_system extends JPlugin
 
 	    return true;
 	}
+	/**
+	 * Hide Privacy At user ragistration time
+	 */
+	function event_com_community_register_registerprofile() {
+		$scriptContent = $this->_pluginHandler->hidePrivacyElements();
+		JFactory::getDocument()->addScriptDeclaration($scriptContent); 
+	}
+	// Hide Privacy at Home Page
+	function event_com_community_frontpage_blank(){
+		$this->event_com_community_register_registerprofile();
+	}
 
 	function onAfterDispatch()
     {
     	$app = JFactory::getApplication();
 		
- 		if($app->isAdmin() && $this->_pluginHandler->checkSetupRequired())
- 			$app->enqueueMessage(XiptText::_('JSPT_SETUP_SCREEN_IS_NOT_CLEAN_PLEASE_CLEAN_IT'), 'error');
- 		 		
+ 		if($app->isAdmin() ){
+ 			if($this->_pluginHandler->checkSetupRequired())
+ 		 			$app->enqueueMessage(XiptText::_('JSPT_SETUP_SCREEN_IS_NOT_CLEAN_PLEASE_CLEAN_IT'), 'error');
+			return true;
+		}
+
         // get option, view and task
-        $option     = JRequest::getVar('option');
-        $view         = JRequest::getVar('view');
-        $task         = JRequest::getVar('task');
+        $option = JRequest::getVar('option');
+        $view   = JRequest::getVar('view');
+        $task   = JRequest::getVar('task');
+
+        // Hide Privacy menus
+        if($option == 'com_community'){
+        	  self::_hidePrivacyMenus();
+        }
 
         if($option != 'com_community' || $view != 'search' || $task != 'advancesearch')
             return true;
@@ -278,7 +297,44 @@ class plgSystemxipt_system extends JPlugin
         $doc->addScriptDeclaration($content);
         return true;
     }
+    
+    
+    function _hidePrivacyMenus()
+    {
+    	//get Privacy menu
+    	if(XIPT_JOOMLA_15){
+			$menus = JSite::getMenu();
+    	}
+		if(XIPT_JOOMLA_16){
+			//$menus = JApplication::getMenu('site');
+			//XiTODO::Improve this code;
+			include_once JPATH_ROOT.DS.'administrator/components/com_menus/models/items.php';
+			$menus 		= new MenusModelItems;
+		}
+		//XiTODO:: get menutype value from cconfig.
+		$menusItems = $menus->getItems('menutype','jomsocial');
 
+		foreach($menusItems as $menu)
+		{
+			if(JString::stristr($menu->link,'index.php?option=com_community&view=profile&task=privacy')){
+				$hideMenu= XiptRoute::_("$menu->link");
+				break;
+			}
+		}
+		if(empty($hideMenu))
+			return ;
+			
+    	ob_start();
+        ?>
+        joms.jQuery(document).ready(function(){	
+			var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
+			joms.jQuery('a[href=' + menuUrl + ']').hide();	
+		});	
+        <?php 
+        $content = ob_get_contents();
+        ob_clean();
+		JFactory::getDocument()->addScriptDeclaration($content);   	
+    }
 
 	// $userInfo ia an array and contains contains
 	// userid

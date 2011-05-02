@@ -36,7 +36,7 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (135, 82, 5, 'regtest8774090'),
 (134, 82, 4, 'regtest8774090'),
 (139, 83, 17, '2'),
-(138, 83, 16, 'blueface'),
+(138, 83, 16, 'blackout'),
 (137, 82, 9, 'regtest8774090'),
 (136, 82, 8, 'regtest8774090'),
 (168, 87, 9, 'regtest1674526'),
@@ -103,7 +103,7 @@ INSERT INTO `au_#__community_fields_values` (`id`, `user_id`, `field_id`, `value
 (135, 82, 5, 'regtest8774090'),
 (134, 82, 4, 'regtest8774090'),
 (139, 83, 17, '3'),
-(138, 83, 16, 'blackout'),
+(138, 83, 16, 'blueface'),
 (137, 82, 9, 'regtest8774090'),
 (136, 82, 8, 'regtest8774090'),
 (168, 87, 9, 'regtest1674526'),
@@ -251,7 +251,7 @@ TRUNCATE TABLE `#__xipt_profiletypes` ;;
 INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`,`visible`) VALUES
 (1, 'PROFILETYPE-1', 2, 1, 'PROFILETYPE-ONE-TIP', 'privacyProfileView=10\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'default', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 1, '', '','1'),
 (2, 'PROFILETYPE-2', 1, 1, 'PROFILETYPE-TWO-TIP', 'privacyProfileView=30\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blueface', 'Editor', 'images/profiletype/avatar_2.gif', 0, 0, 0, '', '','1'),
-(3, 'PROFILETYPE-3', 3, 1, 'PROFILETYPE-THREE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, '', '','1'),
+(3, 'PROFILETYPE-3', 3, 1, 'PROFILETYPE-THREE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blueface', 'Publisher', 'components/com_community/assets/default.jpg', 0, 0, 4, '', '','1'),
 (4, 'PROFILETYPE-4', 4, 0, 'PROFILETYPE-THREE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
 (5, 'PROFILETYPE-5', 5, 1, 'PROFILETYPE-FIVE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
 (6, 'PROFILETYPE-6', 6, 1, 'PROFILETYPE-TIP', 'privacyProfileView=20\nprivacyFriendsView=0\nprivacyPhotoView=0\nnotifyEmailSystem=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '','1'),
@@ -279,7 +279,7 @@ DROP TABLE IF EXISTS `au_#__xipt_users`;;
 CREATE TABLE IF NOT EXISTS  `au_#__xipt_users` SELECT * FROM `#__xipt_users`;;
 TRUNCATE TABLE `au_#__xipt_users`;;
 INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 3, 'blackout'),
+(62, 3, 'blueface'),
 (87, 3, 'blackout'),
 (86, 2, 'blueface'),
 (85, 1, 'default'),

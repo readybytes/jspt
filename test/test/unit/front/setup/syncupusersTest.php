@@ -34,6 +34,7 @@ class SyncupusersTest extends XiUnitTestCase
 	
 	function testSyncUpUserPT()
 	{
+		JFactory::getConfig()->setValue('debug', 0);
 		//#case 1: when custom field doesn't exist
 		$obj = new XiptSetupRuleSyncupusers();
 		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/truncateCommunityFields.start.sql');
@@ -44,6 +45,6 @@ class SyncupusersTest extends XiUnitTestCase
 		$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/testSyncUpUserPT.start.sql');
 		$this->assertTrue($obj->syncUpUserPT(0, 10, true));
 		$this->_DBO->addTable('#__xipt_users');
-		
+		JFactory::getConfig()->setValue('debug', 1);
 	}
 }

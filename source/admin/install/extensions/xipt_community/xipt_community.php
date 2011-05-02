@@ -278,4 +278,15 @@ class plgCommunityxipt_community extends CApplications
 	    XiptLibProfiletypes::updateUserProfiletypeFilteredData($userId,$filter,null,$newData);
 	    return true;
 	}
+	
+    function onFormDisplay( $fieldName )
+	{
+		$scriptContent = $this->_pluginHandler->hidePrivacyElements();
+		JFactory::getDocument()->addScriptDeclaration($scriptContent);
+	}
+	
+//	 function onFormSave($fieldName )
+//	 {
+//	 	//JFactory::getApplication()->enqueueMessage("Not chanage your Privacy");
+//	 }
 }

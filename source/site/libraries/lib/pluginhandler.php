@@ -252,5 +252,24 @@ class XiptLibPluginhandler
 		$mysess->get('requireSetupCleanUp',false);
 		return false;
 	}
+	
+	function hidePrivacyElements()
+	{
+		ob_start();
+       
+		/* hide all privacy seting from front-end
+		 * label[for=privacy]:: Label of Privacy. 
+		 * .js_PriContainerLarge:: class name that contain privacy select list. (In Photos)
+		 * .privacy :: class which have privacy of all custom-profile fields 
+		 */ 
+			?>
+			joms.jQuery(document).ready( function($){ 
+				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer").hide();		
+				});	
+			<?php 	
+		$script = ob_get_contents();
+        ob_clean();
+        return $script;
+	}
 }
 

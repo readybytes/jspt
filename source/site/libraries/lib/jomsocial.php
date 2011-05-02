@@ -334,7 +334,7 @@ class XiptLibJomsocial
 		$params = $myparams->toArray();
 		$query = new XiptQuery();
 		if(! $query->update('#__community_photos_albums')
-			  	   ->set(" permissions = '$params[privacyPhotoView]' ")			  	   
+			  	   ->set(" permissions = '".$params['privacyPhotoView']."' ")			  	   
 			       ->where(" creator = $userid ")
 			       ->dbLoadQuery()
 			       ->query())
@@ -342,15 +342,22 @@ class XiptLibJomsocial
 		/**
 		 *  Update user Vedio Privacy Setting in user Album Tables
 		 */
-
-		$params = $myparams->toArray();
+		//$params = $myparams->toArray();
 		$query = new XiptQuery();
 		if(! $query->update('#__community_videos')
-			  	   ->set(" permissions = '$params[privacyVideoView]' ")			  	   
+			  	   ->set(" permissions = '".$params['privacyVideoView']."'" )			  	   
 			       ->where(" creator = $userid ")
 			       ->dbLoadQuery()
 			       ->query())
-			       return false;		
+			       return false;
+		//default Privacy of every custom field is "public"
+		$query = new XiptQuery();
+		if(! $query->update('#__community_fields_values')
+			  	   ->set(" access = 0")   // XITODO : use constance intead of 0			  	   
+			       ->where(" user_id = $userid ")
+			       ->dbLoadQuery()
+			       ->query())
+			       return false;
 	
 //		if(!$cuser->save( 'params' ))
 //			return false ;
