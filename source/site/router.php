@@ -28,7 +28,7 @@ function _GetXiptMenus()
 				);
 	}
 	$XIPTCmpId 	= $dbo->loadResult();
-	$menu 		= &JSite::getMenu();
+	$menu 		= JSite::getMenu();
 	//$menus 		= $menu->getItems('extension_id',$XIPTCmpId);
       //check query is empty or not fro joomla 1.6
     if(empty($XIPTCmpId[XIPT_JOOMLA_EXT_ID])){
