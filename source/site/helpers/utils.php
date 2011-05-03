@@ -15,7 +15,7 @@ class XiptHelperUtils
 			return ( $my->usertype == 'Super Administrator');
 		}
 		if (XIPT_JOOMLA_16){
-			return ( $my->usertype == 'deprecated');
+			return ( $my->usertype == 'deprecated' || $my->usertype == 'Super Users');
 		}
 	}
 	

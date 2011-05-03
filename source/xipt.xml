@@ -7,7 +7,7 @@
 	<authorUrl>http://www.joomlaxi.com</authorUrl>
 	<copyright>All rights reserved</copyright>
 	<license>GNU GPL v2.0</license>
-	<version>3.0.533</version>
+	<version>@global.version@.@svn.lastrevision@</version>
 	<description>JSPT (code name is XIPT) is a component to setup multiple user profile types in JomSocial</description>
 	<installfile>install/install.php</installfile>
 	<uninstallfile>install/uninstall.php</uninstallfile>

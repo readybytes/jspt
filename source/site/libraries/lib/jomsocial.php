@@ -62,8 +62,9 @@ class XiptLibJomsocial
     function updateJoomlaUserType($userid, $newUsertype=JOOMLA_USER_TYPE_NONE)
 	{
 	    //do not change usertypes for admins
-		if(XiptHelperUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE)
+		if(XiptHelperUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE){
 		    return false;
+		}
 
 		//self::reloadCUser($userid);
 		
