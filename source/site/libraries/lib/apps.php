@@ -23,13 +23,13 @@ class XiptLibApps
                 continue;
             
             // we want to restrict only community apps and do not restrict our component
-            if($app->get('_type') != 'community' && $app->get('_name') == 'xipt_community')
+            if($app->_type != 'community' && $app->_name == 'xipt_community')
                 continue;
                 
 			if(method_exists($app,'onProfileDisplay') != $blockProfileApps)
 				continue;
 			
-            $appId    = XiptLibApps::getPluginId($app->get('_name'));
+            $appId    = XiptLibApps::getPluginId($app->_name);
            // is it not allowed
            if(in_array($appId,$notAllowedApps))
                unset($apps[$i]);

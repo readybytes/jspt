@@ -311,8 +311,10 @@ class plgSystemxipt_system extends JPlugin
 			include_once JPATH_ROOT.DS.'administrator/components/com_menus/models/items.php';
 			$menus 		= new MenusModelItems;
 		}
-		//XiTODO:: get menutype value from cconfig.
-		$menusItems = $menus->getItems('menutype','jomsocial');
+
+		$menusItems = $menus->getItems('menutype',CFactory::getConfig()->get( 'toolbar_menutype'));
+		if(empty($menusItems))
+			return ;
 
 		foreach($menusItems as $menu)
 		{
