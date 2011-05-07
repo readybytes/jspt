@@ -330,9 +330,9 @@ class XiptLibProfiletypes
 	        $pTypeID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
      
 		//(fields) Privacy should not be applicable on Admin
-	    if(XiptHelperUtils::isAdmin($userid) == true){
-	    	return true;
-	    }
+//	    if(XiptHelperUtils::isAdmin($userid) == true){
+//	    	return true;
+//	    }
     	
 	    // filter the fields as per profiletype
 		$model = XiptFactory::getInstance('Profilefields','model');
