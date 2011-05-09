@@ -25,4 +25,12 @@ class statusbox extends XiptAclBase
 
 		return false;
 	}
+	
+	function aclAjaxBlock($msg)
+	{
+		$objResponse   	= new JAXResponse();
+		
+		$objResponse->addScriptCall('cWindowShow', '','', 430, 80);
+		return parent::aclAjaxBlock($msg, $objResponse);
+	}
 }
