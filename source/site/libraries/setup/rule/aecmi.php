@@ -55,7 +55,7 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=aecmi",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO INSTALL JSPT MI INTO AEC").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_INSTALL_JSPT_MI_INTO_AEC").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
