@@ -27,6 +27,18 @@ class XiptSetupRulePtmigration extends XiptSetupBase
 	
 	function doApply()
 	{
+		$db = JFactory::getDBO();
+		
+		// truncate xipt_profilefields table
+		$query_fields = 'TRUNCATE `#__xipt_profilefields`';
+		$db->setQuery($query_fields);
+		$db->query();
+		
+		// truncate xipt_users table
+		$query_users = 'TRUNCATE `#__xipt_users`';
+		$db->setQuery($query_users);
+		$db->query();
+		
 		$config	  = CFactory::getConfig();
 		$template = $config->get('template');
 		
