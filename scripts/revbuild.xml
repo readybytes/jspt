@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Copying working copy data to SVN" basedir="." default="copy_to_svn">
  
-        <property name="target" value="@local.repository.location@" override="true" />
+        <property name="target" value="/vobs/jspt/scripts/../" override="true" />
         <property name="source" value="${project.basedir}" override="true" />
         
         <!-- Copy Target -->

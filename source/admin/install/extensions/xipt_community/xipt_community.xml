@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <install version="1.6" type="plugin" group="community" method="upgrade">
   <name>JSPT Community Plugin</name>
-  <version>@global.version@.@svn.lastrevision@</version>
+  <version>3.1.635</version>
   <creationDate>Nov 2009</creationDate>
   <author>Team Joomlaxi</author>
   <authorEmail>shyam@joomlaxi.com</authorEmail>

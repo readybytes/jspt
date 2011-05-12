@@ -11,7 +11,7 @@ if($whichSelRC == FALSE)
 
 require_once dirname(__FILE__). "/selRC_$whichSelRC.php";
 
-define('JOOMLA_LOCATION',	'http://'.JOOMLA_HOST.'/@joomla.folder@/');
+define('JOOMLA_LOCATION',	'http://'.JOOMLA_HOST.'/jspt8704/');
 define('JOOMLA_FTP_LOCATION', 	JPATH_BASE);
 
 $_SERVER['HTTP_HOST'] = JOOMLA_LOCATION;
