@@ -6,7 +6,7 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
-define('XIPT_VERSION','3.1.635');
+define('XIPT_VERSION','@global.version@.@svn.lastrevision@');
 define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
 define('XIPT_NONE','XIPT_NONE');
 

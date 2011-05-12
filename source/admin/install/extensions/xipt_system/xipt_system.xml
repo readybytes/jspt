@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <install version="1.6" type="plugin" group="system" method="upgrade">
   <name>JSPT System Plugin</name>
-  <version>3.1.635</version>
+  <version>@global.version@.@svn.lastrevision@</version>
   <creationDate>Oct 2009</creationDate>
   <author>Team Joomlaxi</author>
   <authorEmail>shyam@joomlaxi.com</authorEmail>
