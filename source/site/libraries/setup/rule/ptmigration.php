@@ -46,8 +46,7 @@ class XiptSetupRulePtmigration extends XiptSetupBase
 		$this->_migrateProfilefields();
 		$this->_migrateUsers($template);
 		
-		$config->set('profile_multiprofile', 0);
-		return XiptText::_('MIGRATION_DONE_SUCCESSFULLY_AND_MULTIPROFILE_DISABLED_IN_JSCONFIG');
+		return XiptText::_('MIGRATION_DONE_SUCCESSFULLY_NOW_PLEASE_DISABLE_MULTIPROFILE_IN_JSCONFIG');
 	}
 	
 	function getMessage()
@@ -56,7 +55,7 @@ class XiptSetupRulePtmigration extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=ptmigration",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE CLICK HERE TO MIGRATE JS MULTIPROFILES").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_('PLEASE_CLICK_HERE_TO_MIGRATE_JS_MULTIPROFILES').'</a>';
 			$requiredSetup['done']  = false;
 		}
 			
