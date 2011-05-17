@@ -314,9 +314,12 @@ class XiptLibJomsocial
 	{	
 		// get params
 		//self::reloadCUser($userid);
-		
 		$cuser    = CFactory::getUser($userid);
 		$myparams = $cuser->getParams();
+		
+		if(isset($myprivacy['jsPrivacyController']))
+			unset($myprivacy['jsPrivacyController']);
+			
 		foreach( $myprivacy as $key => $val ){
 			$myparams->set( $key , $val );
 		}

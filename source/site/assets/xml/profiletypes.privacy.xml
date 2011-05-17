@@ -2,6 +2,11 @@
 <config>
 	<params addpath="/components/com_xipt/elements">
 	
+		<param name="jsPrivacyController" type="xiradio" label="COM_XIPT_PRIVACY_CONTROLLER" default="1" description="COM_XIPT_PRIVACY_CONTROLLER_TIP">
+			<option value="1">Admin</option>
+  			<option value="0">End-User</option>	
+		</param>
+	
 		<param name="privacyProfileView" type="xiradio" label="COM_XIPT_PROFILE_PRIVACY" default="30" description="COM_XIPT_PROFILE_PRIVACY_TIPS">
 			<option value="0">public</option>
   			<option value="20">member</option>

@@ -157,9 +157,16 @@ class XiptControllerProfiletypes extends XiptController
 		$users = $users[$start];
 	
 		//XITODO : needs cleanup Remove hardcoding
-		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
+		$featuresToReset = array('jusertype','template','group','watermark','avatar');
 		$filteredOldData = array();
 		$filteredNewData = array();
+		
+		// when privacy controlled by admin
+		if( 1 == $newPtData->privacy->get('jsPrivacyController')){
+			array_push($featuresToReset, 'privacy');
+		}
+		
+			
 		
 		foreach($featuresToReset  as $feature)
 		{

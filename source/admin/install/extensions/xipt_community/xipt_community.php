@@ -281,8 +281,10 @@ class plgCommunityxipt_community extends CApplications
 	
     function onFormDisplay( $fieldName )
 	{
-		$scriptContent = $this->_pluginHandler->hidePrivacyElements();
-		JFactory::getDocument()->addScriptDeclaration($scriptContent);
+		if($this->_pluginHandler->isPrivacyAllow()){
+			$this->_pluginHandler->hidePrivacyElements();
+		}
+
 	}
 	
 //	 function onFormSave($fieldName )

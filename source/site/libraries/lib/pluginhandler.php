@@ -253,7 +253,24 @@ class XiptLibPluginhandler
 		return false;
 	}
 	
-	function hidePrivacyElements()
+
+    function isPrivacyAllow()
+     {
+     	static $result = null;
+
+     	if($result != null)
+     		return $result;
+    	
+     	$modelObj 		= XiptFactory::getInstance('profiletypes','model');
+    	$myProfileID	= XiptLibProfiletypes::getUserData(JFactory::getUser()->id, 'PROFILETYPE');
+    	$privacyParams  = $modelObj->loadParams($myProfileID,'privacy');
+    	
+    	// jsPrivacyController == 1 means privacy handle by admin
+    	$result = (1 == $privacyParams->get('jsPrivacyController')) ? true : false;
+    	return $result;
+    }
+
+	static function hidePrivacyElements()
 	{
 		ob_start();
        
@@ -269,7 +286,7 @@ class XiptLibPluginhandler
 			<?php 	
 		$script = ob_get_contents();
         ob_clean();
-        return $script;
+        JFactory::getDocument()->addScriptDeclaration($script);
 	}
 }
 

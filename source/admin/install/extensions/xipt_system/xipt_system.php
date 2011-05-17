@@ -183,6 +183,11 @@ class plgSystemxipt_system extends JPlugin
 	}
 	function event_com_community_profile_blank()
 	{
+		// Hide Privacy at Profile Page
+		if($this->_pluginHandler->isPrivacyAllow()){
+			$this->_pluginHandler->hidePrivacyElements();
+		}
+		
 		if(!$this->_pluginHandler->getDataInSession('FROM_FACEBOOK',false))
 			return true;
 
@@ -235,12 +240,15 @@ class plgSystemxipt_system extends JPlugin
 	 * Hide Privacy At user ragistration time
 	 */
 	function event_com_community_register_registerprofile() {
-		$scriptContent = $this->_pluginHandler->hidePrivacyElements();
-		JFactory::getDocument()->addScriptDeclaration($scriptContent); 
+		if($this->_pluginHandler->isPrivacyAllow()){
+			$this->_pluginHandler->hidePrivacyElements();
+		}
 	}
 	// Hide Privacy at Home Page
 	function event_com_community_frontpage_blank(){
-		$this->event_com_community_register_registerprofile();
+		if($this->_pluginHandler->isPrivacyAllow()){
+			$this->_pluginHandler->hidePrivacyElements();
+		}
 	}
 
 	function onAfterDispatch()
@@ -301,6 +309,9 @@ class plgSystemxipt_system extends JPlugin
     
     function _hidePrivacyMenus()
     {
+    	if(false == $this->_pluginHandler->isPrivacyAllow()){
+    		return;
+    	}
     	//get Privacy menu
     	if(XIPT_JOOMLA_15){
 			$menus = JSite::getMenu();

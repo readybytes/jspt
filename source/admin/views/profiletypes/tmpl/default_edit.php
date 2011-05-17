@@ -50,6 +50,31 @@ function submitbutton(action){
 	});
 </script>
 
+<script>
+/** Hide privacy option **/
+jQuery(document).ready(function($){ 
+	var disablePrivacy = function (disable){ 
+		if(disable == null)
+			return;
+      $('input[id^=privacyprivacy]').attr('disabled',true);
+      $('input[id^=privacynotify]').attr('disabled',true);
+	};
+
+	if(0 == $('input[name=privacy[jsPrivacyController]]:checked').val()){
+		disablePrivacy(true);
+		}	
+	$('#privacyjsPrivacyController0').click(function(){
+		disablePrivacy(true);
+		});
+
+	$('#privacyjsPrivacyController1').click(function(){
+		$('input[id^=privacyprivacy]').attr('disabled',false);
+		$('input[id^=privacynotify]').attr('disabled',false);
+     });	
+});
+</script>
+
+
 <div id="JSPT">
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
 	<?php echo XiptText::_('CREATE_NEW_PROFILE_TYPE_FOR_YOUR_SITE');?>
