@@ -25,6 +25,7 @@ if($includeXipt === false)
 class plgCommunityxipt_community extends CApplications
 {
 	private $_pluginHandler;
+	var $_name = 'xipt_community';
 	
 	function plgCommunityxipt_community( $subject, $params )
 	{

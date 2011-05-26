@@ -21,6 +21,7 @@ class plgSystemxipt_system extends JPlugin
 {
 	var $_debugMode = 1;
 	var $_eventPreText = 'event_';
+	var $_name	= 'xipt_system';
 	private $_pluginHandler;
 
 	function __construct( $subject, $params )

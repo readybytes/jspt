@@ -221,6 +221,13 @@ class XiptLibPluginhandler
 		$restrict_advancesearchfield = XiptFactory::getSettings('restrict_advancesearchfield', 0);
 		$view	= JRequest::getVar('view','');
 		$task 	= JRequest::getVar('task','');
+		//dont apply field privacy on admin approval plugin
+		if(JRequest::getVar('option','') == 'com_user' && $task == 'activate')
+		{
+			$activation =JRequest::getVar('activation',null);
+			if(!empty($activation)) 
+				return true;
+		}
 		
 		if(!$restrict_advancesearchfield)
 		 {
