@@ -35,15 +35,40 @@ class plgSystemxipt_system extends JPlugin
 	{
 		$app = JFactory::getApplication();
 
-		if($app->isAdmin()){
- 			return false;
- 		}
-
 		// get option, view and task
 		$option 	= JRequest::getVar('option','BLANK');
 		$view 		= JRequest::getVar('view','BLANK');
 		$task 		= JRequest::getVar('task','BLANK');
 		$component	= JRequest::getVar('component','BLANK');
+		$jsconfig	= JRequest::getVar('jsconfiguration','BLANK');
+		
+		if($app->isAdmin() && $option == 'com_community' && $view == 'configuration' && $jsconfig == 'privacy')
+		{
+ 			$document = JFactory::getDocument();
+ 			ob_start(); ?>
+ 				joms.jQuery().ready(function($){
+ 	
+						$('input[onclick="azcommunity.resetprivacy();"]').attr('onclick', '').attr('id','resetPrivacy'); 
+
+						$('#resetPrivacy').click(function(e){
+	
+						if(!confirm('Are you confirm to reset properties of all existing users')){
+							e.preventDefault();
+							return false;
+					}
+						return azcommunity.resetprivacy();
+						});								
+						});
+					<?php
+					$content = ob_get_contents();
+					ob_clean(); 			
+			$document->addScriptDeclaration($content);
+			return true;
+ 		}
+ 		
+		if($app->isAdmin()){
+ 			return false;
+ 		}
 
 		// perform all acl check from here
 		XiptAclHelper::performACLCheck(false, false, false);
