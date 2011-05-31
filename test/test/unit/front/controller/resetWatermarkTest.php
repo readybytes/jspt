@@ -22,7 +22,7 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   		$post['tip']	= '';
   		$post['group']	= Array(0);
   		$post['config']	= Array();
-  		$post['privacy']= Array();
+  		$post['privacy']= Array('jsPrivacyController'=>1);
   		$post['resetAll']=1;
   		return $post;
   	}

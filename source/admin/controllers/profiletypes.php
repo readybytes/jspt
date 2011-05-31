@@ -83,6 +83,13 @@ class XiptControllerProfiletypes extends XiptController
 		//display demo on watermark profile according ProfileType
 		if($post['watermarkparams']['enableWaterMark'])
 			$post['watermarkparams']['demo']= $id;
+			
+		// if jsPrivacyController = 0 then Old privacy set in profile-type table
+		if(is_array($post['privacy']) && $post['privacy']['jsPrivacyController'] == 0){
+			$oldPrivacy = $model->loadParams($id,'privacy')->toArray();
+			$oldPrivacy['jsPrivacyController'] = $post['privacy']['jsPrivacyController'];
+			$post['privacy']= $oldPrivacy;
+		}
 		
 		// Handle Params : watermarkparams, privacy, config
 		$model->saveParams($post['watermarkparams'],$id, 'watermarkparams');
