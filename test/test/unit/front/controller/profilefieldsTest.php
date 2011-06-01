@@ -22,6 +22,7 @@ class XiptProfilefieldsControllerTest extends XiUnitTestCase
 	$data['visibleProfileTypes']= array(1,2);		
 	$data['editableAfterRegProfileTypes']= array(1,2);	
 	$data['editableDuringRegProfileTypes']= array(1,2);
+	$data['advanceSearchableProfileTypes']= array(1,2);
   	$controller->save($data);  	
   	
   	#case : 2 : Select all types, no entries in table for id 4
@@ -31,6 +32,7 @@ class XiptProfilefieldsControllerTest extends XiUnitTestCase
 	$data['visibleProfileTypes']= array(1,2);		
 	$data['editableAfterRegProfileTypes']= array(1,2);	
 	$data['editableDuringRegProfileTypes']= array(1,2);
+	$data['advanceSearchableProfileTypes']= array(1,2);
   	$controller->save($data);
   	
   	#case : 3 It should store 3 rows for id = 5
@@ -38,7 +40,8 @@ class XiptProfilefieldsControllerTest extends XiUnitTestCase
 	$data['allowedProfileTypes'] 		= array(1,2);	
 	$data['requiredProfileTypes'] 		= array(1,2);
 	$data['visibleProfileTypes'] 		= array(1,2);		
-	$data['editableAfterRegProfileTypes'] = array(1);	
+	$data['editableAfterRegProfileTypes'] = array(1);
+	$data['advanceSearchableProfileTypes']= array(1,2);	
 	$controller->save($data);
   	
   	#case : 4 Update Existing records for id = 5 
@@ -46,7 +49,8 @@ class XiptProfilefieldsControllerTest extends XiUnitTestCase
   	$data['allowedProfileTypes'] 		= array(2);	
 	$data['requiredProfileTypes'] 		= array(1);
 	$data['visibleProfileTypes'] 		= array(1,2);
-	$data['editableAfterRegProfileTypes'] = array(1);	
+	$data['editableAfterRegProfileTypes'] = array(1);
+	$data['advanceSearchableProfileTypes']= array(1,2);
 	$controller->save($data);  	
   	
   	$this->_DBO->addTable('#__xipt_profilefields');
@@ -64,6 +68,7 @@ class XiptProfilefieldsControllerTest extends XiUnitTestCase
 		$data['requiredProfileTypes'] 		= array(1);
 		$data['visibleProfileTypes'] 		= array(1);		
 		$data['editableAfterRegProfileTypes'] = array(1);
+		$data['advanceSearchableProfileTypes']= array(1);
 		$data['fieldIds'] = array(2,4);	
 		$controller->save($data);
 		
@@ -73,6 +78,7 @@ class XiptProfilefieldsControllerTest extends XiUnitTestCase
 		$data['requiredProfileTypes'] 		= array(2);
 		$data['visibleProfileTypes'] 		= array(2);		
 		$data['editableAfterRegProfileTypes'] = array(2);
+		$data['advanceSearchableProfileTypes']= array(2);
 		$data['fieldIds'] = array(2,5);	
 		$controller->save($data);	
 		

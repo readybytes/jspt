@@ -95,14 +95,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 			</fieldset>
 		</div>
 		
-		<div>
+		<!--<div>
 			<fieldset class="adminform" id="others">
 			<legend><?php echo XiptText::_( 'OTHERS'); ?></legend>
 			<?php echo $this->settingsParams->render('settings','others');?>
 			</fieldset>
 		</div>
 		
-	</div>
+	--></div>
 </fieldset>	
 </div>
 

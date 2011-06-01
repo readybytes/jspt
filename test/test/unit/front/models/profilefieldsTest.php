@@ -92,7 +92,7 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   	$result = array(5,4,3);
   	$this->assertEquals($fid,$result);
   	
-  	//this will return fid for editable during reg category and Profiletype2.
+  	//this will return fid for editable during reg category and Profiletype1.
   	$fid = $model->getNotSelectedFieldForProfiletype(1, 4);
   	$result = array(4,3);
   	$this->assertEquals($fid,$result);
@@ -102,14 +102,34 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   	$result = array(4,3,2);
   	$this->assertEquals($fid,$result);
   	
-  	//this will return fid for editable during reg category and Profiletype2.
+  	//this will return fid for editable during reg category and Profiletype3.
   	$fid = $model->getNotSelectedFieldForProfiletype(3, 4);
   	$result = array(5);
   	$this->assertEquals($fid,$result);
   	
-  	//this will return fid for editable during reg category and Profiletype2.
+  	//this will return fid for editable during reg category and Profiletype4.
   	$fid = $model->getNotSelectedFieldForProfiletype(4, 4);
   	$result = array(5,4,3,2);
+  	$this->assertEquals($fid,$result);
+  	
+  	//this will return fid for advance searchable category and Profiletype1.
+  	$fid = $model->getNotSelectedFieldForProfiletype(1, 5);
+  	$result = array(2);
+  	$this->assertEquals($fid,$result);
+  	
+  	//this will return fid for advance searchable category and Profiletype2.
+  	$fid = $model->getNotSelectedFieldForProfiletype(2, 5);
+  	$result = array(3);
+  	$this->assertEquals($fid,$result);
+  	
+  	//this will return fid for advance searchable category and Profiletype3.
+  	$fid = $model->getNotSelectedFieldForProfiletype(3, 5);
+  	$result = array(7);
+  	$this->assertEquals($fid,$result);
+  	
+  	//this will return fid for advance searchable category and Profiletype4.
+  	$fid = $model->getNotSelectedFieldForProfiletype(4, 5);
+  	$result = array(5);
   	$this->assertEquals($fid,$result);
   }
   
@@ -124,7 +144,8 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   		"REQUIRED" 	=> array(),
   		"VISIBLE" 	=> array(),
   		"EDITABLE_AFTER_REG" 	=> array(),
-  		"EDITABLE_DURING_REG" 	=> array()
+  		"EDITABLE_DURING_REG" 	=> array(),
+  		"ADVANCE_SEARCHABLE"	=> array()
   		);
   		
   	$result = $model->getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
@@ -138,7 +159,8 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   		"REQUIRED" 	=> array(),
   		"VISIBLE" 	=> array(),
   		"EDITABLE_AFTER_REG" 	=> array(),
-  		"EDITABLE_DURING_REG" 	=> array()
+  		"EDITABLE_DURING_REG" 	=> array(),
+  		"ADVANCE_SEARCHABLE"	=> array()
   		);
   		
   	$result = $model->getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
@@ -152,7 +174,8 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   		"REQUIRED" 	=> array(4),
   		"VISIBLE" 	=> array(),
   		"EDITABLE_AFTER_REG" 	=> array(),
-  		"EDITABLE_DURING_REG" 	=> array()
+  		"EDITABLE_DURING_REG" 	=> array(),
+  		"ADVANCE_SEARCHABLE"	=> array()
   		);
   		
   	$result = $model->getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
@@ -166,7 +189,8 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   		"REQUIRED" 	=> array(),
   		"VISIBLE" 	=> array(4),
   		"EDITABLE_AFTER_REG" 	=> array(),
-  		"EDITABLE_DURING_REG" 	=> array()
+  		"EDITABLE_DURING_REG" 	=> array(),
+  		"ADVANCE_SEARCHABLE"	=> array()
   		);
   		
   	$result = $model->getFieldsForProfiletype($inputfields,2,'getViewableProfile', $notSelectedFields);
@@ -180,7 +204,8 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   		"REQUIRED" 	=> array(),
   		"VISIBLE" 	=> array(),
   		"EDITABLE_AFTER_REG" 	=> array(1),
-  		"EDITABLE_DURING_REG" 	=> array()
+  		"EDITABLE_DURING_REG" 	=> array(),
+  		"ADVANCE_SEARCHABLE"	=> array()
   		);
   		
   	$result = $model->getFieldsForProfiletype($inputfields,2,'getEditableProfile', $notSelectedFields);
@@ -194,10 +219,26 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   		"REQUIRED" 	=> array(),
   		"VISIBLE" 	=> array(),
   		"EDITABLE_AFTER_REG" 	=> array(),
-  		"EDITABLE_DURING_REG" 	=> array(1)
+  		"EDITABLE_DURING_REG" 	=> array(1),
+  		"ADVANCE_SEARCHABLE"	=> array()
   		);
   		
   	$result = $model->getFieldsForProfiletype($inputfields,2,'', $notSelectedFields);
+  	$this->assertEquals($inputfields,$outputfields);
+  	
+  	//test ADVANCE_SEARCHABLE
+  	$inputfields = array(array('id'=>1), array('id'=>2), array('id'=>3) ,array('id'=>4));
+  	$outputfields = array(array('id'=>2), array('id'=>3) ,array('id'=>4));
+  	$notSelectedFields = array(
+  		"ALLOWED" 	=> array(),
+  		"REQUIRED" 	=> array(),
+  		"VISIBLE" 	=> array(),
+  		"EDITABLE_AFTER_REG" 	=> array(),
+  		"EDITABLE_DURING_REG" 	=> array(),
+  		"ADVANCE_SEARCHABLE"	=> array(1)
+  		);
+  		
+  	$result = $model->getFieldsForProfiletype($inputfields,2,'_loadAllFields', $notSelectedFields);
   	$this->assertEquals($inputfields,$outputfields);
   	
   	}

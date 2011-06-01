@@ -72,9 +72,11 @@ class XiptModelProfilefields extends XiptModel
 			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && JFactory::getApplication()->isAdmin()==false)
 				unset($fields[$i]);
 
-			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile')
+			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile' && $from!='_loadAllFields')
 				unset($fields[$i]);
-				
+
+			if(in_array($fieldId, $notSelectedFields['ADVANCE_SEARCHABLE']) &&  $from==='_loadAllFields')
+				unset($fields[$i]);
 			
 		}
 		$fields = array_values($fields);

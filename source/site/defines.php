@@ -81,6 +81,7 @@ define('PROFILE_FIELD_CATEGORY_REQUIRED',1);
 define('PROFILE_FIELD_CATEGORY_VISIBLE',2);
 define('PROFILE_FIELD_CATEGORY_EDITABLE_AFTER_REG',3);
 define('PROFILE_FIELD_CATEGORY_EDITABLE_DURING_REG',4);
+define('PROFILE_FIELD_CATEGORY_ADVANCE_SEARCHABLE',5);
 
 
 //define constants for blocking display application according to owner,visitor and both

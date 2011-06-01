@@ -2,6 +2,10 @@
 
 TRUNCATE TABLE `#__xipt_profilefields`;;
 INSERT INTO `#__xipt_profilefields`(`id`, `fid`, `pid`, `category`) VALUES
+(430, 5, 4, 5),
+(429, 7, 3, 5),
+(428, 3, 2, 5),
+(427, 2, 1, 5),
 (426, 5, 4, 4),
 (425, 5, 3, 4),
 (424, 5, 4, 3),

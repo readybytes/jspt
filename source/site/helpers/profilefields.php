@@ -96,6 +96,11 @@ class XiptHelperProfilefields
 									'name'=> 'EDITABLE_DURING_REG',
 									'controlName' => 'editableDuringRegProfileTypes'
 									);
+									
+		$categories[PROFILE_FIELD_CATEGORY_ADVANCE_SEARCHABLE] = array(
+									'name'=> 'ADVANCE_SEARCHABLE',
+									'controlName' => 'advanceSearchableProfileTypes'
+									);
 		
 		return $categories;
 	}

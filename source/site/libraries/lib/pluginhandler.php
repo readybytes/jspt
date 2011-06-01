@@ -229,11 +229,11 @@ class XiptLibPluginhandler
 				return true;
 		}
 		
-		if(!$restrict_advancesearchfield)
-		 {
-			if($view === 'search' && $task === 'advancesearch')
-				return true;
-		 }
+		if($view === 'search' && $task === 'advancesearch')
+		{
+			$userid = JFactory::getUser()->id;
+		}
+
 	    XiptLibProfiletypes::filterCommunityFields($userid, $fields, $from);
 	    return true;
 	}

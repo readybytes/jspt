@@ -33,23 +33,23 @@ INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `av
 (82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
 
 TRUNCATE TABLE `#__xipt_profilefields` ;;
-INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
-(1, 2, 1),
-(2, 2, 3),
-(3, 2, 4),
-(4, 3, 2),
-(5, 3, 3),
-(6, 3, 4),
-(7, 4, 3),
-(8, 4, 4),
-(9, 6, 1),
-(10, 6, 3),
-(11, 6, 4),
-(12, 7, 2),
-(13, 7, 3),
-(14, 7, 4),
-(15, 8, 3),
-(16, 8, 4);;
+INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`, `category`) VALUES
+(1, 2, 1, 1),
+(2, 2, 3, 1),
+(3, 2, 4, 1),
+(4, 3, 2, 2),
+(5, 3, 3, 2),
+(6, 3, 4, 1),
+(7, 4, 3, 3),
+(8, 4, 4, 1),
+(9, 6, 1, 2),
+(10, 6, 3, 2),
+(11, 6, 4, 3),
+(12, 7, 2, 3),
+(13, 7, 3, 1),
+(14, 7, 4, 2),
+(15, 8, 3, 3),
+(16, 8, 4, 1);;
 
 
 TRUNCATE TABLE `#__xipt_profiletypes` ;;
@@ -77,4 +77,4 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 TRUNCATE TABLE `#__xipt_settings`;;
 
 INSERT INTO `#__xipt_settings` (`name`, `params`) VALUES
-('settings', 'show_ptype_during_reg=1\nallow_user_to_change_ptype_after_reg=0\ndefaultProfiletypeID=1\nguestProfiletypeID=3\njspt_show_radio=0\njspt_fb_show_radio=1\nallow_templatechange=0\nshow_watermark=1\njspt_block_dis_app=1\naec_integrate=1\naec_message=pl\njspt_restrict_reg_check=1\njspt_prevent_username=moderator; admin; support; owner; employee\njspt_allowed_email=\njspt_prevent_email=\nrestrict_advancesearchfield=0\n\n');;
+('settings', 'show_ptype_during_reg=1\nallow_user_to_change_ptype_after_reg=0\ndefaultProfiletypeID=1\nguestProfiletypeID=3\njspt_show_radio=0\njspt_fb_show_radio=1\nallow_templatechange=0\nshow_watermark=1\njspt_block_dis_app=1\naec_integrate=1\naec_message=pl\njspt_restrict_reg_check=1\njspt_prevent_username=moderator; admin; support; owner; employee\njspt_allowed_email=\njspt_prevent_email=\n\n');;
