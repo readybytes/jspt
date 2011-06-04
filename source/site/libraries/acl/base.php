@@ -100,13 +100,6 @@ abstract class XiptAclBase
 	{
 		if(is_object($data)) {
 
-			// It must be required other-wise Joomla treat serialize String as JSON String
-			/*if (XIPT_JOOMLA_16){
-				if(	   (JString::substr($data->aclparams, 0, 1) != '{') 
-					&& (JString::substr($data->aclparams, -1, 1) != '}')) {
-					$data->aclparams .= 'dummy=';
-				}
-			}*/
 			$this->aclparams->bind($data->aclparams); 
 			$this->coreparams->bind($data->coreparams);
 			$this->rulename 	= $data->rulename;
