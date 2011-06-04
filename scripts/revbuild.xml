@@ -11,7 +11,7 @@
                 </php>
 
                 <if>
-                 <equals arg1="${fileExist}" arg2="1" />
+                 <equals arg1="${fileExist}" arg2="true" />
                   <then>
                          <copy  file="${source}/components/com_community/libraries/fields/profiletypes.php" 
                                 tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_profiletypes.php" 
@@ -28,7 +28,7 @@
                 </php>
 
                 <if>
-                 <equals arg1="${fileExist}" arg2="1" />
+                 <equals arg1="${fileExist}" arg2="true" />
                   <then>               
                         <copy  file="${source}/components/com_community/libraries/fields/templates.php" 
                                 tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_templates.php" 
@@ -44,7 +44,7 @@
                 </php>
 
                 <if>
-                 <equals arg1="${fileExist}" arg2="1" />
+                 <equals arg1="${fileExist}" arg2="true" />
                   <then>     
                 <copy   file="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" 
                         tofile="${source}/administrator/components/com_xipt/hacks/mi_jomsocialjspt.php" 
@@ -88,7 +88,7 @@
                 </php>
 
                 <if>
-                 	<equals arg1="${fileExist}" arg2="1" />		
+                 	<equals arg1="${fileExist}" arg2="true" />		
 			<then>	
 				<copy file="${source}/plugins/system/xipt_system/xipt_system.php" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.php" />
 				<copy file="${source}/plugins/system/xipt_system/xipt_system.xml" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.xml" />
@@ -104,7 +104,7 @@
                 </php>
 
                 <if>
-                 	<equals arg1="${fileExist}" arg2="1" />		
+                 	<equals arg1="${fileExist}" arg2="true" />		
 			<then>	
 				<copy file="${source}/plugins/system/xipt_system.php" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.php" />
 				<copy file="${source}/plugins/system/xipt_system.xml" tofile="${target}/source/admin/install/extensions/xipt_system/xipt_system.xml" />
