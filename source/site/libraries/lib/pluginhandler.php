@@ -215,10 +215,7 @@ class XiptLibPluginhandler
 		$args['field']   			 =  &$fields      ;
 		XiptAclHelper::performACLCheck($none,$none, $args);
 
-		//do not filter fields in  advanced search if user do not want to restrict
 		// field according to profiletype
-		
-		$restrict_advancesearchfield = XiptFactory::getSettings('restrict_advancesearchfield', 0);
 		$view	= JRequest::getVar('view','');
 		$task 	= JRequest::getVar('task','');
 		//dont apply field privacy on admin approval plugin

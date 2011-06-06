@@ -29,6 +29,7 @@ class XiptModelProfilefields extends XiptModel
 	function getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from, $notSelectedFields= null)
 	{
 		XiptError::assert($selectedProfiletypeID, XiptText::_("SELECTED_PROFILETYPE_DOES_NOT_EXIST"), XiptError::ERROR);
+		$task 	= JRequest::getVar('task','');
 		
 		if($notSelectedFields===null)
 		{
@@ -67,13 +68,22 @@ class XiptModelProfilefields extends XiptModel
 			}
 			
 			if(in_array($fieldId, $notSelectedFields['VISIBLE']) &&  $from==='getViewableProfile')
+			{
 				unset($fields[$i]);
+				continue;
+			}
 						
 			if(in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && JFactory::getApplication()->isAdmin()==false)
+			{
 				unset($fields[$i]);
+				continue;
+			}
 
-			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile' && $from!='_loadAllFields')
+			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile' && $task!='advancesearch')
+			{
 				unset($fields[$i]);
+				continue;
+			}
 
 			if(in_array($fieldId, $notSelectedFields['ADVANCE_SEARCHABLE']) &&  $from==='_loadAllFields')
 				unset($fields[$i]);
