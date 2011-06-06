@@ -145,9 +145,7 @@ class plgCommunityxipt_community extends CApplications
 	// update the configuration
 	function onAfterConfigCreate($config)
 	{
-		// jsPrivacyController = 0 (false),it means privacy handle by end-user and doesn't change in any config setting
-    	return  (false == $this->_pluginHandler->isPrivacyAllow()) ? true :
-				 XiptLibJomsocial::updateCommunityConfig($config);
+    	return 	 XiptLibJomsocial::updateCommunityConfig($config);
 	}
 
 	/**
