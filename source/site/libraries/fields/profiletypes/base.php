@@ -66,19 +66,21 @@ class XiptFieldsProfiletypesBase
 		}
 		    
 		// it might be some other user (in case of admin is editing profile)
-		$user    =& JFactory::getUser();
+		$user    = JFactory::getUser();
 		$userid  = $user->id;
 		
-		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
-		$allowToChangePType = $allowToChangePType || XiptHelperUtils::isAdmin($user->id);
-		
-		//if not allowed then show disabled view of ptype
-		if($allowToChangePType == false){
-
-			if(!(int)$pID){
+		if(!(int)$pID){
 			    $pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 				XiptError::assert($pID, XiptText::_("USERID $pID DOES_NOT_EXIST"), XiptError::ERROR);
 			}
+			
+		$visiblePT = XiptLibProfiletypes::getProfiletypeArray(array('visible'=>1));
+		
+		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
+		$allowToChangePType = ($allowToChangePType && array_key_exists($pID, $visiblePT)) || XiptHelperUtils::isAdmin($user->id);
+		
+		//if not allowed then show disabled view of ptype
+		if($allowToChangePType == false){
 			
 			$pName = XiptLibProfiletypes::getProfileTypeName($pID);
 			$pName =$pName;
@@ -89,8 +91,8 @@ class XiptFieldsProfiletypesBase
 			return $html.$pName;
 		}
 		
-		$mainframe	=& JFactory::getApplication();
-		if($mainframe->isAdmin()==true)
+		$mainframe	= JFactory::getApplication();
+		if($mainframe->isAdmin()==true || XiptHelperUtils::isAdmin($user->id))
 			$filter	= array('published'=>1);
 		else
 			$filter	= array('published'=>1,'visible'=>1);
