@@ -85,7 +85,7 @@ class XiptModelProfilefields extends XiptModel
 				continue;
 			}
 
-			if(in_array($fieldId, $notSelectedFields['ADVANCE_SEARCHABLE']) &&  $from==='_loadAllFields')
+			if(in_array($fieldId, $notSelectedFields['ADVANCE_SEARCHABLE']) &&  $from==='_loadAllFields' && $task==='advancesearch')
 				unset($fields[$i]);
 			
 		}
