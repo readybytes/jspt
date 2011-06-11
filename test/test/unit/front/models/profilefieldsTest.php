@@ -228,7 +228,7 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   	
   	//test ADVANCE_SEARCHABLE
   	$inputfields = array(array('id'=>1), array('id'=>2), array('id'=>3) ,array('id'=>4));
-  	$outputfields = array(array('id'=>2), array('id'=>3) ,array('id'=>4));
+  	$outputfields = array(array('id'=>1), array('id'=>2) ,array('id'=>3), array('id'=>4));
   	$notSelectedFields = array(
   		"ALLOWED" 	=> array(),
   		"REQUIRED" 	=> array(),

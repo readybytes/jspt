@@ -42,13 +42,14 @@ class addphotos extends XiptAclBase
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
-
+//XITODO : message is not appearing.		
 		if('photos' != $data['view'])
 			return false;
 
 		if($data['task'] == 'uploader'
 			|| $data['task'] == 'jsonupload'
-				|| $data['task'] == 'addnewupload')
+				|| $data['task'] == 'addnewupload'
+					|| $data['task'] == 'ajaxpreview')
 				return true;
 
 		return false;

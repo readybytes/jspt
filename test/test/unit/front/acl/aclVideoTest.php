@@ -29,6 +29,9 @@ class AclVideoTest extends XiAclUnitTest
 
   		$data['task'] 		= 'ajaxuploadvideo';
   		$this->assertTrue($this->checkApplicable(11, $data));
+  		
+  		$data['task'] 		= 'ajaxlinkvideopreview';
+  		$this->assertTrue($this->checkApplicable(11, $data));
 
   		// Profiletypes:
   		//  	1=users(79,82,85) ,  group 6

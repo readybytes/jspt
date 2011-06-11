@@ -35,10 +35,17 @@ class addvideos extends XiptAclBase
 		if('videos' != $data['view'])
 			return false;
 
-		if($data['task'] == 'ajaxaddvideo' || $data['task'] == 'ajaxuploadvideo')
+		if($data['task'] == 'ajaxaddvideo' || $data['task'] == 'ajaxuploadvideo' || $data['task'] == 'ajaxlinkvideopreview')
 				return true;
 
 		return false;
 	}
 
+	function aclAjaxBlock($msg)
+	{
+		$objResponse   	= new JAXResponse();
+		
+		$objResponse->addScriptCall('cWindowShow', '','', 430, 80);
+		return parent::aclAjaxBlock($msg, $objResponse);
+	}
 }
