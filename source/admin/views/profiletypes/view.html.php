@@ -13,8 +13,8 @@ class XiptViewProfiletypes extends XiptView
     {
     	$profiletype = $this->getModel();
 		
-		$fields		 = $profiletype->loadRecords();
 		$pagination	 = $profiletype->getPagination();
+		$fields		 = $profiletype->loadRecords($pagination->limit, $pagination->limitstart);
 
 		$profiletypes = array();
 		$allTypes = XiptLibProfiletypes::getProfiletypeArray();
