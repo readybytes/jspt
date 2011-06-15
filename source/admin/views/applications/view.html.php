@@ -12,8 +12,8 @@ class XiptViewApplications extends XiptView
 	{
 		$aModel	= $this->getModel();
 		
-		$fields		= $aModel->getPlugin();
 		$pagination	= $aModel->getPagination();
+		$fields		= $aModel->getPlugin(null, XIPT_JOOMLA_EXT_ID, $pagination->limit, $pagination->limitstart);
 		
 		$this->setToolbar();
 		

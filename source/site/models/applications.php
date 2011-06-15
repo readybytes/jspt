@@ -12,7 +12,7 @@ class XiptModelApplications extends XiptModel
 	 * Returns the Application name
 	 * @return string
 	 **/
-	function getPlugin($pluginId=null, $indexBy=XIPT_JOOMLA_EXT_ID)
+	function getPlugin($pluginId=null, $indexBy=XIPT_JOOMLA_EXT_ID, $limit=null, $limitstart=null)
 	{		
 		static $result=null;
 		if($result== null){
@@ -23,6 +23,7 @@ class XiptModelApplications extends XiptModel
 				        		->from('#__extensions')
 							    ->where(" `folder` = 'community' ")
 								->order('ordering')
+								->limit($limit,$limitstart)
 								->dbLoadQuery("","")
 								->loadObjectList($indexBy);
 			}
@@ -31,6 +32,7 @@ class XiptModelApplications extends XiptModel
 				        		->from('#__plugins')
 							    ->where(" `folder` = 'community' ")
 								->order('ordering')
+								->limit($limit,$limitstart)
 								->dbLoadQuery("","")
 								->loadObjectList($indexBy);
 			}			

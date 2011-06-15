@@ -23,8 +23,8 @@ class XiptViewConfiguration extends XiptView
 	{
     	$pModel	= $this->getModel();		
 		
-    	$fields		= $pModel->loadRecords();
-		$pagination	= $pModel->getPagination();		
+    	$pagination	= $pModel->getPagination();
+    	$fields		= $pModel->loadRecords($pagination->limit, $pagination->limitstart);		
 
 		$this->setToolBar();		
 		

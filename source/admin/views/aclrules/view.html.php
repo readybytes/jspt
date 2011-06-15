@@ -12,8 +12,9 @@ class XiptViewAclRules extends XiptView
 	{
 		$aclModel	= $this->getModel();
 
-		$rules		= $aclModel->loadRecords();
 		$pagination	= $aclModel->getPagination();
+		$rules		= $aclModel->loadRecords($pagination->limit, $pagination->limitstart);
+		
 
 		$this->setToolbar();
 
