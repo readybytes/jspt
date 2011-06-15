@@ -21,7 +21,10 @@ echo "<br />Total Users ".$this->total;
 echo "<br />Profile-type id ".$this->id;
 echo "<br />Syncing-Up ". ($this->start-1)*$this->limit ." To ". $this->start*$this->limit ." ";
 $remain = $this->total - ($this->start*$this->limit); 
-echo "<br />Remaining " .$remain . " Users";
+if($remain <= 0)
+	echo "<br />Remaining 0 Users";
+else
+	echo "<br />Remaining " .$remain . " Users";
 
 ?>
 <script>
