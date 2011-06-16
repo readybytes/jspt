@@ -117,7 +117,7 @@ class XiptModelProfiletypes extends XiptModel
 							->query();
 
 			if (!$result)
-				return XiptError::raiseWarning( 500, XiptText::_("ERROR_IN_DATABLSE_WHEN_SAVING_AVATAR_IN_COOMUNITY_USER_TABLE"));
+				return XiptError::raiseWarning( 500, XiptText::_("ERROR_IN_DATABASE_WHEN_SAVING_AVATAR_IN_COMMUNITY_USER_TABLE"));
 
 			return true;
 		}
