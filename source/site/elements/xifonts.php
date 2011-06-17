@@ -6,7 +6,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class JElementFonts extends JElement
+class JElementXifonts extends JElement
 {
 	/**
 	 * Element name
@@ -14,7 +14,7 @@ class JElementFonts extends JElement
 	 * @access	protected
 	 * @var		string
 	 */
-	var	$_name = 'Fonts';
+	var	$_name = 'xiFonts';
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
