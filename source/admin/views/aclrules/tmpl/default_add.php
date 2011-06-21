@@ -43,7 +43,7 @@ jQuery(document).ready(function($){
 <div id="error-notice" style="color: red; font-weight:700;"></div>
 <div style="clear: both;"></div>
 
-<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm" onSubmit="return checkForm();" >
+<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 <div style="margin-left:5%; width:40% float:left;">
 	<div>
 	<select id="acl" name="acl" size="15">				
@@ -60,7 +60,7 @@ jQuery(document).ready(function($){
 	</select>
 	</div>
 	<div style="margin-top:10px; margin-left:160px;";>				
-	<input type="submit" name="aclnext" value="<?php echo XiptText::_('NEXT');?>" />
+	<input type="submit" name="aclnext" value="<?php echo XiptText::_('NEXT');?>" onClick="return checkForm();"/>
 	</div>				
 </div>
 

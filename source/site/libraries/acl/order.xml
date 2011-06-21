@@ -170,7 +170,7 @@
 <group name="likedislike" title="LikeDisLike">
 	<rule name="likephotos"
 		  title="Can not Like Dislike Photos"
-		  description="Restrict User to Like Photos" />
+		  description="Restrict User to Like Dislike Photos" />
 		  
 	<rule name="likevideo"
 		  title="Can not Like Dislike Video"

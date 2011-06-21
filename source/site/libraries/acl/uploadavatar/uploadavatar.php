@@ -22,11 +22,11 @@ class uploadavatar extends XiptAclBase
 		// When user login then force to upload avatar
 		$userId = JFactory::getUser()->id;
 		
-		if(!empty($userId) && $permission && $data['task'] === 'logout'){
+		if(!empty($userId) && $data['task'] === 'logout'){
 			$session->clear('uploadAvatar','XIPT');
 			return false;
 		}
-		if(!empty($userId) && $permission && $data['task'] !== 'uploadavatar'){
+		if(!empty($userId) && $data['task'] !== 'uploadavatar'){
 			//get login user avatar
 			$userAvatar = CFactory::getUser($userId)->_avatar;
 			//if avatar is deafaul then force to upload avatar
@@ -43,9 +43,9 @@ class uploadavatar extends XiptAclBase
 			$session->clear('uploadAvatar','XIPT');
 		}
 		//if user login and have a avatar then not apply
-		if($userId && $permission){
-		 	return false; 
-		}
+//		if($userId && $permission){
+//		 	return false; 
+//		}
 		
 		//On Registeration Time:: if user come to uoload avatr then all link are disable untill user not upload avatar
 		if($permission && $session->get('uploadAvatar',false,'XIPT') && $data['task'] !== 'registeravatar'){
