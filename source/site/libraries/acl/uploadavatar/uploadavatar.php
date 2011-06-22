@@ -43,9 +43,9 @@ class uploadavatar extends XiptAclBase
 			$session->clear('uploadAvatar','XIPT');
 		}
 		//if user login and have a avatar then not apply
-//		if($userId && $permission){
-//		 	return false; 
-//		}
+		if($userId && $permission){
+		 	return false; 
+		}
 		
 		//On Registeration Time:: if user come to uoload avatr then all link are disable untill user not upload avatar
 		if($permission && $session->get('uploadAvatar',false,'XIPT') && $data['task'] !== 'registeravatar'){
