@@ -28,16 +28,9 @@ class RegisterTest extends XiSelTestCase
     $this->assertTrue($this->isTextPresent("PROFILETYPE-3"));
     $this->assertFalse($this->isTextPresent("PROFILETYPE-4"));//unpublished
 	$this->assertFalse($this->isTextPresent("PROFILETYPE-5"));
-	
-    //now click on next without selecting any profiletype
-    $this->click("ptypesavebtn");
-    $this->waitPageLoad();
-    // a system message sud be there
-    $this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));
     
     //now select profiletype-2
-    $this->click("profiletypes2");
-    $this->click("ptypesavebtn");
+     $this->click("PROFILETYPE-2");
     $this->waitPageLoad();
     $this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));
     $this->assertTrue($this->isTextPresent("Register new user"));
@@ -105,8 +98,7 @@ class RegisterTest extends XiSelTestCase
     if(TEST_XIPT_JOOMLA_15)
     	$this->open(JOOMLA_LOCATION."/index.php?option=com_user&view=register");
     $this->waitPageLoad();
-    $this->click("profiletypes".$ptype);
-    $this->click("ptypesavebtn");
+    $this->click("PROFILETYPE-".$ptype);
     
     $this->waitPageLoad();
     
@@ -202,8 +194,7 @@ class RegisterTest extends XiSelTestCase
     // go to register location 
     $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=register");
     $this->waitPageLoad();
-    $this->click("profiletypes".$ptype);
-    $this->click("ptypesavebtn");
+    $this->click("PROFILETYPE-".$ptype);
     
     $this->waitPageLoad();
     
@@ -548,8 +539,7 @@ class RegisterTest extends XiSelTestCase
 	$this->waitPageLoad();
 	if(!$this->isTextPresent("Your current profiletype is PROFILETYPE-2 , to change profiletype Click Here"))
 	{
-		$this->click('profiletypes2');
-		$this->click('ptypesavebtn');
+		$this->click('PROFILETYPE-2');
 		$this->waitPageLoad();
 	}
 	$this->type("jsname",$username);

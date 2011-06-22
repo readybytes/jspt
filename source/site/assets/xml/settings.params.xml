@@ -29,7 +29,7 @@
 	<params group="advRegistrationSettings" addpath="/components/com_xipt/elements">
 		<param name="jspt_show_radio" type="xiradio" default="1" label="COM_XIPT_DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="COM_XIPT_DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
 			<option value="0">Select Box</option>
-			<option value="1">Radio Options</option>
+			<option value="1">Image Options</option>
 		</param>
 		<param name="jspt_fb_show_radio" type="xiradio" default="0" label="COM_XIPT_DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="COM_XIPT_DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
 			<option value="0">Select Box</option>

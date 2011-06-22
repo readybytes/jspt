@@ -18,13 +18,12 @@ $document->addStyleSheet($css);
 	?></h3>
 <?php
 if(XiptFactory::getSettings('jspt_show_radio'))
-	echo $this->loadTemplate('radio');
+	echo $this->loadTemplate('click');
 else
 	echo $this->loadTemplate('select');
 ?>
 </div>
 <div class="clr" title="Next"></div>
-<input type="submit" id="ptypesavebtn" name="save" value="<?php echo XiptText::_('NEXT');?>"/> 
 <input type="hidden" name="view" value="registration" /> 
 <input type="hidden" name="task" value="" /> 
 <input type="hidden" name="option" value="com_xipt" /> 

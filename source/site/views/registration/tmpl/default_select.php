@@ -30,4 +30,5 @@ endforeach;
 	
 ?>
 </select>
+<input type="submit" id="ptypesavebtn" name="save" value="<?php echo XiptText::_('NEXT');?>"/>
 <?php
