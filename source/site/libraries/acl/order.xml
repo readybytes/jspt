@@ -52,6 +52,11 @@
 		  title="Can not Create Bulletin"
 		  description="Restrict users to Create Bulletin"
 		  example="Suppose you want Profile Type1 users Can not Create Bulletin / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
+
+	<rule name="sendemail"
+		  title="Can not Send Email"
+		  description="Restrict users to Send Email"
+		  example="Suppose you want Profile Type1 users Can not Create Bulletin / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 </group>	
 	  
 <group name="albums" title="Albums">

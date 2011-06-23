@@ -369,4 +369,50 @@ function xtestAccessgroupcategory()
   		$data['userid'] 	= 87;
   		$this->assertTrue($this->checkViolation(12, $data));
   	  }
+  	  
+	function testSendEmail()
+  	  {
+  	  	$data = array();
+  		$data['userid'] 	= 85;
+  		$data['viewuserid'] = 0;
+  		$data['ajax'] 		= false;
+  		$data['args'] 		= array();
+  		$data['option'] 	= 'com_community';
+  		$data['view'] 		= 'groups';
+  		$data['task'] 		= '';
+
+  		// case 1: not applicable
+  		$data['task'] 		= '';
+  		$this->assertFalse($this->checkApplicable(11, $data));
+
+  		// case 2 : should be applicable
+  		$data['task'] 		= 'sendmail';
+  		$this->assertTrue($this->checkApplicable(11, $data));
+
+  		// Profiletypes:
+  		//  	1=users(79,82,85) ,  group 6
+  		//   	2=users(80,83,86) ,  group 5
+  		//  	3=users(81,84,87) ,  group 7
+
+  		// Case 3 : Rule 11  : pt1 can't Send Email
+  		$data['userid'] 	= 85;
+  		$this->assertTrue($this->checkViolation(11, $data));
+
+  		$data['userid'] 	= 86;
+  		$this->assertFalse($this->checkViolation(11, $data));
+
+  		$data['userid'] 	= 87;
+  		$this->assertFalse($this->checkViolation(11, $data));
+
+
+  		// Case 4 : Rule 12  : ALL PT can't Send Email
+  		$data['userid'] 	= 85;
+  		$this->assertTrue($this->checkViolation(12, $data));
+
+  		$data['userid'] 	= 86;
+  		$this->assertTrue($this->checkViolation(12, $data));
+
+  		$data['userid'] 	= 87;
+  		$this->assertTrue($this->checkViolation(12, $data));
+  	  }
 }
