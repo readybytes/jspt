@@ -42,6 +42,16 @@
 		  title="Can Access Groups Category"
 		  description="Allow users to Access Gorups Category"
 		  example="Suppose you want Profile Type1 users Can Access Groups Category / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Select Group Category -> Select Group Category " />
+
+	<rule name="creatediscussion"
+		  title="Can not Create Discussion"
+		  description="Restrict users to Create Discussion"
+		  example="Suppose you want Profile Type1 users Can not Create Discussion / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
+
+	<rule name="createbulletin"
+		  title="Can not Create Bulletin"
+		  description="Restrict users to Create Bulletin"
+		  example="Suppose you want Profile Type1 users Can not Create Bulletin / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 </group>	
 	  
 <group name="albums" title="Albums">
