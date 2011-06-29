@@ -77,3 +77,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 	</ol>
 	<?php 	
 	echo $this->pane->endPanel();
+	
+	echo $this->pane->startPanel( '7. Advance Searchable', 'advanceSearchable' );
+	?>
+		<ol>
+		<li>This field will be visible during advance search.</li>
+	</ol>
+	<?php 	
+	echo $this->pane->endPanel();

@@ -20,6 +20,11 @@ jimport('joomla.html.parameter');
 jimport('joomla.user.helper');
 jimport('joomla.plugin.helper');
 
+//if override file exists, then include it.
+$override = JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.override.php';
+if(JFile::exists($override))
+	include(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.override.php');
+
 // require_once defines.php
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
 require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
