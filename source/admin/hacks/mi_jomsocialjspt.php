@@ -109,15 +109,15 @@ class mi_jomsocialjspt
 		if($this->detect_application()==false)
 			return;
 			
-		//IMP : if MI are attached but aec_integrate is set to false
+		//IMP : if MI are attached but subscription_message is set to false
 		// then dont apply any action 
 		
 		//old
-		//$aec_integrate =  XiptFactory::getSettings('aec_integrate');
+		//$subscription_message =  XiptFactory::getSettings('subscription_message');
 		//new
 		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'api.xipt.php');
-		$aec_integrate = XiptAPI::getGlobalConfig('aec_integrate');	
-		if($aec_integrate == 0)
+		$subscription_message = XiptAPI::getGlobalConfig('subscription_message');	
+		if($subscription_message == 0)
 			return;
 			
 		//old	

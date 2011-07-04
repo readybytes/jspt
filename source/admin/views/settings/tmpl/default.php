@@ -36,6 +36,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 	});
 	
 </script>
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+			$("div#advIntegrationSettings").css("display","none");
+			$("#settingssubscription_integrate1").click(function(){
+			$("div#advIntegrationSettings").slideToggle('fast');
+		});	
+	});
+	
+</script>
 <script type="text/javascript">jQuery.noConflict();</script>
 <div id="JSPT">
 
@@ -55,6 +64,13 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<fieldset class="adminform" id="basicIntegrationSettings">
 		<legend><?php echo XiptText::_( 'INTEGRATION_SETTINGS' ); ?></legend>
 		<?php echo $this->settingsParams->render('settings','basicIntegrationSettings');?>
+		</fieldset>
+	</div>
+	
+	<div id="advIntegrationSettings">
+		<fieldset class="adminform" id="advIntegrationSettings">
+		<legend><?php echo XiptText::_( 'ADV_INTEGRATION_SETTINGS' ); ?></legend>
+		<?php echo $this->settingsParams->render('settings','advIntegrationSettings');?>
 		</fieldset>
 	</div>
 		
@@ -89,9 +105,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 		</div>		
 				
 		<div>
-			<fieldset class="adminform" id="advAecSettings">
-			<legend><?php echo XiptText::_( 'AEC_SETTINGS' ); ?></legend>
-			<?php echo $this->settingsParams->render('settings','advAecSettings');?>
+			<fieldset class="adminform" id="advSubsSettings">
+			<legend><?php echo XiptText::_( 'SUBS_SETTINGS' ); ?></legend>
+			<?php echo $this->settingsParams->render('settings','advSubsSettings');?>
 			</fieldset>
 		</div>
 		

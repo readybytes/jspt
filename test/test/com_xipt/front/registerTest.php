@@ -12,7 +12,7 @@ class RegisterTest extends XiSelTestCase
   //cross check page exists and comes
   function testRegisterPage()
   {
-  	$filter['aec_integrate']=0;
+  	$filter['subscription_integrate']=0;
 	$filter['jspt_allowed_email']='';
   	$filter['jspt_prevent_email']='';
   	$filter['jspt_show_radio']=1;
@@ -64,7 +64,7 @@ class RegisterTest extends XiSelTestCase
   		$configFilter['useractivation'] = 0;
   		$this->updateJoomlaConfig($configFilter);
   		
-  		$filter['aec_integrate']=0;
+  		$filter['subscription_integrate']=0;
   		$this->changeJSPTConfig($filter);
   		
   		/*we know that template must be default 
@@ -179,7 +179,7 @@ class RegisterTest extends XiSelTestCase
   //cross check fields exists
   function testRegisterProfileFieldPage()
   {
-  		$filter['aec_integrate']   = 0;
+  		$filter['subscription_integrate']   = 0;
   		$filter['jspt_show_radio'] = 1;
   		$this->changeJSPTConfig($filter);
   		
@@ -424,8 +424,8 @@ class RegisterTest extends XiSelTestCase
   //cross check page exists and comes
   function testAECRegisterPage()
   {
-  	$filter['aec_integrate']=1;
-  	$filter['aec_message']='b';
+  	$filter['subscription_integrate']=1;
+  	$filter['subscription_message']='b';
 	$this->changeJSPTConfig($filter);
 
     $data[2] = 1;
@@ -476,7 +476,7 @@ class RegisterTest extends XiSelTestCase
   
   function testRegisterWithoutPTSelection()
   {
-  	$filter['aec_integrate']=0;
+  	$filter['subscription_integrate']=0;
 	$this->changeJSPTConfig($filter);
 	
   	$this->open(JOOMLA_LOCATION.'/index.php');
@@ -508,7 +508,7 @@ class RegisterTest extends XiSelTestCase
   {
   	$random=rand(111,999);
   	$filter['jspt_restrict_reg_check'] = 1;
-	$filter['aec_integrate']           = 0;
+	$filter['subscription_integrate']           = 0;
 	//XITODO:: Add to sql file
 	//$filter['jspt_prevent_username']='moderator; admin; support; owner; employee';
 	//$filter['jspt_allowed_email']='yahoo.com';
@@ -578,9 +578,9 @@ class RegisterTest extends XiSelTestCase
 	$url = dirname(__FILE__).'/sql/RegisterTest/testAECRegisterPage.start.sql';
   	$this->_DBO->loadSql($url);
   	
-  	$filter['aec_integrate']=1;
+  	$filter['subscription_integrate']=1;
 	$filter['defaultProfiletypeID']=2;
-	$filter['aec_message']='b';
+	$filter['subscription_message']='b';
 	$this->changeJSPTConfig($filter);
   	  	
 	$data[2] = 1;
@@ -599,7 +599,7 @@ class RegisterTest extends XiSelTestCase
     	$username = $this->fillDataPT($profiletype);
     	$this->verifyUser($username, $profiletype);
     }  	
-    $filter['aec_integrate']=1;
+    $filter['subscription_integrate']=1;
     $this->changeJSPTConfig($filter);
   }
 }

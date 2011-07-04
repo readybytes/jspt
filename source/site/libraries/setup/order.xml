@@ -10,5 +10,6 @@
 	<rule name="aecmi" title="AEC Micro Integration" type="error"/>
 	<rule name="jsversion" title="JomSocial Version" type="warning"/>		
 	<rule name="adminapproval" title="Admin Approval" type="warning"/>
+	<rule name="payplans" title="PayPlans" type="error"/>
 	<!--<rule name="seturipath" title="Set All Path in URI Formate" type="error"/>-->
 </rules>

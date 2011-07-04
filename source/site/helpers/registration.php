@@ -34,7 +34,7 @@ class XiptHelperRegistration
 		//if aec is integrate with ptype then we don't want to display
 		//ptype selection page during facebook integration so return
 		// pType already selected
-		if($aecExists && XiptFactory::getSettings('aec_integrate',0))
+		if($aecExists && XiptFactory::getSettings('subscription_integrate',0))
 			return true;
 			
 		/*check if ptype exist in session , 

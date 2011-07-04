@@ -33,7 +33,7 @@ class XiptLibPluginhandler
 	function isPTypeExistInSession()
 	{
 		$aecExists 		= XiptLibAec::isAecExists();
-		$integrateAEC   = XiptFactory::getSettings('aec_integrate',0);
+		$integrateAEC   = XiptFactory::getSettings('subscription_integrate',0);
 		if($aecExists && $integrateAEC)
 		{
 			$data  = XiptLibAec::getProfiletypeInfoFromAEC() ;
@@ -171,7 +171,7 @@ class XiptLibPluginhandler
 
 
 			$aecExists 		= XiptLibAec::isAecExists();
-			$integrateAEC   = XiptFactory::getSettings('aec_integrate',0);
+			$integrateAEC   = XiptFactory::getSettings('subscription_integrate',0);
 
 			// pType already selected
 			if($integrateAEC && $aecExists)

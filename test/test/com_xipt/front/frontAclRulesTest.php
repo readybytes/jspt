@@ -382,10 +382,10 @@ function testACLRules2()
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
   	
-	$filter['aec_integrate']=1;
+	$filter['subscription_integrate']=1;
 	$this->changeJSPTConfig($filter);
 	$user = JFactory::getUser(83); 
-  	$filter['aec_integrate']=1;
+  	$filter['subscription_integrate']=1;
 	$this->changeJSPTConfig($filter);
 
   	$this->open(JOOMLA_LOCATION."/index.php");
@@ -595,7 +595,7 @@ function testACLRules2()
   	
   function testCantChangeRegistrationAvatar()
   {
-  	$filter['aec_integrate']=0;
+  	$filter['subscription_integrate']=0;
   	$filter['show_ptype_during_reg']=1;
   	$filter['jspt_show_radio']=1;
 	$this->changeJSPTConfig($filter);

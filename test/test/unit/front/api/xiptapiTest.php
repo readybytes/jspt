@@ -132,6 +132,6 @@ class XiptapiTest extends XiUnitTestCase
 		//#case 2:it will return param's global value
 		$this->assertEquals(XiptAPI::getGlobalConfig('show_watermark'), 1);
 		
-		$this->assertEquals(XiptAPI::getGlobalConfig('aec_integrate'), 1);
+		$this->assertEquals(XiptAPI::getGlobalConfig('subscription_integrate'), 1);
 	}
 }

@@ -125,7 +125,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("settingsshow_ptype_during_reg1");    
     $this->select("settings[defaultProfiletypeID]", "label=PROFILETYPE-1");
     $this->select("settings[guestProfiletypeID]", "label=PROFILETYPE-3");
-    $this->click("settingsaec_integrate1");
+    $this->click("settingssubscription_integrate1");
     if(TEST_XIPT_JOOMLA_15)      	
   		$this->click("//td[@id='toolbar-save']/a");
     if(TEST_XIPT_JOOMLA_16)

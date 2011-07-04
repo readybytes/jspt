@@ -18,9 +18,15 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-		<param name="aec_integrate" type="xiradio" default="0" label="COM_XIPT_INTEGRATE_AEC" description="COM_XIPT_INTEGRATE_AEC_DESC">
+		<param name="subscription_integrate" type="xiradio" default="0" label="COM_XIPT_INTEGRATE_SUBS" description="COM_XIPT_INTEGRATE_SUBS_DESC" onClick="">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
+		</param>
+	</params>
+	<params group="advIntegrationSettings" addpath="/components/com_xipt/elements">
+		<param name="integrate_with" type="xiradio" default="payplans" label="COM_XIPT_INTEGRATE_WITH" description="COM_XIPT_INTEGRATE_WITH_DESC">
+			<option value="aec">AEC</option>
+			<option value="payplans">PayPlans</option>
 		</param>			
 	</params>
 	
@@ -50,9 +56,9 @@
 		</param>
 	</params>
 		
-	<!-- AEC SETTINGS -->
-	<params group="advAecSettings" addpath="/components/com_xipt/elements">		
-		<param name="aec_message" type="xiradio" default="b" label="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION" description="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION_DESC">
+	<!-- SUBSCRIPTION SETTINGS -->
+	<params group="advSubsSettings" addpath="/components/com_xipt/elements">		
+		<param name="subscription_message" type="xiradio" default="b" label="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION" description="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION_DESC">
 			<option value="b">Both, Plan and Profiletype</option>
 			<option value="pl">Only Plan</option>
 			<option value="pt">Only Profiletype</option>

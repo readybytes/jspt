@@ -45,4 +45,4 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 
 TRUNCATE TABLE `#__xipt_settings` ;;
 INSERT INTO `#__xipt_settings` (`name`, `params`) VALUES
-('settings', 'show_ptype_during_reg=1\nallow_user_to_change_ptype_after_reg=1\ndefaultProfiletypeID=2\nguestProfiletypeID=2\njspt_show_radio=1\njspt_fb_show_radio=1\nallow_templatechange=0\nshow_watermark=1\njspt_block_dis_app=2\naec_integrate=0\naec_message=b\njspt_restrict_reg_check=1\njspt_prevent_username=moderator; admin; support; owner; employee\njspt_allowed_email=\njspt_prevent_email=\n');;
+('settings', 'show_ptype_during_reg=1\nallow_user_to_change_ptype_after_reg=1\ndefaultProfiletypeID=2\nguestProfiletypeID=2\njspt_show_radio=1\njspt_fb_show_radio=1\nallow_templatechange=0\nshow_watermark=1\njspt_block_dis_app=2\nsubscription_integrate=0\nsubscription_message=b\njspt_restrict_reg_check=1\njspt_prevent_username=moderator; admin; support; owner; employee\njspt_allowed_email=\njspt_prevent_email=\n');;
