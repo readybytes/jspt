@@ -107,7 +107,7 @@ class XiptLibJomsocial
 		}
 					
 		
-		XiptError::assert($pID, XiptText::_("PID $pID IS_NOT_VALID"), XiptError::ERROR);
+		XiptError::assert($pID, sprintf(XiptText::_("PID_IS_NOT_VALID"),$pID), XiptError::ERROR);
 		$params = XiptLibProfiletypes::getParams($pID);
 
 		if($params)

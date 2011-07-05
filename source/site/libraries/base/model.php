@@ -208,7 +208,7 @@ abstract class XiptModel extends JModel
 	 */
 	public function order($pk, $change)
 	{
-		XiptError::assert($pk, XiptText::_("PRIMARY_KEY $pk DOES_NOT_EXIST"), XiptError::ERROR);
+		XiptError::assert($pk, sprintf(XiptText::_("PRIMARY_KEY_DOES_NOT_EXIST"),$pk), XiptError::ERROR);
 
 		//load the table row
 		$table = $this->getTable();
@@ -259,9 +259,9 @@ abstract class XiptModel extends JModel
 	function saveParams($data, $id, $what = '')
 	{
 
-	    XiptError::assert($id, XiptText::_("ID $id DOES_NOT_EXIST"), XiptError::ERROR);
+	    XiptError::assert($id, sprintf(XiptText::_("ID_DOES_NOT_EXIST"),$id), XiptError::ERROR);
 		
-		XiptError::assert($what, XiptText::_("PARAM $what DOES_NOT_EXIST"), XiptError::ERROR);
+		XiptError::assert($what, sprintf(XiptText::_("PARAM_DOES_NOT_EXIST"),$what), XiptError::ERROR);
 		
 		if(empty($data) || !is_array($data))
 			return false;
@@ -285,7 +285,7 @@ abstract class XiptModel extends JModel
 		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");
 		$iniData	= JFile::read($iniPath);
 
-		XiptError::assert(JFile::exists($xmlPath), XiptText::_("FILE $xmlPath DOES_NOT_EXIST"), XiptError::ERROR);
+		XiptError::assert(JFile::exists($xmlPath), sprintf(XiptText::_("FILE_DOES_NOT_EXIST"),$xmlPath), XiptError::ERROR);
 		
 		/**	
 		//XiTODO Use XiptParatmeter Class

@@ -46,8 +46,8 @@ class XiptViewApplications extends XiptView
 			JToolBarHelper::title( XiptText::_( 'EDIT_APPLICATIONS' ), 'applications' );
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
 			JToolBarHelper::divider();
-			JToolBarHelper::save('save',XiptText::_('SAVE'));
-			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
+			JToolBarHelper::save('save','COM_XIPT_SAVE');
+			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );
 			return true;
 		}		
 	}

@@ -60,19 +60,19 @@ class XiptViewProfiletypes extends XiptView
 		
 		
 		if($task === 'edit'){
-			JToolBarHelper::apply('apply', XiptText::_('APPLY'));
-			JToolBarHelper::save('save',XiptText::_('SAVE'));
-			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));			
+			JToolBarHelper::apply('apply', 'COM_XIPT_APPLY');
+			JToolBarHelper::save('save','COM_XIPT_SAVE');
+			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE');			
 			return true;
 		}	
 		
 		//default
-		JToolBarHelper::publishList('switchOnpublished', XiptText::_( 'PUBLISH' ));
-		JToolBarHelper::unpublishList('switchOffpublished', XiptText::_( 'UNPUBLISH' ));
+		JToolBarHelper::publishList('switchOnpublished', 'COM_XIPT_PUBLISH' );
+		JToolBarHelper::unpublishList('switchOffpublished', 'COM_XIPT_UNPUBLISH' );
 		JToolBarHelper::divider();
-		JToolBarHelper::custom('copy','copy','',XiptText::_('COPY'),0,0);
-		JToolBarHelper::trash('remove', XiptText::_( 'DELETE' ));
-		JToolBarHelper::addNew('edit', XiptText::_( 'ADD_PROFILETYPES' ));
+		JToolBarHelper::custom('copy','copy','','COM_XIPT_COPY',0,0);
+		JToolBarHelper::trash('remove', 'COM_XIPT_DELETE' );
+		JToolBarHelper::addNew('edit', 'COM_XIPT_ADD_PROFILETYPES');
 		return true;
 	}
 	

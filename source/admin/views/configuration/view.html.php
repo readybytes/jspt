@@ -112,8 +112,8 @@ class XiptViewConfiguration extends XiptView
 			JToolBarHelper::title( sprintf(XiptText::_( 'EDIT_CONFIGURATION'),$name), 'configuration' );
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
 			JToolBarHelper::divider();
-			JToolBarHelper::save('save',XiptText::_('SAVE'));
-			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
+			JToolBarHelper::save('save','COM_XIPT_SAVE');
+			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );
 			return true;
 		}	
 	}

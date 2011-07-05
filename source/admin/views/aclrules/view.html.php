@@ -44,22 +44,22 @@ class XiptViewAclRules extends XiptView
 		JToolBarHelper::divider();
 
 		if($task === 'edit'){
-			JToolBarHelper::apply('apply', XiptText::_('APPLY'));
-			JToolBarHelper::save('save',XiptText::_('SAVE'));
-			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
+			JToolBarHelper::apply('apply', 'COM_XIPT_APPLY');
+			JToolBarHelper::save('save','COM_XIPT_SAVE');
+			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );
 			return;
 		}
 
 		if($task === 'add'){
-			JToolBarHelper::cancel( 'cancel', XiptText::_('CLOSE' ));
+			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );
 			return;
 		}
 
-		JToolBarHelper::addNew('add', XiptText::_( 'ADD_ACL_RULES' ));
-		JToolBarHelper::trash('remove', XiptText::_( 'DELETE' ));
+		JToolBarHelper::addNew('add', 'COM_XIPT_ADD_ACL_RULES');
+		JToolBarHelper::trash('remove', 'COM_XIPT_DELETE' );
 		JToolBarHelper::divider();
-		JToolBarHelper::publishList('switchOnpublished', XiptText::_( 'PUBLISH' ));
-		JToolBarHelper::unpublishList('switchOffpublished', XiptText::_( 'UNPUBLISH' ));
+		JToolBarHelper::publishList('switchOnpublished', 'COM_XIPT_PUBLISH' );
+		JToolBarHelper::unpublishList('switchOffpublished', 'COM_XIPT_UNPUBLISH' );
 	}
 
 	function add($tpl = 'add')
