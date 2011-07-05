@@ -7,7 +7,7 @@ class PayplansTest extends XiUnitTestCase
 	 return dirname(__FILE__).'/sql/'.__CLASS__;
    }
 	
-  function xxtestIsRequired()
+  function testIsRequired()
   {
   	$obj = new XiptSetupRulePayplans();
   	
@@ -20,7 +20,7 @@ class PayplansTest extends XiUnitTestCase
   	
   }
   
-  function xxtestIsApplicable()
+  function testIsApplicable()
   {
   	$obj = new XiptSetupRulePayplans();
   	$payplans = JPATH_ROOT . DS . 'components' . DS . 'com_payplans';
@@ -37,14 +37,14 @@ class PayplansTest extends XiUnitTestCase
   	$this->assertTrue($obj->isApplicable());
   }
   
-  function xxtestDoRevert()
+  function testDoRevert()
   {
   	$obj = new XiptSetupRulePayplans();
   	$this->assertTrue($obj->doRevert());
   }
   
-//  function insertApps()
-//  {
-//	$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/insertApps.start.sql');
-//  }
+  function insertApps()
+  {
+	$this->_DBO->loadSql(dirname(__FILE__).'/sql/'.__CLASS__.'/insertApps.start.sql');
+  }
 }

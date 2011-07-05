@@ -286,4 +286,28 @@ function testXiptUninstallReinstall()
     
     return -1;
   }
+  
+  function testPayplansInstall()
+  {
+  		// setup default location 
+	    $this->adminLogin();
+	    // go to installation
+	    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_installer");
+	    $this->waitPageLoad();
+
+		// add profiletype-one
+	    $this->type("install_url", PAYPLANS_PKG);
+	    if(TEST_XIPT_JOOMLA_15)
+	    	$this->click("//form[@name='adminForm']/table[3]/tbody/tr[2]/td[2]/input[2]");
+	    if (TEST_XIPT_JOOMLA_16)
+	    	$this->click("//input[@value='Install' and @type='button' and @onclick='Joomla.submitbutton4()']"); 	
+	   	$this->waitPageLoad();
+	   	
+	   	if(TEST_XIPT_JOOMLA_16)
+    	$this->assertTrue($this->isTextPresent("Installing component was successful."));
+    if(TEST_XIPT_JOOMLA_15)
+    	$this->assertTrue($this->isTextPresent("Install Component Success"));
+    
+    $this->assertFalse($this->isElementPresent("//dl[@id='system-error']/dd/ul/li"));
+  }
 }

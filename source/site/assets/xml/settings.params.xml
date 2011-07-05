@@ -22,8 +22,6 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</param>
-	</params>
-	<params group="advIntegrationSettings" addpath="/components/com_xipt/elements">
 		<param name="integrate_with" type="xiradio" default="payplans" label="COM_XIPT_INTEGRATE_WITH" description="COM_XIPT_INTEGRATE_WITH_DESC">
 			<option value="aec">AEC</option>
 			<option value="payplans">PayPlans</option>
