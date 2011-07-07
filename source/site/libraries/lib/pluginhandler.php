@@ -32,11 +32,22 @@ class XiptLibPluginhandler
 	//if value exist in session then return ptype else return false
 	function isPTypeExistInSession()
 	{
-		$aecExists 		= XiptLibAec::isAecExists();
-		$integrateAEC   = XiptFactory::getSettings('subscription_integrate',0);
-		if($aecExists && $integrateAEC)
+		$aecExists 		  = XiptLibAec::isAecExists();
+		$payplansExists	  = XiptLibPayplans::isPayplansExists();
+		$subs_integrate   = XiptFactory::getSettings('subscription_integrate',0);
+		$integrate_with   = XiptFactory::getSettings('integrate_with',0);
+		
+		//if JSPT is integrated with AEC
+		if($aecExists && $subs_integrate && $integrate_with == 'aec')
 		{
 			$data  = XiptLibAec::getProfiletypeInfoFromAEC() ;
+			return $data['profiletype'];
+		}
+		
+		//if JSPT is integrated with Payplans
+		if($payplansExists && $subs_integrate && $integrate_with == 'payplans')
+		{
+			$data  = XiptLibPayplans::getProfiletypeInfoFromPayplans();
 			return $data['profiletype'];
 		}
 		
@@ -156,25 +167,25 @@ class XiptLibPluginhandler
 	/*Get decision to show ptype on registration session or not */
 	function integrateRegistrationWithPType()
 	{
-	    XiptLibAec::getProfiletypeInfoFromAEC() ;
+	    $aecExists 		  = XiptLibAec::isAecExists();
+		$payplansExists   = XiptLibPayplans::isPayplansExists();
+		$subs_integrate   = XiptFactory::getSettings('subscription_integrate',0);
+		$integrate_with   = XiptFactory::getSettings('integrate_with',0);
 
 		$show_ptype_during_reg = XiptFactory::getSettings('show_ptype_during_reg', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 
+		$link 	= "index.php?option=com_xipt&view=registration";
+		
+		// pType not selected : send to select profiletype
+		if(!$selectedProfiletypeID){
+			$this->app->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration",false));
+			return;
+		}
+		
 		if($show_ptype_during_reg){
-			$link 	= "index.php?option=com_xipt&view=registration";								
-			// pType not selected : send to select profiletype
-				if(!$selectedProfiletypeID){
-				$this->app->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration",false));
-				return;
-			}
-
-
-			$aecExists 		= XiptLibAec::isAecExists();
-			$integrateAEC   = XiptFactory::getSettings('subscription_integrate',0);
-
 			// pType already selected
-			if($integrateAEC && $aecExists)
+			if($aecExists && $subs_integrate && $integrate_with == 'aec')
 			{
 			    $url = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
 			    $msg = XiptLibAec::getAecMessage();
@@ -190,7 +201,26 @@ class XiptLibPluginhandler
 			$this->app->enqueueMessage($msg.' '.$link);
 			return;
 		}
+		else
+		{
+			if($payplansExists && $subs_integrate && $integrate_with == 'payplans')
+			{
+			    $url = XiptRoute::_('index.php?option=com_payplans&view=plan',false);
+			    $msg = XiptLibPayplans::getPayplansMessage();
+			}
+			else
+			{
+			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.'&reset=true',false);
+			    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
+			    $msg 			   = sprintf(XiptText::_('CURRENT_PTYPE_AND_CHANGE_PTYPE_OPTION'),$selectedpTypeName);
+			}
 
+			$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
+			$this->app->enqueueMessage($msg.' '.$link);
+			return;
+		}
+		
+		
 		// if pType is not set, collect default pType
 		// set it in session
 		if(!$selectedProfiletypeID) {

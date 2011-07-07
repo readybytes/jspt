@@ -185,6 +185,12 @@ class plgSystemxipt_system extends JPlugin
 		return $this->_pluginHandler->integrateRegistrationWithPType();
 	}
 
+	//this event is for JS register menu link, where task is also defined
+	function event_com_community_register_register()
+	{
+		return $this->_pluginHandler->integrateRegistrationWithPType();
+	}
+
 	function event_com_user_register_blank()
 	{
 	    return $this->_pluginHandler->integrateRegistrationWithPType();
@@ -220,11 +226,18 @@ class plgSystemxipt_system extends JPlugin
 		// reset the session data of FROM_FACEBOOK
 		$this->_pluginHandler->resetDataInSession('FROM_FACEBOOK');
 
-		if(XiptFactory::getSettings('aec_integrate', 0) == true) {
+		$subs_integrate 	= XiptFactory::getSettings('subscription_integrate', 0);
+		$integrate_with		= XiptFactory::getSettings('integrate_with', 0);
+		
+		//when integrated with AEC, redirect to AEC
+		if($subs_integrate == true && $integrate_with == 'aec')
 			$link = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
-			JFactory::getApplication()->redirect($link);
-		}
-
+			
+		//when integrated with Payplans, redirect to Payplans
+		if($subs_integrate == true && $integrate_with == 'payplans')
+			$link = XiptRoute::_('index.php?option=com_payplans&view=plan',false);	
+		
+		JFactory::getApplication()->redirect($link);
 		return true;
 	}
 
@@ -236,28 +249,53 @@ class plgSystemxipt_system extends JPlugin
 		$this->_pluginHandler->setDataInSession('AEC_REG_PLANID', $usage);
 	}
 
+	/* get the plan id when the direct link of Payplans are used */
+	function onPayplansPlanAfterSelection($planid)
+	{
+		$this->_pluginHandler->setDataInSession('PAYPLANS_REG_PLANID', $planid);
+	}
+	
 	// we are on xipt registration page
 	function event_com_xipt_registration_blank()
 	{
-	    $aecExists 		= XiptLibAec::isAecExists();
-	    $integrateAEC   = XiptFactory::getSettings('aec_integrate');
-
-	    // check AEC exist or not
-	    // AND check JSPT is integrated with AEC or not
-	    if(!$aecExists || !$integrateAEC)
-	        return false;
-
-	    // find selected profiletype from AEC
-	    $aecData = XiptLibAec::getProfiletypeInfoFromAEC();
-		$app	 = JFactory::getApplication();
-
-	    // as user want to integrate the AEC so a plan must be selected
-        // send user to profiletype selection page
-	    if($aecData['planSelected'] == false)
-	        $app->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),XiptText::_('PLEASE_SELECT_AEC_PLAN_IT_IS_RQUIRED'));
-
-	    // set selected profiletype in session
-	    $this->_pluginHandler->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
+		$app	 			= JFactory::getApplication();
+	    $subs_integrate     = XiptFactory::getSettings('subscription_integrate', 0);
+		$integrate_with     = XiptFactory::getSettings('integrate_with', 0);
+		
+		//when integrated with AEC, set PT in session as per plan.
+		if($subs_integrate && $integrate_with == 'aec')
+		{
+			if(!XiptLibAec::isAecExists())
+				return false;
+				
+		    // find selected profiletype from AEC
+		    $aecData = XiptLibAec::getProfiletypeInfoFromAEC();
+	
+		    // as user want to integrate the AEC so a plan must be selected
+	        // send user to profiletype selection page
+		    if($aecData['planSelected'] == false)
+		        $app->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false),XiptText::_('PLEASE_SELECT_AEC_PLAN_IT_IS_RQUIRED'));
+	
+		    // set selected profiletype in session
+		    $this->_pluginHandler->mySess->set('SELECTED_PROFILETYPE_ID',$aecData['profiletype'], 'XIPT');
+		}
+		
+		//when integrated with Payplans, no need to set PT in session
+		//payplans itself set PT in session
+		if($subs_integrate && $integrate_with == 'payplans')
+		{
+			if(!XiptLibPayplans::isPayplansExists())
+				return false;
+				
+		    // find selected profiletype from Payplans
+		    $payplansData = XiptLibPayplans::getProfiletypeInfoFromPayplans();
+	
+		    // as user want to integrate the Payplans so a plan must be selected
+	        // send user to profiletype selection page
+		    if($payplansData['planSelected'] == false)
+		        $app->redirect(XiptRoute::_('index.php?option=com_payplans&view=plan',false),XiptText::_('PLEASE_SELECT_AEC_PLAN_IT_IS_RQUIRED'));
+		}
+		
 	    $app->redirect(XiptHelperJomsocial::getReturnURL());
 
 	    return true;

@@ -32,10 +32,7 @@ class XiptSetupRulePayplans extends XiptSetupBase
 	
 	function isApplicable()
 	{
-		$foldername = JPATH_ROOT.DS.'components'.DS.'com_payplans';
-		
-		//check if folder is present is not 
-		return JFolder::exists($foldername);
+		return XiptLibPayplans::isPayplansExists();
 	}
 	
 	function getMessage()
