@@ -23,17 +23,7 @@ class PayplansTest extends XiUnitTestCase
   function testIsApplicable()
   {
   	$obj = new XiptSetupRulePayplans();
-  	$payplans = JPATH_ROOT . DS . 'components' . DS . 'com_payplans';
- 	$this->assertTrue(JFolder::exists($payplans));
- 	
-  	//#case 1: when payplans doesn't exist
-  	JFolder::move('com_payplans', 'com_payplans11', JPATH_ROOT . DS . 'components');
-  	$this->assertFalse(JFolder::exists($payplans));
-  	$this->assertFalse($obj->isApplicable());
-  	
-  	//#case 2: when payplans exists
-  	JFolder::move('com_payplans11', 'com_payplans', JPATH_ROOT . DS . 'components');
-  	$this->assertTrue(JFolder::exists($payplans));
+  	include_once JPATH_ROOT .DS. 'components' .DS. 'com_payplans' .DS. 'includes' .DS. 'includes.php';
   	$this->assertTrue($obj->isApplicable());
   }
   

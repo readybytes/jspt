@@ -68,6 +68,9 @@ function submitbutton( action )
 			<th width="5%">
 				<?php echo XiptText::_( 'VISIBLE' ); ?>
 			</th>
+			<th width="5%">
+				<?php echo XiptText::_( 'TOTAL_USERS' ); ?>
+			</th>
 			<th width="5%" align="center">
 				<?php echo XiptText::_( 'ORDERING' ); ?>
 			</th>
@@ -146,6 +149,10 @@ function submitbutton( action )
 						<img src="images/publish_x.png" width="16" height="16" border="0" alt="Invisible" />
 					<?php endif; ?>
 				</a>					
+			</td>
+			
+			<td align="center">
+				<?php echo $this->getTotalUsers( $field->id );?>
 			</td>
 			
 			<td align="right">

@@ -231,13 +231,12 @@ class plgSystemxipt_system extends JPlugin
 		
 		//when integrated with AEC, redirect to AEC
 		if($subs_integrate == true && $integrate_with == 'aec')
-			$link = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
+			JFactory::getApplication()->redirect(XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false));
 			
 		//when integrated with Payplans, redirect to Payplans
 		if($subs_integrate == true && $integrate_with == 'payplans')
-			$link = XiptRoute::_('index.php?option=com_payplans&view=plan',false);	
+			JFactory::getApplication()->redirect(XiptRoute::_('index.php?option=com_payplans&view=plan',false));	
 		
-		JFactory::getApplication()->redirect($link);
 		return true;
 	}
 
@@ -262,8 +261,11 @@ class plgSystemxipt_system extends JPlugin
 	    $subs_integrate     = XiptFactory::getSettings('subscription_integrate', 0);
 		$integrate_with     = XiptFactory::getSettings('integrate_with', 0);
 		
-		//when integrated with AEC, set PT in session as per plan.
-		if($subs_integrate && $integrate_with == 'aec')
+		if(!$subs_integrate)
+			return false;
+		
+		//when integrated with AEC, set PT in session as per plan.	
+		if($integrate_with == 'aec')
 		{
 			if(!XiptLibAec::isAecExists())
 				return false;
@@ -282,7 +284,7 @@ class plgSystemxipt_system extends JPlugin
 		
 		//when integrated with Payplans, no need to set PT in session
 		//payplans itself set PT in session
-		if($subs_integrate && $integrate_with == 'payplans')
+		if($integrate_with == 'payplans')
 		{
 			if(!XiptLibPayplans::isPayplansExists())
 				return false;

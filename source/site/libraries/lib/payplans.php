@@ -23,9 +23,9 @@ class XiptLibPayplans
 		$mySess 		= JFactory::getSession();
 		$planSetInSess 	= $mySess->has('PAYPLANS_REG_PLANID','XIPT');
 
-		$planid  = JRequest::getInt( 'planid', 0, 'REQUEST');
-		// if no prefered plan, then use saved in session
-		if($planid == 0 && $planSetInSess){
+		$planid  = null;
+		// use saved in session
+		if($planSetInSess){
 			$planid = $mySess->get('PAYPLANS_REG_PLANID',0,'XIPT');
 		}
 		

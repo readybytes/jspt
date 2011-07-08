@@ -175,15 +175,15 @@ class XiptLibPluginhandler
 		$show_ptype_during_reg = XiptFactory::getSettings('show_ptype_during_reg', 0);
 		$selectedProfiletypeID = $this->isPTypeExistInSession();
 
-		$link 	= "index.php?option=com_xipt&view=registration";
-		
-		// pType not selected : send to select profiletype
-		if(!$selectedProfiletypeID){
-			$this->app->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration",false));
-			return;
-		}
-		
 		if($show_ptype_during_reg){
+			$link 	= "index.php?option=com_xipt&view=registration";
+			
+			// pType not selected : send to select profiletype
+			if(!$selectedProfiletypeID){
+				$this->app->redirect(XiptRoute::_("index.php?option=com_xipt&view=registration",false));
+				return;
+			}
+		
 			// pType already selected
 			if($aecExists && $subs_integrate && $integrate_with == 'aec')
 			{
@@ -201,9 +201,9 @@ class XiptLibPluginhandler
 			$this->app->enqueueMessage($msg.' '.$link);
 			return;
 		}
-		else
+		else if($subs_integrate)
 		{
-			if($payplansExists && $subs_integrate && $integrate_with == 'payplans')
+			if($payplansExists && $integrate_with == 'payplans')
 			{
 			    $url = XiptRoute::_('index.php?option=com_payplans&view=plan',false);
 			    $msg = XiptLibPayplans::getPayplansMessage();

@@ -83,4 +83,16 @@ class XiptViewProfiletypes extends XiptView
 		$this->assignRef('total', $total);
 		parent::display($tpl);
 	}
+	
+	//get total no of users as per profiletype	 	
+	public function getTotalUsers( $pid )
+	{
+		$query = new XiptQuery();
+    	
+    	return $query->select('count(1)')
+    				 ->from('#__xipt_users')
+    				 ->where("`profiletype` = $pid")
+    				 ->dbLoadQuery("","")
+    				 ->loadResult();
+	}
 }

@@ -82,13 +82,13 @@ class ProfiletypeTest extends XiSelTestCase
 	    // 1-> down , 3 -> down , 5-> up
     	    
 		// 1-> down //id('rowid1')/td[12]/span[2]/a/img
-		$this->click("//tr[@id='rowid1']/td[10]/span[2]/a");
+		$this->click("//tr[@id='rowid1']/td[11]/span[2]/a");
 		$this->waitForPageToLoad();
 		//3 -> down  id('rowid3')/td[12]/span[2]/a/img
-		$this->click("//tr[@id='rowid3']/td[10]/span[2]/a");
+		$this->click("//tr[@id='rowid3']/td[11]/span[2]/a");
 		$this->waitForPageToLoad();
 		//5-> up
-		$this->click("//tr[@id='rowid5']/td[10]/span[1]/a");
+		$this->click("//tr[@id='rowid5']/td[11]/span[1]/a");
 		$this->waitForPageToLoad();
 		
 		$this->_DBO->filterOrder('#__xipt_profiletypes','ordering');
