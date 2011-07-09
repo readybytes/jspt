@@ -24,7 +24,7 @@
 		</param>
 		<param name="integrate_with" type="xiradio" default="payplans" label="COM_XIPT_INTEGRATE_WITH" description="COM_XIPT_INTEGRATE_WITH_DESC">
 			<option value="aec">AEC</option>
-			<option value="payplans">PayPlans</option>
+			<option value="payplans">&lt;a href='http://www.jpayplans.com' &gt;PayPlans&lt;/a&gt;</option>
 		</param>			
 	</params>
 	

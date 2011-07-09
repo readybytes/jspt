@@ -34,11 +34,9 @@ class XiptLibPayplans
 				    
 		$param['planid']       = $planid;
 		$param['plan']         = self::getPlanName($planid);
-		$param['profiletype']  = self::getProfiletype($planid);
+		$param['profiletype']  = self::getProfiletype();
 		$param['planSelected'] = true;
 		
-		//also set data in session
-		$mySess->set('PAYPLANS_REG_PLANID',$planid, 'XIPT');
 		return $param;	
 	}	
 
@@ -52,7 +50,7 @@ class XiptLibPayplans
 	
 	//get profpiletype as per planid
 	//payplans itself set PT in session
-	static public function getProfiletype( $planid )
+	static public function getProfiletype()
 	{
 	    $defaultPtype = XiptLibProfiletypes::getDefaultProfiletype();
 	    
