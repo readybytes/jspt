@@ -43,7 +43,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		$reply = $this->syncUpUserPT($start,$limit);
 
 		if($reply === -1)
-			return false;
+			return -1;
 		else if($reply)
         	return XiptText::_('USERS_PROFILETYPE_AND_TEMPLATES_SYNCRONIZED_SUCCESSFULLY');
         else 
@@ -60,7 +60,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		if(!($PTFieldId && $TMFieldId))
 			return false;
 		// get userids for syn-cp	
-		$result = $this->getUsertoSyncUp($start, $limit);
+		$result 	 = $this->getUsertoSyncUp($start, $limit);
 		$profiletype = XiPTLibProfiletypes::getDefaultProfiletype();
 		$template	 = XiPTLibProfiletypes::getProfileTypeData($profiletype,'template');			
 		
@@ -179,7 +179,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			}
 			
 			function xiredirect(){
-				window.location = "<?php echo XiPTRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers&start=$start&limit=$limit&step=$step");?>"					
+				window.location = "<?php echo XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers&start=$start&limit=$limit&step=$step");?>"					
 			}
 			
 			</script>

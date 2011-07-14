@@ -37,7 +37,8 @@ class XiptControllerSetup extends XiptController
 		$setupObject = XiptFactory::getSetupRule($name);
 		$msg = $setupObject->doApply();
 		
-		$this->setRedirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false), $msg);
+		if($msg!= -1)
+			$this->setRedirect(XiptRoute::_("index.php?option=com_xipt&view=setup&task=display",false), $msg);
     }
     
     function unhook()
