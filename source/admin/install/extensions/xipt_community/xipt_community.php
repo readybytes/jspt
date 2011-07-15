@@ -277,6 +277,8 @@ class plgCommunityxipt_community extends CApplications
 	    	$newData['template'] = $template;
 	    
 	    XiptLibProfiletypes::updateUserProfiletypeFilteredData($userId,$filter,null,$newData);
+	    
+	    $this->showActivity($userId, $profiletype, $oldPtype);
 	    return true;
 	}
 	
@@ -288,6 +290,32 @@ class plgCommunityxipt_community extends CApplications
 
 	}
 	
+	//to show change of profiletype as activity
+	function showActivity($userid, $newPtype, $oldPtype)
+	{
+		if($newPtype === $oldPtype)
+			return;
+			
+		$ptName = XiptHelperProfiletypes::getProfileTypeData($newPtype, 'name');
+		$act = new stdClass();
+		$act->cmd     = 'wall.write';
+		$act->actor   = $userid;
+		$act->target  = 0; // no target
+		$act->title   = JText::_('{actor} changed his profiletype to '.$ptName);
+		$act->content = '';
+		$act->app     = 'wall';
+		$act->cid     = 0;
+		  
+		CFactory::load('libraries', 'activities');
+		$act->comment_type  = 'xipt_community.myaction';
+		$act->comment_id    = CActivities::COMMENT_SELF;
+		
+		$act->like_type     = 'xipt_community.myaction';
+		$act->like_id     	= CActivities::LIKE_SELF;
+		
+		CActivityStream::add($act);
+		return true;
+	}
 //	 function onFormSave($fieldName )
 //	 {
 //	 	//JFactory::getApplication()->enqueueMessage("Not chanage your Privacy");

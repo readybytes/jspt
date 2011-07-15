@@ -26,9 +26,11 @@ foreach ( $this->allProfileTypes as $pType ) :
 		
 		<div id="Details">
 			<div id="Avatar">
-				<input type="image" name="<?php echo $pType->name; ?>" src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($pType->avatar); ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"
+				<input type="image" title = "click on me" name="<?php echo $pType->name; ?>" src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($pType->avatar); ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"
 				onclick="javascript:submitURL(<?php echo $pType->id; ?>);" />
-				
+			<div>	
+			<input type="button" name="save" value="<?php echo XiptText::_('NEXT');?>" onclick="javascript:submitURL(<?php echo $pType->id; ?>);" />
+			</div>
 			</div>
 			<p id="Description"> <?php echo $pType->tip;?> </p>
 			
