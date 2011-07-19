@@ -42,6 +42,8 @@ class plgSystemxipt_system extends JPlugin
 		$component	= JRequest::getVar('component','BLANK');
 		$jsconfig	= JRequest::getVar('jsconfiguration','BLANK');
 		
+		$this->_pluginHandler->hideJSToolbar();
+
 		if($app->isAdmin() && $option == 'com_community' && $view == 'configuration' && $jsconfig == 'privacy')
 		{
  			$document = JFactory::getDocument();

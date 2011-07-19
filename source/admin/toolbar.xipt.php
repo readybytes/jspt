@@ -19,7 +19,8 @@ $views	= array(
 					'configuration'	=> 'JS Configuration',
 					'aclrules'		=> 'Acces Control',
 					'profilefields'	=> 'Profile Field',
-					'applications'	=> 'Applications'
+					'applications'	=> 'Applications',
+					'jstoolbar'		=> 'JS Toolbar'
 					
 				);
 				

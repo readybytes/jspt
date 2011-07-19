@@ -322,5 +322,24 @@ class XiptLibPluginhandler
         ob_clean();
         JFactory::getDocument()->addScriptDeclaration($script);
 	}
+	
+	// hide JS Toolbar as per profiletype
+	function hideJSToolbar()
+	{
+		$userid = JRequest::getVar('activeProfile');
+		
+		// skip these calls from backend
+		if(JFactory::getApplication()->isAdmin())
+			return true;
+			
+		// the user is admin, return true
+		if(XiptHelperUtils::isAdmin($userid))
+			return true;
+			
+		if(JRequest::getVar('option','') == 'com_community')
+		{
+			XiptHelperJSToolbar::getMenusToHide($userid);
+		}
+	}
 }
 

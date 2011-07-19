@@ -69,6 +69,13 @@ CREATE TABLE IF NOT EXISTS `#__xipt_settings` (
   PRIMARY KEY (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `#__xipt_jstoolbar` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `menuid` int(10) NOT NULL DEFAULT '0',
+  `profiletype` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 --
 -- Dumping data for table `#__xipt_settings`
 --
