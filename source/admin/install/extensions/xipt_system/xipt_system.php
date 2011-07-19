@@ -41,8 +41,6 @@ class plgSystemxipt_system extends JPlugin
 		$task 		= JRequest::getVar('task','BLANK');
 		$component	= JRequest::getVar('component','BLANK');
 		$jsconfig	= JRequest::getVar('jsconfiguration','BLANK');
-		
-		$this->_pluginHandler->hideJSToolbar();
 
 		if($app->isAdmin() && $option == 'com_community' && $view == 'configuration' && $jsconfig == 'privacy')
 		{
@@ -72,6 +70,11 @@ class plgSystemxipt_system extends JPlugin
  			return false;
  		}
 
+ 		if($option === 'com_community')
+ 		{
+ 			$userid = JFactory::getUser()->id;
+ 			$this->_pluginHandler->hideJSToolbar($userid);
+ 		}
 		// perform all acl check from here
 		XiptAclHelper::performACLCheck(false, false, false);
 

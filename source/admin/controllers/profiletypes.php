@@ -134,9 +134,9 @@ class XiptControllerProfiletypes extends XiptController
 	//this function will reset users in chunks 
 	function resetall($id = 0, $limit = 100, $start = 0){
 		
-		
-		$start	=JRequest::getVar('start', $start);
-		$id		=JRequest::getVar('id', $id);
+		$mainframe	= JFactory::getApplication();
+		$start		= JRequest::getVar('start', $start);
+		$id			= JRequest::getVar('id', $id);
 		//getting from session
 		$session   = JFactory::getSession();
 		$oldPtData = $session->get('oldPtData', '','jspt');
@@ -145,7 +145,11 @@ class XiptControllerProfiletypes extends XiptController
 		$allUsers = XiptLibProfiletypes::getAllUsers($id);
 
 		if(!$allUsers)
-			return false;
+		{
+			$msg = XiptText::_('NO_USER_TO_RESET');
+			$mainframe->redirect('index.php?option=com_xipt&view=profiletypes', $msg);
+		}
+		
 		$total = count($allUsers);
 		$users = array_chunk($allUsers, $limit);
 
@@ -157,7 +161,6 @@ class XiptControllerProfiletypes extends XiptController
 			$session->clear('oldPtData','jspt');
 			$session->clear('newPtData','jspt');
 			$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task='.$preTask.'&id='.$id.'', false);
-			$mainframe	=& JFactory::getApplication();
 			$mainframe->redirect($link, $info['msg']);
 		}
 		
@@ -184,7 +187,6 @@ class XiptControllerProfiletypes extends XiptController
 		foreach ($users as $user)
 			XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
 	
-		$mainframe	=& JFactory::getApplication();
 		$start = $start+1;
 		
 		if(!XIPT_TEST_MODE == 0)
