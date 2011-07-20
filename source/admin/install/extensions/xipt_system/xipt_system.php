@@ -311,7 +311,8 @@ class plgSystemxipt_system extends JPlugin
 	 * Hide Privacy At user ragistration time
 	 */
 	function event_com_community_register_registerprofile() {
-		if($this->_pluginHandler->isPrivacyAllow()){
+		$pId= JFactory::getSession()->get("SELECTED_PROFILETYPE_ID", null, "XIPT");
+		if($this->_pluginHandler->isPrivacyAllow($pId)){
 			$this->_pluginHandler->hidePrivacyElements();
 		}
 	}

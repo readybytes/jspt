@@ -288,7 +288,7 @@ class XiptLibPluginhandler
 	}
 	
 
-    function isPrivacyAllow()
+    function isPrivacyAllow($myProfileID=null)
      {
      	static $result = null;
 
@@ -296,7 +296,8 @@ class XiptLibPluginhandler
      		return $result;
     	
      	$modelObj 		= XiptFactory::getInstance('profiletypes','model');
-    	$myProfileID	= XiptLibProfiletypes::getUserData(JFactory::getUser()->id, 'PROFILETYPE');
+     	if(empty($myProfileID))
+    		$myProfileID	= XiptLibProfiletypes::getUserData(JFactory::getUser()->id, 'PROFILETYPE');
     	$privacyParams  = $modelObj->loadParams($myProfileID,'privacy');
     	
     	// jsPrivacyController == 1 means privacy handle by admin
