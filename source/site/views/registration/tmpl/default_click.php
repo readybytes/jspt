@@ -18,23 +18,24 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 foreach ( $this->allProfileTypes as $pType ) :
 
 	?>		
-	<div class="singlePT">
+	<div class="profile-type">
 
-		<div id="Name">
-				<?php echo $pType->name; ?>
-		</div>
-		
-		<div id="Details">
-			<div id="Avatar">
+			<div id="Avatar" class="xi-avatar">
 				<input type="image" title = "click on me" name="<?php echo $pType->name; ?>" src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($pType->avatar); ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"
 				onclick="javascript:submitURL(<?php echo $pType->id; ?>);" />
-			<div>	
+			<div class="pt-select-button">	
 			<input type="button" name="save" value="<?php echo XiptText::_('NEXT');?>" onclick="javascript:submitURL(<?php echo $pType->id; ?>);" />
 			</div>
 			</div>
-			<p id="Description"> <?php echo $pType->tip;?> </p>
-			
-		</div>
+			<div class="xi-description">
+				<h3 id="Name" class="pt-name">
+					<?php echo $pType->name; ?>
+				</h3>
+				
+				<div class="pt-description">
+					<p id="Description"> <?php echo $pType->tip;?> </p>
+				</div>	
+			</div>
 			
 	</div>
 	<?php
