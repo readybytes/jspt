@@ -30,6 +30,7 @@ class XiptLibJoomla
 			  			  ->where(" `name` <> 'Public Frontend' ", 'AND')
 			  			  ->where(" `name` <> 'Public Backend' ", 'AND')
 			  			  ->where(" `name` <> 'Super Administrator' ", 'AND')
+			  			  ->where(" `name` <> 'Administrator' ", 'AND')
 			  			  ->dbLoadQuery("","")
 			  			  ->loadObjectList('name');
 		}
