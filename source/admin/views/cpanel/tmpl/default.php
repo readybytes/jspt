@@ -21,7 +21,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', XiptText::_('ACCESS_CONTROL'));?>
 				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', XiptText::_('PROFILE_FIELDS'));?>
 				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', XiptText::_('APPLICATIONS'));?>
-				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=jstoolbar', XiptText::_('JS_TOOLBAR'));?>
+				<?php echo $this->addIcon('jstoolbar.png','index.php?option=com_xipt&view=jstoolbar', XiptText::_('JS_TOOLBAR'));?>
 			</div>
 		</td>
 		<td width="45%" valign="top">
