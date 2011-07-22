@@ -32,10 +32,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 				echo $this->loadTemplate('welcome');
 				echo $this->pane->endPanel();
 				
-				echo $this->pane->startPanel( 'Changelogs', 'changelogs' );
-				echo $this->loadTemplate('changelog');
-				echo $this->pane->endPanel();
-				
 				echo $this->pane->startPanel( 'JSPT Updates', 'updates' );
 				echo $this->loadTemplate('updates');
 				echo $this->pane->endPanel();
