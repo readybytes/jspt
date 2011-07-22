@@ -189,17 +189,23 @@ class XiptLibPluginhandler
 			{
 			    $url = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
 			    $msg = XiptLibAec::getAecMessage();
+			    
+			    if($msg != false)
+			    {
+			    	$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
+					$this->app->enqueueMessage($msg.' '.$link);
+			    }
+			    return;
 			}
 			else
 			{
 			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.'&reset=true',false);
 			    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
 			    $msg 			   = sprintf(XiptText::_('CURRENT_PTYPE_AND_CHANGE_PTYPE_OPTION'),$selectedpTypeName);
+				$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
+				$this->app->enqueueMessage($msg.' '.$link);
+				return;
 			}
-
-			$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
-			$this->app->enqueueMessage($msg.' '.$link);
-			return;
 		}
 		else if($subs_integrate)
 		{
@@ -207,17 +213,14 @@ class XiptLibPluginhandler
 			{
 			    $url = XiptRoute::_('index.php?option=com_payplans&view=plan',false);
 			    $msg = XiptLibPayplans::getPayplansMessage();
+		
+				if($msg != false)
+			    {
+			    	$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
+					$this->app->enqueueMessage($msg.' '.$link);
+			    }
+			    return;
 			}
-			else
-			{
-			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.'&reset=true',false);
-			    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
-			    $msg 			   = sprintf(XiptText::_('CURRENT_PTYPE_AND_CHANGE_PTYPE_OPTION'),$selectedpTypeName);
-			}
-
-			$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
-			$this->app->enqueueMessage($msg.' '.$link);
-			return;
 		}
 		
 		

@@ -77,6 +77,9 @@ class XiptLibPayplans
         if($msgOption==='pt')
             return  XiptText::sprintf('COM_XIPT_ALREADY_SELECTED_PLAN_AS_ONLY_PTYPE',$pTypeName);                
     	
+        if($msgOption==='no')
+    		return false;
+    		
         return XiptText::sprintf('COM_XIPT_ALREADY_SELECTED_PLAN_AS_BOTH',$data['plan'],$pTypeName);
 	}
 	

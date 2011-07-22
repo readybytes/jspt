@@ -55,6 +55,11 @@
 	background-repeat:no-repeat;
 	}
 	
+.icon-48-jstoolbar{
+	background-image:  url(images/jstoolbar.png);
+	background-repeat:no-repeat;
+	}
+	
 /* CSS for Joomla1.6 */
 
 fieldset.adminform { /* General use */

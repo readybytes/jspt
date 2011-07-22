@@ -60,6 +60,7 @@
 			<option value="b">Both, Plan and Profiletype</option>
 			<option value="pl">Only Plan</option>
 			<option value="pt">Only Profiletype</option>
+			<option value="no">None</option>
 		</param>			
 	</params>
 	
