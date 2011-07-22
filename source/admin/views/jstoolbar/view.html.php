@@ -36,7 +36,7 @@ class XiptViewJSToolbar extends XiptView
 	function setToolbar($task='display')
 	{	
 		$task = JRequest::getVar('task',$task);
-		if($task === 'display'){		
+		if($task === 'display' || $task === 'cancel'){		
 			JToolBarHelper::title( XiptText::_( 'JS_TOOLBAR' ), 'jstoolbar' );
 			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 			return true;
