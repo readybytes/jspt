@@ -44,12 +44,23 @@ if(!defined('_JEXEC')) die('Restricted access');
 						<?php echo $id ; ?>
 					</span>
 				</td>
+				<?php if(XIPT_JOOMLA_15){?>
 				<td>
 					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $id;?>">
 						<?php $link = XiptRoute::_('index.php?option=com_xipt&view=jstoolbar&task=edit&id='.$id, false); ?>
-							<A HREF="<?php echo $link; ?>"><?php echo $field->name; ?></A>
+							<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
 					</span>
 				</td>
+				<?php
+				}
+				else{ ?>
+				<td>
+					<span class="editlinktip" title="<?php echo $field->title; ?>" id="name<?php echo $id;?>">
+						<?php $link = XiptRoute::_('index.php?option=com_xipt&view=jstoolbar&task=edit&id='.$id, false); ?>
+							<a href="<?php echo $link; ?>"><?php echo $field->title; ?></a>
+					</span>
+				</td>
+				<?php }?>
 				<td align="center" id="profiletype<?php echo $id;?>">
 					<?php echo XiptHelperJSToolbar::getProfileTypeNames($id); ?>
 				</td>			

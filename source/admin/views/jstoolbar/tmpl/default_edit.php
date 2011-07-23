@@ -43,7 +43,8 @@ jQuery(document).ready(function($){
 
 <div class="col width-45" style="float:left;">
 	<fieldset class="adminform">
-	<legend><?php echo $jsModel->getMenu($this->menuId)->name;?></legend>
+	<legend><?php if(XIPT_JOOMLA_15)echo $this->fields[$this->menuId]->name;
+				  else echo $this->fields[$this->menuId]->title;?></legend>
 		<div id="xiptPtype">
 			<div style="float:left; font-weight:bold; margin-left:10%; padding:5px; width:27%; background: #EFEFEF;">
 				<?php echo XiptText::_('FOR_PROFILETYPES');?>
@@ -67,7 +68,7 @@ jQuery(document).ready(function($){
 	
 	<div id="xiptOtherMenu">
 		<?php foreach($this->fields as $id => $field) : ?>
-			<input type="checkbox" name="menuIds[]" value="<?php echo $id;?>"><?php echo $field->name;?>
+			<input type="checkbox" name="menuIds[]" value="<?php echo $id;?>"><?php if(XIPT_JOOMLA_15)echo $field->name; else echo $field->title;?>
 			<div class='clr'></div>
 		<?php endforeach;?> 
 	</div>

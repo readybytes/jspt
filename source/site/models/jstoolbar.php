@@ -18,13 +18,24 @@ class XiptModelJSToolbar extends XiptModel
 		if($result== null){
 			$query = new XiptQuery();
 			
+		if(XIPT_JOOMLA_15){
 			$result = $query->select('*')
 			        		->from('#__menu')
 						    ->where(" `menutype` = 'jomsocial' and `parent` = 0")
 							->order('ordering')
 							->limit($limit,$limitstart)
 							->dbLoadQuery("","")
-							->loadObjectList('id');			
+							->loadObjectList('id');		
+		}
+		else{	
+			$result = $query->select('*')
+			        		->from('#__menu')
+						    ->where(" `menutype` = 'jomsocial' and `parent_id` = 1")
+							->order('ordering')
+							->limit($limit,$limitstart)
+							->dbLoadQuery("","")
+							->loadObjectList('id');	
+		}		
 		}
 		
 		if($menuId == null && $result)
