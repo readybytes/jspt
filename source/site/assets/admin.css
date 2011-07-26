@@ -106,127 +106,113 @@ label[class="radiobtn-both, plan and profiletype"], label[class="radiobtn-only p
 /******** XiptParameter *********/
 
 /* common css for all entites */
-#JSPT .xippElements{
-width: 100%;
-overflow: hidden;
+#JSPT .xippElements {
+    overflow: hidden;
+    width: 100%;
+}
+#JSPT .elementColumn {
+    float: left;
+    overflow: hidden;
+    width: 49%;
+}
+#JSPT .elementParams {
+    margin: 2px auto auto;
+    overflow: hidden;
+    width: 100%;
+}
+#JSPT .paramTitle {
+    background-color: #F0F0F0;
+    border-bottom: 1px solid #E9E9E9;
+    border-right: 1px solid #E9E9E9;
+    color: #666666;
+    float: left;
+    font-weight: bold;
+    padding: 5px 3px 3px;
+    text-align: right;
+    width: 140px;
+}
+#JSPT .paramValue {
+    float: left;
+    line-height: 22px;
+    margin-left: 1%;
+/*    width: 45%;*/
+}
+#JSPT .paramValue input {
+    float: left;
+    margin-top: 3px;
+}
+#JSPT .paramValue select {
+    float: left;
+    margin-top: 3px;
+}
+#JSPT .paramValue label {
+    clear: none;
+    float: left;
+    margin: 0;
+    min-width: 0;
 }
 
-#JSPT .elementColumn{
-width:49%;
-float:left;
-overflow:hidden;
+#JSPT .paramlist_key{
+	background: #f0f0f0;
 }
 
-#JSPTedit #planeditheader .paramValue input{
-padding: 2px;
+#JSPT .xiParameter {
+}
+#JSPT .xiRow {
+    margin: 2px auto auto;
+    overflow: hidden;
+    width: 100%;
+}
+#JSPT .xiCol {
+    float: left;
+}
+#JSPT .xiColKey {
+    background-color: #F0F0F0;
+    border-bottom: 1px solid #E9E9E9;
+    border-right: 1px solid #E9E9E9;
+    color: #666666;
+    float: left;
+    font-weight: bold;
+    padding: 5px 3px 3px;
+    text-align: right;
+    width: 140px;
+}
+#JSPT .xiColKey label {
+    clear: none;
+    float: none;
+    margin: 0;
+    min-width: 0;
+}
+#JSPT .xiColValue {
+    float: left;
+    line-height: 22px;
+    margin-left: 1%;
+}
+#JSPT .xiColDescription {
+    color: #666666;
+    float: left;
+    font-weight: bold;
+    line-height: 22px;
+    text-decoration: underline;
+}
+#JSPT .xiColValue input {
+    float: left;
+    margin-top: 3px;
+}
+#JSPT .xiColValue select {
+    float: left;
+    margin-bottom: 0;
+    margin-top: 3px;
+}
+#JSPT .xiColValue label {
+    clear: none;
+    float: left;
+    margin: 0 2px;
+    min-width: 0;
 }
 
-#JSPT .elementParams{
-overflow:hidden;
-margin-top:5px;
-width:100%;
-margin:auto;
-margin-top:2px;
-}
-
-#JSPT .paramTitle{
-background-color: #F0F0F0;
-border-bottom:1px solid #e9e9e9;
-border-right:1px solid #e9e9e9;
-color:#666;
-float:left;
-font-weight: bold;
-padding:1px 3px 1px 1px;
-text-align: right;
-width:150px;
-}
-
-#JSPT .paramValue{
-float:left;
-margin-left:1%;
-padding:1px 1px 1px 3px;
-width:67%;
-}
-
-#JSPT .paramValue input{
-float:left;
-margin-top: 3px;
-
-}
-
-#JSPT .paramValue select{
-float:left;
-margin-top: 3px;
-}
-
-#JSPT .paramValue label{
-clear:none;
-float:left;
-margin-top:4px;
-min-width:25px;
-text-align:left;
-}
-
-/*  params */
-
-#JSPT .xiptParameter{
-}
-
-#JSPT .xiRow{
-overflow:hidden;
-margin-top:5px;
-width:100%;
-margin:auto;
-margin-top:2px;
-}
-
-#JSPT .xiCol{
-	float:left;
-}
-
-#JSPT .xiColKey{	
-background-color: #F0F0F0;
-border-bottom:1px solid #e9e9e9;
-border-right:1px solid #e9e9e9;
-color:#666;
-float:left;
-font-weight: bold;
-padding:1px 4px 1px 1px;
-text-align: right;
-width:150px;
-}
-
-#JSPT .xiColValue{	
-float:left;
-margin-left:1%;
-padding:3px 1px 1px 3px;
-width:50%;
-}
-
-#JSPT .xiColDescription{	
-float:left;
-line-height: 22px;
-font-weight: bold;
-color:#666;
-text-decoration: underline;
-}
-
-#JSPT .xiColValue input{
-float:left;
-margin-top:3px;
-}
-
-#JSPT .xiColValue select{
-float:left;
-margin-top:3px;
-}
-
-#JSPT .xiColValue label{
-clear:none;
-float:left;
-margin-top:4px;
-margin:3px 0;
-min-width:50px;
+#JSPT .paramlist tr td{
+	margin: 2px 0 0; 
 }
 
 
@@ -303,6 +289,5 @@ float:none;
 table.admintable td label {
 clear:none;
 display:inline;
-margin-right:20px;
 min-width:0;
 }
