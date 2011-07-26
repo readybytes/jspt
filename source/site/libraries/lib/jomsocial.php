@@ -74,7 +74,7 @@ class XiptLibJomsocial
 		if (XIPT_JOOMLA_15){
 			$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
 		}
-		if (XIPT_JOOMLA_16){
+		else{
 			$group = CACL::getInstance();
 			$groups[]=$group->getGroupID($newUsertype);			
 			JUserHelper::setUserGroups($userid,$groups);
@@ -138,13 +138,8 @@ class XiptLibJomsocial
 		$template = XiptLibProfiletypes::getUserData($visitingUser,'TEMPLATE');
 
 		//now update template @template
-		if($template){
-			//if(XIPT_JOOMLA_16)
-					//$instance->_jparams->set('template',$template);
-			//else 
-//				$instance->_jparam->set('template',$template);
+		if($template)
 				$instance->set('template',$template);
-		}
 			
 		return true;
 	}

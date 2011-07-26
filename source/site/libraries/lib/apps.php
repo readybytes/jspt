@@ -23,20 +23,23 @@ class XiptLibApps
                 continue;
             
             // we want to restrict only community apps and do not restrict our compo
-            if(XIPT_JOOMLA_16 && $app->get('_type') != 'community' && $app->get('_name') == 'xipt_community')
-                continue;
-
-            if(XIPT_JOOMLA_15 && $app->_type != 'community' && $app->_name == 'xipt_community')
-                continue;
-
+            if(XIPT_JOOMLA_15){
+	            if($app->_type != 'community' && $app->_name == 'xipt_community')
+	                continue;
+            }
+            
+            else{
+	            if($app->get('_type') != 'community' && $app->get('_name') == 'xipt_community')
+	                continue;
+            }
+            
 			if(method_exists($app,'onProfileDisplay') != $blockProfileApps)
 				continue;
-			if(XIPT_JOOMLA_16){
-				$appId    = XiptLibApps::getPluginId($app->get('_name'));
-			}
-			if (XIPT_JOOMLA_15){
-            	$appId    = XiptLibApps::getPluginId($app->_name);
-			}
+			if(XIPT_JOOMLA_15)
+				$appId    = XiptLibApps::getPluginId($app->_name);
+			else
+            	$appId    = XiptLibApps::getPluginId($app->get('_name'));
+			
            // is it not allowed
            if(in_array($appId,$notAllowedApps))
                unset($apps[$i]);
@@ -75,7 +78,7 @@ class XiptLibApps
 							->dbLoadQuery("","")
 							->loadObjectList('element');
 			}
-			if (XIPT_JOOMLA_16){
+			else{
 				$plugin[$folder] = $query->select('*')
 							->from('#__extensions')
 							->where(" `folder` = '$folder' ")
@@ -88,7 +91,7 @@ class XiptLibApps
 		if(isset($plugin[$folder][$element])){
 			if (XIPT_JOOMLA_15)
 				return $plugin[$folder][$element]->id;
-			if (XIPT_JOOMLA_16)
+			else
 				return $plugin[$folder][$element]->extension_id;
 		}
 			

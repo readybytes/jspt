@@ -36,21 +36,24 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	function _isPluginInstalledAndEnabled()
 	{
 		$communityPlugin = XiptHelperUtils::getPluginStatus('xipt_community');
-		if (XIPT_JOOMLA_15)
+		if (XIPT_JOOMLA_15){
 			if(!$communityPlugin || $communityPlugin->published == 0)
-				return false;	
-		if(XIPT_JOOMLA_16)	
+				return false;
+		}
+		else{
 			if(!$communityPlugin || $communityPlugin->enabled == 0)
 				return false;	
+		}
 		
 		$systemPlugin = XiptHelperUtils::getPluginStatus('xipt_system');
-		if (XIPT_JOOMLA_15)
+		if (XIPT_JOOMLA_15){
 			if(!$systemPlugin || $systemPlugin->published == 0)
 				return false;
-		if (XIPT_JOOMLA_16)
+		}
+		else{
 			if(!$systemPlugin || $systemPlugin->enabled == 0)
 				return false;
-		
+		}
 			
 		return true;
 	}

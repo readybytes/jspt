@@ -15,16 +15,16 @@ function _GetXiptMenus()
 
 	$dbo = JFactory::getDBO();
 	//use #__extensions for joomla 1.6
-	if (XIPT_JOOMLA_16){ 				
-		$dbo->setQuery(  " SELECT `extension_id` "
-					." FROM `#__extensions` "
-					." WHERE `element`='com_xipt' AND `client_id`=1"
-				);
-	}
 	if (XIPT_JOOMLA_15){ 				
 		$dbo->setQuery(  " SELECT `id` "
 					." FROM `#__components` "
 					." WHERE `option`='com_xipt' AND `iscore`=0"
+				);
+	}
+	else{ 				
+		$dbo->setQuery(  " SELECT `extension_id` "
+					." FROM `#__extensions` "
+					." WHERE `element`='com_xipt' AND `client_id`=1"
 				);
 	}
 	$XIPTCmpId 	= $dbo->loadResult();

@@ -9,10 +9,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 <script language="javascript" type="text/javascript">
 
 <?php 
-		If(XIPT_JOOMLA_16)
+		If(!XIPT_JOOMLA_15)
 		{
 			?>
-		/** FOR JOOMLA1.6 **/
+		/** FOR JOOMLA1.6++ **/
 		Joomla.submitbutton=function(action) {
 			submitbutton(action);
 		}

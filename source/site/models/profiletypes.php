@@ -55,9 +55,9 @@ class XiptModelProfiletypes extends XiptModel
         unset($data['id']);
                
 		//XITODO : bind params 
-		$registry	= new JRegistry();
-		$registry->loadArray($data);
-		$params	= $registry->toString('INI');
+		$param	= new XiptParameter();
+		$param->loadArray($data);
+		$params	= $param->toString('XiptINI');
 		
 		return $this->save(array($what => $params), $id);
 	}

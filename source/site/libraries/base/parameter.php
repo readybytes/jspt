@@ -72,6 +72,28 @@ class XiptParameter extends JParameter
 		return $html;
 	}
 
+	function bind($data, $group = '_default')
+	{
+		if (is_array($data)) {
+			return $this->loadArray($data, $group);
+		} elseif (is_object($data)) {
+			return $this->loadObject($data, $group);
+		} else {
+			return $this->loadINI($data, $group);
+		}
+	}
+	
+	public function loadINI($data, $namespace = null, $options = array())
+	{
+		//for 1.5 no change in behavior
+		if(XIPT_JOOMLA_15){
+			return parent::loadINI($data, $namespace, $options);
+		}
+		
+		//for 1.6+ we will use our own writer
+		return $this->loadString($data, 'XiptINI', $options);
+	}
+	
 //	function &loadElement( $type, $new = false )
 //	{
 //		$false = false;

@@ -108,6 +108,7 @@ class XiptControllerProfiletypes extends XiptController
 	    // Reset existing user's 
 		if($post['resetAll'] && isset($oldData)) {
 					
+			$newData = serialize($newData);
 			//new method 
 			$preTask = JRequest::getVar('task', 'save');
 			$session = JFactory::getSession();
@@ -142,6 +143,7 @@ class XiptControllerProfiletypes extends XiptController
 		$oldPtData = $session->get('oldPtData', '','jspt');
 		$newPtData = $session->get('newPtData', '', 'jspt');
 		
+		$newPtData = unserialize($newPtData);
 		$allUsers = XiptLibProfiletypes::getAllUsers($id);
 
 		if(!$allUsers)

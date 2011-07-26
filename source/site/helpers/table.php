@@ -8,12 +8,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperTable 
 {
-	static function isTableExist($tableName)
+	static function isTableExist($tableName, $prefix='#__')
 	{
-		$db		 	=	JFactory::getDBO();
+		$db		 	=	JFactory::getDbo();
 
 		//if table name consist #__ replace it.
-		$tableName	=	$db->replacePrefix($tableName);
+		$tableName = str_replace($prefix, $db->getPrefix(), $tableName);
 
 		//get table list
 		$tables	= array();

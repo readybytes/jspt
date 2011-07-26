@@ -18,18 +18,18 @@ class XiptModelApplications extends XiptModel
 		if($result== null){
 			$query = new XiptQuery();
 			
-			if (XIPT_JOOMLA_16){
+			if (XIPT_JOOMLA_15){
 				$result = $query->select('*')
-				        		->from('#__extensions')
+				        		->from('#__plugins')
 							    ->where(" `folder` = 'community' ")
 								->order('ordering')
 								->limit($limit,$limitstart)
 								->dbLoadQuery("","")
 								->loadObjectList($indexBy);
 			}
-			if (XIPT_JOOMLA_15){
+			else{
 				$result = $query->select('*')
-				        		->from('#__plugins')
+				        		->from('#__extensions')
 							    ->where(" `folder` = 'community' ")
 								->order('ordering')
 								->limit($limit,$limitstart)

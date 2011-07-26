@@ -15,15 +15,8 @@ class XiptLibJoomla
 	{
 		$values= array(JOOMLA_USER_TYPE_NONE);
 		$query 	= new XiptQuery();		
-		if(XIPT_JOOMLA_16)
+		if(XIPT_JOOMLA_15)
 		{			  $val	=	$query->select('*')
-			 		  ->from('#__usergroups' )
-			  		  ->dbLoadQuery("","")
-			  		  ->loadObjectList('title');
-			}		
-		elseif(XIPT_JOOMLA_15)
-		{		
-		$val	=	$query->select('*')
 			  			  ->from('#__core_acl_aro_groups' )
 			  			  ->where(" `name` <> 'ROOT' ", 'AND')
 			  			  ->where(" `name` <> 'USERS' ", 'AND')
@@ -33,6 +26,13 @@ class XiptLibJoomla
 			  			  ->where(" `name` <> 'Administrator' ", 'AND')
 			  			  ->dbLoadQuery("","")
 			  			  ->loadObjectList('name');
+			}		
+		else
+		{			 $val	=	$query->select('*')
+				 		  ->from('#__usergroups' )
+				  		  ->dbLoadQuery("","")
+				  		  ->loadObjectList('title');
+		
 		}
 		if($val)
 			return array_merge($values, array_keys($val)); 		

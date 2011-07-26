@@ -11,12 +11,10 @@ class XiptHelperUtils
 	function isAdmin($id)
 	{
 		$my	= JFactory::getUser($id);
-		if (XIPT_JOOMLA_15){	
+		if (XIPT_JOOMLA_15)
 			return ( $my->usertype == 'Super Administrator');
-		}
-		if (XIPT_JOOMLA_16){
+		else
 			return ( $my->usertype == 'deprecated' || $my->usertype == 'Super Users');
-		}
 	}
 	
 	function getFonts()
@@ -46,16 +44,16 @@ class XiptHelperUtils
 	static function changePluginState($plugin, $state=0)
 	{
 		$query = new XiptQuery();
-		if (XIPT_JOOMLA_16){
-			$result= $query->update('#__extensions')
-					 ->set(" `enabled` = $state ")
+		if (XIPT_JOOMLA_15){
+			$result= $query->update('#__plugins')
+					 ->set(" `published` = $state ")
 	          		 ->where(" `element` = '$plugin' ")
 	          		 ->dbLoadQuery("","")
 	          		 ->query();
 		}
-		if (XIPT_JOOMLA_15){
-			$result= $query->update('#__plugins')
-					 ->set(" `published` = $state ")
+		else{
+			$result= $query->update('#__extensions')
+					 ->set(" `enabled` = $state ")
 	          		 ->where(" `element` = '$plugin' ")
 	          		 ->dbLoadQuery("","")
 	          		 ->query();
@@ -67,16 +65,16 @@ class XiptHelperUtils
 	static function getPluginStatus($plugin)
 	{
 		$query = new XiptQuery();
-		if (XIPT_JOOMLA_16){
+		if (XIPT_JOOMLA_15){
 			return $query->select('*')
-					 ->from('#__extensions' )
+					 ->from('#__plugins' )
 					 ->where(" `element` = '$plugin' ")
 					 ->dbLoadQuery("","")
 	          		 ->loadObject();
 		}
-		if (XIPT_JOOMLA_15){
+		else{
 			return $query->select('*')
-					 ->from('#__plugins' )
+					 ->from('#__extensions' )
 					 ->where(" `element` = '$plugin' ")
 					 ->dbLoadQuery("","")
 	          		 ->loadObject();
@@ -134,7 +132,7 @@ class XiptHelperUtils
 		}
 
 		// Respect privacy settings.
-		if(XIPT_JOOMLA_16){
+		if(!XIPT_JOOMLA_15){
 			$my	= CFactory::getUser();
 			CFactory::load( 'libraries' , 'privacy' );
 			if( !CPrivacy::isAccessAllowed( $my->id , $userId , 'custom' , $field->access ) ){

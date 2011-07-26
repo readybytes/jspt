@@ -270,10 +270,10 @@ abstract class XiptModel extends JModel
 		$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
 		$iniData = JFile::read($iniPath);
 		
-		$registry	= new JRegistry();
-		$registry->loadINI($iniData);
-		$registry->loadArray($data);
-		$iniData	= $registry->toString('INI');
+		$param	= new XiptParameter();
+		$param->loadINI($iniData);
+		$param->loadArray($data);
+		$iniData	= $param->toString('XiptINI');
 		return $this->save(array($what => $iniData), $id);
 	}
 	
@@ -287,10 +287,7 @@ abstract class XiptModel extends JModel
 
 		XiptError::assert(JFile::exists($xmlPath), sprintf(XiptText::_("FILE_DOES_NOT_EXIST"),$xmlPath), XiptError::ERROR);
 		
-		/**	
-		//XiTODO Use XiptParatmeter Class
-		**/
-		$config = new JParameter($iniData,$xmlPath);
+		$config = new XiptParameter($iniData,$xmlPath);
 		if(isset($record[$id])) $config->bind($record[$id]->$what);	
 		
 		return $config;

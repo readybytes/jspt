@@ -91,9 +91,9 @@ abstract class XiptAclBase
 		if(!isset($postdata['aclparams']))
 			return "\n\n";
 
-		$registry	= new JRegistry();
-		$registry->loadArray($postdata['aclparams']);
-		return  $registry->toString('INI');
+		$param	= new XiptParameter();
+		$param->loadArray($postdata['aclparams']);
+		return  $param->toString('XiptINI');
 	}
 
 	function bind($data)

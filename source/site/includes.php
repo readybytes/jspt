@@ -27,6 +27,7 @@ if(JFile::exists($override))
 
 // require_once defines.php
 require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'ini.php';
 require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
 
 /*Load Langauge file*/
