@@ -13,7 +13,7 @@ class ImageTest extends XiUnitTestCase
   {
   	$row	= JTable::getInstance( 'profiletypes' , 'XiptTable' );
 	$row->load(2);
-	$config = new JParameter('','');
+	$config = new XiptParameter('','');
 	$config->bind($row->watermarkparams);
 	
   	$image = new XiptLibImage($config);
@@ -39,7 +39,7 @@ class ImageTest extends XiUnitTestCase
   	//case #1: when folder already exists
   	$row	= JTable::getInstance( 'profiletypes' , 'XiptTable' );
 	$row->load(3);
-	$config = new JParameter('','');
+	$config = new XiptParameter('','');
 	$config->bind($row->watermarkparams);
 	
   	$image = new XiptLibImage($config);

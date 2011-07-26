@@ -37,7 +37,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablephotos0");
     if(TEST_XIPT_JOOMLA_15)
 	    $this->click("//td[@id='toolbar-save']/a");
-    if(TEST_XIPT_JOOMLA_16)
+    else
 	    $this->click("//li[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     //check for reset link
@@ -61,7 +61,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablephotos0");
     if(TEST_XIPT_JOOMLA_15)
 	    $this->click("//td[@id='toolbar-save']/a");
-    if(TEST_XIPT_JOOMLA_16)
+    else
 	    $this->click("//li[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     
@@ -84,7 +84,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablephotos1");
     if(TEST_XIPT_JOOMLA_15)
 	    $this->click("//td[@id='toolbar-save']/a");
-    if(TEST_XIPT_JOOMLA_16)
+    else
 	    $this->click("//li[@id='toolbar-save']/a/span");
     $this->waitPageLoad();
     
@@ -128,7 +128,7 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("settingssubscription_integrate1");
     if(TEST_XIPT_JOOMLA_15)      	
   		$this->click("//td[@id='toolbar-save']/a");
-    if(TEST_XIPT_JOOMLA_16)
+    else
   	 	$this->click("//li[@id='toolbar-save']/a/span");
   	$this->waitPageLoad();
   }

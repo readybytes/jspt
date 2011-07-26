@@ -47,14 +47,13 @@ class RegisterTest extends XiSelTestCase
   		//#__etension for joomla 1.6 , parent is replaced by client_id and option is replaced by element
   		$db	    = JFactory::getDBO();
 
-  		if (TEST_XIPT_JOOMLA_16){
-  			$query  = "UPDATE `#__extensions` SET `params`='".$config."'"
-  					." WHERE `client_id`='0' AND `element` ='com_users' LIMIT 1";
-  		}
-
   		if (TEST_XIPT_JOOMLA_15){
   			$query  = "UPDATE `#__components` SET `params`='".$config."'"
   					." WHERE `iscore`='0' AND `option` ='com_users' LIMIT 1";
+  		}
+  		else{
+  			$query  = "UPDATE `#__extensions` SET `params`='".$config."'"
+  					." WHERE `client_id`='0' AND `element` ='com_users' LIMIT 1";
   		}
 
 		$db->setQuery($query);
@@ -93,10 +92,10 @@ class RegisterTest extends XiSelTestCase
   	//Prerequiste = clean session + No AEC + Our system plugin is working
   	//1. session cleaned via SQL
     // go to register location 
-   if(TEST_XIPT_JOOMLA_16)
+   if(TEST_XIPT_JOOMLA_15)
+   		$this->open(JOOMLA_LOCATION."/index.php?option=com_user&view=register");
+    else
     	$this->open(JOOMLA_LOCATION."index.php?option=com_users&view=registration");
-    if(TEST_XIPT_JOOMLA_15)
-    	$this->open(JOOMLA_LOCATION."/index.php?option=com_user&view=register");
     $this->waitPageLoad();
     $this->click("PROFILETYPE-".$ptype);
     
@@ -108,7 +107,7 @@ class RegisterTest extends XiSelTestCase
     if(TEST_XIPT_JOOMLA_15)
  	     $this->assertTrue($this->isTextPresent("Your account has been created and an activation link has been sent to the e-mail address you entered."));
     
- 	if(TEST_XIPT_JOOMLA_16)
+ 	else
  	    $this->assertTrue($this->isTextPresent("Thank you for registering. You may now log in using the username and password you registered with."));
  	
     
@@ -134,7 +133,7 @@ class RegisterTest extends XiSelTestCase
 	    $this->type("password2", $randomStr);
     }
     
-    if(TEST_XIPT_JOOMLA_16){
+    else{
         $this->type("jform_name", $randomStr);
    		$this->type("jform_username", $randomStr);
     	$this->type("jform_password1", $randomStr);
@@ -486,17 +485,17 @@ class RegisterTest extends XiSelTestCase
   		$this->assertTrue($this->isElementPresent("//li[@class='item61']/a"));
   		$this->click("//li[@class='item61']/a");
   	}
-  	 if(TEST_XIPT_JOOMLA_16){
+  	else{
   	 	  	$this->assertTrue($this->isElementPresent("//img[@alt='Profile Type 1 Registration']"));
   	 	  	$this->click("//img[@alt='Profile Type 1 Registration']");
   	 }	
   	$this->waitPageLoad();
   		
-  	if(TEST_XIPT_JOOMLA_16)
-  		$this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
-  	else
-  	// the selected profile is PROFILETYPE-2 
+  	if(TEST_XIPT_JOOMLA_15)
   		$this->assertTrue($this->isTextPresent("PROFILETYPE-2"));
+  	else
+  		$this->assertTrue($this->isTextPresent("PROFILETYPE-1"));
+  		
     $this->assertFalse($this->isTextPresent("PROFILETYPE-3"));
     $this->assertFalse($this->isTextPresent("PROFILETYPE-4"));//unpublished
     $this->assertTrue($this->isElementPresent("//dl[@id='system-message']"));

@@ -15,12 +15,10 @@ class ProfilefieldsTest extends XiSelTestCase
     $this->waitForPageToLoad("30000");
     $this->click("ptypeSelectAllALLOWED");
     //$this->click("allowedProfileType0");
-  	if(TEST_XIPT_JOOMLA_16){
+  	if(TEST_XIPT_JOOMLA_15)
+  		$this->click("//td[@id='toolbar-save']/a");
+	else
     	$this->click("//li[@id='toolbar-save']/a/span");
-    }
-    if(TEST_XIPT_JOOMLA_15){
-    	$this->click("//td[@id='toolbar-save']/a");
-    }
     $this->waitForPageToLoad("30000");
 
     // setup custom filters

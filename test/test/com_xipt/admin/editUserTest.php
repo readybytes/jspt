@@ -44,8 +44,7 @@ class EditUserTest extends XiSelTestCase
     $this->waitPageLoad();
     if(TEST_XIPT_JOOMLA_15)
     	$this->click("Basic Information-page");
-    	
-    if(TEST_XIPT_JOOMLA_16) 
+    else
     	$this->click("//dl[@id='profile-fields']/dt[2]/span");
     
     //
@@ -78,7 +77,7 @@ class EditUserTest extends XiSelTestCase
 	if(TEST_XIPT_JOOMLA_15)
 		$this->click("//td[@id='toolbar-save']/a/span");
 
-	if(TEST_XIPT_JOOMLA_16) 
+	else
 	    $this->click("//li[@id='toolbar-save']/a/span");
 	
 	$this->waitPageLoad();
@@ -91,7 +90,7 @@ class EditUserTest extends XiSelTestCase
     if(TEST_XIPT_JOOMLA_15)
     	$this->click("Basic Information-page");
     	
-    if(TEST_XIPT_JOOMLA_16) 
+    else
     	$this->click("//dl[@id='profile-fields']/dt[2]/span");
     
     foreach ($Avail[$ptype] as $p){
@@ -128,7 +127,7 @@ class EditUserTest extends XiSelTestCase
     if(TEST_XIPT_JOOMLA_15)
     	$this->click("Basic Information-page");
     	
-    if(TEST_XIPT_JOOMLA_16) 
+    else
     	$this->click("//dl[@id='profile-fields']/dt[2]/span"); 
     	
     XiptLibJomsocial::cleanStaticCache(true);
@@ -157,7 +156,7 @@ class EditUserTest extends XiSelTestCase
 	if(TEST_XIPT_JOOMLA_15)
 		$this->click("//td[@id='toolbar-save']/a/span");
 	    	
-    if(TEST_XIPT_JOOMLA_16) 
+    else
     	$this->click("link=Save & Close");
 	
 	$this->waitPageLoad();
@@ -200,7 +199,7 @@ class EditUserTest extends XiSelTestCase
     if(TEST_XIPT_JOOMLA_15)
     	$this->click("Basic Information-page");
     	
-    if(TEST_XIPT_JOOMLA_16) 
+    else
     	$this->click("//dl[@id='profile-fields']/dt[2]/span"); 
 	  		
 	// template field id is 16 (from sql)
@@ -212,7 +211,7 @@ class EditUserTest extends XiSelTestCase
 	$this->select("field16", "value=".$newTemplate[$userid]);
 	if (TEST_XIPT_JOOMLA_15)
 		$this->click("//td[@id='toolbar-save']/a/span");
-	if (TEST_XIPT_JOOMLA_16)
+	else
 		$this->click("//li[@id='toolbar-save']/a/span");
 	$this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
@@ -252,7 +251,7 @@ function testEditUserTemplateProfiletype()
     if(TEST_XIPT_JOOMLA_15)
     	$this->click("Basic Information-page");
     	
-    if(TEST_XIPT_JOOMLA_16) 
+    else 
     	$this->click("//dl[@id='profile-fields']/dt[2]/span"); 
     
 	
@@ -271,7 +270,7 @@ function testEditUserTemplateProfiletype()
 
 	if (TEST_XIPT_JOOMLA_15)
 		$this->click("//td[@id='toolbar-save']/a/span");
-	if (TEST_XIPT_JOOMLA_16)
+	else
 		$this->click("//li[@id='toolbar-save']/a/span");
 	$this->waitPageLoad();
 	$this->assertTrue($this->isTextPresent("User updated successfully"));
@@ -308,7 +307,7 @@ function testEditUserTemplateProfiletype()
     $this->click("//input[contains(@type,'checkbox')][contains(@value,'".$userid."')]");
     if(TEST_XIPT_JOOMLA_15)
        $this->click("//td[@id='toolbar-delete']/a/span");
-    if(TEST_XIPT_JOOMLA_16)
+    else
        $this->click("//li[@id='toolbar-delete']/a/span");
     $this->waitPageLoad();
     $this->assertTrue($this->checkDeletedUser($userid));

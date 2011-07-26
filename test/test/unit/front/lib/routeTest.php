@@ -143,7 +143,7 @@ class RouterTest extends XiUnitTestCase
 				
 			}
 			
-			if (TEST_XIPT_JOOMLA_16){
+			else{
 				$url = array(
 		
 				// if option= com_community return CRoute

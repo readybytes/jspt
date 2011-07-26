@@ -19,7 +19,8 @@ class XiptControllerProfiletypesTest extends XiUnitTestCase
 		$newData = $newData[$id];
 		$newData->privacy = $model->loadParams($id,'privacy');
   		$newData->template = 'default';		
-  		  		
+
+  		$newData = serialize($newData);
   		$session = JFactory::getSession();
 		$session->set('oldPtData',$oldData,'jspt');
 		$session->set('newPtData',$newData,'jspt');

@@ -24,7 +24,7 @@ class SyncUpTest extends XiSelTestCase
   	if(TEST_XIPT_JOOMLA_15){
 		$this->click("//td[@id='toolbar-save']/a/span");
     }
-    if(TEST_XIPT_JOOMLA_16){
+    else{
     	$this->click("//li[@id='toolbar-save']/a/span");
     }
     $this->waitPageLoad();
@@ -34,6 +34,7 @@ class SyncUpTest extends XiSelTestCase
   { 
   	$this->_DBO->addTable('#__community_users');
   	$this->_DBO->addTable('#__xipt_users');
+  	$this->_DBO->filterColumn('#__community_users', 'params');
   	$this->adminLogin();
 	$this->createProfileType();
  	

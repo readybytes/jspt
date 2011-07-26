@@ -48,10 +48,10 @@ class XiptResetWatermarkTest extends XiUnitTestCase
    	//Case::1(Existing User) Reset all with add water-mark 
   	function testResetAllCase1()
   	{
-  		if (TEST_XIPT_JOOMLA_16)
-  			$this->reloadUser(Array(42,63,64));
   		if (TEST_XIPT_JOOMLA_15)
   			$this->reloadUser(Array(62,63,64));
+  		else
+  			$this->reloadUser(Array(42,63,64));
   		$post = $this->getPostValue();
   		$path = $this->setPath(); 
   		$post['watermarkparams']=Array('enableWaterMark'=> 1, 'xiText'=>'P');
@@ -76,19 +76,19 @@ class XiptResetWatermarkTest extends XiUnitTestCase
 		JFile::copy($au_avatar, $path['avatarPath']);
 		JFile::copy($au_thumb, $path['thumbPath']);
 		$this->cleanStaticCache();
-		if (TEST_XIPT_JOOMLA_16)
-			$this->reloadUser(Array(42,63,64));
 		if (TEST_XIPT_JOOMLA_15)
-			$this->reloadUser(Array(62,63,64));
+  			$this->reloadUser(Array(62,63,64));
+  		else
+  			$this->reloadUser(Array(42,63,64));
   	}
 
   	//Case::2 (On existing User) Reset all then test watr-mark remove
   	function testResetAllCase2()
   	{
-  		if (TEST_XIPT_JOOMLA_16)
-  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   		if (TEST_XIPT_JOOMLA_15)
   			$this->reloadUser(Array(62,87,85,86,84,83,82,81,80,79));
+  		else
+  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   		$this->cleanStaticCache();
   		$post = $this->getPostValue();
   		$path = $this->setPath();
@@ -116,10 +116,10 @@ class XiptResetWatermarkTest extends XiUnitTestCase
 		JFile::delete(USER_AVATAR_BACKUP.'/case2_avatar.jpg');
 		JFile::delete(USER_AVATAR_BACKUP.'/case2_thumb.jpg');
 		$this->cleanStaticCache();
-		if (TEST_XIPT_JOOMLA_16)
-			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
 		if (TEST_XIPT_JOOMLA_15)
 			$this->reloadUser(Array(62,87,85,86,84,83,82,81,80,79));
+		else
+			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   	}
   
 	//Case3: wtr-mark already disable den Reset all. Test watr-mark not apply 
@@ -139,10 +139,10 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   		$this->checkImage($path['custom_avatar'], $path['copy_custom_avatar']);
   		$this->checkImage($path['custom_thumb'], $path['copy_thumb_custom_avatar']);
   		$this->cleanStaticCache();
-  		if (TEST_XIPT_JOOMLA_16)
-  			$this->reloadUser(Array(42,79,80,81,82,83,84,85,86,87));
   		if (TEST_XIPT_JOOMLA_15)
   			$this->reloadUser(Array(62,79,80,81,82,83,84,85,86,87));
+  		else
+  			$this->reloadUser(Array(42,79,80,81,82,83,84,85,86,87));
 		$filter['debug']=1;
 		$this->updateJoomlaConfig($filter);
   	}
@@ -165,10 +165,10 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   		$this->assertEquals(md5_file($path['default_avatar']), $au_default_avatar);
   		$this->assertEquals(md5_file($path['default_thumb']), $au_default_thumb);
   		$this->cleanStaticCache();
-  		if (TEST_XIPT_JOOMLA_16)
-  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   		if (TEST_XIPT_JOOMLA_15)
   			$this->reloadUser(Array(62,87,85,86,84,83,82,81,80,79));
+  		else
+  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   	}
 
   	//case:5 Test,  water-mark not on existing user and watr-mark not apply by reset all
@@ -185,19 +185,19 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   		$this->checkImage($path['custom_avatar'],$path['copy_custom_avatar']);
   		$this->checkImage($path['custom_thumb'], $path['copy_thumb_custom_avatar']);
   		$this->cleanStaticCache();
-  		if (TEST_XIPT_JOOMLA_16)
-  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   		if (TEST_XIPT_JOOMLA_15)
   			$this->reloadUser(Array(62,87,85,86,84,83,82,81,80,79));
+  		else
+  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   	}
   	
   	//case:6, Test water-mark change according  watr-mark param 
   	function testResetAllCase6() 
   	 {
-  	 	if (TEST_XIPT_JOOMLA_16)
-  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
-  		if (TEST_XIPT_JOOMLA_15)
+  	 	if (TEST_XIPT_JOOMLA_15)
   			$this->reloadUser(Array(62,87,85,86,84,83,82,81,80,79));
+  		else
+  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
   		$post = $this->getPostValue();
   		$path = $this->setPath();
   		 		$this->cleanStaticCache();
@@ -229,10 +229,10 @@ class XiptResetWatermarkTest extends XiUnitTestCase
 		JFile::delete(USER_AVATAR_BACKUP.'/case2_avatar.jpg');
 		JFile::delete(USER_AVATAR_BACKUP.'/case2_thumb.jpg');
 		$this->cleanStaticCache();
-		if (TEST_XIPT_JOOMLA_16)
-  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
-  		if (TEST_XIPT_JOOMLA_15)
+		if (TEST_XIPT_JOOMLA_15)
   			$this->reloadUser(Array(62,87,85,86,84,83,82,81,80,79));
+  		else
+  			$this->reloadUser(Array(42,87,85,86,84,83,82,81,80,79));
 		
 		$this->cleanImage();
   	}

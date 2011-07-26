@@ -204,7 +204,7 @@ class AclRulesUITest extends XiSelTestCase
 		$this->open("index.php?option=com_community&view=profile&task=editPage&Itemid=53");
 //		if (TEST_XIPT_JOOMLA_15)
 //			$this->click("link=Applications");
-//		if (TEST_XIPT_JOOMLA_16)
+//		else
 //		$this->click("link=Edit My Page");
   		$this->waitForPageToLoad();
   		$this->click("//div[@id='community-wrap']/div[3]/div[1]/div[2]/a/span");

@@ -21,7 +21,7 @@ class AclRulesTest extends XiSelTestCase
   	if(TEST_XIPT_JOOMLA_15){
 		$this->click("//td[@id='toolbar-new']/a");
     }
-    if(TEST_XIPT_JOOMLA_16){
+    else{
     	$this->click("//li[@id='toolbar-new']/a/span");
     }
     $this->waitPageLoad();
@@ -35,7 +35,7 @@ class AclRulesTest extends XiSelTestCase
     if(TEST_XIPT_JOOMLA_15){
 		$this->click("//td[@id='toolbar-save']/a/span");
     }
-    if(TEST_XIPT_JOOMLA_16){
+    else{
     	$this->click("//li[@id='toolbar-save']/a/span");
     }
     $this->waitPageLoad();

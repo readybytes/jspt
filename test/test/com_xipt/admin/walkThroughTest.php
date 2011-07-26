@@ -19,7 +19,7 @@ class WalkThroughTest extends XiSelTestCase
   	$this->click("cb0");
   	if(TEST_XIPT_JOOMLA_15)
   		$this->click("//td[@id='toolbar-edit']/a/span");
-  	if(TEST_XIPT_JOOMLA_16)
+  	else
   		$this->click("//li[@id='toolbar-edit']/a/span");
   	$this->waitPageLoad();
   	
@@ -28,9 +28,8 @@ class WalkThroughTest extends XiSelTestCase
   	if(TEST_XIPT_JOOMLA_15){
   		$this->click("Settings");
   		$this->click("//td[@id='toolbar-save']/a/span");
-  	}
-  		
-  	if(TEST_XIPT_JOOMLA_16){
+  	}  		
+    else{
   		$this->click("//dl[@id='createMicroIntegration']/dt[2]/span");
   		$this->click("//li[@id='toolbar-save']/a/span");
   	}

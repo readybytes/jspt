@@ -191,7 +191,7 @@ class ProfileTest extends XiSelTestCase
         $appsNames[47]='latestphoto'; 
         $appsNames[48]='myarticles'; 
 	}
-	if(TEST_XIPT_JOOMLA_16){
+	else{
 		$allApps=array(44,45,47,48);
   		$allowedApps[1]=array(44,45,47,48);
   		$allowedApps[2]=array(45,47,48);
@@ -555,7 +555,7 @@ class ProfileTest extends XiSelTestCase
   	If(TEST_XIPT_JOOMLA_15)
   		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
 	// see jom-socaial front page
-  	If(TEST_XIPT_JOOMLA_16)
+  	else
 		    $this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(2);
@@ -564,7 +564,7 @@ class ProfileTest extends XiSelTestCase
   	$this->frontLogin("gaurav1","gaurav1");
   	If(TEST_XIPT_JOOMLA_15)
   		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
-	If(TEST_XIPT_JOOMLA_16)
+	else
 		    $this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(1);

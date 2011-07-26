@@ -267,7 +267,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     		$test->_DBO->loadSql($dbDump15);
     	}
     }
-    if (TEST_XIPT_JOOMLA_16){
+    else{
     	$dbDump16      =  $sqlPath.'/16/'.$testName.'.start.sql';
     	if(file_exists($dbDump16)){
     		$test->_DBO->loadSql($dbDump16);
@@ -298,7 +298,7 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     		$test->_DBO->loadSql($dbDump15);
     	}
     }
-    if (TEST_XIPT_JOOMLA_16){
+    else{
     	$dbDump16      =  $sqlPath.'/16/'.$testName.'.end.sql';
     	if(file_exists($dbDump16)){
     		$test->_DBO->loadSql($dbDump16);

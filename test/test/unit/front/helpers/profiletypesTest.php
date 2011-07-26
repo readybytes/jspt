@@ -103,5 +103,6 @@ class XiptProfiletypesHelperTest extends XiUnitTestCase
 		$this->_DBO->addTable('#__community_users');
 		$this->_DBO->addTable('#__xipt_users');
 		$this->_DBO->addTable('#__community_groups_members');
+		$this->_DBO->filterColumn('#__community_users', 'params');
 	}
 }
