@@ -352,7 +352,7 @@ class plgSystemxipt_system extends JPlugin
 			return false;
 		// when we are getting Html of select list(for Profile-Types) 
 		//then  don't addd "\n" at end of line
-		if(XIPT_JOOMLA_16){
+		if(!XIPT_JOOMLA_15){
 			JHtml::$formatOptions= array_merge(
 								   JHtml::$formatOptions,
 									array('format.eol' => ""));
@@ -368,8 +368,7 @@ class plgSystemxipt_system extends JPlugin
         $doc = JFactory::getDocument();
 		if(XIPT_JOOMLA_15)
         	JHTML::script('jquery1.4.2.js','components/com_xipt/assets/js/', true);
-		
-       	if(XIPT_JOOMLA_16)
+        else
         	JHTML::script('components/com_xipt/assets/js/jquery1.4.2.js');
         
         $doc->addCustomTag( '<script type="text/javascript">jQuery.noConflict();</script>' );
@@ -388,7 +387,7 @@ class plgSystemxipt_system extends JPlugin
     	if(XIPT_JOOMLA_15){
 			$menus = JSite::getMenu();
     	}
-		if(XIPT_JOOMLA_16){
+		else{
 			//$menus = JApplication::getMenu('site');
 			//XiTODO::Improve this code;
 			include_once JPATH_ROOT.DS.'administrator/components/com_menus/models/items.php';

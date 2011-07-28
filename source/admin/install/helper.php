@@ -7,7 +7,7 @@ defined('_JEXEC') or die();
 
 jimport( 'joomla.filesystem.folder' );
 jimport( 'joomla.filesystem.file' );
-
+require_once JPATH_ROOT.DS.'components'.DS.'com_xipt' .DS. 'includes.php';
 class XiptHelperInstall
 {
 	function show_instruction()
@@ -101,15 +101,15 @@ class XiptHelperInstall
 	{
 	  
 		$db		= JFactory::getDBO();
-		if (XIPT_JOOMLA_16){
-			$query	= 'UPDATE ' . $db->nameQuote( '#__extensions' )
-					. ' SET '.$db->nameQuote('enabled').'='.$db->Quote($action)
-			  		.' WHERE '. $db->nameQuote('element').'='.$db->Quote($pluginname) . "  AND `type`='plugin' ";
-		}
 		if (XIPT_JOOMLA_15){
 			$query	= 'UPDATE ' . $db->nameQuote( '#__plugins' )
 					. ' SET '.$db->nameQuote('published').'='.$db->Quote($action)
 			  		.' WHERE '. $db->nameQuote('element').'='.$db->Quote($pluginname);
+		}
+		else{
+			$query	= 'UPDATE ' . $db->nameQuote( '#__extensions' )
+					. ' SET '.$db->nameQuote('enabled').'='.$db->Quote($action)
+			  		.' WHERE '. $db->nameQuote('element').'='.$db->Quote($pluginname) . "  AND `type`='plugin' ";
 		}
 	
 		$db->setQuery($query);		
@@ -188,7 +188,7 @@ class XiptHelperInstall
 		$result = $db->loadResult();
 		
 		// get the required params in array form
-		$params = new JParameter('','');
+		$params = new XiptParameter();
 		$params->bind($result);
 		$regconfig['jspt_restrict_reg_check'] 	= $params->get('jspt_restrict_reg_check',0);
 		$regconfig['jspt_prevent_username'] 	= $params->get('jspt_prevent_username', 'moderator; admin; support; owner; employee');
@@ -196,9 +196,9 @@ class XiptHelperInstall
 		$regconfig['jspt_prevent_email'] 		= $params->get('jspt_prevent_email', '');		
 				
 		// convert email settings into INI
-		$regParams = new JRegistry('xipt_registraion');
+		$regParams = new XiptParameter();
 		$regParams->loadArray($regconfig);
-		$regINI = $regParams->toString();
+		$regINI = $regParams->toString('XiptINI');
 		
 		// update the profile types table foe column config
 		$query = 'UPDATE '. $db->nameQuote('#__xipt_profiletypes')
@@ -212,9 +212,9 @@ class XiptHelperInstall
 		unset($settingParamsArray['jspt_prevent_username']);
 		unset($settingParamsArray['jspt_allowed_email']);
 		unset($settingParamsArray['jspt_prevent_email']);
-		$settingParams = new JRegistry('xipt_settings');
+		$settingParams = new XiptParameter();
 		$settingParams->loadarray($settingParamsArray);
-		$settingsINI = $settingParams->toString();		
+		$settingsINI = $settingParams->toString('XiptINI');		
 		
 		// save again the whole params (filtered by email params) in settings table
 		$query = 'UPDATE '. $db->nameQuote('#__xipt_settings')
@@ -236,7 +236,7 @@ class XiptHelperInstall
 					$privacy = array();
 					$privacy['privacyprofile'] =  self::_update_privacy_param( $profiletypeResult[$i]->privacy);
 					 
-					$JSParams = new JParameter($profiletypeResult[$i]->params);
+					$JSParams = new XiptParameter($profiletypeResult[$i]->params);
 					 //do not inclde profileprivacy
 					$privacyKey=array('privacyfriends','privacyphotos','privacyemail','privacyapps','privacywallcomment');
 				
@@ -252,9 +252,9 @@ class XiptHelperInstall
 						}				
 					}	
 				
-	    	        $registry	= JRegistry::getInstance( 'xipt' );
+	    	        $registry	= XiptParameter();
 					$registry->loadArray($privacy,'xipt_privacyparams');
-					$Privacyparams =  $registry->toString('INI' , 'xipt_privacyparams' );
+					$Privacyparams =  $registry->toString('XiptINI' , 'xipt_privacyparams' );
 		    	   	 
 					$profiletypeResult[$i]->privacy = $Privacyparams;
 					  
@@ -391,14 +391,14 @@ class XiptHelperInstall
 		$aclrules = $db->loadObjectList();
 	
 		foreach($aclrules as $data){
-			$registry	= new JRegistry();
+			$registry	= new XiptParameter();
 			
 			$registry->loadINI($data->coreparams);
 			$params = $registry->toArray();
 			$params['core_display_message'] = base64_encode($params['core_display_message']);
 	
 			$registry->loadArray($params);
-			$iniParamData	= $registry->toString('INI');
+			$iniParamData	= $registry->toString('XiptINI');
 			$query = 'UPDATE `#__xipt_aclrules`' 
 					.' SET `coreparams`='.$db->Quote($iniParamData)
 					.'WHERE '.$db->nameQuote('id').'='.$db->Quote($data->id).'';
@@ -430,7 +430,7 @@ class XiptHelperInstall
 		require_once JPATH_ROOT .DS. 'components' .DS. 'com_xipt' .DS. 'defines.php';
 		$db		= JFactory::getDBO();
 		$query	= 'UPDATE #__xipt_settings'
-				.' SET '. $db->nameQuote('params') .' = '.$db->Quote('@global.version@.@svn.lastrevision@')
+				.' SET '. $db->nameQuote('params') .' = '.$db->Quote('3.2.695')
 				.' WHERE '. $db->nameQuote('name') .' = '.$db->Quote('version');
 		$db->setQuery($query);
 		return $db->query();

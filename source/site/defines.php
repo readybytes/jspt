@@ -139,7 +139,7 @@ if (XIPT_JOOMLA_15){
 define('XIPT_JOOMLA_EXT_ID','id');
 define('XIPT_JOOMLA_MENU_COMP_ID','componentid');
 }
-if (XIPT_JOOMLA_16){
+else{
 define('XIPT_JOOMLA_EXT_ID','extension_id');
 define('XIPT_JOOMLA_MENU_COMP_ID','component_id');
 }
