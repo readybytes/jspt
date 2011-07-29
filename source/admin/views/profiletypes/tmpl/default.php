@@ -124,9 +124,9 @@ function submitbutton( action )
 			<td align="center" id="approve<?php echo $field->id;?>">
 				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->approve ? 'switchOffapprove' : 'switchOnapprove' ?>')">
 					<?php if($field->approve) : ?>
-						<img src="images/tick.png" width="16" height="16" border="0" alt="Admin Approve" />
+						<img src="../components/com_xipt/assets/images/tick.png" width="16" height="16" border="0" alt="Admin Approve" />
 					<?php else : ?> 
-						<img src="images/publish_x.png" width="16" height="16" border="0" alt="Auto Approve" />
+						<img src="../components/com_xipt/assets/images/publish_x.png" width="16" height="16" border="0" alt="Auto Approve" />
 					<?php endif; ?>
 				</a>			
 			</td>			
@@ -134,9 +134,9 @@ function submitbutton( action )
 			<td align="center" id="published<?php echo $field->id;?>">
 				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->published ? 'switchOffpublished' : 'switchOnpublished' ?>')">
 					<?php if($field->published) : ?>
-						<img src="images/tick.png" width="16" height="16" border="0" alt="Published" />
+						<img src="../components/com_xipt/assets/images/tick.png" width="16" height="16" border="0" alt="Published" />
 					<?php else : ?> 
-						<img src="images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" />
+						<img src="../components/com_xipt/assets/images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" />
 					<?php endif; ?>
 				</a>
 			</td>
@@ -144,9 +144,9 @@ function submitbutton( action )
 			<td align="center" id="visible<?php echo $field->id;?>">
 				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $field->visible ? 'switchOffvisible' : 'switchOnvisible' ?>')">
 					<?php if($field->visible) : ?>
-						<img src="images/tick.png" width="16" height="16" border="0" alt="Visible" />
+						<img src="../components/com_xipt/assets/images/tick.png" width="16" height="16" border="0" alt="Visible" />
 					<?php else : ?>
-						<img src="images/publish_x.png" width="16" height="16" border="0" alt="Invisible" />
+						<img src="../components/com_xipt/assets/images/publish_x.png" width="16" height="16" border="0" alt="Invisible" />
 					<?php endif; ?>
 				</a>					
 			</td>

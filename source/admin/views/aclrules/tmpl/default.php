@@ -99,12 +99,12 @@ function submitbutton( action )
 				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $rule->published ? 'switchOffpublished' : 'switchOnpublished' ?>')">
 							<?php if($rule->published)
 							{ ?>
-								<img src="images/tick.png" width="16" height="16" border="0" alt="Published" />
+								<img src="../components/com_xipt/assets/images/tick.png" width="16" height="16" border="0" alt="Published" />
 							<?php 
 							}
 							else 
 							{ ?>
-								<img src="images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" />
+								<img src="../components/com_xipt/assets/images/publish_x.png" width="16" height="16" border="0" alt="Unpublished" />
 						<?php 
 							} //echo $published;
 						?>
