@@ -11,7 +11,6 @@ INSERT INTO `#__community_fields`
 DROP TABLE IF EXISTS `au_#__community_fields`;; /*Create fields*/
 CREATE TABLE `au_#__community_fields` SELECT * FROM  `#__community_fields`  ;;
 
-
 INSERT INTO `au_#__community_fields` 
 (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES
 (3, 'templates', 10, 1, 10, 100, 'Template', 'Template Of User', 1, 1, 1, 1, '', 'XIPT_TEMPLATE'),

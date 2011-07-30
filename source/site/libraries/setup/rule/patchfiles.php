@@ -10,11 +10,11 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 {
 	function isRequired()
 	{
-		$modelPatch   = $this->isModelFilePatchRequired();
-		$userPatch    = $this->isAdminUserModelPatchRequired();
-		$xmlPatch     = $this->isXMLFilePatchRequired();
-		$libraryField = $this->isCustomLibraryFieldRequired();
-		
+		$modelPatch   = self::isModelFilePatchRequired();
+		$userPatch    = self::isAdminUserModelPatchRequired();
+		$xmlPatch     = self::isXMLFilePatchRequired();
+		$libraryField = self::isCustomLibraryFieldRequired();
+
 		return ($modelPatch || $userPatch || $xmlPatch || $libraryField);
 	}
 	
@@ -259,11 +259,11 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	{
 		$pFileName 	 = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.PROFILETYPE_FIELD_TYPE_NAME.'.php';
 		$pXiFileName = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'front_libraries_fields_profiletypes.php';
-		$pLibrary    = $this->deleteJSOldFile($pFileName,$pXiFileName);
+		$pLibrary    = self::deleteJSOldFile($pFileName,$pXiFileName);
 		
 		$tFileName = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.TEMPLATE_FIELD_TYPE_NAME.'.php';
     	$tXiFileName = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'front_libraries_fields_templates.php';
-		$tLibrary = $this->deleteJSOldFile($tFileName,$tXiFileName);
+		$tLibrary = self::deleteJSOldFile($tFileName,$tXiFileName);
 
 		if($pLibrary && $tLibrary)
 			return false;

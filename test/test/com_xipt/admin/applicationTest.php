@@ -19,7 +19,8 @@ function getSqlPath()
     //db verification settings
       	$this->_DBO->addTable('#__xipt_applications');
     	$this->_DBO->filterColumn('#__xipt_applications','id');	
-  		$this->_DBO->filterOrder('#__xipt_applications','id');	
+    	if(!TEST_XIPT_JOOMLA_15)
+  		  $this->_DBO->filterOrder('#__xipt_applications','id');	
   
     
     

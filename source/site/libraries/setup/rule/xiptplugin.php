@@ -10,17 +10,29 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 {
 	function isRequired()
 	{	
-		return (!$this->_isPluginInstalledAndEnabled());
+		$jsfield_isrequired=XiptSetupRuleJsfields::isRequired();
+	    $patchfiles_isrequired=XiptSetupRulePatchfiles::isRequired();
+		return ($this->_isJSMultiPTypeEnabled() || !$this->_isPluginInstalledAndEnabled()|| $jsfield_isrequired|| $patchfiles_isrequired);
 	}
 	
 	function doApply()
-	{
-		if(XiptHelperUtils::changePluginState('xipt_community', 1) == false
+	{ 
+		$msg = "";
+		if(CConfig::getInstance()->get('profile_multiprofile',0)){
+			XiptLibJomsocial::saveValueinJSConfig();
+			$msg=XiptText::_("JS_MULTIPROFILETYPE_DISABLED");
+		}
+		
+		   if(XiptHelperUtils::changePluginState('xipt_community', 1) == false
 			|| XiptHelperUtils::changePluginState('xipt_system', 1) == false)
-			return false;
+				$msg .= XiptText::_("PLUGINS_NOT_ENABLE") ; 
+			else
+				$msg.=XiptText::_("PLUGINS_ENABLED_SUCCESSFULLY") ;
+		$msg.=  XiptSetupRuleJsfields::doApply();
+		$msg.=  XiptSetupRulePatchfiles::doApply();
 			
-		return XiptText::_("PLUGIN_ENABLED_SUCCESSFULLY");
-	}
+		return $msg;	
+			}
 	
 	function doRevert()
 	{
@@ -65,16 +77,21 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 		if($this->isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=xiptplugin",false);
-			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_ENABLE_PLUGIN").'</a>';
+			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_ENABLE_ESSENTIAL_SETTINGS").'</a>';
 			$requiredSetup['done']  = false;
 		}
 		
 		else
 		{
-			$requiredSetup['message']  = XiptText::_("PLUGINS_ARE_ENABLED");
+			$requiredSetup['message']  = XiptText::_("ESSENTIALS_SETTINGS_DONE");
 			$requiredSetup['done']  = true;
 		}
 			
 		return $requiredSetup;
+	}
+
+	function _isJSMultiPTypeEnabled()
+	{
+		return CConfig::getInstance()->get('profile_multiprofile',0);	
 	}
 }

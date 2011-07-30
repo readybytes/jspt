@@ -10,43 +10,43 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 {
 	function isRequired()
 	{
-		$fields = $this->_checkExistance();
+		$fields = self::_checkExistance();
 		if(!$fields || count($fields)!= 2)
 			return true;
 
 		$tmpField = $fields[TEMPLATE_CUSTOM_FIELD_CODE];
 		$ptField  = $fields[PROFILETYPE_CUSTOM_FIELD_CODE];
-		
+
 		return (!($tmpField->published && $ptField->published));
 	}
 	
 	function doApply()
 	{
-		if($this->isRequired()== false)
+		if(self::isRequired()== false)
 			return XiptText::_("CUSTOM_FIELD_ALREADY_CREATED_AND_ENABLED_SUCCESSFULLY");
 			
-		$fields = $this->_checkExistance();
+		$fields = self::_checkExistance();
 			
 		$tFieldCreated = true;
 		if(isset($fields[TEMPLATE_CUSTOM_FIELD_CODE])===false)
-			$tFieldCreated = $this->createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
+			$tFieldCreated = self::createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
 		
 		$pFieldCreated  = true;
 		if(isset($fields[PROFILETYPE_CUSTOM_FIELD_CODE])===false)
-			$pFieldCreated  = $this->createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
+			$pFieldCreated  = self::createCustomField(PROFILETYPE_CUSTOM_FIELD_CODE);
 			
-		$fieldEnabled = $this->_switchFieldState(1);;
+		$fieldEnabled = self::_switchFieldState(1);
 
 				
 		if($pFieldCreated && $tFieldCreated && $fieldEnabled)
-			return XiptText::_("CUSTOM_FIELD_CREATED_AND_ENABLED_SUCCESSFULLY");
-			
+		return  XiptText::_("CUSTOM_FIELD_CREATED_AND_ENABLED_SUCCESSFULLY");
+	
 		return XiptText::_("CUSTOM_FIELDS_ARE_NOT_CREATED_OR_ENABLED");
 	}
 	
 	function doRevert()
 	{
-		return $this->_switchFieldState(0);
+		return self::_switchFieldState(0);
 	}
 	
 	//check existance of custom fields profiletype and template
@@ -108,7 +108,7 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 	function getMessage()
 	{
 		$requiredSetup = array();
-		if($this->isRequired())
+		if(self::isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=jsfields",false);
 			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_CREATE_AND_ENABLE_CUSTOM_FIELDS").'</a>';

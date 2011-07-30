@@ -497,4 +497,18 @@ class XiptLibJomsocial
 			
 		return $reset;
 	}
+	// to save value of JS multiprofiletype in  _config table
+	function saveValueinJSConfig($setValue=0)
+	{  
+		CFactory::load('helpers', 'string');
+		$config	= JTable::getInstance( 'configuration' , 'CommunityTable' );
+		$config->load( 'config' );
+		$params	= new JParameter( $config->params );
+		$params->set('profile_multiprofile',$setValue);
+		$config->params	= $params->toString();
+		if(!$config->store())
+			return false;
+
+		return true;
+	}
 }
