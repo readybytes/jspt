@@ -226,7 +226,7 @@ font-size:12px;
 font-weight:bold;
 margin-right:2px;
 padding-right:2px;
-width:150px
+width:135px
 }
 /********** JSConfiguration **************/
 
@@ -290,4 +290,9 @@ table.admintable td label {
 clear:none;
 display:inline;
 min-width:0;
+}
+
+/*****Joomla 17 hack for ordering images*****/
+span.uparrow,span.downarrow{
+background-repeat:no-repeat;
 }
