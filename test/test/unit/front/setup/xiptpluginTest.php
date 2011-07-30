@@ -47,6 +47,7 @@ class XiptpluginTest extends XiUnitTestCase
 		$obj = new XiptSetupRuleXiptplugin();
 		$this->changePluginState('xipt_system', 0);
 		$this->changePluginState('xipt_community', 0);
+		//XiptLibJomsocial::saveValueinJSConfig(1);
 		$this->assertTrue($obj->isRequired());
 		
 		//#case 2: when both plugins are installed but one is not enabled
@@ -55,7 +56,7 @@ class XiptpluginTest extends XiUnitTestCase
 		$this->changePluginState('xipt_community', 1);
 		$this->assertTrue($obj->isRequired());
 		
-		//#case 3: when both plugins are installed & enabled
+		//#case 3: when both plugins are installed & enabled and multiprofiletype is also enabled
 		$obj = new XiptSetupRuleXiptplugin();
 		$this->changePluginState('xipt_system', 1);
 		$this->changePluginState('xipt_community', 1);
@@ -65,7 +66,7 @@ class XiptpluginTest extends XiUnitTestCase
 	function testDoApply()
 	{
 		$obj = new XiptSetupRuleXiptplugin();
-		$this->assertEquals($obj->doApply(), 'PLUGIN ENABLED SUCCESSFULLY');
+		$this->assertEquals($obj->doApply(), 'COM_XIPT_JS_MULTIPROFILETYPE_DISABLEDCOM_XIPT_PLUGINS_ENABLED_SUCCESSFULLYCOM_XIPT_CUSTOM_FIELD_ALREADY_CREATED_AND_ENABLED_SUCCESSFULLYCOM_XIPT_FILES_PATCHED_SUCCESSFULLY');
 		//$this->_DBO->addTable('#__plugins');
 	}
 }

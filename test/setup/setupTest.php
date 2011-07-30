@@ -126,7 +126,7 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage3']/img[contains(@src,'images/tick.png')]"));
   }
   
-  function testCreateCustomFields()
+  function XtestCreateCustomFields()
   {
 	$this->_DBO->addTable('#__community_fields');
 	$this->_DBO->filterColumn("#__community_fields",'ordering');
@@ -149,7 +149,7 @@ class SetupTest extends XiSelTestCase
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/tick.png')]"));
   }
   
-  function testPatchFiles()
+  function XtestPatchFiles()
   {
 	// setup default location 
     $this->adminLogin();
@@ -186,7 +186,7 @@ class SetupTest extends XiSelTestCase
   }
   
   
-  function xxxtestEnablePlugin()
+  function testEnableEssentialSettings()
   {
   	// setup default location 
     $this->adminLogin();
@@ -203,6 +203,27 @@ class SetupTest extends XiSelTestCase
     //link should not be present     //image is correct
     $this->assertFalse($this->isElementPresent("//td[@id='setupMessage1']/a"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage1']/img[contains(@src,'images/tick.png')]"));
+  
+  	//customfields 
+    $this->_DBO->addTable('#__community_fields');
+	$this->_DBO->filterColumn("#__community_fields",'ordering');
+    $this->_DBO->filterOrder("#__community_fields","id");
+    
+    //if AEC exits
+    if(file_exists(JPATH_ROOT.'/components/com_acctexp'))
+    {
+	    //link is present //image is correct
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage5']/a"));
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage5']/img[contains(@src,'images/publish_x.png')]"));
+	    
+		$this->click("//td[@id='setupMessage5']/a");
+	    $this->waitPageLoad();
+	    
+	    //link should not be present     //image is correct
+	    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage5']/a"));
+	    $this->assertTrue($this->isElementPresent("//td[@id='setupImage5']/img[contains(@src,'images/tick.png')]"));
+    }
+    
   }
   
   /**
@@ -268,10 +289,10 @@ class SetupTest extends XiSelTestCase
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup&task=unhook");
     $this->waitPageLoad();
 
-    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage4']/a"));
-    $this->assertTrue($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/publish_x.png')]"));
-    $this->assertTrue($this->isElementPresent("//td[@id='setupMessage5']/a"));
-    $this->assertTrue($this->isElementPresent("//td[@id='setupImage5']/img[contains(@src,'images/publish_x.png')]"));
+   // $this->assertTrue($this->isElementPresent("//td[@id='setupMessage4']/a"));
+    //$this->assertTrue($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/publish_x.png')]"));
+    //$this->assertTrue($this->isElementPresent("//td[@id='setupMessage5']/a"));
+    //$this->assertTrue($this->isElementPresent("//td[@id='setupImage5']/img[contains(@src,'images/publish_x.png')]"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupMessage1']/a"));
     $this->assertTrue($this->isElementPresent("//td[@id='setupImage1']/img[contains(@src,'images/publish_x.png')]"));
     
@@ -279,16 +300,16 @@ class SetupTest extends XiSelTestCase
 	$this->verifyPluginState('xipt_system',false);
 	$this->verifyPluginState('xipt_community',false);
 
-    $this->click("//td[@id='setupMessage4']/a");
-    $this->waitPageLoad();
-    $this->click("//td[@id='setupMessage5']/a");
-    $this->waitPageLoad();
+//    $this->click("//td[@id='setupMessage4']/a");
+//    $this->waitPageLoad();
+//    $this->click("//td[@id='setupMessage5']/a");
+//    $this->waitPageLoad();
     $this->click("//td[@id='setupMessage1']/a");   
     $this->waitPageLoad();
-    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage4']/a"));
-    $this->assertFalse($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/publish_x.png')]"));
-    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage5']/a"));
-    $this->assertFalse($this->isElementPresent("//td[@id='setupImage5']/img[contains(@src,'images/publish_x.png')]"));
+//    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage4']/a"));
+//    $this->assertFalse($this->isElementPresent("//td[@id='setupImage4']/img[contains(@src,'images/publish_x.png')]"));
+//    $this->assertFalse($this->isElementPresent("//td[@id='setupMessage5']/a"));
+//    $this->assertFalse($this->isElementPresent("//td[@id='setupImage5']/img[contains(@src,'images/publish_x.png')]"));
     $this->assertFalse($this->isElementPresent("//td[@id='setupMessage1']/a"));
     $this->assertFalse($this->isElementPresent("//td[@id='setupImage1']/img[contains(@src,'images/publish_x.png')]"));
     
