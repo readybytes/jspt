@@ -234,7 +234,8 @@ class JomsocialTest extends XiUnitTestCase
   	//if user is not a member of group then add it
   	$this->assertTrue(XiptLibJomsocial:: _addUserToGroup(83, '3,4'));
   	$this->_DBO->addTable('#__community_groups_members');
-  	$this->_DBO->filterOrder('#__community_groups_members', 'groupid');
+  	if(!TEST_XIPT_JOOMLA_17)
+  		$this->_DBO->filterOrder('#__community_groups_members', 'groupid');
   }
   
   function testRemoveUserFromGroup()

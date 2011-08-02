@@ -187,8 +187,14 @@ class SetupTest extends XiSelTestCase
   
   
   function testEnableEssentialSettings()
-  {
-  	// setup default location 
+  { 
+
+	if(TEST_XIPT_JOOMLA_15)
+		$this->_DBO->loadsql($this->getSqlPath().DS.'testEnableEssentialSettings1.5.start.sql');
+	else
+		$this->_DBO->loadsql($this->getSqlPath().DS.'testEnableEssentialSettings1.7.start.sql');
+  
+	// setup default location 
     $this->adminLogin();
     $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=setup");
     $this->waitPageLoad();

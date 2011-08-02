@@ -35,6 +35,11 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablereporting0");
     $this->click("enablevideos0");
     $this->click("enablephotos0");
+     $this->type("pmperday", "2");
+    $this->type("limit_groups_perday", "2");
+       $this->type("limit_photos_perday", "4");
+    $this->type("limit_videos_perday", "5");
+    $this->type("limit_friends_perday", "2");
     if(TEST_XIPT_JOOMLA_15)
 	    $this->click("//td[@id='toolbar-save']/a");
     else
@@ -49,6 +54,11 @@ class ConfigurationTest extends XiSelTestCase
     $this->assertEquals($params->get('enablereporting'), 0);
     $this->assertEquals($params->get('enablevideos'), 0);
     $this->assertEquals($params->get('enablephotos'), 0);
+    $this->assertEquals($params->get('pmperday'), 2);
+    $this->assertEquals($params->get('limit_groups_perday'), 2);
+    $this->assertEquals($params->get('limit_photos_perday'), 4);
+    $this->assertEquals($params->get('limit_videos_perday'), 5);
+    $this->assertEquals($params->get('limit_friends_perday'), 2);
     // avoid caching issue
   	XiptLibJomsocial::cleanStaticCache(true);  
     //edit 1
@@ -82,6 +92,11 @@ class ConfigurationTest extends XiSelTestCase
     $this->click("enablereporting1");
     $this->click("enablevideos1");
     $this->click("enablephotos1");
+    $this->type("pmperday", "2");
+    $this->type("limit_groups_perday", "2");
+    $this->type("limit_photos_perday", "4");
+    $this->type("limit_videos_perday", "5");
+    $this->type("limit_friends_perday", "2");
     if(TEST_XIPT_JOOMLA_15)
 	    $this->click("//td[@id='toolbar-save']/a");
     else
@@ -96,6 +111,11 @@ class ConfigurationTest extends XiSelTestCase
     $this->assertEquals($params->get('enablereporting'), 1);
     $this->assertEquals($params->get('enablevideos'), 1);
     $this->assertEquals($params->get('enablephotos'), 1);
+     $this->assertEquals($params->get('pmperday'), 2);
+     $this->assertEquals($params->get('limit_groups_perday'), 2);
+     $this->assertEquals($params->get('limit_photos_perday'), 4);
+     $this->assertEquals($params->get('limit_videos_perday'), 5);
+     $this->assertEquals($params->get('limit_friends_perday'), 2);
     
     //no reset link for 4 and 5
     $p=4;

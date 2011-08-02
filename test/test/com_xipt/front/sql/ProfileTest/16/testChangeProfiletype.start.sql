@@ -28,3 +28,23 @@ INSERT INTO `#__user_usergroup_map` (`user_id`, `group_id`) VALUES
 (86, 2),
 (87, 2),
 (88, 2);;
+
+
+DROP TABLE IF EXISTS `au_#__community_users`;;
+CREATE TABLE IF NOT EXISTS `au_#__community_users` SELECT * FROM `#__community_users`;;
+TRUNCATE TABLE `au_#__community_users`;;
+INSERT INTO `au_#__community_users` (`userid`, `status`, `status_access`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friends`, `groups`, `friendcount`, `alias`, `latitude`, `longitude`, `profile_id`, `storage`, `watermark_hash`, `search_email`) VALUES
+(62, '', 0, 13, '0000-00-00 00:00:00', 'images/avatar/dlhfsadhfjskdlfjh.jpg', 'images/avatar/thumb_dlhfsadhfjskdlfjh.jpg', 0, '{"notifyEmailSystem":"1","privacyProfileView":"20","privacyPhotoView":"0","privacyFriendsView":"0","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(83, '', 0, 3, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', '', 0, '{"notifyEmailSystem":"1","privacyProfileView":"20","privacyPhotoView":"0","privacyFriendsView":"0","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(84, '', 0, 3, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', '', 0, '{"notifyEmailSystem":"1","privacyProfileView":"10","privacyPhotoView":"0","privacyFriendsView":"0","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(85, '', 0, 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(86, '', 0, 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(87, '', 0, 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(79, '', 0, 3, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', '', 0, '{"notifyEmailSystem":"1","privacyProfileView":"20","privacyPhotoView":"0","privacyFriendsView":"0","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(80, '', 0, 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(81, '', 0, 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(82, '', 0, 3, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, '{"notifyEmailSystem":"1","privacyProfileView":"30","privacyPhotoView":"0","privacyFriendsView":"0","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
+(88, '', 0, 3, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', '', 0, '{"notifyEmailSystem":"1","privacyProfileView":"10","privacyPhotoView":"0","privacyFriendsView":"0","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1);
+
+
+
