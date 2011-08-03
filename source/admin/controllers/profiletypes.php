@@ -315,9 +315,10 @@ class XiptControllerProfiletypes extends XiptController
 	{
 		//get selected profile type ids
 		$cid	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
-		if (count($cid) == 0)
- 			return JError::raiseWarning( 500, XiptText::_( 'NO_ITEMS_SELECTED' ) );
-		
+		if (count($cid) == 0){
+			 $this->setRedirect('index.php?option=com_xipt&view=profiletypes');
+ 			 return JError::raiseWarning( 500, XiptText::_( 'NO_ITEMS_SELECTED' ) );
+	    }
 		//get profile type data by id
 		$model = $this->getModel();
 		$data  = $model->loadRecords(0);
