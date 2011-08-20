@@ -213,8 +213,13 @@ class XiptControllerProfiletypes extends XiptController
 		$watermarkThumbWidth  = $config->get('xiThumbWidth',80);
 		$watermarkThumbHeight = $config->get('xiThumbHeight',20);
         // create a transparent blank image
-	    $dstimg   =   XiptLibImage::imageCreateTransparent($watermarkThumbWidth, $watermarkThumbHeight);
-		 //or die('Cannot initialize GD Image');
+        // if type of watermark is text call ImageCreateTrueColor else
+        //else call imageCreateTransparent
+        if($config->get('typeofwatermark','0')=='0')
+            $dstimg   =   ImageCreateTrueColor($watermarkThumbWidth, $watermarkThumbHeight);
+        else
+            $dstimg   =   XiptLibImage::imageCreateTransparent($watermarkThumbWidth, $watermarkThumbHeight);
+		
 
 		$watermarkType = XiptHelperImage::getImageType($watermarkPath);
 		$srcimg	 = cImageOpen( $watermarkPath , $watermarkType);
