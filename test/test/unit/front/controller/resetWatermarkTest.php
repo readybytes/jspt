@@ -58,16 +58,29 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   		
   		$controllerObj= new XiptControllerProfiletypes();
   		$controllerObj->_processSave($post, 1);
-  		
+  		if(TEST_XIPT_JOOMLA_15){ 
+  		  	$path['au_avatar']= JPATH_ROOT.DS."test/test/unit/front/setup/images/watr_avatar1.5.gif";
+		    $path['au_thumb']= JPATH_ROOT.DS."test/test/unit/front/setup/images/watr_avatar1.5_thumb.gif";
+  		   }
+  		else{
+  		  	$path['au_avatar']= JPATH_ROOT.DS."test/test/unit/front/setup/images/watr_avatar1.7.gif";
+		    $path['au_thumb']= JPATH_ROOT.DS."test/test/unit/front/setup/images/watr_avatar1.7_thumb.gif";
+  		    }
+  		  
   		//check water-mark apply on existing avatar and thumb 
   		$this->checkImage($path['avatarPath'], $path['au_avatar']);
 		$this->checkImage($path['thumbPath'], $path['au_thumb']);
 		
 		$bk_avatar	=	USER_AVATAR_BACKUP.'/avatar_1.gif';
 		$bk_thumb	=	USER_AVATAR_BACKUP.'/avatar_1_thumb.gif';
-		$au_avatar	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_1.gif";
-		$au_thumb	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_1_thumb.gif";
-		
+		if(TEST_XIPT_JOOMLA_15){ 
+		       $au_avatar	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_1_1.5.gif";
+		       $au_thumb	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_1_1.5_thumb.gif";
+		}
+		else{
+			 $au_avatar	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_1_1.7.gif";
+		     $au_thumb	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_1_1.7_thumb.gif";
+		}
 		//Check Backup of Avatar and thumb
 		$this->checkImage($bk_avatar,$au_avatar);
 		$this->checkImage($bk_thumb,$au_thumb);
@@ -81,7 +94,58 @@ class XiptResetWatermarkTest extends XiUnitTestCase
   		else
   			$this->reloadUser(Array(42,63,64));
   	}
-
+   //Case Reset all with image as watermark
+    function testResetAllwithImgWatermrkCase1()
+    {
+    	if (TEST_XIPT_JOOMLA_15)
+  			$this->reloadUser(Array(62,63,64));
+  		else
+  			$this->reloadUser(Array(42,63,64));
+  		$post = $this->getPostValue();
+  		//$path = $this->setPath(); 
+        if(TEST_XIPT_JOOMLA_15){
+  		   $path['avatarPath1']= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1.gif';
+  		   $path['thumbPath1']= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1_thumb.gif';
+  		      $avatarPath1= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1.gif';
+  		   $thumbPath1= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1_thumb.gif';
+  		   $au_avatar1	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_11_1.5.gif";
+		   $au_thumb1	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_11_1.5_thumb.gif";
+		   $path['au_avatar1']	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_11_1.5.gif";
+		   $path['au_thumb1']	= 	JPATH_ROOT.DS."test/test/unit/front/setup/images/copy_avatar_11_1.5_thumb.gif";       
+  		}
+  		else{
+  		 $path['avatarPath1']= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1_1.7.gif';
+  		 $path['thumbPath1']= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1_1.7_thumb.gif';
+  		  $avatarPath1= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1_1.7.gif';
+  		  $thumbPath1= JPATH_ROOT.DS.'test/test/unit/front/controller/images/avatar_1_1.7_thumb.gif';
+  		  $au_avatar1	= 	JPATH_ROOT.DS."test/test/unit/front/controller/images/copy_avatar_1_1.7.gif";
+		  $au_thumb1	= 	JPATH_ROOT.DS."test/test/unit/front/controller/images/copy_avatar_1_1.7_thumb.gif";
+  		  $path['au_avatar1']= JPATH_ROOT.DS."test/test/unit/front/controller/images/copy_avatar_1_1.7.gif";
+  		  $path['au_thumb1']= JPATH_ROOT.DS."test/test/unit/front/controller/images/copy_avatar_1_1.7_thumb.gif";
+  		 }
+  		$post['watermarkparams']=Array('enableWaterMark'=> 1, 'typeofwatermark'=> 1);
+  		$controllerObj= new XiptControllerProfiletypes();
+  		$controllerObj->_processSave($post, 1);
+  		
+  		
+  		$this->checkImage($path['avatarPath1'], $path['au_avatar1']);
+		$this->checkImage($path['thumbPath1'], $path['au_thumb1']);
+        // for further testing
+		JFile::copy($au_avatar1, $path['avatarPath1']);
+		JFile::copy($au_thumb1, $path['thumbPath1']);
+		$this->cleanStaticCache();
+		if (TEST_XIPT_JOOMLA_15)
+  			$this->reloadUser(Array(62,63,64));
+  		else
+  			$this->reloadUser(Array(42,63,64));
+  				// Replace avtar and thumb (wid watrmark)
+		JFile::copy(JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1.gif',$avatarPath1);
+		JFile::copy(JPATH_ROOT.DS.'test/test/unit/front/setup/images/copy_avatar_1_thumb.gif',$thumbPath1);
+  			
+    }	
+  	
+    
+    
   	//Case::2 (On existing User) Reset all then test watr-mark remove
   	function testResetAllCase2()
   	{

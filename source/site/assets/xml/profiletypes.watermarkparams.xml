@@ -6,6 +6,11 @@
 			<option value="0">No</option>
   			<option value="1">Yes</option>		
 		</param>
+		<param name="typeofwatermark" type="xiradio" label="COM_XIPT_TYPE_OF_WATERMARK" default="0" description="COM_XIPT_ENABLE_WATER_MARK_DESC">
+			<option value="0">COM_XIPT_TEXT</option>
+  			<option value="1">COM_XIPT_IMAGE</option>		
+		</param>
+		<param name="xiImage" type ="uploadfile" label="COM_XIPT_UPLOAD_IMAGE" description="COM_XIPT_UPLOAD_IMAGE_DESC"/>
 		<param name="xiText" type="text" default="P" label="COM_XIPT_DISPLAY_TEXT" description="COM_XIPT_ENTER_WATERMARK_DISPLAY_TEXT_DESC" />		
 		<param name="xiWidth" type="text" default="40" label="COM_XIPT_WIDTH" description="COM_XIPT_SET_WIDTH_DESC"/>
 		<param name="xiHeight" type="text" default="40" label="COM_XIPT_HEIGHT" description="COM_XIPT_HEIGHT_DESC"/>

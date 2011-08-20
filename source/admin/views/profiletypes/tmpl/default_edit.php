@@ -51,7 +51,7 @@ function submitbutton(action){
 </script>
 
 <script>
-/** Hide privacy option **/
+/** Hide privacy option  and hide watermark positions according to type of watermark**/
 jQuery(document).ready(function($){ 
 	var disablePrivacy = function (disable){ 
 		if(disable == null)
@@ -59,18 +59,43 @@ jQuery(document).ready(function($){
       $('input[id^=privacyprivacy]').attr('disabled',true);
       $('input[id^=privacynotify]').attr('disabled',true);
 	};
+     var disablewatermrkposition= function (disable){
+           if(disable == null)
+               return;
 
-	if(0 == $('input[name=privacy[jsPrivacyController]]:checked').val()){
+        $('#watermarkparamsxiWatermarkPosition').children('option[value="lt"]').hide();
+   		$('#watermarkparamsxiWatermarkPosition').children('option[value="lb"]').hide();
+   		$('#watermarkparamsxiWatermarkPosition').children('option[value="rt"]').hide();
+   		$('#watermarkparamsxiWatermarkPosition').children('option[value="rb"]').hide(); 
+     };
+	 
+
+	 if(0 == $('input[name=privacy[jsPrivacyController]]:checked').val()){
+	    disablePrivacy(true);
+	  }	
+	 $('#privacyjsPrivacyController0').click(function(){
 		disablePrivacy(true);
-		}	
-	$('#privacyjsPrivacyController0').click(function(){
-		disablePrivacy(true);
-		});
+	  });
 
 	$('#privacyjsPrivacyController1').click(function(){
-		$('input[id^=privacyprivacy]').attr('disabled',false);
+	    $('input[id^=privacyprivacy]').attr('disabled',false);
 		$('input[id^=privacynotify]').attr('disabled',false);
      });	
+
+	 if(1 == $('input[name=watermarkparams[typeofwatermark]]:checked').val()){
+		disablewatermrkposition(true); 
+	 }
+	$('#watermarkparamstypeofwatermark1').click(function(){
+		disablewatermrkposition(true);
+	});
+
+	$('#watermarkparamstypeofwatermark0').click(function(){
+		$('#watermarkparamsxiWatermarkPosition').children('option[value="lt"]').show();
+		$('#watermarkparamsxiWatermarkPosition').children('option[value="lb"]').show();
+		$('#watermarkparamsxiWatermarkPosition').children('option[value="rt"]').show();
+		$('#watermarkparamsxiWatermarkPosition').children('option[value="rb"]').show();
+	 });
+	
 });
 </script>
 

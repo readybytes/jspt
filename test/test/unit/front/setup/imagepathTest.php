@@ -17,9 +17,14 @@ class ImagePathTest extends XiUnitTestCase
 		
 		$avatarPath			= 'test/test/unit/front/setup/images/avatar_1.gif';
 		$thumbPath			= 'test/test/unit/front/setup/images/avatar_1_thumb.gif';
-		$watarmart_avatar	= "test/test/unit/front/setup/images/watr_avatar_1.gif";
-		$watarmart_thumb	= "test/test/unit/front/setup/images/watr_avatar_1_thumb.gif";
-		
+		if(TEST_XIPT_JOOMLA_15){
+			$watarmart_avatar	= "test/test/unit/front/setup/images/watr_avatar_1_1.5.gif";
+		    $watarmart_thumb	= "test/test/unit/front/setup/images/watr_avatar_1_1.5_thumb.gif";
+	    	}
+		else{
+		     $watarmart_avatar	= "test/test/unit/front/setup/images/watr_avatar_1.gif";
+		     $watarmart_thumb	= "test/test/unit/front/setup/images/watr_avatar_1_thumb.gif";
+		    }
 		// Check Avatar is save in Correct folder
 		$this->assertTrue($obj->onProfileAvatarUpdate(88,'test/test/unit/front/images/avatar.jpg', $avatarPath ));
 		// Check Thumb is save in Correct folder

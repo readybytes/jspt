@@ -15,7 +15,8 @@ class ImageTest extends XiUnitTestCase
 	$row->load(2);
 	$config = new XiptParameter('','');
 	$config->bind($row->watermarkparams);
-	
+	$_FILES['watermarkparams']['tmp_name']['xiImage']=null;
+	$_FILES['watermarkparams']['name']['xiImage']=null;
   	$image = new XiptLibImage($config);
   	
   	//case #1: if color starts with # then remove # from string

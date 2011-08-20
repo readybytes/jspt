@@ -85,7 +85,7 @@ class XiDBCheck
         		$logArr=array();
         			
 			// supporting JSON v/s INI formats in parameters For Joomla1.6
-			if (XIPT_JOOMLA_16){
+			if (!XIPT_JOOMLA_15){
         		$param = new JParameter();
         		foreach($fields as $columnName){
         			$format = JString::strpos($logArr[$columnName], '{') ? 'JSON' : 'INI';

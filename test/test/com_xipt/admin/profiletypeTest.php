@@ -65,7 +65,69 @@ class ProfiletypeTest extends XiSelTestCase
     $this->_DBO->filterColumn('#__xipt_profiletypes','visible');
     $this->_DBO->filterColumn('#__xipt_profiletypes','config');
   }
-	
+
+ // add a PT with image as a watermark
+  function testAddPTwithImgWatrmrk()
+  {
+  	if(TEST_XIPT_JOOMLA_15)
+		$this->_DBO->loadsql($this->getSqlPath().DS.'testAddPTwithImgWatrmrk1.5.start.sql');
+	else
+		$this->_DBO->loadsql($this->getSqlPath().DS.'testAddPTwithImgWatrmrk1.7.start.sql');
+  	
+  	$this->_DBO->addTable('#__xipt_profiletypes');
+    $this->_DBO->filterColumn('#__xipt_profiletypes','id');
+  	
+    //    setup default location 
+    $this->adminLogin();
+    $this->open(JOOMLA_LOCATION."/administrator/index.php?option=com_xipt&view=profiletypes");
+    $this->waitPageLoad();
+      
+	// add profiletype-one
+    if(TEST_XIPT_JOOMLA_15)
+		$this->click("//td[@id='toolbar-new']/a");
+    else
+    	$this->click("//li[@id='toolbar-new']/a/span");
+    $watermrk= 'test/test/com_xipt/admin/cancel_f2.png';
+    $this->waitPageLoad();
+    $this->type("name", "PROFILETYPE-TWO");
+    $this->click("watermarkparamsenableWaterMark1");
+    $this->click("watermarkparamstypeofwatermark1");
+    $this->type("watermarkparamsxiImage", JPATH_ROOT.DS.$watermrk);
+     if(TEST_XIPT_JOOMLA_15)
+        $this->click("//td[@id='toolbar-save']/a/span");
+    else
+       $this->click("//li[@id='toolbar-save']/a/span");
+    
+     
+    if(TEST_XIPT_JOOMLA_15){
+    	$this->click("//h3[@id='resetall-page']/span");
+    	$this->click("resetAll1");
+    	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
+    	$this->click("//td[@id='toolbar-save']/a/span");
+       }
+    else{
+    	$this->click("//h3[@id='resetall-page']/a/span");
+    	$this->click("resetAll1");
+    	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
+    	$this->click("//li[@id='toolbar-save']/a/span");
+       }
+     $this->waitPageLoad();
+     $this->assertTrue($this->isTextPresent("PROFILETYPE-TWO"));
+     $checkWMExists=JFile::exists(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_2.png');
+     $this->assertTrue($checkWMExists);
+    
+     $md5_watermark      = md5(JFile::read(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_2.png'));
+     $md5_watermark_gold = md5(JFile::read(JPATH_ROOT.DS.'test'.DS.'test'.DS.'com_xipt'.DS.'admin'.DS.'watermark_2.png'));
+  
+    // setup custom filters
+     $this->_DBO->filterColumn('#__xipt_profiletypes','ordering');
+     $this->_DBO->filterColumn('#__xipt_profiletypes','params');
+     $this->_DBO->filterColumn('#__xipt_profiletypes','watermarkparams');
+     $this->_DBO->filterColumn('#__xipt_profiletypes','visible');
+     $this->_DBO->filterColumn('#__xipt_profiletypes','config');
+   }
+	 
+  
 	function testOrderProfileType()
 	{
 		$this->_DBO->addTable('#__xipt_profiletypes');

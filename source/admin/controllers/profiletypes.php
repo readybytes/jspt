@@ -212,8 +212,9 @@ class XiptControllerProfiletypes extends XiptController
 		
 		$watermarkThumbWidth  = $config->get('xiThumbWidth',80);
 		$watermarkThumbHeight = $config->get('xiThumbHeight',20);
-		$dstimg 			= 	ImageCreateTrueColor($watermarkThumbWidth,$watermarkThumbHeight) 
-					or die('Cannot initialize GD Image');
+        // create a transparent blank image
+	    $dstimg   =   XiptLibImage::imageCreateTransparent($watermarkThumbWidth, $watermarkThumbHeight);
+		 //or die('Cannot initialize GD Image');
 
 		$watermarkType = XiptHelperImage::getImageType($watermarkPath);
 		$srcimg	 = cImageOpen( $watermarkPath , $watermarkType);
@@ -293,14 +294,25 @@ class XiptControllerProfiletypes extends XiptController
 		
 		$config = new XiptParameter('','');
 		$config->bind($newData->watermarkparams);
-
+		// if enable water mark is false then no need to create watermark
+		if(!$config->get('enableWaterMark')){
+			return false;
+		}
+		//no change condition i.e if type of watermark is image
+        // but no image is selected then return
+		if( empty($_FILES['watermarkparams']['tmp_name']['xiImage']) 
+		    && $config->get('typeofwatermark','0')=='1')
+		  { return false;}
 		// generate watermark image		
 		//XITODO : improve nomenclature
 		$imageGenerator = new XiptLibImage($config);
 		$storage		= PROFILETYPE_AVATAR_STORAGE_PATH;
 		$imageName 		= 'watermark_'. $id;
-		$filename		= $imageGenerator->genImage($storage,$imageName);
-				
+        // create watermark according to the type of watermark selected
+		if($config->get('typeofwatermark','0')=='1')
+				$filename=$imageGenerator->createImageWatermark($storage,$imageName);
+		  else 
+				$filename		= $imageGenerator->genImage($storage,$imageName);
 		//XITODO : assert on filename
 		$image = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$filename;
 		$data 	= array('watermark' => XiptHelperUtils::getUrlpathFromFilePath($image));

@@ -503,7 +503,7 @@ class XiptLibJomsocial
 		CFactory::load('helpers', 'string');
 		$config	= JTable::getInstance( 'configuration' , 'CommunityTable' );
 		$config->load( 'config' );
-		$params	= new JParameter( $config->params );
+		$params	= new XiptParameter( $config->params );
 		$params->set('profile_multiprofile',$setValue);
 		$config->params	= $params->toString();
 		if(!$config->store())
