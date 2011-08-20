@@ -60,6 +60,9 @@ if(!defined('SYNCUP_USER_LIMIT')) define('SYNCUP_USER_LIMIT',1000);
 define('DEFAULT_AVATAR','components'.DS.'com_community'.DS.'assets'.DS.'user.png');
 define('DEFAULT_AVATAR_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'user_thumb.png');
 
+define('DEFAULT_IMAGEWATERMRK','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'demo_watermrk.png');
+define('DEFAULT_IMAGEWATERMRK_THUMB','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'demo_watermrk_thumb.png');
+
 define('DEFAULT_DEMOAVATAR','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'default_avatar.png');
 define('DEFAULT_DEMOAVATAR_THUMB','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'default_thumb.png');
 

@@ -38,8 +38,8 @@ abstract class XiptAclBase
 		$coreinipath = dirname(__FILE__).DS.'coreparams.ini';		
 		$iniData	= JFile::read($coreinipath);
 	
-		XiptError::assert(JFile::exists($corexmlpath), XiptText::_("$corexmlpath FILE_DOES_NOT_EXIST"), XiptError::ERROR);
-		XiptError::assert(JFile::exists($coreinipath), XiptText::_("$coreinipath FILE_DOES_NOT_EXIST"), XiptError::ERROR);
+		XiptError::assert(JFile::exists($corexmlpath), $corexmlpath. XiptText::_("FILE_DOES_NOT_EXIST"), XiptError::ERROR);
+		XiptError::assert(JFile::exists($coreinipath), $coreinipath. XiptText::_("FILE_DOES_NOT_EXIST"), XiptError::ERROR);
 		
 		$this->coreparams = new XiptParameter($iniData,$corexmlpath);
 	}
