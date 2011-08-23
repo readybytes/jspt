@@ -37,9 +37,17 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	
 	function doApply()
 	{
-		
+		//find memory limit defined in php.ini
+		$memory_size = ini_get('memory_limit');
+		$memory_size = substr($memory_size, 0, -1);
+		$memory_size = (int)$memory_size;
 		$start=JRequest::getVar('start', 0);
-		$limit=JRequest::getVar('limit',SYNCUP_USER_LIMIT);
+		
+		//set sync up limit as per memory limit
+		if($memory_size >= 128)
+			$limit = JRequest::getVar('limit',SYNCUP_USER_LIMIT);
+		else
+			$limit = 300;
 		$reply = $this->syncUpUserPT($start,$limit);
 
 		if($reply === -1)
