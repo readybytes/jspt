@@ -329,7 +329,7 @@ class plgSystemxipt_system extends JPlugin
 		
  		if($app->isAdmin() ){
  			if($this->_pluginHandler->checkSetupRequired())
- 		 			$app->enqueueMessage(XiptText::_('JSPT_SETUP_SCREEN_IS_NOT_CLEAN_PLEASE_CLEAN_IT'), 'error');
+ 		 			$app->enqueueMessage(XiptText::_('JSPT_SETUP_SCREEN_IS_NOT_CLEAN_PLEASE_CLEAN_IT_STEP_BY_STEP'), 'error');
 			return true;
 		}
 
