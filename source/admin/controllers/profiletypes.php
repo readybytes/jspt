@@ -133,7 +133,7 @@ class XiptControllerProfiletypes extends XiptController
 	}
 	
 	//this function will reset users in chunks 
-	function resetall($id = 0, $limit = 100, $start = 0){
+	function resetall($id = 0, $limit = RESETALL_USER_LIMIT, $start = 0){
 		
 		$mainframe	= JFactory::getApplication();
 		$start		= JRequest::getVar('start', $start);
