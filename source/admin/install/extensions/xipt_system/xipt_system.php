@@ -44,25 +44,7 @@ class plgSystemxipt_system extends JPlugin
 
 		if($app->isAdmin() && $option == 'com_community' && $view == 'configuration' && $jsconfig == 'privacy')
 		{
- 			$document = JFactory::getDocument();
- 			ob_start(); ?>
- 				joms.jQuery().ready(function($){
- 	
-						$('input[onclick="azcommunity.resetprivacy();"]').attr('onclick', '').attr('id','resetPrivacy'); 
-
-						$('#resetPrivacy').click(function(e){
-	
-						if(!confirm('Are you confirm to reset properties of all existing users')){
-							e.preventDefault();
-							return false;
-					}
-						return azcommunity.resetprivacy();
-						});								
-						});
-					<?php
-					$content = ob_get_contents();
-					ob_clean(); 			
-			$document->addScriptDeclaration($content);
+ 			$this->_addResetPrivacyScript();
 			return true;
  		}
  		
@@ -75,6 +57,22 @@ class plgSystemxipt_system extends JPlugin
  			$userid = JFactory::getUser()->id;
  			$this->_pluginHandler->hideJSToolbar($userid);
  		}
+ 		
+		/* When XiPT is integrated with subscription method and user does not pay or subscribe any plan,
+         * till then XiPT apply default profile-type.
+        */
+ 		if($view == 'register' || $view == 'registration'){
+	        if($option == 'com_community' && $task = 'registerProfile')
+	        {
+	            $integrate   = XiptFactory::getSettings('integrate_with', 0);
+	            if($integrate){
+	            	// Change post data (only profile-type field).
+	                $fieldId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
+	                JRequest::setVar("field$fieldId", XiptLibProfiletypes::getDefaultProfiletype());
+	            }
+	        }
+ 		}
+ 		       
 		// perform all acl check from here
 		XiptAclHelper::performACLCheck(false, false, false);
 
@@ -113,7 +111,11 @@ class plgSystemxipt_system extends JPlugin
 			return true;
 		}
 
-		$profiletypeID = $this->_pluginHandler->getRegistrationPType();
+		$integrate   = XiptFactory::getSettings('integrate_with',0);
+		if($integrate)
+			$profiletypeID = XiptFactory::getSettings('defaultProfiletypeID',0);
+		else
+			$profiletypeID = $this->_pluginHandler->getRegistrationPType();
 		// need to set everything
 		XiptLibProfiletypes::updateUserProfiletypeData($properties['id'], $profiletypeID,'', 'ALL');
 
@@ -493,5 +495,29 @@ class plgSystemxipt_system extends JPlugin
 			});
 
 		<?php
+	}
+	
+	function _addResetPrivacyScript()
+	{
+		$document = JFactory::getDocument();
+ 		ob_start();
+		?>
+ 		joms.jQuery().ready(function($){
+ 	
+			$('input[onclick="azcommunity.resetprivacy();"]').attr('onclick', '').attr('id','resetPrivacy'); 
+
+				$('#resetPrivacy').click(function(e){
+		
+				if(!confirm('Are you confirm to reset properties of all existing users')){
+						e.preventDefault();
+						return false;
+				}
+				return azcommunity.resetprivacy();
+				});								
+		});
+		<?php
+		$content = ob_get_contents();
+		ob_clean(); 			
+		$document->addScriptDeclaration($content);
 	}
 }

@@ -41,14 +41,6 @@ class plgCommunityxipt_community extends CApplications
 	 */
 	function onProfileCreate($cuser)
 	{
-		$userid		   = $cuser->_userid;
-		$profiletypeID = $this->_pluginHandler->getRegistrationPType();
-
-		// need to set everything
-		XiptLibProfiletypes::updateUserProfiletypeData($userid, $profiletypeID,'', 'ALL');
-
-		//clean the session
-		$this->_pluginHandler->cleanRegistrationSession();
 		return true;	
 	}
 	
