@@ -61,7 +61,7 @@ class plgSystemxipt_system extends JPlugin
 		/* When XiPT is integrated with subscription method and user does not pay or subscribe any plan,
          * till then XiPT apply default profile-type.
         */
-        if($option == 'com_community' && $task == 'registerProfile' && ($view == 'register' || $view == 'registration'))
+        if($option == 'com_community' && $task == 'registerUpdateProfile' && ($view == 'register' || $view == 'registration'))
         {
         	$subscription = XiptFactory::getSettings('subscription_integrate', 0);
             if($subscription){
