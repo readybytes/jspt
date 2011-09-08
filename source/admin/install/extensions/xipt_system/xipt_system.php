@@ -61,17 +61,15 @@ class plgSystemxipt_system extends JPlugin
 		/* When XiPT is integrated with subscription method and user does not pay or subscribe any plan,
          * till then XiPT apply default profile-type.
         */
- 		if($view == 'register' || $view == 'registration'){
-	        if($option == 'com_community' && $task = 'registerProfile')
-	        {
-	            $integrate   = XiptFactory::getSettings('integrate_with', 0);
-	            if($integrate){
-	            	// Change post data (only profile-type field).
-	                $fieldId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
-	                JRequest::setVar("field$fieldId", XiptLibProfiletypes::getDefaultProfiletype());
-	            }
-	        }
- 		}
+        if($option == 'com_community' && $task == 'registerProfile' && ($view == 'register' || $view == 'registration'))
+        {
+        	$subscription = XiptFactory::getSettings('subscription_integrate', 0);
+            if($subscription){
+            	// Change post data (only profile-type field).
+                $fieldId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
+                JRequest::setVar("field$fieldId", XiptLibProfiletypes::getDefaultProfiletype());
+            }
+        }
  		       
 		// perform all acl check from here
 		XiptAclHelper::performACLCheck(false, false, false);
@@ -111,8 +109,8 @@ class plgSystemxipt_system extends JPlugin
 			return true;
 		}
 
-		$integrate   = XiptFactory::getSettings('integrate_with',0);
-		if($integrate)
+		$subscription = XiptFactory::getSettings('subscription_integrate', 0);
+		if($subscription)
 			$profiletypeID = XiptFactory::getSettings('defaultProfiletypeID',0);
 		else
 			$profiletypeID = $this->_pluginHandler->getRegistrationPType();
