@@ -65,9 +65,13 @@ class plgSystemxipt_system extends JPlugin
         {
         	$subscription = XiptFactory::getSettings('subscription_integrate', 0);
             if($subscription){
-            	// Change post data (only profile-type field).
-                $fieldId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
-                JRequest::setVar("field$fieldId", XiptLibProfiletypes::getDefaultProfiletype());
+            	// Change post data (only profile-type and template field).
+                $profiletypeId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
+                $templateId    = XiptHelperJomsocial::getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
+                
+                $defaultPT     = XiptLibProfiletypes::getDefaultProfiletype();
+                JRequest::setVar("field$profiletypeId", $defaultPT);
+                JRequest::setVar("field$templateId", XiptLibProfiletypes::getProfiletypeData($defaultPT, 'template'));
             }
         }
  		       

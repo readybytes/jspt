@@ -429,7 +429,7 @@ class RegisterTest extends XiSelTestCase
 
     $data[2] = 1;
     $data[4] = 3;
-    
+    $defaultPT = 1;
     //create backend test
     // create 4 MI
     // attach them to plans as above
@@ -449,7 +449,7 @@ class RegisterTest extends XiSelTestCase
     	$this->assertTrue($this->isTextPresent("PROFILETYPE-$profiletype"));
     	
     	$username = $this->fillDataPT($profiletype);
-    	$this->verifyUser($username, $profiletype);
+    	$this->verifyUser($username, $defaultPT);
     }
     
     foreach($data as $plan => $profiletype)
@@ -584,7 +584,8 @@ class RegisterTest extends XiSelTestCase
   	  	
 	$data[2] = 1;
     $data[4] = 3;
-  	   
+  	$defaultPT = 2;
+
   	foreach($data as $usage => $profiletype)
     {
     	// go to register location 
@@ -596,7 +597,7 @@ class RegisterTest extends XiSelTestCase
     	$this->assertTrue($this->isTextPresent("PROFILETYPE-$profiletype"));
     	
     	$username = $this->fillDataPT($profiletype);
-    	$this->verifyUser($username, $profiletype);
+    	$this->verifyUser($username, $defaultPT);
     }  	
     $filter['subscription_integrate']=1;
     $this->changeJSPTConfig($filter);
