@@ -293,7 +293,8 @@ class plgCommunityxipt_community extends CApplications
 		$act->cmd     = 'wall.write';
 		$act->actor   = $userid;
 		$act->target  = 0; // no target
-		$act->title   = JText::_('{actor}'. XiptText::_('CHANGED_HIS_PROFILETYPE_TO ').$ptName);
+		$$changePt=XiptText::_('CHANGED_PROFILETYPE_TO');
+		$act->title   = JText::_('{actor}'. $changePt.$ptName);
 		$act->content = '';
 		$act->app     = 'wall';
 		$act->cid     = 0;
