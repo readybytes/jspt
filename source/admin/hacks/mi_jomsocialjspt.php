@@ -116,16 +116,11 @@ class mi_jomsocialjspt
 		//$subscription_message =  XiptFactory::getSettings('subscription_message');
 		//new
 		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'api.xipt.php');
-		$subscription_message = XiptAPI::getGlobalConfig('subscription_message');	
-		if($subscription_message == 0)
-			return;
-			
-		//old	
-		//XiptLibProfiletypes::updateUserProfiletypeData($userId, $pId, false, 'ALL');
-		
-		//new 
-		XiptAPI::setUserProfiletype($userId, $pId, 'ALL');
+		$integrate_with = XiptAPI::getGlobalConfig('integrate_with');	
+		if($integrate_with == 'aec')
+			XiptAPI::setUserProfiletype($userId, $pId, 'ALL');
 
+		return;
 	}
 
 	function saveparams( $request )

@@ -17,10 +17,10 @@ $views	= array(
 					'settings'		=> 'Settings',
 					'profiletypes' 	=> 'Profile Types',
 					'configuration'	=> 'JS Configuration',
+					'jstoolbar'		=> 'JS Toolbar',
 					'aclrules'		=> 'Acces Control',
 					'profilefields'	=> 'Profile Field',
-					'applications'	=> 'Applications',
-					'jstoolbar'		=> 'JS Toolbar'
+					'applications'	=> 'Applications'
 					
 				);
 				
