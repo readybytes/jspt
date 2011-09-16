@@ -13,6 +13,25 @@ class creategroup extends XiptAclBase
 		return $data['userid'];
 	}
 	
+	function checkAclViolation(&$data)
+	{
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);
+		$aclSelfPtype 		= $this->getACLAccesserProfileType();
+		$otherptype 		= $this->getACLOwnerProfileType();
+		
+		$maxmimunCount = $this->aclparams->get('creategroup_limit',0);
+		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		
+		$catId	= JRequest::getVar('categoryid' , 0);
+		$aclgroup = $this->aclparams->get('group_category');
+
+		if ($aclgroup === $catId || $count >= $maxmimunCount)
+			return true;
+			
+		return false;
+	}
+	
 	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		$query = new XiptQuery();

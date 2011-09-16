@@ -13,6 +13,25 @@ class createvent extends XiptAclBase
 		return $data['userid'];	
 	}
 
+	function checkAclViolation(&$data)
+	{
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);
+		$aclSelfPtype 		= $this->getACLAccesserProfileType();
+		$otherptype 		= $this->getACLOwnerProfileType();
+		
+		$maxmimunCount = $this->aclparams->get('createvent_limit',0);
+		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		
+		$catId	= JRequest::getVar('catid' , 0);
+		$aclgroup = $this->aclparams->get('event_category');
+		
+		if ($aclgroup === $catId || $count >= $maxmimunCount)
+			return true;
+			
+		return false;
+	}
+	
 	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
 	{
 		$query = new XiptQuery();
