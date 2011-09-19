@@ -15,30 +15,32 @@ class creategroup extends XiptAclBase
 	
 	function checkAclViolation(&$data)
 	{
-		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);
-		$aclSelfPtype 		= $this->getACLAccesserProfileType();
-		$otherptype 		= $this->getACLOwnerProfileType();
 		
 		$maxmimunCount = $this->aclparams->get('creategroup_limit',0);
-		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		$aclgroup      = $this->aclparams->get('group_category');
+		$catId		   = JRequest::getVar('categoryid' , $aclgroup, 'REQUEST');
 		
-		$catId	= JRequest::getVar('categoryid' , 0);
-		$aclgroup = $this->aclparams->get('group_category');
-
-		if ($aclgroup === $catId || $count >= $maxmimunCount)
+		$count = $this->getFeatureCounts($resourceAccesser,$catId);		
+		
+		if ($aclgroup === $catId && $count >= $maxmimunCount)
 			return true;
 			
 		return false;
 	}
 	
-	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
+	function getFeatureCounts($resourceAccesser,$catId)
 	{
+		if($catId)
+			$condition = "AND `categoryid`= $catId";
+		else
+			$condition = '';
+			
 		$query = new XiptQuery();
     	
     	return $query->select('COUNT(*)')
     				 ->from('#__community_groups')
-    				 ->where(" `ownerid` = $resourceAccesser ", 'AND')
+    				 ->where(" `ownerid` = $resourceAccesser $condition ")
     				 ->dbLoadQuery("","")
     				 ->loadResult();
 	}

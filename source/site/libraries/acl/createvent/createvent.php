@@ -15,32 +15,35 @@ class createvent extends XiptAclBase
 
 	function checkAclViolation(&$data)
 	{
-		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);
-		$aclSelfPtype 		= $this->getACLAccesserProfileType();
-		$otherptype 		= $this->getACLOwnerProfileType();
 		
 		$maxmimunCount = $this->aclparams->get('createvent_limit',0);
-		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		$aclgroup 	   = $this->aclparams->get('event_category');
+		$catId		   = JRequest::getVar('catid' , $aclgroup, 'REQUEST');
 		
-		$catId	= JRequest::getVar('catid' , 0);
-		$aclgroup = $this->aclparams->get('event_category');
+		$count = $this->getFeatureCounts($resourceAccesser,$catId);
 		
-		if ($aclgroup === $catId || $count >= $maxmimunCount)
+		if ($aclgroup === $catId && $count >= $maxmimunCount)
 			return true;
 			
 		return false;
 	}
 	
-	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
+	function getFeatureCounts($resourceAccesser,$catId)
 	{
+		if($catId)
+			$condition = "AND `catid`= $catId";
+		else
+			$condition = '';
+			
 		$query = new XiptQuery();
-    	
+   
     	return $query->select('COUNT(*)')
     				 ->from('#__community_events')
-    				 ->where(" `creator` = $resourceAccesser ", 'AND')
+    				 ->where(" `creator` = $resourceAccesser $condition ")
     				 ->dbLoadQuery("","")
     				 ->loadResult();
+		
 	}
 
 
