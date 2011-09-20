@@ -19,7 +19,10 @@ class creategroup extends XiptAclBase
 		
 		$maxmimunCount = $this->aclparams->get('creategroup_limit',0);
 		$aclgroup      = $this->aclparams->get('group_category');
-		$catId		   = JRequest::getVar('categoryid' , $aclgroup, 'REQUEST');
+		if($aclgroup)
+			$catId		   = JRequest::getVar('categoryid' , 0 , 'REQUEST');
+		else 
+			$catId		   = JRequest::getVar('categoryid' , $aclgroup , 'REQUEST');
 		
 		$count = $this->getFeatureCounts($resourceAccesser,$catId);		
 		

@@ -19,7 +19,10 @@ class createvent extends XiptAclBase
 		
 		$maxmimunCount = $this->aclparams->get('createvent_limit',0);
 		$aclgroup 	   = $this->aclparams->get('event_category');
-		$catId		   = JRequest::getVar('catid' , $aclgroup, 'REQUEST');
+		if ($aclgroup)
+			$catId		   = JRequest::getVar('catid' , 0 , 'REQUEST');
+		else 
+			$catId		   = JRequest::getVar('catid' , $aclgroup , 'REQUEST');
 		
 		$count = $this->getFeatureCounts($resourceAccesser,$catId);
 		
