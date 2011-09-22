@@ -37,6 +37,10 @@
 		  title="Can not Join Groups"
 		  description="Restrict users to Join Gorups"
 		  example="Suppose you want Profile Type1 users Can not Join Groups of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
+	<rule name="leavegroup"
+		  title="Can not Leave Groups"
+		  description="Restrict users to Leave Gorups"
+		  example="Suppose you want Profile Type1 users Can not Leave Groups/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 
 	<rule name="accessgroupcategory"
 		  title="Can Access Groups Category"
@@ -56,7 +60,13 @@
 	<rule name="sendemail"
 		  title="Can not Send Email"
 		  description="Restrict users to Send Email"
-		  example="Suppose you want Profile Type1 users Can not Create Bulletin / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
+		  example="Suppose you want Profile Type1 users Can not send email / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
+		  
+	<rule name="invitefriends"
+		  title="Can not Invite Friends"
+		  description="Restrict users to Invite Friends"
+		  example="Suppose you want Profile Type1 users Can not Invite Friends / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
+		  
 </group>	
 	  
 <group name="albums" title="Albums">
@@ -134,7 +144,7 @@
 	<rule name="editselfprofile"
 		  title="Can not Edit Self Profile"
 		  description="Restrict users to Edit Self Profile" 
-		  example="Suppose you want Profile Type1 users Can not Edit Self Profile of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
+		  example="Suppose you want Profile Type1 users Can not Edit Self Profile/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /" />
 		  
 	<rule name="editselfprofiledetails"
 		  title="Can not Edit Self Profile Details"
@@ -148,6 +158,12 @@
 	<rule name="profilefield"
 		  title="Can not view Other's ProfileFields"
 		  description="Restrict users to view ProfileFields"/>
+		  
+	<rule name="deleteprofile"
+		  title="Can not Delete Profile"
+		  description="Restrict users to Delete Self Profile" 
+		  example="Suppose you want Profile Type1 users Can not Delete Self Profile/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /" />
+		  
 </group>	
 	
 <group name="avatar" title="Avatar">
