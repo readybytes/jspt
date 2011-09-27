@@ -13,6 +13,39 @@ class uploadavatar extends XiptAclBase
 		return $data['userid'];	
 	}
 	
+	function checkCoreApplicable($data)
+	{
+		$ptype = $this->getCoreParams('core_profiletype',XIPT_PROFILETYPE_ALL);
+
+		//All means applicable
+		if(XIPT_PROFILETYPE_ALL == $ptype)
+			return true;
+
+		//profiletype matching
+		$userpt = JFactory::getSession()->get('sessionpt', false, 'XIPT');
+		
+		if(XiptLibProfiletypes::getUserData($data['userid']) == $ptype || $userpt == $ptype)
+			return true;
+
+		return false;
+	}
+	
+	function isApplicableOnSelfProfiletype($resourceAccesser)
+	{
+		$aclSelfPtype = $this->getACLAccesserProfileType();
+		
+		$sessionPid   = JFactory::getSession()->get('sessionpt', false, 'XIPT');
+		if($sessionPid)
+			$selfPid = $sessionPid;
+		else
+			$selfPid	  = XiptLibProfiletypes::getUserData($resourceAccesser,'PROFILETYPE');
+			
+		if(in_array($aclSelfPtype, array(XIPT_PROFILETYPE_ALL,$selfPid)))
+			return true;
+
+		return false;
+	}
+	
 	function checkAclApplicable(&$data)
 	{
 		$session	= JFactory::getSession();
@@ -41,6 +74,7 @@ class uploadavatar extends XiptAclBase
 		if($permission && $session->get('uploadAvatar',false,'XIPT') 
 			&& isset($post['action']) && $post['action'] === 'doUpload'){
 			$session->clear('uploadAvatar','XIPT');
+			$session->clear('sessionpt','XIPT');
 		}
 		//if user login and have a avatar then not apply
 		if($userId && $permission){

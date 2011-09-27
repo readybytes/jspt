@@ -12,12 +12,14 @@ class XiptSetupRuleAdminapproval extends XiptSetupBase
 	{	
 		$plugin = XiptHelperUtils::getPluginStatus('xi_adminapproval');
 		
-		if (XIPT_JOOMLA_15)
+		if(XIPT_JOOMLA_15){
 			if($plugin && $plugin->published == 1)
-				return false;	
-		else	
+				return false;
+		}
+		else{	
 			if($plugin && $plugin->enabled == 1)
 				return false;	
+		}
 			
 		$ptypeArray	= XiptHelperProfiletypes::getProfileTypeArray();
 		foreach($ptypeArray as $ptype){
