@@ -69,7 +69,10 @@ class plgSystemxipt_system extends JPlugin
                 $profiletypeId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
                 $templateId    = XiptHelperJomsocial::getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
                 
+                //set current PT in other variable for further use
                 $defaultPT     = XiptLibProfiletypes::getDefaultProfiletype();
+                $this->_pluginHandler->setDataInSession('sessionpt', JRequest::getVar("field$profiletypeId", $defaultPT));
+                
                 JRequest::setVar("field$profiletypeId", $defaultPT);
                 JRequest::setVar("field$templateId", XiptLibProfiletypes::getProfiletypeData($defaultPT, 'template'));
             }
