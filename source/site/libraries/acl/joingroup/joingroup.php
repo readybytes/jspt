@@ -13,10 +13,48 @@ class joingroup extends XiptAclBase
 		return $data['userid'];	
 	}
 	
-	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
+	function checkAclViolation(&$data)
 	{
-		$groupsModel	=& CFactory::getModel('groups');
-		return $groupsModel->getGroupsCount($resourceAccesser);
+		$resourceAccesser 	= $this->getResourceAccesser($data);
+		
+		$maxmimunCount = $this->aclparams->get('joingroup_limit',0);
+		$aclgroup      = $this->aclparams->get('group_category');
+		$groupid   	   = $data['args'][0];
+		
+		if($aclgroup)
+			$catId	   = $this->getCategoryId($groupid);
+		else
+			$catId	   = 0;
+		
+		$count = $this->getFeatureCounts($resourceAccesser,$catId);		
+		
+		if($aclgroup == $catId && $count >= $maxmimunCount)
+			return true;
+			
+		return false;
+	}
+	
+	function getFeatureCounts($resourceAccesser,$catId)
+	{	
+		$condition = '';
+		
+		if($catId)
+			$condition = "WHERE `categoryid`= $catId";
+    				 
+		$db		=JFactory::getDBO();
+		
+		$query	= ' SELECT COUNT(*) FROM ' 
+				. $db->nameQuote( '#__community_groups_members' )
+				. ' WHERE ' . $db->nameQuote( 'memberid' ) . '=' . $db->Quote( $resourceAccesser )
+				. ' AND ' . $db->nameQuote( 'approved' ) . '=' . $db->Quote( '1' )
+				. ' AND ' . $db->nameQuote('groupid') . 'IN'
+				. ' (SELECT id FROM '
+				. $db->nameQuote( '#__community_groups' )
+				. "$condition)";
+				
+		$db->setQuery( $query );
+		$result	= $db->loadResult();
+		return $result;
 	}
 
 
@@ -34,4 +72,14 @@ class joingroup extends XiptAclBase
 		return false;
 	}
 
+	function getCategoryId($groupid)
+	{
+		$query = new XiptQuery();
+    	
+		return $query->select('categoryid')
+						->from('#__community_groups')
+						->where("`id` = $groupid")
+						->dbLoadQuery("","")
+	    				->loadResult();
+	}
 }
