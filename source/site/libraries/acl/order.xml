@@ -15,6 +15,12 @@
 		  title="Can not Delete Events"
     	  description="Restrict users to Delete Events" 
     	  example="Suppose you want Profile Type1 users Can not Delete Events of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
+    	  
+    <rule name="accesseventcategory"
+		  title="Can Access Events Category"
+		  description="Allow users to Access Events Category"
+		  example="Suppose you want Profile Type1 users Can Access Events Category / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Select Event Category -> Select Event Category " />
+    	  
 </group>
 
 <group name="groups" title="Groups">
@@ -35,16 +41,17 @@
 		  
 	<rule name="joingroup"
 		  title="Can not Join Groups"
-		  description="Restrict users to Join Gorups"
+		  description="Restrict users to Join Groups"
 		  example="Suppose you want Profile Type1 users Can not Join Groups of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
+	
 	<rule name="leavegroup"
 		  title="Can not Leave Groups"
-		  description="Restrict users to Leave Gorups"
+		  description="Restrict users to Leave Groups"
 		  example="Suppose you want Profile Type1 users Can not Leave Groups/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 
 	<rule name="accessgroupcategory"
 		  title="Can Access Groups Category"
-		  description="Allow users to Access Gorups Category"
+		  description="Allow users to Access Groups Category"
 		  example="Suppose you want Profile Type1 users Can Access Groups Category / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Select Group Category -> Select Group Category " />
 
 	<rule name="creatediscussion"
