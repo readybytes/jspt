@@ -16,6 +16,11 @@
     	  description="Restrict users to Delete Events" 
     	  example="Suppose you want Profile Type1 users Can not Delete Events of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
     	  
+    <rule name="joinevent"
+		  title="Can not Join Events"
+		  description="Restrict users to Join Events"
+		  example="Suppose you want Profile Type1 users Can not Join Events / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Maximum Events-> Write maximum event user can join /Event Category-> Select Category which is restricted for user " />
+		  
     <rule name="accesseventcategory"
 		  title="Can Access Events Category"
 		  description="Allow users to Access Events Category"
