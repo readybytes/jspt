@@ -97,6 +97,7 @@ class AclGroupTest extends XiAclUnitTest
 
   		// Case 3 : Rule 11  : pt1 can't join group
   		$data['userid'] 	= 85;
+  		$data['args']		= array(6);
   		$this->assertTrue($this->checkViolation(11, $data));
 
   		$data['userid'] 	= 86;

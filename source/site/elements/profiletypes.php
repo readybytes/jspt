@@ -18,28 +18,35 @@ class JElementProfiletypes extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
-		$reqnone = false;
-		$reqall  = false;
+		$reqnone     = false;
+		$reqall  	 = false;
+		$multiselect = false;
 		if(isset($node->_attributes->addnone) || isset($node->_attributes['addnone']))
 			$reqnone = true;
 			
 		if(isset($node->_attributes->addall) || isset($node->_attributes['addall']))
 			$reqall = true;
 			
-		$ptypeHtml = $this->getProfiletypeFieldHTML($name,$value,$control_name,$reqnone,$reqall);
+		if(isset($node->_attributes->multiselect) || isset($node->_attributes['multiselect']))
+			$multiselect = true;
+			
+		$ptypeHtml = $this->getProfiletypeFieldHTML($name,$value,$control_name,$reqnone,$reqall,$multiselect);
 
 		return $ptypeHtml;
 	}
 	
 	
-	function getProfiletypeFieldHTML($name,$value,$control_name='params',$reqnone=false,$reqall=false)
+	function getProfiletypeFieldHTML($name,$value,$control_name='params',$reqnone=false,$reqall=false,$multiselect=false)
 	{	
 		$required			='1';
 		$html				= '';
 		$class				= ($required == 1) ? ' required' : '';
 		$options			= XiptLibProfiletypes::getProfiletypeArray();
 		
-		$html	.= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
+		if($multiselect)
+			$html .= '<select id="'.$control_name.'['.$name.'][]" name="'.$control_name.'['.$name.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';
+		else
+			$html	.= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
 		
 		if($reqall) {
 			$selected	= ( JString::trim(0) == $value ) ? ' selected="true"' : '';
@@ -56,8 +63,18 @@ class JElementProfiletypes extends JElement
 		    $option		= $op->name;
 			$id			= $op->id;
 		    
-		    $selected	= ( JString::trim($id) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . $id . '"' . $selected . '>' . $option . '</option>';
+			if(!is_array($value))
+				$value = array($value);
+				
+		    $selected	= (in_array($id, $value)) ? ' selected="true"' : '';
+		    
+		    if($multiselect)
+		    {
+		    	$html .= '<option name="'.$name.'_'.$id.'" "'.$selected.'" value="'.$id.'">' ;  
+				$html .= $option.'</option>';
+		    }
+		    else
+				$html	.= '<option value="' . $id . '"' . $selected . '>' . $option . '</option>';
 		}
 			
 		$html	.= '</select>';	
