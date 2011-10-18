@@ -157,6 +157,10 @@ class plgCommunityxipt_community extends CApplications
 		$selfUserid    = JFactory::getUser()->id;
 		$othersUserid  = JRequest::getVar('userid',$selfUserid);
 		
+		//when user is not logged in and he is not visiting any profile, return true
+		if($selfUserid == 0 && $othersUserid == 0)
+			return true;
+
 		// apply guest profile type for guest user
 		$selfProfiletype    = XiptLibProfiletypes::getUserData($selfUserid, 'PROFILETYPE');
 		$othersProfiletype 	= XiptLibProfiletypes::getUserData($othersUserid, 'PROFILETYPE');
