@@ -419,7 +419,7 @@ class plgSystemxipt_system extends JPlugin
         ?>
         joms.jQuery(document).ready(function(){	
 			var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
-			joms.jQuery('a[href=' + menuUrl + ']').hide();	
+			joms.jQuery("a[href='" + menuUrl + "']").hide();	
 		});	
         <?php 
         $content = ob_get_contents();
