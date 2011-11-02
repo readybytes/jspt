@@ -20,8 +20,15 @@ class JFormFieldProfiletypes extends JFormField
 		$none->name=XiptText::_('none');
 		// get array of all visible profile types (std-class)
 		$pTypeArray = XiptLibProfiletypes::getProfiletypeArray(array('published'=>1, 'visible'=>1));
-		// add none option in profile-type array
-		array_unshift($pTypeArray,$none);
-		return JHTML::_('select.genericlist',  $pTypeArray, $this->name, null, 'id', 'name', $this->value);
+		
+		//add multiselect option
+		$attr = $this->multiple ? ' multiple="multiple"' : '';
+		
+		if($attr == null){
+			// add none option in profile-type array
+			array_unshift($pTypeArray,$none);
+		}
+		
+		return JHTML::_('select.genericlist',  $pTypeArray, $this->name, $attr, 'id', 'name', $this->value);
 	}
 }
