@@ -117,4 +117,10 @@ class XiptViewConfiguration extends XiptView
 			return true;
 		}	
 	}
+	
+	public function getEditors()
+	{
+		require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'views'.DS.'configuration'.DS.'view.html.php';
+		CommunityViewConfiguration::getEditors();
+	}
 }

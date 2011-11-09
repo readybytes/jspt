@@ -27,7 +27,7 @@ class addphotos extends XiptAclBase
 			$nextUpload	= JRequest::getVar('nextupload');
 			echo 	"{\n";
 			echo "error: 'true',\n";
-			echo "msg: '" . $message . "'\n,";
+			echo "msg: '" . $msg . "'\n,";
 			echo "nextupload: '" . $nextUpload . "'\n";
 			echo "}";
 			exit;
@@ -46,10 +46,8 @@ class addphotos extends XiptAclBase
 		if('photos' != $data['view'])
 			return false;
 
-		if($data['task'] == 'uploader'
-			|| $data['task'] == 'jsonupload'
-				|| $data['task'] == 'addnewupload'
-					|| $data['task'] == 'ajaxpreview')
+		$task = array('uploader', 'jsonupload', 'addnewupload', 'ajaxpreview', 'ajaxuploadphoto', 'multiupload');
+		if(in_array($data['task'], $task))
 				return true;
 
 		return false;
