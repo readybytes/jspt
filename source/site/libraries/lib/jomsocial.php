@@ -434,7 +434,7 @@ class XiptLibJomsocial
 			XiptError::assert( $store, XiptText::_("DATA_IS_NOT_STORED"), XiptError::ERROR);
 	
 			if($member->approved)
-				$groupModel->addMembersCount($gid);
+				self::addWallCount($gid);
 			   
 	        }
 			return true;
@@ -474,7 +474,7 @@ class XiptLibJomsocial
 	
 			//remove member
 			$model->removeMember($data);
-			$model->substractMembersCount( $gid );
+			self::addWallCount( $gid );
 	    }
 		return true;
 	}
@@ -510,5 +510,13 @@ class XiptLibJomsocial
 			return false;
 
 		return true;
+	}
+	
+	//this funtion is not supported by JS2.4++
+	function addWallCount( $groupId )
+	{
+		$group	= JTable::getInstance( 'Group' , 'CTable' );
+		$group->load( $groupId );
+		$group->store();
 	}
 }

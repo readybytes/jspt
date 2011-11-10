@@ -66,7 +66,8 @@ class joingroup extends XiptAclBase
 		if('groups' != $data['view'])
 			return false;
 
-		if($data['task']=='ajaxshowjoingroup' || $data['task']=='ajaxsavejoingroup')
+		$task = array('ajaxshowjoingroup', 'ajaxsavejoingroup', 'ajaxjoingroup');
+		if(in_array($data['task'], $task))
 				return true;
 
 		return false;
