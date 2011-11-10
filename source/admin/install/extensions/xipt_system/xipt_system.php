@@ -170,7 +170,7 @@ class plgSystemxipt_system extends JPlugin
 		// if user comes for selecting profile type again then reset is true
 		$reset = JRequest::getVar('reset',false);
 
-		if($ptypeid == 0 || $reset)
+		if($ptypeid == 0 || $reset == "true")
 			return true;
 
 		if(!XiptLibProfiletypes::validateProfiletype($ptypeid))

@@ -373,8 +373,11 @@ class XiptLibProfiletypes
 		}
 			
 		foreach($allAvatars as $av)
-		{
-			if(JString::stristr($av ,$path))
+		{   
+			if(empty($av))
+		       continue;
+
+	    	if(JString::stristr($av ,$path))
 				return true;
 			if(JString::stristr($path, XiptHelperImage::getThumbAvatarFromFull($av)))
 				return true;

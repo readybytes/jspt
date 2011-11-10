@@ -34,10 +34,10 @@ class creategroup extends XiptAclBase
 	
 	function getFeatureCounts($resourceAccesser,$catId)
 	{
-		$condition = '';
-		
 		if($catId)
 			$condition = "AND `categoryid`= $catId";
+		else
+			$condition = '';
 			
 		$query = new XiptQuery();
     	

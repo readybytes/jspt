@@ -35,12 +35,12 @@ class joingroup extends XiptAclBase
 	}
 	
 	function getFeatureCounts($resourceAccesser,$catId)
-	{	
-		$condition = '';
+	{
 		
 		if($catId)
 			$condition = "WHERE `categoryid`= $catId";
-    				 
+    	else
+			$condition = '';
 		$db		=JFactory::getDBO();
 		
 		$query	= ' SELECT COUNT(*) FROM ' 

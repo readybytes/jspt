@@ -34,10 +34,10 @@ class createvent extends XiptAclBase
 	
 	function getFeatureCounts($resourceAccesser,$catId)
 	{
-		$condition = '';
-		
 		if($catId)
 			$condition = "AND `catid`= $catId";
+		else
+			$condition = '';
 			
 		$query = new XiptQuery();
    
