@@ -4,7 +4,7 @@
 **/
 ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo JURI::root() . '/components/com_xipt/assets/style.css'; ?>" />    
-	<div class="registerProfileType">
+	<div class="registerProfileType" id="fb-register-profile-type">
 	<?php
 	echo XiptText::_ ( 'PROFILE_TYPE_DESCRIPTION_FOR_SELECTBOX' )."<br />";
 	
