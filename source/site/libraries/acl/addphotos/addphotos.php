@@ -21,9 +21,10 @@ class addphotos extends XiptAclBase
 
 	public function handleViolation($info)
 	{
-		$msg 			= $this->getDisplayMessage();
-
-		if($info['task'] == 'jsonupload') {
+		$msg  = $this->getDisplayMessage();
+		$task = array('ajaxpreview', 'jsonupload');
+		
+		if(in_array($info['task'], $task)){
 			$nextUpload	= JRequest::getVar('nextupload');
 			echo 	"{\n";
 			echo "error: 'true',\n";

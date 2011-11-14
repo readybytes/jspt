@@ -121,6 +121,7 @@ class XiptViewConfiguration extends XiptView
 	public function getEditors()
 	{
 		require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'views'.DS.'configuration'.DS.'view.html.php';
-		CommunityViewConfiguration::getEditors();
+		$editors = CommunityViewConfiguration::getEditors();
+		return $editors;
 	}
 }

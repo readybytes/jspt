@@ -43,13 +43,13 @@ class AppsTest extends XiUnitTestCase
   	//case #1 : when apps is blank array
 	$apps = array();
 	$result = array();
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 2));
 	$this->assertEquals($result, $apps);
   	
 	// case #2 : do not work on arrays
 	$apps = array( array(5, 'sample'));
 	$result = array( array(5, 'sample'));
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 2));
 	$this->assertEquals($result, $apps);
 	
 	
@@ -60,7 +60,7 @@ class AppsTest extends XiUnitTestCase
 	
 	$apps = array($obj1);
 	$result = array($obj1);
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 2));
 	$this->assertEquals($result, $apps);
 	
 	
@@ -71,7 +71,7 @@ class AppsTest extends XiUnitTestCase
 	
 	$apps = array($obj2);
 	$result = array($obj2);
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 2));
 	$this->assertEquals($result, $apps);
 	
 	// case #5 
@@ -86,25 +86,25 @@ class AppsTest extends XiUnitTestCase
 	//#5-1 OnProfileDisplay=false, $blockProfileApps=true
 	$apps = array($obj3);
 	$result = array($obj3);
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 1));
 	$this->assertEquals($result, $apps);
 	
 	//#5-2 OnProfileDisplay=false, $blockProfileApps=false
 	$apps = array($obj3);
 	$result = array();
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1, false));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 1, false));
 	$this->assertEquals($result, $apps);
 	
 	//#5-3 OnProfileDisplay=true, $blockProfileApps=true
 	$apps = array($obj4);
 	$result = array();
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 1));
 	$this->assertEquals($result, $apps);
 	
 	//#5-4 OnProfileDisplay=true, $blockProfileApps=false
 	$apps = array($obj4);
 	$result = array($obj4);
-	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1, false));
+	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 1, false));
 	$this->assertEquals($result, $apps);
 	
 	
@@ -116,13 +116,13 @@ class AppsTest extends XiUnitTestCase
 		//only allowed to profiletype-2
 		$apps = array($obj4);
 		$result = array($obj4);
-	  	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+	  	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 2));
 		$this->assertEquals($result , $apps);
 
 		// not allowed to profiletype-1
 		$apps = array($obj4);
 		$result = array();
-	  	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 1));
+	  	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 1));
 		$this->assertEquals($result , $apps);
 	
 	// case #7
@@ -136,7 +136,7 @@ class AppsTest extends XiUnitTestCase
 	
 	$apps = array($obj3,$obj4);
 	$result = array($obj4);
-  	$this->assertTrue(XiptLibApps::FilterCommunityApps(&$apps, 2));
+  	$this->assertTrue(XiptLibApps::FilterCommunityApps($apps, 2));
 	$this->assertEquals($result , $apps);
 		
   }

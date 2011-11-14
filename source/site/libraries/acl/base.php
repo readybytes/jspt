@@ -328,9 +328,8 @@ abstract class XiptAclBase
 		if($objResponse === null)
 			$objResponse   	= new JAXResponse();
 
-		$objResponse->addAssign('cwin_logo', 'innerHTML', XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
+		$objResponse->addScriptCall('cWindowShow', '', XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'), 450, 80);
 		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);
-		$objResponse->addScriptCall('cWindowResize', 80);
 		
 //XITODO: cleanup
 		$forcetoredirect =$this->getCoreParams('force_to_redirect','0');    	

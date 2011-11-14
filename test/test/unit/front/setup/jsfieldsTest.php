@@ -32,6 +32,7 @@ class JsfieldsTest extends XiUnitTestCase
 		$obj->createCustomField(TEMPLATE_CUSTOM_FIELD_CODE);
 		$this->_DBO->addTable('#__community_fields');
 		$this->_DBO->filterColumn('#__community_fields','id');
+		$this->_DBO->filterColumn('#__community_fields','ordering');
 	}
 
 	function testCheckExistance()
