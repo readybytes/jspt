@@ -32,9 +32,18 @@ abstract class XiptAclBase
 				}
 		}
 
+		//Load Core Params if defined for current ACL, if not already loaded
+		if(!$this->coreparams){
+			$corexmlpath =  dirname(__FILE__).DS.strtolower($className).DS.'coreparams.xml';
+			if(JFile::exists($corexmlpath)){
+				$corexmlpath =  dirname(__FILE__).DS.strtolower($className).DS.'coreparams.xml';
+			}
+			else{
+				$corexmlpath = dirname(__FILE__).DS.'coreparams.xml';
+			}
+		}
+		
 		//load core params
-		//XITODO : CREATE INI FILE
-		$corexmlpath = dirname(__FILE__).DS.'coreparams.xml';
 		$coreinipath = dirname(__FILE__).DS.'coreparams.ini';		
 		$iniData	= JFile::read($coreinipath);
 	

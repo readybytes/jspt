@@ -195,12 +195,12 @@
 
 <group name="other" title="Others">
 	<rule name="aecredirect"
-		  title="Redirect to Custom URL"
-		  description="Redirect Users to AEC Subscription or Other Page" />
+		  title="Redirect to AEC URL"
+		  description="Redirect Users to AEC Subscription Page" />
 		
 	<rule name="redirect"
-		  title="Redirect to AEC URL"
-		  description="Redirect Users to AEC Subscription Page"/>
+		  title="Redirect to Custom URL"
+		  description="Redirect Users to AEC Subscription or Other Page"/>
 	
 	<rule name="writemessages"
 		  title="Can not Send Message"

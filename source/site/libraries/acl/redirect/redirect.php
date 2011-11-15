@@ -34,13 +34,6 @@ class redirect extends XiptAclBase
 
 	function checkAclApplicable(&$data)
 	{
-		$aecExists = XiptLibAec::isAecExists();
-		$integrateAEC   = XiptFactory::getSettings('subscription_integrate',0);
-
-		// pType already selected
-		if(!$integrateAEC || !$aecExists)
-			return false;
-
 		$user=JFactory::getUser();
 		if(!$user->id)
 			return false;
@@ -56,11 +49,4 @@ class redirect extends XiptAclBase
 
 		return true;
 	}
-
-	public function getRedirectUrl()
-	{
-		$redirectUrl  = 'index.php?option=com_acctexp&task=subscribe';
-		return $redirectUrl;
-	}
-
 }

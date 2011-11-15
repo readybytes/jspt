@@ -39,6 +39,14 @@ class aecredirect extends XiptAclBase
 
 	function checkAclApplicable(&$data)
 	{
+		$aecExists 		  = XiptLibAec::isAecExists();
+		$subs_integrate   = XiptFactory::getSettings('subscription_integrate',0);
+		$integrate_with   = XiptFactory::getSettings('integrate_with',0);
+
+		// pType already selected
+		if(!$subs_integrate || $integrate_with != 'aec' || !$aecExists)
+			return false;
+			
 		$user=JFactory::getUser();
 		if(!$user->id)
 			return false;
@@ -55,4 +63,9 @@ class aecredirect extends XiptAclBase
 		return true;
 	}
 
+	public function getRedirectUrl()
+	{
+		$redirectUrl  = 'index.php?option=com_acctexp&task=subscribe';
+		return $redirectUrl;
+	}
 }
