@@ -200,7 +200,7 @@
 		
 	<rule name="redirect"
 		  title="Redirect to Custom URL"
-		  description="Redirect Users to AEC Subscription or Other Page"/>
+		  description="Redirect Users to Custom URL Page"/>
 	
 	<rule name="writemessages"
 		  title="Can not Send Message"
