@@ -13,8 +13,12 @@ class XiptHelperUtils
 		$my	= JFactory::getUser($id);
 		if (XIPT_JOOMLA_15)
 			return ( $my->usertype == 'Super Administrator');
-		else
-			return ( $my->usertype == 'deprecated' || $my->usertype == 'Super Users');
+		else{
+			$gid = 8;//for super users
+			if(in_array($gid, $my->groups))
+				return true;
+			return false;
+		}
 	}
 	
 	function getFonts()
