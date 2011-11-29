@@ -67,7 +67,7 @@ class joinevent extends XiptAclBase
 		if('events' != $data['view'])
 			return false;
 
-		if($data['task']=='updatestatus')
+		if($data['task']=='updatestatus' || $data['task']=='ajaxupdatestatus')
 				return true;
 
 		return false;
