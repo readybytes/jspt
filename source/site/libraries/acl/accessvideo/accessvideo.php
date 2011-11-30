@@ -38,7 +38,8 @@ class accessvideo extends XiptAclBase
 		if('videos' != $data['view'])
 			return false;
 
-		if($data['task'] === 'video')
+		//also restrict user when he is accesing video through activity stream
+		if($data['task'] === 'video' || $data['task'] === 'ajaxshowvideowindow')
 				return true;
 
 		return false;

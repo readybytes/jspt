@@ -53,8 +53,10 @@ class accesseventcategory extends XiptAclBase
 		$result = $db->loadObject();
 		if(!$result)
 			return false;
-		$aclevent=$this->aclparams->get('event_category');
-		if ($aclevent === $result->catid)
+		$aclevent = $this->aclparams->get('event_category');
+		
+		//$aclevent == 0 means user can access all categories
+		if ($aclevent === $result->catid || $aclevent == 0)
 			return true;
 			
 		return false;

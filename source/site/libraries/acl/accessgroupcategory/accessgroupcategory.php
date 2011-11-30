@@ -53,8 +53,10 @@ class accessgroupcategory extends XiptAclBase
 		$result = $db->loadObject();
 		if(!$result)
 			return false;
-		$aclgroup=$this->aclparams->get('group_category');
-		if ($aclgroup === $result->categoryid)
+		$aclgroup = $this->aclparams->get('group_category');
+		
+		//$aclgroup==0 means user can access all categories
+		if ($aclgroup === $result->categoryid || $aclgroup == 0)
 			return true;
 			
 		return false;

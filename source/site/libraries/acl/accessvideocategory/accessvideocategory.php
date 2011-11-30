@@ -53,8 +53,10 @@ class accessvideocategory extends XiptAclBase
 		$result = $db->loadObject();
 		if(!$result)
 			return false;
-		$aclvideo=$this->aclparams->get('video_category');
-		if ($aclvideo === $result->category_id)
+		$aclvideo = $this->aclparams->get('video_category');
+		
+		//$aclvideo ==0 means user can access all categories
+		if ($aclvideo === $result->category_id || $aclvideo == 0)
 			return true;
 			
 		return false;
