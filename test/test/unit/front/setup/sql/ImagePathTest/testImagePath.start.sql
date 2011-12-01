@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `au_#__community_users` (
   `view` int(11) NOT NULL DEFAULT '0',
   `friends` text NOT NULL,
   `groups` text NOT NULL,
+  `events` text NOT NULL,
   `friendcount` int(11) NOT NULL DEFAULT '0',
   `alias` varchar(255) NOT NULL,
   `latitude` float NOT NULL DEFAULT '255',

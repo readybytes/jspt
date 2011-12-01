@@ -35,18 +35,12 @@ class ProfiletypeTest extends XiSelTestCase
     $this->type("watermarkparamsxiThumbWidth", "20");
     $this->type("watermarkparamsxiThumbHeight", "20");
     $this->type("watermarkparams[xiBackgroundColor]", "0F15D0");
-    if(TEST_XIPT_JOOMLA_15){
-    	$this->click("//h3[@id='resetall-page']/span");
-    	$this->click("resetAll1");
-    	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    	$this->click("//td[@id='toolbar-save']/a/span");
-    }
-    else{
-    	$this->click("//h3[@id='resetall-page']/a/span");
-    	$this->click("resetAll1");
-    	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    	$this->click("//li[@id='toolbar-save']/a/span");
-    }
+
+	if(TEST_XIPT_JOOMLA_15)
+        $this->click("//td[@id='toolbar-save']/a/span");
+    else
+       $this->click("//li[@id='toolbar-save']/a/span");
+    
     $this->waitPageLoad();
     $this->assertTrue($this->isTextPresent("PROFILETYPE-ONE"));
 	
@@ -93,30 +87,18 @@ class ProfiletypeTest extends XiSelTestCase
     $this->click("watermarkparamsenableWaterMark1");
     $this->click("watermarkparamstypeofwatermark1");
     $this->type("watermarkparamsxiImage", JPATH_ROOT.DS.$watermrk);
+    
      if(TEST_XIPT_JOOMLA_15)
         $this->click("//td[@id='toolbar-save']/a/span");
     else
        $this->click("//li[@id='toolbar-save']/a/span");
     
-     
-    if(TEST_XIPT_JOOMLA_15){
-    	$this->click("//h3[@id='resetall-page']/span");
-    	$this->click("resetAll1");
-    	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    	$this->click("//td[@id='toolbar-save']/a/span");
-       }
-    else{
-    	$this->click("//h3[@id='resetall-page']/a/span");
-    	$this->click("resetAll1");
-    	$this->assertEquals("Are you confirm to reset properties of all existing users", $this->getConfirmation());
-    	$this->click("//li[@id='toolbar-save']/a/span");
-       }
      $this->waitPageLoad();
      $this->assertTrue($this->isTextPresent("PROFILETYPE-TWO"));
-     $checkWMExists=JFile::exists(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_2.png');
+     $checkWMExists=JFile::exists(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_1.png');
      $this->assertTrue($checkWMExists);
     
-     $md5_watermark      = md5(JFile::read(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_2.png'));
+     $md5_watermark      = md5(JFile::read(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.'watermark_1.png'));
      $md5_watermark_gold = md5(JFile::read(JPATH_ROOT.DS.'test'.DS.'test'.DS.'com_xipt'.DS.'admin'.DS.'watermark_2.png'));
   
     // setup custom filters

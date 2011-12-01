@@ -224,7 +224,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
 		system("sudo chmod 777 $fname");
 			
 		$configString = '';
-		if(TEST_XIPT_JOOMLA_16 || TEST_XIPT_JOOMLA_17){
+		if(TEST_XIPT_JOOMLA_17){
 			$configString = $config->toString('PHP', array('class' => 'JConfig', 'closingtag' => false));
 		}elseif(TEST_XIPT_JOOMLA_15){
 			$configString  = $config->toString('PHP', 'config', array('class' => 'JConfig'));

@@ -25,9 +25,4 @@ define('COM_XIPT_PKG',		JOOMLA_LOCATION.'/xipt.zip');
 define('JOMSOCIAL_PKG',		JOOMLA_LOCATION.'/com_community.zip');
 define('PAYPLANS_PKG',		JOOMLA_LOCATION.'/test/xiec/xiec.zip');
 
-$version = new JVersion();
-
-define('TEST_XIPT_JOOMLA_17',($version->RELEASE === '1.7'));
-define('TEST_XIPT_JOOMLA_16',($version->RELEASE === '1.6'));
-define('TEST_XIPT_JOOMLA_15',($version->RELEASE === '1.5'));
 require_once dirname(__FILE__).'/xipt.php';
