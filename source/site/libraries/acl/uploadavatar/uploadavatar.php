@@ -51,7 +51,15 @@ class uploadavatar extends XiptAclBase
 		$session	= JFactory::getSession();
 		$permission = $this->aclparams->get('upload_avatar_at_registration',false);
 		$post		= JRequest::get('post');
-			
+		
+		//check whether user has actually uploaded a avatar 
+		//or he is just clicking on upload without selecting avatar
+		$uploadedData   = JRequest::get('files');
+		
+		if($uploadedData){
+			$avatar			= $uploadedData['Filedata'];
+			$avatarSize		= $avatar['size'];
+		}
 		// When user login then force to upload avatar
 		$userId = JFactory::getUser()->id;
 		
@@ -72,7 +80,7 @@ class uploadavatar extends XiptAclBase
 		}
 				
 		if($permission && $session->get('uploadAvatar',false,'XIPT') 
-			&& isset($post['action']) && $post['action'] === 'doUpload'){
+			&& isset($post['action']) && $post['action'] === 'doUpload' && $avatarSize){
 			$session->clear('uploadAvatar','XIPT');
 			$session->clear('sessionpt','XIPT');
 		}
