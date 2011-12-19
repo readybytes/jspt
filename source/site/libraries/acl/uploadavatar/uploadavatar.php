@@ -63,7 +63,7 @@ class uploadavatar extends XiptAclBase
 		// When user login then force to upload avatar
 		$userId = JFactory::getUser()->id;
 		
-		if(!empty($userId) && $data['task'] === 'logout'){
+		if(!empty($userId) && ($data['task'] === 'logout' || $data['task'] === 'user.logout')){
 			$session->clear('uploadAvatar','XIPT');
 			return false;
 		}
