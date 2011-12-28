@@ -14,9 +14,7 @@ class XiptModelJSToolbar extends XiptModel
 	 **/
 	function getMenu($menuId=null, $limit=null, $limitstart=null)
 	{
-		static $result=null;
-		if($result== null){
-			$query = new XiptQuery();
+		$query = new XiptQuery();
 			
 		if(XIPT_JOOMLA_15){
 			$result = $query->select('*')
@@ -35,7 +33,6 @@ class XiptModelJSToolbar extends XiptModel
 							->limit($limit,$limitstart)
 							->dbLoadQuery("","")
 							->loadObjectList('id');	
-		}		
 		}
 		
 		if($menuId == null && $result)
@@ -58,5 +55,19 @@ class XiptModelJSToolbar extends XiptModel
 					 						 ->where(" `menuid` = $menuid ")
 					 						 ->dbLoadQuery("", "")
 			  		 						 ->loadResultArray();		
+	}
+	
+	/*
+	 * Count number of total records as per current query
+	 */
+	public function getTotal()
+	{
+		if($this->_total)
+			return $this->_total;
+
+		$menus 			= $this->getMenu();
+        $this->_total 	= count($menus);
+
+		return $this->_total;
 	}
 }

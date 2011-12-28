@@ -14,28 +14,25 @@ class XiptModelApplications extends XiptModel
 	 **/
 	function getPlugin($pluginId=null, $indexBy=XIPT_JOOMLA_EXT_ID, $limit=null, $limitstart=null)
 	{		
-		static $result=null;
-		if($result== null){
-			$query = new XiptQuery();
-			
-			if (XIPT_JOOMLA_15){
-				$result = $query->select('*')
-				        		->from('#__plugins')
-							    ->where(" `folder` = 'community' ")
-								->order('ordering')
-								->limit($limit,$limitstart)
-								->dbLoadQuery("","")
-								->loadObjectList($indexBy);
-			}
-			else{
-				$result = $query->select('*')
-				        		->from('#__extensions')
-							    ->where(" `folder` = 'community' ")
-								->order('ordering')
-								->limit($limit,$limitstart)
-								->dbLoadQuery("","")
-								->loadObjectList($indexBy);
-			}			
+		$query = new XiptQuery();
+		
+		if (XIPT_JOOMLA_15){
+			$result = $query->select('*')
+			        		->from('#__plugins')
+						    ->where(" `folder` = 'community' ")
+							->order('ordering')
+							->limit($limit,$limitstart)
+							->dbLoadQuery("","")
+							->loadObjectList($indexBy);
+		}
+		else{
+			$result = $query->select('*')
+			        		->from('#__extensions')
+						    ->where(" `folder` = 'community' ")
+							->order('ordering')
+							->limit($limit,$limitstart)
+							->dbLoadQuery("","")
+							->loadObjectList($indexBy);
 		}
 		
 		if($pluginId == null && $result)
@@ -58,5 +55,19 @@ class XiptModelApplications extends XiptModel
 					 						 ->where(" `applicationid` = $aid ")
 					 						 ->dbLoadQuery("", "")
 			  		 						 ->loadResultArray();		
+	}
+	
+	/*
+	 * Count number of total records as per current query
+	 */
+	public function getTotal()
+	{
+		if($this->_total)
+			return $this->_total;
+
+		$plugins 		= $this->getPlugin();
+        $this->_total 	= count($plugins);
+
+		return $this->_total;
 	}
 }

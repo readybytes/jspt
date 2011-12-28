@@ -84,7 +84,11 @@ class XiptHelperJSToolbar
 		foreach($menuids as $menuid)
 		{
 			$result   = $jsmodel->getMenu($menuid);
-			$hideMenu = XiptRoute::_("$result->link");
+			
+			if(!$result)
+				return false;
+				
+			$hideMenu = CRoute::_("$result->link");
 			
 			ob_start();
 	        ?>
