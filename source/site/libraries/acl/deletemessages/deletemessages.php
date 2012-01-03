@@ -21,7 +21,7 @@ class deletemessages extends XiptAclBase
 		if('inbox' != $data['view'])
 			return false;
 
-		if($data['task'] === 'ajaxremovefullmessages')
+		if($data['task'] === 'ajaxremovefullmessages' || $data['task'] === 'ajaxdeletemessages')
 				return true;
 
 		return false;
