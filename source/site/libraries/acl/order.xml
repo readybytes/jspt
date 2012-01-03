@@ -193,15 +193,7 @@
 		  description="Restrict users to Change Privacy" />
 </group>	
 
-<group name="other" title="Others">
-	<rule name="aecredirect"
-		  title="Redirect to AEC URL"
-		  description="Redirect Users to AEC Subscription Page" />
-		
-	<rule name="redirect"
-		  title="Redirect to Custom URL"
-		  description="Redirect Users to Custom URL Page"/>
-	
+<group name="messages" title="Messages">	
 	<rule name="writemessages"
 		  title="Can not Send Message"
 		  description="Restrict Users to Send Message" />
@@ -209,7 +201,13 @@
 	<rule name="readmessage"
 		  title="Can not Read Message"
 		  description="Restrict Users to Read Message" />
+		  
+	<rule name="deletemessages"
+		  title="Can not Delete Message"
+		  description="Restrict Users to Delete Message" />
+		  
 </group>
+
 <group name="likedislike" title="LikeDisLike">
 	<rule name="likephotos"
 		  title="Can not Like Dislike Photos"
@@ -230,5 +228,19 @@
 	<rule name="likeevent"
 		  title="Can not Like Dislike Event"
 		  description="Restrict User to Like Dislike event" />
-</group>		
+</group>	
+
+<group name="other" title="Others">
+	<rule name="aecredirect"
+		  title="Redirect to AEC URL"
+		  description="Redirect Users to AEC Subscription Page" />
+		
+	<rule name="redirect"
+		  title="Redirect to Custom URL"
+		  description="Redirect Users to Custom URL Page"/>
+		  
+	<rule name="reportuser"
+		  title="Can not Report User"
+		  description="Restrict Users to Report Users" />
+</group>	
 </rules>

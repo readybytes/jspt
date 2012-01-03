@@ -18,20 +18,17 @@ class JElementEventcategory extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
-		$reqnone = false;
 		$reqall  = false;
-		if(isset($node->_attributes->addnone) || isset($node->_attributes['addnone']))
-			$reqnone = true;
 			
 		if(isset($node->_attributes->addall) || isset($node->_attributes['addall']))
 			$reqall = true;
 			
-		$ptypeHtml = $this->getEventcategoryHTML($name,$value,$control_name,$reqnone,$reqall);
+		$ptypeHtml = $this->getEventcategoryHTML($name,$value,$control_name,$reqall);
 
 		return $ptypeHtml;
 	}
 	
-	function getEventcategoryHTML($name,$value,$control_name='params',$reqnone=false,$reqall=false)
+	function getEventcategoryHTML($name,$value,$control_name='params',$reqall=false)
 	{	
 		$required			='1';
 		$html				= '';
@@ -43,11 +40,6 @@ class JElementEventcategory extends JElement
 		if($reqall) {
 			$selected	= ( JString::trim(0) == $value ) ? ' selected="true"' : '';
 			$html	.= '<option value="' . 0 . '"' . $selected . '>' . XiptText::_("ALL") . '</option>';
-		}
-		
-		if($reqnone) {
-			$selected	= ( JString::trim(-1) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . -1 . '"' . $selected . '>' . XiptText::_("NONE") . '</option>';
 		}
 		
 		foreach($options as $op)

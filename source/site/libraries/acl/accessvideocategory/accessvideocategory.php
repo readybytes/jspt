@@ -34,7 +34,7 @@ class accessvideocategory extends XiptAclBase
 		if('videos' != $data['view'])
 			return false;
 
-		if($data['task'] === 'video')
+		if($data['task'] === 'video' || $data['task'] === 'ajaxshowvideowindow')
 				return true;
 
 		return false;

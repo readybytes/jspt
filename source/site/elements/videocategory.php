@@ -18,20 +18,17 @@ class JElementVideocategory extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
-		$reqnone = false;
 		$reqall  = false;
-		if(isset($node->_attributes->addnone) || isset($node->_attributes['addnone']))
-			$reqnone = true;
 			
 		if(isset($node->_attributes->addall) || isset($node->_attributes['addall']))
 			$reqall = true;
 			
-		$ptypeHtml = $this->getVideocategoryHTML($name,$value,$control_name,$reqnone,$reqall);
+		$ptypeHtml = $this->getVideocategoryHTML($name,$value,$control_name,$reqall);
 
 		return $ptypeHtml;
 	}
 	
-	function getVideocategoryHTML($name,$value,$control_name='params',$reqnone=false,$reqall=false)
+	function getVideocategoryHTML($name,$value,$control_name='params',$reqall=false)
 	{	
 		$required			='1';
 		$html				= '';
@@ -39,6 +36,11 @@ class JElementVideocategory extends JElement
 		$options			= $this->getVideocategory();
 		
 		$html	.= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']" title="' . "Select Video Category" . '">';
+		
+		if($reqall) {
+			$selected	= ( JString::trim(0) == $value ) ? ' selected="true"' : '';
+			$html	.= '<option value="' . 0 . '"' . $selected . '>' . XiptText::_("ALL") . '</option>';
+		}
 		
 		foreach($options as $op)
 		{

@@ -86,15 +86,15 @@ class XiptHelperJSToolbar
 			$result   = $jsmodel->getMenu($menuid);
 			
 			if(!$result)
-				return false;
+				continue;
 				
-			$hideMenu = CRoute::_("$result->link");
+			$hideMenu = XiptRoute::_("$result->link");
 			
 			ob_start();
 	        ?>
 	        joms.jQuery(document).ready(function(){	
 				var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
-				joms.jQuery("a[href='" + menuUrl + "']").hide();	
+				joms.jQuery("a[href^='" + menuUrl + "']").hide();
 			});	
 	        <?php 
 	        $content = ob_get_contents();
