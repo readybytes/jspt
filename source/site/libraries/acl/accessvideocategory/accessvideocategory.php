@@ -42,8 +42,9 @@ class accessvideocategory extends XiptAclBase
 	
 	function isApplicableForVideoCategory($data)
 	{
-		$videoId	= isset($data['videoid'])? $data['videoid'] : 0;
+		$args		= $data['args'];
 		$videoId	= JRequest::getVar('videoid' , $videoId, 'REQUEST');
+		$videoId	= isset($videoId)? $videoId : $args[0];
 		$db 		= JFactory::getDBO();
 		$query		= 'SELECT '.$db->nameQuote('category_id')
 						.' FROM '.$db->nameQuote('#__community_videos')

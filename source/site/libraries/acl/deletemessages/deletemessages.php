@@ -10,7 +10,17 @@ class deletemessages extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['viewuserid'];	
+		$args		= $data['args'];
+		$msgId	    = $args[0];
+		
+		$db 		= JFactory::getDBO();
+		$query		= ' SELECT '.$db->nameQuote('msg_from')
+					 .' FROM '.$db->nameQuote('#__community_msg_recepient')
+					 .' WHERE '.$db->nameQuote('msg_id').' = '.$db->Quote($msgId);
+					 
+		$db->setQuery( $query );
+		$userid		= $db->loadResult();
+		return $userid;	
 	}
 
 	function checkAclApplicable(&$data)
@@ -21,7 +31,8 @@ class deletemessages extends XiptAclBase
 		if('inbox' != $data['view'])
 			return false;
 
-		if($data['task'] === 'ajaxremovefullmessages' || $data['task'] === 'ajaxdeletemessages')
+		$task = array('ajaxremovefullmessages', 'ajaxdeletemessages', 'ajaxremovemessage');
+		if(in_array($data['task'], $task))
 				return true;
 
 		return false;

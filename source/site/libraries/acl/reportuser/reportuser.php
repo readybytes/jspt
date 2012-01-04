@@ -10,7 +10,8 @@ class reportuser extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['viewuserid'];	
+		$args	= $data['args'];
+		return $args[2];	
 	}
 
 	function checkAclApplicable(&$data)
