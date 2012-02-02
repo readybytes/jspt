@@ -390,18 +390,11 @@ class plgSystemxipt_system extends JPlugin
     	if(false == $this->_pluginHandler->isPrivacyAllow()){
     		return;
     	}
-    	//get Privacy menu
-    	if(XIPT_JOOMLA_15){
-			$menus = JSite::getMenu();
-    	}
-		else{
-			//$menus = JApplication::getMenu('site');
-			//XiTODO::Improve this code;
-			include_once JPATH_ROOT.DS.'administrator/components/com_menus/models/items.php';
-			$menus 		= new MenusModelItems;
-		}
-
-		$menusItems = $menus->getItems('menutype',CFactory::getConfig()->get( 'toolbar_menutype'));
+    	
+    	$menus	=	XiptFactory::getInstance('jstoolbar','Model');
+    	
+		$menusItems = $menus->getMenu(null, null, null, false);
+		
 		if(empty($menusItems))
 			return ;
 
