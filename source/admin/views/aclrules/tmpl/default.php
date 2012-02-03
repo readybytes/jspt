@@ -42,7 +42,7 @@ function submitbutton( action )
 	<?php echo XiptText::_('FOLLOWING_PUBLISHED_RULES_WILL_BE_APPLIED_FOR_RESTRICTION');?>
 </div>
 
-<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
 		<tr class="title">
