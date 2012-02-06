@@ -19,8 +19,16 @@ class createvent extends XiptAclBase
 		
 		$maxmimunCount = $this->aclparams->get('createvent_limit',0);
 		$aclgroup 	   = $this->aclparams->get('event_category');
-		if($aclgroup)
-			$catId		   = JRequest::getVar('catid' , 0 , 'REQUEST');
+		if($aclgroup){
+			if($data['ajax']){
+				$args		= $data['args'];
+				$eventData	= json_decode($args[1]);
+				$catId		= $eventData->catid;
+			}
+			else{
+				$catId		   = JRequest::getVar('catid' , 0 , 'REQUEST');
+			}
+		}
 		else 
 			$catId		   = JRequest::getVar('catid' , $aclgroup , 'REQUEST');
 		
@@ -55,13 +63,19 @@ class createvent extends XiptAclBase
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
 
-		if('events' != $data['view'])
+		if($data['view'] != 'events' && $data['view'] != 'system')
 			return false;
 
 		// XITODO : use pattern ( return false in below conditiion)
 		if($data['task'] == 'create')
-				return true;
+			return true;
 
+		$args		= $data['args'];
+		$eventData	= json_decode($args[1]);
+		
+		if($data['task'] == 'ajaxstreamadd' && $eventData->type == 'event')
+			return true;
+			
 		return false;
 	}
 
