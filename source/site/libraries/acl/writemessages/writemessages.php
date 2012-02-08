@@ -68,15 +68,28 @@ class writemessages extends XiptAclBase
 		if('inbox' != $data['view'])
 			return false;
 
+		$js_version = XiptHelperJomsocial::get_js_version();
+		
 		if($data['task'] == 'ajaxcompose' || $data['task'] == 'ajaxaddreply' ) {
+			
 			//modify whom we are sending msg
-			$data['viewuserid'] = $data['args'][0];
+			if(Jstring::stristr($js_version,'2.2')){
+				$data['viewuserid'] = $data['args'][0];
+			}
+			else{
+				// In Js2.4++, we get msg id in args instead of user id
+				$msgId = $data['args'][0];
+				$data['viewuserid'] = $this->getUserId($msgId);
+			}
 			return  true;
 		}
 
 		if($data['task'] == 'write') {
 			//if username give then find user-id
 			$data['viewusername'] = isset($data['viewusername']) ? $data['viewusername']:  '';
+			
+			//In JS2.2.xx, user can send msg to only 1 person at a time
+			//And that person's name is set in "to" variable
 			$viewusername = JRequest::getVar('to',$data['viewusername']);
 			if($viewusername != '') {
 				$db			=& JFactory::getDBO();
@@ -90,10 +103,65 @@ class writemessages extends XiptAclBase
 				if(!empty($user)) $data['viewuserid'] = $user->id;
 			}
 
+			//In JS2.4.xx, user can send msg to many users at a time
+			//And those user ids are set in "friends" variable
+			$friendsId = JRequest::getVar('friends',array());
+			
+			if(!empty($friendsId)){
+				$data['viewuserid'] = $friendsId;
+			}
+			
 			return  true;
 		}
 
 
 		return false;
+	}
+	
+	function checkAclViolation($data)
+	{	
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+			
+		$resourceOwner		= is_array($resourceOwner)?$resourceOwner:array($resourceOwner);
+					
+		//if its not applicable on resource accessor, return false
+		if($this->isApplicableOnSelfProfiletype($resourceAccesser) === false)
+				return false;
+				
+		foreach($resourceOwner as $owner)
+		{		
+			//if its not applicable on currnet user, no need to check other condiotions
+			if($this->isApplicableOnOtherProfiletype($owner) === false)
+				continue;
+							
+			// if resource owner is friend of resource accesser 
+			if($this->isApplicableOnFriend($resourceAccesser,$owner) === false)
+				continue; 
+			
+			// if feature count is greater then limit
+			if($this->isApplicableOnMaxFeature($resourceAccesser,$owner) === false)
+				continue;
+				
+			return true;
+		}	
+		return false;
+	}
+	
+	function getUserId($msgId)
+	{
+		$userIds = array();
+		$db	   = JFactory::getDBO();
+
+		$query = "SELECT `msg_from`, `to` "
+				." 	FROM #__community_msg_recepient "
+				."  WHERE `msg_id` = ".$msgId;
+
+		$db->setQuery( $query );
+		$result	= $db->loadObjectList();
+		
+		$userIds[] = $result[0]->msg_from;
+		$userIds[] = $result[0]->to;
+		return $userIds;
 	}
 }
