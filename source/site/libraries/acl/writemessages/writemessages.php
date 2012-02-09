@@ -23,10 +23,10 @@ class writemessages extends XiptAclBase
 		$maxmimunCount = $this->aclparams->get($paramName,0);
 		
 		//In JS2.4++, user can msg to more than one user simlutaneously
-		$totalUsers = $data['viewuserid'];
-		$totalUsers = is_array($totalUsers)?$totalUsers:array($totalUsers);
+		//$totalUsers = $data['count'];
+		//$totalUsers = is_array($totalUsers)?$totalUsers:array($totalUsers);
 		
-		$userCount  = count($totalUsers);
+		$userCount  = $data['count'];
 		
 		if($count >= $maxmimunCount || ($userCount+$count) > $maxmimunCount)
 			return true;
@@ -87,6 +87,7 @@ class writemessages extends XiptAclBase
 				// In Js2.4++, we get msg id in args instead of user id
 				$msgId = $data['args'][0];
 				$data['viewuserid'] = $this->getUserId($msgId);
+				$data['count'] = 1;
 			}
 			return  true;
 		}
@@ -131,7 +132,12 @@ class writemessages extends XiptAclBase
 		$resourceAccesser 	= $this->getResourceAccesser($data);		
 			
 		$resourceOwner		= is_array($resourceOwner)?$resourceOwner:array($resourceOwner);
-					
+
+		//If user is replying to a message, then we don't need to count no. of users. 
+		if(isset($data['count'])){
+			$data['count'] = count($resourceOwner);
+		}
+		
 		//if its not applicable on resource accessor, return false
 		if($this->isApplicableOnSelfProfiletype($resourceAccesser) === false)
 				return false;
