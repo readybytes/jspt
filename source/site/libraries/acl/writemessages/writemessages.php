@@ -13,7 +13,7 @@ class writemessages extends XiptAclBase
 		return $data['viewuserid'];	
 	}
 	
-	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner)
+	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data)
 	{	
 		$aclSelfPtype = $this->coreparams->get('core_profiletype',-1);
 		$otherptype = $this->aclparams->get('other_profiletype',-1);
@@ -21,7 +21,14 @@ class writemessages extends XiptAclBase
 		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
 		$paramName ='writemessage_limit';
 		$maxmimunCount = $this->aclparams->get($paramName,0);
-		if($count >= $maxmimunCount)
+		
+		//In JS2.4++, user can msg to more than one user simlutaneously
+		$totalUsers = $data['viewuserid'];
+		$totalUsers = is_array($totalUsers)?$totalUsers:array($totalUsers);
+		
+		$userCount  = count($totalUsers);
+		
+		if($count >= $maxmimunCount || ($userCount+$count) > $maxmimunCount)
 			return true;
 			
 		return false;
@@ -140,7 +147,7 @@ class writemessages extends XiptAclBase
 				continue; 
 			
 			// if feature count is greater then limit
-			if($this->isApplicableOnMaxFeature($resourceAccesser,$owner) === false)
+			if($this->isApplicableOnMaxFeature($resourceAccesser,$owner, $data) === false)
 				continue;
 				
 			return true;
