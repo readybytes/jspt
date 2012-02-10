@@ -164,22 +164,30 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			?>
 			</h3>
 			<?php
-			$step=JRequest::getVar('step',0);
-			$end = ($step+1)*$limit;
-			//Number of user syn-cp when limit is greater then remaining user 
-			//if($limit > $total){
-				//$remain=$end = $total;
-			//}
-			// display Total users
-			echo "<br /> Total ". $total=$total+($limit*$step)." users for Syn-cp";	
-			
-			//dispaly syn-cp users
-			echo "<br />Syncing-Up Users  ". ($step)*$limit ." To ". $end ." ";
-			$step++;
-			$remain = $total-($limit*$step);
-			//dispaly remaning users 
-			echo "<br />Remaining " .$remain . " Users";
-							
+			  $step=JRequest::getVar('step',0);
+			    $total=$total-$limit;
+				if($total>0){
+					$step++;
+					//set the end limit to remaining users when total is less than the syncronised limit.
+					if($total <= $limit)
+				      $end = ($step*$limit)+$total;
+					else
+					  $end = ($step+1)*$limit;
+					//Number of user syn-cp when limit is greater then remaining user 
+					//if($limit > $total){
+						//$remain=$end = $total;
+					//}
+					// display Total users
+					echo "<br /> Total ". $total=$total+($limit*$step)." users for Syn-cp";	
+					
+					//display syn-cp users
+					echo "<br />Syncing-Up Users  ". ($step)*$limit ." To ". $end ." ";
+					$remain = $total-($limit*($step+1));
+					if($remain <=0)
+					  echo "<br />Remaining 0 Users";
+					else
+					  echo "<br />Remaining " .$remain . " Users";
+				}
 			?>
 			<script>
 			window.onload = function() {

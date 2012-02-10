@@ -17,15 +17,20 @@ echo "Reset Page : DO NOT CLOSE THIS WINDOW WHILE RESETTING USERS";
 ?>
 </h3>
 <?php  
-echo "<br />Total Users ".$this->total;
-echo "<br />Profile-type id ".$this->id;
-echo "<br />Syncing-Up ". ($this->start-1)*$this->limit ." To ". $this->start*$this->limit ." ";
-$remain = $this->total - ($this->start*$this->limit); 
-if($remain <= 0)
-	echo "<br />Remaining 0 Users";
-else
-	echo "<br />Remaining " .$remain . " Users";
-
+if($this->start < $this->total/$this->limit){
+	echo "<br />Total Users ".$this->total;
+	echo "<br />Profile-type id ".$this->id;
+	$remain = $this->total - ($this->start+1)*$this->limit;
+	if($remain <= 0)
+	{
+		echo "<br />Syncing-Up ". ($this->start)*$this->limit ." To ". (($this->start+1)*$this->limit + ($remain)) ." ";
+		echo "<br />Remaining 0 Users";
+	}
+	else{
+		echo "<br />Syncing-Up ". ($this->start)*$this->limit ." To ". ($this->start+1)*$this->limit ." ";
+		echo "<br />Remaining " .$remain . " Users";
+	}
+}
 ?>
 <script>
 window.onload = function() {
