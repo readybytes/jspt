@@ -15,9 +15,9 @@ class JElementXiptmodule extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{	
-		$modulesHtml = $this->getModulesHtml($name, $value, $control_name);
+		$options = $this->getAllModules(1);
 
-		return $modulesHtml;
+		return JHtml::_('select.genericlist', $options, $control_name.'['.$name.']', null, 'id', 'title', $value);
 	}
 	
 	function getAllModules($published = '')
@@ -31,26 +31,5 @@ class JElementXiptmodule extends JElement
 		$modules =$query->dbLoadQuery("","")->loadObjectList();			 	    	
 		
 		return $modules;	
-	}
-	
-	function getModulesHtml($name, $value, $control_name)
-	{
-		$modules = self::getAllModules(1);
-		$html   = '';
-		
-		$html  .= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']">';
-				
-		foreach($modules as $m) {			
-			$title		= $m->title;
-			$id			= $m->id;
-		    
-		    $selected	= ( JString::trim($id) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . $id . '"' . $selected . '>' . $title . '</option>';
-		}
-		
-		$html	.= '</select>';	
-		$html   .= '<span id="errprofiletypemsg" style="display: none;">&nbsp;</span>';
-		
-		return $html;
 	}
 }

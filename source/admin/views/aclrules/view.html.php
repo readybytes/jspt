@@ -23,8 +23,14 @@ class XiptViewAclRules extends XiptView
 			foreach($rules as $rule) {
 				$aclObject = XiptAclFactory::getAclObject($rule->aclname);
 				$aclObject->bind($rule);
-				$ptype = $aclObject->getCoreParams('core_profiletype',0);
-				$ruleProfiletype[$rule->id] = XiptHelperProfiletypes::getProfiletypeName($ptype,true);
+				$ptypes = $aclObject->getCoreParams('core_profiletype',0);
+				
+				$ptypes = is_array($ptypes)?$ptypes:array($ptypes);
+				
+				foreach($ptypes as $ptype){
+					$ruleProfiletype[$rule->id][] = XiptHelperProfiletypes::getProfiletypeName($ptype,true);
+				}
+				$ruleProfiletype[$rule->id] = implode(',', $ruleProfiletype[$rule->id]);
 			}
 		}
 
@@ -56,6 +62,7 @@ class XiptViewAclRules extends XiptView
 		}
 
 		JToolBarHelper::addNew('add', 'COM_XIPT_ADD_ACL_RULES');
+		JToolBarHelper::custom('copy','copy','','COM_XIPT_COPY',0,0);
 		JToolBarHelper::trash('remove', 'COM_XIPT_DELETE' );
 		JToolBarHelper::divider();
 		JToolBarHelper::publishList('switchOnpublished', 'COM_XIPT_PUBLISH' );

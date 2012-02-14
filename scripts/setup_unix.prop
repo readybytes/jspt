@@ -1,6 +1,8 @@
 pkg.version=J1.5.23_JS2.4
 //pkg.version=J1.6.3_JS2.2.2
 //pkg.version=J1.7.0_JS2.2.3
+//pkg.version=J2.5.0_JS2.4.2
+
 pkg.location=${user.home}/Dropbox/TEAM/dev/xipt
 
 

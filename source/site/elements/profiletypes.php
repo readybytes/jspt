@@ -18,68 +18,37 @@ class JElementProfiletypes extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
-		$reqnone     = false;
-		$reqall  	 = false;
-		$multiselect = false;
-		if(isset($node->_attributes->addnone) || isset($node->_attributes['addnone']))
-			$reqnone = true;
-			
-		if(isset($node->_attributes->addall) || isset($node->_attributes['addall']))
-			$reqall = true;
-			
-		if(isset($node->_attributes->multiselect) || isset($node->_attributes['multiselect']))
-			$multiselect = true;
-			
-		$ptypeHtml = $this->getProfiletypeFieldHTML($name,$value,$control_name,$reqnone,$reqall,$multiselect);
-
-		return $ptypeHtml;
-	}
-	
-	
-	function getProfiletypeFieldHTML($name,$value,$control_name='params',$reqnone=false,$reqall=false,$multiselect=false)
-	{	
-		$required			='1';
-		$html				= '';
-		$class				= ($required == 1) ? ' required' : '';
-		$options			= XiptLibProfiletypes::getProfiletypeArray();
+		$attr		 = ' ';
+		$ctrl		 = $control_name.'['.$name.']';
+		$options	 = XiptLibProfiletypes::getProfiletypeArray();
 		
-		if($multiselect)
-			$html .= '<select id="'.$control_name.'['.$name.'][]" name="'.$control_name.'['.$name.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';
-		else
-			$html	.= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']" title="' . "Select Account Type" . '::' . "Please Select your account type" . '">';
-		
-		if($reqall) {
-			$selected	= ( JString::trim(0) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . 0 . '"' . $selected . '>' . XiptText::_("ALL") . '</option>';
-		}
-		
-		if($reqnone) {
-			$selected	= ( JString::trim(-1) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . -1 . '"' . $selected . '>' . XiptText::_("NONE") . '</option>';
-		}
-		
-		foreach($options as $op)
-		{
-		    $option		= $op->name;
-			$id			= $op->id;
-		    
-			if(!is_array($value))
-				$value = array($value);
-				
-		    $selected	= (in_array($id, $value)) ? ' selected="true"' : '';
-		    
-		    if($multiselect)
-		    {
-		    	$html .= '<option name="'.$name.'_'.$id.'" "'.$selected.'" value="'.$id.'">' ;  
-				$html .= $option.'</option>';
-		    }
-		    else
-				$html	.= '<option value="' . $id . '"' . $selected . '>' . $option . '</option>';
+		if(isset($node->_attributes->addnone) || isset($node->_attributes['addnone'])){
+			$reqnone 		= new stdClass();
+			$reqnone->id 	= -1;
+			$reqnone->name 	= 'None';
+			$options[] 		= $reqnone;
 		}
 			
-		$html	.= '</select>';	
-		$html   .= '<span id="errprofiletypemsg" style="display: none;">&nbsp;</span>';
+		if(isset($node->_attributes->addall) || isset($node->_attributes['addall'])){
+			$reqall 		= new stdClass();
+			$reqall->id 	= 0;
+			$reqall->name 	= 'All';
+			array_unshift($options, $reqall);
+		}
+			
+		if ($size = $node->attributes( 'size' ))
+            $attr  .= 'size="'.$size.'"';
+        
+		if(isset($node->_attributes->multiselect) || isset($node->_attributes['multiselect'])){
+			$attr  .= ' multiple="multiple"';
+			$ctrl  .= '[]';
+		}
 		
-		return $html;
+		if(is_string($value))
+ 			$selected = explode('|', $value);
+ 		else
+ 			$selected = $value;
+ 				
+		return JHtml::_('select.genericlist', $options, $ctrl, $attr, 'id', 'name', $selected, $control_name.$name);
 	}
 }

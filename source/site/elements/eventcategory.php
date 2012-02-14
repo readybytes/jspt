@@ -18,43 +18,17 @@ class JElementEventcategory extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
-		$reqall  = false;
-			
-		if(isset($node->_attributes->addall) || isset($node->_attributes['addall']))
-			$reqall = true;
-			
-		$ptypeHtml = $this->getEventcategoryHTML($name,$value,$control_name,$reqall);
 
-		return $ptypeHtml;
-	}
-	
-	function getEventcategoryHTML($name,$value,$control_name='params',$reqall=false)
-	{	
-		$required			='1';
-		$html				= '';
-		$class				= ($required == 1) ? ' required' : '';
-		$options			= $this->getEventcategory();
+		$options	= $this->getEventcategory();
 		
-		$html	.= '<select id="'.$control_name.'['.$name.']" name="'.$control_name.'['.$name.']" title="' . "Select Group Category" . '">';
-		
-		if($reqall) {
-			$selected	= ( JString::trim(0) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . 0 . '"' . $selected . '>' . XiptText::_("ALL") . '</option>';
+		if(isset($node->_attributes->addall) || isset($node->_attributes['addall'])){
+			$reqall 		= new stdClass();
+			$reqall->id 	= 0;
+			$reqall->name 	= 'All';
+			array_unshift($options, $reqall);
 		}
 		
-		foreach($options as $op)
-		{
-		    $option		= $op->name;
-			$id			= $op->id;
-		    
-		    $selected	= ( JString::trim($id) == $value ) ? ' selected="true"' : '';
-			$html	.= '<option value="' . $id . '"' . $selected . '>' . $option . '</option>';
-		}
-		
-		$html	.= '</select>';	
-		$html   .= '<span id="errprofiletypemsg" style="display: none;">&nbsp;</span>';
-		
-		return $html;
+		return JHtml::_('select.genericlist', $options, $control_name.'['.$name.']', null, 'id', 'name', $value);
 	}
 	
 	function getEventcategory()

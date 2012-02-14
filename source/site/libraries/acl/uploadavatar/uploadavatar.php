@@ -21,10 +21,13 @@ class uploadavatar extends XiptAclBase
 		if(XIPT_PROFILETYPE_ALL == $ptype)
 			return true;
 
+		//check if its applicable on more than 1 ptype
+		$ptype = is_array($ptype)?$ptype:array($ptype);
+		
 		//profiletype matching
 		$userpt = JFactory::getSession()->get('sessionpt', false, 'XIPT');
 		
-		if(XiptLibProfiletypes::getUserData($data['userid']) == $ptype || $userpt == $ptype)
+		if(in_array(XiptLibProfiletypes::getUserData($data['userid']), $ptype) || in_array($userpt, $ptype))
 			return true;
 
 		return false;
@@ -40,7 +43,15 @@ class uploadavatar extends XiptAclBase
 		else
 			$selfPid	  = XiptLibProfiletypes::getUserData($resourceAccesser,'PROFILETYPE');
 			
-		if(in_array($aclSelfPtype, array(XIPT_PROFILETYPE_ALL,$selfPid)))
+		//if its applicable to all
+		if(XIPT_PROFILETYPE_ALL == $aclSelfPtype)
+			return true;
+			
+		//check if its applicable on more than 1 ptype
+		$aclSelfPtype = is_array($aclSelfPtype)?$aclSelfPtype:array($aclSelfPtype);
+		
+		//if user's ptype exists in ACL ptype array
+		if(in_array($selfPid, $aclSelfPtype))
 			return true;
 
 		return false;
@@ -60,18 +71,26 @@ class uploadavatar extends XiptAclBase
 			$avatar			= $uploadedData['Filedata'];
 			$avatarSize		= $avatar['size'];
 		}
-		// When user login then force to upload avatar
+		
 		$userId = JFactory::getUser()->id;
 		
+		//get user's profiletype & its related avatar
+		$userPid = XiptLibProfiletypes::getUserData($userId,'PROFILETYPE');
+		$ptypeavatar = 	XiptLibProfiletypes::getProfiletypeData($userPid, 'avatar');
+		
+		// When user login then force to upload avatar
 		if(!empty($userId) && ($data['task'] === 'logout' || $data['task'] === 'user.logout')){
 			$session->clear('uploadAvatar','XIPT');
 			return false;
 		}
+		
 		if(!empty($userId) && $data['task'] !== 'uploadavatar'){
 			//get login user avatar
 			$userAvatar = CFactory::getUser($userId)->_avatar;
 			//if avatar is deafaul then force to upload avatar
-			if(JString::stristr( $userAvatar , 'components/com_community/assets/default.jpg') || empty($userAvatar)) {
+			if(JString::stristr( $userAvatar , 'components/com_community/assets/default.jpg') 
+				|| empty($userAvatar)
+					|| JString::stristr($userAvatar,$ptypeavatar)) {
 				$session->set('uploadAvatar',true,'XIPT');
 				return true;
 			}

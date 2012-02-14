@@ -25,6 +25,10 @@ class changeavatar extends XiptAclBase
 		//check whether to restrict at registration time or not
 		if('profile' == $data['view'] && $data['task'] == 'uploadavatar')
 		 		return true;
+		 		
+		//In JS2.4++, user can upload avatar by clicking on avatar
+		if('photos' == $data['view'] && $data['task'] == 'ajaxuploadavatar')
+		 		return true;
 
 		if($permission==true)
 		{

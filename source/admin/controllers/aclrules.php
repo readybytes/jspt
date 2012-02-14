@@ -104,4 +104,28 @@ class XiptControllerAclRules extends XiptController
 		$link = XiptRoute::_('index.php?option=com_xipt&view=aclrules', false);
 		$this->setRedirect($link, $message);
 	}			
+	
+	function copy($ids = array())
+	{
+		//get selected acl rules ids
+		$cid	= JRequest::getVar( 'cid', $ids, 'post', 'array' );
+		if (count($cid) == 0){
+			 $this->setRedirect('index.php?option=com_xipt&view=aclrules');
+ 			 return JError::raiseWarning( 500, XiptText::_( 'NO_ITEMS_SELECTED' ) );
+	    }
+		//get profile type data by id
+		$model = $this->getModel();
+		$data  = $model->loadRecords(0);
+
+		foreach($cid as $id){		
+			$data[$id]->id         = 0;
+			$data[$id]->rulename   = XiptText::_('COPY_OF').$data[$id]->rulename;
+			$data[$id]->published  = 0;
+			
+			$model->save($data[$id],0);
+		}
+
+		$this->setRedirect('index.php?option=com_xipt&view=aclrules');
+		return false;
+	}
 }

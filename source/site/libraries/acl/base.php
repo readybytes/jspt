@@ -176,8 +176,11 @@ abstract class XiptAclBase
 		if(XIPT_PROFILETYPE_ALL == $ptype)
 			return true;
 
+		//check if its applicable on more than 1 ptype
+		$ptype = is_array($ptype)?$ptype:array($ptype);
+		
 		//profiletype matching
-		if(XiptLibProfiletypes::getUserData($data['userid']) == $ptype)
+		if(in_array(XiptLibProfiletypes::getUserData($data['userid']), $ptype))
 			return true;
 
 		return false;
@@ -197,7 +200,16 @@ abstract class XiptAclBase
 	{
 		$aclSelfPtype = $this->getACLAccesserProfileType();
 		$selfPid	= XiptLibProfiletypes::getUserData($resourceAccesser,'PROFILETYPE');
-		if(in_array($aclSelfPtype, array(XIPT_PROFILETYPE_ALL,$selfPid)))
+		
+		//if its applicable to all
+		if(XIPT_PROFILETYPE_ALL == $aclSelfPtype)
+			return true;
+
+		//check if its applicable on more than 1 ptype
+		$aclSelfPtype = is_array($aclSelfPtype)?$aclSelfPtype:array($aclSelfPtype);
+		
+		//if user's ptype exists in ACL ptype array
+		if(in_array($selfPid, $aclSelfPtype))
 			return true;
 
 		return false;
@@ -208,10 +220,17 @@ abstract class XiptAclBase
 		$otherptype = $this->getACLOwnerProfileType();
 		$otherpid	= XiptLibProfiletypes::getUserData($resourceOwner,'PROFILETYPE');
 
-		// REMOVING ,XIPT_PROFILETYPE_NONE, as it should not be here		
-		if(in_array($otherptype, array(XIPT_PROFILETYPE_ALL, $otherpid)))
+		//if its applicable to all
+		if(XIPT_PROFILETYPE_ALL == $otherptype)
 			return true;
-			
+
+		//check if its applicable on more than 1 ptype
+		$otherptype = is_array($otherptype)?$otherptype:array($otherptype);
+		
+		//if user's ptype exists in ACL ptype array
+		if(in_array($otherpid, $otherptype))
+			return true;
+
 		return false;
 	}
 	
