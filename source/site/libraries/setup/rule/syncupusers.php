@@ -5,6 +5,7 @@
 **/
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
+jimport( 'joomla.error.profiler' );
 
 class XiptSetupRuleSyncupusers extends XiptSetupBase
 {
@@ -37,19 +38,19 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	
 	function doApply()
 	{
-		//find memory limit defined in php.ini
-		$memory_size = ini_get('memory_limit');
-		$memory_size = substr($memory_size, 0, -1);
-		$memory_size = (int)$memory_size;
-		$start=JRequest::getVar('start', 0);
-		
+		$mysess = JFactory::getSession();
+		$start  = JRequest::getVar('end',0);
+	    if($start == 0 && $mysess->has('limits') && $mysess->has('isSET')){
+	    	self::clearSession($mysess);
+		}
+				
 		//set sync up limit as per memory limit
-		if($memory_size >= 128)
-			$limit = JRequest::getVar('limit',SYNCUP_USER_LIMIT);
+		if($start==0)
+		  $limit = SYNCUP_USER_LIMIT;
 		else
-			$limit = 300;
-		$reply = $this->syncUpUserPT($start,$limit);
+		  $limit=$mysess->get('limits');
 
+        $reply = $this->syncUpUserPT($start,$limit);
 		if($reply === -1)
 			return -1;
 		else if($reply)
@@ -59,45 +60,71 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	}
 	
 	function syncUpUserPT($start, $limit, $test = false)
-	{
-		
+	{   
+
+		$total_result = JRequest::getVar('total_result',0);
+        $mysess    = JFactory::getSession();
+		$count     = $mysess->get('countUser',0);
+		$startTime = JProfiler::getmicrotime();
 		$PTFieldId = XiptHelperJomsocial::getFieldId(PROFILETYPE_CUSTOM_FIELD_CODE);
 		$TMFieldId = XiptHelperJomsocial::getFieldId(TEMPLATE_CUSTOM_FIELD_CODE);
 		
 		// we need first these fields to be exist
 		if(!($PTFieldId && $TMFieldId))
 			return false;
-		// get userids for syn-cp	
-		$result 	 = $this->getUsertoSyncUp($start, $limit);
+	    // get userids for syn-cp	
+		$result 	 = $this->getUsertoSyncUp(0,$limit);
 		$profiletype = XiPTLibProfiletypes::getDefaultProfiletype();
 		$template	 = XiPTLibProfiletypes::getProfileTypeData($profiletype,'template');			
 		
 		$total = $this->totalUsers;
-		$flag = false;
-		if($total > $limit){
-			//echo msg when users are syn-cp
-			echo $this->getHTML($start,$total,$limit);
-			if(JRequest::getVar('step',false) == false ){
-				$this->_SynCpUser($result,$profiletype,$template);
-				return -1;
+		if($total_result == 0){
+		    $mysess->set('totalUser',$total);
+		}
+		$total = $mysess->get('totalUser');
+		if($count < $total){
+			$this->_SynCpUser($result,$profiletype,$template);
+			$count=$count+count($result);
+			//If total is less than limit,no need to load html.
+			if($total > $limit){
+			  if(!$mysess->has('isSET')){
+			      //Find the No. of users to be syncronised in next iteration.
+	              $limit = self::setNextLimit($startTime);
+	              $mysess->set('limits',$limit);
+	              $mysess->set('isSET',true);
+			  }
+			  //load Html
+			  $mysess->set('countUser',$count);
+			  echo $this->getHTML($count,$total);
+			  return -1;
 			}
-			//$start+=$limit;
-			$flag = true;
-		}
-		
-		$this->_SynCpUser($result,$profiletype,$template);
-		// Continue user are continuesyn-cp
-		if($flag === true){ 
-			return -1;
-		}
-			
-		if($test)
-			return true;
+	     }
 
-		$step=JRequest::getVar('step');
-		$msg = 'Total '. (($limit*$step)+count($result)) . ' users '.XiptText::_('SYNCHORNIZED');
-		JFactory::getApplication()->enqueueMessage($msg);
-		return true;
+			if($test)
+			 return true;
+			self::clearSession($mysess);
+			$msg = 'Total '. $total . ' users '.XiptText::_('SYNCHORNIZED');
+		    JFactory::getApplication()->enqueueMessage($msg);
+		    return true;
+	}
+	
+    function setNextLimit($startTime)
+    {  
+		 $memory_size = ini_get('memory_limit');
+		 $memory_size = substr($memory_size, 0, -1);
+		 $memory_size = (int)($memory_size*1048567);
+		 $space = (JProfiler::getMemory()); //consumed space 
+		 $memoryPerUser = ($space/SYNCUP_USER_LIMIT);
+		 $limit = (int)((($memory_size-$space)*0.80)/$memoryPerUser); // consider 80% of remaining
+		 return $limit;
+	}
+	
+	function clearSession($mysess)
+	{
+		$mysess->clear('limits');
+		$mysess->clear('isSET');
+		$mysess->clear('countUser');
+		$mysess->clear('totalUser');
 	}
 	
 	function getMessage()
@@ -130,8 +157,8 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		$db 	= JFactory::getDBO();	
 		// XITODO : PUT into query Object
 		$xiptquery = ' SELECT `userid` FROM `#__xipt_users` ';
-		$query 	= ' SELECT `userid` FROM `#__community_users` '
-					.' WHERE `userid` NOT IN ('.$xiptquery.') ';
+		$query 	= ' SELECT `id` FROM `#__users` '
+					.' WHERE `id` NOT IN ('.$xiptquery.') ';
         			
 		$db->setQuery($query);
 		$result = $db->loadResultArray();
@@ -151,7 +178,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		return array_slice($users, $start, $limit);
 	}
 	
-	function getHTML($start, $total, $limit)
+	function getHTML($count,$total)
 	{
 		ob_start();
 		?>
@@ -164,30 +191,17 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			?>
 			</h3>
 			<?php
-			  $step=JRequest::getVar('step',0);
-			    $total=$total-$limit;
-				if($total>0){
-					$step++;
-					//set the end limit to remaining users when total is less than the syncronised limit.
-					if($total <= $limit)
-				      $end = ($step*$limit)+$total;
-					else
-					  $end = ($step+1)*$limit;
 					//Number of user syn-cp when limit is greater then remaining user 
 					//if($limit > $total){
 						//$remain=$end = $total;
 					//}
 					// display Total users
-					echo "<br /> Total ". $total=$total+($limit*$step)." users for Syn-cp";	
-					
+					echo "<br /> Total ".$total." users for Syn-cp";	
 					//display syn-cp users
-					echo "<br />Syncing-Up Users  ". ($step)*$limit ." To ". $end ." ";
-					$remain = $total-($limit*($step+1));
-					if($remain <=0)
-					  echo "<br />Remaining 0 Users";
-					else
+					echo "<br />Syned-Up Users = ".$count;
+					$remain = $total-$count;
+					if($remain > 0) 
 					  echo "<br />Remaining " .$remain . " Users";
-				}
 			?>
 			<script>
 			window.onload = function() {
@@ -195,7 +209,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 			}
 			
 			function xiredirect(){
-				window.location = "<?php echo XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers&start=$start&limit=$limit&step=$step");?>"					
+				window.location = "<?php echo XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=syncupusers&end=$count&total_result=1");?>"					
 			}
 			
 			</script>
@@ -207,14 +221,13 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	}
 	/**
 	 * 
-	 * @param unknown_type $result number of user for syncp
+	 * @param unknown_type $result number of user to syncp
 	 * @param unknown_type $profiletype : default profile-typr
 	 * @param unknown_type $template: default-template
 	 */
-	function _SynCpUser($result,$profiletype,$template) {
+	function _SynCpUser($result,$profiletype,$template){
 		foreach ($result as $userid){
 			XiPTLibProfiletypes::updateUserProfiletypeData($userid, $profiletype, $template, 'ALL');
-			}
+		}
 	}
-
 }
