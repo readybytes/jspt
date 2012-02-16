@@ -26,7 +26,10 @@ class writemessages extends XiptAclBase
 		//$totalUsers = $data['count'];
 		//$totalUsers = is_array($totalUsers)?$totalUsers:array($totalUsers);
 		
-		$userCount  = $data['count'];
+		if(isset($data['count']))
+			$userCount  = $data['count'];
+		else
+			$userCount  = 0;
 		
 		if($count >= $maxmimunCount || ($userCount+$count) > $maxmimunCount)
 			return true;
@@ -119,7 +122,11 @@ class writemessages extends XiptAclBase
 				$data['viewuserid'] = $friendsId;
 			}
 			
-			return  true;
+			//check if user is actually sending msg to someone
+			if($data['viewuserid'])
+				return  true;
+				
+			return false;
 		}
 
 

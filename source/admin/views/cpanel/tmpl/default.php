@@ -23,6 +23,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', XiptText::_('PROFILE_FIELDS'));?>
 				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', XiptText::_('APPLICATIONS'));?>
 			</div>
+			<div class='clr'></div>
+			<div id='cpanel'>
+				<?php echo $this->addIcon('users.png','index.php?option=com_xipt&view=users', XiptText::_('USERS'));?>
+			</div>
 		</td>
 		<td width="45%" valign="top">
 			<?php 

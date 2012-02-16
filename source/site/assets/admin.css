@@ -60,6 +60,11 @@
 	background-repeat:no-repeat;
 	}
 	
+.icon-48-users{
+	background-image:  url(images/users.png);
+	background-repeat:no-repeat;
+	}
+	
 /* CSS for Joomla1.6 */
 
 fieldset.adminform { /* General use */

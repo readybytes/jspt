@@ -35,4 +35,54 @@ class XiptModelUsers extends XiptModel
 		XiptError::raiseError(__CLASS__.'.'.__LINE__, sprintf(XiptText::_("NOT_ABLE_TO_SAVE_DATA_IN_TABLE_PLEASE_RE-TRY"),$table));
 		return false;
 	}
+	
+	function getUsers($userid=0, $limit=null, $limitstart=null)
+	{
+		$db			= JFactory::getDBO();
+
+		$search			= JRequest::getVar( 'search' , '' );
+		$ptype			= JRequest::getVar( 'profiletype' , 0);
+		$orderDirection	= JRequest::getVar( 'filter_order_Dir' , 'name' );
+		$ordering		= JRequest::getVar( 'filter_order' , '' );
+		
+		$searchQuery	= '';
+		$joinQuery		= '';
+		$limitby		= '';
+		$orderby 		= 'ORDER BY '. $ordering .' '. $orderDirection;
+		
+		if($limit != null)
+			$limitby	 	= ' LIMIT ' . $limitstart .' , '. $limit;
+		
+		if(!empty($search))
+		{
+			$searchQuery	= ' WHERE name LIKE ' . $db->Quote( '%' . $search . '%' )
+							. ' OR username LIKE ' . $db->Quote( '%' . $search . '%' ); 
+		}
+		
+		if($ptype != 0 || $ptype != XIPT_PROFILETYPE_ALL)
+		{
+			$joinQuery	.= ' INNER JOIN ' . $db->nameQuote( '#__xipt_users' ) . ' AS c '
+						. ' ON a.id = c.userid ';
+
+			if(!empty($search))
+				$searchQuery	.= ' AND c.profiletype=' . $db->Quote( $ptype );
+			else
+				$searchQuery	.= ' WHERE c.profiletype=' . $db->Quote( $ptype );		
+		}
+		
+		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__users' ) . ' AS a '
+				. $joinQuery
+				. $searchQuery
+				. $orderby
+				. $limitby;
+				
+		$db->setQuery( $query );
+		$result	 = $db->loadObjectList('id');
+
+		
+		if(isset($result[$userid]))
+			return $result[$userid];
+		
+		return $result;
+	}
 }

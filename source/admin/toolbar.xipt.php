@@ -20,7 +20,8 @@ $views	= array(
 					'jstoolbar'		=> 'JS Toolbar',
 					'aclrules'		=> 'Acces Control',
 					'profilefields'	=> 'Profile Field',
-					'applications'	=> 'Applications'
+					'applications'	=> 'Applications',
+					'users'			=> 'Users'
 					
 				);
 				
