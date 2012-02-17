@@ -36,27 +36,30 @@ class XiptModelUsers extends XiptModel
 		return false;
 	}
 	
-	function getUsers($userid=0, $limit=null, $limitstart=null)
+	function getUsers($userid=0, $useLimit = true)
 	{
 		$db			= JFactory::getDBO();
 
-		$search			= JRequest::getVar( 'search' , '' );
-		$ptype			= JRequest::getVar( 'profiletype' , 0);
-		$orderDirection	= JRequest::getVar( 'filter_order_Dir' , 'name' );
-		$ordering		= JRequest::getVar( 'filter_order' , '' );
+		$app				= JFactory::getApplication();
+		$globalListLimit	= $app->getCfg('list_limit');
+
+		//limit should be used from global space
+        $limit 			= $app->getUserStateFromRequest('global.list.limit', 'limit', $globalListLimit, 'int');
+        $limitstart 	= JRequest::getVar('limitstart', 0);
+		$search			= $app->getUserStateFromRequest( 'com_xipt.users.search' , 'search', '', 'string');
+		$ptype			= $app->getUserStateFromRequest( 'com_xipt.users.profiletype' , 'profiletype', 0, 'int');
+		$orderDirection	= $app->getUserStateFromRequest( 'com_xipt.users.filter_order_Dir', 'filter_order_Dir', '', 'word');
+		$ordering		= $app->getUserStateFromRequest( 'com_xipt.users.filter_order', 'filter_order', 'name', 'cmd');
 		
 		$searchQuery	= '';
 		$joinQuery		= '';
-		$limitby		= '';
-		$orderby 		= 'ORDER BY '. $ordering .' '. $orderDirection;
 		
-		if($limit != null)
-			$limitby	 	= ' LIMIT ' . $limitstart .' , '. $limit;
+		$orderby 		= 'ORDER BY '. $ordering .' '. $orderDirection;
 		
 		if(!empty($search))
 		{
-			$searchQuery	= ' WHERE name LIKE ' . $db->Quote( '%' . $search . '%' )
-							. ' OR username LIKE ' . $db->Quote( '%' . $search . '%' ); 
+			$searchQuery	= ' WHERE (name LIKE ' . $db->Quote( '%' . $search . '%' )
+							. ' OR username LIKE ' . $db->Quote( '%' . $search . '%' ) . ' ) '; 
 		}
 		
 		if($ptype != 0 || $ptype != XIPT_PROFILETYPE_ALL)
@@ -73,16 +76,29 @@ class XiptModelUsers extends XiptModel
 		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__users' ) . ' AS a '
 				. $joinQuery
 				. $searchQuery
-				. $orderby
-				. $limitby;
-				
-		$db->setQuery( $query );
-		$result	 = $db->loadObjectList('id');
+				. $orderby;
 
-		
-		if(isset($result[$userid]))
-			return $result[$userid];
+		if($useLimit){
+				if ( empty($this->_pagination))
+	            {
+	                jimport('joomla.html.pagination');
+	                $this->_pagination = new JPagination( $this->_getListCount( $query ) , $limitstart, $limit);
+	            }
+			$result	= $this->_getList( $query , $limitstart, $limit);
+		}
+		else{
+			$db->setQuery( $query );
+			$result	 = $db->loadObjectList('id');
+			
+			if(isset($result[$userid]))
+				return $result[$userid];
+		}
 		
 		return $result;
+	}
+	
+	function getPagination()
+	{
+		return $this->_pagination;
 	}
 }

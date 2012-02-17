@@ -12,16 +12,17 @@ class XiptViewUsers extends XiptView
 	{
 		$userModel	= $this->getModel();
 		
+		$users		= $userModel->getUsers(0);
 		$pagination	= $userModel->getPagination();
-		$users		= $userModel->getUsers(0, $pagination->limit, $pagination->limitstart);
-		$search		= JRequest::getVar( 'search' , '' );
 		
-		$ptypeModel		= $this->getModel('profiletypes');
-		$allPtypes		= $ptypeModel->loadRecords(0);
-		$selectedPtype	= JRequest::getVar( 'profiletype' , 'all' , 'POST' );
+		$ptypeModel	= $this->getModel('profiletypes');
+		$allPtypes	= $ptypeModel->loadRecords(0);
 		
-		$filter_order_Dir	= JRequest::getVar( 'filter_order_Dir' , 'name' );
-		$filter_order		= JRequest::getVar( 'filter_order' , '' );
+		$app				= JFactory::getApplication();
+		$search				= $app->getUserStateFromRequest( 'com_xipt.users.search' , 'search', '', 'string');
+		$selectedPtype		= $app->getUserStateFromRequest( 'com_xipt.users.profiletype' , 'profiletype', 0, 'int');
+		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_xipt.users.filter_order_Dir', 'filter_order_Dir', '', 'word');
+		$filter_order		= $app->getUserStateFromRequest( 'com_xipt.users.filter_order', 'filter_order', 'a.name', 'cmd');
 		
 		$this->setToolbar();
 		
@@ -69,7 +70,7 @@ class XiptViewUsers extends XiptView
 	function edit($id=0, $tpl='edit')
 	{
 		$userModel	= $this->getModel();
-		$user		= $userModel->getUsers($id);
+		$user		= $userModel->getUsers($id, false);
 		$ptype		= XiptLibProfiletypes::getUserData($id, 'PROFILETYPE');
 		$template	= $this->getUserInfo($id, 'TEMPLATE');
 		$this->setToolbar($tpl);

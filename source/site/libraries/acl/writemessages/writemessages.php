@@ -80,8 +80,14 @@ class writemessages extends XiptAclBase
 
 		$js_version = XiptHelperJomsocial::get_js_version();
 		
-		if($data['task'] == 'ajaxcompose' || $data['task'] == 'ajaxaddreply' ) {
+		if($data['task'] == 'ajaxcompose') {
+			//modify whom we are sending msg
+			$data['viewuserid'] = $data['args'][0];
 			
+			return  true;
+		}
+
+		if($data['task'] == 'ajaxaddreply'){
 			//modify whom we are sending msg
 			if(Jstring::stristr($js_version,'2.2')){
 				$data['viewuserid'] = $data['args'][0];
