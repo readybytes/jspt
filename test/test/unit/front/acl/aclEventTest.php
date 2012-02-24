@@ -16,7 +16,7 @@ class AclEventTest extends XiAclUnitTest
   		$data['userid'] 	= 85;
   		$data['viewuserid'] = 0;
   		$data['ajax'] 		= false;
-  		$data['args'] 		= array();
+  		$data['args'] 		= array('','');
   		$data['option'] 	= 'com_community';
   		$data['view'] 		= 'events';
   		$data['task'] 		= '';

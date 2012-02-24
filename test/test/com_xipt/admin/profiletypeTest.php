@@ -211,12 +211,11 @@ class ProfiletypeTest extends XiSelTestCase
     	$this->click("//input[@id='cb4']");
     	if(TEST_XIPT_JOOMLA_15){
     		$this->click("//td[@id='toolbar-trash']/a");
-    		$this->assertTrue((bool)$this->getConfirmation());
     	}
     	else{
     		$this->click("//li[@id='toolbar-trash']/a/span");
     	}
-    	
+    	$this->assertTrue((bool)$this->getConfirmation());
     	//proivde yes to popup box.
     	$this->waitPageLoad();
     	  

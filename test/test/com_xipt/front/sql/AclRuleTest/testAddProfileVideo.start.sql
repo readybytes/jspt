@@ -10,29 +10,4 @@ INSERT INTO `#__community_videos` (`id`, `title`, `type`, `video_id`, `descripti
 (3, 'Top 10 Best Web Hosting Reviews - SCAMS EXPOSED', 'youtube', 'V8PidNJLrek', 'Are "HOST REVIEW" sites honest? Are they unbiased, impartial, and factual... or are they just after your money? How does a hosting company get on the "top 10" list? \r\n\r\nAmazingly most hosting reviews websites have one thing in common: They are getting paid by hosting companies for reviews (either directly in the form of advertising or indirectly via affiliate commissions) -- making their reviews extremely biased, one-sided, and highly questionable in terms of accuracy. They all promote the same group of companies. \r\n\r\nThe reason that the same hosting companies always make it to the "top" of the hosting comparison charts is because those companies, one way or another, pay to be listed there. These hosts include Host Monster, Blue Host, Lunar Pages, IX Webhosting, InMotionHosting, StartLogic, Host Pappa, Pow Web, etc. \r\n\r\nIt''s a well-known fact web hosting companies running their affiliate programs through Commission Junction offer among the highest affiliate commissions in the hosting industry. Thus "clever" PPC (pay per click) affiliate marketers decided: why not create websites with "top web hosting companies" lists and list these companies as "top"? \r\n\r\nHosting company reviews seldom base their "rating" on their quality of service (although many claim to). Instead, most of them rate a webhost on the *size* of the affiliate commission. Those web hosts offering the highest commissions usually get the top spots -- because those hosting companies pay the most money.\r\n\r\nSo the next time you''re looking for the best web hosting company (and you undoubtedly come across a "reviews" site), STOP AND THINK: What''s their true objective? Are they providing you with impartial, unprejudiced facts? Or are they simply selling you a bill of goods, deceptively packaged in a "Top-10" list bought and paid for in the Twilight Zone? Visit HOSTING-REVIEWS-EXPOSED.COM for more information.', 83, 'user', '2010-07-01 13:15:18', '0', 1, 0, 1, 0, 211, 'ready', 'images/videos/83/thumbs/wfrYZ4PD1D2.jpg', 'http://www.youtube.com/watch?v=V8PidNJLrek&feature=related', 0, 0, 'file'),
 (4, 'The Price of Free Web Hosting', 'youtube', '9oTWvACXHY8', 'Why I am against using a free web host to start a serious, long-term Web business.\r\nGet $3 hosting at http://www.websitepalace.com', 84, 'user', '2010-07-01 13:16:53', '0', 1, 0, 1, 0, 680, 'ready', 'images/videos/84/thumbs/vq6e5tw0Tw9.jpg', 'http://www.youtube.com/watch?v=9oTWvACXHY8&feature=related', 0, 0, 'file');;
 
-TRUNCATE TABLE `#__core_acl_aro`;;
-INSERT INTO `#__core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
-(10, 'users', '62', 0, 'Administrator', 0),
-(31, 'users', '83', 0, 'regtest1789672', 0),
-(28, 'users', '80', 0, 'regtest6208627', 0),
-(32, 'users', '84', 0, 'regtest6461827', 0),
-(35, 'users', '87', 0, 'regtest1674526', 0),
-(33, 'users', '85', 0, 'regtest3843261', 0),
-(34, 'users', '86', 0, 'regtest1504555', 0),
-(29, 'users', '81', 0, 'regtest8635954', 0),
-(27, 'users', '79', 0, 'regtest7046025', 0),
-(30, 'users', '82', 0, 'regtest8774090', 0);;
-
-TRUNCATE TABLE`#__core_acl_groups_aro_map`;;
-INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
-(18, '', 27),
-(18, '', 30),
-(18, '', 33),
-(20, '', 28),
-(20, '', 31),
-(20, '', 34),
-(21, '', 29),
-(21, '', 32),
-(21, '', 35),
-(25, '', 10);;
 

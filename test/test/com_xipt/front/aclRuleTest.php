@@ -13,7 +13,7 @@ class AclRuleTest extends XiSelTestCase
  function verifyRestrict($verify)
   {
   	sleep(1);
- 	$present = $this->isTextPresent("You are not allowed to access this resource");
+ 	$present = $this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE");
   	$this->assertTrue($verify != $present);
   }
   
@@ -40,23 +40,27 @@ class AclRuleTest extends XiSelTestCase
     $this->click("//button[@onclick='joms.videos.removeLinkProfileVideo($id, $vid);']");
   	$this->waitForElement("cwin_tm");
   	$this->verifyRestrict($verify);
+  	
   }
     
   function checkAccessProfileVideo($id,$verify)
   {
   	 $this->open("index.php?option=com_community&view=profile&userid=$id&Itemid=53");
 	 $this->waitPageLoad();
-     $this->click("link=My Profile Video");
+     $this->click("link=Top 10 Best Web Hosting Reviews - SCAMS EXPOSED");
      $this->verifyRestrict($verify); 
+     $this->click("cwin_close_btn");
   }
 
-  function testAddProfileVideo()
+  function xtestAddProfileVideo()
   {
      $version = XiSelTestCase::get_js_version();
      if(!Jstring::stristr($version,'1.8'))
      	return true;
-
-   	 $url =  dirname(__FILE__).'/sql/AclRuleTest/testAddProfileVideo.1.8.sql';
+     if(TEST_XIPT_JOOMLA_15)
+   	 $url =  dirname(__FILE__).'/sql/AclRuleTest/15/testAddProfileVideo.1.8.sql';
+   	 else 
+   	 $url =  dirname(__FILE__).'/sql/AclRuleTest/16/testAddProfileVideo.1.8.sql';
      $this->_DBO->loadSql($url);
      $users[1]=array(79,82,85);
      $users[2]=array(80,83,86);
@@ -82,9 +86,12 @@ class AclRuleTest extends XiSelTestCase
      $this->frontLogout();
   }
   
-  function testDeleteProfileVideo()
+  function xtestDeleteProfileVideo()
   {
-   $url =  dirname(__FILE__).'/sql/AclRuleTest/testDeleteProfileVideo.1.8.sql';
+   if(TEST_XIPT_JOOMLA_15)
+     $url =  dirname(__FILE__).'/sql/AclRuleTest/15/testDeleteProfileVideo.1.8.sql';
+   else
+     $url =  dirname(__FIxLE__).'/sql/AclRuleTest/16/testDeleteProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
@@ -110,14 +117,15 @@ class AclRuleTest extends XiSelTestCase
   	//pt1 can't delete profile video
   	$this->checkDeleteProfileVideo(84,4,true);
   	$this->frontLogout();
-  	$this->_DBO->addTable('#__community_users');
-
-  	
+  	//$this->_DBO->addTable('#__community_users');
   }
   
-  function testAccessProfileVideo()
+  function xtestAccessProfileVideo()
   {
-    $url =  dirname(__FILE__).'/sql/AclRuleTest/testAccessProfileVideo.1.8.sql';
+  	if(TEST_XIPT_JOOMLA_15)
+    $url =  dirname(__FILE__).'/sql/AclRuleTest/15/testAccessProfileVideo.1.8.sql';
+    else 
+    $url =  dirname(__FILE__).'/sql/AclRuleTest/16/testAccessProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
     
   	$users[1]=array(79,82,85);
@@ -144,7 +152,10 @@ class AclRuleTest extends XiSelTestCase
   
   function testFriendSupportInAccessProfileVideo()
   {
-   $url =  dirname(__FILE__).'/sql/AclRuleTest/testFriendSupportInAccessProfileVideo.1.8.sql';
+  	if(TEST_XIPT_JOOMLA_15)
+  	$url =  dirname(__FILE__).'/sql/AclRuleTest/15/testFriendSupportInAccessProfileVideo.1.8.sql';
+  	else 
+  	$url =  dirname(__FILE__).'/sql/AclRuleTest/16/testFriendSupportInAccessProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
@@ -155,8 +166,8 @@ class AclRuleTest extends XiSelTestCase
   	
   	 $this->frontLogin($user->name,$user->name);
   	//pt1 can't access pt2  profile video(not applicable to friend(83))
+  	 $this->checkAccessProfileVideo(86,false);
      $this->checkAccessProfileVideo(83,true);
-     $this->checkAccessProfileVideo(86,false);
      $this->frontLogout();
      
      $user = JFactory::getUser(83); 
@@ -183,11 +194,6 @@ class AclRuleTest extends XiSelTestCase
    	 $this->click("replybutton");
    	  sleep(2);
      $this->verifyRestrict(false);
-     $this->frontLogout();
-     
+     $this->frontLogout();  
   }
-   
-  
-  
-  
  } 

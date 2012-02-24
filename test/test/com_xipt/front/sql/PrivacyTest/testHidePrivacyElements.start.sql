@@ -4,15 +4,6 @@ TRUNCATE TABLE `#__xipt_profiletypes`;;
 TRUNCATE TABLE `#__community_fields`;;
 TRUNCATE TABLE `#__community_fields_values`;;
 
-INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
-(62, 'Super User', 'admin', 'shyam@readybytes.in', 'be95af2bcc51aa6e81a9924155176d1a:Sqw3m1pYS6nnyKaY68lqAMKzM9tvpR3R', 'deprecated', 0, 1, '2011-03-03 06:53:07', '2011-04-30 09:47:53', '', '{"admin_style":"","admin_language":"","language":"","editor":"","helpsite":"","timezone":""}'),
-(63, 'user-1', 'user-1', 'user1@xyz.com', '3334b9a22c5f4050155a3dedcb985c86:EYnPl96mAD7rIMEZwLMSJZ1MdLHSC2kd', 'Registered', 0, 0, '2011-03-03 07:14:21', '2011-03-03 07:24:35', '', '{}'),
-(64, 'user-2', 'user-2', 'user2@xyz.com', '29a623753e24f72192628540400ca182:Ks2qT6luQ7X6KU2NTrIJ5vg6hjqK7M3q', '2', 0, 0, '2011-03-03 07:15:13', '0000-00-00 00:00:00', '', '{}'),
-(65, 'user-3', 'user-3', 'user3@xyz.com', 'aadb4a979a6050d4ac05b250994d0b46:YGJJVJrhiCervgeNuAj0zZIa2pFPyEC4', 'Registered', 0, 0, '2011-03-03 07:16:37', '2011-03-03 07:46:19', '', '{"admin_style":"","admin_language":"","language":"","editor":"","helpsite":"","timezone":""}'),
-(66, 'user-4', 'user-4', 'user4@xyz.com', 'c16fb4326c20deab8b5e8f62030b2290:Mrr1cLcWVohlETwavt6y9S1tkflI19kj', 'Registered', 0, 0, '2011-03-03 07:17:30', '0000-00-00 00:00:00', '', '{"admin_style":"","admin_language":"","language":"","editor":"","helpsite":"","timezone":""}'),
-(67, 'user-5', 'user-5', 'user5@xyz.com', '34603e69f6487908cc70eef5f1141778:jAvCyL7Yms593cLS7IyjZRskDAUrW05f', 'Registered', 0, 0, '2011-03-03 07:18:17', '0000-00-00 00:00:00', '', '{"admin_style":"","admin_language":"","language":"","editor":"","helpsite":"","timezone":""}'),
-(68, 'user-6', 'user-6', 'user-6@xyz.com', '3d75de7015b0c3945c296123974b17fb:NqCfLQFkWfTCeZuBxF4z5Y0o8JToAZ6I', 'Registered', 0, 0, '2011-03-03 07:19:17', '2011-03-03 07:26:12', '', '{"admin_style":"","admin_language":"","language":"","editor":"","helpsite":"","timezone":""}');;
-
 
 INSERT INTO `#__community_users` (`userid`, `status`, `status_access`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friends`, `groups`, `friendcount`, `alias`, `latitude`, `longitude`, `profile_id`, `storage`, `watermark_hash`, `search_email`) VALUES
 (62, '', 0, 0, '0000-00-00 00:00:00', '', '', 0, '{"notifyEmailSystem":"1","privacyProfileView":"30","privacyPhotoView":"0","privacyFriendsView":"0","privacyGroupsView":"","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0","daylightsavingoffset":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1),
@@ -23,8 +14,8 @@ INSERT INTO `#__community_users` (`userid`, `status`, `status_access`, `points`,
 (66, '', 0, 0, '0000-00-00 00:00:00', '', '', 0, '{"notifyEmailSystem":"1","privacyProfileView":"30","privacyPhotoView":"0","privacyFriendsView":"0","privacyGroupsView":"","privacyVideoView":"0","notifyEmailMessage":1,"notifyEmailApps":"1","notifyWallComment":"0","daylightsavingoffset":"0"}', 0, '', '', 0, '', 255, 255, 0, 'file', '', 1);;
 
 INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`, `privacy`, `template`, `jusertype`, `avatar`, `approve`, `allowt`, `group`, `watermark`, `params`, `watermarkparams`, `visible`, `config`) VALUES
-(1, 'Dummy A', 1, 1, '', 'privacyProfileView="30"\nprivacyFriendsView="0"\nprivacyPhotoView="0"\nnotifyEmailSystem="1"\nnotifyEmailApps="1"\nnotifyWallComment="0"\nprivacyVideoView="0"', 'default', 'Registered', 'components/com_community/assets/user.png', 0, 0, '0', 'images/profiletype/watermark_1.png', '', 'enableWaterMark="0"\nxiText="P"\nxiWidth="40"\nxiHeight="40"\nxiThumbWidth="20"\nxiThumbHeight="20"\nxiFontName="monofont"\nxiFontSize="26"\nxiTextColor="FFFFFF"\nxiBackgroundColor="9CD052"\nxiWatermarkPosition="tl"\ndemo=0', 1, 'jspt_restrict_reg_check="0"\njspt_prevent_username="moderator; admin; support; owner; employee"\njspt_allowed_email=""\njspt_prevent_email=""'),
-(2, 'Dummy B', 2, 1, '', 'privacyProfileView="30"\nprivacyFriendsView="0"\nprivacyPhotoView="0"\nnotifyEmailSystem="1"\nnotifyEmailApps="1"\nnotifyWallComment="0"\nprivacyVideoView="0"', 'default', 'Registered', 'components/com_community/assets/user.png', 0, 0, '0', 'images/profiletype/watermark_2.png', '', 'enableWaterMark="0"\nxiText="P"\nxiWidth="40"\nxiHeight="40"\nxiThumbWidth="20"\nxiThumbHeight="20"\nxiFontName="monofont"\nxiFontSize="26"\nxiTextColor="FFFFFF"\nxiBackgroundColor="9CD052"\nxiWatermarkPosition="tl"\ndemo=0', 1, 'jspt_restrict_reg_check="0"\njspt_prevent_username="moderator; admin; support; owner; employee"\njspt_allowed_email=""\njspt_prevent_email=""');;
+(1, 'profiletypes1', 1, 1, '', 'privacyProfileView="30"\nprivacyFriendsView="0"\nprivacyPhotoView="0"\nnotifyEmailSystem="1"\nnotifyEmailApps="1"\nnotifyWallComment="0"\nprivacyVideoView="0"', 'default', 'Registered', 'components/com_community/assets/user.png', 0, 0, '0', 'images/profiletype/watermark_1.png', '', 'enableWaterMark="0"\nxiText="P"\nxiWidth="40"\nxiHeight="40"\nxiThumbWidth="20"\nxiThumbHeight="20"\nxiFontName="monofont"\nxiFontSize="26"\nxiTextColor="FFFFFF"\nxiBackgroundColor="9CD052"\nxiWatermarkPosition="tl"\ndemo=0', 1, 'jspt_restrict_reg_check="0"\njspt_prevent_username="moderator; admin; support; owner; employee"\njspt_allowed_email=""\njspt_prevent_email=""'),
+(2, 'profiletypes2', 2, 1, '', 'privacyProfileView="30"\nprivacyFriendsView="0"\nprivacyPhotoView="0"\nnotifyEmailSystem="1"\nnotifyEmailApps="1"\nnotifyWallComment="0"\nprivacyVideoView="0"', 'default', 'Registered', 'components/com_community/assets/user.png', 0, 0, '0', 'images/profiletype/watermark_2.png', '', 'enableWaterMark="0"\nxiText="P"\nxiWidth="40"\nxiHeight="40"\nxiThumbWidth="20"\nxiThumbHeight="20"\nxiFontName="monofont"\nxiFontSize="26"\nxiTextColor="FFFFFF"\nxiBackgroundColor="9CD052"\nxiWatermarkPosition="tl"\ndemo=0', 1, 'jspt_restrict_reg_check="0"\njspt_prevent_username="moderator; admin; support; owner; employee"\njspt_allowed_email=""\njspt_prevent_email=""');;
 
 
 INSERT INTO `#__community_fields` (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`, `params`) VALUES
@@ -146,5 +137,8 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`, 
 (96, 66, 17, '1', 0),
 (97, 64, 16, 'default', 0),
 (98, 64, 17, '1', 0);;
+
+
+
 
 

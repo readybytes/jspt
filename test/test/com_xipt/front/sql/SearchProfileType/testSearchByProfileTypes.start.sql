@@ -1,7 +1,7 @@
 TRUNCATE TABLE `#__community_users`;;
 
 INSERT INTO `#__community_users`(`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`, `alias`, `latitude`, `longitude`) VALUES
-(62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\ndaylightsavingoffset=0\n\n', 0, 0, '', 255, 255),
+(42, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\ndaylightsavingoffset=0\n\n', 0, 0, '', 255, 255),
 (83, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/group.jpg', 'components/com_community/assets/group_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\ndaylightsavingoffset=0\n\n', 0, 0, '', 255, 255),
 (84, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\ndaylightsavingoffset=0\n\n', 0, 0, '', 255, 255),
 (85, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\ndaylightsavingoffset=0\n\n', 0, 0, '', 255, 255),
@@ -15,7 +15,7 @@ INSERT INTO `#__community_users`(`userid`, `status`, `points`, `posted_on`, `ava
 TRUNCATE TABLE  `#__xipt_users`;;
 
 INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 2, 'blueface'),
+(42, 2, 'blueface'),
 (87, 2, 'blackout'),
 (86, 1, 'blueface'),
 (85, 1, 'blackout'),
@@ -58,7 +58,7 @@ INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`
 TRUNCATE TABLE `#__community_fields_values`;;
 
 INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) VALUES
-(22, 62, 3, 'default'),
+(22, 42, 3, 'default'),
 (130, 81, 9, 'regtest8635954'),
 (133, 82, 3, 'regtest8774090'),
 (132, 82, 17, '2'),
@@ -72,7 +72,7 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (153, 85, 4, 'regtest3843261'),
 (119, 80, 16, 'blueface'),
 (118, 79, 9, 'regtest7046025'),
-(23, 62, 4, '1'),
+(23, 42, 4, '1'),
 (117, 79, 8, 'regtest7046025'),
 (116, 79, 5, 'regtest7046025'),
 (135, 82, 5, 'regtest8774090'),

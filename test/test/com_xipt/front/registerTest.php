@@ -202,7 +202,7 @@ class RegisterTest extends XiSelTestCase
     $username =  $this->fillDataPT($ptype);
     
     //avatar page
-    $this->assertTrue($this->isTextPresent("Change profile picture")); 
+    $this->assertTrue($this->isTextPresent("Change avatar")); 
     $this->assertTrue($this->verifyAvatar($ptype));
     
     //we should try to upload custom avatar also, so that it can be tested.
@@ -221,7 +221,9 @@ class RegisterTest extends XiSelTestCase
     	$newAvatar = 'test/test/com_xipt/front/images/avatar_3.gif';
     	$this->type("file-upload", JPATH_ROOT.DS.$newAvatar);
 	  	$this->click("file-upload-submit");
-    	$this->waitPageLoad();
+    	$this->waitForPageToLoad("30000");
+    	$this->click("//div[@id='community-wrap']/div[4]/p/a/span");
+        $this->waitForPageToLoad("30000");
     	
       	if($counter == 0)
     	{

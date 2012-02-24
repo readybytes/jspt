@@ -24,8 +24,10 @@ class XiptCommunityPluginTest extends XiUnitTestCase
 		$mainframe = JFactory::getApplication();
 		$this->changePluginState('aecuser', 0);
 		$this->changePluginState('aecaccess', 0);
-		
-		JDispatcher::getInstance()->set('_observers',array());
+        if (TEST_XIPT_JOOMLA_15)
+		    JDispatcher::getInstance()->set('_observers',array());
+        else
+		    JDispatcher::getInstance()->set('observers',array());
 		JPluginHelper::importPlugin('system');
 		$subject = JDispatcher::getInstance();
 		$obj = new plgCommunityxipt_community($subject, array());

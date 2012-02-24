@@ -96,7 +96,7 @@ class XiSelTestCase extends PHPUnit_Extensions_SeleniumTestCase
   
   function frontLogin($username=JOOMLA_ADMIN_USERNAME, $password= JOOMLA_ADMIN_PASSWORD)
   {
-    $this->open(JOOMLA_LOCATION."/index.php");
+    $this->open(JOOMLA_LOCATION."index.php");
     $this->waitPageLoad();
     if (TEST_XIPT_JOOMLA_15){
     	$this->type("modlgn_username", $username);
