@@ -49,7 +49,7 @@
 			<menu view="aclrules" 		img="../components/com_xipt/assets/images/icon-aclrules.gif">Access Control</menu>
 			<menu view="profilefields" 	img="../components/com_xipt/assets/images/icon-profilefields.gif">Profile Fields</menu>
 			<menu view="applications" 	img="../components/com_xipt/assets/images/icon-applications.gif">Applications</menu>
-			<menu view="users" 			img="../components/com_xipt/assets/images/icon-users.png">Users</menu>
+			<menu view="users" 			img="../components/com_xipt/assets/images/icon-users.gif">Users</menu>
 		</submenu>
 	
 		<files folder="admin">

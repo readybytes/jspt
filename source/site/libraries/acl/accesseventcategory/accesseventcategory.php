@@ -50,13 +50,18 @@ class accesseventcategory extends XiptAclBase
 						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($eventId);
 
 		$db->setQuery( $query );
-		$result = $db->loadObject();
-		if(!$result)
-			return false;
-		$aclevent = $this->aclparams->get('event_category');
+		$catId = $db->loadResult();
 		
-		//$aclevent == 0 means user can access all categories
-		if ($aclevent === $result->catid || $aclevent == 0)
+		if(!$catId)
+			return false;
+			
+		$allowedCats = $this->aclparams->get('event_category');
+		
+		//check if its applicable on more than 1 category
+		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
+		
+		//$allowedCats == 0 means user can access all categories
+		if (in_array($catId, $allowedCats) || $allowedCats == 0)
 			return true;
 			
 		return false;

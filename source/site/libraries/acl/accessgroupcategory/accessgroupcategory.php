@@ -50,13 +50,14 @@ class accessgroupcategory extends XiptAclBase
 						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($groupId);
 
 		$db->setQuery( $query );
-		$result = $db->loadObject();
-		if(!$result)
+		$catId = $db->loadResult();
+		
+		if(!$catId)
 			return false;
 		$aclgroup = $this->aclparams->get('group_category');
 		
-		//$aclgroup==0 means user can access all categories
-		if ($aclgroup === $result->categoryid || $aclgroup == 0)
+		//$allowedCats==0 means user can access all categories
+		if (in_array($catId, $allowedCats) || $allowedCats == 0)
 			return true;
 			
 		return false;

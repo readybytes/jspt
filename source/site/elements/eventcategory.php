@@ -18,7 +18,8 @@ class JElementEventcategory extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
-
+		$attr		= ' ';
+		$ctrl		= $control_name.'['.$name.']';
 		$options	= $this->getEventcategory();
 		
 		if(isset($node->_attributes->addall) || isset($node->_attributes['addall'])){
@@ -28,7 +29,17 @@ class JElementEventcategory extends JElement
 			array_unshift($options, $reqall);
 		}
 		
-		return JHtml::_('select.genericlist', $options, $control_name.'['.$name.']', null, 'id', 'name', $value);
+		if(isset($node->_attributes->multiselect) || isset($node->_attributes['multiselect'])){
+			$attr  .= ' multiple="multiple"';
+			$ctrl  .= '[]';
+		}
+		
+		if(is_string($value))
+ 			$selected = explode('|', $value);
+ 		else
+ 			$selected = $value;
+ 			
+		return JHtml::_('select.genericlist', $options, $ctrl, $attr, 'id', 'name', $selected, $control_name.$name);
 	}
 	
 	function getEventcategory()
