@@ -44,6 +44,10 @@ class accesseventcategory extends XiptAclBase
 	{
 		$allowedCats = $this->aclparams->get('event_category');
 		
+		//$allowedCats ==0 means user can access all categories
+		if($allowedCats == 0)
+			return true;
+			
 		//check if its applicable on more than 1 category
 		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
 		
@@ -54,9 +58,8 @@ class accesseventcategory extends XiptAclBase
 			//accessing all events
 			if(!$catId)
 				return true;
-				
-			//$allowedCats ==0 means user can access all categories
-			if(in_array($catId, $allowedCats) || $allowedCats == 0)
+			
+			if(in_array($catId, $allowedCats))
 				return true;
 			
 			return false;
@@ -75,8 +78,7 @@ class accesseventcategory extends XiptAclBase
 		if(!$catId)
 			return false;
 		
-		//$allowedCats == 0 means user can access all categories
-		if (in_array($catId, $allowedCats) || $allowedCats == 0)
+		if (in_array($catId, $allowedCats))
 			return true;
 			
 		return false;

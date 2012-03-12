@@ -44,7 +44,11 @@ class accessvideocategory extends XiptAclBase
 	{
 		
 		$allowedCats = $this->aclparams->get('video_category');
-
+		
+		//$allowedCats ==0 means user can access all categories
+		if($allowedCats == 0)
+			return true;
+			
 		//check if its applicable on more than 1 category
 		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
 		
@@ -55,9 +59,8 @@ class accessvideocategory extends XiptAclBase
 			//accessing all videos
 			if(!$catId)
 				return true;
-				
-			//$allowedCats ==0 means user can access all categories
-			if(in_array($catId, $allowedCats) || $allowedCats == 0)
+			
+			if(in_array($catId, $allowedCats))
 				return true;
 			
 			return false;
@@ -77,8 +80,7 @@ class accessvideocategory extends XiptAclBase
 		if(!$catId)
 			return false;
 		
-		//$allowedCats ==0 means user can access all categories
-		if(in_array($catId, $allowedCats) || $allowedCats == 0)
+		if(in_array($catId, $allowedCats))
 			return true;
 			
 		return false;

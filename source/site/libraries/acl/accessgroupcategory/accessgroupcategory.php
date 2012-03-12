@@ -44,6 +44,10 @@ class accessgroupcategory extends XiptAclBase
 	{
 		$allowedCats = $this->aclparams->get('group_category');
 		
+		//$allowedCats ==0 means user can access all categories
+		if($allowedCats == 0)
+			return true;
+			
 		//check if its applicable on more than 1 category
 		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
 		
@@ -55,8 +59,7 @@ class accessgroupcategory extends XiptAclBase
 			if(!$catId)
 				return true;
 				
-			//$allowedCats ==0 means user can access all categories
-			if(in_array($catId, $allowedCats) || $allowedCats == 0)
+			if(in_array($catId, $allowedCats))
 				return true;
 			
 			return false;
@@ -75,8 +78,7 @@ class accessgroupcategory extends XiptAclBase
 		if(!$catId)
 			return false;
 		
-		//$allowedCats==0 means user can access all categories
-		if (in_array($catId, $allowedCats) || $allowedCats == 0)
+		if (in_array($catId, $allowedCats))
 			return true;
 			
 		return false;
