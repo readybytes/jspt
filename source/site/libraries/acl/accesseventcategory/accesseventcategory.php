@@ -34,7 +34,7 @@ class accesseventcategory extends XiptAclBase
 		if('events' != $data['view'])
 			return false;
 
-		if($data['task'] === 'viewevent')
+		if($data['task'] === 'viewevent' || $data['task'] == 'display')
 				return true;
 
 		return false;
@@ -42,6 +42,26 @@ class accesseventcategory extends XiptAclBase
 	
 	function isApplicableForEventCategory($data)
 	{
+		$allowedCats = $this->aclparams->get('event_category');
+		
+		//check if its applicable on more than 1 category
+		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
+		
+		//in case, he is accessing categories in events >> all events instead of directly accessing event
+		if($data['task'] == 'display'){
+			$catId	= JRequest::getVar('categoryid' , 0);
+			
+			//accessing all events
+			if(!$catId)
+				return true;
+				
+			//$allowedCats ==0 means user can access all categories
+			if(in_array($catId, $allowedCats) || $allowedCats == 0)
+				return true;
+			
+			return false;
+		}
+		
 		$eventId	= isset($data['eventid'])? $data['eventid'] : 0;
 		$eventId	= JRequest::getVar('eventid' , $eventId, 'REQUEST');
 		$db 		= JFactory::getDBO();
@@ -54,11 +74,6 @@ class accesseventcategory extends XiptAclBase
 		
 		if(!$catId)
 			return false;
-			
-		$allowedCats = $this->aclparams->get('event_category');
-		
-		//check if its applicable on more than 1 category
-		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
 		
 		//$allowedCats == 0 means user can access all categories
 		if (in_array($catId, $allowedCats) || $allowedCats == 0)

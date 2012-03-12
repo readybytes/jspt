@@ -34,7 +34,7 @@ class accessgroupcategory extends XiptAclBase
 		if('groups' != $data['view'])
 			return false;
 
-		if($data['task'] === 'viewgroup')
+		if($data['task'] === 'viewgroup' || $data['task'] == 'display')
 				return true;
 
 		return false;
@@ -42,6 +42,26 @@ class accessgroupcategory extends XiptAclBase
 	
 	function isApplicableForGroupCategory($data)
 	{
+		$allowedCats = $this->aclparams->get('group_category');
+		
+		//check if its applicable on more than 1 category
+		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
+		
+		//in case, he is accessing categories in groups >> all groups instead of directly accessing group
+		if($data['task'] == 'display'){
+			$catId	= JRequest::getVar('categoryid' , 0);
+			
+			//accessing all group
+			if(!$catId)
+				return true;
+				
+			//$allowedCats ==0 means user can access all categories
+			if(in_array($catId, $allowedCats) || $allowedCats == 0)
+				return true;
+			
+			return false;
+		}
+		
 		$groupId	= isset($data['groupid'])? $data['groupid'] : 0;
 		$groupId	= JRequest::getVar('groupid' , $groupId, 'REQUEST');
 		$db 		= JFactory::getDBO();
@@ -54,7 +74,6 @@ class accessgroupcategory extends XiptAclBase
 		
 		if(!$catId)
 			return false;
-		$aclgroup = $this->aclparams->get('group_category');
 		
 		//$allowedCats==0 means user can access all categories
 		if (in_array($catId, $allowedCats) || $allowedCats == 0)

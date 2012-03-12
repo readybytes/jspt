@@ -42,6 +42,12 @@ class accessvideocategory extends XiptAclBase
 	
 	function isApplicableForVideoCategory($data)
 	{
+		
+		$allowedCats = $this->aclparams->get('video_category');
+
+		//check if its applicable on more than 1 category
+		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
+		
 		//in case, he is accessing categories in videos >> all videos instead of directly accessing video
 		if($data['task'] == 'display'){
 			$catId	= JRequest::getVar('catid' , 0);
@@ -49,10 +55,16 @@ class accessvideocategory extends XiptAclBase
 			//accessing all videos
 			if(!$catId)
 				return true;
+				
+			//$allowedCats ==0 means user can access all categories
+			if(in_array($catId, $allowedCats) || $allowedCats == 0)
+				return true;
+			
+			return false;
 		}
 		
 		$args		= $data['args'];
-		$videoId	= JRequest::getVar('videoid' , $videoId, 'REQUEST');
+		$videoId	= JRequest::getVar('videoid' , 0, 'REQUEST');
 		$videoId	= isset($videoId)? $videoId : $args[0];
 		$db 		= JFactory::getDBO();
 		$query		= 'SELECT '.$db->nameQuote('category_id')
@@ -64,11 +76,6 @@ class accessvideocategory extends XiptAclBase
 		
 		if(!$catId)
 			return false;
-		
-		$allowedCats = $this->aclparams->get('video_category');
-		
-		//check if its applicable on more than 1 category
-		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
 		
 		//$allowedCats ==0 means user can access all categories
 		if(in_array($catId, $allowedCats) || $allowedCats == 0)
