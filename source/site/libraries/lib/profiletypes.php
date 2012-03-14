@@ -35,8 +35,9 @@ class XiptLibProfiletypes
 					break;
 					
 				case 'jusertype' :
-					$newJUtype 	= $newData['jusertype']; 
-					XiptLibJomsocial::updateJoomlaUserType($userid,$newJUtype);
+					$newJUtype 	= $newData['jusertype'];
+					$oldJUtype 	= $oldData['jusertype']; 
+					XiptLibJomsocial::updateJoomlaUserType($userid,$newJUtype,$oldJUtype);
 					break;
 					
 				case 'avatar' :

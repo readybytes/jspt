@@ -59,7 +59,7 @@ class XiptLibJomsocial
      * @param $newUsertype
      * @return true/false
      */
-    function updateJoomlaUserType($userid, $newUsertype=JOOMLA_USER_TYPE_NONE)
+    function updateJoomlaUserType($userid, $newUsertype=JOOMLA_USER_TYPE_NONE, $oldUsertype=JOOMLA_USER_TYPE_NONE)
 	{
 	    //do not change usertypes for admins
 		if(XiptHelperUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE){
@@ -76,8 +76,14 @@ class XiptLibJomsocial
 		}
 		else{
 			$group = CACL::getInstance();
-			$groups[]=$group->getGroupID($newUsertype);			
-			JUserHelper::setUserGroups($userid,$groups);
+			$newGroup = $group->getGroupID($newUsertype);		
+			$oldGroup = $group->getGroupID($oldUsertype);
+			
+			//remove user from old group
+			JUserHelper::removeUserFromGroup($userid,$oldGroup);
+			
+			//add user to new group
+			JUserHelper::addUserToGroup($userid, $newGroup);
 		}
 		
 		$user->save();
