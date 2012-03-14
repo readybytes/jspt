@@ -167,6 +167,10 @@
 		  title="Change Status Message"
 		  description="Restrict users to Change Status Message"/>
 		  
+    <rule name="commentonstatus"
+		  title="Comment on Status"
+		  description="Restrict users to Comment on Status Message"/>
+		  
 	<rule name="profilefield"
 		  title="Can not view Other's ProfileFields"
 		  description="Restrict users to view ProfileFields"/>
