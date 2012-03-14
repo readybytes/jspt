@@ -10,15 +10,33 @@ class accesseventcategory extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['userid'];
+		$eventId	= isset($data['eventid'])? $data['eventid'] : 0;
+		$eventId	= JRequest::getVar('eventid' , $eventId, 'REQUEST');
+		
+		$db 		= JFactory::getDBO();
+		$query		= 'SELECT '.$db->nameQuote('creator')
+					.' FROM '.$db->nameQuote('#__community_events')
+					.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($eventId);
+
+		$db->setQuery( $query );
+		$data['viewuserid'] = $db->loadResult();
+
+		return $data['viewuserid'];
 	}
 	
 	function checkAclViolation(&$data)
 	{	
-		$resourceAccesser 	= XiptAclBase::getResourceAccesser($data);		
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
 		
+		if($this->isApplicableOnSelf($resourceAccesser,$resourceOwner) === false)
+			return false;
+			
 		if(XiptAclBase::isApplicableOnSelfProfiletype($resourceAccesser) === false)
 			return true; 
+		
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false;
 		
 		if($this->isApplicableForEventCategory($data)=== true)
 			return false;

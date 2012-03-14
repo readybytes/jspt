@@ -10,16 +10,23 @@ class accessvideocategory extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['userid'];
+		return $data['viewuserid'];
 	}
 	
 	function checkAclViolation(&$data)
 	{	
-		$resourceAccesser 	= XiptAclBase::getResourceAccesser($data);		
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
 		
+		if($this->isApplicableOnSelf($resourceAccesser,$resourceOwner) === false)
+			return false;
+			
 		if(XiptAclBase::isApplicableOnSelfProfiletype($resourceAccesser) === false)
 			return true; 
 		
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false; 
+			
 		if($this->isApplicableForVideoCategory($data)=== true)
 			return false;
 				

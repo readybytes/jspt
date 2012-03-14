@@ -10,15 +10,33 @@ class accessgroupcategory extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['userid'];
+		$groupId	= isset($data['groupid'])? $data['groupid'] : 0;
+		$groupId	= JRequest::getVar('groupid' , $groupId, 'REQUEST');
+		
+		$db 		= JFactory::getDBO();
+		$query		= 'SELECT '.$db->nameQuote('ownerid')
+						.' FROM '.$db->nameQuote('#__community_groups')
+						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($groupId);
+
+		$db->setQuery( $query );
+		$data['viewuserid'] = $db->loadResult();
+
+		return $data['viewuserid'];
 	}
 	
 	function checkAclViolation(&$data)
 	{	
-		$resourceAccesser 	= XiptAclBase::getResourceAccesser($data);		
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
 		
+		if($this->isApplicableOnSelf($resourceAccesser,$resourceOwner) === false)
+			return false;
+			
 		if(XiptAclBase::isApplicableOnSelfProfiletype($resourceAccesser) === false)
 			return true; 
+		
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false; 
 		
 		if($this->isApplicableForGroupCategory($data)=== true)
 			return false;
