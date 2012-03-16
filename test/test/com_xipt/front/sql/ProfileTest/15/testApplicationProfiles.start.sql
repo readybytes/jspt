@@ -48,9 +48,42 @@ INSERT INTO `au_#__community_apps` (`id`, `userid`, `apps`, `ordering`, `params`
 (2, 82, 'groups', 1, '', ''),
 (3, 82, 'latestphoto', 2, '', ''),
 (4, 82, 'myarticles', 3, '', ''),
-(5, 83, 'feeds', 0, '', ''),
-(6, 83, 'groups', 1, '', ''),
-(7, 83, 'latestphoto', 2, '', ''),
-(8, 83, 'myarticles', 3,'', ''),
-(9, 84, 'latestphoto', 0,'', ''),
-(10, 84, 'myarticles', 1, '', '');;
+(5, 83, 'walls', 0, '', ''),
+(6, 83, 'feeds', 1, '', ''),
+(7, 83, 'groups', 2, '', ''),
+(8, 83, 'latestphoto', 3, '', ''),
+(9, 83, 'myarticles', 4, '', ''),
+(10, 84, 'walls', 0, '', ''),
+(11, 84, 'latestphoto', 1, '', ''),
+(12, 84, 'myarticles', 2, '', '');;
+
+--
+-- Table structure for table `#__community_groups_members`
+--
+
+TRUNCATE TABLE `#__community_groups_members` ;;
+INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES
+(1, 62, 1, 1),
+(2, 62, 1, 1),
+(3, 62, 1, 1),
+(4, 62, 1, 1),
+(4, 81, 1, 0),
+(1, 79, 1, 0),
+(1, 82, 1, 0),
+(4, 84, 1, 0),
+(1, 85, 1, 0),
+(4, 87, 1, 0);;
+
+
+TRUNCATE TABLE `#__xipt_users`;;
+INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
+(62, 1, 'default'),
+(87, 3, 'blackout'),
+(86, 2, 'blueface'),
+(85, 1, 'default'),
+(84, 3, 'blackout'),
+(83, 2, 'blueface'),
+(82, 1, 'default'),
+(81, 3, 'blackout'),
+(80, 2, 'blueface'),
+(79, 1, 'default');;

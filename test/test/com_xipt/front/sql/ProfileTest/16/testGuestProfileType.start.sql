@@ -2,7 +2,7 @@
 
 TRUNCATE TABLE `#__users`;;
 INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
-(62, 'Super User', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'deprecated', 0, 1,  '2009-10-27 14:21:57', '2010-07-20 15:33:59', '', '\n'),
+(42, 'Super User', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'deprecated', 0, 1,  '2009-10-27 14:21:57', '2010-07-20 15:33:59', '', '\n'),
 (82, 'regtest8774090', 'regtest8774090', 'regtest8774090@gmail.com', 'f478ff7ef92fcb7a7cb62d4c1f08e43a:7rptUeQifMIkdyqE59fnxb0o74NE4sk8', 'Registered', 0, 0, '2009-12-03 08:16:35', '0000-00-00 00:00:00', 'a3a9fc5ff08868ee458cda29142e6e36', '\n'),
 (83, 'regtest1789672', 'regtest1789672', 'regtest1789672@gmail.com', 'c33a3ac03bfbc13368383edc0e6ae42d:bUwtJXMI49daOhAPzdaLBdRY1IOOgm0D', 'Editor', 0, 0, '2009-12-03 08:16:44', '0000-00-00 00:00:00', 'a25e8cbbf5a534e0d5b934589be66756', '\n'),
 (84, 'regtest6461827', 'regtest6461827', 'regtest6461827@gmail.com', '56f606098f0631341e8c398eaae179c6:aOJ5ghvQqtSCPnIH8SwFw90001MNaRI6', 'Publisher', 0, 0, '2009-12-03 08:16:52', '0000-00-00 00:00:00', 'd8e2cc8000b17d6791a451354a281937', '\n'),
@@ -16,7 +16,7 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 
 TRUNCATE TABLE `#__user_usergroup_map`;;
 INSERT INTO `#__user_usergroup_map` (`user_id`, `group_id`) VALUES
-(62, 8),
+(42, 8),
 (79, 2),
 (80, 2),
 (81, 2),
@@ -26,3 +26,47 @@ INSERT INTO `#__user_usergroup_map` (`user_id`, `group_id`) VALUES
 (85, 2),
 (86, 2),
 (87, 2);;
+
+
+
+TRUNCATE TABLE `#__xipt_users`;;
+INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
+(42, 1, 'default'),
+(87, 3, 'blackout'),
+(86, 2, 'blueface'),
+(85, 1, 'default'),
+(84, 3, 'blackout'),
+(83, 2, 'blueface'),
+(82, 1, 'default'),
+(81, 3, 'blackout'),
+(80, 2, 'blueface'),
+(79, 1, 'default');;
+
+
+
+TRUNCATE TABLE `#__community_apps`;;
+INSERT INTO `#__community_apps` (`id`, `userid`, `apps`, `ordering`, `params`, `privacy`) VALUES
+(1, 42, 'testing001', 0, '', ''),
+(2, 42, 'walls', 0, '', ''),
+(3, 42, 'feeds', 0, '', ''),
+(4, 42, 'groups', 0, '', ''),
+(5, 42, 'latestphoto', 0, '', ''),
+(6, 42, 'myarticles', 0, '', ''),
+(7, 82, 'testing001', 0, '', ''),
+(8, 82, 'walls', 0, '', ''),
+(9, 82, 'feeds', 0, '', ''),
+(10, 82, 'groups', 0, '', ''),
+(11, 82, 'latestphoto', 0, '', ''),
+(12, 82, 'myarticles', 0, '', ''),
+(13, 83, 'testing001', 0, '', ''),
+(14, 83, 'walls', 0, '', ''),
+(15, 83, 'feeds', 0, '', ''),
+(17, 83, 'latestphoto', 0, '', ''),
+(18, 83, 'myarticles', 0, '', ''),
+(19, 84, 'testing001', 0, '', ''),
+(20, 84, 'walls', 0, '', ''),
+(21, 84, 'feeds', 0, '', ''),
+(22, 84, 'groups', 0, '', ''),
+(23, 84, 'latestphoto', 0, '', ''),
+(24, 84, 'myarticles', 0, '', '');;
+

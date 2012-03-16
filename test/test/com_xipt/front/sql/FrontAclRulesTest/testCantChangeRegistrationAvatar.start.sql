@@ -1,7 +1,7 @@
 TRUNCATE TABLE `#__xipt_aclrules`;;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(5, 'dont restrict at registration', 'changeavatar', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'restrict_user_at_registration=0\n\n', 1),
-(4, 'restrict at registration', 'changeavatar', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'restrict_user_at_registration=1\n\n', 1);;
+(5, 'dont restrict at registration', 'changeavatar', 'core_profiletype=2\ncore_display_message=PHA+WU9VIEFSRSBOT1QgQUxMT1dFRCBUTyBBQ0NFU1MgVEhJUyBSRVNPVVJDRTwvcD4=\nforce_to_redirect=0\ncore_redirect_url=index.php?option=com_community\n\n', 'restrict_user_at_registration=0\n\n', 1),
+(4, 'restrict at registration', 'changeavatar', 'core_profiletype=1\ncore_display_message=PHA+WU9VIEFSRSBOT1QgQUxMT1dFRCBUTyBBQ0NFU1MgVEhJUyBSRVNPVVJDRTwvcD4=\nforce_to_redirect=0\ncore_redirect_url=index.php?option=com_community\n\n', 'restrict_user_at_registration=1\n\n', 1);;
 
 
 TRUNCATE TABLE `#__community_fields` ;;

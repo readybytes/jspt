@@ -12,7 +12,7 @@ class FrontAclRulesTest extends XiSelTestCase
   function verifyRestrict($verify)
   {
   	sleep(1);
- 	$present = $this->isTextPresent("You are not allowed to access this resource");
+ 	$present = $this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE");
   	$this->assertTrue($verify != $present);
   }
   
@@ -56,8 +56,7 @@ class FrontAclRulesTest extends XiSelTestCase
   {
 	$this->open("index.php?option=com_community&view=groups&task=viewgroup&groupid=$groupid&Itemid=53");
 	$this->waitPageLoad();
-	$this->click("//a[@onclick=\"javascript:joms.groups.joinWindow('$groupid');\"]");
-	$this->waitForElement("cwin_tm");
+	$this->click("link=Join Group");
     $this->verifyRestrict($verify);
   }
 
@@ -82,18 +81,10 @@ class FrontAclRulesTest extends XiSelTestCase
 	
     if($verify)
     {
-       	if(Jstring::stristr($version,'1.8'))	
-       	{
-   			$this->type("name", "Album$counter");
-   			$this->type("description", "Album$counter");
-		    $this->click("//input[@value='Create Album']");
-       	}
-       	else
-       	{
-	   		$this->type("//form[@id='newalbum']/table/tbody/tr[1]/td[2]/input", "Album$counter");
-       		$this->type("//textarea[@id='description']", "Album$counter");
-	   		$this->click("//form[@id='newalbum']/table/tbody/tr[3]/td[2]/input[2]");
-       	}	
+
+   		$this->type("name", "Album$counter");
+   		$this->type("description", "Album$counter");
+		$this->click("//input[@value='Create Album']");
         $this->waitPageLoad();
 		$this->assertTrue($this->isTextPresent("New album created."));
 		$counter++;
@@ -193,8 +184,8 @@ class FrontAclRulesTest extends XiSelTestCase
   {
   	$this->open("index.php?option=com_community&view=profile&Itemid=53");
   	$this->waitPageLoad();
-  	$this->type("statustext", "change status");
-    $this->click("save-status");     
+  	$this->type("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[2]/textarea[1]", "change status");
+    $this->click("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[3]/button"); 
   }
 
   function registeruser($pt,$restrictuploadavatar)
@@ -202,10 +193,10 @@ class FrontAclRulesTest extends XiSelTestCase
   	$rand=rand('111','999');
   	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=frontpage");
   	$this->waitPageLoad();
-  	$this->click("//a[@id='joinButton']");
+  	 $this->click("joinButton");
   	$this->waitPageLoad();
-  	$this->click("//input[@id='$pt']");
-  	$this->click('ptypesavebtn');
+  	
+  	 $this->click("$pt");
   	$this->waitPageLoad();
   	$this->type("jsname","username$rand");
 	$this->type("jsusername","username$rand");
@@ -221,8 +212,10 @@ class FrontAclRulesTest extends XiSelTestCase
 	$this->waitPageLoad();
 	if($restrictuploadavatar==1)
 	{
-	 $this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/front/images/avatar_3.gif");
+	$this->type("file-upload", JOOMLA_FTP_LOCATION."/test/test/com_xipt/front/images/avatar_3.gif");
     $this->click("file-upload-submit");
+    $this->waitPageLoad();
+    $this->click("//div[@id='community-wrap']/div[4]/p/a/span");
     $this->waitPageLoad();
 	}
 	$this->assertTrue($this->isTextPresent('User Registered.'));
@@ -388,20 +381,17 @@ function testACLRules2()
   	$filter['subscription_integrate']=1;
 	$this->changeJSPTConfig($filter);
 
-  	$this->open(JOOMLA_LOCATION."/index.php");
-    $this->waitPageLoad();
+  	$this->open(JOOMLA_LOCATION."index.php");
+    $this->waitPageLoad();   
     $this->type("modlgn_username", $user->username);
     $this->type("modlgn_passwd", $user->username);
-    $this->click("//form[@id='form-login']/fieldset/input");
+    $this->click("submit");
     $this->waitPageLoad();
 	//type 2 can not do any thing
-  	// should go to plan selection page
-  	$this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
-  	$this->click("submit");
-    $this->waitPageLoad();
-    $this->assertTrue($this->isTextPresent("Confirmation"));
+  	// should go to plan selection page  	
     $this->click("//input[@value='Continue']");
-    $this->waitForPageToLoad();
+	//XiTODO:: Clean it
+    sleep(25);
     $this->assertTrue($this->isTextPresent("Thank You!"));
     $this->assertTrue($this->isTextPresent("Subscription Complete!"));
     
@@ -411,7 +401,7 @@ function testACLRules2()
 	$this->_DBO->addTable('#__xipt_users');
   }
   
-  function xtestACLRulesDeleteGroup()
+  function testACLRulesDeleteGroup()
   {
   	$version = XiSelTestCase::get_js_version();
   	$users[1]=array(79,82,85);
@@ -599,10 +589,10 @@ function testACLRules2()
   	$filter['show_ptype_during_reg']=1;
   	$filter['jspt_show_radio']=1;
 	$this->changeJSPTConfig($filter);
-    $this->registeruser('profiletypes1',0);
+    $this->registeruser('PROFILETYPE-1',0);
   
 	//user can change avatar at registration time
-	$this->registeruser('profiletypes2',1);
+	$this->registeruser('PROFILETYPE-2',1);
 	}
   
   function testFreindsupportInCantViewProfile()
@@ -616,11 +606,11 @@ function testACLRules2()
   	$this->frontLogin($user->name,$user->name);
   	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=86');
   	$this->waitPageLoad();
-  	$this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
+  	$this->assertTrue($this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE"));
   	// view profile of friend
   	$this->open(JOOMLA_LOCATION.'/index.php?option=com_community&view=profile&userid=83');
   	$this->waitPageLoad();
-  	$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
+  	$this->assertFalse($this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE"));
   } 
   
   function testCantSendMessage()
@@ -630,11 +620,11 @@ function testACLRules2()
   	
   	$db		= & JFactory::getDBO();
   	$strSQL	= "INSERT INTO `#__xipt_aclrules` (`rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-  			  ('P1 Cant write message to P2', 'writemessages', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\nwritemessage_limit=0\nacl_applicable_to_friend=1\n\n', 1)";
+  			  ('P1 Cant write message to P2', 'writemessages', 'core_profiletype=1\ncore_display_message=PHA+WU9VIEFSRSBOT1QgQUxMT1dFRCBUTyBBQ0NFU1MgVEhJUyBSRVNPVVJDRTwvcD4=\nforce_to_redirect=0\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=2\nwritemessage_limit=0\nacl_applicable_to_friend=1\n\n', 1)";
   	$db->setQuery( $strSQL );
 	$db->query();
   	$strSQL	= "INSERT INTO `#__xipt_aclrules` (`rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-  			  ('P1 Cant write message to p3', 'writemessages', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=3\nwritemessage_limit=0\nacl_applicable_to_friend=0\n\n', 1)";
+  			  ('P1 Cant write message to p3', 'writemessages', 'core_profiletype=1\ncore_display_message=PHA+WU9VIEFSRSBOT1QgQUxMT1dFRCBUTyBBQ0NFU1MgVEhJUyBSRVNPVVJDRTwvcD4=\nforce_to_redirect=0\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=3\nwritemessage_limit=0\nacl_applicable_to_friend=0\n\n', 1)";
   	$db->setQuery( $strSQL );
   	$db->query();
   	$users[1]=array(79,82,85);
@@ -705,13 +695,11 @@ function testACLRules2()
 
   function testCreateEvent()
   {
-    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testCreateEvent.1.8.sql';
-    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
   	
-  	$user = JFactory::getUser(82); // type1
+  	$user = JFactory::getUser(82); // profiletype1
   	$this->frontLogin($user->username,$user->username);
   	  //pt1 can create atmost 2 events
   	$this->checkCreateEvent(true,9,10);
@@ -719,7 +707,7 @@ function testACLRules2()
   	$this->checkCreateEvent(false,11,12);
     $this->frontLogout();
     
-    $user = JFactory::getUser(83); // type2
+    $user = JFactory::getUser(83); // profiletype2
   	$this->frontLogin($user->username,$user->username);
   	  //pt2 can't create events
   	$this->checkCreateEvent(false,7,8);
@@ -734,8 +722,8 @@ function testACLRules2()
  
   function testAccessEvent()
   {
-    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testAccessEvent.1.8.sql';
-    $this->_DBO->loadSql($url);
+    //$url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testAccessEvent.1.8.sql';
+    //$this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -768,8 +756,6 @@ function testACLRules2()
 
   function testDeleteEvent()
   {
-    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testDeleteEvent.1.8.sql';
-    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);
@@ -778,12 +764,12 @@ function testACLRules2()
   	$this->frontLogin($user->username,$user->username);
   	$this->open("index.php?option=com_community&view=events&task=viewevent&eventid=11&Itemid=53");
   	$this->waitPageLoad();
-  	$this->click("//a[@onclick=\"javascript:joms.events.deleteEvent('11');\"]");
+  	$this->click("//h3[@onclick=\"joms.apps.toggle('#community-event-option');\"]");
+    $this->click("link=Delete Event");
   	$this->waitForElement("cwin_tm");
 	sleep(1);
     $this->assertTrue($this->isTextPresent("Are you sure want to delete this event?"));
-	$this->click("//input[@onclick=\"jax.call('community', 'events,ajaxDeleteEvent', '11', 1);\"]");
-    $this->waitForElement("cwin_tm");
+     $this->click("//input[@value='Delete']");
     sleep(2);
     $this->assertTrue($this->isTextPresent("Event deleted"));
     $this->frontLogout();
@@ -793,14 +779,15 @@ function testACLRules2()
   	//pt2 cant delete event
   	$this->open("index.php?option=com_community&view=events&task=viewevent&eventid=12&Itemid=53");
   	$this->waitPageLoad();
-  	$this->click("//a[@onclick=\"javascript:joms.events.deleteEvent('12');\"]");
+  	$this->click("//h3[@onclick=\"joms.apps.toggle('#community-event-option');\"]");
+    $this->click("link=Delete Event");
+
   	$this->waitForElement("cwin_tm");
 	sleep(1);
     $this->assertTrue($this->isTextPresent("Are you sure want to delete this event?"));
-	$this->click("//input[@onclick=\"jax.call('community', 'events,ajaxDeleteEvent', '12', 1);\"]");
-    $this->waitForElement("cwin_tm");
+    $this->click("//input[@value='Delete']");
     sleep(2);
-    $this->assertTrue($this->isTextPresent("You are not allowed to access this resource "));
+    $this->assertTrue($this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE "));
     $this->frontLogout();
     
     $this->_DBO->addTable('#__community_events');
@@ -813,8 +800,6 @@ function testACLRules2()
   
   function testFriendSupportInAccessEvent()
   {
-    $url =  dirname(__FILE__).'/sql/FrontAclRulesTest/testFriendSupportInAccessEvent.1.8.sql';
-    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);

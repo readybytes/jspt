@@ -26,3 +26,49 @@ INSERT INTO `#__user_usergroup_map` (`user_id`, `group_id`) VALUES
 (85, 2),
 (86, 2),
 (87, 2);;
+
+
+
+--
+-- Table structure for table `#__community_groups`
+--
+
+TRUNCATE TABLE `#__community_groups` ;;
+INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `name`, `description`, `email`, `website`, `approvals`, `created`, `avatar`, `thumb`, `discusscount`, `wallcount`, `membercount`, `params`) VALUES
+(1, 1, 42, 4, 'Groups PT 1', 'Groups PT 1', '', '', 0, '2009-12-03 07:37:15', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
+(2, 1, 42, 4, 'Groups PT 2', 'Groups PT 2', '', '', 0, '2009-12-03 07:37:36', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
+(3, 1, 42, 4, 'Groups PT 3', 'Groups PT 3', '', '', 0, '2009-12-03 07:37:50', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
+(4, 1, 42, 4, 'Private Group', 'Private Group', '', '', 1, '2009-12-03 07:38:07', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `#__community_groups_members`
+--
+
+TRUNCATE TABLE `#__community_groups_members` ;;
+INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES
+(1, 42, 1, 1),
+(2, 42, 1, 1),
+(3, 42, 1, 1),
+(4, 42, 1, 1),
+(4, 81, 1, 0),
+(1, 79, 1, 0),
+(1, 82, 1, 0),
+(4, 84, 1, 0),
+(1, 85, 1, 0),
+(4, 87, 1, 0);;
+
+
+TRUNCATE TABLE `#__xipt_users`;;
+INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
+(42, 1, 'default'),
+(87, 3, 'blackout'),
+(86, 2, 'blueface'),
+(85, 1, 'default'),
+(84, 3, 'blackout'),
+(83, 2, 'default'),
+(82, 1, 'default'),
+(81, 3, 'blackout'),
+(80, 2, 'blueface'),
+(79, 1, 'default');;
+

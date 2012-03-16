@@ -76,35 +76,6 @@ INSERT INTO `#__community_fields_values` (`id`, `user_id`, `field_id`, `value`) 
 (127, 81, 16, 'blackout'),
 (126, 80, 9, 'regtest6208627');;
 
---
--- Table structure for table `#__community_groups`
---
-
-TRUNCATE TABLE `#__community_groups` ;;
-INSERT INTO `#__community_groups` (`id`, `published`, `ownerid`, `categoryid`, `name`, `description`, `email`, `website`, `approvals`, `created`, `avatar`, `thumb`, `discusscount`, `wallcount`, `membercount`, `params`) VALUES
-(1, 1, 62, 4, 'Groups PT 1', 'Groups PT 1', '', '', 0, '2009-12-03 07:37:15', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
-(2, 1, 62, 4, 'Groups PT 2', 'Groups PT 2', '', '', 0, '2009-12-03 07:37:36', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
-(3, 1, 62, 4, 'Groups PT 3', 'Groups PT 3', '', '', 0, '2009-12-03 07:37:50', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 1, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n'),
-(4, 1, 62, 4, 'Private Group', 'Private Group', '', '', 1, '2009-12-03 07:38:07', 'components/com_community/assets/groupAvatar.png', 'components/com_community/assets/groupThumbAvatar.png', 0, 0, 4, 'discussordering=1\nphotopermission=1\nvideopermission=1\n\n');;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `#__community_groups_members`
---
-
-TRUNCATE TABLE `#__community_groups_members` ;;
-INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES
-(1, 62, 1, 1),
-(2, 62, 1, 1),
-(3, 62, 1, 1),
-(4, 62, 1, 1),
-(4, 81, 1, 0),
-(1, 79, 1, 0),
-(1, 82, 1, 0),
-(4, 84, 1, 0),
-(1, 85, 1, 0),
-(4, 87, 1, 0);;
 
 
 TRUNCATE TABLE `#__xipt_profiletypes` ;;
@@ -140,7 +111,6 @@ INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, 
 (82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (83, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (84, '', 2, '0000-00-00 00:00:00', 'images/avatar/dlhfsadhfjskdlfjh.jpg', 'images/avatar/dlhfsadhfjskdlfjh_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
-
 (85, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (86, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0),
 (87, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/default.jpg', 'components/com_community/assets/default_thumb.jpg', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0);;
@@ -165,15 +135,4 @@ INSERT INTO `#__xipt_profilefields` (`id`, `fid`, `pid`) VALUES
 (15, 8, 3),
 (16, 8, 4);;
 
-TRUNCATE TABLE `#__xipt_users`;;
-INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 1, 'default'),
-(87, 3, 'blackout'),
-(86, 2, 'blueface'),
-(85, 1, 'default'),
-(84, 3, 'blackout'),
-(83, 2, 'default'),
-(82, 1, 'default'),
-(81, 3, 'blackout'),
-(80, 2, 'blueface'),
-(79, 1, 'default');;
+

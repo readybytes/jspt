@@ -60,18 +60,6 @@ INSERT INTO `#__xipt_profiletypes` (`id`, `name`, `ordering`, `published`, `tip`
 (4, 'PROFILETYPE-4', 4, 0, '<p>PROFILETYPE-THREE-TIP</p>', 'members', 'blackout', 'Registered', 'components/com_community/assets/default.jpg', 0, 0, 0, '', '', 'enableWaterMark=0\nxiText=P4\nxiWidth=40\nxiHeight=40\nxiThumbWidth=20\nxiThumbHeight=20\nxiFontName=monofont\nxiFontSize=26\nxiTextColor=FFFFFF\nxiBackgroundColor=9CD052\nxiWatermarkPosition=tl\ndemo=4\n\n');;
 
 
-TRUNCATE TABLE `#__xipt_users`;;
-INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 1, 'default'),
-(87, 3, 'blackout'),
-(86, 2, 'blueface'),
-(85, 1, 'default'),
-(84, 3, 'blackout'),
-(83, 1, 'default'),
-(82, 1, 'default'),
-(81, 3, 'blackout'),
-(80, 2, 'blueface'),
-(79, 1, 'default');;
 
 
 TRUNCATE TABLE `#__xipt_settings`;;

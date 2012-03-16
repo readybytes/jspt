@@ -118,7 +118,6 @@ class ApplicationForFrontTest extends XiSelTestCase
     $appsNames[44]='groups'; 
     $appsNames[45]='latestphoto'; 
     $appsNames[46]='myarticles'; 
-    $version = XiSelTestCase::get_js_version();
       	// now check for every links
   	if($appPresent==true)
   	{

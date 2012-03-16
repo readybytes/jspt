@@ -45,3 +45,34 @@ INSERT INTO `au_#__community_apps` (`id`, `userid`, `apps`, `ordering`, `params`
 (10, 84, 'feeds', 0, '', ''),
 (11, 84, 'latestphoto', 0,'', ''),
 (12, 84, 'myarticles', 1, '', '');;
+
+--
+-- Table structure for table `#__community_groups_members`
+--
+
+TRUNCATE TABLE `#__community_groups_members` ;;
+INSERT INTO `#__community_groups_members` (`groupid`, `memberid`, `approved`, `permissions`) VALUES
+(1, 42, 1, 1),
+(2, 42, 1, 1),
+(3, 42, 1, 1),
+(4, 42, 1, 1),
+(4, 81, 1, 0),
+(1, 79, 1, 0),
+(1, 82, 1, 0),
+(4, 84, 1, 0),
+(1, 85, 1, 0),
+(4, 87, 1, 0);;
+
+
+TRUNCATE TABLE `#__xipt_users`;;
+INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
+(42, 1, 'default'),
+(87, 3, 'blackout'),
+(86, 2, 'blueface'),
+(85, 1, 'default'),
+(84, 3, 'blackout'),
+(83, 2, 'blueface'),
+(82, 1, 'default'),
+(81, 3, 'blackout'),
+(80, 2, 'blueface'),
+(79, 1, 'default');;

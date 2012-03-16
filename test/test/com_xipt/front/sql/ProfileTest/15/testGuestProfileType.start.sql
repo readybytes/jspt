@@ -38,3 +38,45 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (21, '', 35),
 (25, '', 10);;
 
+TRUNCATE TABLE `#__xipt_users`;;
+INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
+(62, 1, 'default'),
+(87, 3, 'blackout'),
+(86, 2, 'blueface'),
+(85, 1, 'default'),
+(84, 3, 'blackout'),
+(83, 2, 'blueface'),
+(82, 1, 'default'),
+(81, 3, 'blackout'),
+(80, 2, 'blueface'),
+(79, 1, 'default');;
+
+
+
+TRUNCATE TABLE `#__community_apps`;;
+INSERT INTO `#__community_apps` (`id`, `userid`, `apps`, `ordering`, `params`, `privacy`) VALUES
+(1, 62, 'testing001', 0, '', ''),
+(2, 62, 'walls', 0, '', ''),
+(3, 62, 'feeds', 0, '', ''),
+(4, 62, 'groups', 0, '', ''),
+(5, 62, 'latestphoto', 0, '', ''),
+(6, 62, 'myarticles', 0, '', ''),
+(7, 82, 'testing001', 0, '', ''),
+(8, 82, 'walls', 0, '', ''),
+(9, 82, 'feeds', 0, '', ''),
+(10, 82, 'groups', 0, '', ''),
+(11, 82, 'latestphoto', 0, '', ''),
+(12, 82, 'myarticles', 0, '', ''),
+(13, 83, 'testing001', 0, '', ''),
+(14, 83, 'walls', 0, '', ''),
+(15, 83, 'feeds', 0, '', ''),
+(17, 83, 'latestphoto', 0, '', ''),
+(18, 83, 'myarticles', 0, '', ''),
+(19, 84, 'testing001', 0, '', ''),
+(20, 84, 'walls', 0, '', ''),
+(21, 84, 'feeds', 0, '', ''),
+(22, 84, 'groups', 0, '', ''),
+(23, 84, 'latestphoto', 0, '', ''),
+(24, 84, 'myarticles', 0, '', '');;
+
+

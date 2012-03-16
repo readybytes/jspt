@@ -169,6 +169,8 @@ class JomsocialTest extends XiUnitTestCase
   function testUserDataFromCommunity()
   {
   	$users  = array(62, 83, 87, 82, 62);
+  	if(XIPT_JOOMLA_16)
+  		$users  = array(42, 83, 87, 82, 42);
   	$what   = array('points', 'status', 'avatar', 'invite', 'points');
   	
   	$output = array(12, null, 'components/com_community/assets/default.jpg', 0, 12);
@@ -244,7 +246,11 @@ class JomsocialTest extends XiUnitTestCase
  	$this->assertFalse(XiptLibJomsocial:: _removeUserFromGroup(82, ''));
 	
   	//don't remove user when user is owner of group
+  	if(XIPT_JOOMLA_15)
   	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(62, 1));
+  	else 
+  	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(42, 1));
+  	
   	
   	//do nothing when user is not member of group
   	$this->assertTrue(XiptLibJomsocial:: _removeUserFromGroup(84, 1));

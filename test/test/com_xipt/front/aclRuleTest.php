@@ -23,8 +23,7 @@ class AclRuleTest extends XiSelTestCase
      $this->waitPageLoad();
      $this->click("link=Change profile video");
      sleep(2);
-     $this->click("//div[@id='video-$vid']/div/div[2]/div[3]/a/span");
-     sleep(2);
+     $this->click("//div[@id='video-$vid']/div/div[1]/a/img");
      $this->click("//button[@onclick='joms.videos.linkProfileVideo($vid);']");
      sleep(2);
      $this->verifyRestrict($verify);
@@ -52,15 +51,12 @@ class AclRuleTest extends XiSelTestCase
      $this->click("cwin_close_btn");
   }
 
-  function xtestAddProfileVideo()
+  function testAddProfileVideo()
   {
-     $version = XiSelTestCase::get_js_version();
-     if(!Jstring::stristr($version,'1.8'))
-     	return true;
      if(TEST_XIPT_JOOMLA_15)
-   	 $url =  dirname(__FILE__).'/sql/AclRuleTest/15/testAddProfileVideo.1.8.sql';
+   	 	$url =  dirname(__FILE__).'/sql/AclRuleTest/15/testAddProfileVideo.1.8.sql';
    	 else 
-   	 $url =  dirname(__FILE__).'/sql/AclRuleTest/16/testAddProfileVideo.1.8.sql';
+   		 $url =  dirname(__FILE__).'/sql/AclRuleTest/16/testAddProfileVideo.1.8.sql';
      $this->_DBO->loadSql($url);
      $users[1]=array(79,82,85);
      $users[2]=array(80,83,86);
@@ -86,12 +82,12 @@ class AclRuleTest extends XiSelTestCase
      $this->frontLogout();
   }
   
-  function xtestDeleteProfileVideo()
+  function testDeleteProfileVideo()
   {
    if(TEST_XIPT_JOOMLA_15)
      $url =  dirname(__FILE__).'/sql/AclRuleTest/15/testDeleteProfileVideo.1.8.sql';
    else
-     $url =  dirname(__FIxLE__).'/sql/AclRuleTest/16/testDeleteProfileVideo.1.8.sql';
+     $url =  dirname(__FILE__).'/sql/AclRuleTest/16/testDeleteProfileVideo.1.8.sql';
     $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
@@ -120,7 +116,7 @@ class AclRuleTest extends XiSelTestCase
   	//$this->_DBO->addTable('#__community_users');
   }
   
-  function xtestAccessProfileVideo()
+  function testAccessProfileVideo()
   {
   	if(TEST_XIPT_JOOMLA_15)
     $url =  dirname(__FILE__).'/sql/AclRuleTest/15/testAccessProfileVideo.1.8.sql';

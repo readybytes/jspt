@@ -84,7 +84,7 @@ class ProfileTest extends XiSelTestCase
   function verifyEditProfileFields($userid,$ptype)
   {
       // open user's profile
-	  $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=edit");
+	  $this->open(JOOMLA_LOCATION."index.php?option=com_community&view=profile&task=edit");
 	  $this->waitPageLoad();
 	  $this->assertTrue($this->isTextPresent("Edit profile"));
 	  //check fields
@@ -132,7 +132,7 @@ class ProfileTest extends XiSelTestCase
   function verifyEditablePTFields($profiletype,$template)
   {
   		//go to profile edit page
-  	  	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=profile&task=edit");
+  	  	$this->open(JOOMLA_LOCATION."index.php?option=com_community&view=profile&task=edit");
 	  	$this->waitPageLoad();
 	  	$this->assertTrue($this->isTextPresent("Edit profile"));
 	  	
@@ -170,7 +170,7 @@ class ProfileTest extends XiSelTestCase
   function verifyApps($userid, $ptype)
   {
   	
-  	$this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=apps&task=browse&Itemid=53");
+  	$this->open(JOOMLA_LOCATION."index.php?option=com_community&view=apps&task=browse&Itemid=53");
 	$this->waitPageLoad();
 	if(TEST_XIPT_JOOMLA_15){
 	$allApps=array(44,45,46,47,48);
@@ -211,15 +211,9 @@ class ProfileTest extends XiSelTestCase
         $appsNames[48]='myarticles'; 
 	}
   	// now check for every links
-  	$version = XiSelTestCase::get_js_version();
   	foreach($allApps as $a)
   	{
   		$this->click("//a[@onclick=\"joms.apps.add('".$appsNames[$a]."')\"]");
-	  	//wait for ajax window
-	  	if(Jstring::stristr($version,'1.8') || Jstring::stristr($version,'2.')){  	    
-           sleep(1);
-           continue;
-	  	}
        	
        	for ($second = 0; ; $second++) {
 	        if ($second >= 60) $this->fail("timeout");
@@ -347,9 +341,17 @@ class ProfileTest extends XiSelTestCase
   	    
   	  //test for admin too, no change is usertype
   	  // and also it have custom avatar
-  	  $user = JFactory::getUser(62);
+  	  if(TEST_XIPT_JOOMLA_15)
+  	    $user = JFactory::getUser(62);
+  	  else 
+  	    $user = JFactory::getUser(42);
+  	    
   	  $this->frontLogin(JOOMLA_ADMIN_USERNAME,JOOMLA_ADMIN_PASSWORD);
-  	  $this->verifyChangeProfiletype(62,3); // 1 -> 3
+  	  if(TEST_XIPT_JOOMLA_15)
+  	     $this->verifyChangeProfiletype(62,3); // 1 -> 3
+  	  else 
+  	     $this->verifyChangeProfiletype(42,3); // 1 -> 3
+  	     
   	  $this->frontLogout();
   	    	  
 	  $this->_DBO->addTable('#__xipt_users');
@@ -556,7 +558,8 @@ class ProfileTest extends XiSelTestCase
   		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
 	// see jom-socaial front page
   	else
-		    $this->click("link=Jomsocial");
+  	 $this->click("//div[@id='nav']/div[3]/ul/li[8]/a");
+     //$this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(2);
   	$this->frontLogout();
@@ -565,7 +568,8 @@ class ProfileTest extends XiSelTestCase
   	If(TEST_XIPT_JOOMLA_15)
   		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
 	else
-		    $this->click("link=Jomsocial");
+	  $this->click("//div[@id='nav']/div[3]/ul/li[8]/a");
+		    //$this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(1);
   	$this->frontLogout();

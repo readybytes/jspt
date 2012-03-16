@@ -37,4 +37,10 @@ INSERT INTO `#__core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`)
 (25, '', 10);;
 
 
+TRUNCATE TABLE `#__xipt_users`;;
+INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
+(62, 1, 'default'),
+(88, 1, 'default'),
+(89, 1, 'blackout'),
+(90, 1, 'default');;
 
