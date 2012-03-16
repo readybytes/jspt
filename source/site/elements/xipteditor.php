@@ -6,7 +6,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class JElementEditor extends JElement
+class JElementXiptEditor extends JElement
 {
 	/**
 	 * Element name
@@ -14,7 +14,7 @@ class JElementEditor extends JElement
 	 * @access	protected
 	 * @var		string
 	 */
-	var	$_name = 'Editor';
+	var	$_name = 'xiptEditor';
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
