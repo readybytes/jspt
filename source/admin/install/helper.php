@@ -28,6 +28,18 @@ class XiptHelperInstall
 		return true;	
 	}
 	
+	//editor element has been renamed, so existing file needs to be deleted.
+	//JSPT3.4.774 onwards
+	function deleteEditorFile()
+	{
+		$editorFilePath = JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'elements'.DS.'editor.php' ;
+		
+		if(JFile::exists($editorFilePath))
+			return JFile::delete($editorFilePath);	
+	
+		return true;
+	}
+	
 	function _getJSPTFileList()
 	{
 		$CMP_PATH_FRNTEND = JPATH_ROOT .DS. 'components' . DS . 'com_community';

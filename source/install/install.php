@@ -25,6 +25,9 @@ function com_install()
 	
 	if(XiptHelperInstall::copyAECfiles() == false)
 		JError::raiseError('INSTERR', "Not able to replace MI files, Check permissions.");
+		
+	if(XiptHelperInstall::deleteEditorFile() == false)
+		JError::raiseError('INSTERR', "Not able to delete Editor element file, Check permissions.");
 	
 	if(XiptHelperInstall::installExtensions() == false){
 		JError::raiseError('INSTERR', "NOT ABLE TO INSTALL EXTENSIONS");
