@@ -108,7 +108,7 @@ class XiptLibJomsocial
 		$pID = XiptLibProfiletypes::getUserData($loggedInUser->id,'PROFILETYPE');
 		$view = JRequest::getVar('view');
 		
-		if($view === 'register' || $view === 'frontpage'){
+		if($view === 'register' || $view === 'frontpage' || $view === 'featured'){
 			$pluginHandler = XiptFactory::getPluginHandler();
 			$pID 		   = $pluginHandler->getRegistrationPType();
 		}
