@@ -164,9 +164,9 @@ class XiptHelperRegistration
 
 		// invalid emails
 		$msg = XiptText::_('XIPT_EMAIL_NOT_ALLOWED');
-		$response->addScriptCall('jQuery("#newemail").addClass("invalid");');
-		$response->addScriptCall('jQuery("#error-newemail").show();');
-		$response->addScriptCall('jQuery("#error-newemail").html("' . $msg . '");');
+		$response->addScriptCall('joms.jQuery("#newemail").addClass("invalid");');
+		$response->addScriptCall('joms.jQuery("#error-newemail").show();');
+		$response->addScriptCall('joms.jQuery("#error-newemail").html("' . $msg . '");');
 		//$response->addScriptCall('false;');
 		return false;
 	}
@@ -190,9 +190,9 @@ class XiptHelperRegistration
 
 		// invalid emails
 		$msg = XiptText::_('XIPT_USERNAME_NOT_ALLOWED');
-		$response->addScriptCall('jQuery("#newusername").addClass("invalid");');
-		$response->addScriptCall('jQuery("#error-newusername").show();');
-		$response->addScriptCall('jQuery("#error-newusername").html("' . $msg . '");');
+		$response->addScriptCall('joms.jQuery("#newusername").addClass("invalid");');
+		$response->addScriptCall('joms.jQuery("#error-newusername").show();');
+		$response->addScriptCall('joms.jQuery("#error-newusername").html("' . $msg . '");');
 		//$response->addScriptCall('false;');
 		return false;
 	}
@@ -216,10 +216,10 @@ class XiptHelperRegistration
 
 		// invalid emails
 		$msg = XiptText::_('XIPT_EMAIL_NOT_ALLOWED');
-		$response->addScriptCall('jQuery("#jsemail").addClass("invalid");');
-		$response->addScriptCall('jQuery("#errjsemailmsg").show();');
-		$response->addScriptCall('jQuery("#errjsemailmsg").html("<br/>'.$msg.'");');
-		$response->addScriptCall('jQuery("#emailpass").val("N");');
+		$response->addScriptCall('joms.jQuery("#jsemail").addClass("invalid");');
+		$response->addScriptCall('joms.jQuery("#errjsemailmsg").show();');
+		$response->addScriptCall('joms.jQuery("#errjsemailmsg").html("<br/>'.$msg.'");');
+		$response->addScriptCall('joms.jQuery("#emailpass").val("N");');
 		$response->addScriptCall('false;');
 		return false;
 	}
@@ -241,10 +241,10 @@ class XiptHelperRegistration
 
 		// username not allowed
 		$msg = XiptText::_('XIPT_USERNAME_NOT_ALLOWED');
-		$response->addScriptCall('jQuery("#jsusername").addClass("invalid");');
-		$response->addScriptCall('jQuery("#errjsusernamemsg").show();');
-		$response->addScriptCall('jQuery("#errjsusernamemsg").html("<br/>'.$msg.'");');
-		$response->addScriptCall('jQuery("#usernamepass").val("N");');
+		$response->addScriptCall('joms.jQuery("#jsusername").addClass("invalid");');
+		$response->addScriptCall('joms.jQuery("#errjsusernamemsg").show();');
+		$response->addScriptCall('joms.jQuery("#errjsusernamemsg").html("<br/>'.$msg.'");');
+		$response->addScriptCall('joms.jQuery("#usernamepass").val("N");');
 		$response->addScriptCall('false;');
 		return false;
 	}
