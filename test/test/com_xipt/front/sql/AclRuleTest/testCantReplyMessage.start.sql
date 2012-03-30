@@ -9,7 +9,7 @@ INSERT INTO `#__community_msg` (`id`, `from`, `parent`, `deleted`, `from_name`, 
 
 TRUNCATE TABLE `#__xipt_aclrules`;;
 INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(1, 'Can not Write Messages to Other Profile ', 'writemessages', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=0\nwritemessage_limit=\nacl_applicable_to_friend=1\n\n', 1);;
+(1, 'Can not Write Messages to Other Profile ', 'writemessages', 'core_profiletype=1\ncore_display_message=PHA+WU9VIEFSRSBOT1QgQUxMT1dFRCBUTyBBQ0NFU1MgVEhJUyBSRVNPVVJDRTwvcD4=\nforce_to_redirect=0\ncore_redirect_url=index.php?option=com_community\n\n', 'other_profiletype=0\nwritemessage_limit=\nacl_applicable_to_friend=1\n\n', 1);;
 
 TRUNCATE TABLE `#__community_users`;;
 INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`) VALUES
