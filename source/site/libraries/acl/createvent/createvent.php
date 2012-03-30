@@ -40,6 +40,11 @@ class createvent extends XiptAclBase
 		return false;
 	}
 	
+	function checkAclViolationByPlan(&$data)
+	{
+		return $this->checkAclViolation($data);
+	}
+	
 	function getFeatureCounts($resourceAccesser,$catId)
 	{
 		if($catId)

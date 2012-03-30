@@ -170,19 +170,25 @@ abstract class XiptAclBase
 
 	public function checkCoreApplicable($data)
 	{
-		$ptype = $this->getCoreParams('core_profiletype',XIPT_PROFILETYPE_ALL);
-
-		//All means applicable
-		if(XIPT_PROFILETYPE_ALL == $ptype)
-			return true;
-
-		//check if its applicable on more than 1 ptype
-		$ptype = is_array($ptype)?$ptype:array($ptype);
+		$restrictBy = $this->getCoreParams('restrict_by',0);
 		
-		//profiletype matching
-		if(in_array(XiptLibProfiletypes::getUserData($data['userid']), $ptype))
-			return true;
-
+		if($restrictBy){
+			return $this->checkCoreApplicableByPlan($data);
+		}
+		else{
+			$ptype = $this->getCoreParams('core_profiletype',XIPT_PROFILETYPE_ALL);
+	
+			//All means applicable
+			if(XIPT_PROFILETYPE_ALL == $ptype)
+				return true;
+	
+			//check if its applicable on more than 1 ptype
+			$ptype = is_array($ptype)?$ptype:array($ptype);
+			
+			//profiletype matching
+			if(in_array(XiptLibProfiletypes::getUserData($data['userid']), $ptype))
+				return true;
+		}
 		return false;
 	}
 
@@ -192,7 +198,12 @@ abstract class XiptAclBase
 
 	function checkViolation($data)
 	{
-		return ($this->checkAclViolation($data) || $this->checkCoreViolation($data));
+		$restrictBy = $this->getCoreParams('restrict_by',0);
+		
+		if($restrictBy)
+			return ($this->checkAclViolationByPlan($data) || $this->checkCoreViolation($data));
+		else
+			return ($this->checkAclViolation($data) || $this->checkCoreViolation($data));
 	}
 
 
@@ -392,5 +403,115 @@ abstract class XiptAclBase
 	public function getRedirectUrl()
 	{
 		return $this->getCoreParams('core_redirect_url','index.php?option=com_community');
+	}
+	
+	public function checkCoreApplicableByPlan($data)
+	{
+		$plan = $this->getCoreParams('core_plan',0);
+
+		//All means applicable
+		if(XIPT_PLAN_ALL == $plan)
+			return true;
+
+		//check if its applicable on more than 1 plan
+		$plan = is_array($plan) ? $plan : array($plan);
+		$user = PayplansApi::getUser($data['userid']);
+		
+		//plan matching
+		if(array_intersect($user->getPlans(), $plan))
+			return true;
+		
+		return false;
+	}
+	
+	function isApplicableOnSelfPlan($resourceAccesser)
+	{
+		$user = PayplansApi::getUser($resourceAccesser);
+		
+		$aclSelfPlan = $this->getACLAccesserPlan();
+		$selfPlanId	 = $user->getPlans();
+		
+		//if its applicable to all
+		if(XIPT_PLAN_ALL == $aclSelfPlan)
+			return true;
+
+		//check if its applicable on more than 1 plan
+		$aclSelfPlan = is_array($aclSelfPlan) ? $aclSelfPlan : array($aclSelfPlan);
+		
+		//if user's plan exists in ACL plan array
+		if(array_intersect($selfPlanId, $aclSelfPlan))
+			return true;
+
+		return false;
+	}
+	
+	function isApplicableOnOtherPlan($resourceOwner)
+	{
+		$user = PayplansApi::getUser($resourceOwner);
+		
+		$otherplan		= $this->getACLOwnerPlan();
+		$otherPlanId	= $user->getPlans();
+
+		//if its applicable to all
+		if(XIPT_PLAN_ALL == $otherplan)
+			return true;
+
+		//check if its applicable on more than 1 pplan
+		$otherplan = is_array($otherplan) ? $otherplan : array($otherplan);
+		
+		//if user's plan exists in ACL plan array
+		if(array_intersect($otherPlanId, $otherplan))
+			return true;
+
+		return false;
+	}
+	
+	function getACLAccesserPlan()
+	{
+		return $this->coreparams->get('core_plan',XIPT_PLAN_NONE);		
+	}
+	
+	function getACLOwnerPlan()
+	{
+		return $this->aclparams->get('other_plan',XIPT_PLAN_ALL);
+	}
+	
+	function isApplicableOnMaxFeatureByPlan($resourceAccesser,$resourceOwner)
+	{	
+		$aclSelfPlan = $this->getACLAccesserPlan();
+		$otherPlan   = $this->getACLOwnerPlan();
+		
+		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherPlan,$aclSelfPlan);
+		$paramName = get_class($this).'_limit';
+		$maxmimunCount = $this->aclparams->get($paramName,0);
+		if($count >= $maxmimunCount)
+			return true;
+			
+		return false;
+	}
+	
+	public function checkAclViolationByPlan($data)
+	{	
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+		
+		if($this->isApplicableOnSelf($resourceAccesser,$resourceOwner) === false)
+			return false;
+		
+		if($this->isApplicableOnSelfPlan($resourceAccesser) === false)
+			return false;
+		
+		if($this->isApplicableOnOtherPlan($resourceOwner) === false)
+			return false;
+		
+		// if resource owner is friend of resource accesser 
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false; 
+		
+		// if feature count is greater then limit
+		if($this->isApplicableOnMaxFeatureByPlan($resourceAccesser,$resourceOwner) === false)
+			return false;
+				
+		return true;
 	}
 }

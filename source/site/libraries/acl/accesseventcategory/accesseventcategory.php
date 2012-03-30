@@ -44,6 +44,27 @@ class accesseventcategory extends XiptAclBase
 		return true;
 	}
 	
+	function checkAclViolationByPlan($data)
+	{	
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+		
+		if($this->isApplicableOnSelf($resourceAccesser,$resourceOwner) === false)
+			return false;
+		
+		if($this->isApplicableOnSelfPlan($resourceAccesser) === false)
+			return false;
+		
+		// if resource owner is friend of resource accesser 
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false; 
+		
+		if($this->isApplicableForEventCategory($data)=== true)
+			return false;
+				
+		return true;
+	}
+	
 	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])

@@ -31,6 +31,24 @@ if(!defined('_JEXEC')) die('Restricted access');
 			submitform(pressbutton);
 		}
 	}
+
+</script>
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+    	$('select#coreparamsrestrict_by').change(function(){
+        	
+    		 $("#coreparamscore_plan-lbl, #aclparamsother_plan-lbl").closest('.xiRow').hide();
+            
+             if(this.value == 1) {
+                $("#coreparamscore_plan-lbl, #aclparamsother_plan-lbl").closest('.xiRow').show();
+                $("#coreparamscore_profiletype, #aclparamsother_profiletype").closest('.xiRow').hide();
+             }
+             else{
+                $("#coreparamscore_profiletype, #aclparamsother_profiletype").closest('.xiRow').show();
+             }
+         });
+    	$('#coreparamsrestrict_by').change();
+	});
 </script>
 
 <div id="JSPT">

@@ -23,20 +23,46 @@ class XiptViewAclRules extends XiptView
 			foreach($rules as $rule) {
 				$aclObject = XiptAclFactory::getAclObject($rule->aclname);
 				$aclObject->bind($rule);
-				$ptypes = $aclObject->getCoreParams('core_profiletype',0);
 				
-				$ptypes = is_array($ptypes)?$ptypes:array($ptypes);
+				$restrict_by = $aclObject->getCoreParams('restrict_by',0);
+				
+				if($restrict_by){
+					$plans 	     = $aclObject->getCoreParams('core_plan',0);
+					$ptypes 	 = -1;
+				}
+				else{
+					$plans 	     = -1;
+					$ptypes 	 = $aclObject->getCoreParams('core_profiletype',0);
+				}
+				
+				$ptypes = is_array($ptypes) ? $ptypes : array($ptypes);
+				$plans  = is_array($plans) ? $plans : array($plans);
 				
 				foreach($ptypes as $ptype){
 					$ruleProfiletype[$rule->id][] = XiptHelperProfiletypes::getProfiletypeName($ptype,true);
 				}
+				
+				foreach($plans as $plan){
+					
+					if($plan == XIPT_PLAN_ALL || empty($plan))
+						$rulePlan[$rule->id][] = XiptText::_("ALL");
+					elseif($plan == XIPT_PROFILETYPE_NONE)
+						$rulePlan[$rule->id][] = XiptText::_("NONE");
+					else{
+						$planInstance = PayplansApi::getPlan($plan);
+						$rulePlan[$rule->id][] = $planInstance->getTitle();
+					}
+				}
+				
 				$ruleProfiletype[$rule->id] = implode(',', $ruleProfiletype[$rule->id]);
+				$rulePlan[$rule->id] 		= implode(',', $rulePlan[$rule->id]);
 			}
 		}
 
 		$this->assign( 'rules' , $rules );
 		$this->assign( 'ruleProfiletype' , $ruleProfiletype );
-		$this->assignRef( 'pagination'	, $pagination );
+		$this->assign( 'rulePlan' 		 , $rulePlan );
+		$this->assignRef( 'pagination'	 , $pagination );
 		return parent::display( $tpl );
     }
 

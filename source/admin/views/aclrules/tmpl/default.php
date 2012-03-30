@@ -61,6 +61,9 @@ function submitbutton( action )
 			<th>
 				<?php echo XiptText::_( 'APPLICABLE_PROFILETYPE' ); ?>
 			</th>
+			<th>
+				<?php echo XiptText::_( 'APPLICABLE_PLAN' ); ?>
+			</th>
 			<th width="5%">
 				<?php echo XiptText::_( 'PUBLISHED' ); ?>
 			</th>
@@ -94,6 +97,9 @@ function submitbutton( action )
 			</td>
 			<td>
 				<?php echo $this->ruleProfiletype[$rule->id]; ?>
+			</td>
+			<td>
+				<?php echo $this->rulePlan[$rule->id]; ?>
 			</td>
 			<td align="center" id="published<?php echo $rule->id;?>">
 				<a href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i-1;?>','<?php echo $rule->published ? 'switchOffpublished' : 'switchOnpublished' ?>')">

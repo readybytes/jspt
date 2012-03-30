@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class cantviewotherprofile extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function checkAclViolation($data)
 	{	
 		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);		
@@ -18,6 +18,18 @@ class cantviewotherprofile extends XiptAclBase
 			return false;
 		
 		return parent::checkAclViolation($data);
+	}
+	
+	function checkAclViolationByPlan($data)
+	{	
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+				
+		// if allwoed to self
+		if($resourceAccesser == $resourceOwner)
+			return false;
+		
+		return parent::checkAclViolationByPlan($data);
 	}
 	
 	function getResourceOwner($data)

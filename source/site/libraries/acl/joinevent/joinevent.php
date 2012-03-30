@@ -35,6 +35,11 @@ class joinevent extends XiptAclBase
 		return false;
 	}
 	
+	function checkAclViolationByPlan(&$data)
+	{
+		return $this->checkAclViolation($data);
+	}
+	
 	function getFeatureCounts($resourceAccesser,$catId)
 	{	
 		$condition = '';

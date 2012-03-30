@@ -15,22 +15,29 @@ class uploadavatar extends XiptAclBase
 	
 	function checkCoreApplicable($data)
 	{
-		$ptype = $this->getCoreParams('core_profiletype',XIPT_PROFILETYPE_ALL);
-
-		//All means applicable
-		if(XIPT_PROFILETYPE_ALL == $ptype)
-			return true;
-
-		//check if its applicable on more than 1 ptype
-		$ptype = is_array($ptype)?$ptype:array($ptype);
+		$restrictBy = $this->getCoreParams('restrict_by',0);
 		
-		//profiletype matching
-		$userpt = JFactory::getSession()->get('sessionpt', false, 'XIPT');
-		
-		if(in_array(XiptLibProfiletypes::getUserData($data['userid']), $ptype) || in_array($userpt, $ptype))
-			return true;
-
-		return false;
+		if($restrictBy){
+			return $this->checkCoreApplicableByPlan($data);
+		}
+		else{
+			$ptype = $this->getCoreParams('core_profiletype',XIPT_PROFILETYPE_ALL);
+	
+			//All means applicable
+			if(XIPT_PROFILETYPE_ALL == $ptype)
+				return true;
+	
+			//check if its applicable on more than 1 ptype
+			$ptype = is_array($ptype)?$ptype:array($ptype);
+			
+			//profiletype matching
+			$userpt = JFactory::getSession()->get('sessionpt', false, 'XIPT');
+			
+			if(in_array(XiptLibProfiletypes::getUserData($data['userid']), $ptype) || in_array($userpt, $ptype))
+				return true;
+	
+			return false;
+		}
 	}
 	
 	function isApplicableOnSelfProfiletype($resourceAccesser)

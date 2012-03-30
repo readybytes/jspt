@@ -130,6 +130,9 @@ define('XI_PRIVACY_FRIENDS',30);
 define('XIPT_PROFILETYPE_ALL',0);
 define('XIPT_PROFILETYPE_NONE',-1);
 
+define('XIPT_PLAN_ALL',0);
+define('XIPT_PLAN_NONE',-1);
+
 // define constant for none group
 define('NONE', 0);
 

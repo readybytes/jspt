@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class aecredirect extends XiptAclBase
 {
-	public function checkAclViolation($data)
+	function checkAclViolation($data)
 	{
 
 		$currentURI  	= JURI::getInstance();

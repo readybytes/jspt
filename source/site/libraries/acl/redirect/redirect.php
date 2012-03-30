@@ -27,6 +27,11 @@ class redirect extends XiptAclBase
 		return false;
 	}
 
+	function checkAclViolationByPlan(&$data)
+	{
+		return $this->checkAclViolation($data);
+	}
+	
 	function getResourceOwner($data)
 	{
 		return $data['userid'];	
