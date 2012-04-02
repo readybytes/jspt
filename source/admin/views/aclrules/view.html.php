@@ -19,6 +19,7 @@ class XiptViewAclRules extends XiptView
 		$this->setToolbar();
 
 		$ruleProfiletype = array();
+		$rulePlan        = array();
 		if(!empty($rules)) {
 			foreach($rules as $rule) {
 				$aclObject = XiptAclFactory::getAclObject($rule->aclname);
