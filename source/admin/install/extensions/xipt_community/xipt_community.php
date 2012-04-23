@@ -262,7 +262,9 @@ class plgCommunityxipt_community extends CApplications
         $NewallowToChangeTemplate = XiptHelperProfiletypes::getProfileTypeData($profiletype,'allowt');
 	    
         //update profiletype only
+	if($profiletype !== $oldPtype){
 	    XiptLibProfiletypes::updateUserProfiletypeData($userId,$profiletype,$template,'ALL');
+	}
 	    
 	    //update template seperately
 	    $filter[] 				= 'template';
