@@ -27,14 +27,35 @@ class accessphoto extends XiptAclBase
 		return false;
 	}
 	
-	function getownerId($id)
-    {
-    	$query = new XiptQuery();
-    	
-    	return $query->select('creator')
-    				 ->from('#__community_photos')
-    				 ->where(" `id` = $id ")
-    				 ->dbLoadQuery("","")
-    				 ->loadResult();
-    }
+	function checkAclViolation($data)
+	{	
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+		
+		//if user is accessing group albums' photo, dont restrict him
+		if(!$resourceOwner)
+			return false;
+			
+		if($this->isApplicableOnSelf($resourceAccesser,$resourceOwner) === false)
+			return false;
+		
+		if($this->isApplicableOnSelfProfiletype($resourceAccesser) === false)
+			return false;
+		
+		if($this->isApplicableOnOtherProfiletype($resourceOwner) === false)
+			return false;
+		
+		//XITODO if allwoed to self
+		
+		
+		// if resource owner is friend of resource accesser 
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false; 
+		
+		// if feature count is greater then limit
+		if($this->isApplicableOnMaxFeature($resourceAccesser,$resourceOwner) === false)
+			return false;
+				
+		return true;
+	}
 }

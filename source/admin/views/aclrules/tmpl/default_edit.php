@@ -34,7 +34,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 </script>
 <script type="text/javascript">
-	jQuery(document).ready(function($){
+	joms.jQuery(document).ready(function($){
     	$('select#coreparamsrestrict_by').change(function(){
         	
     		 $("#coreparamscore_plan-lbl, #aclparamsother_plan-lbl").closest('.xiRow').hide();

@@ -323,6 +323,14 @@ class plgSystemxipt_system extends JPlugin
 			$this->_pluginHandler->hidePrivacyElements();
 		}
 	}
+	
+	/**
+	 * Hide Privacy At user ragistration time
+	 */
+	function event_com_community_register_registerupdateprofile() {
+		$this->event_com_community_register_registerprofile();
+	}
+	
 	// Hide Privacy at Home Page
 	function event_com_community_frontpage_blank(){
 		if($this->_pluginHandler->isPrivacyAllow()){

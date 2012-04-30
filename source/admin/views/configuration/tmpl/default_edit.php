@@ -18,6 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 					<?php require_once( $this->jsConfigPath . DS . 'walls.php' ); ?>
 					<?php require_once( $this->jsConfigPath . DS . 'events.php' ); ?>
 					<?php require_once( $this->jsConfigPath . DS . 'limits.php' ); ?>
+					<?php require_once( $this->jsConfigPath . DS . 'frontpage_options.php' ); ?>
 					
 				</td>
 				<td>
