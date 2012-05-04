@@ -73,7 +73,7 @@ class accessgroupcategory extends XiptAclBase
 		if('groups' != $data['view'])
 			return false;
 
-		if($data['task'] === 'viewgroup' || $data['task'] == 'display')
+		if($data['task'] === 'viewgroup' || $data['task'] == 'display' || $data['task'] == 'viewdiscussion')
 				return true;
 
 		return false;

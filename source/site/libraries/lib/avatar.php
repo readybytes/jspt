@@ -76,6 +76,12 @@ class XiptLibAvatar
 		// at default value,if user remove self avatar.(when fron end user login) 
 		$userId = JRequest::getVar('userid',JFactory::getUser()->id,'POST');
 		
+		//don't apply PT's default avatar on Admin
+		$isAdmin = XiptHelperUtils::isAdmin($userId);
+		
+		if($isAdmin)
+			return true;
+			
 		$pType  = XiptLibProfiletypes::getUserData($userId, 'PROFILETYPE');
 		$newPath = XiptLibProfiletypes::getProfiletypeData($pType, 'avatar');
 			

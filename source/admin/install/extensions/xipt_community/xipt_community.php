@@ -60,12 +60,16 @@ class plgCommunityxipt_community extends CApplications
 	    // When admin is removing a user's avatar
 		// we need to apply default avatar of profiletype
 		$isAdmin = XiptHelperUtils::isAdmin(JFactory::getUser()->id);
+		
+		if($isAdmin)
+			return true;
+			
 		$view    = JRequest::getVar('view','','GET');
 		$task    = JRequest::getVar('task','','GET');
 
 		$new_avatar_path = XiptHelperUtils::getRealPath($new_avatar_path);
 
-		if($isAdmin && $view == 'profile' && $task == 'removepicture')
+		if($view == 'profile' && $task == 'removepicture')
 		{
 			//setup $new_avatar
 			$ptype  = XiptLibProfiletypes::getUserData($userid, 'PROFILETYPE');

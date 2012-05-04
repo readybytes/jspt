@@ -217,6 +217,12 @@ class XiptLibJomsocial
 	//Before take any action for watre-mark, avatar must be manipulat.
 	function updateCommunityUserWatermark($userid,$watermark='')
 	{
+		//will not apply on admin
+		$isAdmin = XiptHelperUtils::isAdmin($userid);
+		
+		if($isAdmin)
+			return true;
+			
 		// Get water is enable or disable
 		$isWaterMarkEnable = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0);
 		
@@ -267,6 +273,11 @@ class XiptLibJomsocial
 	 */
 	function updateCommunityUserDefaultAvatar($userid, $newAvatar)
 	{
+		// Will not apply on admin
+		$isAdmin = XiptHelperUtils::isAdmin($userid);
+		
+		if($isAdmin)
+			return true;
 		/*
 		 * IMP : Implemented in setup 
 		 * we migrate profiletype avatars to profiletype-1, 2 etc.
