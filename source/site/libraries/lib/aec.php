@@ -25,6 +25,28 @@ class XiptLibAec
 
 		//if user is requesting to change plan then prefer it
 		$planid  = $usage = JRequest::getInt( 'usage', $usage, 'REQUEST');
+
+		if ( empty( $usage ) ) {
+			$token = JRequest::getString( 'aec_token', "", 'REQUEST');
+			if ( !empty( $token ) ) {
+				$query  = new XiptQuery();
+				$result = $query->select('content')
+						->from('#__acctexp_temptoken')
+						->where('token = \'' . $token . '\'')
+						->dbLoadQuery()
+						->loadResult();
+
+
+				if ( !empty( $result ) ) {
+					$content = unserialize(base64_decode($result));
+
+					if ( isset( $content['usage'] ) ) {
+						$planid  = $usage = $content['usage'];
+					}
+				}
+			}
+		}
+
 		// if no prefered plan, then use saved in session
 		if($usage == 0  && $planSetInSess){
 			$planid = $mySess->get('AEC_REG_PLANID',0,'XIPT');
