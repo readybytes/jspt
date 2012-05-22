@@ -199,11 +199,18 @@ class XiptLibPluginhandler
 			}
 			else
 			{
-			    $url               = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.'&reset=true',false);
-			    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
-			    $msg 			   = sprintf(XiptText::_('CURRENT_PTYPE_AND_CHANGE_PTYPE_OPTION'),$selectedpTypeName);
-				$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
-				$this->app->enqueueMessage($msg.' '.$link);
+			    $url       = XiptRoute::_('index.php?option=com_xipt&view=registration&ptypeid='.$selectedProfiletypeID.'&reset=true',false);
+			    
+			    $msgOption = XiptFactory::getSettings('subscription_message','b');
+			    
+			    if($msgOption === 'no')
+    				return;
+    			else{
+				    $selectedpTypeName = XiptLibProfiletypes::getProfiletypeName($selectedProfiletypeID);
+				    $msg 			   = sprintf(XiptText::_('CURRENT_PTYPE_AND_CHANGE_PTYPE_OPTION'),$selectedpTypeName);
+					$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
+					$this->app->enqueueMessage($msg.' '.$link);
+    			}
 				return;
 			}
 		}
