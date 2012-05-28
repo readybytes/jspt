@@ -146,4 +146,26 @@ class XiptHelperUtils
 		
 		return $field->value;
 	}
+	
+	// For user avatars that are stored in a remote location, we should return the proper path.
+	// firstly we will check if avatar exist locally
+	function getAvatarPath($avatar)
+	{
+		$config	 = CFactory::getConfig();
+		$photoStorage = $config->getString('photostorage');
+		
+		$avatarPath = JPATH_ROOT.DS.self::getRealPath($avatar);
+		
+		if(JFile::exists($avatarPath))
+		{
+			return JURI::root().self::getUrlpathFromFilePath($avatar);
+		}
+		
+		if( $photoStorage != 'file' && !empty($avatar) )
+		{
+			$storage = CStorage::getStorage($photoStorage);
+			return $storage->getURI( $avatar );
+		}
+
+	}
 }

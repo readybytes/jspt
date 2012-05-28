@@ -180,7 +180,7 @@ jQuery(document).ready(function($){
 					</label>
 					</div>
 					<div class="paramValue">
-					<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($this->data->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->data->avatar; ?>" />
+					<img src="<?php echo XiptHelperUtils::getAvatarPath($this->data->avatar);?>" width="64" height="64" border="0" alt="<?php echo $this->data->avatar; ?>" />
 					<div class='clr'></div>
 					<input class="inputbox button" type="file" id="file-upload" name="FileAvatar" style="color: #666;" />
 					<div class='clr'></div>

@@ -20,7 +20,7 @@ foreach($allProfileTypes as $pType ):
 
 		<div id="Details">
 			<div id="Avatar">
-				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($pType->avatar); ?>" 
+				<img src="<?php echo XiptHelperUtils::getAvatarPath($pType->avatar); ?>" 
 				     height="60px" 
  			  	     width="60px"/>
 			</div>

@@ -106,14 +106,14 @@ function submitbutton( action )
 			</td>
 			
 			<td align="center" id="avatar<?php echo $field->id;?>">							
-				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($field->avatar);?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
+				<img src="<?php echo XiptHelperUtils::getAvatarPath($field->avatar);?>" width="64" height="64" border="0" alt="<?php echo $field->avatar; ?>" />	
 			</td>
 			
 			<td align="center" id="watermark<?php echo $field->id;?>">
 					<?php	$wm = $field->watermarkparams;
 					$wmparams = new XiptParameter($wm, '');
 					if($wmparams->get('enableWaterMark',0)):  ?>				
-				<img src="<?php echo JURI::root().XiptHelperUtils::getUrlpathFromFilePath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
+				<img src="<?php echo XiptHelperUtils::getAvatarPath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
 					<?php endif; ?>
 				</td>
 			
