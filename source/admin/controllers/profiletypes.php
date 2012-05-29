@@ -53,7 +53,7 @@ class XiptControllerProfiletypes extends XiptController
 		// These data will be seperately stored, we dont want to update these
 		unset($data['watermarkparams']);
 		unset($data['config']);
-		unset($data['privacy']);
+		unset($data[XIPT_PRIVACY]);
 			
 		$model = $this->getModel();
 		//for Reset we will save old Data
@@ -85,16 +85,16 @@ class XiptControllerProfiletypes extends XiptController
 			$post['watermarkparams']['demo']= $id;
 			
 		// if jsPrivacyController = 0 then Old privacy set in profile-type table
-		if(is_array($post['privacy']) && $post['privacy']['jsPrivacyController'] == 0){
-			$oldPrivacy = $model->loadParams($id,'privacy')->toArray();
-			$oldPrivacy['jsPrivacyController'] = $post['privacy']['jsPrivacyController'];
-			$post['privacy']= $oldPrivacy;
+		if(is_array($post[XIPT_PRIVACY]) && $post[XIPT_PRIVACY]['jsPrivacyController'] == 0){
+			$oldPrivacy = $model->loadParams($id,XIPT_PRIVACY)->toArray();
+			$oldPrivacy['jsPrivacyController'] = $post[XIPT_PRIVACY]['jsPrivacyController'];
+			$post[XIPT_PRIVACY]= $oldPrivacy;
 		}
 		
 		// Handle Params : watermarkparams, privacy, config
 		$model->saveParams($post['watermarkparams'],$id, 'watermarkparams');
 		$model->saveParams($post['config'], 		$id, 'config');
-		$model->saveParams($post['privacy'], 		$id, 'privacy');
+		$model->saveParams($post[XIPT_PRIVACY], 	$id, 'privacy');
 
 		// now generate watermark, and update watermark field
 		$image = $this->_saveWatermark($id);
@@ -103,7 +103,7 @@ class XiptControllerProfiletypes extends XiptController
 		$newData = $model->loadRecords(0);
 		$newData = $newData[$id];
 		//to reset privacy of users need to load from loadParams
-		$newData->privacy = $model->loadParams($id,'privacy');		
+		$newData->privacy = $model->loadParams($id,XIPT_PRIVACY);		
 		
 	    // Reset existing user's 
 		if($post['resetAll'] && isset($oldData)) {

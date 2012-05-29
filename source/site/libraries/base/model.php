@@ -267,7 +267,11 @@ abstract class XiptModel extends JModel
 			return false;
 			
 		//$xmlPath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS. JString::strtolower($this->getName().".$what.xml");
-		$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
+		if($what == 'privacy')
+			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().XIPT_PRIVACY.".ini");
+		else
+			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
+		
 		$iniData = JFile::read($iniPath);
 		
 		$param	= new XiptParameter();
@@ -287,6 +291,12 @@ abstract class XiptModel extends JModel
 
 		XiptError::assert(JFile::exists($xmlPath), sprintf(XiptText::_("FILE_DOES_NOT_EXIST"),$xmlPath), XiptError::ERROR);
 		
+		//as we are overriding privacy, but there is only one field called privacy
+		//so we have to change it before binding
+		if($what == 'privacy_override'){
+			$what = 'privacy';
+		}
+
 		$config = new XiptParameter($iniData,$xmlPath);
 		if(isset($record[$id])) $config->bind($record[$id]->$what);	
 		

@@ -35,8 +35,8 @@ class XiptViewProfiletypes extends XiptView
 		
 		$watermarkParams = $model->loadParams($id,'watermarkparams');
 		$configParams	 = $model->loadParams($id,'config');
-		$privacyParams	 = $model->loadParams($id,'privacy');
-				
+		$privacyParams	 = $model->loadParams($id,XIPT_PRIVACY);
+		
 		$this->assignRef('watermarkParams', $watermarkParams);
 		$this->assignRef('configParams', 	$configParams);
 		$this->assignRef('privacyParams', 	$privacyParams);

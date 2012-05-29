@@ -219,7 +219,7 @@ jQuery(document).ready(function($){
 								echo $this->pane->endPanel();								
 								
 								echo $this->pane->startPanel(XiptText :: _('PRIVACY_SETTINGS'), 'xiprivacysettings-page');
-								echo $this->privacyParams->render('privacy');
+								echo $this->privacyParams->render(XIPT_PRIVACY);
 								echo $this->pane->endPanel();
 								
 								echo $this->pane->startPanel(XiptText::_('REGISTRATION'), 'xiconfiguration-page');

@@ -127,6 +127,15 @@ define('XI_PRIVACY_PUBLIC',10);
 define('XI_PRIVACY_MEMBERS',20);
 define('XI_PRIVACY_FRIENDS',30);
 
+//if somebody wants to override privacy setting
+//then use privacy_override instead of privacy
+$privacy_override = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.'profiletypes.privacy_override.xml';
+if(JFile::exists($privacy_override)){
+	define('XIPT_PRIVACY','privacy_override');
+}
+else{
+	define('XIPT_PRIVACY','privacy');
+}		
 define('XIPT_PROFILETYPE_ALL',0);
 define('XIPT_PROFILETYPE_NONE',-1);
 
