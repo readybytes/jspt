@@ -141,4 +141,10 @@ class XiptAPI
 		return XiptFactory::getInstance('profilefields','model')
 							->getFieldsForProfiletype($fields, $selectedProfiletypeID, $from);
 	}
+	
+	function getProfileTypeFromSession()
+	{
+	        return JFactory::getSession()->get("SELECTED_PROFILETYPE_ID", null, "XIPT");
+	}
+	         
 }

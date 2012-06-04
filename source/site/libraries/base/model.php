@@ -268,7 +268,7 @@ abstract class XiptModel extends JModel
 			
 		//$xmlPath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS. JString::strtolower($this->getName().".$what.xml");
 		if($what == 'privacy')
-			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().XIPT_PRIVACY.".ini");
+			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".".XIPT_PRIVACY.".ini");
 		else
 			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
 		
