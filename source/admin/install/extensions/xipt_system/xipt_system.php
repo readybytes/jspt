@@ -420,7 +420,14 @@ class plgSystemxipt_system extends JPlugin
         ?>
         joms.jQuery(document).ready(function(){	
 			var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
-			joms.jQuery("a[href='" + menuUrl + "']").hide();	
+			joms.jQuery("a[href='" + menuUrl + "']").hide();
+			joms.jQuery("a[href='#privacyPref']").closest('li').hide();
+			
+			<?php 
+			//if somebody is overriding privacy, then hide preferences also
+			if(XIPT_PRIVACY == 'privacy_override'){ ?>
+			joms.jQuery("a[href='#emailPref']").closest('li').hide();
+			<?php } ?>
 		});	
         <?php 
         $content = ob_get_contents();

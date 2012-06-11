@@ -10,19 +10,29 @@ class joingroup extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['userid'];	
+		$groupid   	   = $data['args'][0];
+		$groupInfo	   = $this->getGroupInfo($groupid);
+		
+		return $groupInfo->ownerid;	
 	}
 	
 	function checkAclViolation(&$data)
 	{
 		$resourceAccesser 	= $this->getResourceAccesser($data);
+		$resourceOwner 		= $this->getResourceOwner($data);
+		
+		// if resource owner is friend of resource accesser 
+		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
+			return false; 
 		
 		$maxmimunCount = $this->aclparams->get('joingroup_limit',0);
 		$aclgroup      = $this->aclparams->get('group_category');
 		$groupid   	   = $data['args'][0];
 		
-		if($aclgroup)
-			$catId	   = $this->getCategoryId($groupid);
+		if($aclgroup){
+			$groupInfo = $this->getGroupInfo($groupid);
+			$catId	   = $groupInfo->categoryid;
+		}
 		else
 			$catId	   = 0;
 		
@@ -78,14 +88,14 @@ class joingroup extends XiptAclBase
 		return false;
 	}
 
-	function getCategoryId($groupid)
+	function getGroupInfo($groupid)
 	{
 		$query = new XiptQuery();
     	
-		return $query->select('categoryid')
+		return $query->select("`categoryid`, `ownerid`")
 						->from('#__community_groups')
 						->where("`id` = $groupid")
 						->dbLoadQuery("","")
-	    				->loadResult();
+	    				->loadObject();
 	}
 }
