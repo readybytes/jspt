@@ -11,10 +11,16 @@ class XiptHelperUtils
 	function isAdmin($id)
 	{
 		$my	= JFactory::getUser($id);
-		if (XIPT_JOOMLA_15)
+
+		if(empty($my->id))
+			return false;
+
+		if(XIPT_JOOMLA_15)
 			return ( $my->usertype == 'Super Administrator');
 		else{
 			$gid = 8;//for super users
+			$my->groups	= is_array($my->groups) ? $my->groups : array($my->groups);
+			
 			if(in_array($gid, $my->groups))
 				return true;
 			return false;
