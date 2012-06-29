@@ -66,6 +66,13 @@ class uploadavatar extends XiptAclBase
 	
 	function checkAclApplicable(&$data)
 	{
+
+		// Acl not applicable when Avtar imported from Facebook.
+		//XiTODO:: If its default avtar of facebook then Acl need to be applicable.
+		if($data['task'] === 'ajaximportdata'){
+			return false;
+		}
+		
 		$session	= JFactory::getSession();
 		$permission = $this->aclparams->get('upload_avatar_at_registration',false);
 		$post		= JRequest::get('post');
