@@ -177,7 +177,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 					." limit $start, $limit ";
         			
 		$db->setQuery($query);
-		$result = $db->loadResultArray();
+		$users = $db->loadResultArray();
 
 //		$query = ' SELECT `userid` FROM `#__xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `#__xipt_profiletypes` )';
 //		$db->setQuery($query);
