@@ -77,7 +77,15 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		$profiletype = XiPTLibProfiletypes::getDefaultProfiletype();
 		$template	 = XiPTLibProfiletypes::getProfileTypeData($profiletype,'template');			
 		
-		$total = $this->totalUsers;
+		//$total = $this->totalUsers;
+		$db 	= JFactory::getDBO();	
+		// XITODO : PUT into query Object
+		$xiptquery = ' SELECT `userid` FROM `#__xipt_users` ';
+		$query 	= ' SELECT count(*) FROM `#__users` '
+					.' WHERE `id` NOT IN ('.$xiptquery.') ';
+		$db->setquery($query);	
+		$total = $db->loadResult();	
+		
 		if($total_result == 0){
 		    $mysess->set('totalUser',$total);
 		}
@@ -153,29 +161,38 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 //		$reset = XiptLibJomsocial::cleanStaticCache();
 //		if($users!== null && $reset == false)
 //			return $users;
+		$db 	= JFactory::getDBO();
 
-		$db 	= JFactory::getDBO();	
-		// XITODO : PUT into query Object
+			
+		if(0 == JFactory::getSession()->get('countUser',0)){
+			$query= 'DELETE FROM `jos_xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `jos_xipt_profiletypes` )';
+			$db->setQuery($query);
+			$db->query();
+		}
+		// XITODO : PUT into query Object , 
+		//added limit option here
 		$xiptquery = ' SELECT `userid` FROM `#__xipt_users` ';
 		$query 	= ' SELECT `id` FROM `#__users` '
-					.' WHERE `id` NOT IN ('.$xiptquery.') ';
+					.' WHERE `id` NOT IN ('.$xiptquery.') '
+					." limit $start, $limit ";
         			
 		$db->setQuery($query);
 		$result = $db->loadResultArray();
 
-		$query = ' SELECT `userid` FROM `#__xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `#__xipt_profiletypes` )';
-		$db->setQuery($query);
-		$userid = $db->loadResultArray();
+//		$query = ' SELECT `userid` FROM `#__xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `#__xipt_profiletypes` )';
+//		$db->setQuery($query);
+//		$userid = $db->loadResultArray();
 		
-		$users = array_merge($result, $userid);
+//		$users = array_merge($result, $userid);
 		
-		sort($users);
-		$this->totalUsers = count($users);
+//		sort($users);
+//		$this->totalUsers = count($users);
 //		echo "=======get user to sync=======";
 //		$reslt=array_slice($users, $start, $limit);
 //		echo "result is :::";
 //		print_r($reslt);
-		return array_slice($users, $start, $limit);
+//      return array_slice($users, $start, $limit);
+		return $users;
 	}
 	
 	function getHTML($count,$total)
