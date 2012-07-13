@@ -165,7 +165,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 
 			
 		if(0 == JFactory::getSession()->get('countUser',0)){
-			$query= 'DELETE FROM `jos_xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `jos_xipt_profiletypes` )';
+			$query= 'DELETE FROM `#__xipt_users` WHERE `profiletype` NOT IN ( SELECT `id` FROM `#__xipt_profiletypes` )';
 			$db->setQuery($query);
 			$db->query();
 		}
