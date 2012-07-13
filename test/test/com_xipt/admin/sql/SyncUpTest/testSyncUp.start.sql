@@ -4,33 +4,8 @@ DROP TABLE IF EXISTS `au_#__community_users`;;
 CREATE TABLE IF NOT EXISTS `au_#__community_users` SELECT * FROM `#__community_users`;;
 
 
-INSERT INTO `#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`, `alias`, `longitude`, `latitude`) VALUES
-(62, '', 12, '0000-00-00 00:00:00', 'components/com_community/assets/user.png', 'components/com_community/assets/user_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(83, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(84, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/user.png', 'components/com_community/assets/user_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(85, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/user.png', 'components/com_community/assets/user_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(86, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(87, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/user.png', 'components/com_community/assets/user_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(79, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/user.png', 'components/com_community/assets/user_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(80, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_2.gif', 'images/profiletype/avatar_2_thumb.gif', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(81, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/user.png', 'components/com_community/assets/user_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=20\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(82, '', 2, '0000-00-00 00:00:00', 'components/com_community/assets/user.png', 'components/com_community/assets/user_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255);;
 
 
-
-
-
-INSERT INTO `au_#__community_users` (`userid`, `status`, `points`, `posted_on`, `avatar`, `thumb`, `invite`, `params`, `view`, `friendcount`, `alias`, `longitude`, `latitude`) VALUES
-(62, '', 12, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(83, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=0\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(84, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=0\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(85, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(86, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=0\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(87, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=0\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(79, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(80, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=0\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(81, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=30\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=0\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255),
-(82, '', 2, '0000-00-00 00:00:00', 'images/profiletype/avatar_1.png', 'images/profiletype/avatar_1_thumb.png', 0, 'notifyEmailSystem=1\nprivacyProfileView=10\nprivacyPhotoView=0\nprivacyFriendsView=0\nprivacyVideoView=1\nnotifyEmailMessage=1\nnotifyEmailApps=1\nnotifyWallComment=0\n\n', 0, 0, '', 255, 255);;
 
 
 TRUNCATE TABLE `#__xipt_profilefields` ;;
@@ -141,29 +116,7 @@ DROP TABLE IF EXISTS `au_#__xipt_users`;;
 CREATE TABLE IF NOT EXISTS `au_#__xipt_users` SELECT * FROM `#__xipt_users`;;
 
 
-INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 1, 'default'),
-(87, 3, 'blackout'),
-(86, 2, 'default'),
-(85, 1, 'default'),
-(84, 3, 'blackout'),
-(83, 2, 'default'),
-(82, 1, 'default'),
-(81, 3, 'blackout'),
-(80, 2, 'default'),
-(79, 1, 'default');;
 
-INSERT INTO `au_#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(62, 1, 'default'),
-(87, 1, 'default'),
-(86, 1, 'default'),
-(85, 1, 'default'),
-(84, 1, 'default'),
-(83, 1, 'default'),
-(82, 1, 'default'),
-(81, 1, 'default'),
-(80, 1, 'default'),
-(79, 1, 'default');;
 
 TRUNCATE TABLE `#__xipt_settings`;;
 INSERT INTO `#__xipt_settings` (`name`, `params`) VALUES
