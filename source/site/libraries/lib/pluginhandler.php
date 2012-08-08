@@ -188,14 +188,26 @@ class XiptLibPluginhandler
 			if($aecExists && $subs_integrate && $integrate_with == 'aec')
 			{
 			    $url = XiptRoute::_('index.php?option=com_acctexp&task=subscribe',false);
-			    $msg = XiptLibAec::getAecMessage();
-			    
-			    if($msg != false)
-			    {
-			    	$link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
-					$this->app->enqueueMessage($msg.' '.$link);
-			    }
-			    return;
+                           
+                $usage = JRequest::getVar('usage', 0);      
+                $msg   = XiptLibAec::getAecMessage();
+                
+                if($msg === false || empty($msg)){
+                	return ;
+                }
+                           
+                $link = '<a id="xipt_back_link" href='.$url.'>'. XiptText::_("CLICK_HERE").'</a>';
+                $msg  = $msg.' '.$link;                            
+                           
+                $messages = $this->app->getMessageQueue();
+                foreach ($messages as $message){
+                	if($message['message'] === $msg){
+                    	return ;
+                    }
+                }
+                                                               
+                $this->app->enqueueMessage($msg);
+                return;
 			}
 			else
 			{
