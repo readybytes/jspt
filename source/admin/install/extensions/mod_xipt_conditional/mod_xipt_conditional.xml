@@ -19,6 +19,7 @@
 	<params addpath="/components/com_xipt/elements" >
 		<param name="ximodule" type="xiptmodule" default="" label="Module" description="Select module" />
 		<param name="xiprofiletypes" type="profiletypes" default="" label="Profiletypes" description="Select corresponding profiletypes" multiselect="true"/>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="A suffix to be applied to the CSS class of the module. This allows for individual module styling." />
 	</params>
 
 	<!-- for J1.6+ -->
@@ -27,6 +28,14 @@
 			<fieldset name="basic" addfieldpath="/components/com_xipt/form">
 				<field name="ximodule" type="xiptmodule" default="" label="Module" description="Select module" />
 				<field name="xiprofiletypes" type="profiletypes" default="" label="Profiletypes" description="Select corresponding profiletypes" multiple="multiple"/>
+			</fieldset>
+			
+			<fieldset name="advanced">
+				<field
+					name="moduleclass_sfx"
+					type="text"
+					label="Module Class Suffix"
+					description="A suffix to be applied to the CSS class of the module. This allows for individual module styling." />
 			</fieldset>
 		</fields>
 	</config>
