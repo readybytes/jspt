@@ -26,4 +26,59 @@ class invitefriends extends XiptAclBase
 
 		return false;
 	}
+	
+	function checkAclViolation(&$data)
+	{
+		$resourceAccesser 	= $this->getResourceAccesser($data);		
+			
+		if(XiptAclBase::isApplicableOnSelfProfiletype($resourceAccesser) === false)
+			return true;
+		
+		if($this->isApplicableForGroupCategory($data)=== true)
+			return false;
+				
+		return true;
+	}
+	
+	function checkAclViolationByPlan($data)
+	{
+		$resourceAccesser 	= $this->getResourceAccesser($data);
+		
+		if($this->isApplicableOnSelfPlan($resourceAccesser) === false)
+			return false;
+		
+		if($this->isApplicableForGroupCategory($data)=== true)
+			return false;
+				
+		return true;
+	}
+	
+	function isApplicableForGroupCategory($data)
+	{
+		$notAllowedCats = $this->aclparams->get('group_category');
+		
+		//$notAllowedCats == 0 means user can't access any category
+		if($notAllowedCats == 0)
+			return false;
+			
+		//check if its applicable on more than 1 category
+		$notAllowedCats = is_array($notAllowedCats) ? $notAllowedCats : array($notAllowedCats);
+		
+		$groupId	= $data['args'][2];
+		$db 		= JFactory::getDBO();
+		$query		= 'SELECT '.$db->nameQuote('categoryid')
+						.' FROM '.$db->nameQuote('#__community_groups')
+						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($groupId);
+
+		$db->setQuery( $query );
+		$catId = $db->loadResult();
+		
+		if(!$catId)
+			return false;
+		
+		if (!in_array($catId, $notAllowedCats))
+			return true;
+			
+		return false;
+	}
 }
