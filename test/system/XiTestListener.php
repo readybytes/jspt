@@ -12,10 +12,25 @@ class XiDBCheck
     private $orderBy;
     private $errorLog;
     private $log;
+    private $juser_tables; 
+    
     function __construct()
     {
-        if(!$this->db)
+        if(!$this->db){
             $this->db=& JFactory::getDBO();
+        }
+        
+        $this->juser_tables = Array(
+        							'#__users',
+        							'#__core_acl_aro',
+									'#__core_acl_aro_groups',
+									'#__core_acl_aro_map',
+									'#__core_acl_aro_sections',
+									'#__core_acl_groups_aro_map'        
+        							);
+        if(!TEST_XIPT_JOOMLA_15){
+        	$this->juser_tables = Array();
+        }
     }
     
     /*
@@ -250,13 +265,18 @@ class XiTestListener implements PHPUnit_Framework_TestListener
 
 	$test->startTime = time();
 
+	$test->_DBO    = new XiDBCheck();
+	// Create backup joomla user tables before test case exe
+	$test->_DBO->backup_juser_table();
+	
     // this two variables must be defined by test
-    if(!method_exists($test,'getSqlPath'))
-        return;
+    if(!method_exists($test,'getSqlPath')){
+        return true;
+    }
 
     $sqlPath       = $test->getSqlPath();
-    $test->_DBO    = new XiDBCheck();
-    //load end sql
+    
+    //load start sql
     $dbDump        =  $sqlPath.'/'.$testName.'.start.sql';
     if(file_exists($dbDump))
     	$test->_DBO->loadSql($dbDump);
