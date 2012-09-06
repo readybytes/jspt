@@ -28,7 +28,7 @@ class AclRulesUITest extends XiSelTestCase
 		$this->waitPageLoad();
 		 $this->click("link=Join Group");
 		//$this->click("//a[@onclick=\"javascript:joms.groups.joinWindow('$groupid');\"]");
-		$this->waitForElement("cwin_tm");
+		//$this->waitForElement("cwin_tm");
 		sleep(1);
 		return $this->checkAccess();
 	}
@@ -161,9 +161,11 @@ class AclRulesUITest extends XiSelTestCase
 	{
 		$this->open("index.php?option=com_community&view=profile&task=linkVideo&Itemid=53");
 		$this->waitPageLoad();
-		$this->click("//li[@id='video-$vid']/div/div[1]/a/span");
-		$this->waitPageLoad();
-	    $this->click("link=Set as profile video");
+		//$this->click("//li[@id='video-$vid']/div/div[1]/div/a");
+		$this->click("//a[@class='album-action linkprofile']");
+		//$this->waitPageLoad();
+		sleep(1);
+	   //$this->click("link=Set as profile video");
 	    sleep(1);
 	    $this->click("//button[@onclick='joms.videos.linkProfileVideo($vid);']");
 		sleep(1);
@@ -340,7 +342,7 @@ class AclRulesUITest extends XiSelTestCase
 		$this->assertTrue($this->checkAddAsFriend(82));
 		$this->assertTrue($this->checkRedirectToAec(82));
 		$this->assertTrue($this->checkAddApplication(85));
-		$this->assertTrue($this->checkStatusBox($userid));
+		$this->assertTrue($this->checkStatusBox());
 	}
 
 
