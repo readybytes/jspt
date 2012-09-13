@@ -335,9 +335,10 @@ class AclRulesUITest extends XiSelTestCase
 		$this->assertTrue($this->checkAddVideos($userid));
 		$this->assertTrue($this->checkAccessVideo($userid, 2));
 		$this->assertTrue($this->checkAddProfileVideo(3));
-		//$this->assertTrue($this->checkDeleteProfileVideo($userid,3));
+	
 		$this->assertTrue($this->checkAccessProfileVideo(83));
 		$this->assertTrue($this->checkSendMessage(82));
+			$this->assertTrue($this->checkDeleteProfileVideo($userid,3));
 		//$this->assertTrue($this->checkReplyMessage($userid));
 		$this->assertTrue($this->checkAddAsFriend(82));
 		$this->assertTrue($this->checkRedirectToAec(82));

@@ -367,11 +367,11 @@ class ProfileTest extends XiSelTestCase
 	  $this->_DBO->filterOrder('#__community_users','userid');
 	  
 	  if(JString::stristr($this->get_js_version(), '2.0') || JString::stristr($this->get_js_version(), '2.1'))
-	  	$this->_DBO->filterColumn('#__community_users','thumb');
+	  	$this->_DBO->filterColumn('#__community_users','thumb','params');
 	  	
-	  $this->_DBO->filterColumn('#__community_users','latitude');
-	  $this->_DBO->filterColumn('#__community_users','longitude');
-	  $this->_DBO->filterColumn('#__community_users','friendcount');
+	  $this->_DBO->filterColumn('#__community_users','latitude','params');
+	  $this->_DBO->filterColumn('#__community_users','longitude','params');
+	  $this->_DBO->filterColumn('#__community_users','friendcount','params');
 	
 //XiTODO Map with joomla1.6 group table
 	  if(TEST_XIPT_JOOMLA_15){

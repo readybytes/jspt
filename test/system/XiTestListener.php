@@ -237,6 +237,57 @@ class XiDBCheck
             }
         }	
     }
+    
+    
+    public function clone_table($tables=Array()) 
+    {
+    	$is_success = true;
+		$db      	= JFactory::getDbo();
+		foreach ($tables as $old_table=>$new_table){
+			//first drop table if exist
+			$db->setQuery("DROP TABLE IF EXISTS $new_table");
+			$is_success &= $db->query();
+			// create table structure
+			$db->setQuery("CREATE TABLE $new_table LIKE $old_table");
+			$is_success &= $db->query();
+			// insert table content
+			$db->setQuery("INSERT INTO $new_table SELECT * FROM $old_table");
+			$is_success &= $db->query();
+		}
+		return $is_success;
+    }
+    
+    public function backup_juser_table() 
+    {
+		
+			
+		if(empty($this->juser_tables)) { return true;}
+
+		$is_success = true;
+		//XiTODO:: Use Constant
+		$prefix = "bk_test_";
+		foreach ($this->juser_tables as $old_table){
+			$new_table = $prefix.$old_table;
+			$is_success &= $this->clone_table(array($old_table=>$new_table));
+		}
+		return $is_success;
+    }
+    
+    
+    
+	public function revert_juser_table() 
+    {
+		if(empty($this->juser_tables)) { return true;}
+
+		$is_success = true;
+		//XiTODO:: Use Constant
+		$prefix = "bk_test_";
+		foreach ($this->juser_tables as $old_table){
+			$new_table = $prefix.$old_table;
+			$is_success &= $this->clone_table(array($new_table=>$old_table));
+		}
+		return $is_success;
+    }
 }
 
 class XiTestListener implements PHPUnit_Framework_TestListener
@@ -303,9 +354,18 @@ class XiTestListener implements PHPUnit_Framework_TestListener
     $testName = $test->getName();    
 
     // this two variables must be defined by test
-    if(!$test->_DBO)
-        return;
+    if(!$test->_DBO){
+        return true;
+    }
     
+     // Revert Joomla user tables
+     $test->_DBO->revert_juser_table();
+     
+     // this two variables must be defined by test
+    if(!method_exists($test,'getSqlPath')){
+        return true;
+    }
+        
     //load end sql
     $sqlPath       = $test->getSqlPath(); 
     $dbDump        =  $sqlPath.'/'.$testName.'.end.sql';

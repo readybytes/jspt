@@ -24,8 +24,14 @@ class PrivacyTest extends XiSelTestCase
     $this->type("jspassword2", "111111");
     $this->click("btnSubmit");
     sleep(2);
+       $this->click("cwin_close_btn");
     $this->click("btnSubmit");
     $this->waitPageLoad();
+    $this->type("field4","hello");
+    $this->click("btnSubmit");
+     sleep(15);
+     $this->click('//div[@id="community-wrap"]/div[2]/a/span');
+     sleep(5);
     $this->assertFalse($this->isElementPresent('//div[@class="js_PriContainer"]'));
   	
     //Case-2: Hide Privacy at Home Page when share any status, photo, video etc, Hide from Profile edit page

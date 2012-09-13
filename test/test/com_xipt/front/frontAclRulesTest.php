@@ -180,12 +180,13 @@ class FrontAclRulesTest extends XiSelTestCase
   	 $this->waitPageLoad();
   	 $this->verifyRestrict($verify);   
   }
-  function checkStatusBox()
+  function checkStatusBox($verify)
   {
-  	$this->open("index.php?option=com_community&view=profile&Itemid=53");
-  	$this->waitPageLoad();
-  	$this->type("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[2]/textarea[1]", "change status");
-    $this->click("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[3]/button"); 
+      $this->open("index.php?option=com_community&view=profile&Itemid=53");
+      $this->waitPageLoad();
+      $this->type("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[2]/textarea[1]", "change status");
+      $this->click("//div[@id='cProfileWrapper']/div/div[2]/div[3]/div[2]/div[3]/button");
+      $this->verifyRestrict($verify);
   }
 
   function registeruser($pt,$restrictuploadavatar)
@@ -426,7 +427,7 @@ function testACLRules2()
 	$this->waitForElement("cwin_tm");
 	sleep(1);
 	
-    $this->assertTrue($this->isTextPresent("You are not allowed to access this resource"));
+   $this->assertTrue($this->isTextPresent("YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE"));
     $this->frontLogout();
     
     $user = JFactory::getUser(84); 
@@ -440,24 +441,16 @@ function testACLRules2()
     $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=groups&task=viewgroup&groupid=4");
     $this->waitPageLoad();
     $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('4');\"]");
-	$this->waitForElement("cwin_tm");
-	sleep(2);
-	if(Jstring::stristr($version,'1.8'))
-		$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
-	else 
-		$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
-	
-	$this->click("//input[@onclick=\"jax.call('community', 'groups,ajaxDeleteGroup', '4', 1);\"]");
-	$this->waitForElement("cwin_tm");
-	sleep(3);
-	
-	if(Jstring::stristr($version,'1.8'))
-		$this->assertFalse($this->isTextPresent("You are not allowed to access this resource"));
-	else
-		$this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+    $this->waitForElement("cwin_tm");
+    sleep(2);
+    $this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+    $this->click("//input[@onclick=\"jax.call('community', 'groups,ajaxDeleteGroup', '4', 1);\"]");
+    $this->waitForElement("cwin_tm");
+    sleep(3);
 
-	$this->click("//input[@id='groupDeleteDone']");
-    
+        $this->assertFalse($this->isTextPresent("You are not allowed to delete groups"));
+        $this->click("//input[@id='groupDeleteDone']");
+
     $this->frontLogout();
     $this->_DBO->addTable('#__community_groups');
     $this->_DBO->filterColumn('#__community_groups','thumb');
@@ -668,20 +661,20 @@ function testACLRules2()
    	$user = JFactory::getUser(82); // type1
   	$this->frontLogin($user->username,$user->username);
   	  //pt1 can change status
-  	$this->checkStatusBox(); 
+  	$this->checkStatusBox(true); 
   	$this->frontLogout();
   	 
   	$user = JFactory::getUser(83); // type2
   	$this->frontLogin($user->username,$user->username);
   	  //pt2 can't change status
-  	$this->checkStatusBox(); 
+  	$this->checkStatusBox(false); 
   	$this->frontLogout();
   	 
   	
   	$user = JFactory::getUser(84); // type3
   	$this->frontLogin($user->username,$user->username);
   	  //pt3 can change status
-  	$this->checkStatusBox(); 
+  	$this->checkStatusBox(true); 
   	$this->frontLogout();
   	sleep(1);
   	$this->_DBO->addTable('#__community_users');
@@ -691,6 +684,8 @@ function testACLRules2()
   	$this->_DBO->filterColumn('#__community_users','params');
   	$this->_DBO->filterColumn('#__community_users','latitude');
   	$this->_DBO->filterColumn('#__community_users','longitude');
+    $this->_DBO->filterColumn('#__community_users','groups');
+    $this->_DBO->filterColumn('#__community_users','events');
   }
 
   function testCreateEvent()
@@ -717,6 +712,8 @@ function testACLRules2()
  	$this->_DBO->filterColumn('#__community_events','startdate');
   	$this->_DBO->filterColumn('#__community_events','enddate');
   	$this->_DBO->filterColumn('#__community_events','confirmedcount');
+    $this->_DBO->filterColumn('#__community_events','offset');
+    $this->_DBO->filterColumn('#__community_events','hits');
 
   } 
  
@@ -795,6 +792,7 @@ function testACLRules2()
  	$this->_DBO->filterColumn('#__community_events','startdate');
   	$this->_DBO->filterColumn('#__community_events','enddate');
   	$this->_DBO->filterColumn('#__community_events','hits');
+     $this->_DBO->filterColumn('#__community_events','offset');
 
   }
   
@@ -816,3 +814,5 @@ function testACLRules2()
   }
   
 }  
+
+}
