@@ -214,7 +214,13 @@ class AclRulesUITest extends XiSelTestCase
   		//$this->click("//div[@id='community-wrap']/div[4]/div[1]/div[2]/a/span");
 		$this->waitForElement("cwin_tm");
 		sleep(5);
-		$this->click("//a[@onclick=\"joms.editLayout.addApp('myarticles', 'sidebar-top');\"]");
+        if (TEST_XIPT_JOOMLA_15){
+        	$this->click("//a[@onclick=\"joms.editLayout.addApp('myarticles', 'sidebar-top');\"]");
+        }
+		else{
+			$this->click("//div[@id='community-wrap']/div[3]/div[1]/div[2]/a");
+		}
+		
   		//$this->click('//a[@class="app-action-add"][@onclick="joms.editLayout.addApp(\'myarticles\', \'sidebar-top\');"]');
   		$this->waitForElement("cwin_tm");
   		sleep(5);
@@ -343,7 +349,7 @@ class AclRulesUITest extends XiSelTestCase
 		$this->assertTrue($this->checkAddAsFriend(82));
 		$this->assertTrue($this->checkRedirectToAec(82));
 		$this->assertTrue($this->checkAddApplication(85));
-		$this->assertTrue($this->checkStatusBox());
+		$this->assertTrue($this->checkStatusBox($userid));
 	}
 
 

@@ -36,7 +36,12 @@ class usrscrTest extends XiSelTestCase
     $this->click("link=regtest6208627");
     $this->waitPageLoad();
     $this->select("template", "label=default");
-    $this->click("//td[@id='toolbar-save']/a/span");
+     if(TEST_XIPT_JOOMLA_15){
+      $this->click("//td[@id='toolbar-save']/a/span");
+    }
+    else
+      $this->click("//li[@id='toolbar-save']/a/span");
+    
     $this->waitForPageToLoad();
     $this->assertTrue($this->isTextPresent("User saved"));
  }

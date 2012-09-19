@@ -3,6 +3,7 @@
 define( '_JEXEC', 1 );
 define( 'JPATH_BASE', dirname(dirname(dirname(__FILE__))));
 define( 'DS', DIRECTORY_SEPARATOR );
+define('XIPT_TEST_MODE', true);
 
 require_once JPATH_BASE.DS.'includes'.DS.'defines.php';
 require_once JPATH_BASE.DS.'includes'.DS.'framework.php';
@@ -47,7 +48,7 @@ require_once JPATH_BASE .DS.'libraries'.DS.'joomla'.DS.'factory.php';
 // Initalize frontend framework
 JFactory::getApplication('site');
 
-define('XIPT_TEST_MODE', true);
+
 
 if(file_exists(JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php')){
 	require_once JPATH_ROOT .DS.'components'.DS.'com_xipt'.DS.'includes.php';

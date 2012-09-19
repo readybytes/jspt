@@ -7,6 +7,7 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 
 TRUNCATE TABLE `#__user_usergroup_map`;;
 INSERT INTO `#__user_usergroup_map` (`user_id`, `group_id`) VALUES
+(42, 7),
 (88, 2),
 (89, 2),
 (90, 2);;

@@ -10,18 +10,3 @@ INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype
 (79, 'regtest7046025', 'regtest7046025', 'regtest7046025@gmail.com', '64d5a5a65e0433fefad4d52255857f59:rBhZVyCqDIKioTNuCNBkpQNhRXsCHb1t', 'Registered', 0, 0, '2009-12-03 08:16:09', '0000-00-00 00:00:00', 'd45373ce0b2c4bfa6065235a5c353add', '\n'),
 (80, 'regtest6208627', 'regtest6208627', 'regtest6208627@gmail.com', '73e7830c01e705a5adeaaa3e278fbdec:uQb0sUh0KdTyybJuHnYHAtpOmtfVNxr2', 'Editor', 0, 0, '2009-12-03 08:16:18', '0000-00-00 00:00:00', '0e24ede794209ad6de9624f89077daed', '\n'),
 (81, 'regtest8635954', 'regtest8635954', 'regtest8635954@gmail.com', '7dc28bb5bc0119a23ac236b82837586e:vBNJaILgct7EzdE4wmJANFeLuVSTLHdh', 'Publisher', 0, 0, '2009-12-03 08:16:26', '0000-00-00 00:00:00', '1ebc22393cc2619be62d28fe7c960e5a', '\n');;
-
-
-TRUNCATE TABLE `#__xipt_users`;;
-INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
-(42, 1, 'default'),
-(87, 3, 'blackout'),
-(86, 2, 'blackout'),
-(85, 1, 'default'),
-(84, 3, 'blackout'),
-(83, 2, 'blueface'),
-(82, 1, 'blueface'),
-(81, 3, 'blackout'),
-(80, 2, 'blueface'),
-(79, 1, 'default');;
-

@@ -23,9 +23,12 @@ class AclRuleTest extends XiSelTestCase
      $this->waitPageLoad();
      $this->click("link=Change profile video");
      sleep(2);
-     $this->click("//div[@id='video-$vid']/div/div[1]/a/img");
-     $this->click("//button[@onclick='joms.videos.linkProfileVideo($vid);']");
+     $this->click("//li[@id='video-$vid']/div/div[1]/a/img");
      sleep(2);
+     $this->click("link=Set as profile video");
+     sleep(2);
+     $this->click("//button[@onclick='joms.videos.linkProfileVideo($vid);']");
+     $this->waitForElement("cwin_tm");
      $this->verifyRestrict($verify);
      $this->click("cwin_close_btn");   
   }
@@ -46,7 +49,9 @@ class AclRuleTest extends XiSelTestCase
   {
   	 $this->open("index.php?option=com_community&view=profile&userid=$id&Itemid=53");
 	 $this->waitPageLoad();
-     $this->click("link=Top 10 Best Web Hosting Reviews - SCAMS EXPOSED");
+	 sleep(2);
+     //$this->click("link=Top 10 Best Web Hosting Reviews - SCAMS EXPOSED");
+     $this->click("link=My Profile Video");
      $this->verifyRestrict($verify); 
      $this->click("cwin_close_btn");
   }
@@ -84,11 +89,6 @@ class AclRuleTest extends XiSelTestCase
   
   function testDeleteProfileVideo()
   {
-   if(TEST_XIPT_JOOMLA_15)
-     $url =  dirname(__FILE__).'/sql/AclRuleTest/15/testDeleteProfileVideo.1.8.sql';
-   else
-     $url =  dirname(__FILE__).'/sql/AclRuleTest/16/testDeleteProfileVideo.1.8.sql';
-    $this->_DBO->loadSql($url);
   	$users[1]=array(79,82,85);
   	$users[2]=array(80,83,86);
   	$users[3]=array(81,84,87);

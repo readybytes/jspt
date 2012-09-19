@@ -149,7 +149,7 @@ class RouterTest extends XiUnitTestCase
 				// if option= com_community return CRoute
 				
 				"index.php?option=com_community&view=frontpage"
-		   		 => "/usr/bin/index.php?option=com_community&view=frontpage&Itemid=133",
+		   		 => "/usr/bin/index.php?option=com_community&view=frontpage&Itemid=487",
 			     
 			    // if option != com_xipt return URL
 			    
@@ -158,8 +158,8 @@ class RouterTest extends XiUnitTestCase
 			   
 			   // if option=com_xipt & itemid exist ,return url
 			   
-			   "index.php?option=com_xipt&view=registration&Itemid=201"
-			   =>"/usr/bin/index.php?option=com_xipt&view=registration&Itemid=201",
+			   "index.php?option=com_xipt&view=registration&Itemid=62"
+			   =>"/usr/bin/index.php?option=com_xipt&view=registration&Itemid=62",
 			   
 			   // if option=com_xipt & itemid does not exist ,return url
 			   

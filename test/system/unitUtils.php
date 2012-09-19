@@ -13,7 +13,10 @@ class XiUnitTestCase extends PHPUnit_Framework_TestCase
   
   
   function assertPreConditions()
-  {
+  { 	
+  	//$filter['debug']=0;
+    //$filter['error_reporting']=6143;
+    //$this->updateJoomlaConfig($filter); 
     // this will be a assert for every test
     if(method_exists($this,'getSqlPath'))
         $this->assertEquals($this->_DBO->getErrorLog(),'');

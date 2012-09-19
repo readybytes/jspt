@@ -1,5 +1,5 @@
-UPDATE `#__plugins` SET `published` = '0' WHERE `element` ='xipt_system' LIMIT 1 ;;
-UPDATE `#__plugins` SET `published` = '0' WHERE `element` ='xipt_community' LIMIT 1 ;;
+UPDATE `#__extensions` SET `published` = '0' WHERE `element` ='xipt_system' LIMIT 1 ;;
+UPDATE `#__extensions` SET `published` = '0' WHERE `element` ='xipt_community' LIMIT 1 ;;
 
 TRUNCATE TABLE `#__community_fields`;;
 
@@ -10,6 +10,7 @@ INSERT INTO `#__community_fields`
 
 DROP TABLE IF EXISTS `au_#__community_fields`;; /*Create fields*/
 CREATE TABLE `au_#__community_fields` SELECT * FROM  `#__community_fields`  ;;
+
 
 INSERT INTO `au_#__community_fields` 
 (`id`, `type`, `ordering`, `published`, `min`, `max`, `name`, `tips`, `visible`, `required`, `searchable`, `registration`, `options`, `fieldcode`) VALUES

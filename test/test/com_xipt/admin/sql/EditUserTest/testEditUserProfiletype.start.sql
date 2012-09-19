@@ -37,3 +37,8 @@ INSERT INTO `#__xipt_users` (`userid`, `profiletype`, `template`) VALUES
 (81, 3, 'blackout'),
 (80, 2, 'blueface'),
 (79, 1, 'default');;
+
+
+TRUNCATE TABLE `#__xipt_settings`;;
+INSERT INTO `#__xipt_settings` (`name`, `params`) VALUES
+('settings', 'show_ptype_during_reg=1\nallow_user_to_change_ptype_after_reg=1\ndefaultProfiletypeID=1\nguestProfiletypeID=1\njspt_show_radio=0\njspt_fb_show_radio=1\njspt_block_dis_app=1\nuser_reg=jomsocial\nsubscription_integrate=0\nsubscription_message=pl\nintegrate_with=payplans\nallow_templatechange=0\n');

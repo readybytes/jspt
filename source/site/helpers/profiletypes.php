@@ -301,16 +301,14 @@ class XiptHelperProfiletypes
     function setProfileTypeInSession($selectedProfiletypeID)
     {
 		// XITODO : move redirection to controller
-    	$mySess = & JFactory::getSession();
-    	$redirectUrl = XiptHelperJomsocial::getReturnURL();
-
-		// validate values
+    	$mySess =  JFactory::getSession();
+    	// validate values
 		if(!XiptLibProfiletypes::validateProfiletype($selectedProfiletypeID)) {
 			$msg = XiptText::_('PLEASE_ENTER_VALID_PROFILETYPE');
 			JFactory::getApplication()->redirect(XiptRoute::_('index.php?option=com_xipt&view=registration'),$msg);
-			return;
 		}
 
+		$redirectUrl = XiptHelperJomsocial::getReturnURL();
 		//set value in session and redirect to destination url
 		$mySess->set('SELECTED_PROFILETYPE_ID',$selectedProfiletypeID, 'XIPT');
 		JFactory::getApplication()->redirect($redirectUrl);

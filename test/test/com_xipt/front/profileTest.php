@@ -558,8 +558,7 @@ class ProfileTest extends XiSelTestCase
   		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
 	// see jom-socaial front page
   	else
-  	 $this->click("//div[@id='nav']/div[3]/ul/li[8]/a");
-     //$this->click("link=Jomsocial");
+	     $this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(2);
   	$this->frontLogout();
@@ -568,8 +567,7 @@ class ProfileTest extends XiSelTestCase
   	If(TEST_XIPT_JOOMLA_15)
   		$this->click("//div[@id='leftcolumn']/div[1]/div/div/div/ul/li[1]/a/span");
 	else
-	  $this->click("//div[@id='nav']/div[3]/ul/li[8]/a");
-		    //$this->click("link=Jomsocial");
+		$this->click("link=Jomsocial");
   	$this->waitPageLoad();
   	$this->verifyTemplate(1);
   	$this->frontLogout();

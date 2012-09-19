@@ -1,17 +1,4 @@
 
-TRUNCATE TABLE `#__users` ;;
-INSERT INTO `#__users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
-(62, 'Administrator', 'admin', 'shyam@readybytes.in', '6a8c2b2fbc4ee1b4f3f042009d8a22f3:K5wzjZ3SlgIYTVPMaKt0wE0w6JUEJ2Bm', 'Super Administrator', 0, 1, 25, '2009-10-27 14:21:57', '2012-02-15 10:06:29', '', '\n'),
-(87, 'username1030', 'username1030', 'username1030@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', 'af9154cd03a8f88fac81a67ea33f8047', '\n'),
-(86, 'username1031', 'username1031', 'username1031@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', '07805f125cd043f5ffcead1a774ac54b', '\n'),
-(85, 'username1032', 'username1032', 'username1032@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', '7f7c7c32922c4cb28bffb614d73c7a33', '\n'),
-(84, 'username1033', 'username1033', 'username1033@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', 'b64f7a76a298246d5362533737722099', '\n'),
-(83, 'username1034', 'username1034', 'username1034@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', 'de25ad76e717394bbf2ddf71c4cd0fd1', '\n'),
-(82, 'username1035', 'username1035', 'username1035@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', '82b0ae04348adcd0e95d0f1611f5e32e', '\n'),
-(81, 'username1036', 'username1036', 'username1036@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', '458989e4e71aafd0e9eeb5eea0839ad9', '\n'),
-(80, 'username1037', 'username1037', 'username1037@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', 'e7c38ab9a90b7f2357889f4d83bd2bf9', '\n'),
-(79, 'username1038', 'username1038', 'username1038@email.com', 'password', 'Registered', 0, 1, 18, '2009-10-27 14:21:57', '2012-02-15 04:59:39', '2d35e1953a2632926ac07619e6072569', '\n');;
-
 
 
 TRUNCATE TABLE `#__xipt_settings`;;

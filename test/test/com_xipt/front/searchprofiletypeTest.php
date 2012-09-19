@@ -18,7 +18,12 @@ class SearchProfileType extends XiSelTestCase {
 		
 		 $this->select("field0", "label=Profiletype");
 		 $this->assertTrue($this->isElementPresent("//select[@id='profiletypes']"));
-         $this->click("//div[@id='optionContainer']/div[2]/input[5]");
+         if(TEST_XIPT_JOOMLA_15){
+         	$this->click("//div[@id='optionContainer']/div[2]/input[5]");
+          }
+       else {
+        	$this->click("//div[@id='optionContainer']/div[2]/input[2]");
+          }
 		 $this->waitPageLoad();
 		 	 
 		 $textArray= array("regtest8635954", "regtest1674526","regtest6208627","regtest8774090");
@@ -33,7 +38,13 @@ class SearchProfileType extends XiSelTestCase {
 		 $this->select("field1", "label=Profiletype");
 		 $this->select("//div[@id='valueinput1']/select", "label=PROFILETYPE-1"); 
 		 $this->click("operator_any");
+        
+         if(TEST_XIPT_JOOMLA_15){
          $this->click("//div[@id='optionContainer']/div[2]/input[5]");
+          }
+       else {
+        $this->click("//div[@id='optionContainer']/div[2]/input[2]");
+          }
 		 $this->waitPageLoad();
 		 
 		 array_unshift($textArray,"regtest1504555","regtest3843261", "regtest7046025");
@@ -43,7 +54,13 @@ class SearchProfileType extends XiSelTestCase {
 		sleep(2);
 		$this->select("field2", "label=Profiletype");
 		$this->select("//div[@id='valueinput2']/select", "label=PROFILETYPE-3");
-	 	$this->click("//div[@id='optionContainer']/div[2]/input[5]");
+	
+         if(TEST_XIPT_JOOMLA_15){
+         $this->click("//div[@id='optionContainer']/div[2]/input[5]");
+          }
+       else {
+        $this->click("//div[@id='optionContainer']/div[2]/input[2]");
+          }
 		$this->waitPageLoad();
 		
 		array_unshift($textArray, "regtest1789672", "regtest6461827");

@@ -411,12 +411,8 @@ function testACLRules2()
   	
 	$user = JFactory::getUser(83); 
   	
-  	$this->open(JOOMLA_LOCATION."/index.php");
-    $this->waitPageLoad();
-    $this->type("modlgn_username", $user->username);
-    $this->type("modlgn_passwd", $user->username);
-    $this->click("//form[@id='form-login']/fieldset/input");
-    $this->waitPageLoad();
+
+    $this->frontLogin($user->username,$user->username);
     $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=groups&task=viewgroup&groupid=3");
     $this->waitPageLoad();
     $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('3');\"]");
@@ -432,12 +428,7 @@ function testACLRules2()
     
     $user = JFactory::getUser(84); 
   	
-  	$this->open(JOOMLA_LOCATION."/index.php");
-    $this->waitPageLoad();
-    $this->type("modlgn_username", $user->username);
-    $this->type("modlgn_passwd", $user->username);
-    $this->click("//form[@id='form-login']/fieldset/input");
-    $this->waitPageLoad();
+    $this->frontLogin($user->username,$user->username);
     $this->open(JOOMLA_LOCATION."/index.php?option=com_community&view=groups&task=viewgroup&groupid=4");
     $this->waitPageLoad();
     $this->click("//a[@onclick=\"javascript:joms.groups.deleteGroup('4');\"]");
@@ -815,4 +806,3 @@ function testACLRules2()
   
 }  
 
-}
