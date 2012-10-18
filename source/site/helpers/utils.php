@@ -10,18 +10,14 @@ class XiptHelperUtils
 {
 	function isAdmin($id)
 	{
-		
-		$my	= JFactory::getUser($id);
-		if(XIPT_JOOMLA_15)
-			return ( $my->usertype == 'Super Administrator');
-		else{
-			$gid = 8;//for super users
-			$my->groups	= is_array($my->groups) ? $my->groups : array($my->groups);
-			
-			if(in_array($gid, $my->groups))
-				return true;
+		if(!$id){
 			return false;
 		}
+
+		if(XIPT_JOOMLA_15){
+			return JFactory::getUser($id)->authorize( 'com_users', 'manage' );
+		}
+		return JFactory::getUser($id)->authorise('core.login.admin');
 	}
 	
 	function getFonts()

@@ -330,7 +330,7 @@ class XiptLibJomsocial
 		$cuser    = CFactory::getUser($userid);
 		$myparams = $cuser->getParams();
 		// if privacy handle by end user then dont update privacy.
-		if(false == XiptLibPluginhandler::isPrivacyAllow())
+		if($myprivacy['jsPrivacyController'] == 0)
 			return true;
 
 		if(isset($myprivacy['jsPrivacyController']))
