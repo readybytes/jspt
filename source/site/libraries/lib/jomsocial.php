@@ -26,6 +26,16 @@ class XiptLibJomsocial
 						->dbLoadQuery()
 						->loadObjectList('id');
 						
+		foreach($result as $res){
+			if(isset($res->options) && $res->options != ''){
+				$options	= $res->options;
+				$options	= explode("\n", $options);
+	
+				array_walk($options, array('JString' , 'trim') );
+				$res->options	= $options;
+			}
+		}
+		
 		if($fieldid === 0)
 			return $result;
 			
@@ -330,7 +340,7 @@ class XiptLibJomsocial
 		$cuser    = CFactory::getUser($userid);
 		$myparams = $cuser->getParams();
 		// if privacy handle by end user then dont update privacy.
-		if($myprivacy['jsPrivacyController'] == 0)
+		if(isset($myprivacy['jsPrivacyController']) && $myprivacy['jsPrivacyController'] == 0)
 			return true;
 
 		if(isset($myprivacy['jsPrivacyController']))
