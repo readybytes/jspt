@@ -197,7 +197,7 @@ class XiptProfilefieldsModelTest extends XiUnitTestCase
   	$this->assertEquals($inputfields,$outputfields);
   	
   	//test EDITABLE_AFTER_REG
-  	$inputfields = array(array('id'=>1), array('id'=>2), array('id'=>3) ,array('id'=>4));
+  	$inputfields = array(array('id'=>1, 'value'=>'test1'), array('id'=>2), array('id'=>3) ,array('id'=>4));
   	$outputfields = array(array('id'=>2), array('id'=>3), array('id'=>4));
   	$notSelectedFields = array(
   		"ALLOWED" 	=> array(),

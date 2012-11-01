@@ -24,8 +24,8 @@ INSERT INTO `#__payplans_app` (`app_id`, `title`, `type`, `description`, `core_p
 
 TRUNCATE TABLE `#__payplans_plan`;;
 
-INSERT INTO `#__payplans_plan` (`plan_id`, `title`, `published`, `visible`, `ordering`, `checked_out`, `checked_out_time`, `modified_date`, `description`, `time`, `payment`, `params`) VALUES
-(1, 'plan2', 1, 1, 2, 0, '0000-00-00 00:00:00', '2011-07-08 13:06:08', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'price=0.00\n\n', 'teasertext=\nuser_activation=0\n\n'),
-(2, 'plan3', 1, 1, 3, 0, '0000-00-00 00:00:00', '2011-07-08 13:06:24', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'price=0.00\n\n', 'teasertext=\nuser_activation=0\n\n'),
-(3, 'plan1', 1, 1, 1, 0, '0000-00-00 00:00:00', '2011-07-08 13:04:39', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'price=0.00\n\n', 'teasertext=\nuser_activation=0\n\n'),
-(4, 'plan4', 1, 1, 4, 0, '0000-00-00 00:00:00', '2011-07-08 13:05:59', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'price=0.00\n\n', 'teasertext=\nuser_activation=0\n\n');;
+INSERT INTO `#__payplans_plan` (`plan_id`, `title`, `published`, `visible`, `ordering`, `checked_out`, `checked_out_time`, `modified_date`, `description`, `details`, `params`) VALUES
+(1, 'plan2', 1, 1, 2, 0, '0000-00-00 00:00:00', '2011-07-08 13:06:08', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'teasertext=\nuser_activation=0\n\n'),
+(2, 'plan3', 1, 1, 3, 0, '0000-00-00 00:00:00', '2011-07-08 13:06:24', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'teasertext=\nuser_activation=0\n\n'),
+(3, 'plan1', 1, 1, 1, 0, '0000-00-00 00:00:00', '2011-07-08 13:04:39', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'teasertext=\nuser_activation=0\n\n'),
+(4, 'plan4', 1, 1, 4, 0, '0000-00-00 00:00:00', '2011-07-08 13:05:59', '', 'expirationtype=fixed\nexpiration=000000000000\nrecurrence_count=0\n\n', 'teasertext=\nuser_activation=0\n\n');;

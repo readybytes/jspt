@@ -23,6 +23,6 @@ define('JOOMLA_ADMIN_PASSWORD',	'ssv445');
 //these files should have been copied by phing during setup of joomla 
 define('COM_XIPT_PKG',		JOOMLA_LOCATION.'/xipt.zip');
 define('JOMSOCIAL_PKG',		JOOMLA_LOCATION.'/com_community.zip');
-define('PAYPLANS_PKG',		JOOMLA_LOCATION.'/test/xiec/xiec.zip');
+define('PAYPLANS_PKG',		JOOMLA_LOCATION.'/test/xiec/xiec22.zip');
 
 require_once dirname(__FILE__).'/xipt.php';
