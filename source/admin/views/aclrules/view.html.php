@@ -51,7 +51,11 @@ class XiptViewAclRules extends XiptView
 						$rulePlan[$rule->id][] = XiptText::_("NONE");
 					else{
 						$planInstance = PayplansApi::getPlan($plan);
-						$rulePlan[$rule->id][] = $planInstance->getTitle();
+						
+						if($planInstance)
+							$rulePlan[$rule->id][] = $planInstance->getTitle();
+						else
+							$rulePlan[$rule->id][] = XiptText::_("NONE");
 					}
 				}
 				

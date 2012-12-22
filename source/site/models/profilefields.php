@@ -75,15 +75,20 @@ class XiptModelProfilefields extends XiptModel
 						
 			if( in_array($fieldId, $notSelectedFields['EDITABLE_AFTER_REG']) &&  $from==='getEditableProfile' && JFactory::getApplication()->isAdmin()==false )
 			{
-				if( is_object($field) && !empty($field->value) )
-				{
-                  	unset($fields[$i]);
+				if(is_object($field)){ 
+					if((!empty($field->value) && $field->required) || $field->required == 0)
+					{
+	                  	unset($fields[$i]);
+						continue;
+					}
 				}
-                elseif(is_array($field) && !empty($field['value']))
-                {
-					unset($fields[$i]);
+                elseif(is_array($field)){
+                	if((!empty($field['value']) && $field['required']) || $field['required'] == 0)
+	                {
+						unset($fields[$i]);
+						continue;
+	               	}
                 }
-				continue;
 			}
 
 			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile' && $task!='advancesearch')
