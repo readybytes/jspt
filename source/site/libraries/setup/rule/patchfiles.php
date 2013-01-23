@@ -14,8 +14,9 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		$userPatch    = self::isAdminUserModelPatchRequired();
 		$xmlPatch     = self::isXMLFilePatchRequired();
 		$libraryField = self::isCustomLibraryFieldRequired();
-
-		return ($modelPatch || $userPatch || $xmlPatch || $libraryField);
+		$corePatch    = self::isCoreLibraryPatchRequired();
+		
+		return ($modelPatch || $userPatch || $xmlPatch || $libraryField || $corePatch);
 	}
 	
 	function doApply()
@@ -139,6 +140,30 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
         	}
         }
      
+        if(self::isCoreLibraryPatchRequired()){
+        	$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php';
+    		
+    		//	create a backup file first
+    	    if(!JFile::copy($filename, $filename.'.jxibak'))
+    	    	return XiptText::_("NOT_ABLE_TO_CREATE_A_BACKUP_FILE_CHECK_PERMISSION");
+    		
+	    	$funcName = 'static function autoload_libraries($classname)';
+	    	
+	    	$searchString = "'CTwitter'							=> '/libraries/twitter.php'";
+	    	ob_start();
+	    	?>'CTwitter'							=> '/libraries/twitter.php',
+	    	
+	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
+			'CFieldsProfiletypes'				=> '/libraries/fields/profiletypes.php',
+			'CFieldsTemplates'					=> '/libraries/fields/templates.php'
+		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
+	        <?php 
+	    	$replaceString = ob_get_contents();
+	        ob_end_clean();
+	        
+	        $success = self::patchData($searchString,$replaceString,$filename,$funcName);
+        }
+        
         return XiptText::_('FILES_PATCHED_SUCCESSFULLY');
 	}
 	
@@ -146,17 +171,18 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	{
 		$filestoreplace = $this->_getJSPTFileList();
 	   
-		if($filestoreplace) 
-		foreach($filestoreplace AS $sourceFile => $targetFile)
-		{
-			$targetFileBackup = $targetFile.'.jxibak';
-			// delete this file
-			// Only delete if you have backup copy
-			if(JFile::exists($targetFile) && JFile::exists($targetFileBackup))
+		if($filestoreplace){
+			foreach($filestoreplace AS $sourceFile => $targetFile)
 			{
-				JFile::delete($targetFile);
-				JFile::move($targetFileBackup,$targetFile) || XiptError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
-			}		
+				$targetFileBackup = $targetFile.'.jxibak';
+				// delete this file
+				// Only delete if you have backup copy
+				if(JFile::exists($targetFile) && JFile::exists($targetFileBackup))
+				{
+					JFile::delete($targetFile);
+					JFile::move($targetFileBackup,$targetFile) || XiptError::raiseError('XIPT-UNINSTALL-ERROR','Not able to restore backup : '.__LINE__) ;
+				}		
+			}
 		}
 	}
 	
@@ -223,6 +249,26 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 			$file =JFile::read($filename);
 			
 			$searchString = '$pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);';
+			$count = substr_count($file,$searchString);
+			if($count >= 1)
+				return false;
+				
+			return true;
+		}	
+		return false;
+	}
+	
+	function isCoreLibraryPatchRequired()
+	{
+		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php';
+		if (JFile::exists($filename)) {
+			
+			if(!is_readable($filename)) 
+				XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
+			
+			$file = JFile::read($filename);
+			
+			$searchString = "'CFieldsProfiletypes'";
 			$count = substr_count($file,$searchString);
 			if($count >= 1)
 				return false;
@@ -329,6 +375,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		$filestoreplace['front_libraries_fields_customfields.xml']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
 		$filestoreplace['front_models_profile.php']=$CMP_PATH_FRNTEND.DS.'models'.DS.'profile.php';
 		$filestoreplace['admin_models_user.php']=$CMP_PATH_ADMIN.DS.'models'.DS.'users.php';
+		$filestoreplace['front_libraries_core.php']=$CMP_PATH_FRNTEND.DS.'libraries'.DS.'core.php';
 		
 		//Codrev : disable plugins and fields too
 		//AEC microintegration install, if AEC exist

@@ -13,7 +13,10 @@ class XiptSetupRulePtmigration extends XiptSetupBase
 		$xipt_ProfileTypes = XiptLibProfiletypes::getProfiletypeArray(array('published'=>1));
 			
 		jimport('joomla.application.component.model');
-		JModel::addIncludePath(JPATH_BASE.DS.'components'.DS.'com_community'.DS.'models');
+		//JModel::addIncludePath(JPATH_BASE.DS.'administrator'.DS.'components'.DS.'com_community'.DS.'models');
+		
+		require_once(JPATH_BASE.DS.'components'.DS.'com_community'.DS.'models/multiprofile.php');
+		
 		$multiprofileModel = JModel::getInstance( 'MultiProfile', 'CommunityModel' );
 		$js_Profiletypes   = $multiprofileModel->getMultiProfiles();
 		

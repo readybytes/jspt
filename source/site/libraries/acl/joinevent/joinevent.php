@@ -19,7 +19,7 @@ class joinevent extends XiptAclBase
 		
 		$maxmimunCount = $this->aclparams->get('joinevent_limit',0);
 		$aclevent      = $this->aclparams->get('event_category');
-		$eventid	= isset($data['eventid'])? $data['eventid'] : 0;
+		$eventid	= isset($data['eventid'])? $data['eventid'] : $data['args'][0];
 		$eventid	= JRequest::getVar('eventid' , $eventid, 'REQUEST');
 		
 		if($aclevent)
