@@ -31,12 +31,12 @@ function _GetXiptMenus()
 	$menu 		= JSite::getMenu();
 	//$menus 		= $menu->getItems('extension_id',$XIPTCmpId);
       //check query is empty or not fro joomla 1.6
-    if(empty($XIPTCmpId[XIPT_JOOMLA_EXT_ID])){
+    if(empty($XIPTCmpId)){
 		$menus = $menu->getActive();
 	}
 	else {
     	//Pass Atribute and value in getItems() for joomla 1.6
-    	$menus = $menu->getItems(XIPT_JOOMLA_MENU_COMP_ID,array($XIPTCmpId[XIPT_JOOMLA_EXT_ID]));
+    	$menus = $menu->getItems(XIPT_JOOMLA_MENU_COMP_ID,array($XIPTCmpId));
 	}
 
 	return $menus;
@@ -74,7 +74,6 @@ function XiptBuildRoute( &$query )
 {
 	$segments = array();
 	$menus = _GetXiptMenus();
-
 	//If item id is not set then we need to extract those
 	$selMenu = null;
 	if (!isset($query['Itemid']) && $menus)

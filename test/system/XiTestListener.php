@@ -1,6 +1,18 @@
 <?php
 
-require_once 'PHPUnit/Framework.php';
+ob_start();
+$version = system('phpunit --version', $retval);
+$version = ob_get_contents();
+ob_end_clean();
+
+// if phpunit version is 3.6 or 3.7
+if(strpos($version, '3.6') !== false || strpos($version, '3.7') !== false){
+    require_once 'PHPUnit/Autoload.php';
+}
+else{
+    require_once 'PHPUnit/Framework.php';
+}
+
 require_once dirname(__FILE__). '/joomlaFramework.php';
 
 class XiDBCheck

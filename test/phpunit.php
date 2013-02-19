@@ -46,13 +46,13 @@ ob_start();
 $version = system('phpunit --version', $retval);
 $version = ob_get_contents();
 ob_end_clean();
-
-if(strpos($version, '3.6') !== false){
-	require_once 'PHPUnit/Autoload.php';	
+// if phpunit version is 3.6 or 3.7
+if(strpos($version, '3.6') !== false || strpos($version, '3.7') !== false){
+    require_once 'PHPUnit/Autoload.php';
 }
 else{
-	require_once 'PHPUnit/Util/Filter.php';
-	PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+    require_once 'PHPUnit/Util/Filter.php';
+    PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 }
 
 require 'PHPUnit/TextUI/Command.php';
