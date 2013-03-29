@@ -58,7 +58,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<?php endforeach; ?>				
 			</tr>
 		<?php endforeach;?>
-		<?php endif;?>		
+		<?php endif;?>
+		<tfoot>
+			<tr>
+				<td colspan="15">
+					<?php echo $this->pagination->getListFooter(); ?>
+				</td>
+			</tr>
+		</tfoot>		
 </table>
 
 <div class="clr"></div>

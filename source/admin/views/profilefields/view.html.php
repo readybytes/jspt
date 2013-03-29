@@ -10,14 +10,17 @@ class XiptViewProfileFields extends XiptView
 {
     function display($tpl = null)
     {
+    	$pagination	 = $this->getModel()->getPagination();
+    	
 		//define all categories
 		$categories	= XiptHelperProfilefields::getProfileFieldCategories();
-		$fields		= XiptLibJomsocial::getFieldObject();
+		$fields		= XiptLibJomsocial::getFieldObject(0, $pagination->limit, $pagination->limitstart);
 
 		$this->setToolbar();
 
 		$this->assign('fields', $fields);
 		$this->assignRef('categories', $categories);
+		$this->assignRef( 'pagination'	, $pagination );
 		return parent::display($tpl);
     }
 

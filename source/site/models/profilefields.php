@@ -8,6 +8,27 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptModelProfilefields extends XiptModel
 {
+	/**
+	 * Returns the Query Object if exist
+	 * else It builds the object
+	 * @return XiptQuery
+	 */
+	public function getQuery()
+	{
+		//query already exist
+		if($this->_query)
+			return $this->_query;
+
+		//create a new query
+		$this->_query = new XiptQuery();
+		
+		$this->_query->select('*'); 
+		$this->_query->from('#__community_fields');
+		$this->_query->order('ordering');
+		
+		return $this->_query;
+	}	
+	
 	//assuming that by default all fields are available to all profiletype
 	//if any info is stored in table means that field is not available to that profiletype
 	//we store info in opposite form
