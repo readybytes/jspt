@@ -9,25 +9,28 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptModelProfilefields extends XiptModel
 {
 	/**
-	 * Returns the Query Object if exist
-	 * else It builds the object
-	 * @return XiptQuery
+	 * 	(Customised it for pagination)
+	 *  @see components/com_xipt/libraries/base/XiptModel::getTotal()
 	 */
-	public function getQuery()
+	public function getTotal()
 	{
-		//query already exist
-		if($this->_query)
-			return $this->_query;
+		if($this->_total) {
+			return $this->_total;
+		}
 
-		//create a new query
-		$this->_query = new XiptQuery();
+		/**
+		 * XiTODO :: Write this code in well manner
+		 * Right now profile_fields table dont have all js fields so we dont have any alternate except it. 
+		 */
+		$query = new XiptQuery();
+		$query->select('*'); 
+		$query->from('#__community_fields');
+		$query->order('ordering');
 		
-		$this->_query->select('*'); 
-		$this->_query->from('#__community_fields');
-		$this->_query->order('ordering');
-		
-		return $this->_query;
-	}	
+        $this->_total 	= $this->_getListCount((string) $query);
+
+		return $this->_total;
+	}
 	
 	//assuming that by default all fields are available to all profiletype
 	//if any info is stored in table means that field is not available to that profiletype
