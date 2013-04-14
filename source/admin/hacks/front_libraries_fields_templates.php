@@ -7,10 +7,9 @@
 
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
-require_once (COMMUNITY_COM_PATH.'/libraries/fields/profilefield.php');
 require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
  
-class CFieldsTemplates extends CProfileField
+class CFieldsTemplates
 {
 	var $_field;
 	

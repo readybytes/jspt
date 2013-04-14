@@ -21,16 +21,10 @@ foreach ( $this->allProfileTypes as $pType ) :
 	<div class="profile-type">
 
 			<div id="Avatar" class="xi-avatar">
-				<input 	type	="image" title = "<?php echo XiptText::_('CLICK_ON_ME');?>" 
-						name	="<?php echo $pType->name; ?>" 
-						src		="<?php echo XiptHelperUtils::getAvatarPath($pType->avatar); ?>" 
-						style="height:<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>px;width:<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>px;"
-						onclick="javascript:submitURL(<?php echo $pType->id; ?>);" 
-					/>
-						
+				<input type="image" title = "<?php echo XiptText::_('CLICK_ON_ME');?>" name="<?php echo $pType->name; ?>" src="<?php echo XiptHelperUtils::getAvatarPath($pType->avatar); ?>" height="<?php echo REG_PROFILETYPE_AVATAR_HEIGHT; ?>" width="<?php echo REG_PROFILETYPE_AVATAR_WIDTH; ?>"
+				onclick="javascript:submitURL(<?php echo $pType->id; ?>);" />
 			<div class="pt-select-button">	
-			<input 	type="button" name="save" value="<?php echo XiptText::_('NEXT');?>" 
-				 	onclick="javascript:submitURL(<?php echo $pType->id; ?>);" />
+			<input type="button" name="save" value="<?php echo XiptText::_('NEXT');?>" onclick="javascript:submitURL(<?php echo $pType->id; ?>);" />
 			</div>
 			</div>
 			<div class="xi-description">

@@ -8,30 +8,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptModelProfilefields extends XiptModel
 {
-	/**
-	 * 	(Customised it for pagination)
-	 *  @see components/com_xipt/libraries/base/XiptModel::getTotal()
-	 */
-	public function getTotal()
-	{
-		if($this->_total) {
-			return $this->_total;
-		}
-
-		/**
-		 * XiTODO :: Write this code in well manner
-		 * Right now profile_fields table dont have all js fields so we dont have any alternate except it. 
-		 */
-		$query = new XiptQuery();
-		$query->select('*'); 
-		$query->from('#__community_fields');
-		$query->order('ordering');
-		
-        $this->_total 	= $this->_getListCount((string) $query);
-
-		return $this->_total;
-	}
-	
 	//assuming that by default all fields are available to all profiletype
 	//if any info is stored in table means that field is not available to that profiletype
 	//we store info in opposite form

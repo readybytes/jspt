@@ -3,19 +3,19 @@
                 backupStaticAttributes="false" 
                 colors="true" 
                 syntaxCheck="false"
-                bootstrap="../bootstrap.php"
+                bootstrap="./bootstrap.php"
                 stopOnFailure="false" 
         >
 
         <testsuites>
           <testsuite name="Installation Test Suite">
             <!--<directory>./install/</directory>-->
-            <directory>../setup</directory>
+            <directory>./setup</directory>
           </testsuite>
         </testsuites>
         
         <listeners>
-                <listener class="XiTestListener" file="../system/XiTestListener.php" />
+                <listener class="XiTestListener" file="./system/XiTestListener.php" />
         </listeners>
         
 </phpunit>

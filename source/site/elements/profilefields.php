@@ -80,9 +80,9 @@ class JElementProfilefields extends JElement
 			$ptypeName       = XiptHelperProfiletypes::getProfileTypeName($option);
 			$selected        = '';
 		 	if (is_array($value) && array_key_exists($fid, $value) && in_array($option, $value[$fid]))
-		  		$selected        ='selected="selected"';
+		                  $selected        ='selected="selected"';
 		  			
-		 	$html .= '<option name="'.$name.'_'.$option.'" '.$selected.' value="'.$option.'">' ;  
+		 $html .= '<option name="'.$name.'_'.$option.'" '.$selected.' value="'.$option.'">' ;  
 			$html .= XiptHelperProfiletypes::getProfileTypeName($option).'</option>';
 		}
 		$html	.= '</select>';		

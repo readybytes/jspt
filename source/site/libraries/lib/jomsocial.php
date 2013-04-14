@@ -12,7 +12,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptLibJomsocial
 {
 	//will return object of field as per fieldId
-    function getFieldObject($fieldid=0, $limit = null, $start = 0)
+    function getFieldObject($fieldid=0)
 	{
 		$reset = self::cleanStaticCache();
 		static $result = null;
@@ -20,15 +20,10 @@ class XiptLibJomsocial
 			return $result[$fieldid];
 			
 		$query  = new XiptQuery();
-		$query->select('*')
-			  ->from('#__community_fields')
-			  ->order('ordering');
-		
-		if($limit != null){
-			$query->limit($limit, $start);
-		}
-		
-		$result = $query->dbLoadQuery()
+		$result = $query->select('*')
+						->from('#__community_fields')
+						->order('ordering')
+						->dbLoadQuery()
 						->loadObjectList('id');
 						
 		foreach($result as $res){
