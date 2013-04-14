@@ -1,8 +1,0 @@
-
-TRUNCATE TABLE `#__xipt_aclrules`;;
-INSERT INTO `#__xipt_aclrules` (`id`, `rulename`, `aclname`, `coreparams`, `aclparams`, `published`) VALUES
-(1, 'pt3 visit pt1', 'profilefield', 'core_profiletype=3\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'Xiprofiletypes="a:2:{i:8;a:1:{i:0;s:1:"1";}i:16;a:1:{i:0;s:1:"1";}}"', 1),
-(2, 'pt1 visit pt2', 'profilefield', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'Xiprofiletypes="a:2:{i:8;a:1:{i:0;s:1:"2";}i:16;a:1:{i:0;s:1:"2";}}"', 1),
-(3, 'pt2 visi pt3', 'profilefield', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'Xiprofiletypes="a:2:{i:9;a:1:{i:0;s:1:"3";}i:17;a:1:{i:0;s:1:"3";}}"', 1),
-(4, 'pt1 to all', 'profilefield', 'core_profiletype=1\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'Xiprofiletypes="a:7:{i:5;a:1:{i:0;s:1:"0";}i:6;a:1:{i:0;s:1:"0";}i:7;a:1:{i:0;s:1:"0";}i:8;a:1:{i:0;s:1:"0";}i:9;a:1:{i:0;s:1:"0";}i:16;a:1:{i:0;s:1:"0";}i:17;a:1:{i:0;s:1:"0";}}"', 1),
-(5, 'pt2 to others', 'profilefield', 'core_profiletype=2\ncore_display_message=YOU ARE NOT ALLOWED TO ACCESS THIS RESOURCE\ncore_redirect_url=index.php?option=com_community\n\n', 'Xiprofiletypes="a:3:{i:5;a:1:{i:0;s:1:"1";}i:8;a:2:{i:0;s:1:"1";i:1;s:1:"2";}i:9;a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}"', 1);;
