@@ -1,0 +1,24 @@
+### Version 3.4
+### We store globally definition here
+
+# The root folder location
+dir.root		=..
+dir.packages	=${dir.root}/packages
+dir.tmp		=${dir.packages}/tmp
+dir.src		=${dir.root}/source
+dir.report	=${dir.root}/data/report
+
+# where to pick source code
+code.source	=wc
+
+#change project code names
+project.shortform	= XIPT
+project.shortform.small = xipt
+project.codename	= ProfileType
+
+
+# Output settings
+file.version		= 3.5
+file.package		= ${project.shortform}_ver${file.version}
+file.compression	= gzip
+file.extension		= .zip
