@@ -444,7 +444,7 @@ class plgSystemxipt_system extends JPlugin
 		return false;
 	}
 
-	function onAfterProfileTypeChange($newPtype, $result)
+	function onAfterProfileTypeChange($newPtype, $result,$userId=null)
 	{
 		return false;
 	}

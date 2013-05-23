@@ -124,7 +124,7 @@ class XiptLibProfiletypes
 			// trigger an API for after profile type updation
 			/* send success result */
 			//send the result as true
-			$dispatcher->trigger( 'onAfterProfileTypeChange',array($ptype,$result));
+			$dispatcher->trigger( 'onAfterProfileTypeChange',array($ptype,$result,$userid));
 		}
 
 		$feature=array();
