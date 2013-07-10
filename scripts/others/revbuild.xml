@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Copying XiPT data to SVN" basedir="." default="copy_to_svn">
+ 
+        <property name="target" value="@local.repository.location@" override="true" />
+        <property name="source" value="${project.basedir}" override="true" />
+        
+        <!-- Copy Target -->
+        <target name="copy_to_svn" description="copy target">
+                
+                <copy   file="${source}/language/en-GB/en-GB.com_xipt.ini" 
+                        tofile="${source}/components/com_xipt/en-GB.com_xipt.ini" 
+                         />
+                <copy   file="${source}/administrator/language/en-GB/en-GB.com_xipt.ini" 
+                        tofile="${source}/administrator/components/com_xipt/en-GB.com_xipt.ini" 
+                         />
+
+
+		<php function="file_exists" returnProperty="fileExist">
+		  <param value="${source}/components/com_community/libraries/fields/profiletypes.php"/>
+		</php>
+
+		<if>
+		 <equals arg1="${fileExist}" arg2="1" />
+		  <then>
+		 	 <copy  file="${source}/components/com_community/libraries/fields/profiletypes.php" 
+                        	tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_profiletypes.php" 
+	                  />
+		 </then>
+		 <else>	<echo msg="File not exist(${fileExist})  : ${source}/components/com_community/libraries/fields/profiletypes.php " />
+
+		 </else>
+		</if>
+
+			
+
+	                
+        <php function="file_exists" returnProperty="fileExist">
+		  <param value="${source}/components/com_community/libraries/fields/templates.php"/>
+		</php>
+
+		<if>
+		 <equals arg1="${fileExist}" arg2="1" />
+		  <then>               
+        	        <copy  file="${source}/components/com_community/libraries/fields/templates.php" 
+                	        tofile="${source}/administrator/components/com_xipt/hacks/front_libraries_fields_templates.php" 
+                        	/>
+		 </then>
+		 <else>
+			<echo msg="File not exist (${fileExist})  : ${source}/components/com_community/libraries/fields/templates.php " />
+		 </else>
+		</if>
+
+
+
+        <php function="file_exists" returnProperty="fileExist">
+		  <param value="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php"/>
+		</php>
+
+		<if>
+		 <equals arg1="${fileExist}" arg2="1" />
+		  <then>     
+                <copy   file="${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" 
+                        tofile="${source}/administrator/components/com_xipt/hacks/mi_jomsocialjspt.php" 
+                         />
+                	 </then>
+		 <else>
+			<echo msg="File not exist (${fileExist}) : ${source}/components/com_acctexp/micro_integration/mi_jomsocialjspt.php" />
+	
+		 </else>
+		</if>
+
+                
+				<copy todir="${target}/source/components/com_xipt/admin">
+					<fileset dir="${source}/administrator/components/com_xipt">
+						<include name="**/*.*" />
+					</fileset>
+                 </copy>
+                
+                <copy todir="${target}/source/components/com_xipt/site">
+					<fileset dir="${source}/components/com_xipt">
+						<include name="**/*.*" />
+					</fileset>
+                 </copy>        
+ 
+                 <copy todir="${target}/source/plugins/plg_xipt_community">
+					<fileset dir="${source}/plugins/community/">
+						<include name="xipt*" />
+					</fileset>
+                 </copy>
+                         
+                 <copy todir="${target}/source/plugins/plg_xipt_system">
+					<fileset dir="${source}/plugins/system/">
+						<include name="xipt*" />
+					</fileset>
+                 </copy>
+
+		<copy todir="${target}/test">
+					<fileset dir="${source}/test/">
+						<include name="**/*.*" />
+					</fileset>
+                 </copy>
+
+		  <copy   file="${source}/build.xml" 
+                        tofile="${target}/script/others/revbuild.xml" 
+                         />
+
+
+
+        </target>
+</project>

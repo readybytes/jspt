@@ -1,0 +1,28 @@
+//pkg.version=J1.5.23_JS2.4
+//pkg.version=J2.5.0_JS2.4.2
+pkg.version=J2.5.9_JS2.8.4
+
+pkg.location=${user.home}/Dropbox/TEAM/dev/xipt
+
+
+## joomla installation configuration
+joomla.owner=jspt
+joomla.version=latest
+joomla.rootpath=/var/www
+joomla.folder=${joomla.owner}${joomla.now}
+joomla.sitename=${joomla.folder}
+joomla.dbuser=${joomla.owner}${joomla.now}
+joomla.dbpassword=password${joomla.now}
+joomla.dbname=${joomla.owner}${joomla.now}
+joomla.dbprefix=j${joomla.random3}_
+joomla.mysqlpath=mysql
+joomla.createUserQuery="CREATE USER '${joomla.dbuser}'@'localhost' IDENTIFIED BY '${joomla.dbpassword}';"
+joomla.createDBQuery="CREATE DATABASE ${joomla.dbname};"
+joomla.createAcessQuery="GRANT ALL PRIVILEGES ON ${joomla.dbname}.* TO ${joomla.dbuser};"
+joomla.importDBQuery="source ${joomla.dbdump}"
+joomla.bakpath=./${joomla.version}
+joomla.dbdump=${joomla.rootpath}/${joomla.folder}/database.sql
+
+## default admin account should be
+joomla.admin=admin
+joomla.password=ssv445
