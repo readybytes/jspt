@@ -6,6 +6,8 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
 define('XIPT_VERSION','@global.version@.@svn.lastrevision@');
 define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
 define('XIPT_NONE','XIPT_NONE');

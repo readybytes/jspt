@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="component" version="1.6.0" method="upgrade">
+<extension type="component" version="2.5" method="upgrade">
 	<name>XIPT</name>
 	<creationDate>2009-08-01</creationDate>
 	<author>Team JoomlaXi</author>
@@ -9,8 +9,7 @@
 	<license>GNU GPL v2.0</license>
 	<version>@global.version@.@svn.lastrevision@</version>
 	<description>JSPT (code name is XIPT) is a component to setup multiple user profile types in JomSocial</description>
-	<installfile>install/install.php</installfile>
-	<uninstallfile>install/uninstall.php</uninstallfile>
+	<scriptfile>install/install.php</scriptfile>
 
 	<files folder="site">
 		<filename>index.html</filename>
@@ -89,4 +88,4 @@
 	<plugins>
 		<plugin plugin="xipt_system" publish="true" group="system" />
 	</plugins>
-</install>
+</extension>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install version="1.5" type="module" client="site" method="upgrade">
+<extension version="2.5" type="module" client="site" method="upgrade">
 	<name>Xipt Conditional Module</name>
 	<author>Team Joomlaxi</author>
 	<creationDate>4th Oct 2011</creationDate>
@@ -15,13 +15,6 @@
 		<file>helper.php</file>
 	</files>
 	
-	<!-- for J1.5 -->
-	<params addpath="/components/com_xipt/elements" >
-		<param name="ximodule" type="xiptmodule" default="" label="Module" description="Select module" />
-		<param name="xiprofiletypes" type="profiletypes" default="" label="Profiletypes" description="Select corresponding profiletypes" multiselect="true"/>
-		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="A suffix to be applied to the CSS class of the module. This allows for individual module styling." />
-	</params>
-
 	<!-- for J1.6+ -->
 	<config>
 	<fields name="params">
@@ -40,4 +33,4 @@
 		</fields>
 	</config>
 
-</install>
+</extension>

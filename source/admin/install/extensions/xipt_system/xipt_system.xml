@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<install version="1.6" type="plugin" group="system" method="upgrade">
+<extension version="2.5" type="plugin" group="system" method="upgrade">
   <name>JSPT System Plugin</name>
   <version>@global.version@.@svn.lastrevision@</version>
   <creationDate>Oct 2009</creationDate>
@@ -12,4 +12,4 @@
   <files>  	
 	<filename plugin="xipt_system">xipt_system.php</filename>
   </files>
-</install>
+</extension>
