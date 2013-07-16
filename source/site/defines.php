@@ -60,8 +60,8 @@ if(!defined('PTYPE_POPUP_WINDOW_HEIGHT_SELECT')) define('PTYPE_POPUP_WINDOW_HEIG
 if(!defined('SYNCUP_USER_LIMIT')) define('SYNCUP_USER_LIMIT',50);
 if(!defined('RESETALL_USER_LIMIT')) define('RESETALL_USER_LIMIT',100);
 
-define('DEFAULT_AVATAR','components'.DS.'com_community'.DS.'assets'.DS.'user.png');
-define('DEFAULT_AVATAR_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'user_thumb.png');
+define('DEFAULT_AVATAR','components'.DS.'com_community'.DS.'assets'.DS.'default.jpg');
+define('DEFAULT_AVATAR_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'default_thumb.jpg');
 
 define('DEFAULT_IMAGEWATERMRK','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'demo_watermrk.png');
 define('DEFAULT_IMAGEWATERMRK_THUMB','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'demo_watermrk_thumb.png');

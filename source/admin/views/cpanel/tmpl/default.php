@@ -30,21 +30,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 		</td>
 		<td width="45%" valign="top">
 			<?php 
-				echo $this->pane->startPane( 'stat-pane' );
+				echo JHtmlSliders::start('slider');
 				
-				echo $this->pane->startPanel( 'Welcome', 'welcome' );
+				echo JHtmlSliders::panel( 'Welcome', 'welcome' );
 				echo $this->loadTemplate('welcome');
-				echo $this->pane->endPanel();
 				
-				echo $this->pane->startPanel( 'JSPT Updates', 'updates' );
+				echo JHtmlSliders::panel( 'JSPT Updates', 'updates' );
 				echo $this->loadTemplate('updates');
-				echo $this->pane->endPanel();
 				
-				echo $this->pane->startPanel( 'JoomlaXi News', 'aboutus' );
+				echo JHtmlSliders::panel( 'JoomlaXi News', 'aboutus' );
 				echo $this->loadTemplate('news');
-				echo $this->pane->endPanel();
 				
-				echo $this->pane->endPane();
+				echo JHtmlSliders::end();
 			?>
 		</td>
 	</tr>

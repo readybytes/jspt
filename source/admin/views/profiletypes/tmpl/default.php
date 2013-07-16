@@ -111,8 +111,7 @@ function submitbutton( action )
 			
 			<td align="center" id="watermark<?php echo $field->id;?>">
 					<?php	$wm = $field->watermarkparams;
-					$wmparams = new XiptParameter($wm, '');
-					if($wmparams->get('enableWaterMark',0)):  ?>				
+					if($wm['enableWaterMark']):  ?>				
 				<img src="<?php echo XiptHelperUtils::getAvatarPath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
 					<?php endif; ?>
 				</td>

@@ -170,8 +170,8 @@ jQuery(document).ready(function($){
 		<fieldset class="adminform">
 		<legend><?php echo XiptText::_( 'PARAMETERS' ); ?>	</legend>
 		
-			<?php echo $this->pane->startPane("parameters-pane");?>
-			<?php echo $this->pane->startPanel(XiptText :: _('ASSIGNMENTS'), 'assignments-page');?>
+			<?php echo JHtmlSliders::start('slider');?>
+			<?php echo JHtmlSliders::panel(XiptText::_('ASSIGNMENTS'), 'assignments-page');?>
 				
 			<div class="elementParams">
 					<div class="paramTitle">						
@@ -215,21 +215,18 @@ jQuery(document).ready(function($){
 					<div class="paramValue"><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></div>
 			</div>				
 						
-							<?php 
-								echo $this->pane->endPanel();								
+							<?php 								
 								
-								echo $this->pane->startPanel(XiptText :: _('PRIVACY_SETTINGS'), 'xiprivacysettings-page');
-								echo $this->privacyParams->render(XIPT_PRIVACY);
-								echo $this->pane->endPanel();
+								echo JHtmlSliders::panel(XiptText::_('PRIVACY_SETTINGS'), 'xiprivacysettings-page');
+								echo $this->getHtml($this->privacyParams);
 								
-								echo $this->pane->startPanel(XiptText::_('REGISTRATION'), 'xiconfiguration-page');
-								echo $this->configParams->render('config');
-								echo $this->pane->endPanel();
+								echo JHtmlSliders::panel(XiptText::_('REGISTRATION'), 'xiconfiguration-page');
+								echo $this->getHtml($this->configParams);
 							
-								echo $this->pane->startPanel(XiptText :: _('WATERMARK'), 'watermark-page');
-								echo $this->watermarkParams->render('watermarkparams');
-								echo $this->pane->endPanel();
-								echo $this->pane->startPanel(XiptText::_('RESET_ALL'), 'resetall-page');
+								echo JHtmlSliders::panel(XiptText::_('WATERMARK'), 'watermark-page');
+								echo $this->getHtml($this->watermarkParams);
+								
+								echo JHtmlSliders::panel(XiptText::_('RESET_ALL'), 'resetall-page');
 							?>
 														
 							<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
@@ -239,9 +236,8 @@ jQuery(document).ready(function($){
 								<div class="paramValue"><?php echo JHTML::_('select.booleanlist',  'resetAll', '', '0' ); ?></div>
 							</div>	
 							
-							<?php 					
-								echo $this->pane->endPanel();
-								echo $this->pane->endPane();
+							<?php 
+								echo JHtmlSliders::end();
 							?>
 		</fieldset>
 	</div>				

@@ -69,14 +69,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<div>
 		<fieldset class="adminform" id="basicPtypeSettings">
 		<legend><?php echo XiptText::_( 'PROFILE_TYPE_SETTINGS' ); ?></legend>
-		<?php echo $this->settingsParams->render('settings','basicPtypeSettings');?>
+		<?php echo $this->getHtml($this->settingsParams,'basicPtypeSettings');?>
 		</fieldset>
 	</div>
 	
 	<div>
 		<fieldset class="adminform" id="basicIntegrationSettings">
 		<legend><?php echo XiptText::_( 'INTEGRATION_SETTINGS' ); ?></legend>
-		<?php echo $this->settingsParams->render('settings','basicIntegrationSettings');?>
+		<?php echo $this->getHtml($this->settingsParams,'basicIntegrationSettings');?>
 		</fieldset>
 	</div>
 		
@@ -92,42 +92,34 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<div>
 			<fieldset class="adminform" id="advPtypeSettings">
 			<legend><?php echo XiptText::_( 'PROFILE_TYPE_SETTINGS' ); ?></legend>
-			<?php echo $this->settingsParams->render('settings','advPtypeSettings');?>
+			<?php echo $this->getHtml($this->settingsParams,'advPtypeSettings');?>
 			</fieldset>
 		</div>
 		
 		<div>
 			<fieldset class="adminform" id="advRegistrationSettings">
 			<legend><?php echo XiptText::_( 'REGISTRATION_SETTINGS' ); ?></legend>
-			<?php echo $this->settingsParams->render('settings','advRegistrationSettings');?>
+			<?php echo $this->getHtml($this->settingsParams,'advRegistrationSettings');?>
 			</fieldset>
 		</div>	
 		
 		<div>
 			<fieldset class="adminform" id="advAppsSettings">
 			<legend><?php echo XiptText::_( 'APPLICATION_SETTINGS' ); ?></legend>
-			<?php echo $this->settingsParams->render('settings','advAppsSettings');?>
+			<?php echo $this->getHtml($this->settingsParams,'advAppsSettings');?>
 			</fieldset>
 		</div>		
 				
 		<div>
 			<fieldset class="adminform" id="advSubsSettings">
 			<legend><?php echo XiptText::_( 'SUBS_SETTINGS' ); ?></legend>
-			<?php echo $this->settingsParams->render('settings','advSubsSettings');?>
+			<?php echo $this->getHtml($this->settingsParams,'advSubsSettings');?>
 			</fieldset>
 		</div>
 		
-		<!--<div>
-			<fieldset class="adminform" id="others">
-			<legend><?php echo XiptText::_( 'OTHERS'); ?></legend>
-			<?php echo $this->settingsParams->render('settings','others');?>
-			</fieldset>
-		</div>
-		
-	--></div>
+	</div>
 </fieldset>	
 </div>
-
 
 <div class="clr"></div>
 	<input type="hidden" name="option" value="com_xipt" />

@@ -104,21 +104,21 @@ class XiptFactory
 			
 		if($paramName == 'aec_integrate')
 		{
-			$aec_integrate = $params->get('aec_integrate','aec');
+			$aec_integrate = $params->getValue('aec_integrate',null, 'aec');
 			if($aec_integrate == 'aec')
-				return $params->get('subscription_integrate',$defaultValue);
+				return $params->getValue('subscription_integrate',null, $defaultValue);
 			else
 				return $aec_integrate;
 		}
 			
 		if($paramName == 'aec_message')
 		{
-			$aec_message = $params->get('aec_message','aec');
+			$aec_message = $params->getValue('aec_message',null, 'aec');
 			if($aec_message == 'aec')
-				return $params->get('subscription_message',$defaultValue);
+				return $params->getValue('subscription_message', null, $defaultValue);
 			else
 				return $aec_message;
 		}
-		return $params->get($paramName,$defaultValue);
+		return $params->getValue($paramName,null,$defaultValue);
 	}
 }

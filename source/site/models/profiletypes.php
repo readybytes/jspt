@@ -53,12 +53,8 @@ class XiptModelProfiletypes extends XiptModel
         unset($data['task']);
         unset($data['view']);
         unset($data['id']);
-               
-		//XITODO : bind params 
-		$param	= new XiptParameter();
-		$param->loadArray($data);
-		$params	= $param->toString('XiptINI');
 		
+        $params = json_encode($data);
 		return $this->save(array($what => $params), $id);
 	}
 	
@@ -77,7 +73,7 @@ class XiptModelProfiletypes extends XiptModel
 		if(!isset($record[$id]->params) || empty($record[$id]->params))
 			$this->_params[$id] = CFactory::getConfig();
 		else
-			$this->_params[$id] = new XiptParameter( $record[$id]->params );
+			$this->_params[$id] = json_decode($record[$id]->params);
 			
 		return $this->_params[$id];
 	}

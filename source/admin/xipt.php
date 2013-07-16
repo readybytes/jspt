@@ -9,7 +9,7 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 // add include files
-require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.php';
+require_once JPATH_ROOT.'/administrator/components/com_xipt/includes.php';
 
 // check for jom social supported version and show message
 if(!XiptHelperJomsocial::isSupportedJS()){

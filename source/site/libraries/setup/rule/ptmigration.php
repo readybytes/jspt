@@ -17,7 +17,7 @@ class XiptSetupRulePtmigration extends XiptSetupBase
 		
 		require_once(JPATH_BASE.DS.'components'.DS.'com_community'.DS.'models/multiprofile.php');
 		
-		$multiprofileModel = JModel::getInstance( 'MultiProfile', 'CommunityModel' );
+		$multiprofileModel = JModelLegacy::getInstance( 'MultiProfile', 'CommunityModel' );
 		$js_Profiletypes   = $multiprofileModel->getMultiProfiles();
 		
 		$config	     	   = CFactory::getConfig();

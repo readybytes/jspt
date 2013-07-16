@@ -24,18 +24,18 @@ class XiptLibImage
 	function __construct($params, $debugMode = false)
 	{
 		$this->params		= 	$params;
-		$this->width		= 	$params->get('xiWidth','160');
-		$this->height		= 	$params->get('xiHeight','40');
+		$this->width		= 	$params['xiWidth'];
+		$this->height		= 	$params['xiHeight'];
         //  if type of watermark is image then set image path and image name
-		if($params->get('typeofwatermark','0')=='1'){
+		if($params['typeofwatermark']=='1'){
 	     $this->imgpath  	=   $_FILES['watermarkparams']['tmp_name']['xiImage'];
 		 $this->imgname		=   $_FILES['watermarkparams']['name']['xiImage'];
 		}
-		$this->fontSize	= 	$params->get('xiFontSize','26');
-		$this->fontName		=   JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'assets'.DS.'fonts'.DS.$params->get('xiFontName','monofont').'.ttf';
-		$this->text			= 	$params->get('xiText','Profiletype');
-		$this->textcolor	= 	$params->get('xiTextColor','FFFFFF');
-		$this->background	= 	$params->get('xiBackgroundColor','000000');
+		$this->fontSize	= 	$params['xiFontSize'];
+		$this->fontName		=   JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'assets'.DS.'fonts'.DS.$params['xiFontName'].'.ttf';
+		$this->text			= 	$params['xiText'];
+		$this->textcolor	= 	$params['xiTextColor'];
+		$this->background	= 	$params['xiBackgroundColor'];
 		$this->_debugMode	=	$debugMode;
 				
 	}

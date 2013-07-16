@@ -38,16 +38,12 @@ class XiptHelperJomsocial
 	function get_js_version()
 	{	
 		$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
+		
+		$xml	 = $CMP_PATH_ADMIN . DS . 'community.xml';
 	
-		$parser		= JFactory::getXMLParser('Simple');
-		$xml		= $CMP_PATH_ADMIN . DS . 'community.xml';
-	
-		$parser->loadFile( $xml );
-	
-		$doc		=& $parser->document;
-		$element	=& $doc->getElementByPath( 'version' );
-		$version	= $element->data();
-	
+		$parser  = new SimpleXMLElement($xml, NULL, true);
+		$version = $parser->version;
+
 		return $version;
 	}
 	

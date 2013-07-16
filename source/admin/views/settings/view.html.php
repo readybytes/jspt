@@ -26,5 +26,12 @@ class XiptViewSettings extends XiptView
 		JToolBarHelper::divider();
 		JToolBarHelper::save('save','COM_XIPT_SAVE');
 	}
+	
+	function getHtml($params, $name)
+	{
+		$settings = $this->getModel();
+		
+		return $settings->getParamHtml($params, $name);
+	}
 }
 	

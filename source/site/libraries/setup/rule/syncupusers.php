@@ -12,7 +12,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 	function isRequired()
 	{
 		$params = XiptFactory::getSettings('', 0);
-		$defaultProfiletypeID = $params->get('defaultProfiletypeID',0);
+		$defaultProfiletypeID = $params->getValue('defaultProfiletypeID');
 		
 		if(!$defaultProfiletypeID){
 			JFactory::getApplication()->enqueueMessage(XiptText::_("FIRST_SELECT_THE_DEFAULT_PROFILE_TYPE"));

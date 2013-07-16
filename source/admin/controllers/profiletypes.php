@@ -64,7 +64,7 @@ class XiptControllerProfiletypes extends XiptController
 		
 		// set ordering
 		if(end($allData)){
-			if($allData[$id]->id == 0)
+			if(!isset($allData[$id]->id))
 			$data['ordering'] = end($allData)->ordering + 1;
 		}
 		else
@@ -86,7 +86,7 @@ class XiptControllerProfiletypes extends XiptController
 			
 		// if jsPrivacyController = 0 then Old privacy set in profile-type table
 		if(is_array($post[XIPT_PRIVACY]) && $post[XIPT_PRIVACY]['jsPrivacyController'] == 0){
-			$oldPrivacy = $model->loadParams($id,XIPT_PRIVACY)->toArray();
+			$oldPrivacy = XiptLibProfiletypes::getParams($id, XIPT_PRIVACY);
 			$oldPrivacy['jsPrivacyController'] = $post[XIPT_PRIVACY]['jsPrivacyController'];
 			$post[XIPT_PRIVACY]= $oldPrivacy;
 		}
@@ -174,7 +174,7 @@ class XiptControllerProfiletypes extends XiptController
 		$filteredNewData = array();
 		
 		// when privacy controlled by admin
-		if( 1 == $newPtData->privacy->get('jsPrivacyController')){
+		if( 1 == $newPtData->privacy['jsPrivacyController']){
 			array_push($featuresToReset, 'privacy');
 		}
 		
@@ -210,12 +210,12 @@ class XiptControllerProfiletypes extends XiptController
 		$storageThumbnail = $storage . DS .$thumbnailName;
 		$watermarkPath = $storage.DS.$imageName.'.'.$fileExt;
 		
-		$watermarkThumbWidth  = $config->get('xiThumbWidth',80);
-		$watermarkThumbHeight = $config->get('xiThumbHeight',20);
+		$watermarkThumbWidth  = $config['xiThumbWidth'];
+		$watermarkThumbHeight = $config['xiThumbHeight'];
         // create a transparent blank image
         // if type of watermark is text call ImageCreateTrueColor else
         //else call imageCreateTransparent
-        if($config->get('typeofwatermark','0')=='0')
+        if($config['typeofwatermark']=='0')
             $dstimg   =   ImageCreateTrueColor($watermarkThumbWidth, $watermarkThumbHeight);
         else
             $dstimg   =   XiptLibImage::imageCreateTransparent($watermarkThumbWidth, $watermarkThumbHeight);
@@ -226,7 +226,7 @@ class XiptControllerProfiletypes extends XiptController
 		//XITODO : also support other formats
 		
 		
-		if(imagecopyresampled($dstimg,$srcimg,0,0,0,0,$watermarkThumbWidth,$watermarkThumbHeight,$config->get('xiWidth',64),$config->get('xiHeight',64)))
+		if(imagecopyresampled($dstimg,$srcimg,0,0,0,0,$watermarkThumbWidth,$watermarkThumbHeight,$config['xiWidth'],$config['xiHeight']))
 		{
 			//fix for permissions
 			imagepng($dstimg,$storageThumbnail);
@@ -297,16 +297,17 @@ class XiptControllerProfiletypes extends XiptController
 		$newData = $model->loadRecords(0);
 		$newData = $newData[$id];
 		
-		$config = new XiptParameter('','');
-		$config->bind($newData->watermarkparams);
+		$config = json_decode($newData->watermarkparams);
+		$config = (array)$config;
+		
 		// if enable water mark is false then no need to create watermark
-		if(!$config->get('enableWaterMark')){
+		if(!$config['enableWaterMark']){
 			return false;
 		}
 		//no change condition i.e if type of watermark is image
         // but no image is selected then return
 		if( empty($_FILES['watermarkparams']['tmp_name']['xiImage']) 
-		    && $config->get('typeofwatermark','0')=='1')
+		    && $config['typeofwatermark']=='1')
 		  { return false;}
 		// generate watermark image		
 		//XITODO : improve nomenclature
@@ -314,7 +315,7 @@ class XiptControllerProfiletypes extends XiptController
 		$storage		= PROFILETYPE_AVATAR_STORAGE_PATH;
 		$imageName 		= 'watermark_'. $id;
         // create watermark according to the type of watermark selected
-		if($config->get('typeofwatermark','0')=='1')
+		if($config['typeofwatermark']=='1')
 				$filename=$imageGenerator->createImageWatermark($storage,$imageName);
 		  else 
 				$filename		= $imageGenerator->genImage($storage,$imageName);

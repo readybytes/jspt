@@ -416,7 +416,16 @@ class XiptLibProfiletypes
 	{
 		$model = XiptFactory::getInstance('Profiletypes','model');
 		$params = $model->loadParams($id,$what);
-		return $params;		
+		
+		$data = null;
+      	foreach ((Array)$params as $key => $val) {
+        	if($val instanceof JRegistry){
+        		$data = &$val;
+        		break;
+        	}
+    	}
+    	$data = $data->toArray();
+    	return $data;
 	}
 	
 }

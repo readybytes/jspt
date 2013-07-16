@@ -9,7 +9,7 @@ jimport( 'joomla.application.component.view');
 JHTML::_('behavior.tooltip', '.hasTip');
 jimport('joomla.html.pane');
 
-abstract class XiptView extends JView
+abstract class XiptView extends JViewLegacy
 {	
 	function display($tpl = null)
 	{
