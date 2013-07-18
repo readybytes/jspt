@@ -20,7 +20,7 @@ class XiptViewSetup extends XiptView
 		$setupRules = XiptSetupHelper::getOrderedRules();
 		
 		//for each file check that setup is required or not & get message a/c to this.
-		foreach($setupRules as $key => $setup)
+		foreach($setupRules as $setup)
 		{
 			//get object of class
 			$setupObject = XiptFactory::getSetupRule($setup['name']);
@@ -28,11 +28,11 @@ class XiptViewSetup extends XiptView
 			if(!$setupObject->isApplicable())
 				continue;
 				
-			$helpMsg[$key] = $setupObject->getHelpMsg($setup['name']);	
+			$helpMsg[(string)$setup->name] = $setupObject->getHelpMsg($setup['name']);	
 			$data = $setupObject->getMessage();
-			$requiredSetup[$key]['done'] 	  = $data['done'];
-			$requiredSetup[$key]['message'] = $data['message'];
-			$requiredSetup[$key]['type']	  = $setup['type'];	
+			$requiredSetup[(string)$setup->name]['done'] 	  = $data['done'];
+			$requiredSetup[(string)$setup->name]['message'] = $data['message'];
+			$requiredSetup[(string)$setup->name]['type']	  = $setup['type'];	
 		}
 
 		// to check that setup screen is clean or not		

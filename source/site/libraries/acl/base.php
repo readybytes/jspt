@@ -25,11 +25,11 @@ abstract class XiptAclBase
 		if(!$this->aclparams){
 			$aclxmlpath =  dirname(__FILE__).DS.strtolower($className).DS.strtolower($className).'.xml';
 			if(JFile::exists($aclxmlpath)){
-				$this->aclparams = new XiptParameter('',$aclxmlpath); 
+				$this->aclparams = XiptParameter::getInstance('aclparams',$aclxmlpath, array('control' => 'aclparams'));
 			}
-			else{
-				$this->aclparams = new XiptParameter('',''); 
-				}
+//			else{
+//				$this->aclparams = XiptParameter::getInstance('aclparams',''); 
+//				}
 		}
 
 		//Load Core Params if defined for current ACL, if not already loaded
@@ -44,16 +44,28 @@ abstract class XiptAclBase
 		}
 		
 		//load core params
-		$coreinipath = dirname(__FILE__).DS.'coreparams.ini';		
-		$iniData	= JFile::read($coreinipath);
-	
+//		$coreinipath = dirname(__FILE__).DS.'coreparams.ini';		
+//		$iniData	= JFile::read($coreinipath);
+
 		XiptError::assert(JFile::exists($corexmlpath), $corexmlpath. XiptText::_("FILE_DOES_NOT_EXIST"), XiptError::ERROR);
-		XiptError::assert(JFile::exists($coreinipath), $coreinipath. XiptText::_("FILE_DOES_NOT_EXIST"), XiptError::ERROR);
+//		XiptError::assert(JFile::exists($coreinipath), $coreinipath. XiptText::_("FILE_DOES_NOT_EXIST"), XiptError::ERROR);
 		
-		$this->coreparams = new XiptParameter($iniData,$corexmlpath);
+		$this->coreparams = XiptParameter::getInstance('coreparams', $corexmlpath, array('control' => 'coreparams'));
 	}
 
-
+	function getParams($params)
+	{		
+		$data = null;
+      	foreach ((Array)$params as $key => $val) {
+        	if($val instanceof JRegistry){
+        		$data = &$val;
+        		break;
+        	}
+    	}
+    	$data = $data->toArray();
+    	return $data;
+	}
+	
 	function load($id)
 	{
 		if(0 == $id) {
@@ -85,12 +97,14 @@ abstract class XiptAclBase
 
 	public function getAclParamsHtml()
 	{
-		return $this->aclparams->render('aclparams');
+		$acl_model = XiptFactory::getInstance('Aclrules','model');
+		return $acl_model->getParamHtml($this->aclparams);
 	}
 
 	final public function getCoreParamsHtml()
 	{
-		return $this->coreparams->render('coreparams');
+		$acl_model = XiptFactory::getInstance('Aclrules','model');
+		return $acl_model->getParamHtml($this->coreparams);
 	}
 
 	function collectParamsFromPost($postdata)
@@ -100,17 +114,15 @@ abstract class XiptAclBase
 		if(!isset($postdata['aclparams']))
 			return "\n\n";
 
-		$param	= new XiptParameter();
-		$param->loadArray($postdata['aclparams']);
-		return  $param->toString('XiptINI');
+		return json_encode($postdata['aclparams']);
 	}
 
 	function bind($data)
 	{
 		if(is_object($data)) {
 
-			$this->aclparams->bind($data->aclparams); 
-			$this->coreparams->bind($data->coreparams);
+			$this->aclparams->bind(json_decode($data->aclparams)); 
+			$this->coreparams->bind(json_decode($data->coreparams));
 			$this->rulename 	= $data->rulename;
 			$this->published 	= $data->published;
 			$this->id			= $data->id;
@@ -118,13 +130,9 @@ abstract class XiptAclBase
 		}
 
 		if(is_array($data)) {
-			//XiTODO:: need to test for Joomla 1.5 
-			$aclParam   = $data['aclparams']->toArray();
-			$coreParams = $data['coreparams']->toArray();
-			$this->aclparams->bind($aclParam);
-			$this->coreparams->bind($coreParams);
-			//$this->aclparams->bind($data['aclparams']);
-			//$this->coreparams->bind($data['coreparams']);
+			
+			$this->aclparams->bind($data['aclparams']);
+			$this->coreparams->bind($data['coreparams']);
 			$this->rulename 	= $data['rulename'];
 			$this->published 	= $data['published'];
 			$this->id			= $data['id'];
@@ -345,7 +353,7 @@ abstract class XiptAclBase
 
 	public function getCoreParams($what,$default=0)
 	{
-		return $this->coreparams->get($what,$default);
+		return $this->coreparams->getValue($what, null, $default);
 	}
 
 

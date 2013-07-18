@@ -73,7 +73,12 @@ class XiptModelUsers extends XiptModel
 				$searchQuery	.= ' WHERE c.profiletype=' . $db->Quote( $ptype );		
 		}
 		
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__users' ) . ' AS a '
+		$new_join = ' LEFT JOIN ' . $db->qn('#__user_usergroup_map') . " AS map on (a.id = map.user_id)"
+						. " LEFT JOIN " . $db->qn('#__usergroups') . " As ug "
+						. " ON map.group_id=ug.id ";
+						
+		$query	= 'SELECT * FROM ' . $db->qn( '#__users' ) .' AS a '
+				. $new_join
 				. $joinQuery
 				. $searchQuery
 				. $orderby;

@@ -72,11 +72,11 @@ function submitbutton( action )
 			<?php
 				$num = 1;
 				echo JHtmlSliders::start('slider');
-					foreach($this->setupRules as $key => $rule):
-						if(isset($this->helpMsg[$key])==false)
+					foreach($this->setupRules as $rule):
+						if(isset($this->helpMsg[(string)$rule->name])==false)
 							continue;
 						echo JHtmlSliders::panel($num.". ".$rule['title'],$rule['name']);
-						echo $this->helpMsg[$key];
+						echo $this->helpMsg[(string)$rule->name];
 						$num++;
 					endforeach;	
 				echo JHtmlSliders::end();

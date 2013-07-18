@@ -11,13 +11,13 @@ jimport( 'joomla.plugin.plugin' );
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
-if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
+if(!JFolder::exists(JPATH_ROOT.'/components/com_xipt'))
 	return false;
 
-if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
+if(!JFile::exists(JPATH_ROOT.'/components/com_xipt/includes.php'))
  	return false;
  			
-$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
+$includeXipt=require_once (JPATH_ROOT.'/components/com_xipt/includes.php');	
  		
 if($includeXipt === false)
 	return false;

@@ -194,7 +194,8 @@ class XiptLibProfiletypes
 		if($defaultProfiletypeID)
 			return  $defaultProfiletypeID;
 		
-		echo XiptFactory::getSettings()->render();
+		$settings = XiptFactory::getSettings();
+		$settings_model = XiptFactory::getInstance('Settings', 'model')->getParamHtml($settings);
 		XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 	}
 	

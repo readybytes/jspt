@@ -134,7 +134,7 @@ class XiptLibJomsocial
 
 		if($params)
 		{
-			$allParams = $params->toArray();
+			//$allParams = $params->toArray();
 		
 
 			if(!empty($allParams)){
@@ -536,7 +536,8 @@ class XiptLibJomsocial
 		CFactory::load('helpers', 'string');
 		$config	= JTable::getInstance( 'configuration' , 'CommunityTable' );
 		$config->load( 'config' );
-		$params	= new XiptParameter( $config->params );
+		$params	= new JRegistry( $config->params );
+		
 		$params->set('profile_multiprofile',$setValue);
 		$config->params	= $params->toString();
 		if(!$config->store())

@@ -53,7 +53,7 @@ jQuery(document).ready(function($){
 			<option disabled="disabled"></option>
 		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo $acl['title'];?></option>
 		    
-			<?php foreach($this->rules[$acl['name']] as $rule) : ?>
+			<?php foreach($this->rules[(string)$acl->name] as $rule) : ?>
 		    		<option value="<?php echo $rule['name'];?>" ><?php echo $rule['title'];?></option>
 			<?php endforeach; ?> 
 	<?php endforeach; ?>
@@ -67,7 +67,7 @@ jQuery(document).ready(function($){
 <div id="xiptOptionHelper" style= "background-color:#F9F9F9; border:1px solid #efefef; width:40%;  
 									padding:5px; display:none; float:right; margin-top:-225px; margin-right:300px;">
 	<?php foreach($this->groups as $acl) :
-			foreach($this->rules[$acl['name']] as $rule) : ?>
+			foreach($this->rules[(string)$acl->name] as $rule) : ?>
 				<div  id= <?php echo $rule['name']; ?>  style= "display:<?php echo "none";?>">
 				<h3 > <?php echo $rule['title']; ?> </h3>
 				<?php echo $rule['description']; ?>

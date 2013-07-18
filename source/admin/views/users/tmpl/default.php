@@ -128,7 +128,7 @@ function submitbutton( action )
 				<?php echo $this->getUserInfo($user->id, 'TEMPLATE'); ?>
 			</td>
 			<td>
-				<?php echo $user->usertype; ?>
+				<?php echo $user->title; ?>
 			</td>
 			<td>
 				<?php echo $user->id; ?>
