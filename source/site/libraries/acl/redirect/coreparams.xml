@@ -6,8 +6,8 @@
 			<option value="1">Plans</option>
 		</field>
 		
-		<field name="core_profiletype" type="profiletypes" addall="true" multiselect="true" size="6" default="" label="COM_XIPT_PROFILETYPE_TO_APPLY_LABLE" description="COM_XIPT_PROFILETYPE_TO_APPLY_DESC" />
-		<field name="core_plan" type="xiptplans" addall="true" multiselect="true" size="6" default="" label="COM_XIPT_PLAN_TO_APPLY_LABLE" description="COM_XIPT_PLAN_TO_APPLY_DESC" />
+		<field name="core_profiletype" type="profiletypes" addall="true" multiple="true" size="6" default="" label="COM_XIPT_PROFILETYPE_TO_APPLY_LABLE" description="COM_XIPT_PROFILETYPE_TO_APPLY_DESC" />
+		<field name="core_plan" type="xiptplans" addall="true" multiple="true" size="6" default="" label="COM_XIPT_PLAN_TO_APPLY_LABLE" description="COM_XIPT_PLAN_TO_APPLY_DESC" />
 		<field name="core_display_message" type="xipteditor" size="50" default="YOU_ARE_NOT_ALLOWED_TO_ACCESS_THIS_RESOURCE" label="COM_XIPT_DISPLAY_MESSAGE_WHEN_VIOLATING_RULE_LABLE" description="COM_XIPT_DISPLAY_MESSAGE_WHEN_VIOLATING_RULE_DESC" />
 		<field name="core_redirect_url" type="text" size="50" default="index.php?option=com_community" label="COM_XIPT_REDIRECT_URL_WHEN_VIOLATING_RULE_LABLE" description="COM_XIPT_REDIRECT_URL_WHEN_VIOLATING_RULE_DESC" />
 	</fieldset>

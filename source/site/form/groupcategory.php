@@ -17,6 +17,13 @@ class JFormFieldGroupcategory extends JFormField
 		//get all event category
 		$options	= $this->getGroupcategory();
 		
+		if(isset($this->element['addall'])){
+			$reqall 		= new stdClass();
+			$reqall->id 	= 0;
+			$reqall->name 	= 'All';
+			array_unshift($options, $reqall);
+		}
+		
 		//add multiselect option
 		$attr = ' ';
 		$attr = $this->multiple ? ' multiple="multiple"' : '';

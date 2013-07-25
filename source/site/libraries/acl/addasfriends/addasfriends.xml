@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 <fieldset addfieldpath="/administrator/components/com_xipt/elements" >
-	<field name="other_profiletype" type="profiletypes" addall="true" multiselect="true" size="6" default="" label="COM_XIPT_OTHER_PROFILETYPE_USERS_TO_ADD_AS_FRIEND_LABLE" description="COM_XIPT_OTHER_PROFILETYPE_TO_ADD_AS_FRIEND_DESC" />
-	<field name="other_plan" type="xiptplans" addall="true" multiselect="true" size="6" default="" label="COM_XIPT_OTHER_PROFILETYPE_USERS_TO_ADD_AS_FRIEND_LABLE" description="COM_XIPT_OTHER_PROFILETYPE_TO_ADD_AS_FRIEND_DESC" />
+	<field name="other_profiletype" type="profiletypes" addall="true" multiple="true" size="6" default="" label="COM_XIPT_OTHER_PROFILETYPE_USERS_TO_ADD_AS_FRIEND_LABLE" description="COM_XIPT_OTHER_PROFILETYPE_TO_ADD_AS_FRIEND_DESC" />
+	<field name="other_plan" type="xiptplans" addall="true" multiple="true" size="6" default="" label="COM_XIPT_OTHER_PROFILETYPE_USERS_TO_ADD_AS_FRIEND_LABLE" description="COM_XIPT_OTHER_PROFILETYPE_TO_ADD_AS_FRIEND_DESC" />
     <field name="addasfriends_limit" type="text" default="" label="COM_XIPT_TOTAL_FRIENDS_LIMIT_LABEL" description="COM_XIPT_NO_OF_TOTAL_FRIENDS_MAXIMUM_LIMIT_DESC" />
 </fieldset>
 </form>

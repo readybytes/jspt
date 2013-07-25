@@ -9,14 +9,14 @@ defined('_JEXEC') or die();
 JFormHelper::loadFieldClass('editor');
 jimport('joomla.form.formfield');
 
-class XiptFormFieldxieditor extends JFormFieldEditor
+class JFormFieldXipteditor extends JFormFieldEditor
 {
 	
-	public  $type = 'xieditor';
+	public  $type = 'xipteditor';
 		
 	protected function getInput()
 	{
-		$this->input = base64_decode($this->value);
+		$this->value = base64_decode($this->value);
 		return parent::getInput();
 	}
 }

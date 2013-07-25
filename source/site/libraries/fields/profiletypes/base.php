@@ -76,7 +76,7 @@ class XiptFieldsProfiletypesBase
 			
 		$visiblePT = XiptLibProfiletypes::getProfiletypeArray(array('visible'=>1));
 		
-		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
+		$allowToChangePType = $this->_params->getValue('allow_user_to_change_ptype_after_reg',null,0);
 		$allowToChangePType = ($allowToChangePType && array_key_exists($pID, $visiblePT)) || XiptHelperUtils::isAdmin($user->id);
 		
 		//if not allowed then show disabled view of ptype

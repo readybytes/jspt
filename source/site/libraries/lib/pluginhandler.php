@@ -323,7 +323,7 @@ class XiptLibPluginhandler
     	$privacyParams  = $modelObj->loadParams($myProfileID,'privacy');
     	
     	// jsPrivacyController == 1 means privacy handle by admin
-    	$result = (1 == $privacyParams->get('jsPrivacyController')) ? true : false;
+    	$result = (1 == $privacyParams->getValue('jsPrivacyController')) ? true : false;
     	return $result;
     }
 

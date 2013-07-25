@@ -107,7 +107,8 @@ class plgCommunityxipt_community extends CApplications
 		//Now apply watermark to images
 		//	for that we don't require to add watermark
 		//	XITODO : format it in proper way
-		if(!XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0))
+		$watermarkParams = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams');
+		if(!$watermarkParams['enableWaterMark'])
 			return true;
 					
 		//check if uploadable avatar is not default ptype avatar

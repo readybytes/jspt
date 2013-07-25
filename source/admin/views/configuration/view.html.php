@@ -45,7 +45,7 @@ class XiptViewConfiguration extends XiptView
 		for ($i=1; $i<=31; $i++)
 			$qscale[]	= JHTML::_('select.option', $i, $i);
 		
-		$lists['qscale'] = JHTML::_('select.genericlist',  $qscale, 'qscale', 'class="inputbox" size="1"', 'value', 'text', $params->get('qscale', '11'));
+		$lists['qscale'] = JHTML::_('select.genericlist',  $qscale, 'qscale', 'class="inputbox" size="1"', 'value', 'text', $params->getValue('qscale', '11'));
 
 		$videosSize = array
 		(
@@ -61,7 +61,7 @@ class XiptViewConfiguration extends XiptView
 			JHTML::_('select.option', '800x600', '800x600 (SVGA 4:3)'),
 		);
 
-		$lists['videosSize'] = JHTML::_('select.genericlist',  $videosSize, 'videosSize', 'class="inputbox" size="1"', 'value', 'text', $params->get('videosSize'));
+		$lists['videosSize'] = JHTML::_('select.genericlist',  $videosSize, 'videosSize', 'class="inputbox" size="1"', 'value', 'text', $params->getValue('videosSize'));
 		// FOR JomSocial 2.1
 		//Add image quality in view file for JS Configuration page error
 		$imgQuality = array
@@ -72,7 +72,7 @@ class XiptViewConfiguration extends XiptView
 			JHTML::_('select.option', '95', 'Very High'),
 		);
 
-		$lists['imgQuality'] = JHTML::_('select.genericlist',  $imgQuality, 'output_image_quality', 'class="inputbox" size="1"', 'value', 'text', $params->get('output_image_quality'));
+		$lists['imgQuality'] = JHTML::_('select.genericlist',  $imgQuality, 'output_image_quality', 'class="inputbox" size="1"', 'value', 'text', $params->getValue('output_image_quality'));
 		
 		
 		$uploadLimit = ini_get('upload_max_filesize');
@@ -83,7 +83,7 @@ class XiptViewConfiguration extends XiptView
 			JHTML::_('select.option', 'ASC', 'Older first'),
 			JHTML::_('select.option', 'DESC', 'Newer first'),
 		);
-		$lists['groupDicussOrder'] = JHTML::_('select.genericlist',  $groupDiscussionOrder, 'group_discuss_order', 'class="inputbox" size="1"', 'value', 'text', $params->get('group_discuss_order'));
+		$lists['groupDicussOrder'] = JHTML::_('select.genericlist',  $groupDiscussionOrder, 'group_discuss_order', 'class="inputbox" size="1"', 'value', 'text', $params->getValue('group_discuss_order'));
 		
 		$this->assign( 'lists', $lists );
 		$this->assign( 'uploadLimit' , $uploadLimit );

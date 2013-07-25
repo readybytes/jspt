@@ -74,7 +74,7 @@ class uploadavatar extends XiptAclBase
 		}
 		
 		$session	= JFactory::getSession();
-		$permission = $this->aclparams->get('upload_avatar_at_registration',false);
+		$permission = $this->aclparams->getValue('upload_avatar_at_registration',null,false);
 		$post		= JRequest::get('post');
 		
 		//check whether user has actually uploaded a avatar 

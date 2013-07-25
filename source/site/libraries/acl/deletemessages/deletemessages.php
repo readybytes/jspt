@@ -14,9 +14,9 @@ class deletemessages extends XiptAclBase
 		$msgId	    = $args[0];
 		
 		$db 		= JFactory::getDBO();
-		$query		= ' SELECT '.$db->nameQuote('msg_from')
-					 .' FROM '.$db->nameQuote('#__community_msg_recepient')
-					 .' WHERE '.$db->nameQuote('msg_id').' = '.$db->Quote($msgId);
+		$query		= ' SELECT '.$db->quoteName('msg_from')
+					 .' FROM '.$db->quoteName('#__community_msg_recepient')
+					 .' WHERE '.$db->quoteName('msg_id').' = '.$db->Quote($msgId);
 					 
 		$db->setQuery( $query );
 		$userid		= $db->loadResult();

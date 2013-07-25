@@ -15,12 +15,12 @@ class writemessages extends XiptAclBase
 	
 	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data)
 	{	
-		$aclSelfPtype = $this->coreparams->get('core_profiletype',-1);
-		$otherptype = $this->aclparams->get('other_profiletype',-1);
+		$aclSelfPtype = $this->coreparams->getValue('core_profiletype',null,-1);
+		$otherptype = $this->aclparams->getValue('other_profiletype',null,-1);
 		
 		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
 		$paramName ='writemessage_limit';
-		$maxmimunCount = $this->aclparams->get($paramName,0);
+		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 		
 		//In JS2.4++, user can msg to more than one user simlutaneously
 		//$totalUsers = $data['count'];
@@ -44,7 +44,7 @@ class writemessages extends XiptAclBase
 
 		/* otherptype o means rule is defined to count message written to any one */
 		if($otherptype == -1 || $otherptype == 0) {
-			$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__community_msg' ) . ' AS a'
+			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
 					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
 					. ' AND a.parent=a.id';
 		}
@@ -111,8 +111,8 @@ class writemessages extends XiptAclBase
 			if($viewusername != '') {
 				$db			=& JFactory::getDBO();
 
-				$query = "SELECT * FROM ".$db->nameQuote('#__users')
-						." WHERE ".$db->nameQuote('username')."=".$db->Quote($viewusername);
+				$query = "SELECT * FROM ".$db->quoteName('#__users')
+						." WHERE ".$db->quoteName('username')."=".$db->Quote($viewusername);
 
 				$db->setQuery( $query );
 				$user = $db->loadObject();

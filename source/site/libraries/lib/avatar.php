@@ -117,10 +117,10 @@ class XiptLibAvatar
 		}		
 		
 		// create query for update Avatar and thumb
-		$query	=   'UPDATE ' . $db->nameQuote( '#__community_users' ) . ' '
-			    	.'SET ' . $db->nameQuote( $type ) . '=' . $db->Quote( $newPath ) . ', '
+		$query	=   'UPDATE ' . $db->quoteName( '#__community_users' ) . ' '
+			    	.'SET ' . $db->quoteName( $type ) . '=' . $db->Quote( $newPath ) . ', '
 			    			. '`thumb` = '. $db->Quote( $thumbPath ) . ' '
-			    	.'WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $id );
+			    	.'WHERE ' . $db->quoteName( 'userid' ) . '=' . $db->Quote( $id );
 		
 		$db->setQuery( $query );
 		$db->query( $query );

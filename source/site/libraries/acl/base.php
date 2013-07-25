@@ -85,8 +85,8 @@ abstract class XiptAclBase
 		$this->published 		= $info->published;
 		$this->rulename 		= $info->rulename;
 
-		$this->coreparams->bind($info->coreparams);
-		$this->aclparams->bind($info->aclparams);
+		$this->coreparams->bind(json_decode($info->coreparams));
+		$this->aclparams->bind(json_decode($info->aclparams));
 		return $this;
 	}
 
@@ -186,12 +186,12 @@ abstract class XiptAclBase
 		else{
 			$ptype = $this->getCoreParams('core_profiletype',XIPT_PROFILETYPE_ALL);
 	
-			//All means applicable
-			if(XIPT_PROFILETYPE_ALL == $ptype)
-				return true;
-	
 			//check if its applicable on more than 1 ptype
 			$ptype = is_array($ptype)?$ptype:array($ptype);
+			
+			//All means applicable
+			if(in_array(XIPT_PROFILETYPE_ALL, $ptype))
+				return true;
 			
 			//profiletype matching
 			if(in_array(XiptLibProfiletypes::getUserData($data['userid']), $ptype))
@@ -220,12 +220,12 @@ abstract class XiptAclBase
 		$aclSelfPtype = $this->getACLAccesserProfileType();
 		$selfPid	= XiptLibProfiletypes::getUserData($resourceAccesser,'PROFILETYPE');
 		
-		//if its applicable to all
-		if(XIPT_PROFILETYPE_ALL == $aclSelfPtype)
-			return true;
-
 		//check if its applicable on more than 1 ptype
 		$aclSelfPtype = is_array($aclSelfPtype)?$aclSelfPtype:array($aclSelfPtype);
+		
+		//if its applicable to all
+		if(in_array(XIPT_PROFILETYPE_ALL, $aclSelfPtype))
+			return true;
 		
 		//if user's ptype exists in ACL ptype array
 		if(in_array($selfPid, $aclSelfPtype))
@@ -239,12 +239,12 @@ abstract class XiptAclBase
 		$otherptype = $this->getACLOwnerProfileType();
 		$otherpid	= XiptLibProfiletypes::getUserData($resourceOwner,'PROFILETYPE');
 
-		//if its applicable to all
-		if(XIPT_PROFILETYPE_ALL == $otherptype)
-			return true;
-
 		//check if its applicable on more than 1 ptype
 		$otherptype = is_array($otherptype)?$otherptype:array($otherptype);
+		
+		//if its applicable to all
+		if(in_array(XIPT_PROFILETYPE_ALL, $otherptype))
+			return true;
 		
 		//if user's ptype exists in ACL ptype array
 		if(in_array($otherpid, $otherptype))
@@ -255,12 +255,12 @@ abstract class XiptAclBase
 	
 	function getACLAccesserProfileType()
 	{
-		return $this->coreparams->get('core_profiletype',XIPT_PROFILETYPE_NONE);		
+		return $this->coreparams->getValue('core_profiletype',null,XIPT_PROFILETYPE_NONE);		
 	}
 	
 	function getACLOwnerProfileType()
 	{
-		return $this->aclparams->get('other_profiletype',XIPT_PROFILETYPE_ALL);
+		return $this->aclparams->getValue('other_profiletype',null,XIPT_PROFILETYPE_ALL);
 	}
 	
 	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner)
@@ -270,7 +270,7 @@ abstract class XiptAclBase
 		
 		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
 		$paramName = get_class($this).'_limit';
-		$maxmimunCount = $this->aclparams->get($paramName,0);
+		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 		if($count >= $maxmimunCount)
 			return true;
 			
@@ -319,7 +319,7 @@ abstract class XiptAclBase
 	
 	function isApplicableOnSelf($accesserid,$ownerid)
 	{
-		if($this->aclparams->get('acl_applicable_to_self',1) == true)
+		if($this->aclparams->getValue('acl_applicable_to_self',null,1) == true)
 			return true;
 			
 		if($accesserid == $ownerid)
@@ -331,7 +331,7 @@ abstract class XiptAclBase
 	function isApplicableonFriend($accesserid,$ownerid)
 	{   
 		//check rule applicable on friend if yes than return true
-		if($this->aclparams->get('acl_applicable_to_friend',1) == true)
+		if($this->aclparams->getValue('acl_applicable_to_friend',null,1) == true)
 			return true;
 		
 		//check accesser is friend of resource owner, 
@@ -417,12 +417,13 @@ abstract class XiptAclBase
 	{
 		$plan = $this->getCoreParams('core_plan',0);
 
-		//All means applicable
-		if(XIPT_PLAN_ALL == $plan)
-			return true;
-
 		//check if its applicable on more than 1 plan
 		$plan = is_array($plan) ? $plan : array($plan);
+		
+		//All means applicable
+		if(in_array(XIPT_PLAN_ALL, $plan))
+			return true;
+
 		$user = PayplansApi::getUser($data['userid']);
 		
 		//plan matching
@@ -476,12 +477,12 @@ abstract class XiptAclBase
 	
 	function getACLAccesserPlan()
 	{
-		return $this->coreparams->get('core_plan',XIPT_PLAN_NONE);		
+		return $this->coreparams->getValue('core_plan',null,XIPT_PLAN_NONE);		
 	}
 	
 	function getACLOwnerPlan()
 	{
-		return $this->aclparams->get('other_plan',XIPT_PLAN_ALL);
+		return $this->aclparams->getValue('other_plan',null,XIPT_PLAN_ALL);
 	}
 	
 	function isApplicableOnMaxFeatureByPlan($resourceAccesser,$resourceOwner)
@@ -491,7 +492,7 @@ abstract class XiptAclBase
 		
 		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherPlan,$aclSelfPlan);
 		$paramName = get_class($this).'_limit';
-		$maxmimunCount = $this->aclparams->get($paramName,0);
+		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 		if($count >= $maxmimunCount)
 			return true;
 			

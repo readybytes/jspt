@@ -99,13 +99,13 @@ class XiptHelperUtils
 	{
 		// Run Query to return 1 value
 		$db		= JFactory::getDBO();
-		$query	= 'SELECT b.* FROM ' . $db->nameQuote( '#__community_fields' ) . ' AS a '
-				. 'INNER JOIN ' . $db->nameQuote( '#__community_fields_values' ) . ' AS b '
-				. 'ON b.' . $db->nameQuote( 'field_id' ) . '=a.' . $db->nameQuote( 'id' ) . ' '
-				. 'AND b.' . $db->nameQuote( 'user_id' ) . '=' . $db->Quote( $userId ) . ' '
-				. 'INNER JOIN ' . $db->nameQuote( '#__community_users' ) . ' AS c '
-				. 'ON c.' . $db->nameQuote( 'userid' ) . '= b.' . $db->nameQuote( 'user_id' ) 
-				. 'WHERE a.' . $db->nameQuote( 'fieldcode' ) . ' =' . $db->Quote( $fieldCode ); 
+		$query	= 'SELECT b.* FROM ' . $db->quoteName( '#__community_fields' ) . ' AS a '
+				. 'INNER JOIN ' . $db->quoteName( '#__community_fields_values' ) . ' AS b '
+				. 'ON b.' . $db->quoteName( 'field_id' ) . '=a.' . $db->quoteName( 'id' ) . ' '
+				. 'AND b.' . $db->quoteName( 'user_id' ) . '=' . $db->Quote( $userId ) . ' '
+				. 'INNER JOIN ' . $db->quoteName( '#__community_users' ) . ' AS c '
+				. 'ON c.' . $db->quoteName( 'userid' ) . '= b.' . $db->quoteName( 'user_id' ) 
+				. 'WHERE a.' . $db->quoteName( 'fieldcode' ) . ' =' . $db->Quote( $fieldCode ); 
 		
 		$db->setQuery( $query );
 		$result	= $db->loadObject();

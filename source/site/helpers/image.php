@@ -171,8 +171,8 @@ class XiptHelperImage
 		}
 		
 		if($what == 'thumb'){
-			$watermarkWidth  = $watermarkParams->get('xiThumbWidth',0);
-			$watermarkHeight = $watermarkParams->get('xiThumbHeight',0);
+			$watermarkWidth  = $watermarkParams['xiThumbWidth'];
+			$watermarkHeight = $watermarkParams['xiThumbHeight'];
 			
 			//XITODO : here we need to trick as per the JomSocial
 			// we need to modify the code when things changes, currently 
@@ -195,10 +195,10 @@ class XiptHelperImage
 			JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$originalImage);
 
 		// if watermarking is not enable for profile type then return
-		if($watermarkParams->get('enableWaterMark',0) == false)
+		if($watermarkParams['enableWaterMark'] == false)
 			return;
 			
-		$newimagepath = self::showWatermarkOverImage($image,$waterMark,'tmp',$watermarkParams->get('xiWatermarkPosition','br'));
+		$newimagepath = self::showWatermarkOverImage($image,$waterMark,'tmp',$watermarkParams['xiWatermarkPosition']);
 				
 		/*copy user original avatar at one place to remove destroy */
 		//here check if folder exist or not. if not then create it.
@@ -299,5 +299,18 @@ class XiptHelperImage
 			return false;
 		
 		return $watermarkInfo;
+	}
+	
+	//check if avatar is default JS avatar/thumb
+	function isDefaultJomSocialAvatar($avatar)
+	{
+		if(Jstring::stristr( $avatar , DEFAULT_AVATAR )
+				|| Jstring::stristr( $avatar , DEFAULT_AVATAR_THUMB )
+				|| Jstring::stristr( $avatar , DEFAULT_AVATAR_MALE )
+				|| Jstring::stristr( $avatar , DEFAULT_AVATAR_MALE_THUMB )
+				|| Jstring::stristr( $avatar , DEFAULT_AVATAR_FEMALE )
+				|| Jstring::stristr( $avatar , DEFAULT_AVATAR_FEMALE_THUMB )){
+					return true;
+				}
 	}
 }

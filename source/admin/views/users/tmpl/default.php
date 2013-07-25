@@ -100,38 +100,38 @@ function submitbutton( action )
 	if(!empty($this->users))
 	foreach($this->users as $user)
 	{
-		$input	= JHTML::_('grid.id', $count, $user->id);
+		$input	= JHTML::_('grid.id', $count, $user->user_id);
 		
 		++$i;
 ?>
-		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $user->id;?>">
+		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $user->user_id;?>">
 			<td><?php echo $i;?></td>
 			<td>
 				<?php echo $input; ?>
 			</td>
 			<td>
-				<span class="editlinktip" title="<?php echo $user->name; ?>" id="name<?php echo $user->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=users&task=edit&id='.$user->id, false); ?>
+				<span class="editlinktip" title="<?php echo $user->name; ?>" id="name<?php echo $user->user_id;?>">
+					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=users&task=edit&id='.$user->user_id, false); ?>
 						<A HREF="<?php echo $link; ?>"><?php echo $user->name; ?></A>
 				</span>
 			</td>
 			<td>
-				<span class="editlinktip" title="<?php echo $user->username; ?>" id="name<?php echo $user->id;?>">
-					<?php $link = XiptRoute::_('index.php?option=com_community&view=users&layout=edit&id='.$user->id, false); ?>
+				<span class="editlinktip" title="<?php echo $user->username; ?>" id="name<?php echo $user->user_id;?>">
+					<?php $link = XiptRoute::_('index.php?option=com_community&view=users&layout=edit&id='.$user->user_id, false); ?>
 						<A HREF="<?php echo $link; ?>"><?php echo $user->username; ?></A>
 				</span>
 			</td>
 			<td>
-				<?php echo $this->getUserInfo($user->id, 'PROFILETYPE'); ?>
+				<?php echo $this->getUserInfo($user->user_id, 'PROFILETYPE'); ?>
 			</td>
 			<td>
-				<?php echo $this->getUserInfo($user->id, 'TEMPLATE'); ?>
+				<?php echo $this->getUserInfo($user->user_id, 'TEMPLATE'); ?>
 			</td>
 			<td>
 				<?php echo $user->title; ?>
 			</td>
 			<td>
-				<?php echo $user->id; ?>
+				<?php echo $user->user_id; ?>
 			</td>
 		</tr>
 <?php

@@ -69,7 +69,7 @@ function submitbutton(action){
 								<?php echo XiptText::_('JOOMLA_USER_TYPE');?>
 						</label>
 					</div>	
-					<div class="paramValue"><label><?php echo $this->user->usertype;?></label></div>
+					<div class="paramValue"><label><?php echo $this->user->title;?></label></div>
 			</div>					
 										
     	</fieldset>

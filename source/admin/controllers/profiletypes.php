@@ -102,8 +102,9 @@ class XiptControllerProfiletypes extends XiptController
 		//XITODO : Ensure data is reloaded, not cached
 		$newData = $model->loadRecords(0);
 		$newData = $newData[$id];
-		//to reset privacy of users need to load from loadParams
-		$newData->privacy = $model->loadParams($id,XIPT_PRIVACY);		
+		
+		//to reset privacy of users, we will get privacy params
+		$newData->privacy = XiptLibProfiletypes::getParams($id, XIPT_PRIVACY);		
 		
 	    // Reset existing user's 
 		if($post['resetAll'] && isset($oldData)) {

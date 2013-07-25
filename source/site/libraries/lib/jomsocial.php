@@ -239,7 +239,8 @@ class XiptLibJomsocial
 			return true;
 			
 		// Get water is enable or disable
-		$isWaterMarkEnable = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0);
+		$watermarkParams = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams');
+		$isWaterMarkEnable = $watermarkParams['enableWaterMark'];
 		
 		//update watermark on user's avatar
 		$pTypeAvatar  	   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'avatar');

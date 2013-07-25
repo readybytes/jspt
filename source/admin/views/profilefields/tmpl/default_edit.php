@@ -92,10 +92,10 @@ jQuery(document).ready(function($){
 		</table>
 
 <div style="width:30%; float:right;">
-<?php 
-echo $this->pane->startPane( 'stat-pane' );
+<?php
+echo JHtmlSliders::start('slider');
 require("helppanel.php");
-echo $this->pane->endPane();
+echo JHtmlSliders::end();
 ?>
 </div>
 
