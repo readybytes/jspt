@@ -42,18 +42,18 @@ if(!defined('_JEXEC')) die('Restricted access');
 		var disableSubscription = function (disable){ 
 			if(disable == null)
 				return;
-	      $('input[id^=settingsintegrate_with]').attr('disabled',true);
+	      $('input[id^=params_integrate_with]').attr('disabled',true);
 		};
 
-		if(0 == $('input[name=settings[subscription_integrate]]:checked').val()){
+		if(0 == $('input[name=params[subscription_integrate]]:checked').val()){
 			disableSubscription(true);
 			}	
-		$('#settingssubscription_integrate0').click(function(){
+		$('#params_subscription_integrate0').click(function(){
 			disableSubscription(true);
 			});
 		
-		$('#settingssubscription_integrate1').click(function(){
-			$('input[id^=settingsintegrate_with]').attr('disabled',false);
+		$('#params_subscription_integrate1').click(function(){
+			$('input[id^=params_integrate_with]').attr('disabled',false);
 	     });	
 	});
 	

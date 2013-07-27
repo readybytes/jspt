@@ -13,10 +13,7 @@ class XiptHelperUtils
 		if(!$id){
 			return false;
 		}
-
-		if(XIPT_JOOMLA_15){
-			return JFactory::getUser($id)->authorize( 'com_users', 'manage' );
-		}
+		
 		return JFactory::getUser($id)->authorise('core.login.admin');
 	}
 	
@@ -47,41 +44,26 @@ class XiptHelperUtils
 	static function changePluginState($plugin, $state=0)
 	{
 		$query = new XiptQuery();
-		if (XIPT_JOOMLA_15){
-			$result= $query->update('#__plugins')
-					 ->set(" `published` = $state ")
-	          		 ->where(" `element` = '$plugin' ")
-	          		 ->dbLoadQuery("","")
-	          		 ->query();
-		}
-		else{
-			$result= $query->update('#__extensions')
-					 ->set(" `enabled` = $state ")
-	          		 ->where(" `element` = '$plugin' ")
-	          		 ->dbLoadQuery("","")
-	          		 ->query();
-		}		
-	       return $result;
+		
+		$result= $query->update('#__extensions')
+				 ->set(" `enabled` = $state ")
+          		 ->where(" `element` = '$plugin' ")
+          		 ->dbLoadQuery("","")
+          		 ->query();
+	          		 	
+	    return $result;
 	}
 	
 	
 	static function getPluginStatus($plugin)
 	{
 		$query = new XiptQuery();
-		if (XIPT_JOOMLA_15){
-			return $query->select('*')
-					 ->from('#__plugins' )
-					 ->where(" `element` = '$plugin' ")
-					 ->dbLoadQuery("","")
-	          		 ->loadObject();
-		}
-		else{
-			return $query->select('*')
-					 ->from('#__extensions' )
-					 ->where(" `element` = '$plugin' ")
-					 ->dbLoadQuery("","")
-	          		 ->loadObject();
-		}
+		
+		return $query->select('*')
+				 ->from('#__extensions' )
+				 ->where(" `element` = '$plugin' ")
+				 ->dbLoadQuery("","")
+          		 ->loadObject();
 	}
 /**
 * Change filePath according to machine.

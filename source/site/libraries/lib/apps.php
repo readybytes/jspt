@@ -23,22 +23,13 @@ class XiptLibApps
                 continue;
             
             // we want to restrict only community apps and do not restrict our compo
-            if(XIPT_JOOMLA_15){
-	            if($app->_type != 'community' && $app->_name == 'xipt_community')
-	                continue;
-            }
-            
-            else{
-	            if($app->get('_type') != 'community' && $app->get('_name') == 'xipt_community')
-	                continue;
-            }
+            if($app->get('_type') != 'community' && $app->get('_name') == 'xipt_community')
+                continue;
             
 			if(method_exists($app,'onProfileDisplay') != $blockProfileApps)
 				continue;
-			if(XIPT_JOOMLA_15)
-				$appId    = XiptLibApps::getPluginId($app->_name);
-			else
-            	$appId    = XiptLibApps::getPluginId($app->get('_name'));
+			
+            $appId    = XiptLibApps::getPluginId($app->get('_name'));
 			
            // is it not allowed
            if(in_array($appId,$notAllowedApps))
@@ -71,28 +62,16 @@ class XiptLibApps
 		if($plugin == null || !isset($plugin[$folder]) || $reset)
 		{			
 			$query = new XiptQuery();
-			if(XIPT_JOOMLA_15){
-				$plugin[$folder] = $query->select('*')
-							->from('#__plugins')
-							->where(" `folder` = '$folder' ")
-							->dbLoadQuery("","")
-							->loadObjectList('element');
-			}
-			else{
-				$plugin[$folder] = $query->select('*')
-							->from('#__extensions')
-							->where(" `folder` = '$folder' ")
-							->dbLoadQuery("","")
-							->loadObjectList('element');	
-			}
 			
+			$plugin[$folder] = $query->select('*')
+						->from('#__extensions')
+						->where(" `folder` = '$folder' ")
+						->dbLoadQuery("","")
+						->loadObjectList('element');
 		}
 		
 		if(isset($plugin[$folder][$element])){
-			if (XIPT_JOOMLA_15)
-				return $plugin[$folder][$element]->id;
-			else
-				return $plugin[$folder][$element]->extension_id;
+			return $plugin[$folder][$element]->extension_id;
 		}
 			
 		else

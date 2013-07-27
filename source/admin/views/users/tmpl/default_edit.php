@@ -78,7 +78,7 @@ function submitbutton(action){
 <div class="clr"></div>
 	<input type="hidden" name="option" value="com_xipt" />
 	<input type="hidden" name="view" value="users" />
-	<input type="hidden" name="id" value="<?php echo $this->user->id; ?>" />
+	<input type="hidden" name="id" value="<?php echo $this->user->user_id; ?>" />
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

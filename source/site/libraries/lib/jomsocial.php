@@ -86,20 +86,16 @@ class XiptLibJomsocial
 		$user 			= CFactory::getUser($userid);
 		$authorize		= JFactory::getACL();
 		$user->set('usertype',$newUsertype);
-		if (XIPT_JOOMLA_15){
-			$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
-		}
-		else{
-			$group = CACL::getInstance();
-			$newGroup = $group->getGroupID($newUsertype);		
-			$oldGroup = $group->getGroupID($oldUsertype);
-			
-			//remove user from old group
-			JUserHelper::removeUserFromGroup($userid,$oldGroup);
-			
-			//add user to new group
-			JUserHelper::addUserToGroup($userid, $newGroup);
-		}
+		
+		$group = CACL::getInstance();
+		$newGroup = $group->getGroupID($newUsertype);		
+		$oldGroup = $group->getGroupID($oldUsertype);
+		
+		//remove user from old group
+		JUserHelper::removeUserFromGroup($userid,$oldGroup);
+		
+		//add user to new group
+		JUserHelper::addUserToGroup($userid, $newGroup);
 		
 		$user->save();
 		
@@ -277,7 +273,7 @@ class XiptLibJomsocial
 		if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
 			return true;
 
-		if(JFactory::getConfig()->getValue('debug'))
+		if(JFactory::getConfig()->get('debug'))
 			XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar {".USER_AVATAR_BACKUP.DS.$avatarFileName."} in backup folder does not exist.");
 		return false;
 	}

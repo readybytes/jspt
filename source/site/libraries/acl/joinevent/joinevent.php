@@ -72,6 +72,11 @@ class joinevent extends XiptAclBase
 		if('events' != $data['view'])
 			return false;
 
+		//if user is clicking on not attend, then don't restrict him
+		//option, views & task is same for attend and not attend, so checking args
+		if($data['args'][1] == 2)
+			return false;
+			
 		if($data['task']=='updatestatus' || $data['task']=='ajaxupdatestatus')
 				return true;
 

@@ -35,19 +35,19 @@ if(!defined('_JEXEC')) die('Restricted access');
 </script>
 <script type="text/javascript">
 	joms.jQuery(document).ready(function($){
-    	$('select#coreparamsrestrict_by').change(function(){
+    	$('select#coreparams_restrict_by').change(function(){
         	
-    		 $("#coreparamscore_plan-lbl, #aclparamsother_plan-lbl").closest('.xiRow').hide();
+    		 $("#coreparams_core_plan-lbl, #aclparams_other_plan-lbl").closest('.xiRow').hide();
             
              if(this.value == 1) {
-                $("#coreparamscore_plan-lbl, #aclparamsother_plan-lbl").closest('.xiRow').show();
+                $("#coreparams_core_plan-lbl, #aclparams_other_plan-lbl").closest('.xiRow').show();
                 $("#coreparamscore_profiletype, #aclparamsother_profiletype").closest('.xiRow').hide();
              }
              else{
                 $("#coreparamscore_profiletype, #aclparamsother_profiletype").closest('.xiRow').show();
              }
          });
-    	$('#coreparamsrestrict_by').change();
+    	$('#coreparams_restrict_by').change();
 	});
 </script>
 

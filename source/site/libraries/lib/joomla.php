@@ -14,26 +14,13 @@ class XiptLibJoomla
 	function getJUserTypes()
 	{
 		$values= array(JOOMLA_USER_TYPE_NONE);
-		$query 	= new XiptQuery();		
-		if(XIPT_JOOMLA_15)
-		{			  $val	=	$query->select('*')
-			  			  ->from('#__core_acl_aro_groups' )
-			  			  ->where(" `name` <> 'ROOT' ", 'AND')
-			  			  ->where(" `name` <> 'USERS' ", 'AND')
-			  			  ->where(" `name` <> 'Public Frontend' ", 'AND')
-			  			  ->where(" `name` <> 'Public Backend' ", 'AND')
-			  			  ->where(" `name` <> 'Super Administrator' ", 'AND')
-			  			  ->where(" `name` <> 'Administrator' ", 'AND')
-			  			  ->dbLoadQuery("","")
-			  			  ->loadObjectList('name');
-			}		
-		else
-		{			 $val	=	$query->select('*')
-				 		  ->from('#__usergroups' )
-				  		  ->dbLoadQuery("","")
-				  		  ->loadObjectList('title');
+		$query 	= new XiptQuery();
 		
-		}
+		$val	= $query->select('*')
+	 		  ->from('#__usergroups' )
+	  		  ->dbLoadQuery("","")
+	  		  ->loadObjectList('title');
+		
 		if($val)
 			return array_merge($values, array_keys($val)); 		
 		    

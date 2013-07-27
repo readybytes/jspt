@@ -21,11 +21,8 @@ class XiptHelperJomsocial
         
         if($regType === 'jomsocial')
            return XiPTRoute::_('index.php?option=com_community&view=register', false);
-         
-           if(!XIPT_JOOMLA_15){
-           		return XiPTRoute::_('index.php?option=com_users&view=registration', false);
-           }
-        return XiPTRoute::_('index.php?option=com_user&view=register', false);
+        
+        return XiPTRoute::_('index.php?option=com_users&view=registration', false);
     }
 
     function isSupportedJS()

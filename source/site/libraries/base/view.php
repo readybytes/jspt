@@ -7,7 +7,6 @@
 if(!defined('_JEXEC')) die('Restricted access');
 jimport( 'joomla.application.component.view');
 JHTML::_('behavior.tooltip', '.hasTip');
-jimport('joomla.html.pane');
 
 abstract class XiptView extends JViewLegacy
 {	
