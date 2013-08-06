@@ -43,7 +43,7 @@ class XiptModelApplications extends XiptModel
 					 						 ->from('#__xipt_applications')
 					 						 ->where(" `applicationid` = $aid ")
 					 						 ->dbLoadQuery("", "")
-			  		 						 ->loadResultArray();		
+			  		 						 ->loadColumn();		
 	}
 	
 	/*

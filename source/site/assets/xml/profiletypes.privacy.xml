@@ -3,8 +3,8 @@
 	<fieldset name="parameters">
 	
 		<field name="jsPrivacyController" type="radio" label="COM_XIPT_PRIVACY_CONTROLLER" default="1" description="COM_XIPT_PRIVACY_CONTROLLER_TIP">
-			<option value="1">Admin</option>
-  			<option value="0">End-User</option>	
+  			<option value="0">End-User</option>
+  			<option value="1">Admin</option>	
 		</field>
 	
 		<field name="privacyProfileView" type="radio" label="COM_XIPT_PROFILE_PRIVACY" default="30" description="COM_XIPT_PROFILE_PRIVACY_TIPS">

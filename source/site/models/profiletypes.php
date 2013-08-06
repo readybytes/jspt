@@ -47,14 +47,6 @@ class XiptModelProfiletypes extends XiptModel
 			return;
 		}
 		
-		// XITODO : move this to controller
-		unset($data[JUtility::getToken()]);
-        unset($data['option']);
-        unset($data['task']);
-        unset($data['view']);
-        unset($data['id']);
-               
-		//XITODO : bind params 
 //		$param	= new XiptParameter();
 //		$param->loadArray($data);
 //		$params	= $param->toString('XiptINI');

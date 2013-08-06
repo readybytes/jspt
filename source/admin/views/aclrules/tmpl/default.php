@@ -11,15 +11,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 /**
  * This function needs to be here because, Joomla toolbar calls it
  **/ 
- <?php 
-			If(!XIPT_JOOMLA_15)
-			{
-				?>
-			/** FOR JOOMLA1.6 ++**/
-			Joomla.submitbutton=function(action) {
-				submitbutton(action);
-			}
-	  <?php }?>
+
+/** FOR JOOMLA1.6 ++**/
+Joomla.submitbutton=function(action) {
+	submitbutton(action);
+}
 	  
 function submitbutton( action )
 {

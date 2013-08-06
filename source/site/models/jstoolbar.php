@@ -43,7 +43,7 @@ class XiptModelJSToolbar extends XiptModel
 					 						 ->from('#__xipt_jstoolbar')
 					 						 ->where(" `menuid` = $menuid ")
 					 						 ->dbLoadQuery("", "")
-			  		 						 ->loadResultArray();		
+			  		 						 ->loadColumn();
 	}
 	
 	/*

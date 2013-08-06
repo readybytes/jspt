@@ -6,7 +6,7 @@
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
-<div style="text-align:center; width:100%; border-top: solid #DDDDDD 1px; margin-top:20px; padding-top: 5px;">
+<div class="span20" style="text-align:center; width:100%; border-top: solid #DDDDDD 1px; margin-top:20px; padding-top: 5px;">
 	<div>
 		<a href='http://www.joomlaxi.com/downloads/jomsocial-multi-profile-types.html' target="_blank"><?php echo XiptText::_('DOWNLOAD');?></a>
 		| <a href='http://www.joomlaxi.com/support/forum/45-jspt-30.html' target="_blank"><?php echo XiptText::_('SUPPORT');?></a>

@@ -65,11 +65,26 @@
 	background-repeat:no-repeat;
 	}
 	
+#cpanel div.icon a {
+    float: left;
+    height: 150px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 10px;
+    width: 150px;
+}
+#cpanel span {
+	display: block;
+}
 /* CSS for Joomla1.6 */
 
 fieldset.adminform { /* General use */
 	margin: 5px;
 	overflow: hidden;
+	}
+	
+fieldset.adminform input[type="checkbox"]{
+	margin: 0 5px 0 0;
 	}
 	
 .hasTip, .admintable td.key { /* Key text - General use */
@@ -84,30 +99,6 @@ fieldset.adminform { /* General use */
 	width: 150px;
 	}
 	
-label.radiobtn-no, label.radiobtn-yes, label.radiobtn-joomla, label.radiobtn-jomsocial, .radiobtn-owner, .radiobtn-visitor, .radiobtn-both{ /* Value text */
-	clear:none;
-	padding-right:5px;
-	}
-		
-label[class="radiobtn-select box"], label[class="radiobtn-radio options"]{
-	clear:none;
-	padding-right:	5px;
-	}
-	
-label[class="radiobtn-both, plan and profiletype"], label[class="radiobtn-only plan"], label[class="radiobtn-only profiletype"]{
-	clear:none;
-	padding-right:	5px;
-	}
-	
-.radiobtn-public , .radiobtn-member, .radiobtn-friend, .radiobtn-self {
-	clear:none;
-	padding-right:	5px;
-}
-
-.admintable td .radiobtn-no, .admintable td .radiobtn-yes, .admintable td .radiobtn-show, .admintable td .radiobtn-hide, .admintable td .radiobtn-sidebar, .admintable td label[class="radiobtn-main content"]{ /* Value text */
-	clear:none;
-	padding-right:2px;
-	}
 /******** XiptParameter *********/
 
 /* common css for all entites */
@@ -155,6 +146,12 @@ label[class="radiobtn-both, plan and profiletype"], label[class="radiobtn-only p
     float: left;
     margin: 0;
     min-width: 0;
+}
+#JSPT .paramValue label.radio {
+display: inline-block;
+margin-right: 5px;
+vertical-align: top;
+padding-top:5px;
 }
 
 #JSPT .paramlist_key{
@@ -215,6 +212,9 @@ label[class="radiobtn-both, plan and profiletype"], label[class="radiobtn-only p
     margin: 0 2px;
     min-width: 0;
 }
+#JSPT .xiColValue .radio input[type="radio"]{
+    margin-left: 0px;
+}
 
 #JSPT .paramlist tr td{
 	margin: 2px 0 0; 
@@ -262,10 +262,7 @@ width:150px;
 }
 .admintable td.key + td {
 }
-.admintable td .radiobtn-no, .admintable td .radiobtn-yes, .admintable td .radiobtn-show, .admintable td .radiobtn-hide, .admintable td .radiobtn-sidebar, .admintable td label[class="radiobtn-main content"] {
-clear:none;
-padding-right:5px;
-}
+
 #page-media td.key + td div {
 float:left;
 }
@@ -296,7 +293,12 @@ clear:none;
 display:inline;
 min-width:0;
 }
-
+#config-document label.radio {
+display: inline-block;
+margin-right: 5px;
+vertical-align: top;
+padding-top:5px;
+}
 /*****Joomla 17 hack for ordering images*****/
 span.uparrow,span.downarrow{
 background-repeat:no-repeat;

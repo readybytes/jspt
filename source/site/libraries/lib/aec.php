@@ -160,7 +160,7 @@ class XiptLibAec
 					 ->from('#__acctexp_microintegrations')
 					 ->where(" id IN (". implode(',', $planMIs).") ")
 					 ->dbLoadQuery()
-					 ->loadResultArray();
+					 ->loadColumn();
 	}
 	
 	static public function getPlan($planid)

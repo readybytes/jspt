@@ -2,15 +2,6 @@
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <script language="javascript" type="text/javascript">
-<?php 
-		If(!XIPT_JOOMLA_15)
-		{
-			?>
-		/** FOR JOOMLA1.6++ **/
-		Joomla.submitbutton=function(action) {
-			submitbutton(action);
-		}
-  <?php }?>
   
 	function submitbutton(action) {
 		var form = document.adminForm;
@@ -25,8 +16,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 		}
 	}
 </script>
-
-<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 			$("div#xiptAdvanceSettings").css("display","none");
@@ -45,7 +34,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	      $('input[id^=params_integrate_with]').attr('disabled',true);
 		};
 
-		if(0 == $('input[name=params[subscription_integrate]]:checked').val()){
+		if(0 == $('input[name=params\\[subscription_integrate\\]]:checked').val()){
 			disableSubscription(true);
 			}	
 		$('#params_subscription_integrate0').click(function(){
@@ -63,7 +52,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 <form action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm" id="adminForm">
 
-<div class="width-50" style="float:left;">
+<div class="span6" style="float:left;">
 <fieldset class="adminform">
 <legend><?php echo XiptText::_( 'BASIC_SETTINGS' ); ?></legend>
 	<div>
@@ -84,7 +73,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 </div>
 
 
-<div class="width-50" style="float:right;">
+<div class="span6" style="float:right;">
 <fieldset class="adminform">
 <legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE_SETTINGS' ); ?></legend>
 	<div id="xiptAdvanceSettings">

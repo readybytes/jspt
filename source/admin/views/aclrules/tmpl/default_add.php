@@ -21,7 +21,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 </script>
 
-<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	

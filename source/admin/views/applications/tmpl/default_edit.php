@@ -7,7 +7,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 $aModel			= XiptFactory::getInstance( 'applications' , 'model');
 ?>
-<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script language="javascript" type="text/javascript">
+
+	/** FOR JOOMLA1.6++ **/
+	Joomla.submitbutton=function(action) {
+		submitbutton(action);
+	}
+</script>
+
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	// for select all profile type
@@ -41,7 +48,7 @@ jQuery(document).ready(function($){
 <div style="clear: both;"></div>
 
 
-<div class="col width-45" style="float:left;">
+<div class="col span6" style="float:left;">
 	<fieldset class="adminform">
 	<legend><?php echo $aModel->getPlugin($this->applicationId)->name;?></legend>
 		<div id="xiptPtype">
@@ -58,7 +65,7 @@ jQuery(document).ready(function($){
 	</fieldset>
 </div>
 
-<div class="col width-45" style="float:left;">
+<div class="col span6" style="float:left;">
 	<fieldset class="adminform">
 	<legend>
 		<input type="checkBox" id="xiptApplyTo" />

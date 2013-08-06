@@ -381,10 +381,8 @@ class plgSystemxipt_system extends JPlugin
         $content = ob_get_contents();
         ob_clean();
         $doc = JFactory::getDocument();
-		if(XIPT_JOOMLA_15)
-        	JHTML::script('jquery1.4.2.js','components/com_xipt/assets/js/', true);
-        else
-        	JHTML::script('components/com_xipt/assets/js/jquery1.4.2.js');
+		
+        JHTML::script('components/com_xipt/assets/js/jquery1.4.2.js');
         
         $doc->addCustomTag( '<script type="text/javascript">jQuery.noConflict();</script>' );
 

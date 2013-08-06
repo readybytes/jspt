@@ -6,6 +6,14 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 ?>
+<script language="javascript" type="text/javascript">
+
+	/** FOR JOOMLA1.6++ **/
+	Joomla.submitbutton=function(action) {
+		submitbutton(action);
+	}
+</script>
+
 <form action="index.php" id="application-form" method="post" name="adminForm" enctype="multipart/form-data">
 <div id="config-document">
 	<div id="page-main" class="tab">

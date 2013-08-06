@@ -8,15 +8,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 <script language="javascript" type="text/javascript">
 
-<?php 
-		If(!XIPT_JOOMLA_15)
-		{
-			?>
-		/** FOR JOOMLA1.6++ **/
-		Joomla.submitbutton=function(action) {
-			submitbutton(action);
-		}
-  <?php }?>
+	/** FOR JOOMLA1.6++ **/
+	Joomla.submitbutton=function(action) {
+		submitbutton(action);
+	}
 
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
@@ -27,7 +22,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 		submitform( pressbutton );
 	}
 </script>
-<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	// for select all profile type
@@ -91,7 +85,7 @@ jQuery(document).ready(function($){
 		<?php endforeach; ?>
 		</table>
 
-<div style="width:30%; float:right;">
+<div class="span2"; style="width:30%; float:right;">
 <?php
 echo JHtmlSliders::start('slider');
 require("helppanel.php");
@@ -99,7 +93,7 @@ echo JHtmlSliders::end();
 ?>
 </div>
 
-<div class="col width-10" style="float:right;">
+<div class="col span2" style="float:right;">
 	<fieldset class="adminform">
 	<legend>
 		<input type="checkBox" id="xiptApplyTo" />
