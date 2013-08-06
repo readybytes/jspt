@@ -50,12 +50,12 @@
 				<include name="Joomla.tar.gz"/>
 			</fileset>
 		</untar>
-		<!--<copy todir="${joomla.rootpath}/${joomla.folder}" >
+		<copy todir="${joomla.rootpath}/${joomla.folder}" >
 		  <fileset dir="${joomla.rootpath}/${joomla.folder}/Joomla/">
 			<include name="**" />
 		  </fileset>
 		</copy>
-		<delete dir="${joomla.rootpath}/${joomla.folder}/Joomla/" includeemptydirs="true" verbose="true" failonerror="true" />-->
+		<delete dir="${joomla.rootpath}/${joomla.folder}/Joomla/" includeemptydirs="true" verbose="true" failonerror="true" />
 
 		<!--  change owner of files to www-data -->
 		<exec command="sudo chmod -R 777 ." dir="${joomla.rootpath}/${joomla.folder}" />
