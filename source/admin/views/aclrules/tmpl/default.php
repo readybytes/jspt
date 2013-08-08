@@ -46,7 +46,7 @@ function submitbutton( action )
 				<?php echo XiptText::_( 'NUM' ); ?>
 			</th>
 			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->rules ); ?>);" />
+				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" />
 			</th>
 			<th>
 				<?php echo XiptText::_( 'RULE_NAME' ); ?>

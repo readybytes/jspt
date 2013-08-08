@@ -12,15 +12,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 /**
  * This function needs to be here because, Joomla toolbar calls it
  **/ 
- <?php 
-			If(!XIPT_JOOMLA_15)
-			{
-				?>
-			/** FOR JOOMLA1.6 ++**/
-			Joomla.submitbutton=function(action) {
-				submitbutton(action);
-			}
-	  <?php }?>
+/** FOR JOOMLA1.6 ++**/
+Joomla.submitbutton=function(action) {
+	submitbutton(action);
+}
 	  
 function submitbutton( action )
 {
@@ -71,7 +66,7 @@ function submitbutton( action )
 				<?php echo XiptText::_( 'NUM' ); ?>
 			</th>
 			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->users ); ?>);" />
+				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" />
 			</th>
 			<th>
 				<?php echo JHTML::_('grid.sort',   XiptText::_( 'NAME' ) , 'name', $this->order_Dir, $this->order ); ?>
@@ -89,7 +84,7 @@ function submitbutton( action )
 				<?php echo XiptText::_( 'JOOMLA_USER_TYPE' ); ?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort',   XiptText::_( 'USER_ID' ) , 'id', $this->order_Dir, $this->order ); ?>
+				<?php echo JHTML::_('grid.sort',   XiptText::_( 'USER_ID' ) , 'user_id', $this->order_Dir, $this->order ); ?>
 			</th>
 		</tr>		
 	</thead>
@@ -100,14 +95,11 @@ function submitbutton( action )
 	if(!empty($this->users))
 	foreach($this->users as $user)
 	{
-		$input	= JHTML::_('grid.id', $count, $user->user_id);
-		
-		++$i;
 ?>
 		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $user->user_id;?>">
-			<td><?php echo $i;?></td>
+			<td><?php echo $i+1;?></td>
 			<td>
-				<?php echo $input; ?>
+				<?php echo JHTML::_('grid.id', $i++, $user->user_id); ?>
 			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $user->name; ?>" id="name<?php echo $user->user_id;?>">
@@ -160,6 +152,7 @@ function submitbutton( action )
 
 <input type="hidden" name="view" value="users" />
 <input type="hidden" name="option" value="com_xipt" />
+<input type="hidden" name="task" value="users" />
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="filter_order" value="<?php echo $this->order; ?>" />
 <input type="hidden" name="filter_order_Dir" value="<?php echo $this->order_Dir; ?>" />

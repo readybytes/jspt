@@ -42,7 +42,7 @@ function submitbutton( action )
 				<?php echo XiptText::_( '#' ); ?>
 			</th>
 			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
+				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" />
 			</th>
 			<!--<th width="1%">
 				<?php echo XiptText::_( 'PROFILETYPE-ID' ); ?>
