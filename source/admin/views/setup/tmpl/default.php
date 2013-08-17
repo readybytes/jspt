@@ -5,6 +5,9 @@
 **/
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
+if(XIPT_JOOMLA_25){
+	require_once JPATH_ROOT . '/libraries/joomla/html/html/sliders.php';
+}
 ?>
 <script type="text/javascript" language="javascript">
 /**

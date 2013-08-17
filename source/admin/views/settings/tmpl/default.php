@@ -1,5 +1,10 @@
 <?php
 if(!defined('_JEXEC')) die('Restricted access');
+if(XIPT_JOOMLA_25){
+?>
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">jQuery.noConflict();</script>
+<?php }
 ?>
 <script language="javascript" type="text/javascript">
   

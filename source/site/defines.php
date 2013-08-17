@@ -159,6 +159,7 @@ define('XIPT_SETUP_WARNING','warning');
 $version = new JVersion();
 define('XIPT_JOOMLA_16',($version->RELEASE === '1.6'));
 define('XIPT_JOOMLA_15',($version->RELEASE === '1.5'));
+define('XIPT_JOOMLA_25',($version->RELEASE === '2.5'));
 if (XIPT_JOOMLA_15){
 define('XIPT_JOOMLA_EXT_ID','id');
 define('XIPT_JOOMLA_MENU_COMP_ID','componentid');
