@@ -6,7 +6,7 @@
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
-
+<div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
@@ -62,8 +62,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 ?>
 	<tfoot>
 	<tr>
-		<td colspan="15">
-			<?php echo $this->pagination->getListFooter(); ?>
+		<td colspan="15" align="center">
+			<?php echo $this->pagination->getLimitBox(); ?>
 		</td>
 	</tr>
 	</tfoot>
@@ -73,6 +73,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="boxchecked" value="0" />
 </form>	
+</div>
 <?php 
 
 

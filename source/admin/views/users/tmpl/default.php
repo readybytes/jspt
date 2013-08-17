@@ -27,6 +27,7 @@ function submitbutton( action )
 }
 </script>
 
+<div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 <div style="margin-bottom: 10px;">
 <table class="adminform" cellpadding="3">
@@ -141,8 +142,8 @@ function submitbutton( action )
 	 ?>
 	<tfoot>
 	<tr>
-		<td colspan="15">
-			<?php echo $this->pagination->getListFooter(); ?>
+		<td colspan="15" align="center">
+			<?php echo $this->pagination->getLimitBox(); ?>
 		</td>
 	</tr>
 	</tfoot>
@@ -158,4 +159,5 @@ function submitbutton( action )
 <input type="hidden" name="filter_order_Dir" value="<?php echo $this->order_Dir; ?>" />
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>	
+</div>
 <?php 

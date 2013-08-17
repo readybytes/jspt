@@ -56,7 +56,7 @@
 		
 	<!-- SUBSCRIPTION SETTINGS -->
 	<fieldset group="advSubsSettings" name="advSubsSettings">		
-		<field name="subscription_message" type="radio" default="b" label="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION" description="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION_DESC">
+		<field name="subscription_message" type="radio" default="pt" label="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION" description="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION_DESC">
 			<option value="b">Both, Plan and Profiletype</option>
 			<option value="pl">Only Plan</option>
 			<option value="pt">Only Profiletype</option>

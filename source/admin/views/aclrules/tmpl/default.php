@@ -38,6 +38,7 @@ function submitbutton( action )
 	<?php echo XiptText::_('FOLLOWING_PUBLISHED_RULES_WILL_BE_APPLIED_FOR_RESTRICTION');?>
 </div>
 
+<div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
@@ -120,8 +121,8 @@ function submitbutton( action )
 ?>
 	<tfoot>
 	<tr>
-		<td colspan="15">
-			<?php echo $this->pagination->getListFooter(); ?>
+		<td colspan="15" align="center">
+			<?php echo $this->pagination->getLimitBox(); ?>
 		</td>
 	</tr>
 	</tfoot>
@@ -135,4 +136,5 @@ function submitbutton( action )
 <input type="hidden" name="boxchecked" value="0" />
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>	
+</div>
 <?php 

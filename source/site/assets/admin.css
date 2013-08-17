@@ -220,6 +220,20 @@ padding-top:5px;
 	margin: 2px 0 0; 
 }
 
+#JSPT table.adminlist{
+	border: 1px solid #E9E9E9;
+	background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #666666;
+    width: 100%;
+	}
+	
+#JSPT table.adminlist th, #JSPT table.adminlist td {
+    border: 1px solid #E9E9E9;
+    padding: 7px;
+    vertical-align: middle;
+}
 
 .hasTip{
 background-color:#F0F0F0;

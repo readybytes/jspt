@@ -127,18 +127,7 @@ class XiptLibJomsocial
 		
 		XiptError::assert($pID, sprintf(XiptText::_("PID_IS_NOT_VALID"),$pID), XiptError::ERROR);
 		$params = XiptLibProfiletypes::getParams($pID);
-
-		if($params)
-		{
-			//$allParams = $params->toArray();
 		
-
-			if(!empty($allParams)){
-				foreach($allParams as $key => $value)
-					$instance->set($key,$value);
-			}
-
-		}
 		//means guest is looking user profile ,
 		// so we will show them default template
 		$visitingUser	= JRequest::getInt('userid',$loggedInUser->id);
