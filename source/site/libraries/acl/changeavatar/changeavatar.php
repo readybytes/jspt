@@ -30,6 +30,10 @@ class changeavatar extends XiptAclBase
 		if('photos' == $data['view'] && $data['task'] == 'ajaxuploadavatar')
 		 		return true;
 
+		//user can set his any uploaded picture as profile picture
+		if('photos' == $data['view'] && $data['task'] == 'ajaxlinktoprofile')
+		 		return true;
+		
 		if($permission==true)
 		{
 			if('register'== $data['view'] && $data['task'] == 'registeravatar')

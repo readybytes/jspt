@@ -10,7 +10,26 @@ class accessvideocategory extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['viewuserid'];
+		if($data['viewuserid'])
+			return $data['viewuserid'];
+		
+		$videoId = isset($data['videoid']) ? $data['videoid'] : '';
+		$videoId = JRequest::getVar( 'videoid' , $videoId );
+		$conf    = JFactory::getConfig();
+        // if sef is enabled then get actual video id
+		if($conf->get('sef', false) == true && $videoId)
+		{
+			$vId     = explode(":", $videoId);
+			$videoId = $vId[0];
+			
+		}
+		$args		= $data['args'];
+		$videoId	= empty($videoId)? $args[0] : $videoId;
+		
+		$video	    = CFactory::getModel('videos');
+		$videoData  = $video->getVideos(array('id'=>$videoId));
+		$creatorid	= $videoData[0]->creator;
+		return $creatorid;
 	}
 	
 	function checkAclViolation(&$data)
@@ -72,13 +91,13 @@ class accessvideocategory extends XiptAclBase
 	{
 		
 		$allowedCats = $this->aclparams->getValue('video_category');
-		
-		//$allowedCats ==0 means user can access all categories
-		if($allowedCats == 0)
-			return true;
 			
 		//check if its applicable on more than 1 category
 		$allowedCats = is_array($allowedCats) ? $allowedCats : array($allowedCats);
+		
+		//$allowedCats ==0 means user can access all categories
+		if(in_array(0, $allowedCats))
+			return true;
 		
 		//in case, he is accessing categories in videos >> all videos instead of directly accessing video
 		if($data['task'] == 'display'){
@@ -96,7 +115,7 @@ class accessvideocategory extends XiptAclBase
 		
 		$args		= $data['args'];
 		$videoId	= JRequest::getVar('videoid' , 0, 'REQUEST');
-		$videoId	= isset($videoId)? $videoId : $args[0];
+		$videoId	= empty($videoId)? $args[0] : $videoId;
 		$db 		= JFactory::getDBO();
 		$query		= 'SELECT '.$db->quoteName('category_id')
 						.' FROM '.$db->quoteName('#__community_videos')

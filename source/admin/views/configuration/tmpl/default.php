@@ -97,6 +97,7 @@ function submitbutton( action )
 	<tr>
 		<td colspan="15" align="center">
 			<?php echo $this->pagination->getLimitBox(); ?>
+			<?php echo $this->pagination->getListFooter(); ?>
 		</td>
 	</tr>
 	</tfoot>

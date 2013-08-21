@@ -88,7 +88,7 @@ class XiptLibAvatar
 		self::_removeProfilePicture($userId,$pType, $newPath);
 		$view = JRequest::getVar('view','profile','GET');
 		//$task =	JRequest::getVar('task','profile','GET');
-		JFactory::getApplication()->redirect( CRoute::_( "index.php?option=com_community&view=$view&userid=$userId" , false ) , JText::_('CC_PROFILE_PICTURE_REMOVED') );
+		JFactory::getApplication()->redirect( CRoute::_( "index.php?option=com_community&view=$view&userid=$userId" , false ) , XiptText::_('CC_PROFILE_PICTURE_REMOVED') );
 		
 	}
 	

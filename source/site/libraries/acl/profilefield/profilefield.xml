@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset addfieldpath="/components/com_xipt/form" >
-        <field name="Xiprofiletypes" type="profilefields" default="" label="Profiletypes" description="" />
+        <field name="Xiprofiletypes" type="xipt.profilefields" default="" label="Profiletypes" description="" />
         <field name="acl_applicable_to_friend" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_TO_FRIEND_LABEL" description="COM_XIPT_APPLICABLE_TO_FRIEND_DESC">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
