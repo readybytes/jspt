@@ -37,8 +37,12 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	function doRevert()
 	{
 		if(XiptHelperUtils::changePluginState('xipt_community', 0) == false
-			|| XiptHelperUtils::changePluginState('xipt_system', 0) == false)
+			|| XiptHelperUtils::changePluginState('xipt_system', 0) == false) {
 			return false;
+		}
+
+		$object = new XiptSetupRulePatchfiles();
+		$object->dorevert();
 			
 		return true;
 	}

@@ -1,4 +1,4 @@
-### Version 3.6
+### Version 3.7
 ### We store globally definition here
 
 # The root folder location
@@ -18,7 +18,7 @@ project.codename	= ProfileType
 
 
 # Output settings
-file.version		= 3.6
+file.version		= 3.7
 #file.package		= ${project.shortform}_ver${file.version}
 file.package		= ${project.shortform}
 file.compression	= gzip
