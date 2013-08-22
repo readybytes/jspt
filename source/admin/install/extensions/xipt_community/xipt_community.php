@@ -132,11 +132,14 @@ class plgCommunityxipt_community extends CApplications
 			
 		//In JS3.0, it creates one more image as profile-xx.ext
 		//so we have to apply watermark on this also
-		$profile_image = 'images/avatar/'.'profile-'.JFile::getName($new_avatar_path);
-		$profile_image = XiptHelperUtils::getRealPath($profile_image);
+		//during reg this image is not created
+		if($view != 'register' && $task != 'registerAvatar' && $what != 'thumb'){
+			$profile_image = 'images/avatar/'.'profile-'.JFile::getName($new_avatar_path);
+			$profile_image = XiptHelperUtils::getRealPath($profile_image);
+			XiptHelperImage::addWatermarkOnAvatar($userid,$profile_image,$watermarkInfo,$what);
+		}
 		
 		XiptHelperImage::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
-		XiptHelperImage::addWatermarkOnAvatar($userid,$profile_image,$watermarkInfo,$what);
 		return true;
 	}
 

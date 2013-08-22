@@ -250,9 +250,13 @@ class XiptLibJomsocial
 		//add watermark on user avatar image
 		if($pTypeAvatar){
 			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
-			XiptHelperImage::addWatermarkOnAvatar($userid,$profileAvatar,$watermark,'avatar');
 		}
 
+		//during reg this image is not created, so we have to check if it exist before applying
+		if(JFile::exists(JPATH_ROOT. DS. $profileAvatar)){
+			XiptHelperImage::addWatermarkOnAvatar($userid,$profileAvatar,$watermark,'avatar');
+		}
+		
 		//add watermark on thumb image
 		if($pTypeThumbAvatar)
 			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermark,'thumb');
