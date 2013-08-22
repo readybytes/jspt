@@ -130,7 +130,13 @@ class plgCommunityxipt_community extends CApplications
 		if(false == $watermarkInfo)
 			return true;
 			
+		//In JS3.0, it creates one more image as profile-xx.ext
+		//so we have to apply watermark on this also
+		$profile_image = 'images/avatar/'.'profile-'.JFile::getName($new_avatar_path);
+		$profile_image = XiptHelperUtils::getRealPath($profile_image);
+		
 		XiptHelperImage::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
+		XiptHelperImage::addWatermarkOnAvatar($userid,$profile_image,$watermarkInfo,$what);
 		return true;
 	}
 

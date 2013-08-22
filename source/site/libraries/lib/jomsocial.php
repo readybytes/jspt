@@ -231,7 +231,8 @@ class XiptLibJomsocial
 		//update watermark on user's avatar
 		$pTypeAvatar  	   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'avatar');
 		$pTypeThumbAvatar  = XiptLibJomsocial::getUserDataFromCommunity($userid, 'thumb');
-			
+		$profileAvatar	   = 'images/avatar/'.'profile-'.JFile::getName($pTypeAvatar);
+		
 		// no watermark on default avatars
 		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true))
 			return false;
@@ -242,12 +243,15 @@ class XiptLibJomsocial
 		{
 			self::restoreBackUpAvatar($pTypeAvatar);
 			self::restoreBackUpAvatar($pTypeThumbAvatar);
+			self::restoreBackUpAvatar($profileAvatar);
 			return true;
 		}
 		
 		//add watermark on user avatar image
-		if($pTypeAvatar)
+		if($pTypeAvatar){
 			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
+			XiptHelperImage::addWatermarkOnAvatar($userid,$profileAvatar,$watermark,'avatar');
+		}
 
 		//add watermark on thumb image
 		if($pTypeThumbAvatar)
