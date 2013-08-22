@@ -169,7 +169,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	
 	function doRevert()
 	{
-		$filestoreplace = $this->_getJSPTFileList();
+		$filestoreplace = self::_getJSPTFileList();
 	   
 		if($filestoreplace){
 			foreach($filestoreplace AS $sourceFile => $targetFile)
