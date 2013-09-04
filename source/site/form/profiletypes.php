@@ -38,7 +38,7 @@ class JFormFieldProfiletypes extends JFormField
 		}
 		
 		if($size = $this->element['size']){
-			$attr .= 'size="'.$size.'"';
+			$attr .= ' size="'.$size.'"';
 		}
 		
 		return JHTML::_('select.genericlist',  $pTypeArray, $this->name, $attr, 'id', 'name', $this->value);

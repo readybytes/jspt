@@ -10,7 +10,7 @@ jimport('joomla.form.formfield');
 
 class JFormFieldXiptplans extends JFormField
 {
-	public $type = 'xiptPlans';
+	public $type = 'Xiptplans';
 		
 	function getInput(){
 
@@ -35,14 +35,15 @@ class JFormFieldXiptplans extends JFormField
 			$options[]			= $reqnone;
 		}
 		
+		$attr = '';
 		if($this->multiple){
 			$attr .= ' multiple="multiple"';
 		}
 		
 		if($size = $this->element['size']){
-			$attr .= 'size="'.$size.'"';
+			$attr .= ' size="'.$size.'"';
 		}
 		
-		return JHTML::_('select.genericlist', $options, $this->title, $attr, 'plan_id', 'title', $this->value);
+		return JHTML::_('select.genericlist', $options, $this->name, $attr, 'plan_id', 'title', $this->value);
 	}
 }

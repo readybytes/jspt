@@ -34,7 +34,7 @@ if(XIPT_JOOMLA_25){
 
 </script>
 <script type="text/javascript">
-	joms.jQuery(document).ready(function($){
+	jQuery(document).ready(function($){
     	$('select#coreparams_restrict_by').change(function(){
         	
     		 $("#coreparams_core_plan-lbl, #aclparams_other_plan-lbl").closest('.xiRow').hide();
@@ -106,7 +106,7 @@ if(XIPT_JOOMLA_25){
 			<fieldset class="adminform">
 				<legend><?php echo XiptText::_( 'GENERAL_PARAMETERS' ); ?></legend>
 				<?php
-					if ($this->coreParamsHtml)
+					if($this->coreParamsHtml)
 						echo $this->coreParamsHtml;
 					else
 						echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('THERE_ARE_NO_PARAMETERS_FOR_THIS_ITEM')."</div>"
