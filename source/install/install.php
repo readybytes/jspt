@@ -95,7 +95,7 @@ class Com_xiptInstallerScript
 
 	public function preflight($type, $parent)
 	{
-		if($type == 'update' && version_compare(XIPT_VERSION,'3.7','<')){
+		if($type == 'update' && version_compare(XIPT_VERSION,'4.0','<')){
 		self::_migrateProfiletypeFields();
 		self::_migrateACLFields();
 		self::_migrateSettings();
@@ -109,11 +109,9 @@ class Com_xiptInstallerScript
 			return '';
 		}
 		
-		$registry = JRegistry::getInstance($what);
-		$registry->loadString($data, 'INI');
-		$params   = $registry->toArray();
+		$registry =new JRegistry(addslashes($data));
+		return json_encode($registry->toObject());
 		
-		return json_encode($params);
 	}
 
 	//convert all INI field values into JSON
@@ -182,3 +180,4 @@ class Com_xiptInstallerScript
 		$db->setQuery($update_query)->query();
 	}
 }
+
