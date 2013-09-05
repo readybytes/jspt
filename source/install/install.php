@@ -7,6 +7,9 @@
 */
 if(defined('_JEXEC')===false) die('Restricted access' );
 
+if(define('XIPT_VERSION') == false)
+	define('XIPT_VERSION', '@global.version@.@svn.lastrevision@');
+
 class Com_xiptInstallerScript
 {
 	
@@ -20,6 +23,24 @@ class Com_xiptInstallerScript
 	{
 		$this->installExtensions();
 		return true;
+	}
+
+	function postflight($type, $parent)
+	{
+		return $this->_addScript();
+	}
+
+	//Redirects After Installation
+	function _addScript()
+	{
+		
+		?>
+			<script type="text/javascript">
+				window.onload = function(){	
+				  setTimeout("location.href = 'index.php?option=com_xipt&view=install';", 100);
+				}
+			</script>
+		<?php
 	}
 
 	function uninstall($parent)
