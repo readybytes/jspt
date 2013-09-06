@@ -11,20 +11,23 @@ class aecredirect extends XiptAclBase
 	function checkAclViolation($data)
 	{
 
-		$currentURI  	= JURI::getInstance();
-
 		$redirectUrl  	= XiptRoute::_($this->getRedirectUrl());
 		$redirectURI 	= new JURI($redirectUrl);
+		$redirectVar    = $redirectURI->getQuery(true);
 
-		$currVar     = $currentURI->getQuery(true);
-		$redirectVar = $redirectURI->getQuery(true);
-
-
+		//when SEF is enabled, JURI didn't set query as there is no &amp in URL
+		//in this case, we have to take URL without routing, so we can handle it
+		if(empty($redirectVar)){
+			$redirectUrl  	= $this->getRedirectUrl();
+			$redirectURI 	= new JURI($redirectUrl);
+			$redirectVar    = $redirectURI->getQuery(true);
+		}
+		
 		foreach($redirectVar as $key=> $value)
 		{
-			if(array_key_exists($key, $currVar))
+			if(array_key_exists($key, $data))
 			{
-				if($value !=  $currVar[$key])
+				if($value !=  $data[$key])
 					return true;
 			}
 		}

@@ -15,6 +15,14 @@ class redirect extends XiptAclBase
 		$redirectURI 	= new JURI($redirectUrl);
 		$redirectVar = $redirectURI->getQuery(true);
 
+		//when SEF is enabled, JURI didn't set query as there is no &amp in URL
+		//in this case, we have to take URL without routing, so we can handle it
+		if(empty($redirectVar)){
+			$redirectUrl  	= $this->getRedirectUrl();
+			$redirectURI 	= new JURI($redirectUrl);
+			$redirectVar    = $redirectURI->getQuery(true);
+		}
+		
 		foreach($redirectVar as $key=> $value)
 		{
 			if(array_key_exists($key, $data))
