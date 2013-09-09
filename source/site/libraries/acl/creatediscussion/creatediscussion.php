@@ -53,12 +53,12 @@ class creatediscussion extends XiptAclBase
 	{
 		$notAllowedCats = $this->aclparams->getValue('group_category');
 		
-		//$notAllowedCats == 0 means user can't access any category
-		if($notAllowedCats == 0)
-			return false;
-			
 		//check if its applicable on more than 1 category
 		$notAllowedCats = is_array($notAllowedCats) ? $notAllowedCats : array($notAllowedCats);
+		
+		//$notAllowedCats == 0 means user can't access any category
+		if(in_array(0, $notAllowedCats))
+			return false;
 		
 		$groupId	= isset($data['groupid'])? $data['groupid'] : 0;
 		$groupId	= JRequest::getVar('groupid' , $groupId, 'REQUEST');

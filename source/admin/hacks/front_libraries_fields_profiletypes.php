@@ -32,8 +32,9 @@ class CFieldsProfiletypes extends CProfileField
 	 * Convert stored profileType ID to profileTypeName
 	 *
 	 * */
-	function getFieldData($value = 0)
+	function getFieldData($field)
 	{
+		$value = isset($field['value']) ? $field['value'] : 0;
 		return $this->_field->getFieldData($value);
 	}
 	

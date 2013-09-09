@@ -415,6 +415,9 @@ abstract class XiptAclBase
 	
 	public function checkCoreApplicableByPlan($data)
 	{
+		if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_payplans'))
+  			return false;
+  		
 		$plan = $this->getCoreParams('core_plan',0);
 
 		//check if its applicable on more than 1 plan
