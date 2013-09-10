@@ -78,7 +78,7 @@ if(XIPT_JOOMLA_25){
 </div>
 
 
-<div class="span6" style="float:right;">
+<div class="span6" style="float:left;">
 <fieldset class="adminform">
 <legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE_SETTINGS' ); ?></legend>
 	<div id="xiptAdvanceSettings">
