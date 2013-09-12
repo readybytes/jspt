@@ -95,13 +95,19 @@ class XiptLibJomsocial
 		//Bcoz if user has no grp, default grp will be assigned to him by Joomla
 		//add user to new group
 		JUserHelper::addUserToGroup($userid, $newGroup);
-		
+		//remove user from old group or groups (Joomla default reg group and default profile type group)		
+		foreach (JUserHelper::getUserGroups($userid) as $groupId) {
+			if($newGroup == $groupId) {
+				continue;
+			}
+			JUserHelper::removeUserFromGroup($userid,$groupId);
+		}
 		//remove only if groups are different, else user will be removed from new user grp also
 		//and get default Joomla User grp
-		if($oldGroup != $newGroup){
+		//if($oldGroup != $newGroup){
 			//remove user from old group
-			JUserHelper::removeUserFromGroup($userid,$oldGroup);
-		}
+		//	JUserHelper::removeUserFromGroup($userid,$oldGroup);
+		//}
 		
 		$user->save();
 		
