@@ -96,8 +96,12 @@ class XiptLibJomsocial
 		//add user to new group
 		JUserHelper::addUserToGroup($userid, $newGroup);
 		
-		//remove user from old group
-		JUserHelper::removeUserFromGroup($userid,$oldGroup);
+		//remove only if groups are different, else user will be removed from new user grp also
+		//and get default Joomla User grp
+		if($oldGroup != $newGroup){
+			//remove user from old group
+			JUserHelper::removeUserFromGroup($userid,$oldGroup);
+		}
 		
 		$user->save();
 		
