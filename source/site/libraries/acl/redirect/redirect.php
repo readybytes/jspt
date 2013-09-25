@@ -51,7 +51,7 @@ class redirect extends XiptAclBase
 		if(!$user->id)
 			return false;
 
-		if ('com_user' == $data['option'])
+		if ('com_users' == $data['option'])
 			return false;
 
 		if('com_acctexp' == $data['option'])// && 'atexp' != $data['option'])

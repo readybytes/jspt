@@ -286,11 +286,6 @@ class XiptLibProfiletypes
 	 * @param $what : attribute required, default is name
 	 * @return unknown_type
 	 */
-	/*function getProfiletypeData($id=0, $what='name')
-	{
-		$cache =  JFactory::getCache('com_xipt');
-		return $cache->call(array('XiptLibProfiletypes','_getProfiletypeData'),$id=0, $what);
-	}*/
 	
 	function getProfiletypeData($id = 0, $what = 'name')
 	{
@@ -329,11 +324,6 @@ class XiptLibProfiletypes
 	        $pTypeID = XiptFactory::getPluginHandler()->getRegistrationPType();
 	    else
 	        $pTypeID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-     
-		//(fields) Privacy should not be applicable on Admin
-//	    if(XiptHelperUtils::isAdmin($userid) == true){
-//	    	return true;
-//	    }
     	
 	    // filter the fields as per profiletype
 		$model = XiptFactory::getInstance('Profilefields','model');

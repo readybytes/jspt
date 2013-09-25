@@ -45,10 +45,14 @@ class Com_xiptInstallerScript
 
 	function uninstall($parent)
 	{
-		$state=0;
-		$extensions[] 	= array('type'=>'system', 'name'=>'xipt_system');
-		$extensions[] 	= array('type'=>'community',   'name'=>'xipt_community');
-		$this->changeExtensionState($extensions, $state);
+		$setupNames = XiptSetupHelper::getOrderedRules();
+		
+		foreach($setupNames as $setup)
+		{
+			//get object of class
+			$setupObject = XiptFactory::getSetupRule($setup['name']);
+			$setupObject->doRevert();
+		}
 
 		return true;
 	}

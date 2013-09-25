@@ -64,24 +64,5 @@ class XiptHelperApps
 		$html	.= '</span>';		
 		
 		return $html;
-	}	
-	
-//	function buildProfileTypes($apps)
-//	{				
-//		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true);
-//
-//		foreach($apps as $app){
-//			$selectedTypes 	= XiptHelperApps::getProfileTypeArray($app->id);
-//			$html[$app->id] = '';
-//			foreach( $allTypes as $option )
-//			{
-//				$allowed 		 = in_array($option , $selectedTypes ) ? true : false;
-//			  	$image			 = $allowed ? 'tick' : 'publish_x';
-//				$html[$app->id] .= '<td>';
-//			  	$html[$app->id] .= '<img src="images/'.$image.'.png" width="16" height="16" border="0" alt="Published" />';
-//			  	$html[$app->id] .= '</td>';					  
-//			}		
-//		}
-//		return $html;
-//	}	
+	}
 }

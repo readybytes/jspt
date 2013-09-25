@@ -293,18 +293,7 @@ class XiptLibPluginhandler
 		$mysess =  JFactory::getSession();
 		if($mysess->has('requireSetupCleanUp') == true && $mysess->get('requireSetupCleanUp',false) == true)
  				return true;
-
-//		//get all files required for setup
-//		$setupNames = XiptSetupHelper::getOrder();
-//		
-//		foreach($setupNames as $setup)
-//		{
-//			//get object of class
-//			$setupObject = XiptFactory::getSetupRule($setup);
-//			
-//			$setupObject->isRequired();
-//		}	 
-
+		
 		$mysess->get('requireSetupCleanUp',false);
 		return false;
 	}

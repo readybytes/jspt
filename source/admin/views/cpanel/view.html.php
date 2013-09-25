@@ -27,8 +27,6 @@ class XiptViewCpanel extends XiptView
 	{
 		// Set the titlebar text
 		JToolBarHelper::title( XiptText::_( 'CONTROL_PANEL' ), 'xipt' );
-		//JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
-		//JToolBarHelper::custom('aboutus','aboutus','',XiptText::_('ABOUT US'),0,0);
 	}
 	
 	function addIcon( $image , $url , $text , $newWindow = false )

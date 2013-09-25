@@ -27,8 +27,8 @@ class XiptHelperJomsocial
 
     function isSupportedJS()
 	{
-		$inValid = array('1.1','1.2','1.5','1.6');
-		$ver = self::get_js_version();		 
+		$inValid = array('2.4','2.6','2.8');
+		$ver = self::get_js_version();
 		return  !in_array(JString::substr($ver,0,3), $inValid);
  	}
  	

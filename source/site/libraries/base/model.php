@@ -264,19 +264,6 @@ abstract class XiptModel extends JModelLegacy
 		
 		if(empty($data) || !is_array($data))
 			return false;
-			
-		//$xmlPath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS. JString::strtolower($this->getName().".$what.xml");
-//		if($what == 'privacy')
-//			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".".XIPT_PRIVACY.".ini");
-//		else
-//			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
-//		
-//		$iniData = JFile::read($iniPath);
-		
-//		$param	= new XiptParameter();
-//		$param->loadINI($iniData);
-//		$param->loadArray($data);
-//		$iniData	= $param->toString('XiptINI');
 
 		$params = json_encode($data);
 		return $this->save(array($what => $params), $id);
@@ -287,8 +274,6 @@ abstract class XiptModel extends JModelLegacy
 		$record = $this->loadRecords(0);
 		$name	= $this->getName();
 		$xmlPath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.JString::strtolower($name.".$what.xml");
-//		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");
-//		$iniData	= JFile::read($iniPath);
 
 		XiptError::assert(JFile::exists($xmlPath), sprintf(XiptText::_("FILE_DOES_NOT_EXIST"),$xmlPath), XiptError::ERROR);
 		

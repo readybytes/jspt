@@ -19,7 +19,6 @@
 		<filename>defines.php</filename>
 		<filename>license.txt</filename>
 		<filename>router.php</filename>
-		<filename>ini.php</filename>
 		<folder>helpers</folder>			
 		<folder>controllers</folder>
 		<folder>models</folder>
@@ -27,7 +26,6 @@
 		<folder>libraries</folder>
 		<folder>assets</folder>
 		<folder>views</folder>
-		<folder>elements</folder>
 		<folder>form</folder>
 
 	</files>
@@ -37,18 +35,18 @@
 	</languages>
 
 	<administration>
-		<menu link="option=com_xipt" img="../components/com_xipt/images/icon-profiletypes.gif">JomSocial Profile Types</menu>
+		<menu link="option=com_xipt" img="../components/com_xipt/images/icon-profiletypes.gif">COM_XIPT</menu>
 		<submenu>
-			<menu view="cpanel" 		img="../components/com_xipt/assets/images/icon-cpanel.png">Home</menu>
-			<menu view="setup" 			img="../components/com_xipt/assets/images/icon-setup.gif">Setup</menu>
-			<menu view="settings" 		img="../components/com_xipt/assets/images/icon-jspt-settings.png">Settings</menu>
-			<menu view="profiletypes" 	img="../components/com_xipt/assets/images/icon-profiletypes.gif">Profile Types</menu>
-			<menu view="configuration" 	img="../components/com_xipt/assets/images/icon-jspt-config.gif">JS Configuration</menu>
-			<menu view="jstoolbar" 		img="../components/com_xipt/assets/images/icon-jstoolbar.png">JS Toolbar</menu>
-			<menu view="aclrules" 		img="../components/com_xipt/assets/images/icon-aclrules.gif">Access Control</menu>
-			<menu view="profilefields" 	img="../components/com_xipt/assets/images/icon-profilefields.gif">Profile Fields</menu>
-			<menu view="applications" 	img="../components/com_xipt/assets/images/icon-applications.gif">Applications</menu>
-			<menu view="users" 			img="../components/com_xipt/assets/images/icon-users.png">Users</menu>
+			<menu view="cpanel" 		img="../components/com_xipt/assets/images/icon-cpanel.png">COM_XIPT_MENU_HOME</menu>
+			<menu view="setup" 			img="../components/com_xipt/assets/images/icon-setup.gif">COM_XIPT_MENU_SETUP</menu>
+			<menu view="settings" 		img="../components/com_xipt/assets/images/icon-jspt-settings.png">COM_XIPT_MENU_SETTINGS</menu>
+			<menu view="profiletypes" 	img="../components/com_xipt/assets/images/icon-profiletypes.gif">COM_XIPT_MENU_PROFILE_TYPES</menu>
+			<menu view="configuration" 	img="../components/com_xipt/assets/images/icon-jspt-config.gif">COM_XIPT_MENU_JS_CONFIGURATION</menu>
+			<menu view="jstoolbar" 		img="../components/com_xipt/assets/images/icon-jstoolbar.png">COM_XIPT_MENU_JS_TOOLBAR</menu>
+			<menu view="aclrules" 		img="../components/com_xipt/assets/images/icon-aclrules.gif">COM_XIPT_MENU_ACCESS_CONTROL</menu>
+			<menu view="profilefields" 	img="../components/com_xipt/assets/images/icon-profilefields.gif">COM_XIPT_MENU_PROFILE_FIELDS</menu>
+			<menu view="applications" 	img="../components/com_xipt/assets/images/icon-applications.gif">COM_XIPT_MENU_APPLICATIONS</menu>
+			<menu view="users" 			img="../components/com_xipt/assets/images/icon-users.png">COM_XIPT_MENU_USERS</menu>
 		</submenu>
 	
 		<files folder="admin">
@@ -68,6 +66,7 @@
 
 		<languages>
 			<language tag="en-GB">languages/admin/en-GB.com_xipt.ini</language>
+			<language tag="en-GB">languages/admin/en-GB.com_xipt.sys.ini</language>
 		</languages>
 	</administration>
 	

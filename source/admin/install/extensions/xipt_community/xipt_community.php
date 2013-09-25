@@ -262,10 +262,6 @@ class plgCommunityxipt_community extends CApplications
 
 	    // the JomSocial already store values in field tables
 	    // now we need to apply that information to our tables
-//	    $cuser        = CFactory::getUser($userId);
-//	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
-//	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
-
 		$profiletype  = XiptHelperUtils::getInfo($userId, PROFILETYPE_CUSTOM_FIELD_CODE);
 	    $template     = XiptHelperUtils::getInfo($userId,TEMPLATE_CUSTOM_FIELD_CODE);
  		
@@ -329,8 +325,4 @@ class plgCommunityxipt_community extends CApplications
 		CActivityStream::add($act);
 		return true;
 	}
-//	 function onFormSave($fieldName )
-//	 {
-//	 	//JFactory::getApplication()->enqueueMessage("Not chanage your Privacy");
-//	 }
 }

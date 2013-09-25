@@ -47,10 +47,6 @@ class XiptModelProfiletypes extends XiptModel
 			return;
 		}
 		
-//		$param	= new XiptParameter();
-//		$param->loadArray($data);
-//		$params	= $param->toString('XiptINI');
-		
         $params = json_encode($data);
 		return $this->save(array($what => $params), $id);
 	}

@@ -122,9 +122,7 @@ class XiptControllerProfiletypes extends XiptController
 				JFactory::getApplication()->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=resetall&id=$id",false));
 			}
 
-			$this->resetall($id,25000);			
-			//old method
-			//XiptHelperProfiletypes::resetAllUsers($id, $oldData, $newData);	
+			$this->resetall($id,25000);	
 		}
 					
 		$info['id'] = $id;
@@ -195,10 +193,7 @@ class XiptControllerProfiletypes extends XiptController
 		if(!XIPT_TEST_MODE == 0)
     		return $start;
     	
-    	return $this->getView()->resetall($id,$start,$total,$limit);
-		//$mainframe->redirect(XiPTRoute::_("index.php?option=com_xipt&view=profiletypes&task=resetall&start=$start&id=$id",false));
-    	
-			
+    	return $this->getView()->resetall($id,$start,$total,$limit);			
 	}
 	
 	// this function generates thumbnail of watermark
@@ -236,8 +231,6 @@ class XiptControllerProfiletypes extends XiptController
 		else
 			XiptError::raiseWarning('XIPT_THUMB_WAR','THUMBNAIL NOT SUPPORTED');
 		
-		/*if(!cImageCreateThumb( $watermarkPath , $storageThumbnail , XiptHelperImage::getImageType($watermarkPath),$config->get(xiWidth,64)/2,$config->get(xiHeight,64)/2));
-			$info['msg'] .= sprintf(JText::_('ERROR MOVING UPLOADED FILE') , $storageThumbnail);*/
 		return;
 	}
 	

@@ -102,12 +102,6 @@ class XiptLibJomsocial
 			}
 			JUserHelper::removeUserFromGroup($userid,$groupId);
 		}
-		//remove only if groups are different, else user will be removed from new user grp also
-		//and get default Joomla User grp
-		//if($oldGroup != $newGroup){
-			//remove user from old group
-		//	JUserHelper::removeUserFromGroup($userid,$oldGroup);
-		//}
 		
 		$user->save();
 		
@@ -313,19 +307,10 @@ class XiptLibJomsocial
 		$newAvatar	= XiptHelperUtils::getUrlpathFromFilePath($newAvatar);
 		
 		//We must enforce this as we never want to overwrite a custom avatar
-		$isDefault	 = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
-//		$changeAvatarOnSyncUp = self::_changeAvatarOnSyncUp($userAvatar); 
+		$isDefault	 = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true); 
 		
 		if($isDefault == false )
 			return false;
-
-		// we can safely update avatar so perform the operation		
-//		$user->set('_avatar',$newAvatar);
-//		$user->set('_thumb', XiptHelperImage::getThumbAvatarFromFull($newAvatar));
-//		
-//		if(!$user->save())
-//		    return false;
-//	
 
 		$query = new XiptQuery();
 		if(! $query->update('#__community_users')
@@ -399,9 +384,6 @@ class XiptLibJomsocial
 			       ->query())
 			       return false;
 	
-//		if(!$cuser->save( 'params' ))
-//			return false ;
-
 		 //enforce JomSocial to clean cached user
    		self::reloadCUser($userid);	
 		return true;

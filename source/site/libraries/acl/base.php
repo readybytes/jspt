@@ -27,9 +27,6 @@ abstract class XiptAclBase
 			if(JFile::exists($aclxmlpath)){
 				$this->aclparams = XiptParameter::getInstance('aclparams',$aclxmlpath, array('control' => 'aclparams'));
 			}
-//			else{
-//				$this->aclparams = XiptParameter::getInstance('aclparams',''); 
-//				}
 		}
 
 		//Load Core Params if defined for current ACL, if not already loaded
@@ -43,12 +40,7 @@ abstract class XiptAclBase
 			}
 		}
 		
-		//load core params
-//		$coreinipath = dirname(__FILE__).DS.'coreparams.ini';		
-//		$iniData	= JFile::read($coreinipath);
-
 		XiptError::assert(JFile::exists($corexmlpath), $corexmlpath. XiptText::_("FILE_DOES_NOT_EXIST"), XiptError::ERROR);
-//		XiptError::assert(JFile::exists($coreinipath), $coreinipath. XiptText::_("FILE_DOES_NOT_EXIST"), XiptError::ERROR);
 		
 		$this->coreparams = XiptParameter::getInstance('coreparams', $corexmlpath, array('control' => 'coreparams'));
 	}
