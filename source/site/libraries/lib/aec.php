@@ -160,7 +160,7 @@ class XiptLibAec
 					 ->from('#__acctexp_microintegrations')
 					 ->where(" id IN (". implode(',', $planMIs).") ")
 					 ->dbLoadQuery()
-					 ->loadResultArray();
+					 ->loadColumn();
 	}
 	
 	static public function getPlan($planid)
@@ -176,28 +176,4 @@ class XiptLibAec
 
 		return $result[$planid]; 
 	}
-	
-//	static function getVersion()
-//	{
-//		$parser		= JFactory::getXMLParser('Simple');
-//		$xml		= JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_acctexp'.DS.'acctexp.xml';
-//		
-//		//aec 0.14.xx have manifest.xml instead of accexp.xml
-//		$manifest	= JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_acctexp'.DS.'manifest.xml';
-//		if(JFile::exists($manifest))
-//			$xml = $manifest;
-//			
-//		$parser->loadFile( $xml );
-//		$order	= array();
-//		$childrens = $parser->document->children();
-//		$groups = array();
-//		foreach($childrens as $child){
-//			if($child->name() == 'version') 
-//				$aecversion  =	$child->data();
-//							
-//		}
-//		
-//		return $aecversion;
-//	}
-	
 }

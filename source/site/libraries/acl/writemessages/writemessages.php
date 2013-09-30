@@ -10,17 +10,28 @@ class writemessages extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['viewuserid'];	
+		//get resource accessor
+		$resourceAccesser = $this->getResourceAccesser($data);
+		$resourceOwner	  = $data['viewuserid'];
+		
+		$resourceOwner		= is_array($resourceOwner)?$resourceOwner:array($resourceOwner);
+		$resourceAccesser	= is_array($resourceAccesser)?$resourceAccesser:array($resourceAccesser);
+		
+		//Remove resource accessor from resource owner array
+		//As a user can't msg himself
+		$resourceOwner		= array_diff($resourceOwner,$resourceAccesser);
+		
+		return $resourceOwner;
 	}
 	
 	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data)
 	{	
-		$aclSelfPtype = $this->coreparams->get('core_profiletype',-1);
-		$otherptype = $this->aclparams->get('other_profiletype',-1);
+		$aclSelfPtype = $this->coreparams->getValue('core_profiletype',null,-1);
+		$otherptype = $this->aclparams->getValue('other_profiletype',null,-1);
 		
 		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
 		$paramName ='writemessage_limit';
-		$maxmimunCount = $this->aclparams->get($paramName,0);
+		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 		
 		//In JS2.4++, user can msg to more than one user simlutaneously
 		//$totalUsers = $data['count'];
@@ -44,7 +55,7 @@ class writemessages extends XiptAclBase
 
 		/* otherptype o means rule is defined to count message written to any one */
 		if($otherptype == -1 || $otherptype == 0) {
-			$query	= 'SELECT COUNT(*) FROM ' . $db->nameQuote( '#__community_msg' ) . ' AS a'
+			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
 					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
 					. ' AND a.parent=a.id';
 		}
@@ -77,8 +88,6 @@ class writemessages extends XiptAclBase
 
 		if('inbox' != $data['view'])
 			return false;
-
-		$js_version = XiptHelperJomsocial::get_js_version();
 		
 		if($data['task'] == 'ajaxcompose') {
 			//modify whom we are sending msg
@@ -89,36 +98,17 @@ class writemessages extends XiptAclBase
 
 		if($data['task'] == 'ajaxaddreply'){
 			//modify whom we are sending msg
-			if(Jstring::stristr($js_version,'2.2')){
-				$data['viewuserid'] = $data['args'][0];
-			}
-			else{
-				// In Js2.4++, we get msg id in args instead of user id
-				$msgId = $data['args'][0];
-				$data['viewuserid'] = $this->getUserId($msgId);
-				$data['count'] = 1;
-			}
+			// In Js2.4++, we get msg id in args instead of user id
+			$msgId = $data['args'][0];
+			$data['viewuserid'] = $this->getUserId($msgId);
+			$data['count'] = 1;
+			
 			return  true;
 		}
 
 		if($data['task'] == 'write') {
 			//if username give then find user-id
 			$data['viewusername'] = isset($data['viewusername']) ? $data['viewusername']:  '';
-			
-			//In JS2.2.xx, user can send msg to only 1 person at a time
-			//And that person's name is set in "to" variable
-			$viewusername = JRequest::getVar('to',$data['viewusername']);
-			if($viewusername != '') {
-				$db			=& JFactory::getDBO();
-
-				$query = "SELECT * FROM ".$db->nameQuote('#__users')
-						." WHERE ".$db->nameQuote('username')."=".$db->Quote($viewusername);
-
-				$db->setQuery( $query );
-				$user = $db->loadObject();
-
-				if(!empty($user)) $data['viewuserid'] = $user->id;
-			}
 
 			//In JS2.4.xx, user can send msg to many users at a time
 			//And those user ids are set in "friends" variable
@@ -135,16 +125,13 @@ class writemessages extends XiptAclBase
 			return false;
 		}
 
-
 		return false;
 	}
 	
 	function checkAclViolation($data)
 	{	
 		$resourceOwner 		= $this->getResourceOwner($data);
-		$resourceAccesser 	= $this->getResourceAccesser($data);		
-			
-		$resourceOwner		= is_array($resourceOwner)?$resourceOwner:array($resourceOwner);
+		$resourceAccesser 	= $this->getResourceAccesser($data);
 
 		//If user is replying to a message, then we don't need to count no. of users. 
 		if(isset($data['count'])){

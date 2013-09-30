@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 jimport( 'joomla.application.component.model' );
 
-abstract class XiptModel extends JModel
+abstract class XiptModel extends JModelLegacy
 {
 	protected 	$_pagination	 = '';
 	protected	$_query		= null;
@@ -258,36 +258,22 @@ abstract class XiptModel extends JModel
 	
 	function saveParams($data, $id, $what = '')
 	{
-
 	    XiptError::assert($id, sprintf(XiptText::_("ID_DOES_NOT_EXIST"),$id), XiptError::ERROR);
 		
 		XiptError::assert($what, sprintf(XiptText::_("PARAM_DOES_NOT_EXIST"),$what), XiptError::ERROR);
 		
 		if(empty($data) || !is_array($data))
 			return false;
-			
-		//$xmlPath = XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS. JString::strtolower($this->getName().".$what.xml");
-		if($what == 'privacy')
-			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".".XIPT_PRIVACY.".ini");
-		else
-			$iniPath = XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS. JString::strtolower($this->getName().".$what.ini");
-		
-		$iniData = JFile::read($iniPath);
-		
-		$param	= new XiptParameter();
-		$param->loadINI($iniData);
-		$param->loadArray($data);
-		$iniData	= $param->toString('XiptINI');
-		return $this->save(array($what => $iniData), $id);
+
+		$params = json_encode($data);
+		return $this->save(array($what => $params), $id);
 	}
 	
 	function loadParams($id, $what='')
 	{		
 		$record = $this->loadRecords(0);
-		
-		$xmlPath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.JString::strtolower($this->getName().".$what.xml");
-		$iniPath	= XIPT_FRONT_PATH_ASSETS.DS.'ini'.DS.JString::strtolower($this->getName().".$what.ini");
-		$iniData	= JFile::read($iniPath);
+		$name	= $this->getName();
+		$xmlPath 	= XIPT_FRONT_PATH_ASSETS.DS.'xml'.DS.JString::strtolower($name.".$what.xml");
 
 		XiptError::assert(JFile::exists($xmlPath), sprintf(XiptText::_("FILE_DOES_NOT_EXIST"),$xmlPath), XiptError::ERROR);
 		
@@ -297,8 +283,10 @@ abstract class XiptModel extends JModel
 			$what = 'privacy';
 		}
 
-		$config = new XiptParameter($iniData,$xmlPath);
-		if(isset($record[$id])) $config->bind($record[$id]->$what);	
+		$config = XiptParameter::getInstance($name.$what, $xmlPath, array('load_data' => true, 'control' => $what));
+		if(isset($record[$id])){
+			$config->bind(json_decode($record[$id]->$what));
+		}	
 		
 		return $config;
 	}
@@ -306,5 +294,49 @@ abstract class XiptModel extends JModel
 	public function boolean($pk, $column, $value)
 	{
 		return $this->save(array($column => $value), $pk);
+	}
+	
+	function getParamHtml($params, $set = null)
+	{
+		if(!isset($params)){
+			return false;
+		}
+		
+		$fields = $params->getFieldset($set);
+		ob_start();?>
+		<?php JHTML::_('behavior.tooltip'); ?>
+		<div class="xiptParameter">
+		
+		<?php foreach ($fields as $field) : ?>
+			<div class="xiptParameter xiRow" >
+				<?php if ($field->fieldname && $field->fieldname != '&nbsp;'): ?>
+					<div class="xiptParameter xiCol xiColKey">
+						<?php echo $params->getLabel($field->fieldname); ?>
+					</div>
+					<div class="xiptParameter xiCol xiColValue">
+						<?php echo $params->getInput($field->fieldname); ?>
+					</div>
+				<?php else: ?>
+					<div class="xiptParameter xiCol xiColDescription">
+						<?php echo $field->description; ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		<?php endforeach; ?>
+
+		<?php if(count($fields) < 1) : ?>
+			<div class="xiptParameter xiRow">
+				<div class="xiptParameter xiCol"><i>
+				<?php JText::_('COM_PAYPLANS_THERE_ARE_NO_PARAMETER_FOR_THIS_ITEM'); ?>
+				</i></div>
+			</div>
+		<?php endif; ?>
+
+		</div>
+
+		<?php
+		$html = ob_get_contents();
+		ob_end_clean();
+		return $html;
 	}
 }

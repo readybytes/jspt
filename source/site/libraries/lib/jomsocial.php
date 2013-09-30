@@ -86,19 +86,21 @@ class XiptLibJomsocial
 		$user 			= CFactory::getUser($userid);
 		$authorize		= JFactory::getACL();
 		$user->set('usertype',$newUsertype);
-		if (XIPT_JOOMLA_15){
-			$user->set('gid', $authorize->get_group_id( '', $newUsertype, 'ARO' ));
-		}
-		else{
-			$group = CACL::getInstance();
-			$newGroup = $group->getGroupID($newUsertype);		
-			$oldGroup = $group->getGroupID($oldUsertype);
-			
-			//remove user from old group
-			JUserHelper::removeUserFromGroup($userid,$oldGroup);
-			
-			//add user to new group
-			JUserHelper::addUserToGroup($userid, $newGroup);
+		
+		$group = CACL::getInstance();
+		$newGroup = $group->getGroupID($newUsertype);		
+		$oldGroup = $group->getGroupID($oldUsertype);
+		
+		//1st add user to new grp, then remove.
+		//Bcoz if user has no grp, default grp will be assigned to him by Joomla
+		//add user to new group
+		JUserHelper::addUserToGroup($userid, $newGroup);
+		//remove user from old group or groups (Joomla default reg group and default profile type group)		
+		foreach (JUserHelper::getUserGroups($userid) as $groupId) {
+			if($newGroup == $groupId) {
+				continue;
+			}
+			JUserHelper::removeUserFromGroup($userid,$groupId);
 		}
 		
 		$user->save();
@@ -107,7 +109,6 @@ class XiptLibJomsocial
 		return true;
 	}
 	
-
 	/**
 	 * @param  $instance
 	 * @return CConfig
@@ -131,18 +132,7 @@ class XiptLibJomsocial
 		
 		XiptError::assert($pID, sprintf(XiptText::_("PID_IS_NOT_VALID"),$pID), XiptError::ERROR);
 		$params = XiptLibProfiletypes::getParams($pID);
-
-		if($params)
-		{
-			$allParams = $params->toArray();
 		
-
-			if(!empty($allParams)){
-				foreach($allParams as $key => $value)
-					$instance->set($key,$value);
-			}
-
-		}
 		//means guest is looking user profile ,
 		// so we will show them default template
 		$visitingUser	= JRequest::getInt('userid',$loggedInUser->id);
@@ -239,12 +229,14 @@ class XiptLibJomsocial
 			return true;
 			
 		// Get water is enable or disable
-		$isWaterMarkEnable = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0);
+		$watermarkParams = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams');
+		$isWaterMarkEnable = $watermarkParams['enableWaterMark'];
 		
 		//update watermark on user's avatar
 		$pTypeAvatar  	   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'avatar');
 		$pTypeThumbAvatar  = XiptLibJomsocial::getUserDataFromCommunity($userid, 'thumb');
-			
+		$profileAvatar	   = 'images/avatar/'.'profile-'.JFile::getName($pTypeAvatar);
+		
 		// no watermark on default avatars
 		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true))
 			return false;
@@ -255,13 +247,20 @@ class XiptLibJomsocial
 		{
 			self::restoreBackUpAvatar($pTypeAvatar);
 			self::restoreBackUpAvatar($pTypeThumbAvatar);
+			self::restoreBackUpAvatar($profileAvatar);
 			return true;
 		}
 		
 		//add watermark on user avatar image
-		if($pTypeAvatar)
+		if($pTypeAvatar){
 			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
+		}
 
+		//during reg this image is not created, so we have to check if it exist before applying
+		if(JFile::exists(JPATH_ROOT. DS. $profileAvatar)){
+			XiptHelperImage::addWatermarkOnAvatar($userid,$profileAvatar,$watermark,'avatar');
+		}
+		
 		//add watermark on thumb image
 		if($pTypeThumbAvatar)
 			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermark,'thumb');
@@ -276,7 +275,7 @@ class XiptLibJomsocial
 		if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName) && JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$currImagePath))
 			return true;
 
-		if(JFactory::getConfig()->getValue('debug'))
+		if(JFactory::getConfig()->get('debug'))
 			XiptError::raiseWarning("XIPT-SYSTEM-WARNING","User avatar {".USER_AVATAR_BACKUP.DS.$avatarFileName."} in backup folder does not exist.");
 		return false;
 	}
@@ -308,19 +307,10 @@ class XiptLibJomsocial
 		$newAvatar	= XiptHelperUtils::getUrlpathFromFilePath($newAvatar);
 		
 		//We must enforce this as we never want to overwrite a custom avatar
-		$isDefault	 = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true);
-//		$changeAvatarOnSyncUp = self::_changeAvatarOnSyncUp($userAvatar); 
+		$isDefault	 = XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true); 
 		
 		if($isDefault == false )
 			return false;
-
-		// we can safely update avatar so perform the operation		
-//		$user->set('_avatar',$newAvatar);
-//		$user->set('_thumb', XiptHelperImage::getThumbAvatarFromFull($newAvatar));
-//		
-//		if(!$user->save())
-//		    return false;
-//	
 
 		$query = new XiptQuery();
 		if(! $query->update('#__community_users')
@@ -394,9 +384,6 @@ class XiptLibJomsocial
 			       ->query())
 			       return false;
 	
-//		if(!$cuser->save( 'params' ))
-//			return false ;
-
 		 //enforce JomSocial to clean cached user
    		self::reloadCUser($userid);	
 		return true;
@@ -536,7 +523,8 @@ class XiptLibJomsocial
 		CFactory::load('helpers', 'string');
 		$config	= JTable::getInstance( 'configuration' , 'CommunityTable' );
 		$config->load( 'config' );
-		$params	= new XiptParameter( $config->params );
+		$params	= new JRegistry( $config->params );
+		
 		$params->set('profile_multiprofile',$setValue);
 		$config->params	= $params->toString();
 		if(!$config->store())

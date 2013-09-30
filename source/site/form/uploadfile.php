@@ -10,14 +10,19 @@
 
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
-class JElementUploadfile extends JElement
-{
-   public $_name = 'Upload';
-   public function fetchElement($name, $value, &$node, $control_name)
-   {
-      $value = htmlspecialchars(html_entity_decode($value, ENT_QUOTES), ENT_QUOTES);
-      return '<input type="file" name="'.$control_name.'['.$name.']" id="'.$control_name.$name.'" value="'.$value.'" />';
-   }
 
+JFormHelper::loadFieldClass('file');
+jimport('joomla.form.formfield');
+
+class XiptFormFielduploadfile extends JFormFieldFile
+{
+	
+	public  $type = 'uploadfile';
+		
+	protected function getInput()
+	{
+		$this->element['accept'] = '.png';
+		$this->input = $this->value;
+		return parent::getInput();
+	}
 }
-?>

@@ -4,6 +4,11 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 if(!defined('_JEXEC')) die('Restricted access');
+if(XIPT_JOOMLA_25){
+?>
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">jQuery.noConflict();</script>
+<?php }
 ?>
 <script language="javascript" type="text/javascript">
 
@@ -21,7 +26,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 </script>
 
-<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	
@@ -53,7 +57,7 @@ jQuery(document).ready(function($){
 			<option disabled="disabled"></option>
 		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo $acl['title'];?></option>
 		    
-			<?php foreach($this->rules[$acl['name']] as $rule) : ?>
+			<?php foreach($this->rules[(string)$acl->name] as $rule) : ?>
 		    		<option value="<?php echo $rule['name'];?>" ><?php echo $rule['title'];?></option>
 			<?php endforeach; ?> 
 	<?php endforeach; ?>
@@ -67,7 +71,7 @@ jQuery(document).ready(function($){
 <div id="xiptOptionHelper" style= "background-color:#F9F9F9; border:1px solid #efefef; width:40%;  
 									padding:5px; display:none; float:right; margin-top:-225px; margin-right:300px;">
 	<?php foreach($this->groups as $acl) :
-			foreach($this->rules[$acl['name']] as $rule) : ?>
+			foreach($this->rules[(string)$acl->name] as $rule) : ?>
 				<div  id= <?php echo $rule['name']; ?>  style= "display:<?php echo "none";?>">
 				<h3 > <?php echo $rule['title']; ?> </h3>
 				<?php echo $rule['description']; ?>

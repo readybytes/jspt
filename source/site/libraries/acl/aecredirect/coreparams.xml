@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config>
-	<params addpath="/administrator/components/com_xipt/elements" >
-		<param name="core_profiletype" type="profiletypes" addall="true" multiselect="true" size="6" default="" label="COM_XIPT_PROFILETYPE_TO_APPLY_LABLE" description="COM_XIPT_PROFILETYPE_TO_APPLY_DESC" />
-		<param name="core_display_message" type="xipteditor" size="50" default="YOU_ARE_NOT_ALLOWED_TO_ACCESS_THIS_RESOURCE" label="COM_XIPT_DISPLAY_MESSAGE_WHEN_VIOLATING_RULE_LABLE" description="COM_XIPT_DISPLAY_MESSAGE_WHEN_VIOLATING_RULE_DESC" />
-		<param name="core_redirect_url" type="text" size="50" default="index.php?option=com_acctexp&amp;task=subscribe" label="COM_XIPT_REDIRECT_URL_WHEN_VIOLATING_RULE_LABLE" description="COM_XIPT_REDIRECT_URL_WHEN_VIOLATING_RULE_DESC" />
-	</params>
-</config>
+<form>
+	<fieldset addfieldpath="/components/com_xipt/form" >
+		<field name="core_profiletype" type="profiletypes" addall="true" multiple="true" size="6" default="" label="COM_XIPT_PROFILETYPE_TO_APPLY_LABLE" description="COM_XIPT_PROFILETYPE_TO_APPLY_DESC" />
+		<field name="core_display_message" type="xipteditor" size="50" default="PHA+WU9VIEFSRSBOT1QgQUxMT1dFRCBUTyBBQ0NFU1MgVEhJUyBSRVNPVVJDRTwvcD4=" label="COM_XIPT_DISPLAY_MESSAGE_WHEN_VIOLATING_RULE_LABLE" description="COM_XIPT_DISPLAY_MESSAGE_WHEN_VIOLATING_RULE_DESC" />
+		<field name="core_redirect_url" type="text" size="50" default="index.php?option=com_acctexp&amp;task=subscribe" label="COM_XIPT_REDIRECT_URL_WHEN_VIOLATING_RULE_LABLE" description="COM_XIPT_REDIRECT_URL_WHEN_VIOLATING_RULE_DESC" />
+	</fieldset>
+</form>

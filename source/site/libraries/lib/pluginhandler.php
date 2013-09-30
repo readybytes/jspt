@@ -293,18 +293,7 @@ class XiptLibPluginhandler
 		$mysess =  JFactory::getSession();
 		if($mysess->has('requireSetupCleanUp') == true && $mysess->get('requireSetupCleanUp',false) == true)
  				return true;
-
-//		//get all files required for setup
-//		$setupNames = XiptSetupHelper::getOrder();
-//		
-//		foreach($setupNames as $setup)
-//		{
-//			//get object of class
-//			$setupObject = XiptFactory::getSetupRule($setup);
-//			
-//			$setupObject->isRequired();
-//		}	 
-
+		
 		$mysess->get('requireSetupCleanUp',false);
 		return false;
 	}
@@ -323,7 +312,7 @@ class XiptLibPluginhandler
     	$privacyParams  = $modelObj->loadParams($myProfileID,'privacy');
     	
     	// jsPrivacyController == 1 means privacy handle by admin
-    	$result = (1 == $privacyParams->get('jsPrivacyController')) ? true : false;
+    	$result = (1 == $privacyParams->getValue('jsPrivacyController')) ? true : false;
     	return $result;
     }
 

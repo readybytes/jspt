@@ -26,7 +26,7 @@ class XiptFieldsProfiletypesBase
 	
 	static public function getInstance()
 	{				
-		$suffix    	  = JString::stristr(XiptHelperJomsocial::get_js_version(),2.0) ? "Js20" : "Js18"; 
+		$suffix    	  = "Js20"; 
 		$classname = "XiptFieldsProfiletypes".JString::ucfirst($suffix);
 		
 		if(class_exists($classname, true)===false)
@@ -76,7 +76,7 @@ class XiptFieldsProfiletypesBase
 			
 		$visiblePT = XiptLibProfiletypes::getProfiletypeArray(array('visible'=>1));
 		
-		$allowToChangePType = $this->_params->get('allow_user_to_change_ptype_after_reg',0);
+		$allowToChangePType = $this->_params->getValue('allow_user_to_change_ptype_after_reg',null,0);
 		$allowToChangePType = ($allowToChangePType && array_key_exists($pID, $visiblePT)) || XiptHelperUtils::isAdmin($user->id);
 		
 		//if not allowed then show disabled view of ptype

@@ -25,8 +25,8 @@ class joingroup extends XiptAclBase
 		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
 			return false; 
 		
-		$maxmimunCount = $this->aclparams->get('joingroup_limit',0);
-		$aclgroup      = $this->aclparams->get('group_category');
+		$maxmimunCount = $this->aclparams->getValue('joingroup_limit',null,0);
+		$aclgroup      = $this->aclparams->getValue('group_category');
 		$groupid   	   = $data['args'][0];
 		
 		if($aclgroup){
@@ -59,12 +59,12 @@ class joingroup extends XiptAclBase
 		$db		=JFactory::getDBO();
 		
 		$query	= ' SELECT COUNT(*) FROM ' 
-				. $db->nameQuote( '#__community_groups_members' )
-				. ' WHERE ' . $db->nameQuote( 'memberid' ) . '=' . $db->Quote( $resourceAccesser )
-				. ' AND ' . $db->nameQuote( 'approved' ) . '=' . $db->Quote( '1' )
-				. ' AND ' . $db->nameQuote('groupid') . 'IN'
+				. $db->quoteName( '#__community_groups_members' )
+				. ' WHERE ' . $db->quoteName( 'memberid' ) . '=' . $db->Quote( $resourceAccesser )
+				. ' AND ' . $db->quoteName( 'approved' ) . '=' . $db->Quote( '1' )
+				. ' AND ' . $db->quoteName('groupid') . 'IN'
 				. ' (SELECT id FROM '
-				. $db->nameQuote( '#__community_groups' )
+				. $db->quoteName( '#__community_groups' )
 				. "$condition)";
 				
 		$db->setQuery( $query );

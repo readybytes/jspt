@@ -6,8 +6,20 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 $jsModel			= XiptFactory::getInstance( 'jstoolbar' , 'model');
+if(XIPT_JOOMLA_25){
 ?>
 <script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">jQuery.noConflict();</script>
+<?php }
+?>
+<script language="javascript" type="text/javascript">
+
+	/** FOR JOOMLA1.6++ **/
+	Joomla.submitbutton=function(action) {
+		submitbutton(action);
+	}
+</script>
+
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	// for select all profile type
@@ -41,10 +53,9 @@ jQuery(document).ready(function($){
 <div style="clear: both;"></div>
 
 
-<div class="col width-45" style="float:left;">
+<div class="col span6" style="float:left;">
 	<fieldset class="adminform">
-	<legend><?php if(XIPT_JOOMLA_15)echo $this->fields[$this->menuId]->name;
-				  else echo $this->fields[$this->menuId]->title;?></legend>
+	<legend><?php echo $this->fields[$this->menuId]->title;?></legend>
 		<div id="xiptPtype">
 			<div style="float:left; font-weight:bold; margin-left:10%; padding:5px; width:27%; background: #EFEFEF;">
 				<?php echo XiptText::_('FOR_PROFILETYPES');?>
@@ -59,7 +70,7 @@ jQuery(document).ready(function($){
 	</fieldset>
 </div>
 
-<div class="col width-45" style="float:left;">
+<div class="col span6" style="float:left;">
 	<fieldset class="adminform">
 	<legend>
 		<input type="checkBox" id="xiptApplyTo" />
@@ -68,7 +79,7 @@ jQuery(document).ready(function($){
 	
 	<div id="xiptOtherMenu">
 		<?php foreach($this->fields as $id => $field) : ?>
-			<input type="checkbox" name="menuIds[]" value="<?php echo $id;?>"><?php if(XIPT_JOOMLA_15)echo $field->name; else echo $field->title;?>
+			<input type="checkbox" name="menuIds[]" value="<?php echo $id;?>"><?php echo $field->title;?>
 			<div class='clr'></div>
 		<?php endforeach;?> 
 	</div>

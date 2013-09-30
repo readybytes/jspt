@@ -14,9 +14,9 @@ class accesseventcategory extends XiptAclBase
 		$eventId	= JRequest::getVar('eventid' , $eventId, 'REQUEST');
 		
 		$db 		= JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('creator')
-					.' FROM '.$db->nameQuote('#__community_events')
-					.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($eventId);
+		$query		= 'SELECT '.$db->quoteName('creator')
+					.' FROM '.$db->quoteName('#__community_events')
+					.' WHERE '.$db->quoteName('id').' = '.$db->Quote($eventId);
 
 		$db->setQuery( $query );
 		$data['viewuserid'] = $db->loadResult();
@@ -81,7 +81,7 @@ class accesseventcategory extends XiptAclBase
 	
 	function isApplicableForEventCategory($data)
 	{
-		$allowedCats = $this->aclparams->get('event_category');
+		$allowedCats = $this->aclparams->getValue('event_category');
 		
 		//$allowedCats ==0 means user can access all categories
 		if($allowedCats == 0)
@@ -107,9 +107,9 @@ class accesseventcategory extends XiptAclBase
 		$eventId	= isset($data['eventid'])? $data['eventid'] : 0;
 		$eventId	= JRequest::getVar('eventid' , $eventId, 'REQUEST');
 		$db 		= JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('catid')
-						.' FROM '.$db->nameQuote('#__community_events')
-						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($eventId);
+		$query		= 'SELECT '.$db->quoteName('catid')
+						.' FROM '.$db->quoteName('#__community_events')
+						.' WHERE '.$db->quoteName('id').' = '.$db->Quote($eventId);
 
 		$db->setQuery( $query );
 		$catId = $db->loadResult();

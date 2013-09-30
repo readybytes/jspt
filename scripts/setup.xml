@@ -32,7 +32,7 @@
 	<target name="setup" description="build installable package only" depends="config">
 		<phing phingfile="joomla.xml" inheritAll="true" target="setup" />		
 		<phingcall target="copy_kit" />
-		<phingcall target="copy_testcase" />
+		<!--<phingcall target="copy_testcase" />-->
 		<phingcall target="copy_revbuild" />
 		<phingcall target="copy_community" />
 	</target>

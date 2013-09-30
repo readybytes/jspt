@@ -6,30 +6,25 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+jimport('joomla.form.formfield');
 
-class JElementWatermarkPreview extends JElement
+class XiptFormFieldwatermarkpreview extends JFormField
 {
-	/**
-	 * Element name
-	 *
-	 * @access	protected
-	 * @var		string
-	 */
-	var	$_name = 'Image';
-
-	function fetchElement($name, $value, &$node, $control_name)
+	public  $type = 'watermarkpreview';
+		
+	protected function getInput()
 	{
 		/*value contain profiletype id so get watermark from function */
-		$watermark 		 = XiptHelperProfiletypes::getProfileTypeData($value,'watermark'); 
+		$watermark 		 = XiptHelperProfiletypes::getProfileTypeData($this->value,'watermark'); 
 		$generatedImage  = '';
 		/*generate image from watermark */
 		$imagePath 	     = JPATH_ROOT.DS.DEFAULT_DEMOAVATAR;
 		$watermarkPath   = JPATH_ROOT.DS.$watermark;
 		
-		$watermarkParams = XiptLibProfiletypes::getParams($value,'watermarkparams');
+		$watermarkParams = XiptLibProfiletypes::getParams($this->value,'watermarkparams');
 		
 		if(JFile::exists($imagePath) && JFile::exists($watermarkPath))
-			$generatedImage = XiptHelperImage::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$value,$watermarkParams->get('xiWatermarkPosition'));
+			$generatedImage = XiptHelperImage::showWatermarkOverImage($imagePath,$watermarkPath,'ptype_'.$this->value,$watermarkParams['xiWatermarkPosition']);
 		if(DS == '\\')
 			$generatedImage = str_replace('\\','/',$generatedImage);
 		
@@ -42,5 +37,4 @@ class JElementWatermarkPreview extends JElement
 
 		return $html;
 	}
-	
 }

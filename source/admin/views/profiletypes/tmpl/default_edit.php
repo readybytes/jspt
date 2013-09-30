@@ -5,19 +5,19 @@
 **/
 if(!defined('_JEXEC')) die('Restricted access');
 
+if(XIPT_JOOMLA_25){
+	require_once JPATH_ROOT . '/libraries/joomla/html/html/sliders.php';
 ?>
 <script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
 <script type="text/javascript">jQuery.noConflict();</script>
+<?php }
+?>
 <script language="javascript" type="text/javascript">
-<?php 
-If(!XIPT_JOOMLA_15)
-{
-	?>
+
 /** FOR JOOMLA1.6++ **/
 Joomla.submitbutton=function(action) {
 	submitbutton(action);
 }
-<?php }?>
 
 function submitbutton(action){	
 	var form = document.adminForm;
@@ -56,44 +56,44 @@ jQuery(document).ready(function($){
 	var disablePrivacy = function (disable){ 
 		if(disable == null)
 			return;
-      $('input[id^=privacyprivacy]').attr('disabled',true);
-      $('input[id^=privacynotify]').attr('disabled',true);
+      $('input[id^=privacy_privacy]').attr('disabled',true);
+      $('input[id^=privacy_notify]').attr('disabled',true);
 	};
      var disablewatermrkposition= function (disable){
            if(disable == null)
                return;
 
-        $('#watermarkparamsxiWatermarkPosition').children('option[value="lt"]').hide();
-   		$('#watermarkparamsxiWatermarkPosition').children('option[value="lb"]').hide();
-   		$('#watermarkparamsxiWatermarkPosition').children('option[value="rt"]').hide();
-   		$('#watermarkparamsxiWatermarkPosition').children('option[value="rb"]').hide(); 
+        $('#watermarkparams_xiWatermarkPosition').children('option[value="lt"]').hide();
+   		$('#watermarkparams_xiWatermarkPosition').children('option[value="lb"]').hide();
+   		$('#watermarkparams_xiWatermarkPosition').children('option[value="rt"]').hide();
+   		$('#watermarkparams_xiWatermarkPosition').children('option[value="rb"]').hide(); 
      };
 	 
 
-	 if(0 == $('input[name=privacy[jsPrivacyController]]:checked').val()){
+	 if(0 == $('input[name=privacy\\[jsPrivacyController\\]]:checked').val()){
 	    disablePrivacy(true);
 	  }	
-	 $('#privacyjsPrivacyController0').click(function(){
+	 $('#privacy_jsPrivacyController0').click(function(){
 		disablePrivacy(true);
 	  });
 
-	$('#privacyjsPrivacyController1').click(function(){
-	    $('input[id^=privacyprivacy]').attr('disabled',false);
-		$('input[id^=privacynotify]').attr('disabled',false);
+	$('#privacy_jsPrivacyController1').click(function(){
+	    $('input[id^=privacy_privacy]').attr('disabled',false);
+		$('input[id^=privacy_notify]').attr('disabled',false);
      });	
 
-	 if(1 == $('input[name=watermarkparams[typeofwatermark]]:checked').val()){
+	 if(1 == $('input[name=watermarkparams\\[typeofwatermark\\]]:checked').val()){
 		disablewatermrkposition(true); 
 	 }
-	$('#watermarkparamstypeofwatermark1').click(function(){
+	$('#watermarkparams_typeofwatermark1').click(function(){
 		disablewatermrkposition(true);
 	});
 
-	$('#watermarkparamstypeofwatermark0').click(function(){
-		$('#watermarkparamsxiWatermarkPosition').children('option[value="lt"]').show();
-		$('#watermarkparamsxiWatermarkPosition').children('option[value="lb"]').show();
-		$('#watermarkparamsxiWatermarkPosition').children('option[value="rt"]').show();
-		$('#watermarkparamsxiWatermarkPosition').children('option[value="rb"]').show();
+	$('#watermarkparams_typeofwatermark0').click(function(){
+		$('#watermarkparams_xiWatermarkPosition').children('option[value="lt"]').show();
+		$('#watermarkparams_xiWatermarkPosition').children('option[value="lb"]').show();
+		$('#watermarkparams_xiWatermarkPosition').children('option[value="rt"]').show();
+		$('#watermarkparams_xiWatermarkPosition').children('option[value="rb"]').show();
 	 });
 	
 });
@@ -170,8 +170,8 @@ jQuery(document).ready(function($){
 		<fieldset class="adminform">
 		<legend><?php echo XiptText::_( 'PARAMETERS' ); ?>	</legend>
 		
-			<?php echo $this->pane->startPane("parameters-pane");?>
-			<?php echo $this->pane->startPanel(XiptText :: _('ASSIGNMENTS'), 'assignments-page');?>
+			<?php echo JHtmlSliders::start('slider');?>
+			<?php echo JHtmlSliders::panel(XiptText::_('ASSIGNMENTS'), 'assignments-page');?>
 				
 			<div class="elementParams">
 					<div class="paramTitle">						
@@ -215,21 +215,18 @@ jQuery(document).ready(function($){
 					<div class="paramValue"><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></div>
 			</div>				
 						
-							<?php 
-								echo $this->pane->endPanel();								
+							<?php 								
 								
-								echo $this->pane->startPanel(XiptText :: _('PRIVACY_SETTINGS'), 'xiprivacysettings-page');
-								echo $this->privacyParams->render(XIPT_PRIVACY);
-								echo $this->pane->endPanel();
+								echo JHtmlSliders::panel(XiptText::_('PRIVACY_SETTINGS'), 'xiprivacysettings-page');
+								echo $this->getHtml($this->privacyParams);
 								
-								echo $this->pane->startPanel(XiptText::_('REGISTRATION'), 'xiconfiguration-page');
-								echo $this->configParams->render('config');
-								echo $this->pane->endPanel();
+								echo JHtmlSliders::panel(XiptText::_('REGISTRATION'), 'xiconfiguration-page');
+								echo $this->getHtml($this->configParams);
 							
-								echo $this->pane->startPanel(XiptText :: _('WATERMARK'), 'watermark-page');
-								echo $this->watermarkParams->render('watermarkparams');
-								echo $this->pane->endPanel();
-								echo $this->pane->startPanel(XiptText::_('RESET_ALL'), 'resetall-page');
+								echo JHtmlSliders::panel(XiptText::_('WATERMARK'), 'watermark-page');
+								echo $this->getHtml($this->watermarkParams);
+								
+								echo JHtmlSliders::panel(XiptText::_('RESET_ALL'), 'resetall-page');
 							?>
 														
 							<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
@@ -239,9 +236,8 @@ jQuery(document).ready(function($){
 								<div class="paramValue"><?php echo JHTML::_('select.booleanlist',  'resetAll', '', '0' ); ?></div>
 							</div>	
 							
-							<?php 					
-								echo $this->pane->endPanel();
-								echo $this->pane->endPane();
+							<?php 
+								echo JHtmlSliders::end();
 							?>
 		</fieldset>
 	</div>				

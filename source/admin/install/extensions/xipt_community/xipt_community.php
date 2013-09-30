@@ -11,13 +11,13 @@ jimport( 'joomla.plugin.plugin' );
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
-if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'))
+if(!JFolder::exists(JPATH_ROOT.'/components/com_xipt'))
 	return false;
 
-if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php'))
+if(!JFile::exists(JPATH_ROOT.'/components/com_xipt/includes.php'))
  	return false;
  			
-$includeXipt=require_once (JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');	
+$includeXipt=require_once (JPATH_ROOT.'/components/com_xipt/includes.php');	
  		
 if($includeXipt === false)
 	return false;
@@ -107,7 +107,8 @@ class plgCommunityxipt_community extends CApplications
 		//Now apply watermark to images
 		//	for that we don't require to add watermark
 		//	XITODO : format it in proper way
-		if(!XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams')->get('enableWaterMark',0))
+		$watermarkParams = XiptLibProfiletypes::getParams(XiptLibProfiletypes::getUserData($userid),'watermarkparams');
+		if(!$watermarkParams['enableWaterMark'])
 			return true;
 					
 		//check if uploadable avatar is not default ptype avatar
@@ -129,6 +130,15 @@ class plgCommunityxipt_community extends CApplications
 		if(false == $watermarkInfo)
 			return true;
 			
+		//In JS3.0, it creates one more image as profile-xx.ext
+		//so we have to apply watermark on this also
+		//during reg this image is not created
+		if($view != 'register' && $task != 'registerAvatar' && $what != 'thumb'){
+			$profile_image = 'images/avatar/'.'profile-'.JFile::getName($new_avatar_path);
+			$profile_image = XiptHelperUtils::getRealPath($profile_image);
+			XiptHelperImage::addWatermarkOnAvatar($userid,$profile_image,$watermarkInfo,$what);
+		}
+		
 		XiptHelperImage::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
 		return true;
 	}
@@ -252,10 +262,6 @@ class plgCommunityxipt_community extends CApplications
 
 	    // the JomSocial already store values in field tables
 	    // now we need to apply that information to our tables
-//	    $cuser        = CFactory::getUser($userId);
-//	    $profiletype  = $cuser->getInfo(PROFILETYPE_CUSTOM_FIELD_CODE);
-//	    $template     = $cuser->getInfo(TEMPLATE_CUSTOM_FIELD_CODE);
-
 		$profiletype  = XiptHelperUtils::getInfo($userId, PROFILETYPE_CUSTOM_FIELD_CODE);
 	    $template     = XiptHelperUtils::getInfo($userId,TEMPLATE_CUSTOM_FIELD_CODE);
  		
@@ -319,8 +325,4 @@ class plgCommunityxipt_community extends CApplications
 		CActivityStream::add($act);
 		return true;
 	}
-//	 function onFormSave($fieldName )
-//	 {
-//	 	//JFactory::getApplication()->enqueueMessage("Not chanage your Privacy");
-//	 }
 }

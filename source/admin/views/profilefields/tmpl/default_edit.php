@@ -4,19 +4,19 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 if(!defined('_JEXEC')) die('Restricted access');
+if(XIPT_JOOMLA_25){
+	require_once JPATH_ROOT . '/libraries/joomla/html/html/sliders.php';
 ?>
-
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">jQuery.noConflict();</script>
+<?php }
+?>
 <script language="javascript" type="text/javascript">
 
-<?php 
-		If(!XIPT_JOOMLA_15)
-		{
-			?>
-		/** FOR JOOMLA1.6++ **/
-		Joomla.submitbutton=function(action) {
-			submitbutton(action);
-		}
-  <?php }?>
+	/** FOR JOOMLA1.6++ **/
+	Joomla.submitbutton=function(action) {
+		submitbutton(action);
+	}
 
 	function submitbutton(pressbutton) {
 		var form = document.adminForm;
@@ -27,7 +27,6 @@ if(!defined('_JEXEC')) die('Restricted access');
 		submitform( pressbutton );
 	}
 </script>
-<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	// for select all profile type
@@ -91,15 +90,15 @@ jQuery(document).ready(function($){
 		<?php endforeach; ?>
 		</table>
 
-<div style="width:30%; float:right;">
-<?php 
-echo $this->pane->startPane( 'stat-pane' );
+<div class="span2"; style="width:30%; float:right;">
+<?php
+echo JHtmlSliders::start('slider');
 require("helppanel.php");
-echo $this->pane->endPane();
+echo JHtmlSliders::end();
 ?>
 </div>
 
-<div class="col width-10" style="float:right;">
+<div class="col span2" style="float:right;">
 	<fieldset class="adminform">
 	<legend>
 		<input type="checkBox" id="xiptApplyTo" />

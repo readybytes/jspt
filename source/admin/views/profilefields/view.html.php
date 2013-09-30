@@ -38,9 +38,6 @@ class XiptViewProfileFields extends XiptView
 		// Set the titlebar text
 		JToolBarHelper::title( XiptText::_( 'EDIT_FIELD' ), 'profilefields' );
 
-		$pane	=& JPane::getInstance('sliders');
-		$this->assignRef( 'pane'		, $pane );
-
 		// Add the necessary buttons
 		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profilefields');
 		JToolBarHelper::divider();

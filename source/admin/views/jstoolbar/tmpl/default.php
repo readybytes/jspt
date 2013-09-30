@@ -6,7 +6,7 @@
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
-
+<div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
@@ -44,23 +44,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 						<?php echo $id ; ?>
 					</span>
 				</td>
-				<?php if(XIPT_JOOMLA_15){?>
-				<td>
-					<span class="editlinktip" title="<?php echo $field->name; ?>" id="name<?php echo $id;?>">
-						<?php $link = XiptRoute::_('index.php?option=com_xipt&view=jstoolbar&task=edit&id='.$id, false); ?>
-							<a href="<?php echo $link; ?>"><?php echo $field->name; ?></a>
-					</span>
-				</td>
-				<?php
-				}
-				else{ ?>
 				<td>
 					<span class="editlinktip" title="<?php echo $field->title; ?>" id="name<?php echo $id;?>">
 						<?php $link = XiptRoute::_('index.php?option=com_xipt&view=jstoolbar&task=edit&id='.$id, false); ?>
 							<a href="<?php echo $link; ?>"><?php echo $field->title; ?></a>
 					</span>
 				</td>
-				<?php }?>
 				<td align="center" id="profiletype<?php echo $id;?>">
 					<?php echo XiptHelperJSToolbar::getProfileTypeNames($id); ?>
 				</td>			
@@ -73,7 +62,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 ?>
 	<tfoot>
 	<tr>
-		<td colspan="15">
+		<td colspan="15" align="center">
+			<?php echo $this->pagination->getLimitBox(); ?>
 			<?php echo $this->pagination->getListFooter(); ?>
 		</td>
 	</tr>
@@ -84,6 +74,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="boxchecked" value="0" />
 </form>	
+</div>
 <?php 
 
 

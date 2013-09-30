@@ -23,12 +23,12 @@ class uploadavatar extends XiptAclBase
 		else{
 			$ptype = $this->getCoreParams('core_profiletype',XIPT_PROFILETYPE_ALL);
 	
-			//All means applicable
-			if(XIPT_PROFILETYPE_ALL == $ptype)
-				return true;
-	
 			//check if its applicable on more than 1 ptype
 			$ptype = is_array($ptype)?$ptype:array($ptype);
+			
+			//All means applicable
+			if(in_array(XIPT_PROFILETYPE_ALL, $ptype))
+				return true;
 			
 			//profiletype matching
 			$userpt = JFactory::getSession()->get('sessionpt', false, 'XIPT');
@@ -74,7 +74,7 @@ class uploadavatar extends XiptAclBase
 		}
 		
 		$session	= JFactory::getSession();
-		$permission = $this->aclparams->get('upload_avatar_at_registration',false);
+		$permission = $this->aclparams->getValue('upload_avatar_at_registration',null,false);
 		$post		= JRequest::get('post');
 		
 		//check whether user has actually uploaded a avatar 
@@ -103,6 +103,8 @@ class uploadavatar extends XiptAclBase
 			$userAvatar = CFactory::getUser($userId)->_avatar;
 			//if avatar is deafaul then force to upload avatar
 			if(JString::stristr( $userAvatar , 'components/com_community/assets/default.jpg') 
+				|| JString::stristr( $userAvatar , 'components/com_community/assets/user-Female.png')
+				|| JString::stristr( $userAvatar , 'components/com_community/assets/user-Male.png')
 				|| empty($userAvatar)
 					|| JString::stristr($userAvatar,$ptypeavatar)) {
 				$session->set('uploadAvatar',true,'XIPT');

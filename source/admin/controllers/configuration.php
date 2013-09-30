@@ -31,7 +31,7 @@ class XiptControllerConfiguration extends XiptController
 			$postData	= JRequest::get('post', JREQUEST_ALLOWRAW );
 
 		// unset the data which is not required
-		unset($postData[JUtility::getToken()]);
+		unset($postData[JSession::getFormToken()]);
 		unset($postData['option']);
 		unset($postData['task']);
 		unset($postData['view']);

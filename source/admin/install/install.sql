@@ -40,17 +40,18 @@ CREATE TABLE IF NOT EXISTS `#__xipt_profiletypes` (
   `ordering` int(10) DEFAULT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `tip` text NOT NULL,
-  `privacy` varchar(20) NOT NULL DEFAULT 'friends',
+  `privacy` text NOT NULL,
   `template` varchar(50) NOT NULL DEFAULT 'default',
   `jusertype` varchar(50) NOT NULL DEFAULT 'Registered',
   `avatar` varchar(250) NOT NULL DEFAULT 'components/com_community/assets/user.png',
   `approve` tinyint(1) NOT NULL DEFAULT '0',
   `allowt` tinyint(1) NOT NULL DEFAULT '0',
-  `group` int(11) NOT NULL DEFAULT '0',
+  `group` text NOT NULL,
   `watermark` varchar(250) NOT NULL,
   `params` text NOT NULL,
   `watermarkparams` text NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
+  `config` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -82,5 +83,4 @@ CREATE TABLE IF NOT EXISTS `#__xipt_jstoolbar` (
 
 INSERT IGNORE INTO `#__xipt_settings` (`name`, `params`) VALUES
 ('settings', '');
-
 

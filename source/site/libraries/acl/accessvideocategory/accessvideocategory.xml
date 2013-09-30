@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config>
-<params addpath="/components/com_xipt/elements" >
-	<param name="video_category" type="videocategory" addall="true" multiselect="true" default="" label="COM_XIPT_VIDEO_CATEGARIES_LABEL" description="COM_XIPT_VIDEO_CATEGORY_TO_APPLY_DESC" />
-	<param name="acl_applicable_to_friend" type="xiradio" size="50" default="1" label="COM_XIPT_APPLICABLE_TO_FRIEND_LABEL" description="COM_XIPT_APPLICABLE_TO_FRIEND_DESC">
+<form>
+<fieldset addfieldpath="/components/com_xipt/form" >
+	<field name="video_category" type="videocategory" addall="true" multiple="true" default="" label="COM_XIPT_VIDEO_CATEGARIES_LABEL" description="COM_XIPT_VIDEO_CATEGORY_TO_APPLY_DESC" />
+	<field name="acl_applicable_to_friend" type="radio" size="50" default="1" label="COM_XIPT_APPLICABLE_TO_FRIEND_LABEL" description="COM_XIPT_APPLICABLE_TO_FRIEND_DESC">
 		<option value="0">No</option>
 		<option value="1">Yes</option>
-	</param>
-	<param name="acl_applicable_to_self" type="xiradio" size="50" default="1" label="COM_XIPT_APPLICABLE_TO_SELF_LABEL" description="COM_XIPT_APPLICABLE_TO_SELF_DESC">
+	</field>
+	<field name="acl_applicable_to_self" type="radio" size="50" default="1" label="COM_XIPT_APPLICABLE_TO_SELF_LABEL" description="COM_XIPT_APPLICABLE_TO_SELF_DESC">
 		<option value="0">No</option>
 		<option value="1">Yes</option>
-	</param>
-</params>
-</config>
+	</field>
+</fieldset>
+</form>

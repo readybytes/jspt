@@ -21,9 +21,9 @@ class CFieldsTemplates extends CProfileField
 
 	//TODO : add FormatData and Validate
 	
-	function getFieldData( $value )
+	function getFieldData($field)
 	{
-		return $this->_field->getFieldData($value);		
+		return $this->_field->getFieldData($field['value']);		
 	}
 	
 	function getFieldHTML($field, $required )

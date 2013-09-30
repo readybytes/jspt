@@ -64,7 +64,7 @@ class XiptModelUsers extends XiptModel
 		
 		if($ptype != 0 || $ptype != XIPT_PROFILETYPE_ALL)
 		{
-			$joinQuery	.= ' INNER JOIN ' . $db->nameQuote( '#__xipt_users' ) . ' AS c '
+			$joinQuery	.= ' INNER JOIN ' . $db->quoteName( '#__xipt_users' ) . ' AS c '
 						. ' ON a.id = c.userid ';
 
 			if(!empty($search))
@@ -73,7 +73,12 @@ class XiptModelUsers extends XiptModel
 				$searchQuery	.= ' WHERE c.profiletype=' . $db->Quote( $ptype );		
 		}
 		
-		$query	= 'SELECT * FROM ' . $db->nameQuote( '#__users' ) . ' AS a '
+		$new_join = ' LEFT JOIN ' . $db->quoteName('#__user_usergroup_map') . " AS map on (a.id = map.user_id)"
+						. " LEFT JOIN " . $db->quoteName('#__usergroups') . " As ug "
+						. " ON map.group_id=ug.id ";
+						
+		$query	= 'SELECT * FROM ' . $db->quoteName( '#__users' ) .' AS a '
+				. $new_join
 				. $joinQuery
 				. $searchQuery
 				. $orderby;
@@ -88,7 +93,7 @@ class XiptModelUsers extends XiptModel
 		}
 		else{
 			$db->setQuery( $query );
-			$result	 = $db->loadObjectList('id');
+			$result	 = $db->loadObjectList('user_id');
 			
 			if(isset($result[$userid]))
 				return $result[$userid];

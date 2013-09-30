@@ -169,7 +169,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	
 	function doRevert()
 	{
-		$filestoreplace = $this->_getJSPTFileList();
+		$filestoreplace = self::_getJSPTFileList();
 	   
 		if($filestoreplace){
 			foreach($filestoreplace AS $sourceFile => $targetFile)
@@ -237,24 +237,24 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	function isAdminUserModelPatchRequired()
 	{
 		// no need to pacth the admin user model in jspt 2.0
-		if(JString::stristr(XiptHelperJomsocial::get_js_version(),"2.")) return false;
-
-		// we need to patch User Model
-		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
-		if (JFile::exists($filename)) {
-			
-			if(!is_readable($filename)) 
-				XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
-			
-			$file =JFile::read($filename);
-			
-			$searchString = '$pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);';
-			$count = substr_count($file,$searchString);
-			if($count >= 1)
-				return false;
-				
-			return true;
-		}	
+//		if(JString::stristr(XiptHelperJomsocial::get_js_version(),"2.")) return false;
+//
+//		// we need to patch User Model
+//		$filename = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_community'.DS.'models'.DS.'users.php';
+//		if (JFile::exists($filename)) {
+//			
+//			if(!is_readable($filename)) 
+//				XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
+//			
+//			$file =JFile::read($filename);
+//			
+//			$searchString = '$pluginHandler->onProfileLoad($userId, $result, __FUNCTION__);';
+//			$count = substr_count($file,$searchString);
+//			if($count >= 1)
+//				return false;
+//				
+//			return true;
+//		}	
 		return false;
 	}
 	

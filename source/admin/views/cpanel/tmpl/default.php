@@ -5,6 +5,9 @@
 **/
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
+if(XIPT_JOOMLA_25){
+	require_once JPATH_ROOT . '/libraries/joomla/html/html/sliders.php';
+}
 ?>
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 <table width="100%" border="0">
@@ -15,36 +18,29 @@ if(!defined('_JEXEC')) die('Restricted access');
 				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', XiptText::_('SETTINGS'));?>
 				<?php echo $this->addIcon('profiletypes.png','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
 				<?php echo $this->addIcon('jspt-config.png','index.php?option=com_xipt&view=configuration', XiptText::_('JSCONFIGURATION'));?>
-			</div>
-			<div class='clr'></div>
-			<div id='cpanel'>
+				
 				<?php echo $this->addIcon('jstoolbar.png','index.php?option=com_xipt&view=jstoolbar', XiptText::_('JS_TOOLBAR'));?>
 				<?php echo $this->addIcon('aclrules.gif','index.php?option=com_xipt&view=aclrules', XiptText::_('ACCESS_CONTROL'));?>
 				<?php echo $this->addIcon('profilefields.gif','index.php?option=com_xipt&view=profilefields', XiptText::_('PROFILE_FIELDS'));?>
 				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', XiptText::_('APPLICATIONS'));?>
-			</div>
-			<div class='clr'></div>
-			<div id='cpanel'>
+				
 				<?php echo $this->addIcon('users.png','index.php?option=com_xipt&view=users', XiptText::_('USERS'));?>
 			</div>
 		</td>
 		<td width="45%" valign="top">
 			<?php 
-				echo $this->pane->startPane( 'stat-pane' );
+				echo JHtmlSliders::start('slider');
 				
-				echo $this->pane->startPanel( 'Welcome', 'welcome' );
+				echo JHtmlSliders::panel( 'Welcome', 'welcome' );
 				echo $this->loadTemplate('welcome');
-				echo $this->pane->endPanel();
 				
-				echo $this->pane->startPanel( 'JSPT Updates', 'updates' );
+				echo JHtmlSliders::panel( 'JSPT Updates', 'updates' );
 				echo $this->loadTemplate('updates');
-				echo $this->pane->endPanel();
 				
-				echo $this->pane->startPanel( 'JoomlaXi News', 'aboutus' );
+				echo JHtmlSliders::panel( 'JoomlaXi News', 'aboutus' );
 				echo $this->loadTemplate('news');
-				echo $this->pane->endPanel();
 				
-				echo $this->pane->endPane();
+				echo JHtmlSliders::end();
 			?>
 		</td>
 	</tr>

@@ -59,7 +59,6 @@ class XiptLibProfiletypes
 				case 'privacy':
 					$newPrivacy = $newData['privacy'];
 					XiptError::assert($newPrivacy);
-					$newPrivacy = $newPrivacy->toArray();
 							
 					XiptLibJomsocial::updateCommunityUserPrivacy($userid,$newPrivacy);
 					break;
@@ -170,9 +169,9 @@ class XiptLibProfiletypes
 		if($what == 'ALL'  || $what == 'privacy')
 		{
 			$feature[] = 'privacy';
-			$pModel = XiptFactory::getInstance('profiletypes','model');
-			$oldPrivacy	= $pModel->loadParams($prevProfiletype,'privacy');
-			$newPrivacy	= $pModel->loadParams($ptype,'privacy');
+			
+			$oldPrivacy	= self::getParams($prevProfiletype,'privacy');
+			$newPrivacy	= self::getParams($ptype,'privacy');
 			
 			$oldData['privacy']	=$oldPrivacy;
 			$newData['privacy']	= $newPrivacy;
@@ -194,7 +193,8 @@ class XiptLibProfiletypes
 		if($defaultProfiletypeID)
 			return  $defaultProfiletypeID;
 		
-		echo XiptFactory::getSettings()->render();
+		$settings = XiptFactory::getSettings();
+		$settings_model = XiptFactory::getInstance('Settings', 'model')->getParamHtml($settings);
 		XiptError::raiseWarning('DEF_PTYPE_REQ','DEFAULT PROFILE TYPE REQUIRED');
 	}
 	
@@ -286,11 +286,6 @@ class XiptLibProfiletypes
 	 * @param $what : attribute required, default is name
 	 * @return unknown_type
 	 */
-	/*function getProfiletypeData($id=0, $what='name')
-	{
-		$cache =  JFactory::getCache('com_xipt');
-		return $cache->call(array('XiptLibProfiletypes','_getProfiletypeData'),$id=0, $what);
-	}*/
 	
 	function getProfiletypeData($id = 0, $what = 'name')
 	{
@@ -329,11 +324,6 @@ class XiptLibProfiletypes
 	        $pTypeID = XiptFactory::getPluginHandler()->getRegistrationPType();
 	    else
 	        $pTypeID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-     
-		//(fields) Privacy should not be applicable on Admin
-//	    if(XiptHelperUtils::isAdmin($userid) == true){
-//	    	return true;
-//	    }
     	
 	    // filter the fields as per profiletype
 		$model = XiptFactory::getInstance('Profilefields','model');
@@ -416,7 +406,16 @@ class XiptLibProfiletypes
 	{
 		$model = XiptFactory::getInstance('Profiletypes','model');
 		$params = $model->loadParams($id,$what);
-		return $params;		
+		
+		$data = null;
+      	foreach ((Array)$params as $key => $val) {
+        	if($val instanceof JRegistry){
+        		$data = &$val;
+        		break;
+        	}
+    	}
+    	$data = $data->toArray();
+    	return $data;
 	}
 	
 }

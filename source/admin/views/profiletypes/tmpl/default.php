@@ -37,12 +37,13 @@ function submitbutton( action )
 }
 </script>
 
+<div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
+				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" />
 			</th>
 			<th width="1%">
 				<?php echo XiptText::_( 'PROFILETYPE-ID' ); ?>
@@ -111,8 +112,7 @@ function submitbutton( action )
 			
 			<td align="center" id="watermark<?php echo $field->id;?>">
 					<?php	$wm = $field->watermarkparams;
-					$wmparams = new XiptParameter($wm, '');
-					if($wmparams->get('enableWaterMark',0)):  ?>				
+					if($wm['enableWaterMark']):  ?>				
 				<img src="<?php echo XiptHelperUtils::getAvatarPath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
 					<?php endif; ?>
 				</td>
@@ -167,7 +167,8 @@ function submitbutton( action )
 ?>
 	<tfoot>
 	<tr>
-		<td colspan="15">
+		<td colspan="15" align="center">
+			<?php echo $this->pagination->getLimitBox(); ?>
 			<?php echo $this->pagination->getListFooter(); ?>
 		</td>
 	</tr>
@@ -179,5 +180,6 @@ function submitbutton( action )
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="boxchecked" value="0" />
 <?php echo JHTML::_( 'form.token' ); ?>
-</form>	
+</form>
+</div>
 <?php 

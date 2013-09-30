@@ -47,18 +47,7 @@ class XiptModelProfiletypes extends XiptModel
 			return;
 		}
 		
-		// XITODO : move this to controller
-		unset($data[JUtility::getToken()]);
-        unset($data['option']);
-        unset($data['task']);
-        unset($data['view']);
-        unset($data['id']);
-               
-		//XITODO : bind params 
-		$param	= new XiptParameter();
-		$param->loadArray($data);
-		$params	= $param->toString('XiptINI');
-		
+        $params = json_encode($data);
 		return $this->save(array($what => $params), $id);
 	}
 	
@@ -72,12 +61,19 @@ class XiptModelProfiletypes extends XiptModel
 			return $this->_params[$id]; 		
 		
 		$record = $this->loadRecords(0);
-		
+		$config = CFactory::getConfig();
 		// if config not found from tabale then load default config of jom social
-		if(!isset($record[$id]->params) || empty($record[$id]->params))
-			$this->_params[$id] = CFactory::getConfig();
-		else
-			$this->_params[$id] = new XiptParameter( $record[$id]->params );
+		if(!($record[$id]->params)){
+			$this->_params[$id] = $config;
+		}
+		else{
+			$params = json_decode($record[$id]->params);
+			
+			foreach($params as $key => $value){
+				$config->set($key, $value);
+			}
+			$this->_params[$id] = $config;
+		}
 			
 		return $this->_params[$id];
 	}

@@ -16,24 +16,13 @@ class XiptModelApplications extends XiptModel
 	{		
 		$query = new XiptQuery();
 		
-		if (XIPT_JOOMLA_15){
-			$result = $query->select('*')
-			        		->from('#__plugins')
-						    ->where(" `folder` = 'community' ")
-							->order('ordering')
-							->limit($limit,$limitstart)
-							->dbLoadQuery("","")
-							->loadObjectList($indexBy);
-		}
-		else{
-			$result = $query->select('*')
-			        		->from('#__extensions')
-						    ->where(" `folder` = 'community' ")
-							->order('ordering')
-							->limit($limit,$limitstart)
-							->dbLoadQuery("","")
-							->loadObjectList($indexBy);
-		}
+		$result = $query->select('*')
+		        		->from('#__extensions')
+					    ->where(" `folder` = 'community' ")
+						->order('ordering')
+						->limit($limit,$limitstart)
+						->dbLoadQuery("","")
+						->loadObjectList($indexBy);
 		
 		if($pluginId == null && $result)
 			return $result;
@@ -54,7 +43,7 @@ class XiptModelApplications extends XiptModel
 					 						 ->from('#__xipt_applications')
 					 						 ->where(" `applicationid` = $aid ")
 					 						 ->dbLoadQuery("", "")
-			  		 						 ->loadResultArray();		
+			  		 						 ->loadColumn();		
 	}
 	
 	/*

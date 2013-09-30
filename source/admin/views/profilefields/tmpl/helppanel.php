@@ -6,7 +6,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	
 	// Jom Social Profile field comfiguration
 			
-	echo $this->pane->startPanel( '1. Jom Social Profile Field Configuration', 'jsprofilefield' );
+	echo JHtmlSliders::panel( '1. Jom Social Profile Field Configuration', 'jsprofilefield' );
 	?>
 	<ol>
 		<?php if($this->field->published == 0){?><li>This field is <span style="color:red;">Not Published</span> in Jom Social Custom Profiles. Please Publish it.</li><?php }?>
@@ -19,9 +19,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 				}?>
 	</ol>
 	<?php 
-	echo $this->pane->endPanel();
 	
-	echo $this->pane->startPanel( '2. Allow', 'allow' );
+	echo JHtmlSliders::panel( '2. Allow', 'allow' );
 	?>
 	<ol>
 		<li>This field must be published and visible in Jom Social Custom Profile.</li>
@@ -29,10 +28,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<li>If you are configuring this first time. This field will be allowed to all user.</li>
 	</ol>
 	<?php 
-	echo $this->pane->endPanel();
 	
 	
-	echo $this->pane->startPanel( '3. Required', 'required' );
+	echo JHtmlSliders::panel( '3. Required', 'required' );
 	?>
 		<ol>
 		<li>This field must be published, required and visible in Jom Social Custom Profile.</li>
@@ -40,10 +38,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<li>If you are configuring this first time. This field will be required to all user.</li>
 	</ol>
 	<?php 
-	echo $this->pane->endPanel();
 	
-	
-	echo $this->pane->startPanel( '4. Visible', 'visible' );
+	echo JHtmlSliders::panel( '4. Visible', 'visible' );
 	?>
 		<ol>
 		<li>This field must be published and visible in Jom Social Custom Profile.</li>
@@ -51,11 +47,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<li>For other users it will only be visible at the time of editing profile. When any user viewing profile, if this field is not visible for profile owner's profile type, this field will not be shown.</li>
 		<li>If you are configuring this first time. This field will be visible to all user.</li>
 	</ol>
-	<?php	
-	echo $this->pane->endPanel();
+	<?php
 	
-	
-	echo $this->pane->startPanel( '5. Editable After Registration', 'editableAfterRegistration' );
+	echo JHtmlSliders::panel( '5. Editable After Registration', 'editableAfterRegistration' );
 	?>
 		<ol>
 		<li>This field must be published and visible in Jom Social Custom Profile.</li>
@@ -64,10 +58,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<li>If you are configuring this first time. This field will be editable after registration to all user.</li>
 	</ol>
 	<?php 	
-	echo $this->pane->endPanel();
 	
-	
-	echo $this->pane->startPanel( '6. Editable During Registration', 'editableDurinRegistration' );
+	echo JHtmlSliders::panel( '6. Editable During Registration', 'editableDurinRegistration' );
 	?>
 		<ol>
 		<li>This field must be published and visible in Jom Social Custom Profile and set to visible in this configuration.</li>
@@ -76,12 +68,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<li>If you are configuring this first time. This field will be editable during registration to all user.</li>
 	</ol>
 	<?php 	
-	echo $this->pane->endPanel();
 	
-	echo $this->pane->startPanel( '7. Advance Searchable', 'advanceSearchable' );
+	echo JHtmlSliders::panel( '7. Advance Searchable', 'advanceSearchable' );
 	?>
 		<ol>
 		<li>This field will be visible during advance search.</li>
 	</ol>
 	<?php 	
-	echo $this->pane->endPanel();

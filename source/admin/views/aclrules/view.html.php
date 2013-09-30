@@ -50,12 +50,18 @@ class XiptViewAclRules extends XiptView
 					elseif($plan == XIPT_PROFILETYPE_NONE)
 						$rulePlan[$rule->id][] = XiptText::_("NONE");
 					else{
-						$planInstance = PayplansApi::getPlan($plan);
-						
-						if($planInstance)
-							$rulePlan[$rule->id][] = $planInstance->getTitle();
-						else
+						if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_payplans')){
 							$rulePlan[$rule->id][] = XiptText::_("NONE");
+  							JFactory::getApplication()->enqueueMessage(XiptText::_("PAYPLANS_DOES_NOT_EXISTS"),'WARNING');
+						}
+  						else{
+							$planInstance = PayplansApi::getPlan($plan);
+							
+							if($planInstance)
+								$rulePlan[$rule->id][] = $planInstance->getTitle();
+							else
+								$rulePlan[$rule->id][] = XiptText::_("NONE");
+  						}
 					}
 				}
 				

@@ -17,8 +17,8 @@ class createvent extends XiptAclBase
 	{
 		$resourceAccesser 	= $this->getResourceAccesser($data);
 		
-		$maxmimunCount = $this->aclparams->get('createvent_limit',0);
-		$aclgroup 	   = $this->aclparams->get('event_category');
+		$maxmimunCount = $this->aclparams->getValue('createvent_limit',null,0);
+		$aclgroup 	   = $this->aclparams->getValue('event_category');
 		if($aclgroup){
 			if($data['ajax']){
 				$args		= $data['args'];

@@ -28,11 +28,11 @@ class XiptViewSetup extends XiptView
 			if(!$setupObject->isApplicable())
 				continue;
 				
-			$helpMsg[$setup['name']] = $setupObject->getHelpMsg($setup['name']);	
+			$helpMsg[(string)$setup->name] = $setupObject->getHelpMsg($setup['name']);	
 			$data = $setupObject->getMessage();
-			$requiredSetup[$setup['name']]['done'] 	  = $data['done'];
-			$requiredSetup[$setup['name']]['message'] = $data['message'];
-			$requiredSetup[$setup['name']]['type']	  = $setup['type'];	
+			$requiredSetup[(string)$setup->name]['done'] 	  = $data['done'];
+			$requiredSetup[(string)$setup->name]['message'] = $data['message'];
+			$requiredSetup[(string)$setup->name]['type']	  = $setup['type'];	
 		}
 
 		// to check that setup screen is clean or not		
@@ -45,9 +45,6 @@ class XiptViewSetup extends XiptView
 				break;
 			}
 		}
-		
-		$pane	=& JPane::getInstance('sliders');
-		$this->assignRef( 'pane', 		$pane );
 				
 		$this->assign('requiredSetup',	$requiredSetup);
 		$this->assign('helpMsg',		$helpMsg);

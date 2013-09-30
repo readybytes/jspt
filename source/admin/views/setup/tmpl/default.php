@@ -5,6 +5,9 @@
 **/
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
+if(XIPT_JOOMLA_25){
+	require_once JPATH_ROOT . '/libraries/joomla/html/html/sliders.php';
+}
 ?>
 <script type="text/javascript" language="javascript">
 /**
@@ -71,16 +74,15 @@ function submitbutton( action )
 	<div style="float:inherit; margin-left:50%;">
 			<?php
 				$num = 1;
-				echo $this->pane->startPane( 'stat-pane' );
+				echo JHtmlSliders::start('slider');
 					foreach($this->setupRules as $rule):
-						if(isset($this->helpMsg[$rule['name']])==false)
+						if(isset($this->helpMsg[(string)$rule->name])==false)
 							continue;
-						echo $this->pane->startPanel($num.". ".$rule['title'],$rule['name']);
-						echo $this->helpMsg[$rule['name']];
-						echo $this->pane->endPanel();
+						echo JHtmlSliders::panel($num.". ".$rule['title'],$rule['name']);
+						echo $this->helpMsg[(string)$rule->name];
 						$num++;
 					endforeach;	
-				echo $this->pane->endPane();
+				echo JHtmlSliders::end();
 			?>
 	</div>
 	</div>

@@ -10,16 +10,21 @@ class accessvideo extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
+		if($data['viewuserid'])
+			return $data['viewuserid'];
+		
 		$videoId = isset($data['videoid']) ? $data['videoid'] : '';
 		$videoId = JRequest::getVar( 'videoid' , $videoId );
 		$conf    = JFactory::getConfig();
         // if sef is enabled then get actual video id
-		if($conf->getValue('config.sef', false) == true)
+		if($conf->get('sef', false) == true && $videoId)
 		{
 			$vId     = explode(":", $videoId);
 			$videoId = $vId[0];
 			
 		}
+		$args		= $data['args'];
+		$videoId	= empty($videoId)? $args[0] : $videoId;
 		
 		$video	    = CFactory::getModel('videos');
 		$videoData  = $video->getVideos(array('id'=>$videoId));

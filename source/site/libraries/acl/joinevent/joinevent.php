@@ -17,8 +17,8 @@ class joinevent extends XiptAclBase
 	{
 		$resourceAccesser 	= $this->getResourceAccesser($data);
 		
-		$maxmimunCount = $this->aclparams->get('joinevent_limit',0);
-		$aclevent      = $this->aclparams->get('event_category');
+		$maxmimunCount = $this->aclparams->getValue('joinevent_limit',null,0);
+		$aclevent      = $this->aclparams->getValue('event_category');
 		$eventid	= isset($data['eventid'])? $data['eventid'] : $data['args'][0];
 		$eventid	= JRequest::getVar('eventid' , $eventid, 'REQUEST');
 		
@@ -50,12 +50,12 @@ class joinevent extends XiptAclBase
 		$db		=JFactory::getDBO();
 		
 		$query	= ' SELECT COUNT(*) FROM ' 
-				. $db->nameQuote( '#__community_events_members' )
-				. ' WHERE ' . $db->nameQuote( 'memberid' ) . '=' . $db->Quote( $resourceAccesser )
-				. ' AND ' . $db->nameQuote( 'status' ) . '=' . $db->Quote( '1' )
-				. ' AND ' . $db->nameQuote('eventid') . 'IN'
+				. $db->quoteName( '#__community_events_members' )
+				. ' WHERE ' . $db->quoteName( 'memberid' ) . '=' . $db->Quote( $resourceAccesser )
+				. ' AND ' . $db->quoteName( 'status' ) . '=' . $db->Quote( '1' )
+				. ' AND ' . $db->quoteName('eventid') . 'IN'
 				. ' (SELECT id FROM '
-				. $db->nameQuote( '#__community_events' )
+				. $db->quoteName( '#__community_events' )
 				. "$condition)";
 				
 		$db->setQuery( $query );
@@ -72,6 +72,11 @@ class joinevent extends XiptAclBase
 		if('events' != $data['view'])
 			return false;
 
+		//if user is clicking on not attend, then don't restrict him
+		//option, views & task is same for attend and not attend, so checking args
+		if($data['args'][1] == 2)
+			return false;
+			
 		if($data['task']=='updatestatus' || $data['task']=='ajaxupdatestatus')
 				return true;
 

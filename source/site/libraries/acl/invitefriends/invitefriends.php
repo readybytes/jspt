@@ -55,7 +55,7 @@ class invitefriends extends XiptAclBase
 	
 	function isApplicableForGroupCategory($data)
 	{
-		$notAllowedCats = $this->aclparams->get('group_category');
+		$notAllowedCats = $this->aclparams->getValue('group_category');
 		
 		//$notAllowedCats == 0 means user can't access any category
 		if($notAllowedCats == 0)
@@ -66,9 +66,9 @@ class invitefriends extends XiptAclBase
 		
 		$groupId	= $data['args'][2];
 		$db 		= JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('categoryid')
-						.' FROM '.$db->nameQuote('#__community_groups')
-						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($groupId);
+		$query		= 'SELECT '.$db->quoteName('categoryid')
+						.' FROM '.$db->quoteName('#__community_groups')
+						.' WHERE '.$db->quoteName('id').' = '.$db->Quote($groupId);
 
 		$db->setQuery( $query );
 		$catId = $db->loadResult();

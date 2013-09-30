@@ -16,14 +16,14 @@ class addasfriends extends XiptAclBase
 	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner)
 	{	
 		$aclSelfPtype = $this->getACLAccesserProfileType();
-		$otherptype   = $this->getACLOwnerProfileType();
+		$otherPtype   = $this->getACLOwnerProfileType();
 		
 		$aclSelfPtype = is_array($aclSelfPtype) ? implode(',', $aclSelfPtype) : $aclSelfPtype;
 		$otherPtype   = is_array($otherPtype)	? implode(',', $otherPtype)   : $otherPtype;
 		
-		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherPtype,$aclSelfPtype);
 		$paramName = get_class($this).'_limit';
-		$maxmimunCount = $this->aclparams->get($paramName,0);
+		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 		if($count >= $maxmimunCount)
 			return true;
 			
@@ -40,7 +40,7 @@ class addasfriends extends XiptAclBase
 		
 		$count = $this->getFeatureCountsByPlan($resourceAccesser,$resourceOwner,$otherPlan,$aclSelfPlan);
 		$paramName = get_class($this).'_limit';
-		$maxmimunCount = $this->aclparams->get($paramName,0);
+		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 		if($count >= $maxmimunCount)
 			return true;
 			
@@ -51,16 +51,16 @@ class addasfriends extends XiptAclBase
 	{
 		// XITODO : change this query into object
 		$db		= JFactory::getDBO();
-		$query	= 'SELECT DISTINCT(a.connect_to) AS id  FROM ' . $db->nameQuote('#__community_connection') . ' AS a '
-				. 'INNER JOIN ' . $db->nameQuote( '#__users' ) . ' AS b '
+		$query	= 'SELECT DISTINCT(a.connect_to) AS id  FROM ' . $db->quoteName('#__community_connection') . ' AS a '
+				. 'INNER JOIN ' . $db->quoteName( '#__users' ) . ' AS b '
 				. 'ON a.connect_from=' . $db->Quote( $resourceAccesser ) . ' '
 				. 'AND a.connect_to=b.id '
 				. ' LEFT JOIN #__xipt_users as ptfrom ON a.`connect_to`=ptfrom.`userid`'
 				. ' AND ptfrom .`profiletype` IN(' . $db->Quote($aclSelfPtype) .')'
-				. ' LEFT JOIN #__xipt_users as ptto ON a.`connect_to`=ptto.`userid`'
+				. ' INNER JOIN #__xipt_users as ptto ON a.`connect_to`=ptto.`userid`'
 				. ' AND ptto .`profiletype` IN(' . $db->Quote($otherptype) . ')';
 		$db->setQuery( $query );
-		$count		= $db->loadResultArray();
+		$count		= $db->loadColumn();
 		return count($count);
 	}	
 	
@@ -68,16 +68,16 @@ class addasfriends extends XiptAclBase
 	{
 		// XITODO : change this query into object
 		$db		= JFactory::getDBO();
-		$query	= 'SELECT DISTINCT(a.connect_to) AS id  FROM ' . $db->nameQuote('#__community_connection') . ' AS a '
-				. 'INNER JOIN ' . $db->nameQuote( '#__users' ) . ' AS b '
+		$query	= 'SELECT DISTINCT(a.connect_to) AS id  FROM ' . $db->quoteName('#__community_connection') . ' AS a '
+				. 'INNER JOIN ' . $db->quoteName( '#__users' ) . ' AS b '
 				. 'ON a.connect_from=' . $db->Quote( $resourceAccesser ) . ' '
 				. 'AND a.connect_to=b.id '
 				. ' LEFT JOIN #__payplans_subscription as planfrom ON a.`connect_to`=planfrom.`user_id`'
 				. ' AND planfrom .`plan_id` IN(' . $db->Quote($aclSelfPlan) .')'
-				. ' LEFT JOIN #__payplans_subscription as planto ON a.`connect_to`=planto.`user_id`'
+				. ' INNER JOIN #__payplans_subscription as planto ON a.`connect_to`=planto.`user_id`'
 				. ' AND planto .`plan_id` IN(' . $db->Quote($otherplan) . ')';
 		$db->setQuery( $query );
-		$count		= $db->loadResultArray();
+		$count		= $db->loadColumn();
 		return count($count);
 	}
 	

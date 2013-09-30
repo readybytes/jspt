@@ -21,13 +21,12 @@ jimport('joomla.user.helper');
 jimport('joomla.plugin.helper');
 
 //if override file exists, then include it.
-$override = JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.override.php';
+$override = JPATH_ROOT.'/components/com_xipt/defines.override.php';
 if(JFile::exists($override))
-	require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.override.php';
+	require_once JPATH_ROOT.'/components/com_xipt/defines.override.php';
 
 // require_once defines.php
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'defines.php';
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'ini.php';
+require_once JPATH_ROOT.'/components/com_xipt/defines.php';
 require_once(XIPT_FRONT_PATH_LIBRARY.DS.'base'.DS.'loader.php');
 
 /*Load Langauge file*/
@@ -40,7 +39,6 @@ XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_CONTROLLERS, 'Controller',	'Xipt')
 XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'models','Model');
 XiptLoader::addAutoLoadFolder(JPATH_ROOT.DS.'components'.DS.'com_xipt' . DS . 'tables','Table' );
 XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_HELPER,'Helper');
-XiptLoader::addAutoLoadFolder(XIPT_FRONT_PATH_ELEMENTS, 'Element', 'J');
 
 
 // auto load front libraries files

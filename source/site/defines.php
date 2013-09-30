@@ -6,6 +6,8 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
 define('XIPT_VERSION','@global.version@.@svn.lastrevision@');
 define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
 define('XIPT_NONE','XIPT_NONE');
@@ -58,8 +60,14 @@ if(!defined('PTYPE_POPUP_WINDOW_HEIGHT_SELECT')) define('PTYPE_POPUP_WINDOW_HEIG
 if(!defined('SYNCUP_USER_LIMIT')) define('SYNCUP_USER_LIMIT',50);
 if(!defined('RESETALL_USER_LIMIT')) define('RESETALL_USER_LIMIT',100);
 
-define('DEFAULT_AVATAR','components'.DS.'com_community'.DS.'assets'.DS.'user.png');
-define('DEFAULT_AVATAR_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'user_thumb.png');
+define('DEFAULT_AVATAR','components'.DS.'com_community'.DS.'assets'.DS.'default.jpg');
+define('DEFAULT_AVATAR_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'default_thumb.jpg');
+
+define('DEFAULT_AVATAR_MALE','components'.DS.'com_community'.DS.'assets'.DS.'user-Male.jpg');
+define('DEFAULT_AVATAR_MALE_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'user-Male-thumb.jpg');
+
+define('DEFAULT_AVATAR_FEMALE','components'.DS.'com_community'.DS.'assets'.DS.'user-Female.png');
+define('DEFAULT_AVATAR_FEMALE_THUMB','components'.DS.'com_community'.DS.'assets'.DS.'user-Female-thumb.jpg');
 
 define('DEFAULT_IMAGEWATERMRK','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'demo_watermrk.png');
 define('DEFAULT_IMAGEWATERMRK_THUMB','components'.DS.'com_xipt'.DS.'assets'.DS.'images'.DS.'demo_watermrk_thumb.png');
@@ -151,6 +159,7 @@ define('XIPT_SETUP_WARNING','warning');
 $version = new JVersion();
 define('XIPT_JOOMLA_16',($version->RELEASE === '1.6'));
 define('XIPT_JOOMLA_15',($version->RELEASE === '1.5'));
+define('XIPT_JOOMLA_25',($version->RELEASE === '2.5'));
 if (XIPT_JOOMLA_15){
 define('XIPT_JOOMLA_EXT_ID','id');
 define('XIPT_JOOMLA_MENU_COMP_ID','componentid');

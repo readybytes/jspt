@@ -10,16 +10,14 @@ class XiptSetupHelper
 {
 	function getOrderedRules()
 	{
-		$parser		= JFactory::getXMLParser('Simple');
 		$xml		= XIPT_FRONT_PATH_LIBRARY_SETUP . DS . 'order.xml';
-	
-		$parser->loadFile( $xml );
+		$parser  	= new SimpleXMLElement($xml, NULL, true);
 	
 		$order	= array();
-		$childrens = $parser->document->children();
-		foreach($childrens as $child)
-			$attr[] = $child->attributes();
-			
-		return $attr;
+		$childrens = $parser->children();
+		foreach($childrens as $child){
+			$order[] = $child->attributes();
+		}
+		return $order;
 	}
 }

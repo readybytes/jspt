@@ -17,8 +17,8 @@ class creategroup extends XiptAclBase
 	{
 		$resourceAccesser 	= $this->getResourceAccesser($data);
 		
-		$maxmimunCount = $this->aclparams->get('creategroup_limit',0);
-		$aclgroup      = $this->aclparams->get('group_category');
+		$maxmimunCount = $this->aclparams->getValue('creategroup_limit',null,0);
+		$aclgroup      = $this->aclparams->getValue('group_category');
 		if($aclgroup)
 			$catId		   = JRequest::getVar('categoryid' , 0 , 'REQUEST');
 		else 

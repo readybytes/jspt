@@ -90,13 +90,12 @@ class XiptAclHelper
 	//         test case
 	function getOrderedRules()
 	{
-		$parser		= JFactory::getXMLParser('Simple');
 		$xml		= dirname(__FILE__) . DS . 'order.xml';
 	
-		$parser->loadFile( $xml );
+		$parser  	= new SimpleXMLElement($xml, NULL, true);
 	
 		$order	= array();
-		$childrens = $parser->document->children();
+		$childrens = $parser->children();
 		$groups = array();
 		foreach($childrens as $child){
 			$group = $child->attributes();
@@ -104,7 +103,7 @@ class XiptAclHelper
 			
 			$childGroup = $child->children();
 			foreach($childGroup as $cg)
-				$rules[$group['name']][] = $cg->attributes();
+				$rules[(string)$group->name][] = $cg->attributes();
 				
 		}
 		

@@ -1,22 +1,21 @@
 <?php
+/**
+* @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
+* @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+**/
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+jimport('joomla.form.formfield');
 
-class JElementProfilefields extends JElement
+class XiptFormFieldProfilefields extends JFormField
 {
-	/**
-	 * Element name
-	 *
-	 * @access	protected
-	 * @var		string
-	 */
-	var	$_name = 'Profilefields';
-
-	function fetchElement($name, $value, &$node, $control_name)
+	public  $type = 'Profilefields';
+		
+	protected function getInput()
 	{
-		$value      = unserialize($value);		
-		$feildsHtml = $this->getFieldsHtml($name, $value, $control_name);
+		$value      = unserialize($this->value);		
+		$feildsHtml = $this->getFieldsHtml($this->name, $value);
 
 		return $feildsHtml;
 	}
@@ -40,7 +39,7 @@ class JElementProfilefields extends JElement
 		return $fields;	
 	}
 	
-	function getFieldsHtml($name, $value, $control_name)
+	function getFieldsHtml($name, $value)
 	{
 		$fields = self::getJomsocialProfileFields(array('published'=>1));
 		$html   = '';
@@ -60,7 +59,7 @@ class JElementProfilefields extends JElement
 			if($f->type != 'group') {
 				$html .= "<td class='paramlist_value'>".$f->name."</td>";
 				
-				$profiletypeFieldHtml = $this->buildProfileTypes($name, $value, $control_name,$f->id);
+				$profiletypeFieldHtml = $this->buildProfileTypes($name, $value,$f->id);
 				$html .= "<td class='paramlist_value'>".$profiletypeFieldHtml."</td>";
 			}				
 			$html .= "</tr>";
@@ -70,11 +69,11 @@ class JElementProfilefields extends JElement
 		return $html;
 	}
 	
-	function buildProfileTypes($name, $value, $control_name, $fid)
+	function buildProfileTypes($name, $value, $fid)
 	{	
 		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray(true,true);
 		$html			= '';
-		$html .= '<select id="'.$control_name.'['.$name.']['.$fid.'][]" name="'.$control_name.'['.$name.']['.$fid.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';	
+		$html .= '<select id="'.$name.'['.$fid.'][]" name="'.$name.'['.$fid.'][]" value="" style="margin: 0 5px 5px 0;"  size="3" multiple/>';	
 		foreach( $allTypes as $option )
 		{
 			$ptypeName       = XiptHelperProfiletypes::getProfileTypeName($option);

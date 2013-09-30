@@ -33,6 +33,8 @@ class XiptControllerAclRules extends XiptController
 		$aclObject->load($id);
 
 		$data = $aclObject->getObjectInfoArray();
+		$data['aclparams'] = $aclObject->getParams($data['aclparams']);
+		$data['coreparams'] = $aclObject->getParams($data['coreparams']);
 		$data['id'] = $id;
 		
 		return $view->edit($data);
@@ -48,11 +50,9 @@ class XiptControllerAclRules extends XiptController
 		
 		$model 	= $this->getModel();		
 		
-		// Get the complete INI string of params
-		$param = new XiptParameter();
 		$post['coreparams']['core_display_message'] = base64_encode($post['coreparams']['core_display_message']);
-		$param->loadArray($post['coreparams'],'xipt_coreparams');
-		$data['coreparams']	= $param->toString('XiptINI' , 'xipt_coreparams' );
+		
+		$data['coreparams']	= json_encode($post['coreparams']);
 		$data['aclname'] 	= $post['aclname'];
 		$data['rulename']	= $post['rulename'];
 		$data['published'] 	= $post['published'];

@@ -73,7 +73,7 @@ class XiptHelperRegistration
 		$selectedPT                =     $defaultPType;
 		
 		$params = XiptFactory::getSettings('', 0);
-		$showAsRadio = $params->get('jspt_fb_show_radio',false);
+		$showAsRadio = $params->getValue('jspt_fb_show_radio',null,false);
 		
 		ob_start();
 		include(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views'.DS.'registration'.DS.'tmpl'.DS.'facebook.php');
@@ -274,10 +274,10 @@ class XiptHelperRegistration
 		//jspt_prevent_username
 		$config = XiptLibProfiletypes::getParams($ptype, 'config');
 	
-		if(!$config->get('jspt_restrict_reg_check',false))
+		if(!$config['jspt_restrict_reg_check'])
 			return true;
 			
-		$invalidemails = explode(';', $config->get('jspt_prevent_email',''));		
+		$invalidemails = explode(';', $config['jspt_prevent_email']);		
 				
 		if(!empty($invalidemails) && !empty($invalidemails[0]))
 		{
@@ -295,7 +295,7 @@ class XiptHelperRegistration
 		}
 
 		// if allowed email
-		$validemails		= explode(';',$config->get('jspt_allowed_email',''));
+		$validemails		= explode(';',$config['jspt_allowed_email']);
 		if(!empty($validemails) && !empty($validemails[0]))
 		{
 			foreach($validemails as $validemail)
@@ -322,10 +322,10 @@ class XiptHelperRegistration
 		//jspt_prevent_username
 		$config = XiptLibProfiletypes::getParams($ptype, 'config');
 	
-		if(!$config->get('jspt_restrict_reg_check',false))
+		if(!$config['jspt_restrict_reg_check'])
 			return true;
 			
-		$invalidUsernames = explode(';', $config->get('jspt_prevent_username',''));
+		$invalidUsernames = explode(';', $config['jspt_prevent_username']);
 		
 		if(empty($invalidUsernames) || empty($invalidUsernames[0]))
 			return true;

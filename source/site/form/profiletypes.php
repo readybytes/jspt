@@ -17,9 +17,29 @@ class JFormFieldProfiletypes extends JFormField
 		// get array of all visible profile types (std-class)
 		$pTypeArray = XiptLibProfiletypes::getProfiletypeArray();
 		
+		if(isset($this->element['addall'])){
+			$reqall 		= new stdClass();
+			$reqall->id 	= 0;
+			$reqall->name 	= 'All';
+			array_unshift($pTypeArray, $reqall);
+		}
+		
+		if(isset($this->element['addnone'])){
+			$reqnone 		= new stdClass();
+			$reqnone->id 	= -1;
+			$reqnone->name 	= 'None';
+			$pTypeArray[]	= $reqnone;
+		}
 		//add multiselect option
 		$attr = ' ';
-		$attr = $this->multiple ? ' multiple="multiple"' : '';
+		
+		if($this->multiple){
+			$attr .= ' multiple="multiple"';
+		}
+		
+		if($size = $this->element['size']){
+			$attr .= ' size="'.$size.'"';
+		}
 		
 		return JHTML::_('select.genericlist',  $pTypeArray, $this->name, $attr, 'id', 'name', $this->value);
 	}

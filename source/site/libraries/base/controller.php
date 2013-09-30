@@ -7,7 +7,7 @@
 if(!defined('_JEXEC')) die('Restricted access');
 jimport( 'joomla.application.component.controller' );
 
-abstract class XiptController extends JController
+abstract class XiptController extends JControllerLegacy
 {
 	public function getPrefix()
 	{

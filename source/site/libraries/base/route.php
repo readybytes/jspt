@@ -49,7 +49,7 @@ class XiptRoute
 		if(strpos($url, 'com_community'))
 			return CRoute::_($url,$xhtml, $ssl);
 			
-		if(strpos($url, 'com_xipt') && $config->getValue('sef') === '0' )
+		if(strpos($url, 'com_xipt') && $config->get('sef') === '0' )
 		    $url = self::_addItemId($url);
 		
 		return JRoute::_($url, $xhtml, $ssl);

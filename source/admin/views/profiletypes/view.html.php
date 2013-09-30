@@ -43,9 +43,6 @@ class XiptViewProfiletypes extends XiptView
 		$this->assign('data', $records[$id]);
 			
 		$this->setToolbar('edit');
-			
-		$pane = JPane::getInstance('sliders', array('allowAllClose' => true));
-		$this->assignRef('pane', $pane);
 
 		return parent::display($tpl);
 	}
@@ -94,5 +91,12 @@ class XiptViewProfiletypes extends XiptView
     				 ->where("`profiletype` = $pid")
     				 ->dbLoadQuery("","")
     				 ->loadResult();
+	}
+	
+	function getHtml($params, $name = null)
+	{
+		$profiletype = $this->getModel();
+		
+		return $profiletype->getParamHtml($params, $name);
 	}
 }

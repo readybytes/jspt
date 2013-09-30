@@ -4,19 +4,19 @@
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
 if(!defined('_JEXEC')) die('Restricted access');
+if(XIPT_JOOMLA_25){
+?>
+<script type="text/javascript" src="<?php echo JURI::root().'components/com_xipt/assets/js/jquery1.4.2.js';?>" ></script>
+<script type="text/javascript">jQuery.noConflict();</script>
+<?php }
 ?>
 
 <script language="javascript" type="text/javascript">
 
-<?php 
-		If(!XIPT_JOOMLA_15)
-		{
-			?>
-		/** FOR JOOMLA1.6++ **/
-		Joomla.submitbutton=function(action) {
-			submitbutton(action);
-		}
-  <?php }?>
+	/** FOR JOOMLA1.6++ **/
+	Joomla.submitbutton=function(action) {
+		submitbutton(action);
+	}
 		
 	function submitbutton(pressbutton) {
 		if (pressbutton == "cancel") {
@@ -34,20 +34,20 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 </script>
 <script type="text/javascript">
-	joms.jQuery(document).ready(function($){
-    	$('select#coreparamsrestrict_by').change(function(){
+	jQuery(document).ready(function($){
+    	$('select#coreparams_restrict_by').change(function(){
         	
-    		 $("#coreparamscore_plan-lbl, #aclparamsother_plan-lbl").closest('.xiRow').hide();
+    		 $("#coreparams_core_plan-lbl, #aclparams_other_plan-lbl").closest('.xiRow').hide();
             
              if(this.value == 1) {
-                $("#coreparamscore_plan-lbl, #aclparamsother_plan-lbl").closest('.xiRow').show();
+                $("#coreparams_core_plan-lbl, #aclparams_other_plan-lbl").closest('.xiRow').show();
                 $("#coreparamscore_profiletype, #aclparamsother_profiletype").closest('.xiRow').hide();
              }
              else{
                 $("#coreparamscore_profiletype, #aclparamsother_profiletype").closest('.xiRow').show();
              }
          });
-    	$('#coreparamsrestrict_by').change();
+    	$('#coreparams_restrict_by').change();
 	});
 </script>
 
@@ -106,7 +106,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 			<fieldset class="adminform">
 				<legend><?php echo XiptText::_( 'GENERAL_PARAMETERS' ); ?></legend>
 				<?php
-					if ($this->coreParamsHtml)
+					if($this->coreParamsHtml)
 						echo $this->coreParamsHtml;
 					else
 						echo "<div style=\"text-align: center; padding: 5px; \">".XiptText::_('THERE_ARE_NO_PARAMETERS_FOR_THIS_ITEM')."</div>"

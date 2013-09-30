@@ -88,7 +88,7 @@ class XiptLibAvatar
 		self::_removeProfilePicture($userId,$pType, $newPath);
 		$view = JRequest::getVar('view','profile','GET');
 		//$task =	JRequest::getVar('task','profile','GET');
-		JFactory::getApplication()->redirect( CRoute::_( "index.php?option=com_community&view=$view&userid=$userId" , false ) , JText::_('CC_PROFILE_PICTURE_REMOVED') );
+		JFactory::getApplication()->redirect( CRoute::_( "index.php?option=com_community&view=$view&userid=$userId" , false ) , XiptText::_('CC_PROFILE_PICTURE_REMOVED') );
 		
 	}
 	
@@ -117,10 +117,10 @@ class XiptLibAvatar
 		}		
 		
 		// create query for update Avatar and thumb
-		$query	=   'UPDATE ' . $db->nameQuote( '#__community_users' ) . ' '
-			    	.'SET ' . $db->nameQuote( $type ) . '=' . $db->Quote( $newPath ) . ', '
+		$query	=   'UPDATE ' . $db->quoteName( '#__community_users' ) . ' '
+			    	.'SET ' . $db->quoteName( $type ) . '=' . $db->Quote( $newPath ) . ', '
 			    			. '`thumb` = '. $db->Quote( $thumbPath ) . ' '
-			    	.'WHERE ' . $db->nameQuote( 'userid' ) . '=' . $db->Quote( $id );
+			    	.'WHERE ' . $db->quoteName( 'userid' ) . '=' . $db->Quote( $id );
 		
 		$db->setQuery( $query );
 		$db->query( $query );

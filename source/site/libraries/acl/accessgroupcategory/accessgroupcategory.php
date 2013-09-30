@@ -14,9 +14,9 @@ class accessgroupcategory extends XiptAclBase
 		$groupId	= JRequest::getVar('groupid' , $groupId, 'REQUEST');
 		
 		$db 		= JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('ownerid')
-						.' FROM '.$db->nameQuote('#__community_groups')
-						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($groupId);
+		$query		= 'SELECT '.$db->quoteName('ownerid')
+						.' FROM '.$db->quoteName('#__community_groups')
+						.' WHERE '.$db->quoteName('id').' = '.$db->Quote($groupId);
 
 		$db->setQuery( $query );
 		$data['viewuserid'] = $db->loadResult();
@@ -81,7 +81,7 @@ class accessgroupcategory extends XiptAclBase
 	
 	function isApplicableForGroupCategory($data)
 	{
-		$allowedCats = $this->aclparams->get('group_category');
+		$allowedCats = $this->aclparams->getValue('group_category');
 		
 		//$allowedCats ==0 means user can access all categories
 		if($allowedCats == 0)
@@ -107,9 +107,9 @@ class accessgroupcategory extends XiptAclBase
 		$groupId	= isset($data['groupid'])? $data['groupid'] : 0;
 		$groupId	= JRequest::getVar('groupid' , $groupId, 'REQUEST');
 		$db 		= JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('categoryid')
-						.' FROM '.$db->nameQuote('#__community_groups')
-						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($groupId);
+		$query		= 'SELECT '.$db->quoteName('categoryid')
+						.' FROM '.$db->quoteName('#__community_groups')
+						.' WHERE '.$db->quoteName('id').' = '.$db->Quote($groupId);
 
 		$db->setQuery( $query );
 		$catId = $db->loadResult();

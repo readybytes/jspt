@@ -35,7 +35,7 @@ class profilefield extends XiptAclBase
     {
         
     	$fieldCount             = count($data['args']['field']);
-        $otherptype_arr 		= unserialize($this->aclparams->get('Xiprofiletypes'));
+        $otherptype_arr 		= unserialize($this->aclparams->getValue('Xiprofiletypes'));
         //if any value is not saved for any field, then 
 		// by default add None profiletype
 		//XITODO try to set return
@@ -45,7 +45,7 @@ class profilefield extends XiptAclBase
         $userid                 = $data['viewuserid'];
                 
        $otherpid            	= XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
-       $selfprofiletype 	 	= $this->coreparams->get('core_profiletype',0);
+       $selfprofiletype 	 	= $this->coreparams->getValue('core_profiletype',null,0);
        $arr_field           	= & $data['args']['field'];
             
 		for($i=0 ; $i < $fieldCount ; $i++)

@@ -76,7 +76,7 @@ class XiptHelperJSToolbar
 		 				->from('#__xipt_jstoolbar')
 		 				->where(" `profiletype` = $pID ")
 		 				->dbLoadQuery("", "")
-  		 				->loadResultArray();
+  		 				->loadColumn();
   		 				
 		if(empty($menuids))
 			return false;

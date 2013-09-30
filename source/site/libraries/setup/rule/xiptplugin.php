@@ -40,6 +40,10 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 			|| XiptHelperUtils::changePluginState('xipt_system', 0) == false)
 			return false;
 			
+		if(XiptSetupRuleJsfields::doRevert() == false
+			|| XiptSetupRulePatchfiles::doRevert() == false)
+			return false;
+		
 		return true;
 	}
 	
@@ -48,24 +52,14 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	function _isPluginInstalledAndEnabled()
 	{
 		$communityPlugin = XiptHelperUtils::getPluginStatus('xipt_community');
-		if (XIPT_JOOMLA_15){
-			if(!$communityPlugin || $communityPlugin->published == 0)
-				return false;
-		}
-		else{
-			if(!$communityPlugin || $communityPlugin->enabled == 0)
-				return false;	
-		}
+		
+		if(!$communityPlugin || $communityPlugin->enabled == 0)
+			return false;
 		
 		$systemPlugin = XiptHelperUtils::getPluginStatus('xipt_system');
-		if (XIPT_JOOMLA_15){
-			if(!$systemPlugin || $systemPlugin->published == 0)
-				return false;
-		}
-		else{
-			if(!$systemPlugin || $systemPlugin->enabled == 0)
-				return false;
-		}
+		
+		if(!$systemPlugin || $systemPlugin->enabled == 0)
+			return false;
 			
 		return true;
 	}

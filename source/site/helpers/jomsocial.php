@@ -21,33 +21,26 @@ class XiptHelperJomsocial
         
         if($regType === 'jomsocial')
            return XiPTRoute::_('index.php?option=com_community&view=register', false);
-         
-           if(!XIPT_JOOMLA_15){
-           		return XiPTRoute::_('index.php?option=com_users&view=registration', false);
-           }
-        return XiPTRoute::_('index.php?option=com_user&view=register', false);
+        
+        return XiPTRoute::_('index.php?option=com_users&view=registration', false);
     }
 
     function isSupportedJS()
 	{
-		$inValid = array('1.1','1.2','1.5','1.6');
-		$ver = self::get_js_version();		 
+		$inValid = array('2.4','2.6','2.8');
+		$ver = self::get_js_version();
 		return  !in_array(JString::substr($ver,0,3), $inValid);
  	}
  	
 	function get_js_version()
 	{	
 		$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
+		
+		$xml	 = $CMP_PATH_ADMIN . DS . 'community.xml';
 	
-		$parser		= JFactory::getXMLParser('Simple');
-		$xml		= $CMP_PATH_ADMIN . DS . 'community.xml';
-	
-		$parser->loadFile( $xml );
-	
-		$doc		=& $parser->document;
-		$element	=& $doc->getElementByPath( 'version' );
-		$version	= $element->data();
-	
+		$parser  = new SimpleXMLElement($xml, NULL, true);
+		$version = $parser->version;
+
 		return $version;
 	}
 	

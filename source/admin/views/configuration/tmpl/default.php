@@ -11,15 +11,11 @@ if(!defined('_JEXEC')) die('Restricted access');
  * This function needs to be here because, Joomla toolbar calls it
  **/ 
 
- <?php 
-			If(!XIPT_JOOMLA_15)
-			{
-				?>
-			/** FOR JOOMLA1.6++ **/
-			Joomla.submitbutton=function(action) {
-				submitbutton(action);
-			}
-	  <?php }?>
+
+/** FOR JOOMLA1.6++ **/
+Joomla.submitbutton=function(action) {
+	submitbutton(action);
+}
  
 function submitbutton( action )
 {
@@ -37,7 +33,7 @@ function submitbutton( action )
 	}
 }
 </script>
-
+<div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
@@ -46,7 +42,7 @@ function submitbutton( action )
 				<?php echo XiptText::_( '#' ); ?>
 			</th>
 			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->fields ); ?>);" />
+				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" />
 			</th>
 			<!--<th width="1%">
 				<?php echo XiptText::_( 'PROFILETYPE-ID' ); ?>
@@ -99,7 +95,8 @@ function submitbutton( action )
 	?>
 	<tfoot>
 	<tr>
-		<td colspan="15">
+		<td colspan="15" align="center">
+			<?php echo $this->pagination->getLimitBox(); ?>
 			<?php echo $this->pagination->getListFooter(); ?>
 		</td>
 	</tr>
@@ -112,4 +109,5 @@ function submitbutton( action )
 <input type="hidden" name="boxchecked" value="0" />
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>	
+</div>
 <?php 

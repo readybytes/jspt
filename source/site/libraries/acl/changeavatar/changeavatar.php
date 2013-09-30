@@ -21,7 +21,7 @@ class changeavatar extends XiptAclBase
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
 
-		$permission=$this->aclparams->get('restrict_user_at_registration',false);
+		$permission=$this->aclparams->getValue('restrict_user_at_registration',null,false);
 		//check whether to restrict at registration time or not
 		if('profile' == $data['view'] && $data['task'] == 'uploadavatar')
 		 		return true;
@@ -30,6 +30,10 @@ class changeavatar extends XiptAclBase
 		if('photos' == $data['view'] && $data['task'] == 'ajaxuploadavatar')
 		 		return true;
 
+		//user can set his any uploaded picture as profile picture
+		if('photos' == $data['view'] && $data['task'] == 'ajaxlinktoprofile')
+		 		return true;
+		
 		if($permission==true)
 		{
 			if('register'== $data['view'] && $data['task'] == 'registeravatar')

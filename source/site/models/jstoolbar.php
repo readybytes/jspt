@@ -15,24 +15,11 @@ class XiptModelJSToolbar extends XiptModel
 	function getMenu($menuId=null, $limit=null, $limitstart=null, $condition=true)
 	{
 		$query = new XiptQuery();
-			
-		if(XIPT_JOOMLA_15){
-			
-			if($condition){
-				$condition = "and `parent` = 0";
-			}
-		}	
-		else{	
-			
-			if($condition){
-				$condition = "and `parent_id` = 1";
-			}
-		}
 
 		$result = $query->select('*')
 			    ->from('#__menu')
-			    ->where(" `menutype` = 'jomsocial' $condition ")
-				->order('ordering')
+			    ->where(" `menutype` = 'jomsocial' and `parent_id` = 1")
+				->order('id')
 				->limit($limit,$limitstart)
 				->dbLoadQuery("","")
 				->loadObjectList('id');	
@@ -56,7 +43,7 @@ class XiptModelJSToolbar extends XiptModel
 					 						 ->from('#__xipt_jstoolbar')
 					 						 ->where(" `menuid` = $menuid ")
 					 						 ->dbLoadQuery("", "")
-			  		 						 ->loadResultArray();		
+			  		 						 ->loadColumn();
 	}
 	
 	/*

@@ -6,19 +6,18 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class JElementWatermarkposition extends JElement
-{
-	/**
-	 * Element name
-	 *
-	 * @access	protected
-	 * @var		string
-	 */
-	var	$_name = 'Watermarkposition';
+JFormHelper::loadFieldClass('list');
+jimport('joomla.form.formfield');
 
-	function fetchElement($name, $value, &$node, $control_name)
+class XiptFormFieldwatermarkposition extends JFormFieldList
+{
+	
+	public  $type = 'watermarkposition';
+		
+	public function getOptions()
 	{
 		$positions = array();
+		
 		$positions[] = JHTML::_('select.option', 'tl', XiptText::_('TOP_LEFT'));
 		$positions[] = JHTML::_('select.option', 'tr', XiptText::_('TOP_RIGHT'));
 		$positions[] = JHTML::_('select.option', 'bl', XiptText::_('BOTTOM_LEFT'));
@@ -27,9 +26,7 @@ class JElementWatermarkposition extends JElement
 		$positions[] = JHTML::_('select.option', 'lb', XiptText::_('LEFT_BOTTOM'));
 		$positions[] = JHTML::_('select.option', 'rt', XiptText::_('RIGHT_TOP'));
 		$positions[] = JHTML::_('select.option', 'rb', XiptText::_('RIGHT_BOTTOM'));
-		$html =  JHTML::_('select.genericlist', $positions,$control_name.'['.$name.']' ,
-                                null, 'value', 'text', $value);
-		return $html;
+		
+		return $positions;
 	}
-	
 }

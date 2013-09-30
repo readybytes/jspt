@@ -25,7 +25,7 @@ class XiptFieldsTemplatesBase
 	
 	static public function getInstance()
 	{				
-		$suffix    = JString::stristr(XiptHelperJomsocial::get_js_version(),2.0) ? "Js20" : "Js18"; 
+		$suffix    = "Js20"; 
 		$classname = "XiptFieldsTemplates".JString::ucfirst($suffix);
 				
 		if(class_exists($classname, true)===false)

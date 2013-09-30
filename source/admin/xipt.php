@@ -9,7 +9,7 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 // add include files
-require_once JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'includes.php';
+require_once JPATH_ROOT.'/administrator/components/com_xipt/includes.php';
 
 // check for jom social supported version and show message
 if(!XiptHelperJomsocial::isSupportedJS()){
@@ -23,7 +23,7 @@ $class	= 'XiptController' . JString::ucfirst( $controller );
 	
 	// Test if the object really exists in the current context
 	if(!class_exists($class, true))
-		XiptError::raiseError(__CLASS__.'.'.__LINE__, sprintf(XiptText_("INVALID_CONTROLLER_OBJECT_CLASS_DEFINITION_DOES_NOT_EXISTS_IN_THIS_CONTEXT"),$class));
+		XiptError::raiseError(__CLASS__.'.'.__LINE__, sprintf(XiptText::_("INVALID_CONTROLLER_OBJECT_CLASS_DEFINITION_DOES_NOT_EXISTS_IN_THIS_CONTEXT"),$class));
 		
 $controller	= new $class();
 

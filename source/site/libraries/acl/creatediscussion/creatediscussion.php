@@ -51,21 +51,21 @@ class creatediscussion extends XiptAclBase
 	
 	function isApplicableForGroupCategory($data)
 	{
-		$notAllowedCats = $this->aclparams->get('group_category');
+		$notAllowedCats = $this->aclparams->getValue('group_category');
 		
-		//$notAllowedCats == 0 means user can't access any category
-		if($notAllowedCats == 0)
-			return false;
-			
 		//check if its applicable on more than 1 category
 		$notAllowedCats = is_array($notAllowedCats) ? $notAllowedCats : array($notAllowedCats);
+		
+		//$notAllowedCats == 0 means user can't access any category
+		if(in_array(0, $notAllowedCats))
+			return false;
 		
 		$groupId	= isset($data['groupid'])? $data['groupid'] : 0;
 		$groupId	= JRequest::getVar('groupid' , $groupId, 'REQUEST');
 		$db 		= JFactory::getDBO();
-		$query		= 'SELECT '.$db->nameQuote('categoryid')
-						.' FROM '.$db->nameQuote('#__community_groups')
-						.' WHERE '.$db->nameQuote('id').' = '.$db->Quote($groupId);
+		$query		= 'SELECT '.$db->quoteName('categoryid')
+						.' FROM '.$db->quoteName('#__community_groups')
+						.' WHERE '.$db->quoteName('id').' = '.$db->Quote($groupId);
 
 		$db->setQuery( $query );
 		$catId = $db->loadResult();

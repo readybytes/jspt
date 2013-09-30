@@ -11,8 +11,8 @@ class XiptSetupRulePayplans extends XiptSetupBase
 	function isRequired()
 	{	
 		$params = XiptFactory::getSettings();
-		$integrate_with 		= $params->get('integrate_with', 0);
-		$subscription_integrate = $params->get('subscription_integrate', 0);
+		$integrate_with 		= $params->getValue('integrate_with', null, 0);
+		$subscription_integrate = $params->getValue('subscription_integrate', null, 0);
 		if($integrate_with == 'aec' || $subscription_integrate == false)
 			return false;
 			
