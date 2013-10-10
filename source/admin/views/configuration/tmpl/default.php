@@ -34,7 +34,7 @@ function submitbutton( action )
 }
 </script>
 <div id="JSPT">
-<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 <table class="adminlist" cellspacing="1">
 	<thead>
 		<tr class="title">
