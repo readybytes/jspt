@@ -195,6 +195,9 @@
 	<rule name="uploadavatar"
 		  title="Force to Upload-Avatar"
 		  description="Force to users for upload avatar." />
+	<rule name="changecoverpic"
+		  title="Can not Change Cover Picture"
+		  description="Restrict users to Change Cover Picture." />
 </group>
 	
 <group name="privacy" title="Privacy">
