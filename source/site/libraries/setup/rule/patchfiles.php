@@ -150,8 +150,13 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 	    	$funcName = 'static function autoload_libraries($classname)';
 	    	
 	    	$searchString = "'CTwitter'							=> '/libraries/twitter.php'";
+	    	// >=js 3.0.5
+	    	if(version_compare(XiptHelperJomsocial::get_js_version(), '3.0.5') >= 0 ) {
+	    		$searchString = "'CTwitter' => '/libraries/twitter.php'";
+	    	}
+	    	
 	    	ob_start();
-	    	?>'CTwitter'							=> '/libraries/twitter.php',
+	    	?>'CTwitter'	=> '/libraries/twitter.php',
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
 			'CFieldsProfiletypes'				=> '/libraries/fields/profiletypes.php',
