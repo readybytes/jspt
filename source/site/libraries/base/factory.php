@@ -9,7 +9,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptFactory
 {
     /* This classes required a object to be created first.*/
-    function getPluginHandler()
+    public static function getPluginHandler()
     {
         static $instance =null;
         
@@ -91,7 +91,7 @@ class XiptFactory
 	}
 	
     //get global settings
-	function getSettings($paramName='', $defaultValue=0)
+	public static function getSettings($paramName='', $defaultValue=0)
 	{
 		$sModel  = XiptFactory::getInstance('settings', 'model');
 		$params  = $sModel->getParams();

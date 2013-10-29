@@ -116,17 +116,17 @@
 		
 		<!-- first copy -->
 		<move file="${target}/source/admin/install/install.php" tofile="${target}/source/install/install.php" />      
-		<move file="${target}/source/admin/install/uninstall.php" tofile="${target}/source/install/uninstall.php" />
+<!--		<move file="${target}/source/admin/install/uninstall.php" tofile="${target}/source/install/uninstall.php" />-->
 		<move file="${target}/source/admin/xipt.xml" tofile="${target}/source/xipt.xml" />
 		<!-- DO NOT delete admin installer for J1.6 -->
 		<!-- <delete dir="${target}/source/admin/install" /> -->
 
       
-		<copy todir="${target}/test">
-			<fileset dir="${source}/test/">
-				<include name="**/*.*" />
-			</fileset>
-                </copy>
+<!--		<copy todir="${target}/test">-->
+<!--			<fileset dir="${source}/test/">-->
+<!--				<include name="**/*.*" />-->
+<!--			</fileset>-->
+<!--                </copy>-->
 
 		<copy   file="${source}/build.xml" 
                         tofile="${target}/scripts/revbuild.xml" />

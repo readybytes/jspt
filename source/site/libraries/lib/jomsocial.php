@@ -113,7 +113,7 @@ class XiptLibJomsocial
 	 * @param  $instance
 	 * @return CConfig
 	 */
-	function updateCommunityConfig(&$instance, $userId = null)
+	public static function updateCommunityConfig(&$instance, $userId = null)
 	{
 		// skip these calls from backend
 		if(JFactory::getApplication()->isAdmin())

@@ -139,8 +139,9 @@ class XiptHelperImage
 		$ptype 			 = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		$watermarkParams = XiptLibProfiletypes::getParams($ptype,'watermarkparams');
 		
-		if($what == 'thumb')
+		if($what == 'thumb') {
 			$waterMark = self::getThumbAvatarFromFull($waterMark);
+		}
 				
 		$waterMark = JPATH_ROOT. DS. $waterMark;
 		
