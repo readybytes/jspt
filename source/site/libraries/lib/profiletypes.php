@@ -289,7 +289,6 @@ class XiptLibProfiletypes
 	
 	function getProfiletypeData($id = 0, $what = 'name')
 	{
-
 		$val = XiptHelperProfiletypes::getProfileTypeData($id, $what);
 		return $val;
 	}
@@ -297,22 +296,12 @@ class XiptLibProfiletypes
 	// returns all user of profiletype
 	function getAllUsers($pid)
 	{
-		$results 	  = XiptFactory::getInstance('users', 'model')->loadRecords(0);
-		$defaultPtype = self::getDefaultProfiletype();
-		
-		$defaultPtypeCheck = $pid;
-		if($defaultPtype == $pid)
-			$defaultPtypeCheck = 0;
-			
-		foreach($results as $result){
-			if($result->profiletype == $pid 
-				|| $result->profiletype == $defaultPtypeCheck)
-				continue;
-				
-			unset($results[$result->userid]);			
-		}
-
-		return array_keys($results);
+		$query = new XiptQuery();
+		$query->select('`userid`')
+			  ->from('#__xipt_users')
+			  ->where("`profiletype` = $pid" );
+			  
+		return $query->dbLoadQuery()->loadColumn();
 	}
 		
 	//call fn to get fields related to ptype in getviewable and geteditable profile fn
