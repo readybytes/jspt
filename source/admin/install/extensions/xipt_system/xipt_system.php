@@ -225,6 +225,8 @@ class plgSystemxipt_system extends JPlugin
 	{
 		return XiptLibAvatar::removeProfilePicture();
 	}
+	
+	
 	function event_com_community_profile_blank()
 	{
 		// Hide Privacy at Profile Page
