@@ -270,8 +270,15 @@ class XiptLibProfiletypes
 	            XiptError::raiseError('XIPT-SYSTEM-ERROR','XIPT System Error');
 	    }
 
-		$results = XiptFactory::getInstance('users','model')->loadRecords(0);
-				
+		// $results = XiptFactory::getInstance('users','model')->loadRecords(0);
+		// Improved performance by just fetcing the respective login user data instead of complete users
+		$query = new XiptQuery();
+		$query->select('`userid`')
+			  ->from('#__xipt_users')
+			  ->where("`userid` = $userid" );
+			  
+		$results= $query->dbLoadQuery()->loadRow();
+		
 		// not a valid result OR value not set
 		if(!$results || isset($results[$userid]) == false){
 		    return $defaultValue;
