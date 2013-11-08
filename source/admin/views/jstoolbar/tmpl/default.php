@@ -8,6 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 ?>
 <div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
+<?php if (!empty( $this->sidebar)) : ?>
+		<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+		</div>
+		<div id="j-main-container" class="span10">
+	<?php else : ?>
+		<div id="j-main-container">
+	<?php endif;?>
+	
 <table class="adminlist" cellspacing="1">
 	<thead>
 		<tr class="title">		
@@ -73,6 +82,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="boxchecked" value="0" />
+</div>
 </form>	
 </div>
 <?php 

@@ -102,7 +102,7 @@ class XiptViewConfiguration extends XiptView
 		$task = JRequest::getVar('task',$task);
 		if($task === 'display'){		
 			JToolBarHelper::title( XiptText::_( 'JOM_SOCIAL_CONFIGURATION' ), 'configuration' );		
-			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+//			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 			return true;
 		}
 		
@@ -110,7 +110,7 @@ class XiptViewConfiguration extends XiptView
 			// XITODO : show name of profiltype for which configuration is being edited
 			$name 	= JRequest :: getVar('name');	
 			JToolBarHelper::title( sprintf(XiptText::_( 'EDIT_CONFIGURATION'),$name), 'configuration' );
-			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
+//			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=configuration');
 			JToolBarHelper::divider();
 			JToolBarHelper::save('save','COM_XIPT_SAVE');
 			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );

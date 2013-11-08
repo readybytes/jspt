@@ -38,13 +38,13 @@ class XiptViewJSToolbar extends XiptView
 		$task = JRequest::getVar('task',$task);
 		if($task === 'display' || $task === 'cancel'){		
 			JToolBarHelper::title( XiptText::_( 'JS_TOOLBAR' ), 'jstoolbar' );
-			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+//			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 			return true;
 		}
 		
 		if($task === 'edit'){
 			JToolBarHelper::title( XiptText::_( 'EDIT_JS_TOOLBAR' ), 'jstoolbar' );
-			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=jstoolbar');
+//			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=jstoolbar');
 			JToolBarHelper::divider();
 			JToolBarHelper::save('save','COM_XIPT_SAVE');
 			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );

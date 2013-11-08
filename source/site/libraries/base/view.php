@@ -15,8 +15,85 @@ abstract class XiptView extends JViewLegacy
 		$css  		= JURI::root() . 'components/com_xipt/assets/admin.css';
 		$document   = JFactory::getDocument();
 		$document->addStyleSheet($css);
+		
+		// add sidebar sub menus
+		$this->addSubmenu();
+		$this->sidebar = JHtmlSidebar::render();
+		
 		parent::display($tpl);
 	}
+	
+	/**
+	 * Configure the Linkbar.
+	 *
+	 * @param   string  $vName  The name of the active view.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
+	public function addSubmenu()
+	{
+		$view = JFactory::getApplication()->input->get('view','cpanel');
+		
+		JHtmlSidebar::addEntry(
+			'Home (Setup/Settings)',
+			'index.php?option=com_xipt',
+			false
+		);
+		
+//		JHtmlSidebar::addEntry(
+//			JText::_('COM_XIPT_SUBMENU_SETTINGS'),
+//			'index.php?option=com_xipt&view=settings',
+//			$view == 'settings'
+//		);
+		
+		JHtmlSidebar::addEntry(
+			JText::_('COM_XIPT_SUBMENU_PROFILETYPES'),
+			'index.php?option=com_xipt&view=profiletypes',
+			$view == 'profiletypes'
+		);
+		
+		JHtmlSidebar::addEntry(
+			JText::_('COM_XIPT_SUBMENU_PROFILEFIELDS'),
+			'index.php?option=com_xipt&view=profilefields',
+			$view == 'profilefields'
+		);
+		
+		JHtmlSidebar::addEntry(
+			JText::_('COM_XIPT_SUBMENU_CONFIGURATION'),
+			'index.php?option=com_xipt&view=configuration',
+			$view == 'configuration'
+		);
+		
+		JHtmlSidebar::addEntry(
+			JText::_('COM_XIPT_SUBMENU_JSTOOLBAR'),
+			'index.php?option=com_xipt&view=jstoolbar',
+			$view == 'jstoolbar'
+		);
+		
+		JHtmlSidebar::addEntry(
+			JText::_('COM_XIPT_SUBMENU_ACLRULES'),
+			'index.php?option=com_xipt&view=aclrules',
+			$view == 'aclrules'
+		);
+		
+		JHtmlSidebar::addEntry(
+			JText::_('COM_XIPT_SUBMENU_APPLICATIONS'),
+			'index.php?option=com_xipt&view=applications',
+			$view == 'applications'
+		);
+		
+		JHtmlSidebar::addEntry(
+			JText::_('COM_XIPT_SUBMENU_USERS'),
+			'index.php?option=com_xipt&view=users',
+			$view == 'users'
+		);
+		
+		
+
+	}
+	
 	/*
 	 * Collect prefix auto-magically
 	 */

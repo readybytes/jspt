@@ -10,10 +10,9 @@ if(XIPT_JOOMLA_25){
 }
 ?>
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
-<table width="100%" border="0">
-	<tr>
-		<td width="45%" valign="top">
-			<div id="cpanel">
+<div class="span12" >
+ 
+<div id="cpanel" class="span6">
 				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', XiptText::_('SETUP'));?>
 				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', XiptText::_('SETTINGS'));?>
 				<?php echo $this->addIcon('profiletypes.png','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
@@ -25,27 +24,25 @@ if(XIPT_JOOMLA_25){
 				<?php echo $this->addIcon('applications.gif','index.php?option=com_xipt&view=applications', XiptText::_('APPLICATIONS'));?>
 				
 				<?php echo $this->addIcon('users.png','index.php?option=com_xipt&view=users', XiptText::_('USERS'));?>
-			</div>
-		</td>
-		<td width="45%" valign="top">
+</div>
+		
+<div class="span6">
 			<?php 
 				echo JHtmlSliders::start('slider');
 				
-				echo JHtmlSliders::panel( 'Welcome', 'welcome' );
-				echo $this->loadTemplate('welcome');
+//				echo JHtmlSliders::panel( 'Welcome', 'welcome' );
+//				echo $this->loadTemplate('welcome');
 				
-				echo JHtmlSliders::panel( 'JSPT Updates', 'updates' );
-				echo $this->loadTemplate('updates');
+//				echo JHtmlSliders::panel( 'JSPT Updates', 'updates' );
+//				echo $this->loadTemplate('updates');
 				
 				echo JHtmlSliders::panel( 'JoomlaXi News', 'aboutus' );
 				echo $this->loadTemplate('news');
 				
 				echo JHtmlSliders::end();
 			?>
-		</td>
-	</tr>
-</table>
-
+</div>
+</div>
 <input type="hidden" name="view" value="cpanel" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="option" value="com_xipt" />

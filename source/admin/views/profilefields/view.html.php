@@ -60,7 +60,7 @@ class XiptViewProfileFields extends XiptView
 		JToolBarHelper::title( XiptText::_( 'PROFILE_FIELDS' ), 'profilefields' );
 
 		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+//		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 	}
 
 }

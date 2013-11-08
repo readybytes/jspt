@@ -83,7 +83,7 @@ class XiptViewAclRules extends XiptView
 		JToolBarHelper::title( XiptText::_( 'ACCESS_CONTROL' ), 'aclrules' );
 
 		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+//		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::divider();
 
 		if($task === 'edit'){

@@ -16,7 +16,7 @@ interval: 6000,
 title: 'Latest Joomlaxi News ',
 subject: 'JoomlaXi News',
 width: 'auto',
-height: 300,
+height: 500,
 theme: {
 shell: {
 background: '#ffffff',
@@ -43,7 +43,7 @@ links: '#1985b5'
 		$version = new JVersion();
 		$suffix = 'jom=J'.$version->RELEASE.'&utm_campaign=JSPT-Usage&xiptv=XIPT'.XIPT_VERSION.'&dom='.JURI::getInstance()->toString(array('scheme', 'host', 'port'));
 	?>
-	<div class="row-fliud">
-		<iframe class="span12" frameborder="0" src="http://pub.joomlaxi.com/broadcast/jspt/broadcast.html?<?php echo $suffix?>"></iframe>
+	<div >
+		<iframe class="span12" style="height:350px;" frameborder="0" src="http://pub.joomlaxi.com/broadcast/jspt/broadcast.html?<?php echo $suffix?>"></iframe>
 	</div>
 <?php 

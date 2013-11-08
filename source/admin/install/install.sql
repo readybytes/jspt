@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `#__xipt_profiletypes` (
   `privacy` text NOT NULL,
   `template` varchar(50) NOT NULL DEFAULT 'default',
   `jusertype` varchar(50) NOT NULL DEFAULT 'Registered',
-  `avatar` varchar(250) NOT NULL DEFAULT 'components/com_community/assets/user.png',
+  `avatar` varchar(250) NOT NULL DEFAULT 'components/com_community/assets/default.jpg',
   `approve` tinyint(1) NOT NULL DEFAULT '0',
   `allowt` tinyint(1) NOT NULL DEFAULT '0',
   `group` text NOT NULL,

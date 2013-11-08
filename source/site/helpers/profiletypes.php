@@ -187,7 +187,7 @@ class XiptHelperProfiletypes
 	// XITODO : needs cleanup
 	function uploadAndSetImage($file,$id,$what)
 	{
-		$mainframe	=& JFactory::getApplication();
+		$mainframe	= JFactory::getApplication();
 		CFactory::load( 'helpers' , 'image' );
 		$config			= CFactory::getConfig();
 		$uploadLimit	= (double) $config->get('maxuploadsize');

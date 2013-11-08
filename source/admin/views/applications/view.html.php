@@ -38,13 +38,13 @@ class XiptViewApplications extends XiptView
 		$task = JRequest::getVar('task',$task);
 		if($task === 'display' || $task === 'cancel'){		
 			JToolBarHelper::title( XiptText::_( 'APPLICATIONS' ), 'applications' );
-			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+//			JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 			return true;
 		}
 		
 		if($task === 'edit'){
 			JToolBarHelper::title( XiptText::_( 'EDIT_APPLICATIONS' ), 'applications' );
-			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
+//			JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=applications');
 			JToolBarHelper::divider();
 			JToolBarHelper::save('save','COM_XIPT_SAVE');
 			JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );

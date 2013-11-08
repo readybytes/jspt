@@ -34,7 +34,7 @@
 		<phingcall target="copy_kit" />
 		<!--<phingcall target="copy_testcase" />-->
 		<phingcall target="copy_revbuild" />
-		<phingcall target="copy_community" />
+	<!--	<phingcall target="copy_community" /> -->
 	</target>
 
 	<target name="copy_revbuild">

@@ -22,11 +22,11 @@ if(XIPT_JOOMLA_25){
 	}
 </script>
 <script type="text/javascript">
-	jQuery(document).ready(function($){
-			$("div#xiptAdvanceSettings").css("display","none");
-			$("input#advanceSettings").click(function(){
-			$("div#xiptAdvanceSettings").slideToggle('fast');
-		});	
+//	jQuery(document).ready(function($){
+//			$("div#xiptAdvanceSettings").css("display","none");
+//			$("input#advanceSettings").click(function(){
+//			$("div#xiptAdvanceSettings").slideToggle('fast');
+//		});	
 	});
 	
 </script>
@@ -59,8 +59,8 @@ if(XIPT_JOOMLA_25){
 
 <div class="span6" style="float:left;">
 <fieldset class="adminform">
-<legend><?php echo XiptText::_( 'BASIC_SETTINGS' ); ?></legend>
-	<div>
+<!--<legend><?php echo XiptText::_( 'BASIC_SETTINGS' ); ?></legend>
+	--><div>
 		<fieldset class="adminform" id="basicPtypeSettings">
 		<legend><?php echo XiptText::_( 'PROFILE_TYPE_SETTINGS' ); ?></legend>
 		<?php echo $this->getHtml($this->settingsParams,'basicPtypeSettings');?>
@@ -80,7 +80,7 @@ if(XIPT_JOOMLA_25){
 
 <div class="span6" style="float:left;">
 <fieldset class="adminform">
-<legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE_SETTINGS' ); ?></legend>
+<!--<legend><input type="checkbox" id="advanceSettings"><?php echo XiptText::_( 'ADVANCE_SETTINGS' ); ?></legend>-->
 	<div id="xiptAdvanceSettings">
 	
 		<div>

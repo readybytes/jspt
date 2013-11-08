@@ -42,9 +42,9 @@ class XiptControllerProfiletypes extends XiptController
 	function _processSave($post=null,$id=0)
 	{
 		if($post === null) $post	= JRequest::get('post');
+		
 		$id	= JRequest::getVar('id', $id, 'post');
 		
-	
 		//We only need few data as special case
 		$data = $post;
 		$data['tip'] 		= JRequest::getVar( 'tip', $post['tip'], 'post', 'string', JREQUEST_ALLOWRAW );
@@ -59,16 +59,15 @@ class XiptControllerProfiletypes extends XiptController
 		//for Reset we will save old Data
 		// give 0 in loadRecords so that all records will be loaded
 		$allData = $model->loadRecords(0);
-		if(isset($allData[$id]))
+		if(isset($allData[$id])) {
 			$oldData = $allData[$id];
+		}
 		
+		$data['ordering'] =  1;
 		// set ordering
-		if(end($allData)){
-			if(!isset($allData[$id]->id))
+		if(end($allData) && !isset($allData[$id]->id)) {
 			$data['ordering'] = end($allData)->ordering + 1;
 		}
-		else
-			$data['ordering'] =  1;
 			
 		// now save model
 		$id	 = $model->save($data, $id);
@@ -77,8 +76,9 @@ class XiptControllerProfiletypes extends XiptController
 		// Now store other data
 		// Handle Avatar : call uploadImage function if post(image) data is set
 		$fileAvatar		= JRequest::getVar( 'FileAvatar' , '' , 'FILES' , 'array' );
-		if(isset($fileAvatar['tmp_name']) && !empty($fileAvatar['tmp_name']))
+		if(isset($fileAvatar['tmp_name']) && !empty($fileAvatar['tmp_name'])) {
 			XiptHelperProfiletypes::uploadAndSetImage($fileAvatar,$id,'avatar');
+		}
 
 		//display demo on watermark profile according ProfileType
 		if($post['watermarkparams']['enableWaterMark'])

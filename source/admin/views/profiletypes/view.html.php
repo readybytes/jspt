@@ -52,7 +52,7 @@ class XiptViewProfiletypes extends XiptView
 		$task = JRequest::getVar('task',$task);
 
 		JToolBarHelper::title( XiptText::_( 'PROFILETYPES' ), 'profiletypes' );
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+//		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 		JToolBarHelper::divider();
 		
 		

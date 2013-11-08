@@ -57,7 +57,7 @@ class XiptViewUsers extends XiptView
 		JToolBarHelper::title( XiptText::_( 'USERS' ), 'users' );
 
 		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+//		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
 
 		if($task === 'edit'){
 			JToolBarHelper::apply('apply', 'COM_XIPT_APPLY');
