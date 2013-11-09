@@ -10,7 +10,6 @@ if(defined('_JEXEC')===false) die('Restricted access' );
 if(define('XIPT_VERSION') == false)
 	define('XIPT_VERSION', '@global.version@.@svn.lastrevision@');
 	
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
 
 class Com_xiptInstallerScript
 {
@@ -47,6 +46,9 @@ class Com_xiptInstallerScript
 
 	function uninstall($parent)
 	{
+		require_once JPATH_ROOT.'/components/com_xipt/includes.php';
+
+		
 		$setupNames = XiptSetupHelper::getOrderedRules();
 		
 		foreach($setupNames as $setup)
