@@ -273,19 +273,19 @@ class XiptLibProfiletypes
 		// $results = XiptFactory::getInstance('users','model')->loadRecords(0);
 		// Improved performance by just fetcing the respective login user data instead of complete users
 		$query = new XiptQuery();
-		$query->select('`userid`')
+		$query->select('*')
 			  ->from('#__xipt_users')
 			  ->where("`userid` = $userid" );
 			  
-		$results= $query->dbLoadQuery()->loadRow();
+		$results= $query->dbLoadQuery()->loadObject();
 		
 		// not a valid result OR value not set
-		if(!$results || isset($results[$userid]) == false){
+		$what = strtolower($what);
+		if(!$results || !isset($results->$what) ) {
 		    return $defaultValue;
 		}
 		
-		$what = strtolower($what);
-		return $results[$userid]->$what;
+		return $results->$what;
 	}
 	
 	/**

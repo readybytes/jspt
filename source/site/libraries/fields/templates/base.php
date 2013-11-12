@@ -41,7 +41,7 @@ class XiptFieldsTemplatesBase
 	function getFieldHTML($field, $required )
 	{
 		// it might be some other user (in case of admin is editing profile)
-		$user    =& JFactory::getUser();
+		$user    = JFactory::getUser();
 		
 		$tName	= $field->value;
 		$templates = XiptHelperJomsocial::getTemplatesList();

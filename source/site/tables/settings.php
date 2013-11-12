@@ -13,7 +13,7 @@ class XiptTableSettings extends XiptTable
 		parent::__construct('#__xipt_settings','name');
 	}
 
-	function load( $name='')
+	function load( $name='', $reset = true)
 	{
 		if( $name != 'settings'  )
 		{
@@ -21,9 +21,8 @@ class XiptTableSettings extends XiptTable
 			$this->params 		= '';
 			return true;
 		}
-		else
-		{
-			return parent::load( $name );
-		}
+
+		return parent::load( $name );
+	
 	}
 }

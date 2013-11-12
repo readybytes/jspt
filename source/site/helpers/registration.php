@@ -8,14 +8,14 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperRegistration
 {
-	function ajaxUpdate(&$args, &$response)
+	public static function ajaxUpdate(&$args, &$response)
 	{
 		$mySess 	= JFactory::getSession();
 		$mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
 		return true;
 	}
 	
-	function ajaxShowNewUserForm(&$args, &$response)
+	public static function ajaxShowNewUserForm(&$args, &$response)
 	{
 		$mySess 	= JFactory::getSession();
 		
@@ -63,7 +63,7 @@ class XiptHelperRegistration
 	}
 	
 	
-	function getPtypeDisplayPageForFacebook(&$response,$addhtml)
+	public static function getPtypeDisplayPageForFacebook(&$response,$addhtml)
 	{
 		//XITODO : trigger an API Event to add something to templates, or modify $profiletypes array
 		// e.g. : I want to patch description. with some extra information
@@ -101,7 +101,7 @@ class XiptHelperRegistration
 		
 	}
 	
-	function ajaxCreateNewAccountFacebook(&$args, &$response)
+	public static function ajaxCreateNewAccountFacebook(&$args, &$response)
 	{
 		//Added Profiletype Specific support
 		$pluginHandler = new XiptLibPluginhandler();
@@ -143,7 +143,7 @@ class XiptHelperRegistration
 		$response->sendResponse();
 	}
 	
-	function ajaxCheckEmailDuringFacebook(&$args, &$response)
+	public static function ajaxCheckEmailDuringFacebook(&$args, &$response)
 	{
 		//Added Profiletype Specific support
 		$pluginHandler = new XiptLibPluginhandler();
@@ -171,7 +171,7 @@ class XiptHelperRegistration
 		return false;
 	}
 	
-	function ajaxCheckUsernameDuringFacebook(&$args, &$response)
+	public static function ajaxCheckUsernameDuringFacebook(&$args, &$response)
 	{
 		$pluginHandler = new XiptLibPluginhandler();
 		$ptype  = $pluginHandler->isPTypeExistInSession();
@@ -198,7 +198,7 @@ class XiptHelperRegistration
 	}
 	
 	
-	function ajaxCheckEmail(&$args, &$response)
+	public static function ajaxCheckEmail(&$args, &$response)
 	{
 		$pluginHandler = new XiptLibPluginhandler();
 		$ptype  = $pluginHandler->isPTypeExistInSession();
@@ -224,7 +224,7 @@ class XiptHelperRegistration
 		return false;
 	}
 
-	function ajaxCheckUserName(&$args, &$response)
+	public static function ajaxCheckUserName(&$args, &$response)
 	{
 		$pluginHandler = new XiptLibPluginhandler();
 		$ptype  = $pluginHandler->isPTypeExistInSession();
@@ -249,7 +249,7 @@ class XiptHelperRegistration
 		return false;
 	}
 	
-	function getPTPrivacyValue($privacy)
+	public static function getPTPrivacyValue($privacy)
 	{
 			$value = PRIVACY_PUBLIC;
 			switch($privacy)
@@ -269,7 +269,7 @@ class XiptHelperRegistration
 		return $value;
 	}
     
-	function checkIfEmailAllowed($testEmail, $ptype)
+	public static function checkIfEmailAllowed($testEmail, $ptype)
 	{
 		//jspt_prevent_username
 		$config = XiptLibProfiletypes::getParams($ptype, 'config');
@@ -317,7 +317,7 @@ class XiptHelperRegistration
 		return true;
 	}
 	
-	function checkIfUsernameAllowed($testUsername, $ptype)
+	public static function checkIfUsernameAllowed($testUsername, $ptype)
 	{
 		//jspt_prevent_username
 		$config = XiptLibProfiletypes::getParams($ptype, 'config');

@@ -12,7 +12,7 @@ class XiptViewUsers extends XiptView
 	{
 		$userModel	= $this->getModel();
 		
-		$users		= $userModel->getUsers(0);
+		$users		= $userModel->getUsers();
 		$pagination	= $userModel->getPagination();
 		
 		$ptypeModel	= $this->getModel('profiletypes');

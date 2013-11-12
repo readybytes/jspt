@@ -35,14 +35,16 @@ class XiptControllerUsers extends XiptController
 		$ptype			= $post['profiletypes'];
 		$newTemplate 	= $post['template'];
 		
-		if($oldTemplate == $newTemplate)
+		if($oldTemplate == $newTemplate) {
 			$newTemplate = '';
+		}
 			
 		$result		= XiptLibProfiletypes::updateUserProfiletypeData($id, $ptype, $newTemplate, $what='ALL');
-		if(!$result)
+		
+		$info['msg'] = XiptText::_('USER_SAVED');
+		if (!$result) {
 			$info['msg'] = XiptText::_('ERROR_IN_SAVING_USER');
-		else
-			$info['msg'] = XiptText::_('USER_SAVED');	
+		}	
 
 		return $info;
 	}

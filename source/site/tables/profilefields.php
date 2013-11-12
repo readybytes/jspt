@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptTableProfileFields extends XiptTable
 {		
-	function load($id)
+	function load($id=0, $reset = true )
 	{
 		if( $id == 0 )
 		{

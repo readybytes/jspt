@@ -22,7 +22,7 @@ class XiptTableAclrules extends XiptTable
 	 * 	 
 	 * @return boolean true on success
 	 **/
-	function load( $id )
+	function load( $id= null, $reset = true)
 	{
 		// ID exist 
 		if($id){
