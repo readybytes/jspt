@@ -9,7 +9,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 //TODO: we should store
 class XiptLibApps
 {
-    function filterCommunityApps(&$apps, $profiletype, $blockProfileApps=true)
+    public static function filterCommunityApps(&$apps, $profiletype, $blockProfileApps=true)
     {
         $notAllowedApps = XiptLibApps::getNotAllowedCommunityAppsArray($profiletype);
         
@@ -36,11 +36,11 @@ class XiptLibApps
                unset($apps[$i]);
         }
         
-        $apps =& array_values($apps);
+        $apps = array_values($apps);
         return true;
     }
     
-    function getNotAllowedCommunityAppsArray($profiletype)
+   public static  function getNotAllowedCommunityAppsArray($profiletype)
     {
     	$tempResult = XiptFactory::getInstance('applications', 'model')
     								->loadRecords(0);		
@@ -50,11 +50,11 @@ class XiptLibApps
 		
 		if(isset($result[$profiletype]))
 			return $result[$profiletype];
-		else
-			return array();		
+		
+		return array();		
     }
     
-	function getPluginId( $element, $folder = 'community' )
+	public static function getPluginId( $element, $folder = 'community' )
 	{
 		$reset = XiptLibJomsocial::cleanStaticCache();
 		
@@ -79,7 +79,7 @@ class XiptLibApps
 	}
 	
 	
-	function filterAjaxAddApps(&$appName,&$profiletype, &$objResponse)
+	public static function filterAjaxAddApps(&$appName,&$profiletype, &$objResponse)
 	{
 	    $appId = XiptLibApps::getPluginId($appName);
 	    $notAllowedApps =XiptLibApps::getNotAllowedCommunityAppsArray($profiletype);

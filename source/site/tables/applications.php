@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptTableApplications extends XiptTable
 {
-	function load($id)
+	function load($id=null, $reset = true)
 	{
 		if( $id ){
 			return parent::load( $id );

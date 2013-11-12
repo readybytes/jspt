@@ -17,7 +17,7 @@ class XiptAPI
 	 * @param $what (default value is "id", you can ask for "name" too)
 	 * @return int (id) or String (Name)
 	 */
-	function getUserProfiletype($userid, $what='id')
+	public static function getUserProfiletype($userid, $what='id')
 	{
 	    $pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 	    if($what == 'id')
@@ -35,7 +35,7 @@ class XiptAPI
 	 * 							  or you can use (profiletype, jusertype, avatar, group, privacy etc.)
 	 * @return unknown_type
 	 */
-	function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')
+	public static function setUserProfiletype($userId, $profiletypeId, $reset = 'ALL')
 	{
 		return XiptLibProfiletypes::updateUserProfiletypeData($userId,$profiletypeId,null, $reset);
 	}
@@ -49,7 +49,7 @@ class XiptAPI
 	 * @param $filter : Associative array to define conditions
 	 * @return Array of Profiletype Objects
 	 */
-	function getProfiletypeInfo($id=0, $filter=array())
+	public static function getProfiletypeInfo($id=0, $filter=array())
 	{
 		//$filter = array('published'=>$onlypublished);
 	    $allPT = XiptLibProfiletypes::getProfiletypeArray($filter);
@@ -76,7 +76,7 @@ class XiptAPI
 	/*
 	 * Returns default profiletype 
 	 */
-	function getDefaultProfiletype()
+	public static function getDefaultProfiletype()
 	{
 		return XiptLibProfiletypes::getDefaultProfiletype();
 	}
@@ -87,7 +87,7 @@ class XiptAPI
 	 * @param $what : can be 'PROFILETYPE' or 'TEMPLATE'
 	 * @return unknown_type
 	 */
-	function getUserInfo($userid, $what='PROFILETYPE')
+	public static function getUserInfo($userid, $what='PROFILETYPE')
 	{
 		return XiptLibProfiletypes::getUserData($userid,$what);		
 	}
@@ -99,7 +99,7 @@ class XiptAPI
 	 * @param $defaultValue
 	 * @return unknown_type
 	 */
-	function getGlobalConfig($paramName='', $defaultValue=0)
+	public static function getGlobalConfig($paramName='', $defaultValue=0)
 	{
 		if($paramName === '')
 			return null;
@@ -107,11 +107,11 @@ class XiptAPI
 		return XiptFactory::getSettings($paramName ,$defaultValue);
 	}
 	
-/*
+	/*
 	 * Get Profile Type Name
 	 * @profileTypeId, Profile Id
 	 */
-	function getProfileTypeName($profileTypeId) {
+	public static function getProfileTypeName($profileTypeId) {
 		
 		return XiptLibProfiletypes::getProfiletypeName($profileTypeId);
 	}
@@ -120,7 +120,7 @@ class XiptAPI
 	 * return array of all published Profile Type id
 	 * @filter, use for filter Profile Type 
 	 */
-	function getProfileTypeIds($filter= '') {
+	public static function getProfileTypeIds($filter= '') {
 		
 		return XiptLibProfiletypes::getProfiletypeArray($filter);
 	}
@@ -128,7 +128,7 @@ class XiptAPI
 	/*
 	 * return JomSocial Profile Fields
 	 */
-	function getJSProfileFields($fieldId=0) {
+	public static function getJSProfileFields($fieldId=0) {
 		return XiptLibJomsocial::getFieldObject($fieldId);
 	}
 	
@@ -136,13 +136,13 @@ class XiptAPI
 	 * filter Profile-Type fields according to Profile Type
 	 */
 
-	function filterProfileTypeFields(&$fields, $selectedProfiletypeID, $from) {
+	public static function filterProfileTypeFields(&$fields, $selectedProfiletypeID, $from) {
 		
 		return XiptFactory::getInstance('profilefields','model')
 							->getFieldsForProfiletype($fields, $selectedProfiletypeID, $from);
 	}
 	
-	function getProfileTypeFromSession()
+	public static function getProfileTypeFromSession()
 	{
 	        return JFactory::getSession()->get("SELECTED_PROFILETYPE_ID", null, "XIPT");
 	}
