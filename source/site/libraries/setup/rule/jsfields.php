@@ -93,7 +93,7 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 	
 	
 	//enable template & profiletype fields in community_fields table
-	function _switchFieldState($state)
+	public static function _switchFieldState($state)
 	{
 		$query = new XiptQuery();
 		return $query->update('#__community_fields')

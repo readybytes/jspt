@@ -5,7 +5,7 @@
 **/
 
 
-require_once JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php';
+require_once JPATH_ROOT.'/components/com_xipt/includes.php';
 
 class XiptAPI
 {

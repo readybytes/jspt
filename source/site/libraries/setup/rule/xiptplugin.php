@@ -40,8 +40,11 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 			|| XiptHelperUtils::changePluginState('xipt_system', 0) == false)
 			return false;
 			
-		if(XiptSetupRuleJsfields::doRevert() == false
-			|| XiptSetupRulePatchfiles::doRevert() == false)
+		$ruleJsfield 	= XiptFactory::getSetupRule('jsfields');
+		$rulePatchFile 	= XiptFactory::getSetupRule('patchfiles');
+			
+		if($ruleJsfield->doRevert() == false
+			|| $rulePatchFile->doRevert() == false)
 			return false;
 		
 		return true;

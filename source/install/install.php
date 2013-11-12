@@ -7,8 +7,7 @@
 */
 if(defined('_JEXEC')===false) die('Restricted access' );
 
-if(define('XIPT_VERSION') == false)
-	define('XIPT_VERSION', '@global.version@.@svn.lastrevision@');
+defined('XIPT_VERSION') or define('XIPT_VERSION','4.0.4-9-gca008f2');
 	
 
 class Com_xiptInstallerScript

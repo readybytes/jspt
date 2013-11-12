@@ -8,7 +8,8 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
-define('XIPT_VERSION','@global.version@.@svn.lastrevision@');
+defined('XIPT_VERSION') or define('XIPT_VERSION','4.0.4-9-gca008f2');
+
 define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
 define('XIPT_NONE','XIPT_NONE');
 
@@ -118,6 +119,8 @@ define('ALL',-1); //required in admin in ACL rules only ,
 
 define('XIPT_ADMIN_PATH_VIEWS',JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'views');
 define('XIPT_ADMIN_PATH_CONTROLLERS',JPATH_ADMINISTRATOR.DS.'components'.DS.'com_xipt'.DS.'controllers');
+
+define('XIPT_FRONT_PATH',JPATH_ROOT.DS.'components'.DS.'com_xipt');
 
 define('XIPT_FRONT_PATH_CONTROLLERS',JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'controllers');
 define('XIPT_FRONT_PATH_VIEWS', JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views');

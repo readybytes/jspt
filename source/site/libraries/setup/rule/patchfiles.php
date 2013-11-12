@@ -370,7 +370,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return $requiredSetup;
 	}
 	
-	function _getJSPTFileList()
+	public static function _getJSPTFileList()
 	{
 		$CMP_PATH_FRNTEND = JPATH_ROOT .DS. 'components' . DS . 'com_community';
 		$CMP_PATH_ADMIN	  = JPATH_ROOT .DS. 'administrator' .DS.'components' . DS . 'com_community';
