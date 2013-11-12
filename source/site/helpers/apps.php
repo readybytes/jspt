@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperApps 
 {
-	function getProfileTypeNames($aid)
+	public static function getProfileTypeNames($aid)
 	{	
 		XiptError::assert($aid, XiptText::_("APPLICATION_ID_CANNOT_BE_NULL"), XiptError::ERROR);
 
@@ -30,7 +30,7 @@ class XiptHelperApps
 	}   
 
 
-	function getProfileTypeArray($aid)
+	public static function getProfileTypeArray($aid)
 	{	
 		XiptError::assert($aid, XiptText::_("APPLICATION_ID_CANNOT_BE_NULL"), XiptError::ERROR);
 		
@@ -45,7 +45,7 @@ class XiptHelperApps
 		return array_values(array_diff($allTypes, $results));
 	}
 
-	function buildProfileTypesforApplication( $aid )
+	public static function buildProfileTypesforApplication( $aid )
 	{
 		$selectedTypes 	= XiptHelperApps::getProfileTypeArray($aid);		
 		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();

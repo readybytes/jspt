@@ -123,8 +123,8 @@ class XiptViewAclRules extends XiptView
 		$aclObject->bind($data);
 		$helpMsg = XiptAclHelper::getHelpMessage($data['aclname']);
 		$this->assign('helpMsg', $helpMsg);
-		$this->assignRef('coreParamsHtml',	$aclObject->getCoreParamsHtml());
-		$this->assignRef('aclParamsHtml',	$aclObject->getAclParamsHtml());
+		$this->assign('coreParamsHtml',	$aclObject->getCoreParamsHtml());
+		$this->assign('aclParamsHtml',	$aclObject->getAclParamsHtml());
 		$this->assign('aclruleInfo',$data);
 
 		$this->setToolbar($tpl);

@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupRuleDefaultprofiletype extends XiptSetupBase
 {
- 	function isRequired()
+ 	public static function isRequired()
  	{
  		$defaultProfiletypeID = XiptFactory::getSettings('defaultProfiletypeID', 0);
  		

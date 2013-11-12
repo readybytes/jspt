@@ -16,7 +16,7 @@ class XiptLibProfiletypes
 	 * @param $newData
 	 * @return unknown_type
 	 */
-	function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
+	public static function updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData)
 	{
 		XiptError::assert($userid, XiptText::_("USERID $userid IS_NOT_VALID"), XiptError::ERROR);
 		$uModel = XiptFactory::getInstance('Users','model');
@@ -82,7 +82,7 @@ class XiptLibProfiletypes
 	 * @param $what
 	 * @return unknown_type
 	 */
-	function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
+	public static function updateUserProfiletypeData($userid, $ptype, $template, $what='ALL')
 	{
 		XiptError::assert($userid, XiptText::_("USERID $userid IS_NOT_VALID"), XiptError::ERROR);
 		$uModel = XiptFactory::getInstance('Users','model');
@@ -182,7 +182,7 @@ class XiptLibProfiletypes
 	}
 	
 
-	function getDefaultProfiletype()
+	public static function getDefaultProfiletype()
 	{		
 		$refresh = XiptLibJomsocial::cleanStaticCache();
 		static $defaultProfiletypeID = null;
@@ -199,21 +199,21 @@ class XiptLibProfiletypes
 	}
 	
 	
-	function getDefaultTemplate()
+	public static function getDefaultTemplate()
 	{
 		$config	        = CFactory::getConfig();
 	    $defaultValue   =  $config->get('template');
 	    return $defaultValue;
 	}
 			
-	function getProfiletypeName( $id = 0)
+	public static function getProfiletypeName( $id = 0)
 	{
 		$val = XiptHelperProfiletypes::getProfileTypeName($id);
 		return $val;
 	}
 
 	//return array of all published profile type id
-	function getProfiletypeArray($filter='')
+	public static function getProfiletypeArray($filter='')
 	{
 		//XITODO : we need to add $visible pTypes as per request.move this to model, implement WHERE
 		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
@@ -241,7 +241,7 @@ class XiptLibProfiletypes
 	 * @return unknown_type
 	 */
 	//XITODO : move to user model
-	function getUserData($userid, $what='PROFILETYPE')
+	public static function getUserData($userid, $what='PROFILETYPE')
 	{
 		$results=array();
 
@@ -294,14 +294,14 @@ class XiptLibProfiletypes
 	 * @return unknown_type
 	 */
 	
-	function getProfiletypeData($id = 0, $what = 'name')
+	public static function getProfiletypeData($id = 0, $what = 'name')
 	{
 		$val = XiptHelperProfiletypes::getProfileTypeData($id, $what);
 		return $val;
 	}
 	
 	// returns all user of profiletype
-	function getAllUsers($pid)
+	public static function getAllUsers($pid)
 	{
 		$query = new XiptQuery();
 		$query->select('`userid`')
@@ -312,7 +312,7 @@ class XiptLibProfiletypes
 	}
 		
 	//call fn to get fields related to ptype in getviewable and geteditable profile fn
-	function filterCommunityFields($userid, &$fields, $from)
+	public static function filterCommunityFields($userid, &$fields, $from)
 	{
 	    //durin loadAllfields no user id avaialble
 	    // so we pick the pType from registration 
@@ -329,7 +329,7 @@ class XiptLibProfiletypes
 	
     // Checks if given avatar is default profiletype avatar
     // or default of one of ProfileType? 
-	function isDefaultAvatarOfProfileType($path, $isDefaultCheckRequired = false)
+	public static function isDefaultAvatarOfProfileType($path, $isDefaultCheckRequired = false)
 	{
 		//if default check required 
 		//we should not ignore case for windows 
@@ -381,7 +381,7 @@ class XiptLibProfiletypes
      * @param $profileTypeID
      * @return boolean
      */
-    function validateProfiletype($profileTypeID, $filter=array('published'=>1))
+   public static function validateProfiletype($profileTypeID, $filter=array('published'=>1))
 	{
 		if(empty($profileTypeID))
 			return false;
@@ -398,7 +398,7 @@ class XiptLibProfiletypes
 		return false;
 	}
 	
-	function getParams($id,$what='params')
+	public static function getParams($id,$what='params')
 	{
 		$model = XiptFactory::getInstance('Profiletypes','model');
 		$params = $model->loadParams($id,$what);

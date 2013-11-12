@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupRuleCreateprofiletypes extends XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{
 		$ptypes = XiptHelperProfiletypes::getProfileTypeArray();
 		if($ptypes)

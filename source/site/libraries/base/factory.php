@@ -20,7 +20,7 @@ class XiptFactory
     }
 
 	//XITODO : apply caching 
-	function getSetupRule($name)
+	public static function getSetupRule($name)
 	{		
 		$classname = 'XiptSetupRule'.JString::ucfirst($name);
 		

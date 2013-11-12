@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptControllerInstall extends XiptController 
 {
-	public function getModel()
+	public function getModel($modelName = '', $prefix = '', $config = array())
     {
 		return false;
     }

@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperJomsocial
 {
-	function getTemplatesList()
+	public static function getTemplatesList()
 	{	
 		$path	= JPATH_ROOT. DS . 'components' . DS . 'com_community' . DS . 'templates';
 		
@@ -25,14 +25,14 @@ class XiptHelperJomsocial
         return XiPTRoute::_('index.php?option=com_users&view=registration', false);
     }
 
-    function isSupportedJS()
+    public static function isSupportedJS()
 	{
 		$inValid = array('2.4','2.6','2.8');
 		$ver = self::get_js_version();
 		return  !in_array(JString::substr($ver,0,3), $inValid);
  	}
  	
-	function get_js_version()
+	public static function get_js_version()
 	{	
 		$CMP_PATH_ADMIN	= JPATH_ROOT . DS. 'administrator' .DS.'components' . DS . 'com_community';
 		
@@ -44,7 +44,7 @@ class XiptHelperJomsocial
 		return $version;
 	}
 	
-	function getFieldId($fieldcode)
+	public static function getFieldId($fieldcode)
 	{
 		static $results = array();
 		

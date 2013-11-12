@@ -9,7 +9,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 abstract class XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{
 		return true;
 	}

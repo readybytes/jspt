@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupRuleAecmi extends XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{	
 		$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';
 		

@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupRulePayplans extends XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{	
 		$params = XiptFactory::getSettings();
 		$integrate_with 		= $params->getValue('integrate_with', null, 0);

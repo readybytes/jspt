@@ -133,11 +133,12 @@ abstract class XiptModel extends JModelLegacy
 	 * Get an object of model-corresponding table.
 	 * @return XiptTable
 	 */
-	public function getTable($tableName=null)
+	public function getTable($tableName = '', $prefix = 'Table', $options = array())
 	{
 		// support for parameter
-		if($tableName===null)
+		if(empty($tableName)) {
 			$tableName = $this->getName();
+		}
 
 		return XiptFactory::getInstance($tableName,'Table');
 	}
@@ -247,7 +248,7 @@ abstract class XiptModel extends JModelLegacy
 	/**
 	 * @return XiPagination
 	 */
-	function &getPagination()
+	function getPagination()
 	{
 	 	if($this->_pagination)
 	 		return $this->_pagination;

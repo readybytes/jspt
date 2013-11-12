@@ -46,7 +46,7 @@ abstract class XiptTable extends JTable
 	function __construct($tblFullName=null, $tblPrimaryKey=null, $db=null)
 	{
 		if($db===null)
-			$db	=&	JFactory::getDBO();
+			$db	=	JFactory::getDBO();
 
 		//call parent to build the table object
 		parent::__construct( $tblFullName, $tblPrimaryKey, $db);
@@ -103,7 +103,7 @@ abstract class XiptTable extends JTable
 		return $this->_columns;
 	}
 	
-	function bind($data =array())
+	function bind($data =array(),$ignore = array())
 	{
 		
 		$prop = $this->getProperties();
@@ -118,11 +118,12 @@ abstract class XiptTable extends JTable
 		return true;
 	}
 	
-	function delete($oid,$glue='AND')
+	function delete($oid, $glue='AND')
 	{
 		//if its a pk, then simple call parent
-		if(is_array($oid)===false)
+		if(is_array($oid)===false) {
 			return parent::delete($oid);
+		}
 
 		// if an array/ means not a primiary key
 		//Support multiple key-value pair in $oid

@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptAclHelper
 {
-	function isFriend($userId, $viewUserId)
+	public static function isFriend($userId, $viewUserId)
 	{
 		$query = new XiptQuery();
 		return $query->select('connection_id')
@@ -20,7 +20,7 @@ class XiptAclHelper
 					 ->loadResult();
 	}
 
-    function performACLCheck($ajax=false, $callArray, $args)
+    public static function performACLCheck($ajax=false, $callArray, $args)
 	{
 		//Return if admin
 		$userId 		= JFactory::getUser()->id;
@@ -88,7 +88,7 @@ class XiptAclHelper
 	
 	//XITODO : Apply caching
 	//         test case
-	function getOrderedRules()
+	public static function getOrderedRules()
 	{
 		$xml		= dirname(__FILE__) . DS . 'order.xml';
 	
@@ -111,7 +111,7 @@ class XiptAclHelper
 	}
 	
 	// XITODO : test case
-	function getHelpMessage($aclName)
+	public static function getHelpMessage($aclName)
 	{
 		$msgFile = dirname(__FILE__).DS.$aclName.DS.'help.html';
 		if(!JFile::exists($msgFile))

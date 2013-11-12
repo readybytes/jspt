@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperConfiguration 
 {
-	function getResetLinkArray()
+	public static function getResetLinkArray()
 	{
 		$resetArray = array();
 		$allPTypes  = XiptLibProfiletypes::getProfiletypeArray();

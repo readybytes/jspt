@@ -10,7 +10,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptHelperProfilefields 
 {
 	// return row from row id of fields values table
-	function getProfileTypeNames($fid,$for)
+	public static function getProfileTypeNames($fid,$for)
 	{
 		XiptError::assert($fid, XiptText::_("PROFILEFIELD_ID_CAN_NOT_BE_NULL"), XiptError::ERROR);
 
@@ -31,7 +31,7 @@ class XiptHelperProfilefields
 		return implode(',',$retVal);
 	}
 
-	function getProfileTypeArray($fid,$for)
+	public static function getProfileTypeArray($fid,$for)
 	{
 		XiptError::assert($fid, XiptText::_("PROFILEFIELD_ID_CAN_NOT_BE_NULL"), XiptError::ERROR);
 			
@@ -48,7 +48,7 @@ class XiptHelperProfilefields
 	}
 
 
-	function buildProfileTypes( $fid ,$for)
+	public static  function buildProfileTypes( $fid ,$for)
 		{
 			$selectedTypes 	= XiptHelperProfilefields::getProfileTypeArray($fid,$for);		
 			$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
@@ -70,7 +70,7 @@ class XiptHelperProfilefields
 			return $html;
 		}
 
-	function getProfileFieldCategories()
+	public static function getProfileFieldCategories()
 	{
 		$categories[PROFILE_FIELD_CATEGORY_ALLOWED] = array(
 									'name'=> 'ALLOWED',

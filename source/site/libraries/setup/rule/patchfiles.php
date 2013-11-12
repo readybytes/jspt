@@ -8,15 +8,15 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupRulePatchfiles extends XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{
 		$modelPatch   = self::isModelFilePatchRequired();
-		$userPatch    = self::isAdminUserModelPatchRequired();
+//		$userPatch    = self::isAdminUserModelPatchRequired();
 		$xmlPatch     = self::isXMLFilePatchRequired();
 		$libraryField = self::isCustomLibraryFieldRequired();
 		$corePatch    = self::isCoreLibraryPatchRequired();
 		
-		return ($modelPatch || $userPatch || $xmlPatch || $libraryField || $corePatch);
+		return ($modelPatch || $xmlPatch || $libraryField || $corePatch);
 	}
 	
 	function doApply()
@@ -219,7 +219,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return false;
 	}
 	
-	function isModelFilePatchRequired()
+	public static function isModelFilePatchRequired()
 	{
 		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'models'.DS.'profile.php';
 		if (JFile::exists($filename)) {
@@ -239,7 +239,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return false;
 	}
 	
-	function isAdminUserModelPatchRequired()
+	public static function isAdminUserModelPatchRequired()
 	{
 		// no need to pacth the admin user model in jspt 2.0
 //		if(JString::stristr(XiptHelperJomsocial::get_js_version(),"2.")) return false;
@@ -263,7 +263,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return false;
 	}
 	
-	function isCoreLibraryPatchRequired()
+	public static function isCoreLibraryPatchRequired()
 	{
 		$filename = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php';
 		if (JFile::exists($filename)) {
@@ -283,7 +283,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return false;
 	}
 	
-	function isXMLFilePatchRequired()
+	public static function isXMLFilePatchRequired()
 	{
 		$filename	= JPATH_ROOT . DS. 'components' . DS . 'com_community'.DS.'libraries'.DS.'fields'.DS.'customfields.xml';
 		if (JFile::exists($filename)) {
@@ -306,7 +306,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return false;
 	}
 	
-	function isCustomLibraryFieldRequired()
+	public static function isCustomLibraryFieldRequired()
 	{
 		$pFileName 	 = JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'fields'.DS.PROFILETYPE_FIELD_TYPE_NAME.'.php';
 		$pXiFileName = JPATH_ROOT.DS.'administrator'.DS.'components'.DS.'com_xipt'.DS.'hacks'.DS.'front_libraries_fields_profiletypes.php';
@@ -322,7 +322,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
     	return true;
 	}
 	
-	function deleteJSOldFile($file1,$file2){
+	public static function deleteJSOldFile($file1,$file2){
 		if(!JFile::exists($file1))
 			return false;
 			
@@ -336,7 +336,7 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return true;
 	}
 	
-	function copyLibraryFiles()
+	public static function copyLibraryFiles()
 	{
 		$XIPT_PATH_ADMIN	  = JPATH_ROOT .DS. 'administrator' .DS.'components' . DS . 'com_xipt';
 	

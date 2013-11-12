@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupRuleJsfields extends XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{
 		$fields = self::_checkExistance();
 		if(!$fields || count($fields)!= 2)
@@ -50,7 +50,7 @@ class XiptSetupRuleJsfields extends XiptSetupBase
 	}
 	
 	//check existance of custom fields profiletype and template
-	function _checkExistance()
+	public static function _checkExistance()
 	{
 		$query  = new XiptQuery();
 		return $query->select('*')

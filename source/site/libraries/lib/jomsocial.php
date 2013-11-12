@@ -12,7 +12,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptLibJomsocial
 {
 	//will return object of field as per fieldId
-    function getFieldObject($fieldid=0, $limit = null, $start = 0)
+    public static function getFieldObject($fieldid=0, $limit = null, $start = 0)
 	{
 		$reset = self::cleanStaticCache();
 		static $result = null;
@@ -48,7 +48,7 @@ class XiptLibJomsocial
 	}
 	
     //get required user info from community_users table
-	function getUserDataFromCommunity($userid,$what)
+	public static function getUserDataFromCommunity($userid,$what)
 	{
 		XiptError::assert($what, XiptText::_("INFO_IS_EMPTY"), XiptError::ERROR);
 		
@@ -74,7 +74,7 @@ class XiptLibJomsocial
      * @param $newUsertype
      * @return true/false
      */
-    function updateJoomlaUserType($userid, $newUsertype=JOOMLA_USER_TYPE_NONE, $oldUsertype=JOOMLA_USER_TYPE_NONE)
+   public static  function updateJoomlaUserType($userid, $newUsertype=JOOMLA_USER_TYPE_NONE, $oldUsertype=JOOMLA_USER_TYPE_NONE)
 	{
 	    //do not change usertypes for admins
 		if(XiptHelperUtils::isAdmin($userid)==true || (0 == $userid )||$newUsertype === JOOMLA_USER_TYPE_NONE){
@@ -156,7 +156,7 @@ class XiptLibJomsocial
 		return true;
 	}
 	
-	function updateCommunityCustomField($userId, $value, $what='')
+	public static function updateCommunityCustomField($userId, $value, $what='')
 	{
 	    //ensure we are calling it for correct field
 	    XiptError::assert($what == PROFILETYPE_CUSTOM_FIELD_CODE || $what == TEMPLATE_CUSTOM_FIELD_CODE
@@ -220,7 +220,7 @@ class XiptLibJomsocial
 	 * @return unknown_type
 	 */
 	//Before take any action for watre-mark, avatar must be manipulat.
-	function updateCommunityUserWatermark($userid,$watermark='')
+	public static function updateCommunityUserWatermark($userid,$watermark='')
 	{
 		//will not apply on admin
 		$isAdmin = XiptHelperUtils::isAdmin($userid);
@@ -268,7 +268,7 @@ class XiptLibJomsocial
 		return true;
 	}
 	
-	function restoreBackUpAvatar($currImagePath)
+	public static function restoreBackUpAvatar($currImagePath)
 	{
 		$currImagePath	= XiptHelperUtils::getRealPath($currImagePath);
 		$avatarFileName = JFile::getName($currImagePath);
@@ -285,7 +285,7 @@ class XiptLibJomsocial
 	 * @param $newAvatar
 	 * @return unknown_type
 	 */
-	function updateCommunityUserDefaultAvatar($userid, $newAvatar)
+	public static function updateCommunityUserDefaultAvatar($userid, $newAvatar)
 	{
 		// Will not apply on admin
 		$isAdmin = XiptHelperUtils::isAdmin($userid);
@@ -328,7 +328,7 @@ class XiptLibJomsocial
 
 	
 	/*This function set privacy for user as per his profiletype*/
-	function updateCommunityUserPrivacy($userid,$myprivacy)
+	public static function updateCommunityUserPrivacy($userid,$myprivacy)
 	{	
 		// get params
 		//self::reloadCUser($userid);
@@ -390,7 +390,7 @@ class XiptLibJomsocial
 		
 	}
 	
-	function updateCommunityUserGroup($userId,$oldGroup, $newGroup)
+	public static function updateCommunityUserGroup($userId,$oldGroup, $newGroup)
 	{
 		// remove from oldGroup
 		if($oldGroup && self::_isMemberOfGroup($userId,$oldGroup))
@@ -404,7 +404,7 @@ class XiptLibJomsocial
 		return true;
 	}
 	
-	function _isMemberOfGroup($userid, $groupid)
+	public static function _isMemberOfGroup($userid, $groupid)
 	{
 		$query  = new XiptQuery();
 		$result = $query->select('memberid')
@@ -418,7 +418,7 @@ class XiptLibJomsocial
   		return $result ? true : false ;
 	}
 	
-	function _addUserToGroup( $userId , $groupIds)
+	public static function _addUserToGroup( $userId , $groupIds)
 	{
 		if(empty($groupIds))
 			return false;
@@ -460,7 +460,7 @@ class XiptLibJomsocial
 			return true;
 	}
 	    
-	function _removeUserFromGroup($userId , $groupIds)
+	public static function _removeUserFromGroup($userId , $groupIds)
 	{
 		if(empty($groupIds))
 			return false;
@@ -499,7 +499,7 @@ class XiptLibJomsocial
 		return true;
 	}
 	
-	function reloadCUser($userid)
+	public static function reloadCUser($userid)
 	{
 		if(!$userid)
 			return false;
@@ -508,7 +508,7 @@ class XiptLibJomsocial
 		return CFactory::getUser($userid);		
 	}
 	
-	function cleanStaticCache($set = null)
+	public static function cleanStaticCache($set = null)
 	{
 		static $reset = false;
 		
@@ -518,7 +518,7 @@ class XiptLibJomsocial
 		return $reset;
 	}
 	// to save value of JS multiprofiletype in  _config table
-	function saveValueinJSConfig($setValue=0)
+	public static function saveValueinJSConfig($setValue=0)
 	{  
 		CFactory::load('helpers', 'string');
 		$config	= JTable::getInstance( 'configuration' , 'CommunityTable' );
@@ -534,7 +534,7 @@ class XiptLibJomsocial
 	}
 	
 	//this funtion is not supported by JS2.4++
-	function addWallCount( $groupId )
+	public static function addWallCount( $groupId )
 	{
 		$group	= JTable::getInstance( 'Group' , 'CTable' );
 		$group->load( $groupId );

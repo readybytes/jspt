@@ -45,7 +45,7 @@ class XiptTableAclrules extends XiptTable
 	 * 
 	 * @return boolean true on success
 	 **/
-	function store( )
+	function store($updateNulls = false)
 	{
  		parent::store();
  		return $this->id;

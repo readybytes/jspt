@@ -11,7 +11,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptLibJoomla
 {
-	function getJUserTypes()
+	public static function getJUserTypes()
 	{
 		$values= array(JOOMLA_USER_TYPE_NONE);
 		$query 	= new XiptQuery();

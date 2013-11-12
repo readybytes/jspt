@@ -11,7 +11,7 @@ class XiptError extends JError
 	const ERROR   = 1;
 	const WARNING = 2;
 	//XITODO : add assertError. assertWarn, assertMessage function
-	function assert($condition, $msg = '', $type = self::ERROR)
+	public static function assert($condition, $msg = '', $type = self::ERROR)
 	{
 		if($condition)
 			return true;

@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperProfiletypes
 {
-	function buildTypes($value, $what)
+	public static function buildTypes($value, $what)
 	{
 		$allValues	= array();
 		$callFunc = '_build'.JString::ucfirst($what);
@@ -19,7 +19,7 @@ class XiptHelperProfiletypes
 		return XiptHelperProfiletypes::$callFunc($value);
 	}
 
-	function _buildProfiletypes($value)
+	public static function _buildProfiletypes($value)
 	{
 		$allTypes = XiptLibProfiletypes::getProfiletypeArray();
 		if (!$allTypes)
@@ -38,7 +38,7 @@ class XiptHelperProfiletypes
 		return JHTML::_('select.genericlist',  $allValues, 'privacy', 'class="inputbox"', 'value', 'value', $value);
 	}
 
-	function _buildTemplate($value)
+	public static function _buildTemplate($value)
 	{
 		$templates = XiptHelperJomsocial::getTemplatesList();
 		if(!$templates)
@@ -50,7 +50,7 @@ class XiptHelperProfiletypes
 		return JHTML::_('select.genericlist',  $allValues, 'template', 'class="inputbox"', 'value', 'value', $value);
 	}
 
-	function _buildJusertype($value)
+	public static function _buildJusertype($value)
 	{
 		$usertypes= XiptLibJoomla::getJUserTypes();
 		if(!$usertypes)
@@ -62,7 +62,7 @@ class XiptHelperProfiletypes
 		return JHTML::_('select.genericlist',  $allValues, 'jusertype', 'class="inputbox"', 'value', 'value', $value);
 	}
 
-	function _buildGroup($value)
+	public static function _buildGroup($value)
 	{
 		//We should add none also.
 		$allValues 		= new stdClass();
@@ -75,7 +75,7 @@ class XiptHelperProfiletypes
 		return JHTML::_('select.genericlist',  $groups, 'group[]', 'class="inputbox" size="3" multiple ', 'id', 'name', $value);
 	}
 
-	function getGroups($id='')
+	public static function getGroups($id='')
 	{
 		$query = new XiptQuery();
 		$query->select(' `id`, `name` ')
@@ -90,7 +90,7 @@ class XiptHelperProfiletypes
 		/* TODO : what if group list is empty */
 	}
 
-	function getProfileTypeData($id,$what='name')
+	public static function getProfileTypeData($id,$what='name')
 	{
 		//XITODO : Caching can be added
 		$searchFor 		= 'name';
@@ -121,7 +121,7 @@ class XiptHelperProfiletypes
 		return false;
 	}
 
-	function getProfileTypeName($id)
+	public static function getProfileTypeName($id)
 	{
 		//XITODO : Clean ALL / NONE, and cache results
 		if($id == XIPT_PROFILETYPE_ALL || empty($id))
@@ -133,7 +133,7 @@ class XiptHelperProfiletypes
 		return XiptHelperProfiletypes::getProfileTypeData($id,'name');
 	}
 
-	function getProfileTypeArray($isAllReq = false, $isNoneReq= false)
+	public static function getProfileTypeArray($isAllReq = false, $isNoneReq= false)
 	{
 		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
 
@@ -162,7 +162,7 @@ class XiptHelperProfiletypes
 	 * @param $newData
 	 * @return unknown_type
 	 */
-	function resetAllUsers($pid, $oldData, $newData)
+	public static function resetAllUsers($pid, $oldData, $newData)
 	{
 		$allUsers = XiptLibProfiletypes::getAllUsers($pid);
 
@@ -185,7 +185,7 @@ class XiptHelperProfiletypes
 	}
 
 	// XITODO : needs cleanup
-	function uploadAndSetImage($file,$id,$what)
+	public static function uploadAndSetImage($file,$id,$what)
 	{
 		$mainframe	= JFactory::getApplication();
 		CFactory::load( 'helpers' , 'image' );
@@ -284,7 +284,7 @@ class XiptHelperProfiletypes
 		}
 	}
 
-	function checkSessionForProfileType()
+	public static function checkSessionForProfileType()
     {
     	$mySess = JFactory::getSession();
     	if($mySess)
@@ -298,7 +298,7 @@ class XiptHelperProfiletypes
     }
 
 	//XITODO : Remove funda of return url, use configuration
-    function setProfileTypeInSession($selectedProfiletypeID)
+    public static function setProfileTypeInSession($selectedProfiletypeID)
     {
 		// XITODO : move redirection to controller
     	$mySess =  JFactory::getSession();

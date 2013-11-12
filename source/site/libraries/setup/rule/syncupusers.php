@@ -9,7 +9,7 @@ jimport( 'joomla.error.profiler' );
 
 class XiptSetupRuleSyncupusers extends XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{
 		$params = XiptFactory::getSettings('', 0);
 		$defaultProfiletypeID = $params->getValue('defaultProfiletypeID');
@@ -26,7 +26,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		if(!($PTFieldId && $TMFieldId))
 			return true;
 			
-		$result = $this->getUsertoSyncUp();
+		$result = self::getUsertoSyncUp();
 		
 		if(empty($result))
 		{
@@ -154,7 +154,7 @@ class XiptSetupRuleSyncupusers extends XiptSetupBase
 		return $requiredSetup;
 	}
 	
-	function getUsertoSyncUp($start = 0, $limit = SYNCUP_USER_LIMIT)
+	public static function getUsertoSyncUp($start = 0, $limit = SYNCUP_USER_LIMIT)
 	{
 		//XITODO : apply caching
 //		static $users = null;

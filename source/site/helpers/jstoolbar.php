@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperJSToolbar 
 {
-	function getProfileTypeNames($menuid)
+	public static function getProfileTypeNames($menuid)
 	{	
 		XiptError::assert($menuid, XiptText::_("MENU_ID_CANNOT_BE_NULL"), XiptError::ERROR);
 
@@ -30,7 +30,7 @@ class XiptHelperJSToolbar
 	}   
 
 
-	function getProfileTypeArray($menuid)
+	public static function getProfileTypeArray($menuid)
 	{	
 		XiptError::assert($menuid, XiptText::_("MENU_ID_CANNOT_BE_NULL"), XiptError::ERROR);
 		
@@ -45,7 +45,7 @@ class XiptHelperJSToolbar
 		return array_values(array_diff($allTypes, $results));
 	}
 
-	function buildProfileTypesforJSToolbar( $menuid )
+	public static function buildProfileTypesforJSToolbar( $menuid )
 	{
 		$selectedTypes 	= self::getProfileTypeArray($menuid);		
 		$allTypes		= XiptHelperProfiletypes::getProfileTypeArray();
@@ -66,7 +66,7 @@ class XiptHelperJSToolbar
 		return $html;
 	}	
 	
-	function getMenusToHide($userid)
+	public static function getMenusToHide($userid)
 	{		
 		$jsmodel = XiptFactory::getInstance('jstoolbar','model');
 		$pID 	 = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');

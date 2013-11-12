@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptHelperUtils
 {
-	function isAdmin($id)
+	public static function isAdmin($id)
 	{
 		if(!$id){
 			return false;
@@ -17,7 +17,7 @@ class XiptHelperUtils
 		return JFactory::getUser($id)->authorise('core.login.admin');
 	}
 	
-	function getFonts()
+	public static function getFonts()
 	{
 		$path	= JPATH_ROOT  . DS . 'components' . DS . 'com_xipt' . DS . 'assets' . DS . 'fonts';
 	
@@ -35,13 +35,13 @@ class XiptHelperUtils
 		return $fonts;
 	}	
 	
-	function getUrlpathFromFilePath($filepath)
+	public static function getUrlpathFromFilePath($filepath)
 	{
 		$urlpath = preg_replace('#[/\\\\]+#', '/', $filepath);
 		return $urlpath;
 	}
 	
-	static function changePluginState($plugin, $state=0)
+	public static function changePluginState($plugin, $state=0)
 	{
 		$query = new XiptQuery();
 		
@@ -55,7 +55,7 @@ class XiptHelperUtils
 	}
 	
 	
-	static function getPluginStatus($plugin)
+	public static function getPluginStatus($plugin)
 	{
 		$query = new XiptQuery();
 		
@@ -68,7 +68,7 @@ class XiptHelperUtils
 /**
 * Change filePath according to machine.
 */
-	function getRealPath($filepath, $seprator = DS)
+	public static function getRealPath($filepath, $seprator = DS)
 	{ 
 		return JPath::clean($filepath, $seprator);
 	
@@ -130,7 +130,7 @@ class XiptHelperUtils
 	
 	// For user avatars that are stored in a remote location, we should return the proper path.
 	// firstly we will check if avatar exist locally
-	function getAvatarPath($avatar)
+	public static function getAvatarPath($avatar)
 	{
 		$config	 = CFactory::getConfig();
 		$photoStorage = $config->getString('photostorage');

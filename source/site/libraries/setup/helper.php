@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupHelper
 {
-	function getOrderedRules()
+	public static function getOrderedRules()
 	{
 		$xml		= XIPT_FRONT_PATH_LIBRARY_SETUP . DS . 'order.xml';
 		$parser  	= new SimpleXMLElement($xml, NULL, true);

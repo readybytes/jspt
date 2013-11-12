@@ -8,13 +8,9 @@ if(!defined('_JEXEC')) die('Restricted access');
  
 class XiptControllerCPanel extends XiptController 
 {    
-	public function getModel($modelName=null)
+	public function getModel($modelName ='', $prefix = '', $config = array())
     {
-		// support for parameter
-        if($modelName===null || $modelName === $this->getName())
-        	return false;
-
-		return parent::getModel($modelName);
+    	return false;
     }
        
 	function aboutus()

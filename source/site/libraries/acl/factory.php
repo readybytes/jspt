@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptAclFactory
 {
-	public function getAclRulesInfo($filter='',$join='AND')
+	public static function getAclRulesInfo($filter='',$join='AND')
 	{		 
 		$records 	= XiptFactory::getInstance('aclrules', 'model')->loadRecords(0);
 		
@@ -29,13 +29,13 @@ class XiptAclFactory
 
 
 
-	public function getAcl()
+	public static function getAcl()
 	{
 		return JFolder::folders(dirname(__FILE__));
 	}
 
 
-	public function getAclObject($aclName)
+	public static function getAclObject($aclName)
 	{
 		$path	= dirname(__FILE__). DS . $aclName . DS . $aclName.'.php';
 		if(!JFile::exists($path)){
@@ -56,7 +56,7 @@ class XiptAclFactory
 	}
 
 
-	public function getAclObjectFromId($id,$checkPublished=false)
+	public static function getAclObjectFromId($id,$checkPublished=false)
 	{
 		$filter = array();
 		$filter['id']	= $id;

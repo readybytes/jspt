@@ -16,7 +16,7 @@ class XiptTableProfiletypes extends XiptTable
 		parent::__construct('#__xipt_profiletypes','id');
 	}
 
-	function load($id)
+	function load($id = null, $reset = true)
 	{
 		if( $id == 0 )
 		{

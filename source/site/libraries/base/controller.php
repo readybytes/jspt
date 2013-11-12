@@ -37,7 +37,7 @@ abstract class XiptController extends JControllerLegacy
 		return $this->_name;
 	}
 
-	public function getView()
+	public function getView($name = '', $type = '', $prefix = '', $config = array())
 	{
 		if(isset($this->_view))
 			return $this->_view;
@@ -53,11 +53,12 @@ abstract class XiptController extends JControllerLegacy
 	 * Get an object of controller-corresponding Model.
 	 * @return XiptModel
 	 */
-	public function getModel($modelName=null)
+	public function getModel($modelName = '', $prefix = '', $config = array())
 	{
 		// support for parameter
-		if($modelName === null)
-			$modelName = $this->getName();
+		if(empty($modelName) && !($modelName = $this->getName())) {
+			return false;
+		}
 
 		return XiptFactory::getInstance($modelName,'Model');
 	}

@@ -9,11 +9,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 class XiptControllerSetup extends XiptController 
 {
 	//Need to override, as we dont have model
-	public function getModel($modelName=null)
+	public function getModel($modelName=null, $prefix = '', $config = array())
 	{
 		// support for parameter
-		if($modelName===null || $modelName === $this->getName())
+		if($modelName===null || $modelName === $this->getName()) {
 			return false;
+		}
 
 		return parent::getModel($modelName);
 	}
@@ -24,9 +25,9 @@ class XiptControllerSetup extends XiptController
 		parent::__construct($config);
 	}
 	
-    function display() 
+    function display($cachable = false, $urlparams = array()) 
 	{
-		parent::display();
+		parent::display($cachable, $urlparams);
     }
     
     function doApply()

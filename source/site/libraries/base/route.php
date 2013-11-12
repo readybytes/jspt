@@ -41,7 +41,7 @@ class XiptRoute
 	
 	static function _($url, $xhtml = true, $ssl = null)
 	{
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 	
 		if(JFactory::getApplication()->isAdmin())
 			return $url;

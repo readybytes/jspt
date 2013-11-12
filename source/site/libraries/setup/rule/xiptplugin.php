@@ -8,11 +8,11 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptSetupRuleXiptplugin extends XiptSetupBase
 {
-	function isRequired()
+	public static function isRequired()
 	{	
 		$jsfield_isrequired=XiptSetupRuleJsfields::isRequired();
 	    $patchfiles_isrequired=XiptSetupRulePatchfiles::isRequired();
-		return ($this->_isJSMultiPTypeEnabled() || !$this->_isPluginInstalledAndEnabled()|| $jsfield_isrequired|| $patchfiles_isrequired);
+		return (self::_isJSMultiPTypeEnabled() || !self::_isPluginInstalledAndEnabled()|| $jsfield_isrequired|| $patchfiles_isrequired);
 	}
 	
 	function doApply()
@@ -49,7 +49,7 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 	
 	//retrun true if plugin is installed or enabled
 	//type means plugin type eg :- community , system etc.
-	function _isPluginInstalledAndEnabled()
+	public static function _isPluginInstalledAndEnabled()
 	{
 		$communityPlugin = XiptHelperUtils::getPluginStatus('xipt_community');
 		
@@ -84,7 +84,7 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 		return $requiredSetup;
 	}
 
-	function _isJSMultiPTypeEnabled()
+	public static function _isJSMultiPTypeEnabled()
 	{
 		return CConfig::getInstance()->get('profile_multiprofile',0);	
 	}
