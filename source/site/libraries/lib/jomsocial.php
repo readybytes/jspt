@@ -486,7 +486,8 @@ class XiptLibJomsocial
 			
 			//load group member table
 			$groupMember = JTable::getInstance( 'GroupMembers' , 'CTable' );
-			$groupMember->load( $userId , $gid );
+			$groupMemberData = array ('memberId'=>$userId, 'groupId'=>$gid);
+			$groupMember->load($groupMemberData);
 	
 			$data			= new stdClass();
 			$data->groupid	= $gid;
