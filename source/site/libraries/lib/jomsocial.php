@@ -83,26 +83,23 @@ class XiptLibJomsocial
 
 		//self::reloadCUser($userid);
 		
-		$user 			= CFactory::getUser($userid);
-		$authorize		= JFactory::getACL();
-		$user->set('usertype',$newUsertype);
+		//$user 			= CFactory::getUser($userid);
+		//$authorize		= JFactory::getACL();
+		//$user->set('usertype',$newUsertype);
 		
 		$group = CACL::getInstance();
 		$newGroup = $group->getGroupID($newUsertype);		
-		$oldGroup = $group->getGroupID($oldUsertype);
+		//$oldGroup = $group->getGroupID($oldUsertype);
 		
-		//1st add user to new grp, then remove.
-		//Bcoz if user has no grp, default grp will be assigned to him by Joomla
-		//add user to new group
-		JUserHelper::addUserToGroup($userid, $newGroup);
-		//remove user from old group or groups (Joomla default reg group and default profile type group)		
-		foreach (JUserHelper::getUserGroups($userid) as $groupId) {
-			if($newGroup == $groupId) {
-				continue;
-			}
-			JUserHelper::removeUserFromGroup($userid,$groupId);
-		}
+		// Previously we add new group in joomla usertype groups with joomla functions JUserHelper::addUserToGroup and then compare the
+		// groups with default joomla option group and then remove other group. But as jomsocial instance will not fetch the latest user data 
+		// it creates trouble and save the previous object only, no matter to latest jspt usergroup. 
+		// So now we recall the object of cuser and save, so it will get the latest data on $this object of cuser.   
 		
+		// get fresh instance of cuser, so we will save the user groups 
+		$user= CFactory::getUser($userid);
+		// update previous group as it's defined as variable not as array
+		$user->groups = array($newGroup);
 		$user->save();
 		
 		self::reloadCUser($userid);
@@ -505,7 +502,6 @@ class XiptLibJomsocial
 		if(!$userid)
 			return false;
 			
-		$cuser = CFactory::getUser($userid, '');
 		return CFactory::getUser($userid);		
 	}
 	
@@ -542,3 +538,4 @@ class XiptLibJomsocial
 		$group->store();
 	}
 }
+
