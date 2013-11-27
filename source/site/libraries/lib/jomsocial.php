@@ -83,8 +83,8 @@ class XiptLibJomsocial
 
 		//self::reloadCUser($userid);
 		
-		//$user 			= CFactory::getUser($userid);
-		//$authorize		= JFactory::getACL();
+		$user 			= CFactory::getUser($userid);
+		$authorize		= JFactory::getACL();
 		//$user->set('usertype',$newUsertype);
 		
 		$group = CACL::getInstance();
