@@ -16,7 +16,7 @@ class XiptSetupRulePayplans extends XiptSetupBase
 		if($integrate_with == 'aec' || $subscription_integrate == false)
 			return false;
 			
-		$app = $this->getXiptApps();
+		$app = self::getXiptApps();
 		if($app)
 			return false;
 			

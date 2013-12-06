@@ -265,7 +265,7 @@ class plgSystemxipt_system extends JPlugin
 	/* get the plan id when the direct link of Payplans are used */
 	function onPayplansPlanAfterSelection($planid)
 	{
-		$this->_pluginHandler->setDataInSession('PAYPLANS_REG_PLANID', $planid);
+		$this->_pluginHandler->setDataInSession('REGISTRATION_PLAN_ID', $planid);
 	}
 	
 	// we are on xipt registration page

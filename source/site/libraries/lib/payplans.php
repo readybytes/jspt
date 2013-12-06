@@ -21,12 +21,12 @@ class XiptLibPayplans
 		$param['planSelected'] 	= false;
 		
 		$mySess 		= JFactory::getSession();
-		$planSetInSess 	= $mySess->has('PAYPLANS_REG_PLANID','XIPT');
+		$planSetInSess 	= $mySess->has('REGISTRATION_PLAN_ID','payplans');
 
 		$planid  = null;
 		// use saved in session
 		if($planSetInSess){
-			$planid = $mySess->get('PAYPLANS_REG_PLANID',0,'XIPT');
+			$planid = $mySess->get('REGISTRATION_PLAN_ID',0,'payplans');
 		}
 		
 		if(!$planid)
