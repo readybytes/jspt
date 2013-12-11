@@ -309,17 +309,22 @@ class XiptLibJomsocial
 		if($isDefault == false )
 			return false;
 
+		$thumb = XiptHelperImage::getThumbAvatarFromFull($newAvatar);
+		
 		$query = new XiptQuery();
 		if(! $query->update('#__community_users')
 			  	   ->set(" avatar = '$newAvatar' ")
-			  	   ->set(" thumb = '".XiptHelperImage::getThumbAvatarFromFull($newAvatar)."' ")
+			  	   ->set(" thumb = '".$thumb."' ")
 			       ->where(" userid = $userid ")
 			       ->dbLoadQuery()
 			       ->query())
 			       return false;
 			  
 		//enforce JomSocial to clean cached user
-        self::reloadCUser($userid);
+		$user->_avatar = $newAvatar;
+		$user->_thumb  = $thumb;
+		CFactory::getUser($userid, $user);
+		
 		return true;
 	}
 
@@ -504,6 +509,14 @@ class XiptLibJomsocial
 			
 		return CFactory::getUser($userid);		
 	}
+	
+//	public static function reloadCUser($userid, CUser $user)
+//	{
+//		if(!$userid)
+//			return false;
+//			
+//		return CFactory::getUser($userid, $user);		
+//	}
 	
 	public static function cleanStaticCache($set = null)
 	{
