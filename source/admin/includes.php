@@ -27,3 +27,7 @@ if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community')){
 	}
 	return false;
 }
+
+// Js dependency related fix for loading class.
+require_once JPATH_ROOT.'/administrator/components/com_community/libraries/chtmlinput.php';
+

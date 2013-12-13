@@ -17,9 +17,12 @@ abstract class XiptView extends JViewLegacy
 		$document->addStyleSheet($css);
 		
 		// add sidebar sub menus
-		$this->addSubmenu();
-		$this->sidebar = JHtmlSidebar::render();
-		
+		if (version_compare(JVERSION, '3.0', 'ge'))
+		{
+			$this->addSubmenu();
+			$this->sidebar = JHtmlSidebar::render();
+		}
+
 		parent::display($tpl);
 	}
 	
