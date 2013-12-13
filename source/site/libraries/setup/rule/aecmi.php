@@ -16,7 +16,7 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		if(!JFile::exists($miFilename))
 			return true;
 			
-		$sourceMIFilename = $this->getMiFileName();
+		 $sourceMIFilename = self::getMiFileName();
 		$md5DestinationFile = md5(JFile::read($miFilename));
 		$md5SourceFile = md5(JFile::read($sourceMIFilename));
 		
@@ -29,10 +29,10 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		return false;
 	}
 	
-	function doApply()
+	public function doApply()
 	{	
 		
-		$sourceMIFilename = $this->getMiFileName();
+		$sourceMIFilename = self::getMiFileName();
 		$miFilename = JPATH_ROOT.DS.'components'.DS.'com_acctexp'.DS.'micro_integration'.DS.'mi_jomsocialjspt.php';
 		
 		if(JFile::exists($miFilename))
@@ -44,15 +44,15 @@ class XiptSetupRuleAecmi extends XiptSetupBase
         return XiptText::_('AEC_MI_COPY_FAILED');
 	}
 	
-	function isApplicable()
+	public function isApplicable()
 	{
 		return XiptLibAec::isAecExists();
 	}
 	
-	function getMessage()
+	public static function getMessage()
 	{
 		$requiredSetup = array();
-		if($this->isRequired())
+		if(self::isRequired())
 		{
 			$link = XiptRoute::_("index.php?option=com_xipt&view=setup&task=doApply&name=aecmi",false);
 			$requiredSetup['message']  = '<a href="'.$link.'">'.XiptText::_("PLEASE_CLICK_HERE_TO_INSTALL_JSPT_MI_INTO_AEC").'</a>';
@@ -68,7 +68,7 @@ class XiptSetupRuleAecmi extends XiptSetupBase
 		return $requiredSetup;
 	}
 	
-	function getMiFileName()
+	public static function getMiFileName()
 	{
 //		//get the verson of aec
 //		$version = XiptLibAec::getVersion();

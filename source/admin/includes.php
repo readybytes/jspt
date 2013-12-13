@@ -29,5 +29,9 @@ if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_community')){
 }
 
 // Js dependency related fix for loading class.
-require_once JPATH_ROOT.'/administrator/components/com_community/libraries/chtmlinput.php';
+		if (JFile::exists(JPATH_ROOT.'/administrator/components/com_community/libraries/chtmlinput.php'))
+		{
+			
+			require_once JPATH_ROOT.'/administrator/components/com_community/libraries/chtmlinput.php';
+		}
 
