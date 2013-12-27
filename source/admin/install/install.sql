@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `#__xipt_profiletypes` (
   `watermarkparams` text NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   `config` text NOT NULL,
+  `coverimage` varchar(255) DEFAULT NULL COMMENT 'store cover image stuff',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

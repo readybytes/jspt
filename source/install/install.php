@@ -124,10 +124,28 @@ class Com_xiptInstallerScript
 	public function preflight($type, $parent)
 	{
 		if($type == 'update' && version_compare(XIPT_VERSION,'4.0','<')){
-		self::_migrateProfiletypeFields();
-		self::_migrateACLFields();
-		self::_migrateSettings();
+			self::_migrateProfiletypeFields();
+			self::_migrateACLFields();
+			self::_migrateSettings();
 		}
+		
+		//add coverimage field in profiletype table
+		if('update' == $type) {
+			$db = JFactory::getDbo();
+			$fields = $db->getTableColumns('#__xipt_profiletypes');
+			
+			if(!isset($fields['coverimage'])) {
+				$query = "ALTER TABLE  `#__xipt_profiletypes` 
+							ADD  `coverimage` VARCHAR( 255 ) NULL 
+							COMMENT  'store cover image stuff'
+						";
+				try{
+					$db->setQuery($query)->execute();	
+				} catch (Exception $e) {
+					JFactory::getApplication()->enqueueMessage($e->getMessage(),'error');
+				}
+			}
+		} 
 	}
 	
 	//convert all INI field values into JSON
