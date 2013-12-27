@@ -6,12 +6,12 @@ pkg.location=${user.home}/Dropbox/TEAM/dev/xipt
 ## joomla installation configuration
 joomla.owner=jspt
 joomla.version=latest
-joomla.rootpath=/var/www
+joomla.rootpath=/var/www/jspt
 joomla.folder=${joomla.owner}${joomla.now}
 joomla.sitename=${joomla.folder}
 joomla.dbuser=${joomla.owner}${joomla.now}
 joomla.dbpassword=password${joomla.now}
-joomla.dbname=${joomla.owner}${joomla.now}
+joomla.dbname=jspt_${joomla.owner}${joomla.now}
 joomla.dbprefix=j${joomla.random3}_
 joomla.mysqlpath=mysql
 joomla.createUserQuery="CREATE USER '${joomla.dbuser}'@'localhost' IDENTIFIED BY '${joomla.dbpassword}';"

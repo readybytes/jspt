@@ -101,10 +101,10 @@ jQuery(document).ready(function($){
 
 
 <div id="JSPT">
-<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
+<!--<div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
 	<?php echo XiptText::_('CREATE_NEW_PROFILE_TYPE_FOR_YOUR_SITE');?>
 </div>
-<div id="error-notice" style="color: red; font-weight:700;"></div>
+--><div id="error-notice" style="color: red; font-weight:700;"></div>
 <div class="xippElements">
 	<form enctype="multipart/form-data" action="<?php echo JURI::base();?>index.php?" method="post" name="adminForm" id="adminForm">
 		<div class="elementColumn">
@@ -215,8 +215,12 @@ jQuery(document).ready(function($){
 					<div class="paramValue"><?php echo XiptHelperProfiletypes::buildTypes($this->data->group,'group',true);?></div>
 			</div>				
 						
-							<?php 								
-								
+							<?php
+
+								echo JHtmlSliders::panel(XiptText::_('COVERIMAGE'), 'panel-coverimage');
+								echo $this->getHtml($this->coverImage);
+							
+										
 								echo JHtmlSliders::panel(XiptText::_('PRIVACY_SETTINGS'), 'xiprivacysettings-page');
 								echo $this->getHtml($this->privacyParams);
 								

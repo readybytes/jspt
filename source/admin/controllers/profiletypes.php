@@ -54,6 +54,7 @@ class XiptControllerProfiletypes extends XiptController
 		unset($data['watermarkparams']);
 		unset($data['config']);
 		unset($data[XIPT_PRIVACY]);
+		unset($data['coverimage']);
 			
 		$model = $this->getModel();
 		//for Reset we will save old Data
@@ -95,6 +96,21 @@ class XiptControllerProfiletypes extends XiptController
 		$model->saveParams($post['watermarkparams'],$id, 'watermarkparams');
 		$model->saveParams($post['config'], 		$id, 'config');
 		$model->saveParams($post[XIPT_PRIVACY], 	$id, 'privacy');
+		
+		$coverImageFile		= JFactory::getApplication()->input->files->get('coverimage');
+		$coverImageParam 	= $post['coverimage'];	
+		
+		$coverImage =  $this->_getCoverImage($id, $coverImageFile['coverimage']);
+		
+		// if coverImage get false then check old cover-image path
+		if(!$coverImage) {
+			$oldCoverImage = json_decode($oldData->coverimage);
+			$coverImage    = $oldCoverImage->coverimage;
+		}
+		
+		$coverImageParam['coverimage'] = $coverImage;
+		// save cover image stuff
+		$model->saveParams($coverImageParam, $id, 'coverimage');
 
 		// now generate watermark, and update watermark field
 		$image = $this->_saveWatermark($id);
@@ -131,6 +147,32 @@ class XiptControllerProfiletypes extends XiptController
 		return $info;
 	}
 	
+	private function _getCoverImage($profileId, $coverImageFile)
+	{
+		if(!isset($coverImageFile['type']) || empty($coverImageFile['type'])) {
+			return false;
+		}
+		
+		CFactory::autoload_helpers('CImageHelper');
+		
+		if (!CImageHelper::isValidType($coverImageFile['type'])) {
+            JFactory::getApplication()->enqueueMessage(JText::_('COM_COMMUNITY_IMAGE_FILE_NOT_SUPPORTED'), 'warning');
+            return false;
+        }
+
+        // HARD CODED PAth
+        $imgMaxWidht = 1140;
+		$destination = PROFILETYPE_COVERIMAGE_STORAGE_PATH."coverimage_$profileId.png";
+		
+		 //Generate full image
+        if (!CImageHelper::resizeProportional($coverImageFile['tmp_name'], JPATH_ROOT.'/'.$destination, $coverImageFile['type'], $imgMaxWidht)) {
+            JFactory::getApplication()->enqueueMessage(JText::sprintf('COM_COMMUNITY_ERROR_MOVING_UPLOADED_FILE', $destination), 'warning');
+            return false;
+        }
+        
+        return  $destination;
+	}
+	
 	//this function will reset users in chunks 
 	function resetall($id = 0, $limit = RESETALL_USER_LIMIT, $start = 0){
 		
@@ -162,13 +204,14 @@ class XiptControllerProfiletypes extends XiptController
 			$session->clear('oldPtData','jspt');
 			$session->clear('newPtData','jspt');
 			$link = XiptRoute::_('index.php?option=com_xipt&view=profiletypes&task='.$preTask.'&id='.$id.'', false);
-			$mainframe->redirect($link, $info['msg']);
+			$mainframe->enqueueMessage($info['msg']);
+			$mainframe->redirect($link);
 		}
 		
 		$users = $users[$start];
 	
 		//XITODO : needs cleanup Remove hardcoding
-		$featuresToReset = array('jusertype','template','group','watermark','avatar');
+		$featuresToReset = array('jusertype','template','group','watermark','avatar','coverimage');
 		$filteredOldData = array();
 		$filteredNewData = array();
 		
@@ -185,8 +228,9 @@ class XiptControllerProfiletypes extends XiptController
 			$filteredNewData[$feature]= $newPtData->$feature;
 		}
 
-		foreach ($users as $user)
+		foreach ($users as $user) {
 			XiptLibProfiletypes::updateUserProfiletypeFilteredData($user, $featuresToReset, $filteredOldData, $filteredNewData);
+		}
 	
 		$start = $start+1;
 		

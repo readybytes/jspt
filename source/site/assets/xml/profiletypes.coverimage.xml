@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="parameters" addfieldpath="/components/com_xipt/form">
+		
+<!-- Upload cover image pic		-->
+		<field name="coverimage" type ="xipt.coverimage" label="COM_XIPT_COVERIMAGE_IMAGE" description="COM_XIPT_COVERIMAGE_IMAGE_DESC"/>
+
+<!-- Allow to re-positions		-->
+<!--		<field name="allow_reposition" type="radio" label="COM_XIPT_COVERIMAGE_REPOSITION" default="0" description="COM_XIPT_COVERIMAGE_REPOSITION_DESC">-->
+<!--			<option value="0">No</option>-->
+<!--  			<option value="1">Yes</option>		-->
+<!--		</field>-->
+		
+<!-- Allow to change		-->
+<!--		<field name="allow_change" type="radio" label="COM_XIPT_COVERIMAGE_CHANGE" default="0" description="COM_XIPT_COVERIMAGE_CHANGE_DESC">-->
+<!--			<option value="0">No</option>-->
+<!--  			<option value="1">Yes</option>		-->
+<!--		</field>-->
+		
+	</fieldset>
+</form>
+

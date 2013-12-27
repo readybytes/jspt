@@ -40,6 +40,11 @@ class XiptLibProfiletypes
 					XiptLibJomsocial::updateJoomlaUserType($userid,$newJUtype,$oldJUtype);
 					break;
 					
+				case 'coverimage' :
+					$newCoverImage 	= json_decode($newData['coverimage'])->coverimage;
+					XiptLibJomsocial::updateCommunityUserDefaultCoverImage($userid, $newCoverImage);
+					break;
+					
 				case 'avatar' :
 					$newAvatar 	= $newData['avatar'];
 					XiptLibJomsocial::updateCommunityUserDefaultAvatar($userid,$newAvatar);
@@ -148,6 +153,18 @@ class XiptLibProfiletypes
 				$newAvatar = '';
 			$newData['avatar'] = $newAvatar;
 		}
+		
+		
+		//set user avatar in #__community_users table
+		if($what == 'ALL'  || $what == 'coverimage')
+		{
+			$feature[]='coverimage';
+			$oldData['coverimage'] = self::getProfiletypeData($prevProfiletype,'coverimage');
+			$newAvatar	 = self::getProfiletypeData($ptype,'coverimage');
+			
+			$newData['coverimage'] = $newAvatar;
+		}
+		
 
 		//set user watermark
 		if($what == 'ALL'  || $what == 'watermark')

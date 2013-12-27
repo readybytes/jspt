@@ -37,6 +37,10 @@ class XiptViewProfiletypes extends XiptView
 		$configParams	 = $model->loadParams($id,'config');
 		$privacyParams	 = $model->loadParams($id,XIPT_PRIVACY);
 		
+		// cover-image stuff loaded here
+		$coerImage	 = $model->loadParams($id,'coverimage');
+		
+		$this->assignRef('coverImage', $coerImage);
 		$this->assignRef('watermarkParams', $watermarkParams);
 		$this->assignRef('configParams', 	$configParams);
 		$this->assignRef('privacyParams', 	$privacyParams);

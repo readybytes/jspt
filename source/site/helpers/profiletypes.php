@@ -103,7 +103,9 @@ class XiptHelperProfiletypes
 					'watermark'	=> array('name' => 'watermark', 'value' => ''),
 					'approve'	=> array('name' => 'approve', 	'value' => true),
 					'allowt'	=> array('name' => 'allowt', 	'value' => false),
-					'group'		=> array('name' => 'group', 	'value' => 0)
+					'group'		=> array('name' => 'group', 	'value' => 0),
+					'coverimage'=> array('name' => 'coverimage', 	'value' => '')
+		
 					);
 		//XITODO : clean this fn
 		XiptError::assert(array_key_exists($what,$data), XiptText::_("ARRAY_KEY_DOES_NOT_EXIST"));
@@ -170,7 +172,7 @@ class XiptHelperProfiletypes
 			return;
 
 		// //XITODO : needs cleanup Remove hardcoding
-		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar');
+		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar','coverimage');
 		$filteredOldData = array();
 		$filteredNewData = array();
 

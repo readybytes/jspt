@@ -327,6 +327,36 @@ class XiptLibJomsocial
 		
 		return true;
 	}
+	
+	/**
+	 * It updates user's oldAvtar to newAvatars
+	 * @param $userid
+	 * @param $newAvatar
+	 * @return unknown_type
+	 */
+	public static function updateCommunityUserDefaultCoverImage($userid, $coverImage)
+	{
+		// Will not apply on admin
+		$isAdmin = XiptHelperUtils::isAdmin($userid);
+		
+		if(!$coverImage || $isAdmin) {
+			return true;
+		}
+		
+		//Before save, avatar path Change in URL formate
+		$coverImage	= XiptHelperUtils::getUrlpathFromFilePath($coverImage);
+				
+		$query = new XiptQuery();
+		if(! $query->update('#__community_users')
+			  	   ->set(" cover = '$coverImage' ")
+			  	   ->where(" userid = $userid ")
+			       ->dbLoadQuery()
+			       ->execute()) {
+			       return false;
+			 }
+			  
+		return true;
+	}
 
 	
 	/*This function set privacy for user as per his profiletype*/
