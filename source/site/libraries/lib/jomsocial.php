@@ -334,14 +334,23 @@ class XiptLibJomsocial
 	 * @param $newAvatar
 	 * @return unknown_type
 	 */
-	public static function updateCommunityUserDefaultCoverImage($userid, $coverImage)
+	public static function updateCommunityUserDefaultCoverImage($userid, $coverImage )
 	{
 		// Will not apply on admin
 		$isAdmin = XiptHelperUtils::isAdmin($userid);
 		
-		if(!$coverImage || $isAdmin) {
+		if($isAdmin) {
 			return true;
 		}
+		
+		$oldImage = CFactory::getUser($userid)->_cover;
+		
+		//$profileId    =  XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
+		
+		if ($oldImage && !XiptLibProfiletypes::isDefaultCoverImage($oldImage)) {
+			return true;
+		}
+		
 		
 		//Before save, avatar path Change in URL formate
 		$coverImage	= XiptHelperUtils::getUrlpathFromFilePath($coverImage);
@@ -581,4 +590,3 @@ class XiptLibJomsocial
 		$group->store();
 	}
 }
-
