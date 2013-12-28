@@ -41,7 +41,7 @@ class XiptLibProfiletypes
 					break;
 					
 				case 'coverimage' :
-					$newCoverImage 	= json_decode($newData['coverimage'])->coverimage;
+					$newCoverImage 	= @json_decode($newData['coverimage'])->coverimage;
 					XiptLibJomsocial::updateCommunityUserDefaultCoverImage($userid, $newCoverImage);
 					break;
 					
@@ -390,6 +390,18 @@ class XiptLibProfiletypes
 		return false;
 	}
 	
+	
+	public static function isDefaultCoverImage($imagePath)
+	{
+		$defaultPathStart = PROFILETYPE_COVERIMAGE_STORAGE_PATH."coverimage";
+		
+		if (JString::stristr($imagePath, $defaultPathStart)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
     /**
      * If profiletype exist and published return true
      * else return false,
@@ -432,4 +444,3 @@ class XiptLibProfiletypes
 	}
 	
 }
-
