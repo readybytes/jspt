@@ -109,7 +109,11 @@ class XiptModelProfilefields extends XiptModel
                 elseif(is_array($field)){
                 	if((!empty($field['value']) && $field['required']) || $field['required'] == 0)
 	                {
-						unset($fields[$i]);
+	                	// Remove unset - as it requires to show fields but not allow to edit. If don't want to show fields then uncomment unset line.
+	                	//unset($fields[$i]);
+						// Code added for disabled elements as per profile type
+	                	$script[] = "$('[name=".'"field'.$field['id'].'"'."]').prop('disabled' , 'disabled');";
+						// code completed for diabled
 						continue;
 	               	}
                 }
@@ -125,6 +129,13 @@ class XiptModelProfilefields extends XiptModel
 				unset($fields[$i]);
 			
 		}
+		// Code added for disabled field element. Id don't want then remove this code or comment it
+		if(isset($script) && !empty($script)) {
+			$js = "jQuery(document).ready(function($){ ".implode("\n", $script)."});"; 
+			JFactory::getDocument()->addScriptDeclaration($js);
+		}
+		// code completed for disabled
+		
 		$fields = array_values($fields);
 		return true;
 	}
@@ -141,3 +152,4 @@ class XiptModelProfilefields extends XiptModel
 		return $profileTypes;
 	}
 }
+
