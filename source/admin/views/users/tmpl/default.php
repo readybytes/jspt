@@ -95,6 +95,9 @@ function submitbutton( action )
 			<th>
 				<?php echo JHTML::_('grid.sort',   XiptText::_( 'USER_ID' ) , 'user_id', $this->order_Dir, $this->order ); ?>
 			</th>
+			<th>
+				<?php echo XiptText::_( 'REGISTER_DATE' ); ?>
+			</th>
 		</tr>		
 	</thead>
 <?php
@@ -134,6 +137,9 @@ function submitbutton( action )
 			<td>
 				<?php echo $user->user_id; ?>
 			</td>
+			<td>
+				<?php echo $user->registerDate; ?>
+			</td>
 		</tr>
 <?php
 		
@@ -151,7 +157,8 @@ function submitbutton( action )
 	<tfoot>
 	<tr>
 		<td colspan="15" align="center">
-			<?php echo $this->pagination->getLimitBox(); ?>
+			<!--     Replace getLimitBox function with getListFooter-->
+<!--			<?php echo $this->pagination->getLimitBox(); ?>-->
 			<?php echo $this->pagination->getListFooter(); ?>
 		</td>
 	</tr>

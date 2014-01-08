@@ -70,8 +70,9 @@ if(!defined('_JEXEC')) die('Restricted access');
 		<tfoot>
 			<tr>
 				<td colspan="15" align="center">
-					<?php echo $this->pagination->getLimitBox(); ?>
-					<?php echo $this->pagination->getListFooter(); ?>
+					<!--     Replace getLimitBox function with getListFooter-->
+<!--			<?php echo $this->pagination->getLimitBox(); ?>-->
+			<?php echo $this->pagination->getListFooter(); ?>
 				</td>
 			</tr>
 		</tfoot>		

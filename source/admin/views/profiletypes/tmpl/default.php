@@ -116,7 +116,7 @@ function submitbutton( action )
 			
 			<td align="center" id="watermark<?php echo $field->id;?>">
 					<?php	$wm = $field->watermarkparams;
-					if($wm['enableWaterMark']):  ?>				
+					if(isset($wm['enableWaterMark'])):  ?>				
 				<img src="<?php echo XiptHelperUtils::getAvatarPath($field->watermark);?>"  border="0" alt="<?php echo $field->watermark; ?>" />	
 					<?php endif; ?>
 				</td>
@@ -172,7 +172,8 @@ function submitbutton( action )
 	<tfoot>
 	<tr>
 		<td colspan="15" align="center">
-			<?php echo $this->pagination->getLimitBox(); ?>
+			<!--     Replace getLimitBox function with getListFooter-->
+<!--			<?php echo $this->pagination->getLimitBox(); ?>-->
 			<?php echo $this->pagination->getListFooter(); ?>
 		</td>
 	</tr>
