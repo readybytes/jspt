@@ -65,4 +65,24 @@ class XiptHelperApps
 		
 		return $html;
 	}
+
+	/**
+	 * Translate a list of objects
+	 *
+	 * @param	array The array of objects
+	 * @return	array The array of translated objects
+	 */
+	public static function translate(&$items)
+	{
+		$lang = JFactory::getLanguage();
+		foreach($items as &$item) {
+			$source = JPATH_PLUGINS . '/' . $item->folder . '/' . $item->element;
+			$extension = 'plg_' . $item->folder . '_' . $item->element;
+				$lang->load($extension . '.sys', JPATH_ADMINISTRATOR, null, false, false)
+			||	$lang->load($extension . '.sys', $source, null, false, false)
+			||	$lang->load($extension . '.sys', JPATH_ADMINISTRATOR, $lang->getDefault(), false, false)
+			||	$lang->load($extension . '.sys', $source, $lang->getDefault(), false, false);
+			$item->name = JText::_($item->name);
+		}
+	}
 }

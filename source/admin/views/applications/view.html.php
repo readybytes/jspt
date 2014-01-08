@@ -14,7 +14,10 @@ class XiptViewApplications extends XiptView
 		
 		$pagination	= $aModel->getPagination();
 		$fields		= $aModel->getPlugin(null, XIPT_JOOMLA_EXT_ID, $pagination->limit, $pagination->limitstart);
-		
+
+		// translate all language stuff regarding community apps
+		XiptHelperApps::translate($fields);
+
 		$this->setToolbar();
 		
 		$this->assignRef( 'fields' 		, $fields );
