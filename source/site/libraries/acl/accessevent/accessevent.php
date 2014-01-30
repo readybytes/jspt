@@ -12,7 +12,7 @@ class accessevent extends XiptAclBase
 	function getResourceOwner($data)
 	{
 		$eventId	= isset($data['eventid']) ? $data['eventid'] : 0;
-		$eventId	= JRequest::getVar( 'eventid' , $eventId, 'REQUEST');
+		$eventId	= JFactory::getApplication()->input->get('eventid' , $eventId, 'INT');
 		$ownerid	= $this->getownerId($eventId);
 		return $ownerid;
 	}
