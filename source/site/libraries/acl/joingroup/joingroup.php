@@ -16,7 +16,7 @@ class joingroup extends XiptAclBase
 		return $groupInfo->ownerid;	
 	}
 	
-	function checkAclViolation(&$data)
+	function checkAclViolation($data)
 	{
 		$resourceAccesser 	= $this->getResourceAccesser($data);
 		$resourceOwner 		= $this->getResourceOwner($data);
@@ -44,7 +44,7 @@ class joingroup extends XiptAclBase
 		return false;
 	}
 	
-	function checkAclViolationByPlan(&$data)
+	function checkAclViolationByPlan($data)
 	{
 		return $this->checkAclViolation($data);
 	}

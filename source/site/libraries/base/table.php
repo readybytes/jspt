@@ -118,19 +118,27 @@ abstract class XiptTable extends JTable
 		return true;
 	}
 	
-	function delete($oid, $glue='AND')
+	function delete($oid= null)
 	{
+		if(empty($oid)) {
+			return false;
+		}
+			
 		//if its a pk, then simple call parent
+		// if its a array then its not a single primary key 
 		if(is_array($oid)===false) {
 			return parent::delete($oid);
 		}
 
-		// if an array/ means not a primiary key
-		//Support multiple key-value pair in $oid
-		//rather then deleting on behalf of key only
-		if(empty($oid) || count($oid)<=0 )
-			return false;
+		$glue= 'AND';
+		
+		$num_args = func_num_args();
 
+    	if ($num_args = 2) {
+        	$glue = func_get_arg(1);
+    	}
+		
+    	
 		$query = new XiptQuery(); 
 		$query->delete()
 			  ->from($this->getTableName());

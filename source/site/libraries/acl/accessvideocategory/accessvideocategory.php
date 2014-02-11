@@ -32,7 +32,7 @@ class accessvideocategory extends XiptAclBase
 		return $creatorid;
 	}
 	
-	function checkAclViolation(&$data)
+	function checkAclViolation($data)
 	{	
 		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);		

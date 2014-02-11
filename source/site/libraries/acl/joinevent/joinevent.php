@@ -13,7 +13,7 @@ class joinevent extends XiptAclBase
 		return $data['userid'];	
 	}
 	
-	function checkAclViolation(&$data)
+	function checkAclViolation($data)
 	{
 		$resourceAccesser 	= $this->getResourceAccesser($data);
 		
@@ -35,7 +35,7 @@ class joinevent extends XiptAclBase
 		return false;
 	}
 	
-	function checkAclViolationByPlan(&$data)
+	function checkAclViolationByPlan($data)
 	{
 		return $this->checkAclViolation($data);
 	}

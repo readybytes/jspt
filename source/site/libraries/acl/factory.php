@@ -60,9 +60,13 @@ class XiptAclFactory
 	{
 		$filter = array();
 		$filter['id']	= $id;
-		if($checkPublished)
+		if($checkPublished) {
 			$filter['published']	= 1;
-		$info = array_shift(self::getAclRulesInfo($filter));
+		}
+		$array = self::getAclRulesInfo($filter);
+		
+		$info = array_shift($array);
+		
 		if($info){
 			$aclObject = self::getAclObject($info->aclname);
 			return $aclObject;

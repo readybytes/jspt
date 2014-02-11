@@ -41,7 +41,7 @@ class addvideos extends XiptAclBase
 		return false;
 	}
 
-	function aclAjaxBlock($msg)
+	function aclAjaxBlock($msg, $objResponse=null)
 	{
 		$objResponse   	= new JAXResponse();
 		

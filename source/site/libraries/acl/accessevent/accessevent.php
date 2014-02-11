@@ -12,13 +12,13 @@ class accessevent extends XiptAclBase
 	function getResourceOwner($data)
 	{
 		$eventId	= isset($data['eventid']) ? $data['eventid'] : 0;
-		$eventId	= JFactory::getApplication()->input->get('eventid' , $eventId, 'INT');
+		$eventId	= JRequest::getVar( 'eventid' , $eventId, 'REQUEST');
 		$ownerid	= $this->getownerId($eventId);
 		return $ownerid;
 	}
 	
 
-	function checkAclApplicable(&$data)
+	public function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

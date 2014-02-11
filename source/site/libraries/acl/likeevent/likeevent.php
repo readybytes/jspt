@@ -11,7 +11,7 @@ class likeevent extends XiptAclBase
 		return $ownerid;
 	}
 	
-	function aclAjaxBlock($msg)
+	function aclAjaxBlock($msg, $objResponse=null)
 	{
 		$objResponse = new JAXResponse();
 		$title		 = XiptText::_('CC_PROFILE_VIDEO');

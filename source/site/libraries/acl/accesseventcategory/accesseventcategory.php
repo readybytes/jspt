@@ -24,7 +24,7 @@ class accesseventcategory extends XiptAclBase
 		return $data['viewuserid'];
 	}
 	
-	function checkAclViolation(&$data)
+	function checkAclViolation($data)
 	{	
 		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);		

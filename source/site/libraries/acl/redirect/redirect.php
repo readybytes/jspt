@@ -35,7 +35,7 @@ class redirect extends XiptAclBase
 		return false;
 	}
 
-	function checkAclViolationByPlan(&$data)
+	function checkAclViolationByPlan($data)
 	{
 		return $this->checkAclViolation($data);
 	}

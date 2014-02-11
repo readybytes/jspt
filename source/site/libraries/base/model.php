@@ -197,8 +197,9 @@ abstract class XiptModel extends JModelLegacy
 			return false;
 
 		//try to load and delete 
-	    if($table->delete($filters,$glue))
+	    if($table->delete($filters,$glue)){
 	    	return true;
+	    }
 
 		XiptError::raiseError(__CLASS__.'.'.__LINE__,XiptText::_('NOT_ABLE_TO_DELETE_DATA'));		
 		return false;

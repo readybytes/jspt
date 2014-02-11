@@ -27,7 +27,7 @@ class invitefriends extends XiptAclBase
 		return false;
 	}
 	
-	function checkAclViolation(&$data)
+	function checkAclViolation($data)
 	{
 		$resourceAccesser 	= $this->getResourceAccesser($data);		
 			

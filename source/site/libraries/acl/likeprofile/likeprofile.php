@@ -9,7 +9,7 @@ class likeprofile extends XiptAclBase
 		 return $data['args'][1];
 	}
 	
-	function aclAjaxBlock($msg)
+	function aclAjaxBlock($msg, $objResponse=null)
 	{
 		$objResponse   	= new JAXResponse();
 		$title		= XiptText::_('CC_PROFILE_VIDEO');

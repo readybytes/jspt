@@ -73,7 +73,7 @@ class writemessages extends XiptAclBase
 		return $count;
 	}
 
-	function aclAjaxBlock($msg)
+	function aclAjaxBlock($msg, $objResponse=null)
 	{
 		$objResponse   	= new JAXResponse();
 		$title		= XiptText::_('CC_WRITE_MESSAGE');
