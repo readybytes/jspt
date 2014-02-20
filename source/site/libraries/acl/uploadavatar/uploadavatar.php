@@ -64,7 +64,7 @@ class uploadavatar extends XiptAclBase
 		return false;
 	}
 	
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 
 		// Acl not applicable when Avtar imported from Facebook.

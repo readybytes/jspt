@@ -40,7 +40,7 @@ class aecredirect extends XiptAclBase
 		return $data['userid'];	
 	}
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		$aecExists 		  = XiptLibAec::isAecExists();
 		$subs_integrate   = XiptFactory::getSettings('subscription_integrate',0);

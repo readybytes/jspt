@@ -12,7 +12,7 @@ class redirect extends XiptAclBase
 	{
 
 		$redirectUrl  	= XiptRoute::_($this->getRedirectUrl());
-		$redirectURI 	= new JURI($redirectUrl);
+		$redirectURI 	= JFactory::getURI($redirectUrl);
 		$redirectVar = $redirectURI->getQuery(true);
 
 		//when SEF is enabled, JURI didn't set query as there is no &amp in URL
@@ -45,7 +45,7 @@ class redirect extends XiptAclBase
 		return $data['userid'];	
 	}
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		$user=JFactory::getUser();
 		if(!$user->id)

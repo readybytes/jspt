@@ -14,7 +14,7 @@ class accessprofilevideo extends XiptAclBase
 		$ownerid	= $this->getownerId($videoid);
 		return $ownerid;
 	}
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

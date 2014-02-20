@@ -96,7 +96,7 @@ function XiptBuildRoute( &$query )
 		return $segments;
 	
 	//finally selected menu is
-	$selMenu = JSite::getMenu()->getItem($query['Itemid']);
+	$selMenu = JFactory::getApplication()->getMenu()->getItem($query['Itemid']);
 
 	//remove not-required variables, which can be calculated from URL itself
 	$vars = _getXiptUrlVars();

@@ -40,7 +40,7 @@ class joinevent extends XiptAclBase
 		return $this->checkAclViolation($data);
 	}
 	
-	function getFeatureCounts($resourceAccesser,$catId)
+	function getFeatureCounts($resourceAccesser,$catId,$otherptype=null,$aclSelfPtype=null)
 	{	
 		$condition = '';
 		
@@ -64,7 +64,7 @@ class joinevent extends XiptAclBase
 	}
 
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

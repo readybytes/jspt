@@ -17,7 +17,7 @@ class addapplication extends XiptAclBase
 		return parent::aclAjaxBlock($msg, $objResponse);
 	}  
 	  
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' == $data['option'] && 'apps' == $data['view']
 		    	&& ($data['task'] == 'ajaxadd' || $data['task'] == 'ajaxaddapp'))

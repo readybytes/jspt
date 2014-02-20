@@ -19,7 +19,7 @@ class XiptText
 //        return forward_static_call_array(array('JText',$name), $arguments);
 //    }
 	
-	function sprintf($string)
+	static function sprintf($string)
 	{
 		$args = func_get_args();
 		return call_user_func_array(array('JText','sprintf'), $args);

@@ -14,7 +14,7 @@ class reportuser extends XiptAclBase
 		return $args[2];	
 	}
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

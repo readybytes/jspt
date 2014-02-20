@@ -24,7 +24,7 @@ class accessgroupcategory extends XiptAclBase
 		return $data['viewuserid'];
 	}
 	
-	function checkAclViolation(&$data)
+	function checkAclViolation($data)
 	{	
 		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);		
@@ -65,7 +65,7 @@ class accessgroupcategory extends XiptAclBase
 		return true;
 	}
 	
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

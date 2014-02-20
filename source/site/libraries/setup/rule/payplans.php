@@ -54,7 +54,7 @@ class XiptSetupRulePayplans extends XiptSetupBase
 		return $requiredSetup;
 	}
 	
-	function getXiptApps()
+static	function getXiptApps()
 	{
 		$query = new XiptQuery();
     	

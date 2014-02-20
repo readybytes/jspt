@@ -13,7 +13,7 @@ class addasfriends extends XiptAclBase
 		return $data['args'][0];	
 	}
 	
-	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner)
+	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data=null)
 	{	
 		$aclSelfPtype = $this->getACLAccesserProfileType();
 		$otherPtype   = $this->getACLOwnerProfileType();
@@ -47,7 +47,7 @@ class addasfriends extends XiptAclBase
 		return false;
 	}
 	
-	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
 	{
 		// XITODO : change this query into object
 		$db		= JFactory::getDBO();
@@ -81,7 +81,7 @@ class addasfriends extends XiptAclBase
 		return count($count);
 	}
 	
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

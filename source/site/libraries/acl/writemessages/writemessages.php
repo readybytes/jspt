@@ -48,7 +48,7 @@ class writemessages extends XiptAclBase
 		return false;
 	}
 	
-	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
 	{
 		CFactory::load( 'helpers' , 'time' );
 		$db			=& JFactory::getDBO();
@@ -81,7 +81,7 @@ class writemessages extends XiptAclBase
 		return parent::aclAjaxBlock($msg, $objResponse);
 	}
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

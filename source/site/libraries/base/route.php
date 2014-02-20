@@ -19,7 +19,7 @@ class XiptRoute
 //    }
 	
     
-	function _addItemId($url)
+	static function _addItemId($url)
 	{
 		
 		$Jurl     = new JURI($url);

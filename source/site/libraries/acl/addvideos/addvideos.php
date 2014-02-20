@@ -13,7 +13,7 @@ class addvideos extends XiptAclBase
 		return $data['userid'];	
 	}
 	
-	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
 	{
 		$query = new XiptQuery();
     	
@@ -27,7 +27,7 @@ class addvideos extends XiptAclBase
 	}
 
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

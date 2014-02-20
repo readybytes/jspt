@@ -37,7 +37,7 @@ class creategroup extends XiptAclBase
 		return $this->checkAclViolation($data);
 	}
 	
-	function getFeatureCounts($resourceAccesser,$catId)
+	function getFeatureCounts($resourceAccesser,$catId,$otherptype = null ,$aclSelfPtype = null)
 	{
 		if($catId)
 			$condition = "AND `categoryid`= $catId";
@@ -54,7 +54,7 @@ class creategroup extends XiptAclBase
 	}
 
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

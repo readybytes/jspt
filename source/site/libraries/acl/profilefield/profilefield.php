@@ -69,7 +69,7 @@ class profilefield extends XiptAclBase
          $fields = array_values($arr_field);     
     }
 
-    function checkAclApplicable(&$data)
+    function checkAclApplicable($data)
     {
     	if('com_community' === $data['option'] 
         && 'profile' === $data['view']

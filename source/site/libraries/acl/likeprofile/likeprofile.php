@@ -17,7 +17,7 @@ class likeprofile extends XiptAclBase
 		return parent::aclAjaxBlock($msg, $objResponse);
 	}  
 	  
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' == $data['option'] && 'system' == $data['view']
 		    	&& ($data['task'] == 'ajaxlike' || $data['task'] == 'ajaxdislike') 

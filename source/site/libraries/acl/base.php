@@ -193,7 +193,7 @@ abstract class XiptAclBase
 	}
 
 
-	abstract public function checkAclApplicable(&$data);
+	abstract public function checkAclApplicable($data);
 
 
 	function checkViolation($data)
@@ -255,7 +255,7 @@ abstract class XiptAclBase
 		return $this->aclparams->getValue('other_profiletype',null,XIPT_PROFILETYPE_ALL);
 	}
 	
-	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner)
+	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data=null)
 	{	
 		$aclSelfPtype = $this->getACLAccesserProfileType();
 		$otherptype = $this->getACLOwnerProfileType();
@@ -297,7 +297,7 @@ abstract class XiptAclBase
 		return true;
 	}
 
-	function getFeatureCounts($resourceAccesser)
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
 	{
 		return 0;
 	}

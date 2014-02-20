@@ -42,7 +42,7 @@ class XiptHelperImage
 	 * imagesize array contain width at 0th index and height at 1st index in array
 	 * xy contain x pos at 0th index and y pos at 1st index
 	 * */
-	function setPosotion($imagesize,&$watermarkSize,&$watermarkImage,$position,$xy)
+	static function setPosotion($imagesize,&$watermarkSize,&$watermarkImage,$position,$xy)
 	{ 
 		/*reference of image is always top-left corener */
 		switch($position) {
@@ -104,7 +104,7 @@ class XiptHelperImage
 		return;
 	}
 	
-    function getImageType($imagePath)
+ 	static function getImageType($imagePath)
 	{
 		$extension	= JFile::getExt($imagePath);	
 		switch($extension)
@@ -124,7 +124,7 @@ class XiptHelperImage
 	}
 	
 	//When we do not modify original image path, then we should not call it by reference.
-	function addWatermarkOnAvatar($userid, $originalImage, $waterMark, $what)
+	static	function addWatermarkOnAvatar($userid, $originalImage, $waterMark, $what)
 	{		
 		//Original Image in machine formate
 		$originalImage	= XiptHelperUtils::getRealPath($originalImage);
@@ -213,7 +213,7 @@ class XiptHelperImage
 	}
 	
 	
-	function showWatermarkOverImage( $imagePath, $watermarkPath ,$newImageName="tmp",$position='bl' )
+	static function showWatermarkOverImage( $imagePath, $watermarkPath ,$newImageName="tmp",$position='bl' )
 	{
 		XiptError::assert(JFile::exists($imagePath) && JFile::exists($watermarkPath)
 			, XiptText::_("FILE $imagePath AND $watermarkPath DOES NOT EXIST"), XiptError::ERROR);
@@ -282,7 +282,7 @@ class XiptHelperImage
 		return $output ? $newImageRefPath : false;
 	}
 	
-	function getThumbAvatarFromFull($avatar)
+	static function getThumbAvatarFromFull($avatar)
 	{
 		if(empty($avatar)){
 			return '';
@@ -292,7 +292,7 @@ class XiptHelperImage
 		return $thumb;
 	}
 	
-	function getWatermark($userid)
+	static function getWatermark($userid)
 	{
 		$ptype		   = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		$watermarkInfo = XiptLibProfiletypes::getProfiletypeData($ptype,'watermark');

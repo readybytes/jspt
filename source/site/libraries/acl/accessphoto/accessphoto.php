@@ -13,7 +13,7 @@ class accessphoto extends XiptAclBase
 		return $data['viewuserid'];
 	}
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

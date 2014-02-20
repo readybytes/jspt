@@ -13,7 +13,7 @@ class addphotos extends XiptAclBase
 		return $data['userid'];	
 	}
 
-	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype)
+	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
 	{
 		$photoModel		=& CFactory::getModel('photos');
 		return $photoModel->getPhotosCount($resourceAccesser);
@@ -39,7 +39,7 @@ class addphotos extends XiptAclBase
 	}
 
 
-	function checkAclApplicable(&$data)
+	function checkAclApplicable($data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
