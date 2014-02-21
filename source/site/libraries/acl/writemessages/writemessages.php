@@ -24,7 +24,7 @@ class writemessages extends XiptAclBase
 		return $resourceOwner;
 	}
 	
-	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data)
+	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data=NULL)
 	{	
 		$aclSelfPtype = $this->coreparams->getValue('core_profiletype',null,-1);
 		$otherptype = $this->aclparams->getValue('other_profiletype',null,-1);

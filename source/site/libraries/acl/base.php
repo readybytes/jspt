@@ -291,7 +291,7 @@ abstract class XiptAclBase
 			return false; 
 		
 		// if feature count is greater then limit
-		if($this->isApplicableOnMaxFeature($resourceAccesser,$resourceOwner) === false)
+		if($this->isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data) === false)
 			return false;
 				
 		return true;
