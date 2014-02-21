@@ -33,7 +33,7 @@ class JFormFieldVideocategory extends JFormField
 	
 	function getVideocategory()
 	{
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$query = 'SELECT id, name FROM #__community_videos_category';
 
 		$db->setQuery( $query );
