@@ -18,7 +18,7 @@ class accessevent extends XiptAclBase
 	}
 	
 
-	public function checkAclApplicable($data)
+	public function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

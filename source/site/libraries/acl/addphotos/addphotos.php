@@ -39,7 +39,7 @@ class addphotos extends XiptAclBase
 	}
 
 
-	function checkAclApplicable($data)
+	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

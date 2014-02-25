@@ -51,23 +51,23 @@ class writemessages extends XiptAclBase
 	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
 	{
 		CFactory::load( 'helpers' , 'time' );
-		$db			=& JFactory::getDBO();
+		$db			= JFactory::getDBO();
 
-		/* otherptype o means rule is defined to count message written to any one */
-		if($otherptype == -1 || $otherptype == 0) {
+		/* otherptype -1 means if you created acl rule and save it blank then it will return valoe as null or -1
+		 * otherptype 0 means if you created acl rule and set it to All profile types then it will return valoe as 0
+		 * otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
+		if($otherptype == -1 || (is_array($otherptype) && $otherptype[0] == 0)) {
 			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
 					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
 					. ' AND a.parent=a.id';
 		}
 		else
-		{
-			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
+		{			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
 					." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
 					."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
 					."  WHERE a.`msg_from` = ".$resourceAccesser
-					."  AND c.`profiletype`='$otherptype'" ;
+					."  AND c.`profiletype`IN(".implode(',', $otherptype).")";
 		}
-
 		$db->setQuery( $query );
 		$count		= $db->loadResult();
 		return $count;
@@ -81,7 +81,7 @@ class writemessages extends XiptAclBase
 		return parent::aclAjaxBlock($msg, $objResponse);
 	}
 
-	function checkAclApplicable($data)
+	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;

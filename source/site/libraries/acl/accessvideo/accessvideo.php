@@ -32,7 +32,7 @@ class accessvideo extends XiptAclBase
 		return $creatorid;
 	}
 
-	function checkAclApplicable($data)
+	function checkAclApplicable(&$data)
 	{
 		/*XITODO : we will expect that vie task and should be given
 		 * and from parsing we will find out that is this request for me

@@ -193,7 +193,7 @@ abstract class XiptAclBase
 	}
 
 
-	abstract public function checkAclApplicable($data);
+	abstract public function checkAclApplicable(&$data);
 
 
 	function checkViolation($data)

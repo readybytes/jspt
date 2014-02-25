@@ -9,7 +9,7 @@ class statusbox extends XiptAclBase
 		return $data['userid'];	
 	}
 	
-	function checkAclApplicable($data)
+	function checkAclApplicable(&$data)
 	{
 		//check data value for JomSocial 2.x.x
 		if('com_community' == $data['option']

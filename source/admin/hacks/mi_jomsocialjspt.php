@@ -47,7 +47,7 @@ class mi_jomsocialjspt
 		//require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'includes.php');
 		require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'api.xipt.php');
 		
-		$database	=& JFactory::getDBO();
+		$database	= JFactory::getDBO();
         $settings = array();
 		$settings['profiletype']				= array( 'list' );
 		$settings['profiletype_after_exp'] 		= array( 'list' );
@@ -126,7 +126,7 @@ class mi_jomsocialjspt
 	function saveparams( $request )
 	{
 		//save all data in xipt_aec table
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 
 		$planid = $this->id;
 		$mi_jspthandler = new jomsocialjspt_restriction( $db );

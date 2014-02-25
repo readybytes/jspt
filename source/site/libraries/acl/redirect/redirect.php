@@ -45,7 +45,7 @@ class redirect extends XiptAclBase
 		return $data['userid'];	
 	}
 
-	function checkAclApplicable($data)
+	function checkAclApplicable(&$data)
 	{
 		$user=JFactory::getUser();
 		if(!$user->id)

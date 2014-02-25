@@ -13,7 +13,7 @@ class createbulletin extends XiptAclBase
 		return $data['userid'];	
 	}
 	
-	function checkAclApplicable($data)
+	function checkAclApplicable(&$data)
 	{
 		if('com_community' == $data['option']
 		    	&& 'groups' == $data['view']
