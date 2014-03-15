@@ -24,7 +24,7 @@ div.profile-type
 /*  border:1px solid red;*/
     overflow: hidden;
     padding: 5px;
-    text-transform: capitalize;
+/*    text-transform: capitalize; */
 }
 
 #Avatar .pt-select-button
