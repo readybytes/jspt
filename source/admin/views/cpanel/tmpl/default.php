@@ -8,11 +8,43 @@ if(!defined('_JEXEC')) die('Restricted access');
 if(XIPT_JOOMLA_25){
 	require_once JPATH_ROOT . '/libraries/joomla/html/html/sliders.php';
 }
+
+
+if (version_compare(JVERSION, '3.0', 'lt')) {
+	
+	$css = "
+	.span8 {
+			float:left;
+			width : 60%
+			}
+
+	.span4 {
+			float:left;
+			width : 40%
+			}
+			
+	.clearfix:after {
+	     visibility: hidden;
+	     display: block;
+	     font-size: 0;
+	     content: '';
+	     clear: both;
+	     height: 0;
+	     }
+	     
+	  .pane-sliders{
+	  	margin:0;
+		}
+	" ;
+	//JFactory::getDocument()->addStyleSheet('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css');
+	JFactory::getDocument()->addStyleDeclaration($css);
+}
+
 ?>
+
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
-<div class="span12" >
- 
-<div id="cpanel" class="span6">
+<div class="row clearfix" >
+ <div id="cpanel" class="span8">
 				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', XiptText::_('SETUP'));?>
 				<?php echo $this->addIcon('jspt-settings.png','index.php?option=com_xipt&view=settings', XiptText::_('SETTINGS'));?>
 				<?php echo $this->addIcon('profiletypes.png','index.php?option=com_xipt&view=profiletypes', XiptText::_('PROFILETYPES'));?>
@@ -26,7 +58,7 @@ if(XIPT_JOOMLA_25){
 				<?php echo $this->addIcon('users.png','index.php?option=com_xipt&view=users', XiptText::_('USERS'));?>
 </div>
 		
-<div class="span6">
+<div class="span4">
 			<?php 
 				echo JHtmlSliders::start('slider');
 				
