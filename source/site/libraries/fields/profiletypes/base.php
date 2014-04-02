@@ -138,6 +138,12 @@ class XiptFieldsProfiletypesBase
 		if(!$pID){
 			//get value from profiletype field from xipt_users table
 			$userid = JRequest::getVar('userid',0);
+			// When Save task call on Jomsocial then user id is not post by JomSocial (JS 3.1.1)
+			// Issue #624
+			if (! $userid && JFactory::getApplication()->isSite() && JFactory::getApplication()->input->get('task') == 'edit' ) {
+				// get current login user
+				$userid = CFactory::getUser()->get('id');
+			}
 			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
 		return $pID;
