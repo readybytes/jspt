@@ -146,27 +146,30 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
     		//	create a backup file first
     	    if(!JFile::copy($filename, $filename.'.jxibak'))
     	    	return XiptText::_("NOT_ABLE_TO_CREATE_A_BACKUP_FILE_CHECK_PERMISSION");
-    		
-	    	$funcName = 'static function autoload_libraries($classname)';
-	    	
-	    	$searchString = "'CTwitter'							=> '/libraries/twitter.php'";
-	    	// >=js 3.0.5
-	    	if(version_compare(XiptHelperJomsocial::get_js_version(), '3.0.5') >= 0 ) {
-	    		$searchString = "'CTwitter' => '/libraries/twitter.php'";
-	    	}
-	    	
 	    	ob_start();
 	    	?>'CTwitter'	=> '/libraries/twitter.php',
 	    	
 	    	/*==============HACK TO RUN JSPT CORRECTLY :START ============================*/
 			'CFieldsProfiletypes'				=> '/libraries/fields/profiletypes.php',
-			'CFieldsTemplates'					=> '/libraries/fields/templates.php'
+			'CFieldsTemplates'					=> '/libraries/fields/templates.php',
 		    /*==============HACK TO RUN JSPT CORRECTLY : DONE ============================*/
 	        <?php 
 	    	$replaceString = ob_get_contents();
 	        ob_end_clean();
 	        
-	        $success = self::patchData($searchString,$replaceString,$filename,$funcName);
+	        $success = false;
+	        if (JFile::exists($filename)) {
+		
+				if(!is_readable($filename)) 
+					XiptError::raiseWarning(sprintf(XiptText::_('FILE_IS_NOT_READABLE_PLEASE_CHECK_PERMISSION'),$filename));
+				
+				$file = JFile::read($filename);
+				if($file){
+					$file = preg_replace("~('CTwitter') .*? ('/libraries/twitter.php',)~", $replaceString, $file);				
+				    JFile::write($filename,$file);
+		    	    $success = true;
+		    	}
+			}	
         }
         
         return XiptText::_('FILES_PATCHED_SUCCESSFULLY');
@@ -391,3 +394,4 @@ class XiptSetupRulePatchfiles extends XiptSetupBase
 		return $filestoreplace;
 	}
 }
+
