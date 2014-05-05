@@ -72,6 +72,11 @@ defined('_JEXEC') or die('Restricted access');
 		<div class="span6"><?php require_once( $this->jsConfigPath . DS . 'photos.php' ); ?></div>
 	</div>
 	
+	<div class="row-fluid">
+		<div class="span6"><?php require_once( $this->jsConfigPath . DS . 'myblog.php' ); ?></div>
+		<div class="span6"><?php require_once( $this->jsConfigPath . DS . 'display.php' ); ?></div>
+	</div>
+	
 	
 	<?php };?>
 	
