@@ -327,7 +327,7 @@ class XiptLibPluginhandler
 		 */ 
 			?>
 			joms.jQuery(document).ready( function($){ 
-				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer").remove();		
+				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown").remove();		
 				});	
 			<?php 	
 		$script = ob_get_contents();
