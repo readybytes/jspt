@@ -58,7 +58,7 @@ class uploadavatar extends XiptAclBase
 		$aclSelfPtype = is_array($aclSelfPtype)?$aclSelfPtype:array($aclSelfPtype);
 		
 		//if user's ptype exists in ACL ptype array
-		if(in_array($selfPid, $aclSelfPtype))
+		if(in_array($selfPid, $aclSelfPtype) || in_array(XIPT_PROFILETYPE_ALL, $aclSelfPtype))
 			return true;
 
 		return false;

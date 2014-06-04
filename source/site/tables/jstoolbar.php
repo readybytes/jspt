@@ -8,10 +8,10 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptTableJSToolbar extends XiptTable
 {
-	function load($id)
+	function load($id= null,$reset = true )
 	{
 		if( $id ){
-			return parent::load( $id );
+			return parent::load( $id, $reset );
 		}
 		
 		$this->id			= 0;

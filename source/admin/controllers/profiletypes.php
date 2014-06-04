@@ -64,11 +64,8 @@ class XiptControllerProfiletypes extends XiptController
 			$oldData = $allData[$id];
 		}
 		
-		$data['ordering'] =  1;
 		// set ordering
-		if(end($allData) && !isset($allData[$id]->id)) {
-			$data['ordering'] = end($allData)->ordering + 1;
-		}
+		$data['ordering'] = count($allData) + 1;
 			
 		// now save model
 		$id	 = $model->save($data, $id);
