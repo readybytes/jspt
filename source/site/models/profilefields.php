@@ -112,7 +112,7 @@ class XiptModelProfilefields extends XiptModel
 	                	// Remove unset - as it requires to show fields but not allow to edit. If don't want to show fields then uncomment unset line.
 	                	//unset($fields[$i]);
 						// Code added for disabled elements as per profile type
-	                	$script[] = "$('[name=".'"field'.$field['id'].'"'."]').prop('disabled' , 'disabled');";
+	                	$script[] = "$('[name=".'"field'.$field['id'].'"'."]').prop('readonly' , 'readonly');";
 						// code completed for diabled
 						continue;
 	               	}
