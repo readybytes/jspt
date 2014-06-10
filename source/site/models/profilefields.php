@@ -109,11 +109,20 @@ class XiptModelProfilefields extends XiptModel
                 elseif(is_array($field)){
                 	if((!empty($field['value']) && $field['required']) || $field['required'] == 0)
 	                {
-	                	// Remove unset - as it requires to show fields but not allow to edit. If don't want to show fields then uncomment unset line.
+	                		                	// Remove unset - as it requires to show fields but not allow to edit. If don't want to show fields then uncomment unset line.
 	                	//unset($fields[$i]);
 						// Code added for disabled elements as per profile type
-	                	$script[] = "$('[name=".'"field'.$field['id'].'"'."]').prop('readonly' , 'readonly');";
-						// code completed for diabled
+	                  //	Used for elements which used any value like textbox, textarea etc. Not work for element which set state of element like On / Off eg checkbox , radio element
+	                  // Don't used disabled here else dat won't get post and your value will get reset after saving the form 	                	
+	                	$script[] = "$('[name=".'"field'.$field['id'].'"'."]').prop('readonly' , 'readonly')";
+	                	// Use for select element to disable as per id, which are used to set value to on / off  
+	                	$script[] = "$('select[name=\"field{$field['id']}\"]').prop('disabled',true)";
+	                   	// Use for radio list, only one value get selected so not defined as array 
+	                	$script[] = "$('input[name=\"field{$field['id']}\"][type=radio]').click(function(){  return false;})";
+	                	// Use for checkbox, multiple values get selected so defined as array and make it read only and on click return it 
+	                	$script[] = "$('input[name=\"field{$field['id']}[]\"][type=checkbox]').click(function(){   return false;})";
+	                	
+	                   	// code completed for diabled
 						continue;
 	               	}
                 }

@@ -13,7 +13,18 @@ defined('_JEXEC') or die('Restricted access');
 		submitbutton(action);
 	}
 </script>
-
+</script>
+<link rel="stylesheet" href="<?php echo JURI::root().'administrator/components/com_community/assets/css/ace.min.css';	?>" type="text/css">
+<style>
+#js-cpanel #config-document td {
+    float: none;
+}
+#js-cpanel input, 
+#js-cpanel select {
+    font-size: 15px;
+}
+</style>
+<div id="js-cpanel">
 <form action="index.php" id="application-form" method="post" name="adminForm" enctype="multipart/form-data">
 
 <?php if (version_compare(JVERSION, '3.0', 'lt')) { ?>
@@ -86,5 +97,5 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_xipt" />
 <input type="hidden" name="id" value=<?php echo $this->id; ?> />
 </form>
-
+</div>
 <?php 
