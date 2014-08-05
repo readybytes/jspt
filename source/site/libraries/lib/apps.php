@@ -23,7 +23,7 @@ class XiptLibApps
                 continue;
             
             // we want to restrict only community apps and do not restrict our compo
-            if($app->get('_type') != 'community' && $app->get('_name') == 'xipt_community')
+            if($app->get('_type') != 'community' || $app->get('_name') == 'xipt_community')
                 continue;
             
 			if(method_exists($app,'onProfileDisplay') != $blockProfileApps)

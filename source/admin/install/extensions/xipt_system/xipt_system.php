@@ -340,6 +340,12 @@ class plgSystemxipt_system extends JPlugin
 		}
 	}
 
+	function event_com_community_profile_edit(){
+		if($this->_pluginHandler->isPrivacyAllow()){
+			$this->_pluginHandler->hidePrivacyElements();
+		}
+	}
+	
 	function onAfterDispatch()
     {
     	$app = JFactory::getApplication();
