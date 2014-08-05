@@ -21,7 +21,7 @@ class writemessages extends XiptAclBase
 		//As a user can't msg himself
 		$resourceOwner		= array_diff($resourceOwner,$resourceAccesser);
 		
-		return $resourceOwner;
+		return array_shift($resourceOwner);
 	}
 	
 	function isApplicableOnMaxFeature($resourceAccesser,$resourceOwner, $data=NULL)
