@@ -65,7 +65,17 @@ class XiptControllerProfiletypes extends XiptController
 		}
 		
 		// set ordering
-		$data['ordering'] = count($allData) + 1;
+		if( isset($post['ordering']) && intval($post['ordering']) > 0){
+			$data['ordering'] =    $post['ordering']; 
+		}else{
+			$max = count($allData) + 1; 
+			foreach($allData as $t){
+				if($t->ordering >= $max){
+					$max = $t->ordering + 1; 
+				}
+			}
+			$data['ordering'] = $max;
+		}
 			
 		// now save model
 		$id	 = $model->save($data, $id);

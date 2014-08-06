@@ -251,6 +251,7 @@ jQuery(document).ready(function($){
 	<input type="hidden" name="view" value="<?php echo JRequest::getCmd( 'view' , 'profiletypes' );?>" />
 	<input type="hidden" name="id" value="<?php echo $this->data->id; ?>" />
 	<input type="hidden" name="task" value="" />
+	<input type="hidden" name="ordering" value="<?php echo $this->data->ordering; ?>" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 </div>

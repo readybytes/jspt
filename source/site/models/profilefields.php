@@ -117,7 +117,7 @@ class XiptModelProfilefields extends XiptModel
 	                	$script[] = "$('[name=".'"field'.$field['id'].'"'."]').prop('readonly' , 'readonly')";
 	                	// Use for select element to disable as per id, which are used to set value to on / off  
 	                	$script[] = "$('select[name=\"field{$field['id']}\"]').prop('disabled',true)";
-	                   	// Use for radio list, only one value get selected so not defined as array 
+	                	// Use for radio list, only one value get selected so not defined as array 
 	                	$script[] = "$('input[name=\"field{$field['id']}\"][type=radio]').click(function(){  return false;})";
 	                	// Use for checkbox, multiple values get selected so defined as array and make it read only and on click return it 
 	                	$script[] = "$('input[name=\"field{$field['id']}[]\"][type=checkbox]').click(function(){   return false;})";
