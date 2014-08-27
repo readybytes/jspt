@@ -75,3 +75,11 @@ div.profile-type
 .pt-description{
 	width:100%;
 }
+
+body #cWindow .loading.loading{
+	background: none;
+    display: block;
+    height: inherit;
+    width: auto;
+    max-height:inherit;
+	}
