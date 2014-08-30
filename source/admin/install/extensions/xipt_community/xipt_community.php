@@ -156,7 +156,7 @@ class plgCommunityxipt_community extends CApplications
 	// update the configuration
 	function onAfterConfigCreate($config)
 	{
-    	return 	 XiptLibJomsocial::updateCommunityConfig($config);
+	    	return 	 XiptLibJomsocial::updateCommunityConfig($config);
 	}
 
 	/**

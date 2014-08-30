@@ -142,6 +142,9 @@ class writemessages extends XiptAclBase
 		if($this->isApplicableOnSelfProfiletype($resourceAccesser) === false)
 				return false;
 				
+		if (!is_array($resourceOwner)) {
+			$resourceOwner = (Array)$resourceOwner;
+		}
 		foreach($resourceOwner as $owner)
 		{		
 			//if its not applicable on currnet user, no need to check other condiotions
