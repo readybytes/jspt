@@ -20,7 +20,7 @@ class writemessages extends XiptAclBase
 		//Remove resource accessor from resource owner array
 		//As a user can't msg himself
 		$resourceOwner		= array_diff($resourceOwner,$resourceAccesser);
-		
+		//return $resourceOwner;
 		return array_shift($resourceOwner);
 	}
 	
