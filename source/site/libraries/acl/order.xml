@@ -255,5 +255,9 @@
 	<rule name="reportuser"
 		  title="Can not Report User"
 		  description="Restrict Users to Report Users" />
+		  
+	<rule name="ignoreuser"
+		  title="Can not Ignore User"
+		  description="Restrict Users to Ignore Users" />	  
 </group>	
 </rules>

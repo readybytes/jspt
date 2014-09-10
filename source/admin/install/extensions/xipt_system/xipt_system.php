@@ -33,6 +33,7 @@ class plgSystemxipt_system extends JPlugin
 
 	function onAfterRoute()
 	{
+		
 		$app = JFactory::getApplication();
 
 		// get option, view and task
@@ -56,6 +57,11 @@ class plgSystemxipt_system extends JPlugin
  		{
  			$userid = JFactory::getUser()->id;
  			$this->_pluginHandler->hideJSToolbar($userid);
+ 			
+ 			// hide it everywhere
+	 		if($this->_pluginHandler->isPrivacyAllow()){
+				$this->_pluginHandler->hidePrivacyElements();
+			}
  		}
  		
 		/* When XiPT is integrated with subscription method and user does not pay or subscribe any plan,

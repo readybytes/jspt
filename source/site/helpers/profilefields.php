@@ -31,6 +31,34 @@ class XiptHelperProfilefields
 		return implode(',',$retVal);
 	}
 
+	
+	static function getProfileTypes($fid, $cat)
+	{		
+		//XITODO : Implement WHERE in load records
+		static $records = array();
+		if(!isset($records[$fid])){
+			//create a new query
+			$query = new XiptQuery();
+			$query->select('*'); 
+			$query->from('#__xipt_profilefields');
+			$query->where('fid='.$fid);	
+
+			// indexed as fid
+			$records[$fid] = $query->dbLoadQuery()->loadObjectList('id');
+		}
+
+		$profileTypes = array();
+		
+		$data = $records[$fid];
+		foreach($data as $record){
+			if($record->category == $cat){
+				$profileTypes[] =  $record->pid;
+			}
+		}
+				
+		return $profileTypes;
+	}
+	
 	public static function getProfileTypeArray($fid,$for)
 	{
 		XiptError::assert($fid, XiptText::_("PROFILEFIELD_ID_CAN_NOT_BE_NULL"), XiptError::ERROR);

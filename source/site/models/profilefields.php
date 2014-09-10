@@ -17,7 +17,6 @@ class XiptModelProfilefields extends XiptModel
 		if($this->_total) {
 			return $this->_total;
 		}
-
 		/**
 		 * XiTODO :: Write this code in well manner
 		 * Right now profile_fields table dont have all js fields so we dont have any alternate except it. 
@@ -150,14 +149,21 @@ class XiptModelProfilefields extends XiptModel
 	}
 	
 	function getProfileTypes($fid, $cat)
-	{
+	{		
 		//XITODO : Implement WHERE in load records
-		$records = $this->loadRecords(0);
+		static $records = null;
+		if(!$records){
+			$records  = $this->loadRecords(0);
+		}
+
 		$profileTypes = array();
-		foreach($records as $record)
-			if($record->fid == $fid && $record->category == $cat)
-				array_push($profileTypes, $record->pid);
 		
+		foreach($records as $record){
+			if($record->fid == $fid && $record->category == $cat){
+				array_push($profileTypes, $record->pid);
+			}
+		}
+				
 		return $profileTypes;
 	}
 }

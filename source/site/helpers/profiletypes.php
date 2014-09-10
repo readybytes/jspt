@@ -137,8 +137,10 @@ class XiptHelperProfiletypes
 
 	public static function getProfileTypeArray($isAllReq = false, $isNoneReq= false)
 	{
-		$results = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
-
+		static $results = null;
+		if(!$results){
+			$results = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
+		}
 		// results will be indexed accroding to id
 		// only get the keys
 		$retVal = array_keys($results);

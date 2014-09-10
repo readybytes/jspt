@@ -327,9 +327,16 @@ class XiptLibPluginhandler
 		 */ 
 			?>
 			joms.jQuery(document).ready( function($){ 
-				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown").remove();		
-				});	
+				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();		
+			});
+			
+			joms.jQuery( document ).ajaxComplete(function() {
+			  joms.jQuery("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();
+			});
+			
+			
 			<?php 	
+			
 		$script = ob_get_contents();
         ob_clean();
         JFactory::getDocument()->addScriptDeclaration($script);
