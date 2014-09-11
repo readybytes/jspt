@@ -64,8 +64,7 @@ class XiptHelperProfilefields
 		XiptError::assert($fid, XiptText::_("PROFILEFIELD_ID_CAN_NOT_BE_NULL"), XiptError::ERROR);
 			
 		//Load all profiletypes for the field
-		$results = XiptFactory::getInstance('profilefields','model')
-									->getProfileTypes($fid, $for);
+		$results = self::getProfileTypes($fid, $for);
 		
 		if(empty($results)) return array(XIPT_PROFILETYPE_ALL);
 			

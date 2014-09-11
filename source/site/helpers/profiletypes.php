@@ -112,8 +112,11 @@ class XiptHelperProfiletypes
 
 		if($id==0)
 			return $data[$what]['value'];
-
-		$val = XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
+		static $val=null;
+		if(!$val){
+			$val =  XiptFactory::getInstance('profiletypes','model')->loadRecords(0);
+		}
+		
 		if(!$val)
 			return $data[$what]['value'];
 
