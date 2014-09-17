@@ -15,11 +15,20 @@ defined('_JEXEC') or die('Restricted access');
 		<button type="submit" class="btn btn-success btn-large pull-right" onclick="window.location.href='<?php echo JUri::base().'index.php?option=com_xipt&view=install&task=complete';?>';">
 			<i class="icon-white icon-hand-right"></i>&nbsp;<?php echo XiptText::_('FINISH_INSTALLATION_BUTTON');?>
 		</button>
+		
 		<div class="hide">
 		<?php
+			$domain  = JURI::getInstance()->toString(array('scheme', 'host', 'port'));
 			$version = new JVersion();
-			$suffix = 'jom=J'.$version->RELEASE.'&utm_campaign=XIPt-Installation&xiptv=XIPT'.XIPT_VERSION.'&dom='.JURI::getInstance()->toString(array('scheme', 'host', 'port'));?>
-			<iframe src="http://pub.joomlaxi.com/broadcast/jspt/installation.html?<?php echo $suffix?>"></iframe>
-		</div>
+			$suffix = 'jom=J'.$version->RELEASE.'&utm_campaign=broadcast&xiptv=XIPT'.XIPT_VERSION.'&dom='.$domain;
+			
+			$event 		= "product.installation";
+			$event_args = array('product'=>'Xipt', 'version'=>XIPT_VERSION, 'domain'=>$domain, 'joomla_version'=>$version->RELEASE, 'email'=> '');
+			$event_args = urlencode(json_encode($event_args));?>
+			
+
+		<iframe src="http://www.readybytes.net/broadcast/track.html?event=<?php echo $event;?>&event_args=<?php echo $event_args;?>" style="display :none;"></iframe>
+		
+	</div>
 	</div>
 </div>

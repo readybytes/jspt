@@ -101,7 +101,15 @@ class XiptLibJomsocial
 		// update previous group as it's defined as variable not as array
 		$user->groups = array($newGroup);
 		$user->save();
-		
+	
+		// In js 3.2.1.4 onwards js has changed in save function of com_community/libraries/user.php file and setusergroup to null
+        	// $jUser->groups = null; 
+        	// so jspt won't assign usertype on basis of profile type. working over here
+		if(version_compare(XiptHelperJomsocial::get_js_version(), '3.2.1.4') >= 0 ) {
+	    		$user = JFactory::getUser($userid);
+			$user->groups = array($newGroup);
+			$user->save();
+	    	}
 		self::reloadCUser($userid);
 		return true;
 	}

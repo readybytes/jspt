@@ -39,11 +39,9 @@ links: '#1985b5'
   }
 }).render().start();
 </script>
-	<?php
-		$version = new JVersion();
-		$suffix = 'jom=J'.$version->RELEASE.'&utm_campaign=JSPT-Usage&xiptv=XIPT'.XIPT_VERSION.'&dom='.JURI::getInstance()->toString(array('scheme', 'host', 'port'));
-	?>
+	
 	<div >
-		<iframe class="span12" style="height:350px;" frameborder="0" src="http://pub.joomlaxi.com/broadcast/jspt/broadcast.html?<?php echo $suffix?>"></iframe>
+		<iframe class="span12" style="height:350px;" frameborder="0" src="http://www.readybytes.net/broadcast/jspt.html"></iframe>
 	</div>
+			
 <?php 
