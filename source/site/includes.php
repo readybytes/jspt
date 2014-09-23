@@ -67,17 +67,17 @@ if(!JFile::exists(JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'defines.comm
 }
 
 // Used default function of Js to auto load files. As CAssets won't get found in previously defined path. 
-// Shows error in case of mod_latestmember module of Js. Done from 3.2.1.4 release time 
+// Shows error in case of mod_latestmember module of Js 
+require_once(JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 spl_autoload_register('CFactory::autoload_libraries');
 
 // auto load community classes
-// remove as we used auto load functioanlity of Js
 // XiptLoader::addAutoLoadFile('CFactory' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 // XiptLoader::addAutoLoadFile('CAssets' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 // XiptLoader::addAutoLoadFile('CConfig' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 // XiptLoader::addAutoLoadFile('CApplications' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 // XiptLoader::addAutoLoadFile('CUser' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
-// XiptLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
+//XiptLoader::addAutoLoadFile('CRoute' , JPATH_ROOT.DS.'components'.DS.'com_community'.DS.'libraries'.DS.'core.php');
 
 // Aotoloading for Jom social 2.0 [ Zend Plugin ]
 
