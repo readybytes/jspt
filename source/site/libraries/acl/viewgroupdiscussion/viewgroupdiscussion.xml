@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset addfieldpath="/components/com_xipt/form" >
+		<field name="group_category" type="groupcategory" addall="true" multiple="true" default="" label="COM_XIPT_GROUP_CATEGARIES_LABEL" description="COM_XIPT_GROUP_CATEGORY_TO_APPLY_DESC" />
+	</fieldset>
+</form>

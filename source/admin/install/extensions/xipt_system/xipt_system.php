@@ -463,7 +463,7 @@ class plgSystemxipt_system extends JPlugin
 
 	function _addXiptSearchScript($profileType)
 	{
-	   //CAssets::attach(JURI::root().'components/com_community/assets/joms.jquery', 'js');
+		//CAssets::attach(JURI::root().'components/com_community/assets/joms.jquery', 'js');
 		?>
 		$(document).ready(function(){
 			 // find all select list object

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+<fieldset addfieldpath="/administrator/components/com_xipt/elements" >
+	<field name="other_profiletype" type="profiletypes" addall="true" multiple="true" size="6" default="" label="COM_XIPT_OTHER_PROFILETYPE_USERS_TO_APPLY_LABLE" description="COM_XIPT_OTHER_PROFILETYPE_TO_APPLY_DESC" />
+	<field name="other_plan" type="xiptplans" addall="true" multiple="true" size="6" default="" label="COM_XIPT_OTHER_PROFILETYPE_USERS_TO_ADD_AS_FRIEND_LABLE" description="COM_XIPT_OTHER_PROFILETYPE_TO_ADD_AS_FRIEND_DESC" />
+    <field name="acl_applicable_to_friend" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_TO_FRIEND_LABEL" description="COM_XIPT_APPLICABLE_TO_FRIEND_DESC">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</field>
+	<field name="acl_applicable_to_self" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_TO_SELF_LABEL" description="COM_XIPT_APPLICABLE_TO_SELF_DESC">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</field>
+</fieldset>
+</form>
