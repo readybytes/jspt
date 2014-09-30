@@ -436,7 +436,7 @@ abstract class XiptAclBase
 		$selfPlanId	 = $user->getPlans();
 		
 		//if its applicable to all
-		if(XIPT_PLAN_ALL == $aclSelfPlan)
+		if(in_array(XIPT_PLAN_ALL, $aclSelfPlan))
 			return true;
 
 		//check if its applicable on more than 1 plan
@@ -457,7 +457,7 @@ abstract class XiptAclBase
 		$otherPlanId	= $user->getPlans();
 
 		//if its applicable to all
-		if(XIPT_PLAN_ALL == $otherplan)
+		if(in_array(XIPT_PLAN_ALL, $otherplan))
 			return true;
 
 		//check if its applicable on more than 1 pplan

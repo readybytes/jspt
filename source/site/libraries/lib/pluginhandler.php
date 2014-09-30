@@ -333,10 +333,6 @@ class XiptLibPluginhandler
 			joms.jQuery( document ).ajaxComplete(function() {
 			  joms.jQuery("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();
 			});
-		
-<!--			joms.jQuery(document).ready(function(){-->
-<!--			joms.jQuery("li[data-tab='privacy']").hide();
-			})-->
 
 			<?php 	
 			

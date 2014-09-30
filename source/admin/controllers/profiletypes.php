@@ -20,7 +20,7 @@ class XiptControllerProfiletypes extends XiptController
 	
 	function edit($id=0)
 	{
-		$id 	= JRequest::getVar('id', $id);					
+		$id 	= JRequest::getVar('id', $id);		
 		return $this->getView()->edit($id);
 	}	
 	

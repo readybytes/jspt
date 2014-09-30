@@ -10,7 +10,8 @@ class viewdetailphotos extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['userid'];	
+		return $data['viewuserid'];
+		
 	}
 
 	function checkAclApplicable(&$data)
@@ -18,7 +19,7 @@ class viewdetailphotos extends XiptAclBase
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
 
-		if('photos' != $data['view'])
+		if('photos' != $data['view'] )
 			return false;
 
 		if($data['task'] == 'photo')
@@ -27,7 +28,7 @@ class viewdetailphotos extends XiptAclBase
 		return false;
 	}
 	
-	function checkAclViolation($data)
+function checkAclViolation($data)
 	{	
 		$resourceOwner 		= $this->getResourceOwner($data);
 		$resourceAccesser 	= $this->getResourceAccesser($data);		
@@ -45,9 +46,6 @@ class viewdetailphotos extends XiptAclBase
 		if($this->isApplicableOnOtherProfiletype($resourceOwner) === false)
 			return false;
 		
-		//XITODO if allwoed to self
-		
-		
 		// if resource owner is friend of resource accesser 
 		if($this->isApplicableOnFriend($resourceAccesser,$resourceOwner) === false)
 			return false; 
@@ -58,5 +56,7 @@ class viewdetailphotos extends XiptAclBase
 				
 		return true;
 	}
+	
+	
 }
 

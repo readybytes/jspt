@@ -86,9 +86,15 @@ abstract class XiptModel extends JModelLegacy
 
 		$table = $this->getTable();
 		$table->load(null);
-	
-		foreach($vars as $key => $value)		
+		
+		foreach($vars as $key => $value) {
+
+			// Joomla Specific issue :: protected property in Joomla 3.4  
+			if ($key == 'jsonEncode' ) {
+				continue;
+			}
 			$retObj->$key = $table->$key;
+		}
 		
 		return array(0 => $retObj);
 	}
