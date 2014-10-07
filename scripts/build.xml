@@ -9,7 +9,7 @@
 
 	<target name="get_build_number" depends="config">
 	    <exec command="git describe" dir="${dir.root}" outputProperty="build.number"  />
-	    <property name='build.number' value="${build.number}"  override="true" />
+	    <property name='build.number' value="15"  override="true" />
 	</target>
 	<target name="build" description="build installable package only" depends="config,get_build_number">
 

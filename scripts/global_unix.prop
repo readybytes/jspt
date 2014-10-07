@@ -23,3 +23,4 @@ file.version		= 4.0
 file.package		= ${project.shortform}
 file.compression	= gzip
 file.extension		= .zip
+

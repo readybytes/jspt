@@ -28,7 +28,7 @@ class writemessages extends XiptAclBase
 	{	
 		$aclSelfPtype = $this->coreparams->getValue('core_profiletype',null,-1);
 		$otherptype = $this->aclparams->getValue('other_profiletype',null,-1);
-		
+			
 		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
 		$paramName ='writemessage_limit';
 		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
@@ -48,14 +48,39 @@ class writemessages extends XiptAclBase
 		return false;
 	}
 	
+	function isApplicableOnMaxFeatureByPlan($resourceAccesser,$resourceOwner, $data=NULL)
+	{
+		$aclSelfPtype = $this->coreparams->getValue('core_plan',null,-1);
+		$otherptype = $this->aclparams->getValue('other_plan',null,-1);
+	
+		$count = $this->getFeatureCountsByPlan($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		$paramName ='writemessage_limit';
+		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
+	
+		//In JS2.4++, user can msg to more than one user simlutaneously
+		//$totalUsers = $data['count'];
+		//$totalUsers = is_array($totalUsers)?$totalUsers:array($totalUsers);
+	
+		if(isset($data['count']))
+			$userCount  = $data['count'];
+		else
+			$userCount  = 0;
+	
+		if($count >= $maxmimunCount || ($userCount+$count) > $maxmimunCount)
+			return true;
+			
+		return false;
+	}
+	
+	
 	function getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
 	{
 		CFactory::load( 'helpers' , 'time' );
 		$db			= JFactory::getDBO();
-
+	
 		/* otherptype -1 means if you created acl rule and save it blank then it will return valoe as null or -1
 		 * otherptype 0 means if you created acl rule and set it to All profile types then it will return valoe as 0
-		 * otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
+		* otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
 		if($otherptype == -1 || (is_array($otherptype) && $otherptype[0] == 0)) {
 			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
 					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
@@ -63,16 +88,40 @@ class writemessages extends XiptAclBase
 		}
 		else
 		{			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
-					." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
-					."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
-					."  WHERE a.`msg_from` = ".$resourceAccesser
-					."  AND c.`profiletype`IN(".implode(',', $otherptype).")";
+				." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
+				."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
+						."  WHERE a.`msg_from` = ".$resourceAccesser
+						."  AND c.`profiletype`IN(".implode(',', $otherptype).")";
 		}
 		$db->setQuery( $query );
 		$count		= $db->loadResult();
 		return $count;
 	}
 
+	function getFeatureCountsByPlan($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
+	{
+		CFactory::load( 'helpers' , 'time' );
+		$db			= JFactory::getDBO();
+	
+		/* otherptype -1 means if you created acl rule and save it blank then it will return valoe as null or -1
+		 * otherptype 0 means if you created acl rule and set it to All profile types then it will return valoe as 0
+		* otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
+		if($otherptype == -1 || (is_array($otherptype) && $otherptype[0] == 0)) {
+			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
+					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
+					. ' AND a.parent=a.id';
+		}
+		else
+		{			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
+				." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
+				."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
+						." WHERE a.`msg_from` = ".$resourceAccesser; 
+		}
+		$db->setQuery( $query );
+		$count		= $db->loadResult();
+		return $count;
+	}
+	
 	function aclAjaxBlock($msg, $objResponse=null)
 	{
 		$objResponse   	= new JAXResponse();
@@ -141,7 +190,10 @@ class writemessages extends XiptAclBase
 		//if its not applicable on resource accessor, return false
 		if($this->isApplicableOnSelfProfiletype($resourceAccesser) === false)
 				return false;
-				
+		//	if its not applicable on resource accessor, return false
+// 		if($this->isApplicableOnSelfPlan($resourceAccesser) === false)
+// 			return false;
+		
 		if (!is_array($resourceOwner)) {
 			$resourceOwner = (Array)$resourceOwner;
 		}
@@ -162,6 +214,42 @@ class writemessages extends XiptAclBase
 			return true;
 		}	
 		return false;
+	}
+	
+	function checkAclViolationByPlan($data)
+	{
+		$resourceOwner 		= $this->getResourceOwner($data);
+		$resourceAccesser 	= $this->getResourceAccesser($data);
+		
+		//If user is replying to a message, then we don't need to count no. of users.
+		if(isset($data['count'])){
+		$data['count'] = count($resourceOwner);
+		}
+		
+			//	if its not applicable on resource accessor, return false
+			if($this->isApplicableOnSelfPlan($resourceAccesser) === false)
+			return false;
+		
+			if (!is_array($resourceOwner)) {
+			$resourceOwner = (Array)$resourceOwner;
+			}
+			foreach($resourceOwner as $owner)
+			{
+			//if its not applicable on currnet user, no need to check other condiotions
+				if($this->isApplicableOnOtherPlan($owner) === false)
+				continue;
+					
+				// if resource owner is friend of resource accesser
+				if($this->isApplicableOnFriend($resourceAccesser,$owner) === false)
+				continue;
+					
+				// if feature count is greater then limit
+				if($this->isApplicableOnMaxFeatureByPlan($resourceAccesser,$owner, $data) === false)
+				continue;
+		
+				return true;
+			}
+			return false;
 	}
 	
 	function getUserId($msgId)
