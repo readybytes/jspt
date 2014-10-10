@@ -420,10 +420,10 @@ abstract class XiptAclBase
 			return true;
 
 		$user = PayplansApi::getUser($data['userid']);
-		
+			
 		//plan matching
-		if(array_intersect($user->getPlans(), $plan))
-			return true;
+ 		if(array_intersect($user->getPlans(), $plan))
+ 			return true;
 		
 		return false;
 	}
@@ -435,13 +435,13 @@ abstract class XiptAclBase
 		$aclSelfPlan = $this->getACLAccesserPlan();
 		$selfPlanId	 = $user->getPlans();
 		
+		//check if its applicable on more than 1 plan
+		$aclSelfPlan = is_array($aclSelfPlan) ? $aclSelfPlan : array($aclSelfPlan);
+		
 		//if its applicable to all
 		if(in_array(XIPT_PLAN_ALL, $aclSelfPlan))
 			return true;
 
-		//check if its applicable on more than 1 plan
-		$aclSelfPlan = is_array($aclSelfPlan) ? $aclSelfPlan : array($aclSelfPlan);
-		
 		//if user's plan exists in ACL plan array
 		if(array_intersect($selfPlanId, $aclSelfPlan))
 			return true;
@@ -455,13 +455,13 @@ abstract class XiptAclBase
 		
 		$otherplan		= $this->getACLOwnerPlan();
 		$otherPlanId	= $user->getPlans();
+		
+		//check if its applicable on more than 1 pplan
+		$otherplan = is_array($otherplan) ? $otherplan : array($otherplan);
 
 		//if its applicable to all
 		if(in_array(XIPT_PLAN_ALL, $otherplan))
 			return true;
-
-		//check if its applicable on more than 1 pplan
-		$otherplan = is_array($otherplan) ? $otherplan : array($otherplan);
 		
 		//if user's plan exists in ACL plan array
 		if(array_intersect($otherPlanId, $otherplan))
