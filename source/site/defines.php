@@ -8,7 +8,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
-defined('XIPT_VERSION') or define('XIPT_VERSION','4.0.15');
+defined('XIPT_VERSION') or define('XIPT_VERSION','4.0.16');
 
 define('XIPT_NOT_DEFINED','XIPT_NOT_DEFINED');
 define('XIPT_NONE','XIPT_NONE');
