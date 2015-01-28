@@ -30,11 +30,11 @@ class XiptFieldsProfiletypesJs20 extends XiptFieldsProfiletypesBase
         return $tName;
 	}
 	
-	function getFieldData( $field =array() )
+	function getFieldData( $value = null)
 	{
 		$pID = 0;
-		if(!empty($field) && isset($field['value']))
-            $pID=$field['value'];		
+		if(!$value)
+           		 $pID=$value;		
 		
 		if(!$pID){
 			//get value from profiletype field from xipt_users table
@@ -50,3 +50,4 @@ class XiptFieldsProfiletypesJs20 extends XiptFieldsProfiletypesBase
 	}
 	
 } 
+

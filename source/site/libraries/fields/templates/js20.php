@@ -10,11 +10,12 @@ if(!defined('_JEXEC')) die('Restricted access');
 
 class XiptFieldsTemplatesJs20 extends XiptFieldsTemplatesBase
 {	
-	function getFieldData( $field = array())
+	function getFieldData( $value = null)
 	{
+		 
 		$tName = null; 
-		if(!empty($field) && isset($field['value']))
-            $tName = $field['value'];		
+		if(!$value)
+            $tName = $value ;		
 		
 		if($tName == null){
 			$userid = JRequest::getVar('userid',0);
@@ -24,3 +25,4 @@ class XiptFieldsTemplatesJs20 extends XiptFieldsTemplatesBase
 		return $tName;
 	}
 } 
+

@@ -67,6 +67,7 @@ class XiptModelProfiletypes extends XiptModel
 			$this->_params[$id] = $config;
 		}
 		else{
+			$params = array();
 			$params = json_decode($record[$id]->params);
 			
 			foreach($params as $key => $value){

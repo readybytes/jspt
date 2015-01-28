@@ -79,6 +79,9 @@ defined('_JEXEC') or die('Restricted access');
 	</div>
 	
 	<div class="row-fluid">
+		<?php if(!isset($this->lists['videoThumbSize'])):?>
+		<?php $this->lists['videoThumbSize'] =CFactory::getConfig()->get('videosThumbSize', '');?>
+		<?php endif;?>
 		<div class="span6"><?php require_once( $this->jsConfigPath . DS . 'videos.php' ); ?></div>
 		<div class="span6"><?php require_once( $this->jsConfigPath . DS . 'photos.php' ); ?></div>
 	</div>
