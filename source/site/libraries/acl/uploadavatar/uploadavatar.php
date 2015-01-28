@@ -69,7 +69,7 @@ class uploadavatar extends XiptAclBase
 
 		// Acl not applicable when Avtar imported from Facebook.
 		//XiTODO:: If its default avtar of facebook then Acl need to be applicable.
-		if($data['task'] === 'ajaximportdata'){
+		if(stristr($data['task'], 'ajaximportdata')!==FALSE){
 			return false;
 		}
 		
@@ -98,7 +98,7 @@ class uploadavatar extends XiptAclBase
 			return false;
 		}
 		
-		if(!empty($userId) && $data['task'] !== 'uploadavatar'){
+		if(!empty($userId) && stristr($data['task'], 'uploadavatar') !== FALSE){
 			//get login user avatar
 			$userAvatar = CFactory::getUser($userId)->_avatar;
 			//if avatar is deafaul then force to upload avatar
@@ -125,7 +125,7 @@ class uploadavatar extends XiptAclBase
 		}
 		
 		//On Registeration Time:: if user come to uoload avatr then all link are disable untill user not upload avatar
-		if($permission && $session->get('uploadAvatar',false,'XIPT') && $data['task'] !== 'registeravatar'){
+		if($permission && $session->get('uploadAvatar',false,'XIPT') && stristr($data['task'],'registeravatar')!==FALSE){
 			return true;
 		}
 		
