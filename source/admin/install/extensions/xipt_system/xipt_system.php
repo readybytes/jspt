@@ -97,6 +97,10 @@ class plgSystemxipt_system extends JPlugin
 		return false;
 	}
 
+	function event_com_community_register_registersucess()
+	{
+		$this->_pluginHandler->cleanRegistrationSession();
+	}
 	/**
 	 * This function will store user's registration information
 	 * in the tables, when User object is created
@@ -118,7 +122,8 @@ class plgSystemxipt_system extends JPlugin
 	{
 		// we only store new users
 		if($isNew == false || $result == false || $error == true) {
-			$this->_pluginHandler->cleanRegistrationSession();
+//          Removed as it remove session and assign only default profile type
+// 			$this->_pluginHandler->cleanRegistrationSession();
 			return true;
 		}
 
@@ -131,7 +136,8 @@ class plgSystemxipt_system extends JPlugin
 		XiptLibProfiletypes::updateUserProfiletypeData($properties['id'], $profiletypeID,'', 'ALL');
 
 		//clean the session
-		$this->_pluginHandler->cleanRegistrationSession();
+//          Removed as it remove session and assign only default profile type
+		//$this->_pluginHandler->cleanRegistrationSession();
 		return true;
 	}
 	

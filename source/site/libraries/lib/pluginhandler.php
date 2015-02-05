@@ -101,6 +101,7 @@ class XiptLibPluginhandler
 	
 	function cleanRegistrationSession()
 	{
+		
 	    $this->mySess->clear('SELECTED_PROFILETYPE_ID','XIPT');
 	}
 
