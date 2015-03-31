@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<project name="Setup builder" basedir="." default="setup" description="Phing setup script for package.">
+<project name="XIPT Setup builder" basedir="." default="setup" description="Phing setup script for XIPT package.">
 
 	<target name="config" description="Load configuration file">
 		<php expression="(PHP_OS == 'WINNT') ? '_win' : '_unix'" returnproperty="IF_OS" />
@@ -66,7 +66,11 @@
 
 	<!-- Copy latest JomSocial -->
 	<target name="copy_community">
-		<copy 	file="${pkg.location}/${pkg.version}/com_community.zip" 
+		
+		<!-- Copy Community Kit from url -->
+		<httpget url="${pkg.location}/${pkg.version}/com_community.zip" dir="${joomla.rootpath}/${joomla.folder}"/>
+
+		<copy 	file="${joomla.rootpath}/${joomla.folder}/com_community.zip" 
 				tofile="${joomla.rootpath}/${joomla.folder}/com_community.zip" />
 	</target>
 
