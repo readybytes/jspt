@@ -92,9 +92,10 @@ class XiptHelperJSToolbar
 			
 			ob_start();
 	        ?>
-	        joms.jQuery(document).ready(function(){	
+	        window.joms_queue || (window.joms_queue = []);
+    		window.joms_queue.push(function( $ ) {	
 				var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
-				joms.jQuery("a[href^='" + menuUrl + "']").hide();
+				$("a[href^='" + menuUrl + "']").hide();
 			});	
 	        <?php 
 	        $content = ob_get_contents();

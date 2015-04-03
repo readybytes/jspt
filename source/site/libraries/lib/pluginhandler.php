@@ -327,13 +327,11 @@ class XiptLibPluginhandler
 		 * .privacy :: class which have privacy of all custom-profile fields 
 		 */ 
 			?>
-			joms.jQuery(document).ready( function($){ 
-				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();		
-			});
-			
-			joms.jQuery( document ).ajaxComplete(function() {
-			  joms.jQuery("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();
-			});
+		window.joms_queue || (window.joms_queue = []);
+    	window.joms_queue.push(function( $ ) {
+			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();
+			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();
+        });
 
 			<?php 	
 			

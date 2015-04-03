@@ -330,4 +330,23 @@ class plgCommunityxipt_community extends CApplications
 		CActivityStream::add($act);
 		return true;
 	}
+	
+	public function onProfileFieldLoad($userId, $fields, $function_name)
+	{
+		// Need to send $fields as return becase $fields is passed as array.
+		// The return fields will be merged with above passed $fields
+		// To unset any field, it must be set published to false, unset won't work here.
+
+		$this->_pluginHandler->onProfileLoad($userId, $fields, $function_name);
+		return $fields;
+	}
+	
+	public function onAllFieldsLoad($fields)
+	{
+		// As this event passes $fields as object so no need to return $fields.
+		// if you update $fields. it will be reflected in JomSocial as well.
+
+		$userId = JFactory::getUser()->id;
+		$this->_pluginHandler->onProfileLoad($userId, $fields, '_loadAllFields');		
+	}
 }

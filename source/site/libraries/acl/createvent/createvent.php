@@ -75,13 +75,23 @@ class createvent extends XiptAclBase
 		if($data['task'] == 'create')
 			return true;
 
-		$args		= $data['args'];
-		$eventData	= json_decode($args[1]);
 		
-		if($data['task'] == 'ajaxstreamadd' && $eventData->type == 'event')
-			return true;
+		if($data['task'] == 'ajaxstreamadd'){
+			$args		= $data['args'];
+			$eventData	= json_decode($args[1]);
+			if($eventData->type == 'event'){
+				return true;
+			}
+		}
 			
 		return false;
 	}
 
+	function aclAjaxBlock($html, $objResponse=null)
+	{
+		//@JS4TODO
+		$objResponse = new JAXResponse();
+		$objResponse->addAlert(XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
+		$objResponse->sendResponse();
+	}
 }

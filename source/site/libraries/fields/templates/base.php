@@ -60,7 +60,7 @@ class XiptFieldsTemplatesBase
 		}
 		
 		
-		$html	= '<select id="field'.$field->id.'" name="field' . $field->id . '" class="hasTip select'.$class.' inputbox" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
+		$html	= '<select id="field'.$field->id.'" name="field' . $field->id . '" class="joms-select hasTip select'.$class.'" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
 		$selectedElement	= 0;
 		if(!empty($templates)){
 			foreach($templates as $tmpl){

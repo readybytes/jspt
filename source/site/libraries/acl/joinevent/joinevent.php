@@ -70,6 +70,9 @@ class joinevent extends XiptAclBase
 			return false;
 
 		if('events' != $data['view'])
+			return false;		
+			
+		if($data['task']!='updatestatus' && $data['task']!='ajaxupdatestatus')
 			return false;
 
 		//if user is clicking on not attend, then don't restrict him
@@ -77,10 +80,7 @@ class joinevent extends XiptAclBase
 		if($data['args'][1] == 2)
 			return false;
 			
-		if($data['task']=='updatestatus' || $data['task']=='ajaxupdatestatus')
-				return true;
-
-		return false;
+		return true;
 	}
 
 	function getCategoryId($eventid)
@@ -92,5 +92,17 @@ class joinevent extends XiptAclBase
 						->where("`id` = $eventid")
 						->dbLoadQuery("","")
 	    				->loadResult();
+	}
+	
+	function aclAjaxBlock($html, $objResponse=null)
+	{		 
+		//@JS4TODO
+		JFactory::getApplication()->enqueueMessage(XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
+		if($forcetoredirect)
+		   {
+			 $redirectUrl 	= JURI::base().'/'.$this->getRedirectUrl();
+		   }
+		JFactory::getApplication()->redirect($redirectUrl);
+		//die();		
 	}
 }

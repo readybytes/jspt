@@ -22,4 +22,19 @@ class deletegroup extends XiptAclBase
 
 		return false;
 	}
+	
+	function aclAjaxBlock($html, $objResponse=null)
+	{
+		//@JS4TODO
+		$json['error']= '<h4>'.$html.'</h4><br />'.XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION');		
+		$forcetoredirect =$this->getCoreParams('force_to_redirect','0');
+		if($forcetoredirect)
+		{
+			$redirectUrl 	= JURI::base().'/'.$this->getRedirectUrl();
+			$json['redirect']= $redirectUrl;
+		}
+		$json['btnDone']= XiptText::_('BACK');
+		die( json_encode($json) );
+		
+	}
 }

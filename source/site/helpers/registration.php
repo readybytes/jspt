@@ -164,11 +164,9 @@ class XiptHelperRegistration
 
 		// invalid emails
 		$msg = XiptText::_('XIPT_EMAIL_NOT_ALLOWED');
-		$response->addScriptCall('joms.jQuery("#newemail").addClass("invalid");');
-		$response->addScriptCall('joms.jQuery("#error-newemail").show();');
-		$response->addScriptCall('joms.jQuery("#error-newemail").html("' . $msg . '");');
-		//$response->addScriptCall('false;');
-		return false;
+		$json = array();
+        $json['error'] = $msg;
+        die(json_encode($json));
 	}
 	
 	public static function ajaxCheckUsernameDuringFacebook(&$args, &$response)
@@ -190,11 +188,9 @@ class XiptHelperRegistration
 
 		// invalid emails
 		$msg = XiptText::_('XIPT_USERNAME_NOT_ALLOWED');
-		$response->addScriptCall('joms.jQuery("#newusername").addClass("invalid");');
-		$response->addScriptCall('joms.jQuery("#error-newusername").show();');
-		$response->addScriptCall('joms.jQuery("#error-newusername").html("' . $msg . '");');
-		//$response->addScriptCall('false;');
-		return false;
+		$json = array();
+        $json['error'] = $msg;
+        die(json_encode($json));
 	}
 	
 	
@@ -216,12 +212,9 @@ class XiptHelperRegistration
 
 		// invalid emails
 		$msg = XiptText::_('XIPT_EMAIL_NOT_ALLOWED');
-		$response->addScriptCall('joms.jQuery("#jsemail").addClass("invalid");');
-		$response->addScriptCall('joms.jQuery("#errjsemailmsg").show();');
-		$response->addScriptCall('joms.jQuery("#errjsemailmsg").html("<br/>'.$msg.'");');
-		$response->addScriptCall('joms.jQuery("#emailpass").val("N");');
-		$response->addScriptCall('false;');
-		return false;
+		$json = array();
+        $json['error'] = $msg;
+        die(json_encode($json));
 	}
 
 	public static function ajaxCheckUserName(&$args, &$response)
@@ -236,17 +229,15 @@ class XiptHelperRegistration
 		}		
 		// as per JomSocial code
 		$uname = $args[0];
-		if(XiptHelperRegistration::checkIfUsernameAllowed($uname, $ptype))
+		if(XiptHelperRegistration::checkIfUsernameAllowed($uname, $ptype)){
 			return true;
+		}
 
 		// username not allowed
 		$msg = XiptText::_('XIPT_USERNAME_NOT_ALLOWED');
-		$response->addScriptCall('joms.jQuery("#jsusername").addClass("invalid");');
-		$response->addScriptCall('joms.jQuery("#errjsusernamemsg").show();');
-		$response->addScriptCall('joms.jQuery("#errjsusernamemsg").html("<br/>'.$msg.'");');
-		$response->addScriptCall('joms.jQuery("#usernamepass").val("N");');
-		$response->addScriptCall('false;');
-		return false;
+		$json = array();
+        $json['error'] = $msg;
+        die(json_encode($json));
 	}
 	
 	public static function getPTPrivacyValue($privacy)
