@@ -6,8 +6,13 @@ class likephotos extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		$photoId	= isset($data['args'][1]) ? $data['args'][1] : 0;
-		$ownerid	= $this->getownerId($photoId);
+		if($data['args'][0] == 'photo'){
+			$photoId	= isset($data['args'][1]) ? $data['args'][1] : 0;
+			$ownerid	= $this->getownerId($photoId);
+		}else{
+			$activityData  = $this->getActivityData($data['args'][0]);
+			$ownerid	= $activityData->actor;
+		}
 		return $ownerid;
 	}
 	
@@ -21,10 +26,31 @@ class likephotos extends XiptAclBase
 	  
 	function checkAclApplicable(&$data)
 	{
-		if('com_community' == $data['option'] && 'system' == $data['view']
-		    && ($data['task'] == 'ajaxlike' || $data['task'] == 'ajaxdislike') 
-		    && $data['args'][0] == 'photo')
+		if('com_community' != $data['option']){
+			return false;
+		}
+		
+		if('system' != $data['view']){
+			return false;
+		}
+		
+		// for photo details popup
+		if(in_array(strtolower($data['task']), array('ajaxlike', 'ajaxunlike')) 
+			&& $data['args'][0] == 'photo'){
 			return true;
+		}
+		
+		// for stream
+		if(!in_array($data['task'], array('ajaxstreamunlike', 'ajaxstreamaddlike'))){
+			return false;
+		}
+		
+		$activityData	= $this->getActivityData($data['args'][0]);
+		$app = $activityData->app;
+				
+		if($app=='photos'){
+			return true;
+		}
 
 		return false;
 	}
@@ -40,4 +66,10 @@ class likephotos extends XiptAclBase
     				 ->loadResult();
     }
 
+    function getActivityData($activityId)
+	{
+		$activity	    = CFactory::getModel('activities');
+		$activityData  = $activity->getActivity($activityId);
+		return $activityData;
+    }
 }

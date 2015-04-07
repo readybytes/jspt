@@ -6,8 +6,13 @@ class likevideo extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		$videoId	= isset($data['args'][1]) ? $data['args'][1] : 0;
-		$ownerid	= $this->getownerId($videoId);
+		if($data['args'][0] == 'videos'){
+			$videoId	= isset($data['args'][1]) ? $data['args'][1] : 0;
+			$ownerid	= $this->getownerId($videoId);
+		}else{
+			$activityData  = $this->getActivityData($data['args'][0]);
+			$ownerid	= $activityData->actor;
+		}
 		return $ownerid;
 	}
 	
@@ -21,10 +26,30 @@ class likevideo extends XiptAclBase
 	  
 	function checkAclApplicable(&$data)
 	{
-		if('com_community' == $data['option'] && 'system' == $data['view']
-		    && ($data['task'] == 'ajaxlike' || $data['task'] == 'ajaxdislike') 
-		    && $data['args'][0] == 'videos')
+		if('com_community' != $data['option']){
+			return false;
+		}
+		
+		if('system' != $data['view']){
+			return false;
+		}
+		
+		// for video details
+		if(in_array(strtolower($data['task']), array('ajaxlike', 'ajaxunlike')) && $data['args'][0] == 'videos'){
 			return true;
+		}
+		
+		// for stream
+		if(!in_array($data['task'], array('ajaxstreamunlike', 'ajaxstreamaddlike'))){
+			return false;
+		}
+		
+		$activityData	= $this->getActivityData($data['args'][0]);
+		$app = $activityData->app;
+				
+		if($app=='videos.linking'){
+			return true;
+		}
 
 		return false;
 	}
@@ -40,4 +65,9 @@ class likevideo extends XiptAclBase
     				 ->loadResult();
     }
 
+	function getActivityData($activityId){
+		$activity	   = CFactory::getModel('activities');
+		$activityData  = $activity->getActivity($activityId);
+		return $activityData;
+    }
 }

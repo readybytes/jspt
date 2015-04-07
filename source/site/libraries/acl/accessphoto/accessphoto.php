@@ -10,21 +10,29 @@ class accessphoto extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['viewuserid'];
+		if($data['viewuserid']){
+			return $data['viewuserid'];
+		}
+
+		$albumId 	= $data['args'][0];
+		$photo	 	= CFactory::getModel('photos');
+		$photoData	= $photo->getAlbum($albumId);
+		$creatorId  = $photoData->creator;
+		return $creatorId;
 	}
 
 	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
-
+			
 		if('photos' != $data['view'])
 			return false;
+		
+		if($data['task'] !== 'ajaxgetphotosbyalbum' && $data['task'] !== 'photo')
+			return false;
 
-		if($data['task'] === 'photo')
-				return true;
-
-		return false;
+		return true;
 	}
 	
 	function checkAclViolation($data)
