@@ -89,9 +89,19 @@ class createvent extends XiptAclBase
 
 	function aclAjaxBlock($html, $objResponse=null)
 	{
-		//@JS4TODO
 		$objResponse = new JAXResponse();
-		$objResponse->addAlert(XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
+		$json = new stdClass();
+		$json->aclerror = true; 
+		$json->title = XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION');
+		$json->html = $html;
+		
+		$forcetoredirect =$this->getCoreParams('force_to_redirect','0');
+		if($forcetoredirect){
+			 $redirectUrl 	= JURI::base().$this->getRedirectUrl();
+			 $json->redirect = $redirectUrl;
+			 $json->btnCancel = XiptText::_('CC_BUTTON_CLOSE');
+		}
+		$objResponse->addScriptCall('xiptHandleAclResponse('.json_encode($json).');');
 		$objResponse->sendResponse();
 	}
 }

@@ -30,6 +30,8 @@ class plgCommunityxipt_community extends CApplications
 	function plgCommunityxipt_community( $subject, $params )
 	{
 		parent::__construct( $subject, $params );
+		$js	= 'components/com_xipt/assets/js/';
+		CFactory::attach( 'acl.js' , 'js' , $js );
 		$this->_pluginHandler = XiptFactory::getPluginHandler();
 	}
 	

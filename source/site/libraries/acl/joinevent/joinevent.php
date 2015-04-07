@@ -93,16 +93,4 @@ class joinevent extends XiptAclBase
 						->dbLoadQuery("","")
 	    				->loadResult();
 	}
-	
-	function aclAjaxBlock($html, $objResponse=null)
-	{		 
-		//@JS4TODO
-		JFactory::getApplication()->enqueueMessage(XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
-		if($forcetoredirect)
-		   {
-			 $redirectUrl 	= JURI::base().'/'.$this->getRedirectUrl();
-		   }
-		JFactory::getApplication()->redirect($redirectUrl);
-		//die();		
-	}
 }
