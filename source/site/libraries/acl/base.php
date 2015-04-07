@@ -364,27 +364,19 @@ abstract class XiptAclBase
 
 	function aclAjaxBlock($html, $objResponse=null)
 	{
-		if($objResponse === null)
-			$objResponse   	= new JAXResponse();
-
-		$objResponse->addScriptCall('cWindowShow', '', XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'), 450, 80);
-		$objResponse->addAssign('cWindowContent', 'innerHTML', $html);
+		$json = new stdClass();
+		$json->aclerror = true;
+		$json->title = XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION');
+		$json->html = $html;
 		
-//XITODO: cleanup
 		$forcetoredirect =$this->getCoreParams('force_to_redirect','0');    	
-		if($forcetoredirect)
-		   {
-			 $redirectUrl 	= JURI::base().'/'.$this->getRedirectUrl();
-			 $script = "function sleep_message(){"
-			                                     ."window.location.href = " .$redirectUrl .";"
-			                                     ."cWindowHide();"
-			                                     ."return true;"
-			                                     ."};";
-
-		     $buttons	= '<input type="button" value="' . XiptText::_('CC_BUTTON_CLOSE') . '" class="button" onclick="cWindowHide(); window.location.href = &quot;' . $redirectUrl . '&quot;;" />';
-		     $objResponse->addScriptCall('cWindowActions', $buttons);
-		   }
-		$objResponse->sendResponse();
+		if($forcetoredirect){
+			 $redirectUrl 	= JURI::base().$this->getRedirectUrl();
+			 $json->redirect = $redirectUrl;
+			 $json->btnCancel = XiptText::_('CC_BUTTON_CLOSE');
+		}
+		   
+		die(json_encode($json));
 	}
 
 
