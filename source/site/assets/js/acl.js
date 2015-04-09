@@ -11,7 +11,11 @@ function xiptHandleAclResponse(json){
 joms.onAjaxReponse('events,ajaxUpdateStatus', xiptHandleAclResponse);
 joms.onAjaxReponse('groups,ajaxDeleteGroup', xiptHandleAclResponse);
 joms.onAjaxReponse('events,ajaxDeleteEvent', xiptHandleAclResponse);
-
+joms.onAjaxReponse('system,ajaxShowInvitationForm', xiptHandleAclResponse);
+joms.onAjaxReponse('system,ajaxStreamAddLike', xiptHandleAclResponse);
+joms.onAjaxReponse('system,ajaxStreamUnlike', xiptHandleAclResponse);
+joms.onAjaxReponse('system,ajaxLike', xiptHandleAclResponse);
+joms.onAjaxReponse('system,ajaxUnlike', xiptHandleAclResponse);
 
 (function( root, $, factory ) {
 

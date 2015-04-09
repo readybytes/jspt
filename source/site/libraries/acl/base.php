@@ -335,9 +335,6 @@ abstract class XiptAclBase
 		return true;
 	}
 	
-	
-	
-	
 	public function checkCoreViolation($data)
 	{
 		return false;

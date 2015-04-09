@@ -11,19 +11,11 @@ class likephotos extends XiptAclBase
 			$ownerid	= $this->getownerId($photoId);
 		}else{
 			$activityData  = $this->getActivityData($data['args'][0]);
-			$ownerid	= $activityData->actor;
+			$ownerid	= $activityData['actor'];
 		}
 		return $ownerid;
 	}
 	
-	function aclAjaxBlock($msg, $objResponse=null)
-	{
-		$objResponse = new JAXResponse();
-		$title		 = XiptText::_('CC PROFILE VIDEO');
-		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
-		return parent::aclAjaxBlock($msg, $objResponse);
-	}  
-	  
 	function checkAclApplicable(&$data)
 	{
 		if('com_community' != $data['option']){
@@ -45,8 +37,24 @@ class likephotos extends XiptAclBase
 			return false;
 		}
 		
-		$activityData	= $this->getActivityData($data['args'][0]);
-		$app = $activityData->app;
+				
+		// if user tries to like any comment on photo
+		if(count($data['args']) > 1)
+		{
+			// Check if acl is applicable on comments also
+			if(($data['args'][1] == 'comment') && ($this->aclparams->getValue('acl_applicable_on_comments',null,0) == false)){
+				return false;
+			}
+
+			$activityId = $this->getActivityId($data['args'][0]);
+		}
+		else
+		{
+			$activityId	= $data['args'][0];
+		}
+		
+		$activityData	= $this->getActivityData($activityId);
+		$app = $activityData['app'];
 				
 		if($app=='photos'){
 			return true;
@@ -68,8 +76,23 @@ class likephotos extends XiptAclBase
 
     function getActivityData($activityId)
 	{
-		$activity	    = CFactory::getModel('activities');
-		$activityData  = $activity->getActivity($activityId);
-		return $activityData;
+		$query = new XiptQuery();
+    	
+    	return $query->select('*')
+    				 ->from('#__community_activities')
+    				 ->where(" `id` = $activityId ")
+    				 ->dbLoadQuery("","")
+    				 ->loadAssoc();
+    }
+    
+	function getActivityId($commentId)
+    {
+    	$query = new XiptQuery();
+    	
+    	return $query->select('contentid')
+    				 ->from('#__community_wall')
+    				 ->where("id = $commentId")
+    				 ->dbLoadQuery("","")
+    				 ->loadResult();
     }
 }

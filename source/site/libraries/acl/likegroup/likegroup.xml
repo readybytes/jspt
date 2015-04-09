@@ -11,5 +11,17 @@
 		<option value="0">No</option>
 		<option value="1">Yes</option>
 	</field>
+	<field name="acl_applicable_on_group_photos" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_ON_GROUP_PHOTOS_LABEL" description="COM_XIPT_APPLICABLE_ON_GROUP_PHOTOS_DESC">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</field>
+	<field name="acl_applicable_on_group_videos" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_ON_GROUP_VIDEOS_LABEL" description="COM_XIPT_APPLICABLE_ON_GROUP_VIDEOS_DESC">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</field>
+	<field name="acl_applicable_on_group_events" type="radio" size="50" default="0" label="COM_XIPT_APPLICABLE_ON_GROUP_EVENTS_LABEL" description="COM_XIPT_APPLICABLE_ON_GROUP_EVENTS_DESC">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+	</field>
 </fieldset>
 </form>

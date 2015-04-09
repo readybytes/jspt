@@ -14,11 +14,19 @@ class accessphoto extends XiptAclBase
 			return $data['viewuserid'];
 		}
 
-		$albumId 	= $data['args'][0];
-		$photo	 	= CFactory::getModel('photos');
-		$photoData	= $photo->getAlbum($albumId);
-		$creatorId  = $photoData->creator;
-		return $creatorId;
+		if(is_array($data['args'])){
+			$albumId 	= $data['args'][0];
+
+			$query 		= new XiptQuery();
+   
+	    	return $query->select('creator')
+	    				 ->from('#__community_photos')
+	    				 ->where(" albumid = $albumId ")
+	    				 ->dbLoadQuery("","")
+	    				 ->loadResult();	
+		}
+
+		return false;
 	}
 
 	function checkAclApplicable(&$data)
@@ -29,7 +37,8 @@ class accessphoto extends XiptAclBase
 		if('photos' != $data['view'])
 			return false;
 		
-		if($data['task'] !== 'ajaxgetphotosbyalbum' && $data['task'] !== 'photo')
+		if($data['task'] !== 'ajaxgetphotosbyalbum' && $data['task'] !== 'photo' 
+				&& $data['task'] !== 'myphotos' && $data['task'] != 'display')
 			return false;
 
 		return true;

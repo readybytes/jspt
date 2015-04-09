@@ -10,20 +10,34 @@ class accessprofilevideo extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		$videoid	= $data['args'][0];
-		$ownerid	= $this->getownerId($videoid);
-		return $ownerid;
+		if($data['viewuserid']){
+			return $data['viewuserid'];
+		}
+		
+		$videoId 	= $this->_getVideoId();
+		$videoId	= empty($videoId)? $data['args'][0] : $videoId;
+   	
+		return $this->getownerId($videoId);
 	}
+	
 	function checkAclApplicable(&$data)
 	{
-		if('com_community' != $data['option'] && 'community' != $data['option'])
+		if('com_community' != $data['option'] && 'community' != $data['option']){
 			return false;
+		}
 
-		if('profile' != $data['view'])
+		if('videos' != $data['view']){
 			return false;
+		}
 
-		if($data['task'] === 'ajaxplayprofilevideo')
-				return true;
+		if($data['task'] != 'video'){
+			return false;
+		}
+			
+		$videoId = $this->_getVideoId();
+		if($this->_isProfileVideo($videoId)){
+			return true;
+		}
 
 		return false;
 	}
@@ -39,13 +53,44 @@ class accessprofilevideo extends XiptAclBase
     				 ->loadResult();
     }
 
+	/**
+	 *  function to get videoId
+     */
+    protected function _getVideoId()
+    {
+		$videoId = JRequest::getVar( 'videoid' , 0);
+		$conf    = JFactory::getConfig();
 
-	function aclAjaxBlock($msg, $objResponse=null)
+        // if sef is enabled then get actual video id
+		if($conf->get('sef', false) == true && $videoId){
+			$vId     = explode(":", $videoId);
+			$videoId = $vId[0];
+		}
+
+		return $videoId;
+    }
+
+	/**
+	 * function to check whether video is the profileVideo of resource owner
+	 */
+	protected function _isProfileVideo($videoId)
 	{
-		$objResponse   	= new JAXResponse();
-		$title		= XiptText::_('CC_PROFILE_VIDEO');
-		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
-		return parent::aclAjaxBlock($msg, $objResponse);
+		$query		= new XiptQuery();
+		
+		$ownerId 	= $this->getownerId($videoId);
+		$params		= $query->select('params')
+							->from('#__community_users')
+							->where("userid = $ownerId")
+							->dbLoadQuery("","")
+							->loadResult();
+
+		$userParams		= json_decode($params, true);
+		$profileVideoId = $userParams['profileVideo'];
+		
+		if($profileVideoId == $videoId){
+			return true;
+		}
+		return false;
 	}
 
 }
