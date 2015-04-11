@@ -16,6 +16,18 @@ joms.onAjaxReponse('system,ajaxStreamAddLike', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxStreamUnlike', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxLike', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxUnlike', xiptHandleAclResponse);
+joms.onAjaxReponse('apps,ajaxAddApp', xiptHandleAclResponse);
+joms.onAjaxReponse('groups,ajaxShowLeaveGroup', xiptHandleAclResponse);
+joms.onAjaxReponse('videos,ajaxAddVideo', xiptHandleAclResponse);
+joms.onAjaxReponse('videos,ajaxUploadVideo', xiptHandleAclResponse);
+joms.onAjaxReponse('videos,ajaxLinkVideoPreview', xiptHandleAclResponse);
+joms.onAjaxReponse('profile,ajaxLinkProfileVideo', xiptHandleAclResponse);
+joms.onAjaxReponse('friends,ajaxConnect', xiptHandleAclResponse);
+joms.onAjaxReponse('photos,ajaxUploadPhoto', xiptHandleAclResponse);
+joms.onAjaxReponse('photos,ajaxChangeCover', xiptHandleAclResponse);
+joms.onAjaxReponse('inbox,ajaxDeleteMessages', xiptHandleAclResponse);
+joms.onAjaxReponse('inbox,ajaxRemoveFullMessages', xiptHandleAclResponse);
+joms.onAjaxReponse('inbox,ajaxRemoveMessage', xiptHandleAclResponse);
 
 (function( root, $, factory ) {
 

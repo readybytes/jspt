@@ -401,10 +401,6 @@ class plgSystemxipt_system extends JPlugin
         $content = ob_get_contents();
         ob_clean();
         $doc = JFactory::getDocument();
-		
-        JHTML::script('components/com_xipt/assets/js/jquery1.4.2.js');
-        
-        $doc->addCustomTag( '<script type="text/javascript">jQuery.noConflict();</script>' );
 
         $doc->addScriptDeclaration($content);
         return true;
@@ -436,17 +432,20 @@ class plgSystemxipt_system extends JPlugin
 			
     	ob_start();
         ?>
-        joms.jQuery(document).ready(function(){	
-			var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
-			joms.jQuery("a[href='" + menuUrl + "']").hide();
-			joms.jQuery("a[href='#privacyPref']").closest('li').hide();
+        window.joms_queue || (window.joms_queue = []);
+    	window.joms_queue.push(function($){
+		    $(document).ready(function(){	
+				var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
+				$("a[href='" + menuUrl + "']").hide();
+				$("a[href='#privacyPref']").closest('li').hide();
 			
-			<?php 
-			//if somebody is overriding privacy, then hide preferences also
-			if(XIPT_PRIVACY == 'privacy_override'){ ?>
-			joms.jQuery("a[href='#emailPref']").closest('li').hide();
-			<?php } ?>
-		});	
+				<?php 
+				//if somebody is overriding privacy, then hide preferences also
+				if(XIPT_PRIVACY == 'privacy_override'){ ?>
+				$("a[href='#emailPref']").closest('li').hide();
+				<?php } ?>
+			});	
+		});
         <?php 
         $content = ob_get_contents();
         ob_clean();
@@ -471,20 +470,24 @@ class plgSystemxipt_system extends JPlugin
 	{
 		//CAssets::attach(JURI::root().'components/com_community/assets/joms.jquery', 'js');
 		?>
+		window.joms_queue || (window.joms_queue = []);
+    	window.joms_queue.push(function($){
+    	
 		$(document).ready(function(){
 			 // find all select list object
 			 var sel = document.getElementsByTagName("select");
 			 var selLength =  sel.length;
 
 		     for (i=0 ; i <= selLength; i++){
-		        joms.jQuery.xipt.getProfileTypesFields(joms.jQuery, joms.jQuery(sel[i]).attr("id"));
+		        xipt.getProfileTypesFields($, $(sel[i]).attr("id"));
 		        }
 		    });
-
-			joms.jQuery(function($){
+			
+			
+			$(function($){
 			// change on select list then attach our HTML
 			$("select[id^='field']").live('change', function(){
-				joms.jQuery.xipt.getProfileTypesFields($, $(this).attr("id"));
+				xipt.getProfileTypesFields($, $(this).attr("id"));
 				});
 
 			$("#profiletypes").live('change', function(){
@@ -496,10 +499,10 @@ class plgSystemxipt_system extends JPlugin
 				});
 
 			});
-
-    	joms.jQuery.extend({
-    		xipt:{
-			  getProfileTypesFields : function($, id){
+		
+		var xipt = {};
+		
+    	xipt.getProfileTypesFields = function($, id){
 					var value = $('#'+id).val();
 
               		if(value != "XIPT_PROFILETYPE")
@@ -522,7 +525,6 @@ class plgSystemxipt_system extends JPlugin
 				         $('#'+valueId).val($('#'+valueId).next().val());			//set default value of hidden textbox
 				    }
 
-				}
 			});
 
 		<?php
@@ -533,8 +535,9 @@ class plgSystemxipt_system extends JPlugin
 		$document = JFactory::getDocument();
  		ob_start();
 		?>
- 		joms.jQuery().ready(function($){
- 	
+		window.joms_queue || (window.joms_queue = []);
+    	window.joms_queue.push(function($){
+	 		$(document).ready(function($){ 	
 			$('input[onclick="azcommunity.resetprivacy();"]').attr('onclick', '').attr('id','resetPrivacy'); 
 
 				$('#resetPrivacy').click(function(e){
@@ -544,7 +547,8 @@ class plgSystemxipt_system extends JPlugin
 						return false;
 				}
 				return azcommunity.resetprivacy();
-				});								
+				});
+			});								
 		});
 		<?php
 		$content = ob_get_contents();

@@ -21,16 +21,17 @@ class addphotos extends XiptAclBase
 
 	public function handleViolation($info)
 	{
-		$msg  = $this->getDisplayMessage();
+		$msg  = XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION');
 		$task = array('ajaxpreview', 'jsonupload');
 		
 		if(in_array($info['task'], $task)){
 			$nextUpload	= JRequest::getVar('nextupload');
-			echo 	"{\n";
-			echo "error: 'true',\n";
-			echo "msg: '" . $msg . "'\n,";
-			echo "nextupload: '" . $nextUpload . "'\n";
-			echo "}";
+			$json = new stdClass();
+			$json->error = true;
+			$json->thumbnail = false;
+			$json->msg = $msg;
+			$json->nextUpload = $nextUpload;
+			echo json_encode($json);
 			exit;
 		}
 
