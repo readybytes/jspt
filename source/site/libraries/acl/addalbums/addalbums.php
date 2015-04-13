@@ -27,14 +27,17 @@ class addalbums extends XiptAclBase
 
 	function checkAclApplicable(&$data)
 	{
-		if('com_community' != $data['option'] && 'community' != $data['option'])
+		if('com_community' != $data['option'] && 'community' != $data['option']){
 			return false;
+		}
 
-		if('photos' != $data['view'])
+		if('photos' != $data['view']){
 			return false;
+		}
 
-		if('newalbum' != $data['task'])
+		if(!in_array($data['task'], array('newalbum' , 'ajaxcreatealbum'))){
 			return false;
+		}
 
 		return true;
 	}

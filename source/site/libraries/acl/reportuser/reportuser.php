@@ -10,8 +10,7 @@ class reportuser extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		$args	= $data['args'];
-		return $args[2];	
+		return JFactory::getApplication()->input->cookie->get('activeProfile');	
 	}
 
 	function checkAclApplicable(&$data)

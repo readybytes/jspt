@@ -28,6 +28,10 @@ joms.onAjaxReponse('photos,ajaxChangeCover', xiptHandleAclResponse);
 joms.onAjaxReponse('inbox,ajaxDeleteMessages', xiptHandleAclResponse);
 joms.onAjaxReponse('inbox,ajaxRemoveFullMessages', xiptHandleAclResponse);
 joms.onAjaxReponse('inbox,ajaxRemoveMessage', xiptHandleAclResponse);
+joms.onAjaxReponse('system,ajaxReport', xiptHandleAclResponse);
+joms.onAjaxReponse('profile,ajaxRemoveLinkProfileVideo', xiptHandleAclResponse);
+joms.onAjaxReponse('videos,ajaxRemoveVideo', xiptHandleAclResponse);
+joms.onAjaxReponse('photos,ajaxCreateAlbum', xiptHandleAclResponse);
 
 (function( root, $, factory ) {
 

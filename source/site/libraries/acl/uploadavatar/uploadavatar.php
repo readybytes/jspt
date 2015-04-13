@@ -69,7 +69,7 @@ class uploadavatar extends XiptAclBase
 
 		// Acl not applicable when Avtar imported from Facebook.
 		//XiTODO:: If its default avtar of facebook then Acl need to be applicable.
-		if(stristr($data['task'], 'ajaximportdata')!==FALSE){
+		if(strtolower($data['task']) === 'ajaximportdata'){
 			return false;
 		}
 		
@@ -82,7 +82,7 @@ class uploadavatar extends XiptAclBase
 		$uploadedData   = JRequest::get('files');
 		
 		if($uploadedData){
-			$avatar			= $uploadedData['Filedata'];
+			$avatar			= $uploadedData['filedata'];
 			$avatarSize		= $avatar['size'];
 		}
 		
@@ -98,7 +98,7 @@ class uploadavatar extends XiptAclBase
 			return false;
 		}
 		
-		if(!empty($userId) && stristr($data['task'], 'uploadavatar') !== FALSE){
+		if(!empty($userId) && strtolower($data['task']) !== 'uploadavatar'){
 			//get login user avatar
 			$userAvatar = CFactory::getUser($userId)->_avatar;
 			//if avatar is deafaul then force to upload avatar
@@ -108,7 +108,9 @@ class uploadavatar extends XiptAclBase
 				|| empty($userAvatar)
 					|| JString::stristr($userAvatar,$ptypeavatar)) {
 				$session->set('uploadAvatar',true,'XIPT');
-				return true;
+				//Neelam
+				if($data['task']!='changeavatar')
+					return true;
 			}
 			else 
 				return false;
@@ -125,8 +127,13 @@ class uploadavatar extends XiptAclBase
 		}
 		
 		//On Registeration Time:: if user come to uoload avatr then all link are disable untill user not upload avatar
-		if($permission && $session->get('uploadAvatar',false,'XIPT') && stristr($data['task'],'registeravatar')!==FALSE){
-			return true;
+		if($permission && $session->get('uploadAvatar',false,'XIPT') && strtolower($data['task']) !== 'registeravatar'){
+			//Neelam
+			if($uploadedData && $data['task']=='changeavatar'){
+				$session->clear('uploadAvatar','XIPT');
+			}else{
+				return true;
+			}
 		}
 		
 		// When not registered than dont follow this rule until reach at upload avatar page through ragistration
