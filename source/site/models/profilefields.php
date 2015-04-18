@@ -62,6 +62,16 @@ class XiptModelProfilefields extends XiptModel
 				$catName 			 = $catInfo['name'];
 				$notSelectedFields[$catName] = $this->getNotSelectedFieldForProfiletype($selectedProfiletypeID,$catIndex);
 			}
+			
+			// If user is editing profile, then remove the "Required" from the non-editable fields 
+			if($from == "getEditableProfile"){
+				foreach($notSelectedFields['EDITABLE_AFTER_REG'] as $editField)
+				{
+					if(!in_array($editField , $notSelectedFields['REQUIRED'])){
+						$notSelectedFields['REQUIRED'][] = $editField;
+					}
+				}
+			}
 		}
 		
 		if($from === '_loadAllFields'){

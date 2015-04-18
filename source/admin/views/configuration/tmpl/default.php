@@ -49,7 +49,7 @@ function submitbutton( action )
 	<thead>
 		<tr class="title">
 			<th width="1%">
-				<?php echo XiptText::_( '#' ); ?>
+				<?php echo XiptText::_( 'HASH' ); ?>
 			</th>
 <!--			<th width="1%">-->
 <!--				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" />-->

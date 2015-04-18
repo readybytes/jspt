@@ -68,7 +68,7 @@ if (version_compare(JVERSION, '3.0', 'lt')) {
 //				echo JHtmlSliders::panel( 'JSPT Updates', 'updates' );
 //				echo $this->loadTemplate('updates');
 				
-				echo JHtmlSliders::panel( 'JoomlaXi News', 'aboutus' );
+				echo JHtmlSliders::panel( XiptText::_('JOOMLAXI_UPDATES'), 'aboutus' );
 				echo $this->loadTemplate('news');
 				
 				echo JHtmlSliders::end();

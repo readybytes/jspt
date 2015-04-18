@@ -39,7 +39,7 @@ class XiptViewProfileFields extends XiptView
 		JToolBarHelper::title( XiptText::_( 'EDIT_FIELD' ), 'profilefields' );
 
 		// Add the necessary buttons
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt&view=profilefields');
+		JToolBarHelper::back('COM_XIPT_HOME' , 'index.php?option=com_xipt&view=profilefields');
 		JToolBarHelper::divider();
 		JToolBarHelper::save('save','COM_XIPT_SAVE');
 		JToolBarHelper::cancel( 'cancel', 'COM_XIPT_CLOSE' );

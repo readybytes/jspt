@@ -55,10 +55,10 @@ jQuery(document).ready(function($){
 		if(!empty($this->groups))
 		foreach($this->groups as $acl) : ?>
 			<option disabled="disabled"></option>
-		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo $acl['title'];?></option>
+		    <option value="<?php echo $acl['name'];?>" disabled="disabled"><?php echo JText::_($acl['title']);?></option>
 		    
 			<?php foreach($this->rules[(string)$acl->name] as $rule) : ?>
-		    		<option value="<?php echo $rule['name'];?>" ><?php echo $rule['title'];?></option>
+		    		<option value="<?php echo $rule['name'];?>" ><?php echo JText::_($rule['title']);?></option>
 			<?php endforeach; ?> 
 	<?php endforeach; ?>
 	</select>
@@ -73,8 +73,8 @@ jQuery(document).ready(function($){
 	<?php foreach($this->groups as $acl) :
 			foreach($this->rules[(string)$acl->name] as $rule) : ?>
 				<div  id= <?php echo $rule['name']; ?>  style= "display:<?php echo "none";?>">
-				<h3 > <?php echo $rule['title']; ?> </h3>
-				<?php echo $rule['description']; ?>
+				<h3 > <?php echo JText::_($rule['title']);?> </h3>
+				<?php echo JText::_($rule['description']); ?>
 				</div> 
 			<?php endforeach; ?>
 	<?php endforeach; ?>				

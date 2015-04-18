@@ -16,7 +16,7 @@ class XiptHelperRegistration
 	}
 	
 	public static function ajaxShowNewUserForm(&$args, &$response)
-	{
+	{		
 		$mySess 	= JFactory::getSession();
 		
 		//Set facebook variable in session so we can redirect user
@@ -70,34 +70,34 @@ class XiptHelperRegistration
 		$filter 				= 	array('published'=>1,'visible'=>1);
 	    $allProfileTypes 		= 	XiptLibProfiletypes::getProfiletypeArray($filter);
 	    $defaultPType 			= 	XiptLibProfiletypes::getDefaultProfiletype();
-		$selectedPT                =     $defaultPType;
+		$selectedPT             =   $defaultPType;
 		
 		$params = XiptFactory::getSettings('', 0);
 		$showAsRadio = $params->getValue('jspt_fb_show_radio',null,false);
 		
+		$json = new stdClass();
+		if($showAsRadio) {
+			$json->profileType = 'joms.jQuery(\'[name=profiletypes]:checked\').val();';
+		}
+		else{
+			$json->profileType = 'joms.jQuery(\'#profiletypes\').val();';
+		}
+		
 		ob_start();
 		include(JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'views'.DS.'registration'.DS.'tmpl'.DS.'facebook.php');
 		$contents = ob_get_contents();
-		ob_end_clean();
+		ob_end_clean();		
 		
 		$html  = '';
 		$html .= $addhtml;
 		$html .= $contents;
 		
-		$buttons = '';
+		$json->title = (XiptText::_ ( 'CHOOSE_PROFILE_TYPE' ));
+		$json->html = $html;
+		$json->xipt = true;
+		$json->btnNext = "Next";
+		die(json_encode($json));
 		
-		if($showAsRadio) {
-			$response->addScriptCall('cWindowResize' , PTYPE_POPUP_WINDOW_HEIGHT_RADIO , PTYPE_POPUP_WINDOW_WIDTH_RADIO);
-			$buttons	= '<input type="button" value="' . XiptText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + joms.jQuery(\'[name=profiletypes]:checked\').val()), \'\', 450, 200); return false;" />';
-		}
-		else{
-			$response->addScriptCall('cWindowResize' ,PTYPE_POPUP_WINDOW_HEIGHT_SELECT, PTYPE_POPUP_WINDOW_WIDTH_SELECT);
-			$buttons	= '<input type="button" value="' . XiptText::_('NEXT') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + joms.jQuery(\'#profiletypes\').val()), \'\', 450, 200); return false;" />';
-		}
-		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_ ( 'CHOOSE_PROFILE_TYPE' ) . '");');
-		$response->addAssign('cWindowContent' , 'innerHTML' , $html);
-		$response->addScriptCall('cWindowActions', $buttons);
-		$response->sendResponse();
 		
 	}
 	
@@ -132,15 +132,14 @@ class XiptHelperRegistration
 		
 		$html  = '';
 		$html .= $contents;
-		
-		$buttons = '';		
-		
-		$response->addScriptCall('cWindowResize' , PTYPE_POPUP_WINDOW_HEIGHT_RADIO , PTYPE_POPUP_WINDOW_WIDTH_RADIO);
-		$response->addScriptCall('joms.jQuery("#cwin_logo").html("' . XiptText::_('REGISTRATION_VALIDATION') . '");');
-		$buttons	= '<input type="button" value="' . XiptText::_('BACK') . '" class="button" onclick="cWindowShow(jax.call(\'community\',\'connect,ajaxShowNewUserForm\', + jQuery(\'[name=profiletypes]:checked\').val()), \'\', 450, 200); return false;" />';
-		$response->addAssign('cWindowContent' , 'innerHTML' , $html);
-		$response->addScriptCall('cWindowActions', $buttons);
-		$response->sendResponse();
+
+		$json = array(
+                    'title' => XiptText::_('REGISTRATION_VALIDATION'),
+                    'error' => $html,
+                    'btnBack' => JText::_('COM_COMMUNITY_BACK_BUTTON')
+                );
+
+                die( json_encode($json) );
 	}
 	
 	public static function ajaxCheckEmailDuringFacebook(&$args, &$response)
@@ -185,12 +184,13 @@ class XiptHelperRegistration
 		$email = $args[0];
 		if(XiptHelperRegistration::checkIfUsernameAllowed($email, $ptype))
 			return true;
-
-		// invalid emails
+			
+		// invalid username
 		$msg = XiptText::_('XIPT_USERNAME_NOT_ALLOWED');
 		$json = array();
         $json['error'] = $msg;
         die(json_encode($json));
+
 	}
 	
 	

@@ -1,271 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rules name="pluginorder">
-<group name="event" title="Event">	
+<group name="event" title="COM_XIPT_EVENT">	
 	<rule name="accessevent" 
-		  title="Can not Access Event" 
-		  description="Restrict users to Access Event" 
-		  example="Suppose you want Profile Type1 users cannot access event of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
+		  title="COM_XIPT_ACCESSEVENT" 
+		  description="COM_XIPT_ACCESSEVENT_DESC" 
+		  example="Suppose you want Profile Type1 users Can not Access Events of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 		  
 	<rule name="createvent"
-		  title="Can not Create Events"
-   		  description="Restrict users to Create Events" 
+		  title="COM_XIPT_CREATEVENT"
+   		  description="COM_XIPT_CREATEVENT_DESC" 
    		  example="Suppose you want Profile Type1 users Can not Create Events of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
    		  
    	<rule name="deletevent"
-		  title="Can not Delete Events"
-    	  description="Restrict users to Delete Events" 
+		  title="COM_XIPT_DELETEVENT"
+    	  description="COM_XIPT_DELETEVENT_DESC" 
     	  example="Suppose you want Profile Type1 users Can not Delete Events of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
     	  
     <rule name="joinevent"
-		  title="Can not Join Events"
-		  description="Restrict users to Join Events"
+		  title="COM_XIPT_JOINEVENT"
+		  description="COM_XIPT_JOINEVENT_DESC"
 		  example="Suppose you want Profile Type1 users Can not Join Events / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Maximum Events-> Write maximum event user can join /Event Category-> Select Category which is restricted for user " />
 		  
     <rule name="accesseventcategory"
-		  title="Can Access Events Category"
-		  description="Allow users to Access Events Category"
+		  title="COM_XIPT_ACCESSEVENTCATEGORY"
+		  description="COM_XIPT_ACCESSEVENTCATEGORY_DESC"
 		  example="Suppose you want Profile Type1 users Can Access Events Category / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Select Event Category -> Select Event Category " />
     	  
 </group>
 
-<group name="groups" title="Groups">
+<group name="groups" title="COM_XIPT_GROUPS">
 	<rule name="accessgroup" 
-		  title="Can not Access Group"
-		  description="Restrict users to Access Group"
+		  title="COM_XIPT_ACCESSGROUP"
+		  description="COM_XIPT_ACCESSGROUP_DESC"
 		  example="Suppose you want Profile Type1 users Can not Access Group of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 	
 	<rule name="deletegroup"
-		  title="Can not Delete Groups"
-		  description="Restrict users to Delete Groups" 
+		  title="COM_XIPT_DELETEGROUP"
+		  description="COM_XIPT_DELETEGROUP_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Delete Groups of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 		  
 	<rule name="creategroup"
-		  title="Can not Create Groups"
-		  description="Restrict users to Create Groups" 
+		  title="COM_XIPT_CREATEGROUP"
+		  description="COM_XIPT_CREATEGROUP_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Create Groups of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 		  
 	<rule name="joingroup"
-		  title="Can not Join Groups"
-		  description="Restrict users to Join Groups"
+		  title="COM_XIPT_JOINGROUP"
+		  description="COM_XIPT_JOINGROUP_DESC"
 		  example="Suppose you want Profile Type1 users Can not Join Groups of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 	
 	<rule name="leavegroup"
-		  title="Can not Leave Groups"
-		  description="Restrict users to Leave Groups"
+		  title="COM_XIPT_LEAVEGROUP"
+		  description="COM_XIPT_LEAVEGROUP_DESC"
 		  example="Suppose you want Profile Type1 users Can not Leave Groups/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 
 	<rule name="accessgroupcategory"
-		  title="Can Access Groups Category"
-		  description="Allow users to Access Groups Category"
+		  title="COM_XIPT_ACCESSGROUPCATEGORY"
+		  description="COM_XIPT_ACCESSGROUPCATEGORY_DESC"
 		  example="Suppose you want Profile Type1 users Can Access Groups Category / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Select Group Category -> Select Group Category " />
 
 	<rule name="creatediscussion"
-		  title="Can not Create Discussion"
-		  description="Restrict users to Create Discussion"
+		  title="COM_XIPT_CREATEDISCUSSION"
+		  description="COM_XIPT_CREATEDISCUSSION_DESC"
 		  example="Suppose you want Profile Type1 users Can not Create Discussion / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 
 	<rule name="createbulletin"
-		  title="Can not Create Bulletin"
-		  description="Restrict users to Create Bulletin"
+		  title="COM_XIPT_CREATEBULLETIN"
+		  description="COM_XIPT_CREATEBULLETIN_DESC"
 		  example="Suppose you want Profile Type1 users Can not Create Bulletin / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 
 	<rule name="sendemail"
-		  title="Can not Send Email"
-		  description="Restrict users to Send Email"
+		  title="COM_XIPT_SENDEMAIL"
+		  description="COM_XIPT_SENDEMAIL_DESC"
 		  example="Suppose you want Profile Type1 users Can not send email / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 		  
 	<rule name="invitefriends"
-		  title="Can not Invite Friends"
-		  description="Restrict users to Invite Friends"
+		  title="COM_XIPT_INVITEFRIENDS"
+		  description="COM_XIPT_INVITEFRIENDS_DESC"
 		  example="Suppose you want Profile Type1 users Can not Invite Friends / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 		  
 	<rule name="viewgroupdiscussion"
-		  title="Can not view group discussion"
-		  description="Restrict Users to view group discussion" />	
+		  title="COM_XIPT_VIEWGROUPDISCUSSION"
+		  description="COM_XIPT_VIEWGROUPDISCUSSION_DESC" />	
 		  
 </group>	
 	  
-<group name="albums" title="Albums">
+<group name="albums" title="COM_XIPT_ALBUMS">
 	<rule name="addalbums" 
-		  title="Can not Add Albums"
-          description="Restrict users to Add  Albums" 
+		  title="COM_XIPT_ADDALBUMS"
+          description="COM_XIPT_ADDALBUMS_DESC" 
           example="Suppose you want Profile Type1 users Can not Add Albums of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 </group>
 	
-<group name="videos" title="Videos">
+<group name="videos" title="COM_XIPT_VIDEOS">
 	<rule name="accessvideo" 
-		  title="Can not Access Videos"
-		  description="Restrict users to Access Videos" 
+		  title="COM_XIPT_ACCESSVIDEO"
+		  description="COM_XIPT_ACCESSVIDEO_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Access Videos of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 		  
 	<rule name="addvideos"
-		  title="Can not Add Videos"
-	 	  description="Restrict users to Add Videos" 
+		  title="COM_XIPT_ADDVIDEOS"
+	 	  description="COM_XIPT_ADDVIDEOS_DESC" 
 	 	  example="Suppose you want Profile Type1 users Can not Add Videos of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 		 <rule name="accessvideocategory" 
-		  title="Can Access Videos Category"
-		  description="Allow users to Access Videos Category" 
+		  title="COM_XIPT_ACCESSVIDEOCATEGORY"
+		  description="COM_XIPT_ACCESSVIDEOCATEGORY_DESC" 
 		  example="Suppose you want Profile Type1 users Can Access Videos Category/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Video Category -> Select Video Category " />
 </group>
 	
-<group name="profileVideos" title="Profile Videos">
+<group name="profileVideos" title="COM_XIPT_PROFILE_VIDEOS">
 	<rule name="accessprofilevideo"	
-		  title="Can not Access Profile Video"
-		  description="Restrict users to Access Profile Video" 
+		  title="COM_XIPT_ACCESSPROFILEVIDEO"
+		  description="COM_XIPT_ACCESSPROFILEVIDEO_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Access Profile Video of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 	
 	<rule name="addprofilevideo"
-		  title="Can not Add Profile Videos"
-		  description="Restrict users to Add Profile Videos" 
+		  title="COM_XIPT_ADDPROFILEVIDEO"
+		  description="COM_XIPT_ADDPROFILEVIDEO_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Add Profile Videos of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 		  
 	<rule name="deleteprofilevideo"
-		  title="Can not Delete Profile Video"
-		  description="Restrict users to Delete Profile Video" 
+		  title="COM_XIPT_DELETEPROFILEVIDEO"
+		  description="COM_XIPT_DELETEPROFILEVIDEO_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Delete Profile Video of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 </group>
 		  
 
-<group name="application" title="Application">
+<group name="application" title="COM_XIPT_APPLICATION">
 	<rule name="addapplication" 
-		  title="Can not Add Applications"
-          description="Restrict users to Add Applications"
+		  title="COM_XIPT_ADDAPPLICATION"
+          description="COM_XIPT_ADDAPPLICATION_DESC"
           example="Suppose you want Profile Type1 users Can not Add Applications of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />		  
 </group>
 		  
-<group name="Friend" title="Friend">
+<group name="Friend" title="COM_XIPT_FRIEND">
 	<rule name="addasfriends"
-	      title="Can not Add Friends"
-		  description="Restrict users to Add Friends" 
+	      title="COM_XIPT_ADDASFRIENDS"
+		  description="COM_XIPT_ADDASFRIENDS_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Add Friends of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />	
 
 	<rule name="invitefriend"
-		  title="Can not Invite Friends"
-		  description="Restrict users to Invite Friends"
+		  title="COM_XIPT_INVITEFRIENDS"
+		  description="COM_XIPT_INVITEFRIEND_DESC"
 		  example="Suppose you want Profile Type1 users Can not Invite Friends / 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 / " />
 	
 </group>
 	
-<group name="photos" title="Photos">
+<group name="photos" title="COM_XIPT_PHOTOS">
 	<rule name="addphotos"
-		  title="Can not Add Photos"
-		  description="Restrict users to Add Photos" 
+		  title="COM_XIPT_ADDPHOTOS"
+		  description="COM_XIPT_ADDPHOTOS_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Add Photos of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 	<rule name="accessphoto" 
-		  title="Can not Access Photos"
-          description="Restrict users to Access Albums" 
+		  title="COM_XIPT_ACCESSPHOTO"
+          description="COM_XIPT_ACCESSPHOTO_DESC" 
           example="Suppose you want Profile Type1 users Can not Add Albums of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
     <rule name="viewdetailphotos"
-		  title="Can not View Details Photos"
-		  description="Restrict Users to view details Photos" />	          
+		  title="COM_XIPT_VIEWDETAILPHOTOS"
+		  description="COM_XIPT_VIEWDETAILPHOTOS_DESC" />	          
 </group>
 
-<group name="profile" title="Profile">
+<group name="profile" title="COM_XIPT_PROFILE">
 	<rule name="cantviewotherprofile"
-		  title="Can not view Other's Profile"
-		  description="Restrict users to view Other's Profile" 
+		  title="COM_XIPT_CANTVIEWOTHERPROFILE"
+		  description="COM_XIPT_CANTVIEWOTHERPROFILE_DESC" 
 		  example="Suppose you want Profile Type1 users Can not view Other's Profile of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 	
 	<rule name="editselfprofile"
-		  title="Can not Edit Self Profile"
-		  description="Restrict users to Edit Self Profile" 
+		  title="COM_XIPT_EDITSELFPROFILE"
+		  description="COM_XIPT_EDITSELFPROFILE_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Edit Self Profile/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /" />
 		  
 	<rule name="editselfprofiledetails"
-		  title="Can not Edit Self Profile Details"
-		  description="Restrict users to Edit Self Profile Details"
+		  title="COM_XIPT_EDITSELFPROFILEDETAILS"
+		  description="COM_XIPT_EDITSELFPROFILEDETAILS_DESC"
 		  example="Suppose you want Profile Type1 users Can not Edit Self Profile Details of profile type2/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /2.Rule Parameters-> Other profiletype users to apply rule -> Select Profile Type2 " />
 	
 	<rule name="statusbox"
-		  title="Change Status Message"
-		  description="Restrict users to Change Status Message"/>
+		  title="COM_XIPT_STATUSBOX"
+		  description="COM_XIPT_STATUSBOX_DESC"/>
 		  
     <rule name="commentonstatus"
-		  title="Comment on Status"
-		  description="Restrict users to Comment on Status Message"/>
+		  title="COM_XIPT_COMMENTONSTATUS"
+		  description="COM_XIPT_COMMENTONSTATUS_DESC"/>
 		  
 	<rule name="profilefield"
-		  title="Can not view Other's ProfileFields"
-		  description="Restrict users to view ProfileFields"/>
+		  title="COM_XIPT_PROFILEFIELD"
+		  description="COM_XIPT_PROFILEFIELD_DESC"/>
 		  
 	<rule name="deleteprofile"
-		  title="Can not Delete Profile"
-		  description="Restrict users to Delete Self Profile" 
+		  title="COM_XIPT_DELETEPROFILE"
+		  description="COM_XIPT_DELETEPROFILE_DESC" 
 		  example="Suppose you want Profile Type1 users Can not Delete Self Profile/ 1.General Parameter-> Self Profiletype to apply rule -> Select Profile Type1 /" />
 		  
 </group>	
 	
-<group name="avatar" title="Avatar">
+<group name="avatar" title="COM_XIPT_AVATAR">
 	<rule name="changeavatar"
-		  title="Can not Change Avatar"
-		  description="Restrict users to Change Avatar" />
+		  title="COM_XIPT_CHANGEAVATAR"
+		  description="COM_XIPT_CHANGEAVATAR_DESC" />
 	<rule name="uploadavatar"
-		  title="Force to Upload-Avatar"
-		  description="Force to users for upload avatar." />
+		  title="COM_XIPT_FORCE_TO_UPLOAD_USER_AVATAR_AT_REGISTRATION_TIME"
+		  description="COM_XIPT_FORCE_TO_UPLOAD_USER_AVATAR_AT_REGISTRATION_TIME_DESC" />
 	<rule name="changecoverpic"
-		  title="Can not Change Cover Picture"
-		  description="Restrict users to Change Cover Picture." />
+		  title="COM_XIPT_CHANGECOVERPIC"
+		  description="COM_XIPT_CHANGECOVERPIC_DESC" />
 </group>
 	
-<group name="privacy" title="Privacy">
+<group name="privacy" title="COM_XIPT_PRIVACY">
 	<rule name="changeprivacy"
-	  	  title="Can not Change Privacy"
-		  description="Restrict users to Change Privacy" />
+	  	  title="COM_XIPT_CHANGEPRIVACY"
+		  description="COM_XIPT_CHANGEPRIVACY_DESC" />
 </group>	
 
-<group name="messages" title="Messages">	
+<group name="messages" title="COM_XIPT_MESSAGES">	
 	<rule name="writemessages"
-		  title="Can not Send Message"
-		  description="Restrict Users to Send Message" />
+		  title="COM_XIPT_WRITEMESSAGES"
+		  description="COM_XIPT_WRITEMESSAGES_DESC" />
 		  
 	<rule name="readmessage"
-		  title="Can not Read Message"
-		  description="Restrict Users to Read Message" />
+		  title="COM_XIPT_READMESSAGE"
+		  description="COM_XIPT_READMESSAGE_DESC" />
 		  
 	<rule name="deletemessages"
-		  title="Can not Delete Message"
-		  description="Restrict Users to Delete Message" />
+		  title="COM_XIPT_DELETEMESSAGES"
+		  description="COM_XIPT_DELETEMESSAGES_DESC" />
 		  
 </group>
 
-<group name="likedislike" title="LikeDisLike">
+<group name="likedislike" title="COM_XIPT_LIKEDISLIKE">
 	<rule name="likephotos"
-		  title="Can not Like Dislike Photos"
-		  description="Restrict User to Like Dislike Photos" />
+		  title="COM_XIPT_LIKEPHOTOS"
+		  description="COM_XIPT_LIKEPHOTOS_DESC" />
 		  
 	<rule name="likevideo"
-		  title="Can not Like Dislike Video"
-		  description="Restrict User to Like Dislike Video" />
+		  title="COM_XIPT_LIKEVIDEO"
+		  description="COM_XIPT_LIKEVIDEO_DESC" />
 		  
 	<rule name="likegroup"
-		  title="Can not Like Dislike Group"
-		  description="Restrict User to Like Dislike Group" />
+		  title="COM_XIPT_LIKEGROUP"
+		  description="COM_XIPT_LIKEGROUP_DESC" />
 		  
 	<rule name="likeprofile"
-		  title="Can not Like Dislike Profile"
-		  description="Restrict User to Like Dislike Profile" />
+		  title="COM_XIPT_LIKEPROFILE"
+		  description="COM_XIPT_LIKEPROFILE_DESC" />
 		  
 	<rule name="likeevent"
-		  title="Can not Like Dislike Event"
-		  description="Restrict User to Like Dislike event" />
+		  title="COM_XIPT_LIKEEVENT"
+		  description="COM_XIPT_LIKEEVENT_DESC" />
 </group>	
 
-<group name="other" title="Others">
+<group name="other" title="COM_XIPT_OTHERS">
 	<rule name="aecredirect"
-		  title="Redirect to AEC URL"
-		  description="Redirect Users to AEC Subscription Page" />
+		  title="COM_XIPT_AECREDIRECT"
+		  description="COM_XIPT_AECREDIRECT_DESC" />
 		
 	<rule name="redirect"
-		  title="Redirect to Custom URL"
-		  description="Redirect Users to Custom URL Page"/>
+		  title="COM_XIPT_REDIRECT"
+		  description="COM_XIPT_REDIRECT_DESC"/>
 		  
 	<rule name="reportuser"
-		  title="Can not Report User"
-		  description="Restrict Users to Report Users" />
+		  title="COM_XIPT_REPORTUSER"
+		  description="COM_XIPT_REPORTUSER_DESC" />
 		  
 	<rule name="ignoreuser"
-		  title="Can not Ignore User"
-		  description="Restrict Users to Ignore Users" />	 
+		  title="COM_XIPT_IGNOREUSER"
+		  description="COM_XIPT_IGNOREUSER_DESC" />	 
 		 
 		 
 </group>	

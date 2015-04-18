@@ -253,8 +253,8 @@ class XiptLibPluginhandler
 		}
 
 		return;
-	}
-
+	}		
+	
 	/**
 	 * Filter the fields, which are allowed to user.
 	 * @param $userid

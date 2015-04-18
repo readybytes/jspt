@@ -40,7 +40,7 @@ abstract class XiptView extends JViewLegacy
 		$view = JFactory::getApplication()->input->get('view','cpanel');
 		
 		JHtmlSidebar::addEntry(
-			'Home (Setup/Settings)',
+			JText::_('COM_XIPT_SUBMENU_HOME_SETUP_SETTINGS'),
 			'index.php?option=com_xipt',
 			false
 		);
