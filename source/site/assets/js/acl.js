@@ -152,7 +152,7 @@ function render( _popup , json) {
      
      elem.on( 'click', '.joms-js--button-xiptnext', next );
      elem.on( 'click', '.joms-js--button-back2', back2 );
-     elem.on( 'click', '.joms-js--button-next2', next2 );
+     elem.on( 'click', '.joms-js--button-xiptnext2', next2 );
      elem.on( 'click', '.joms-js--button-back3', back3 );
 }
 
@@ -265,7 +265,7 @@ function buildHtml( json ) {
             '<div class="joms-popup__content"></div>',
             '<div class="joms-popup__action">',
                 '<button class="joms-button--neutral joms-button--small joms-left joms-js--button-back2"></button>',
-                '<button class="joms-button--primary joms-button--small joms-js--button-next2"></button>',
+                '<button class="joms-button--primary joms-button--small joms-js--button-xiptnext2"></button>',
             '</div>',
         '</div>',
         '<div class="joms-js--step3 joms-popup__hide">',
