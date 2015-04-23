@@ -27,7 +27,27 @@ class XiptViewAclRules extends XiptView
 				
 				$restrict_by = $aclObject->getCoreParams('restrict_by',0);
 				
+				// Check if ACL is applied on Plan or ProfileType
 				if($restrict_by){
+					
+					$setting         = new XiptModelSettings();
+					$settingsParams  = $setting->getParams();		
+						
+					// Check if Integrate Subscription is set to Yes in JSPT Settings
+					if($settingsParams->getValue('subscription_integrate') && $settingsParams->getValue('integrate_with') == "payplans"){
+						// Check if PayPlans exists or not and component and system plugin are enabled or not 
+						if(!(JComponentHelper::isInstalled('com_payplans') && (JComponentHelper::isEnabled('com_payplans')))){
+							JFactory::getApplication()->enqueueMessage(XiptText::_("ENABLE_PAYPLANS"),'WARNING');
+							return;
+						}
+						if(!JPluginHelper::isEnabled('system','payplans')){
+							JFactory::getApplication()->enqueueMessage(XiptText::_("PLEASE_ENABLE_PAYPLANS_SYSTEM_PLUGIN"),'WARNING');
+							return;
+						}
+					}else{
+						JFactory::getApplication()->enqueueMessage(XiptText::_("INTEGRATE_PAYPLANS"),'WARNING');
+						return;
+					}
 					$plans 	     = $aclObject->getCoreParams('core_plan',0);
 					$ptypes 	 = -1;
 				}
@@ -42,7 +62,7 @@ class XiptViewAclRules extends XiptView
 				foreach($ptypes as $ptype){
 					$ruleProfiletype[$rule->id][] = XiptHelperProfiletypes::getProfiletypeName($ptype,true);
 				}
-				
+								
 				foreach($plans as $plan){
 					
 					if($plan == XIPT_PLAN_ALL || empty($plan))
@@ -50,18 +70,12 @@ class XiptViewAclRules extends XiptView
 					elseif($plan == XIPT_PROFILETYPE_NONE)
 						$rulePlan[$rule->id][] = XiptText::_("NONE");
 					else{
-						if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_payplans')){
-							$rulePlan[$rule->id][] = XiptText::_("NONE");
-  							JFactory::getApplication()->enqueueMessage(XiptText::_("PAYPLANS_DOES_NOT_EXISTS"),'WARNING');
-						}
-  						else{
 							$planInstance = PayplansApi::getPlan($plan);
 							
 							if($planInstance)
 								$rulePlan[$rule->id][] = $planInstance->getTitle();
 							else
 								$rulePlan[$rule->id][] = XiptText::_("NONE");
-  						}
 					}
 				}
 				

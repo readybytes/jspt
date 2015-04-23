@@ -28,8 +28,12 @@ class writemessages extends XiptAclBase
 	{	
 		$aclSelfPtype = $this->coreparams->getValue('core_profiletype',null,-1);
 		$otherptype = $this->aclparams->getValue('other_profiletype',null,-1);
-			
-		$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		
+		if($this->aclparams->getValue('consider_replies_in_message_count',null,0) == true){
+			$count = $this->getFeatureCounts($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		}else{
+			$count = $this->getFeatureCountsWithoutReply($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		}
 		$paramName ='writemessage_limit';
 		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 		
@@ -53,7 +57,11 @@ class writemessages extends XiptAclBase
 		$aclSelfPtype = $this->coreparams->getValue('core_plan',null,-1);
 		$otherptype = $this->aclparams->getValue('other_plan',null,-1);
 	
-		$count = $this->getFeatureCountsByPlan($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		if($this->aclparams->getValue('consider_replies_in_message_count',null,0) == true){
+			$count = $this->getFeatureCountsByPlan($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		}else{
+			$count = $this->getFeatureCountsByPlanWithoutReply($resourceAccesser,$resourceOwner,$otherptype,$aclSelfPtype);
+		}
 		$paramName ='writemessage_limit';
 		$maxmimunCount = $this->aclparams->getValue($paramName,null,0);
 	
@@ -82,12 +90,40 @@ class writemessages extends XiptAclBase
 		 * otherptype 0 means if you created acl rule and set it to All profile types then it will return valoe as 0
 		* otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
 		if($otherptype == -1 || (is_array($otherptype) && $otherptype[0] == 0)) {
+			
 			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
-					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
-					. ' AND a.parent=a.id';
+					. ' WHERE a.from=' . $db->Quote( $resourceAccesser );
 		}
 		else
-		{			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
+		{
+			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
+				." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
+				."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
+						."  WHERE a.`msg_from` = ".$resourceAccesser
+						."  AND c.`profiletype`IN(".implode(',', $otherptype).")";
+		}
+		$db->setQuery( $query );
+		$count		= $db->loadResult();
+		return $count;
+	}
+	
+	function getFeatureCountsWithoutReply($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
+	{
+		CFactory::load( 'helpers' , 'time' );
+		$db			= JFactory::getDBO();
+	
+		/* otherptype -1 means if you created acl rule and save it blank then it will return valoe as null or -1
+		 * otherptype 0 means if you created acl rule and set it to All profile types then it will return valoe as 0
+		* otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
+		if($otherptype == -1 || (is_array($otherptype) && $otherptype[0] == 0)) {
+			
+			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
+					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
+					. ' AND a.parent=a.id';			
+		}
+		else
+		{
+			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
 				." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
 				."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
 						."  WHERE a.`msg_from` = ".$resourceAccesser
@@ -107,16 +143,44 @@ class writemessages extends XiptAclBase
 		 * otherptype 0 means if you created acl rule and set it to All profile types then it will return valoe as 0
 		* otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
 		if($otherptype == -1 || (is_array($otherptype) && $otherptype[0] == 0)) {
+			
 			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
-					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
-					. ' AND a.parent=a.id';
+					. ' WHERE a.from=' . $db->Quote( $resourceAccesser );
 		}
 		else
-		{			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
+		{
+			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
 				." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
 				."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
 						." WHERE a.`msg_from` = ".$resourceAccesser; 
 		}
+		$db->setQuery( $query );
+		$count		= $db->loadResult();
+		return $count;
+	}
+	
+	function getFeatureCountsByPlanWithoutReply($resourceAccesser,$resourceOwner,$otherptype=null,$aclSelfPtype=null)
+	{
+		CFactory::load( 'helpers' , 'time' );
+		$db			= JFactory::getDBO();
+	
+		/* otherptype -1 means if you created acl rule and save it blank then it will return valoe as null or -1
+		 * otherptype 0 means if you created acl rule and set it to All profile types then it will return valoe as 0
+		* otherptype 1 / 2 / 3 etc means if you created acl rule and set it to multiple profile types then it will return value as 1 / 2 / 3 etc */
+		if($otherptype == -1 || (is_array($otherptype) && $otherptype[0] == 0)) {
+			
+			$query	= 'SELECT COUNT(*) FROM ' . $db->quoteName( '#__community_msg' ) . ' AS a'
+					. ' WHERE a.from=' . $db->Quote( $resourceAccesser )
+					. ' AND a.parent=a.id';			
+		}
+		else
+		{
+			$query = "SELECT COUNT(*) FROM #__community_msg_recepient as a "
+				." 	LEFT JOIN #__community_msg as b ON b.`id` = a.`msg_id` "
+				."  LEFT JOIN #__xipt_users as c ON a.`to`=c.`userid` "
+						." WHERE a.`msg_from` = ".$resourceAccesser; 
+		}
+		
 		$db->setQuery( $query );
 		$count		= $db->loadResult();
 		return $count;
@@ -146,6 +210,12 @@ class writemessages extends XiptAclBase
 		}
 
 		if($data['task'] == 'ajaxaddreply'){
+			
+			// Check if acl is applicable on replies also
+			if($this->aclparams->getValue('consider_replies_in_message_count',null,0) == false){
+				return false;
+			}
+			
 			//modify whom we are sending msg
 			// In Js2.4++, we get msg id in args instead of user id
 			$msgId = $data['args'][0];

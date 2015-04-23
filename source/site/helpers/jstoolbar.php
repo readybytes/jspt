@@ -84,7 +84,6 @@ class XiptHelperJSToolbar
 		foreach($menuids as $menuid)
 		{
 			$result   = $jsmodel->getMenu($menuid);
-			
 			if(!$result)
 				continue;
 				
@@ -95,7 +94,7 @@ class XiptHelperJSToolbar
 	        window.joms_queue || (window.joms_queue = []);
     		window.joms_queue.push(function( $ ) {	
 				var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
-				$("a[href^='" + menuUrl + "']").hide();
+				$("a[href^='" + menuUrl + "']").parent('li').hide();
 			});	
 	        <?php 
 	        $content = ob_get_contents();
