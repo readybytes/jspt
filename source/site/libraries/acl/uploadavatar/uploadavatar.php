@@ -40,6 +40,34 @@ class uploadavatar extends XiptAclBase
 		}
 	}
 	
+	public function checkCoreApplicableByPlan($data)
+	{
+		if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_payplans'))
+  			return false;
+  		
+		$plan = $this->getCoreParams('core_plan',0);
+
+		//check if its applicable on more than 1 plan
+		$plan = is_array($plan) ? $plan : array($plan);
+		
+		//All means applicable
+		if(in_array(XIPT_PLAN_ALL, $plan))
+			return true;
+
+		$mySess 		= JFactory::getSession();
+		$planid = $mySess->get('REGISTRATION_PLAN_ID',0,'payplans');
+		if(in_array($planid, $plan)){
+			return true;
+		}
+				
+		return false;
+	}
+	
+	public function checkAclViolationByPlan($data)
+	{	
+		return true;
+	}
+	
 	function isApplicableOnSelfProfiletype($resourceAccesser)
 	{
 		$aclSelfPtype = $this->getACLAccesserProfileType();

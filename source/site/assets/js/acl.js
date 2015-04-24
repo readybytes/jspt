@@ -39,6 +39,7 @@ joms.onAjaxReponse('profile,ajaxIgnoreUser', xiptHandleAclResponse);
 joms.onAjaxReponse('profile,ajaxConfirmIgnoreUser', xiptHandleAclResponse);
 joms.onAjaxReponse('groups,ajaxSaveJoinGroup', xiptHandleAclResponse);
 joms.onAjaxReponse('groups,ajaxJoinGroup', xiptHandleAclResponse);
+joms.onAjaxReponse('photos,ajaxGetPhotosByAlbum', xiptHandleAclResponse);
 
 joms.onAjaxReponse('connect,ajaxShowNewUserForm', function(json){
 	if(typeof(json.xipt) == 'undefined'){

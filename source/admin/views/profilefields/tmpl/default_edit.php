@@ -55,9 +55,9 @@ jQuery(document).ready(function($){
 });
 </script>
 <script type="text/javascript">jQuery.noConflict();</script>
-
+<div id="JSPT">
 <form action="index.php" method="post" name="adminForm" id="adminForm">
-<table class="adminlist" cellspacing="1" style="width:40%; float:left;" >
+<table class="adminlist" cellspacing="1" style="width:40%; float:left;">
 		<thead>
 		<tr>
 			<td style="width:40%;" >
@@ -125,4 +125,5 @@ echo JHtmlSliders::end();
 	<input type="hidden" name="task" value="" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
+</div>
 <?php 

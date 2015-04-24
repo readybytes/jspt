@@ -30,9 +30,9 @@ class XiptViewAclRules extends XiptView
 				// Check if ACL is applied on Plan or ProfileType
 				if($restrict_by){
 					
-					$setting         = new XiptModelSettings();
+					$setting		 = XiptFactory::getInstance('settings', 'model');
 					$settingsParams  = $setting->getParams();		
-						
+										
 					// Check if Integrate Subscription is set to Yes in JSPT Settings
 					if($settingsParams->getValue('subscription_integrate') && $settingsParams->getValue('integrate_with') == "payplans"){
 						// Check if PayPlans exists or not and component and system plugin are enabled or not 
@@ -44,10 +44,8 @@ class XiptViewAclRules extends XiptView
 							JFactory::getApplication()->enqueueMessage(XiptText::_("PLEASE_ENABLE_PAYPLANS_SYSTEM_PLUGIN"),'WARNING');
 							return;
 						}
-					}else{
-						JFactory::getApplication()->enqueueMessage(XiptText::_("INTEGRATE_PAYPLANS"),'WARNING');
-						return;
 					}
+
 					$plans 	     = $aclObject->getCoreParams('core_plan',0);
 					$ptypes 	 = -1;
 				}
@@ -62,21 +60,35 @@ class XiptViewAclRules extends XiptView
 				foreach($ptypes as $ptype){
 					$ruleProfiletype[$rule->id][] = XiptHelperProfiletypes::getProfiletypeName($ptype,true);
 				}
-								
+
+				$setting         = new XiptModelSettings();
+				$settingsParams  = $setting->getParams();
 				foreach($plans as $plan){
 					
-					if($plan == XIPT_PLAN_ALL || empty($plan))
-						$rulePlan[$rule->id][] = XiptText::_("ALL");
-					elseif($plan == XIPT_PROFILETYPE_NONE)
-						$rulePlan[$rule->id][] = XiptText::_("NONE");
-					else{
-							$planInstance = PayplansApi::getPlan($plan);
-							
-							if($planInstance)
-								$rulePlan[$rule->id][] = $planInstance->getTitle();
-							else
-								$rulePlan[$rule->id][] = XiptText::_("NONE");
-					}
+						if($plan == XIPT_PROFILETYPE_NONE)
+						{
+							$rulePlan[$rule->id][] = XiptText::_("NONE");
+						}					
+						else
+						{
+							if(($settingsParams->getValue('subscription_integrate') && $settingsParams->getValue('integrate_with') == "payplans"))
+								{
+									if($plan == XIPT_PLAN_ALL || empty($plan)){
+										$rulePlan[$rule->id][] = XiptText::_("ALL");
+									}else{
+										$planInstance = PayplansApi::getPlan($plan);
+									
+										if($planInstance)
+											$rulePlan[$rule->id][] = $planInstance->getTitle();
+										else
+											$rulePlan[$rule->id][] = XiptText::_("NONE");
+									}
+								}else
+								{
+									$rulePlan[$rule->id][] = XiptText::_("VERIFY_INTEGRATION");
+									break;
+								}	
+						}					
 				}
 				
 				$ruleProfiletype[$rule->id] = implode(',', $ruleProfiletype[$rule->id]);
