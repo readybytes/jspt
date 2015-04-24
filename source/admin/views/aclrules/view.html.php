@@ -85,7 +85,7 @@ class XiptViewAclRules extends XiptView
 									}
 								}else
 								{
-									$rulePlan[$rule->id][] = XiptText::_("VERIFY_INTEGRATION");
+									$rulePlan[$rule->id][] = XiptText::_("VERIFY_PAYPLANS_INTEGRATION");
 									break;
 								}	
 						}					
