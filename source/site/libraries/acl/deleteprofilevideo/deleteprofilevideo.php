@@ -23,7 +23,11 @@ class deleteprofilevideo extends XiptAclBase
 			return false;
 		}
 		
-		$videoId = $data['args'][0];
+		if($data['task'] == 'ajaxremovelinkprofilevideo'){
+			$videoId = $data['args'][1];
+		}else{
+			$videoId = $data['args'][0];
+		}
 		$ownerid = $data['userid'];
 		if($this->_isProfileVideo($videoId , $ownerid)){
 			return true;
@@ -46,8 +50,7 @@ class deleteprofilevideo extends XiptAclBase
 							->loadResult();
 
 		$userParams		= json_decode($params, true);
-		$profileVideoId = $userParams['profileVideo'];
-		
+		$profileVideoId = isset($userParams['profileVideo'])?$userParams['profileVideo']:0;
 		if($profileVideoId == $videoId){
 			return true;
 		}

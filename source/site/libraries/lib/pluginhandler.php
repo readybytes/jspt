@@ -331,6 +331,7 @@ class XiptLibPluginhandler
     	window.joms_queue.push(function( $ ) {
 			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-button--privacy,.joms-stream-privacy,.joms-album-privacy").remove();
 			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-button--privacy,.joms-stream-privacy,.joms-album-privacy").remove();
+			$("[data-tab='privacy']").remove();
         });
 
 			<?php 	
