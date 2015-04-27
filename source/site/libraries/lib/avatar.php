@@ -103,7 +103,7 @@ class XiptLibAvatar
 		{
 			JFactory::getApplication()->enqueueMessage(XiptText::_("YOU_CANNOT_REMOVE_DEFAULT_AVATAR"));
 			return;
-		}
+		}		
 		//get avatar_PROFILE-TYPE_thumb.jpg path
 		if(JString::substr($newPath,-4) == ".png")
 			$thumbPath = JString::str_ireplace(".png","_thumb.png",$newPath);
@@ -147,10 +147,12 @@ class XiptLibAvatar
 		}
 		
 		return true;
-	}
+	}	
 
 	public static function ajaxUpdateThumbnail($args , $response)
    	{
+   			require_once ( JPATH_ROOT.DS.'components'.DS.'com_xipt'.DS.'api.xipt.php');
+   		
          	if($args[0] != "profile"){
          		return true;
             }
