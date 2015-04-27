@@ -26,7 +26,10 @@ class XiptFormFieldwatermarkposition extends JFormFieldList
 		$positions[] = JHTML::_('select.option', 'lb', XiptText::_('LEFT_BOTTOM'));
 		$positions[] = JHTML::_('select.option', 'rt', XiptText::_('RIGHT_TOP'));
 		$positions[] = JHTML::_('select.option', 'rb', XiptText::_('RIGHT_BOTTOM'));
-		
+		$positions[] = JHTML::_('select.option', 'tc', XiptText::_('TOP_CENTER'));
+		$positions[] = JHTML::_('select.option', 'lc', XiptText::_('LEFT_CENTER'));
+		$positions[] = JHTML::_('select.option', 'rc', XiptText::_('RIGHT_CENTER'));
+		$positions[] = JHTML::_('select.option', 'bc', XiptText::_('BOTTOM_CENTER'));
 		return $positions;
 	}
 }

@@ -148,4 +148,32 @@ class XiptLibAvatar
 		
 		return true;
 	}
+
+	public static function ajaxUpdateThumbnail($args , $response)
+   	{
+         	if($args[0] != "profile"){
+         		return true;
+            }
+            CPhotosHelper::updateAvatar($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
+            $pType = XiptAPI::getUserProfiletype($args[1]);
+            
+            $query = new XiptQuery();
+    	
+    		$watermark =  $query->select('watermark')
+    				 			->from('#__xipt_profiletypes')
+    				 			->where(" `id` = $pType ")
+    				 			->dbLoadQuery("","")
+    				 			->loadResult();
+            
+            XiptLibJomsocial::updateCommunityUserWatermark($args[1] , $watermark);
+            $url = CRoute::_('index.php?option=com_community&view=' . $args[0] . '&userid=' . $args[1]);
+
+            $json = array(
+                'success' => true,
+                'redirUrl' => $url
+            );
+
+            die(json_encode($json));
+    }
+        
 }

@@ -99,6 +99,22 @@ class XiptHelperImage
 					$xy[0] = $imagesize[0] - $watermarkSize[0];
 					$xy[1] = $imagesize[1] - $watermarkSize[1];
 					break;
+			case 'tc':
+					$xy[0] = ($imagesize[0]/2)-($watermarkSize[0]/2);
+					$xy[1] = 0;	
+					break;
+			case 'lc':
+					$xy[0] = 0;
+					$xy[1] = ($imagesize[1]/2)-($watermarkSize[1]/2);
+					break;
+			case 'rc':
+					$xy[0] = $imagesize[0] - $watermarkSize[0];
+					$xy[1] = ($imagesize[1]/2)-($watermarkSize[1]/2);	
+					break;
+			case 'bc':
+					$xy[0] = ($imagesize[0]/2)-($watermarkSize[0]/2);
+					$xy[1] = $imagesize[1] - $watermarkSize[1];
+					break;
 		}
 		
 		return;
@@ -184,30 +200,23 @@ class XiptHelperImage
 		
 		if(!JFile::exists($image) || !JFile::exists($waterMark))
 			return false;
-		
-		
-		// if warter marking is not enable for profile type then return
-		
-				
-		/*First copy user old avatar b'coz we don't want to overwrite watermark */
-		$avatarFileName = JFile::getName($originalImage);
-		
-		if(JFile::exists(USER_AVATAR_BACKUP.DS.$avatarFileName))
-			JFile::copy(USER_AVATAR_BACKUP.DS.$avatarFileName,JPATH_ROOT.DS.$originalImage);
 
 		// if watermarking is not enable for profile type then return
 		if($watermarkParams['enableWaterMark'] == false)
 			return;
-			
-		$newimagepath = self::showWatermarkOverImage($image,$waterMark,'tmp',$watermarkParams['xiWatermarkPosition']);
+		$fileName		   = str_replace('.'.JFile::getExt($originalImage), '', JFile::getName($originalImage));
+		$newimagepath = self::showWatermarkOverImage($image,$waterMark,$fileName,$watermarkParams['xiWatermarkPosition']);
 				
 		/*copy user original avatar at one place to remove destroy */
 		//here check if folder exist or not. if not then create it.
-		$avatarPath = USER_AVATAR_BACKUP;
-		if(JFolder::exists($avatarPath)==false)
-			JFolder::create($avatarPath);
-		
-		JFile::copy(JPATH_ROOT.DS.$originalImage,$avatarPath.DS.JFile::getName(JPATH_ROOT.DS.$originalImage));
+		if($what == 'avatar')
+		{
+			$avatarPath = USER_AVATAR_BACKUP;
+			if(JFolder::exists($avatarPath)==false)
+				JFolder::create($avatarPath);
+			
+			JFile::copy(JPATH_ROOT.DS.$originalImage,$avatarPath.DS.JFile::getName(JPATH_ROOT.DS.$originalImage));
+		}
 		JFile::move(JPATH_ROOT.DS.$newimagepath,JPATH_ROOT.DS.$originalImage);
 		return;
 	}

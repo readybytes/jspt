@@ -158,6 +158,9 @@ class XiptLibPluginhandler
 			//case 'profile_ajaxConfirmRemovePicture': 
 			case 'profile_ajaxRemovePicture' : // This case use for Admin panel
 						return XiptLibAvatar::removeAvatar($args, $response);
+			
+			case 'photos_ajaxUpdateThumbnail' : 
+						return XiptLibAvatar::ajaxUpdateThumbnail($args, $response);
 				
 			default :
 				// 	we do not want to interfere, go ahead JomSocial

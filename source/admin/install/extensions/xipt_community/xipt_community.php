@@ -131,20 +131,6 @@ class plgCommunityxipt_community extends CApplications
 		$watermarkInfo = XiptHelperImage::getWatermark($userid);
 		if(false == $watermarkInfo)
 			return true;
-			
-		//In JS3.0, it creates one more image as profile-xx.ext
-		//so we have to apply watermark on this also
-		//during reg this image is not created
-		//XITODO :: No need to apply water-mark here. Its onlu use for cropping image for thumb
-		// After thumb creation, we will already apply water-matk on thumb 
-		if($view != 'register' && $task != 'registerAvatar' && $what != 'thumb'){ 
-			$profile_image = 'images/avatar/'.'profile-'.JFile::getName($new_avatar_path);
-			$profile_image = XiptHelperUtils::getRealPath($profile_image);
-			//Get large avatar use for cropping
-			if (JFile::exists(JPATH_ROOT . '/' . $profile_image)) {
-				XiptHelperImage::addWatermarkOnAvatar($userid,$profile_image,$watermarkInfo,$what);
-			}
-		}
 		
 		XiptHelperImage::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
 		return true;
