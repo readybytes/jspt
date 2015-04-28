@@ -598,6 +598,12 @@ class XiptLibJomsocial
 		if(!$config->store())
 			return false;
 
+		//Unpublish the JomSocial ProfileTypes
+		$db = JFactory::getDBO();
+		$unpublishPT = 'UPDATE `#__community_profiles` SET `published`=0 WHERE `published`=1';
+		$db->setQuery($unpublishPT);
+		$db->query();
+		
 		return true;
 	}
 	
