@@ -65,7 +65,7 @@ class XiptLibJomsocial
 						->dbLoadQuery()
 						->loadAssocList('userid');						
 		
-		return $results[$userid][$what];
+		return isset($results[$userid][$what])?$results[$userid][$what]:'';
 	}
 	
     /**
@@ -243,6 +243,7 @@ class XiptLibJomsocial
 		$fileName		   = str_replace('.'.JFile::getExt($userAvatar), '', JFile::getName($userAvatar));
 		$userStreamAvatar	   = 'images/avatar/'.$fileName.'_stream_.'.JFile::getExt($userAvatar);
 		
+		// Neelam
 		$task 	= JRequest::getVar('task');
 		if($task == 'resetall' && $isWaterMarkEnable == true)
 		{

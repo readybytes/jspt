@@ -322,6 +322,12 @@ class XiptLibPluginhandler
 
 	static function hidePrivacyElements()
 	{
+		static $script = '';
+		
+		if(!empty($script)){
+			return true;
+		}
+		
 		ob_start();
        
 		/* hide all privacy seting from front-end
@@ -332,13 +338,17 @@ class XiptLibPluginhandler
 			?>
 		window.joms_queue || (window.joms_queue = []);
     	window.joms_queue.push(function( $ ) {
-			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-button--privacy,.joms-stream-privacy,.joms-album-privacy").remove();
-			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-button--privacy,.joms-stream-privacy,.joms-album-privacy").remove();
-			$("[data-tab='privacy']").remove();
+    		$(document).ready( function($){
+				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-button--privacy,.joms-stream-privacy,.joms-album-privacy").remove();
+			});
+						
+			$(document).on('hover','.textntags-wrapper',function(){
+				$("[data-tab='privacy']").remove();
+			});
+			
         });
 
 			<?php 	
-			
 		$script = ob_get_contents();
         ob_clean();
         JFactory::getDocument()->addScriptDeclaration($script);
