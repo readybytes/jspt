@@ -58,7 +58,8 @@ class invitefriends extends XiptAclBase
 		$notAllowedCats = $this->aclparams->getValue('group_category');
 		
 		//$notAllowedCats == 0 means user can't access any category
-		if($notAllowedCats == 0)
+		// if applicable for all the categories thren it will have 0 in array
+		if($notAllowedCats == 0 || in_array(0, $notAllowedCats))
 			return false;
 			
 		//check if its applicable on more than 1 category

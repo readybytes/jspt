@@ -65,7 +65,7 @@ class XiptLibJomsocial
 						->dbLoadQuery()
 						->loadAssocList('userid');						
 		
-		return $results[$userid][$what];
+		return isset($results[$userid][$what])?$results[$userid][$what]:'';
 	}
 	
     /**
@@ -238,37 +238,49 @@ class XiptLibJomsocial
 		$isWaterMarkEnable = $watermarkParams['enableWaterMark'];
 		
 		//update watermark on user's avatar
-		$pTypeAvatar  	   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'avatar');
-		$pTypeThumbAvatar  = XiptLibJomsocial::getUserDataFromCommunity($userid, 'thumb');
-		$profileAvatar	   = 'images/avatar/'.'profile-'.JFile::getName($pTypeAvatar);
+		$userAvatar  	   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'avatar');
+		$userThumbAvatar   = XiptLibJomsocial::getUserDataFromCommunity($userid, 'thumb');
+		$fileName		   = str_replace('.'.JFile::getExt($userAvatar), '', JFile::getName($userAvatar));
+		$userStreamAvatar	   = 'images/avatar/'.$fileName.'_stream_.'.JFile::getExt($userAvatar);
+		
+		// Neelam
+		$task 	= JRequest::getVar('task');
+		if($task == 'resetall' && $isWaterMarkEnable == true)
+		{
+			self::restoreBackUpAvatar($userAvatar);
+			$destType = 'image/' . JFile::getExt($userAvatar);
+			CPhotos::generateThumbnail(JPATH_ROOT.DS.$userAvatar, JPATH_ROOT.DS.$userThumbAvatar, $destType);
+			JFile::copy(JPATH_ROOT.DS.$userThumbAvatar, JPATH_ROOT.DS.$userStreamAvatar);			
+		}
 		
 		// no watermark on default avatars
-		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($pTypeAvatar,true))
+		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true))
 			return false;
 
 		//no watermark then resotre backup avatar and return
 		//if water-mark disable then restore avatar(hit both by resete & by update any user profile ) 
 		if(false == $isWaterMarkEnable || $watermark == '')	
 		{
-			self::restoreBackUpAvatar($pTypeAvatar);
-			self::restoreBackUpAvatar($pTypeThumbAvatar);
-			self::restoreBackUpAvatar($profileAvatar);
+			self::restoreBackUpAvatar($userAvatar);
+			$destType = 'image/' . JFile::getExt($userAvatar);
+			CPhotos::generateThumbnail(JPATH_ROOT.DS.$userAvatar, JPATH_ROOT.DS.$userThumbAvatar, $destType);
+			JFile::copy(JPATH_ROOT.DS.$userThumbAvatar, JPATH_ROOT.DS.$userStreamAvatar);
 			return true;
 		}
 		
 		//add watermark on user avatar image
-		if($pTypeAvatar){
-			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeAvatar,$watermark,'avatar');
+		if($userAvatar){
+			XiptHelperImage::addWatermarkOnAvatar($userid,$userAvatar,$watermark,'avatar');
 		}
-
-		//during reg this image is not created, so we have to check if it exist before applying
-		if(JFile::exists(JPATH_ROOT. DS. $profileAvatar)){
-			XiptHelperImage::addWatermarkOnAvatar($userid,$profileAvatar,$watermark,'avatar');
+		
+		//add watermark on user stream image
+		if($userStreamAvatar){
+			XiptHelperImage::addWatermarkOnAvatar($userid,$userStreamAvatar,$watermark,'thumb');
 		}
 		
 		//add watermark on thumb image
-		if($pTypeThumbAvatar)
-			XiptHelperImage::addWatermarkOnAvatar($userid,$pTypeThumbAvatar,$watermark,'thumb');
+		if($userThumbAvatar)
+			XiptHelperImage::addWatermarkOnAvatar($userid,$userThumbAvatar,$watermark,'thumb');
 
 		return true;
 	}
@@ -587,6 +599,12 @@ class XiptLibJomsocial
 		if(!$config->store())
 			return false;
 
+		//Unpublish the JomSocial ProfileTypes
+		$db = JFactory::getDBO();
+		$unpublishPT = 'UPDATE `#__community_profiles` SET `published`=0 WHERE `published`=1';
+		$db->setQuery($unpublishPT);
+		$db->query();
+		
 		return true;
 	}
 	

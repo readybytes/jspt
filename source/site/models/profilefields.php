@@ -52,7 +52,6 @@ class XiptModelProfilefields extends XiptModel
 	function getFieldsForProfiletype(&$fields, $selectedProfiletypeID, $from, $notSelectedFields= null)
 	{
 		XiptError::assert($selectedProfiletypeID, XiptText::_("SELECTED_PROFILETYPE_DOES_NOT_EXIST"), XiptError::ERROR);
-		$task 	= JRequest::getVar('task','');
 		
 		if($notSelectedFields===null)
 		{
@@ -63,10 +62,35 @@ class XiptModelProfilefields extends XiptModel
 				$catName 			 = $catInfo['name'];
 				$notSelectedFields[$catName] = $this->getNotSelectedFieldForProfiletype($selectedProfiletypeID,$catIndex);
 			}
+			
+			// If user is editing profile, then remove the "Required" from the non-editable fields 
+			if($from == "getEditableProfile"){
+				foreach($notSelectedFields['EDITABLE_AFTER_REG'] as $editField)
+				{
+					if(!in_array($editField , $notSelectedFields['REQUIRED'])){
+						$notSelectedFields['REQUIRED'][] = $editField;
+					}
+				}
+			}
 		}
 		
-		$count = count($fields);
+		if($from === '_loadAllFields'){
+			foreach($fields as $group_name => $group){
+				$fields = &$group->fields;
+				$fields = $this->_getFieldsForAllFields($fields, $selectedProfiletypeID, $from, $notSelectedFields);
+			}
+		}
+		else{
+			$fields = $this->_getFieldsForProfile($fields, $selectedProfiletypeID, $from, $notSelectedFields);
+		}
 		
+		$fields = array_values($fields);
+		return true;
+	}
+	
+	private function _getFieldsForProfile($fields, $selectedProfiletypeID, $from, $notSelectedFields)
+	{
+		$count = count($fields);
 		for($i=0 ; $i < $count ; $i++){
 		    $field =& $fields[$i];
 		    
@@ -78,7 +102,7 @@ class XiptModelProfilefields extends XiptModel
 
 			if(in_array($fieldId, $notSelectedFields['ALLOWED']))
 			{
-			    unset($fields[$i]);
+			   is_object($field) ? $field->published = false : $field['published'] = false;
 			    continue;
 			}
 			
@@ -92,7 +116,7 @@ class XiptModelProfilefields extends XiptModel
 			
 			if(in_array($fieldId, $notSelectedFields['VISIBLE']) &&  $from==='getViewableProfile')
 			{
-				unset($fields[$i]);
+				is_object($field) ? $field->published = false : $field['published'] = false;
 				continue;
 			}
 						
@@ -101,7 +125,7 @@ class XiptModelProfilefields extends XiptModel
 				if(is_object($field)){ 
 					if((!empty($field->value) && $field->required) || $field->required == 0)
 					{
-	                  	unset($fields[$i]);
+	                  	is_object($field) ? $field->published = false : $field['published'] = false;
 						continue;
 					}
 				}
@@ -109,7 +133,7 @@ class XiptModelProfilefields extends XiptModel
                 	if((!empty($field['value']) && $field['required']) || $field['required'] == 0)
 	                {
 	                		                	// Remove unset - as it requires to show fields but not allow to edit. If don't want to show fields then uncomment unset line.
-	                	//unset($fields[$i]);
+	                	//is_object($field) ? $field->published = false : $field['published'] = false;
 						// Code added for disabled elements as per profile type
 	                  //	Used for elements which used any value like textbox, textarea etc. Not work for element which set state of element like On / Off eg checkbox , radio element
 	                  // Don't used disabled here else dat won't get post and your value will get reset after saving the form 	                	
@@ -120,23 +144,16 @@ class XiptModelProfilefields extends XiptModel
 	                	$script[] = "$('input[name=\"field{$field['id']}\"][type=radio]').click(function(){  return false;})";
 	                	// Use for checkbox, multiple values get selected so defined as array and make it read only and on click return it 
 	                	$script[] = "$('input[name=\"field{$field['id']}[]\"][type=checkbox]').click(function(){   return false;})";
+	                	// Use for datepicker
+	                	$script[] ="$('#datePickerField{$field['id']}.joms-input--datepicker').prop('disabled' , 'true')";
 	                	
 	                   	// code completed for diabled
 						continue;
 	               	}
                 }
 			}
-
-			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from!='getViewableProfile' &&  $from!='getEditableProfile' && $task!='advancesearch')
-			{
-				unset($fields[$i]);
-				continue;
-			}
-
-			if(in_array($fieldId, $notSelectedFields['ADVANCE_SEARCHABLE']) &&  $from==='_loadAllFields' && $task==='advancesearch')
-				unset($fields[$i]);
-			
 		}
+
 		// Code added for disabled field element. Id don't want then remove this code or comment it
 		if(isset($script) && !empty($script)) {
 			$js = "jQuery(document).ready(function($){ ".implode("\n", $script)."});"; 
@@ -144,8 +161,47 @@ class XiptModelProfilefields extends XiptModel
 		}
 		// code completed for disabled
 		
-		$fields = array_values($fields);
-		return true;
+		return $fields;
+	}
+	
+	private function _getFieldsForAllFields($fields, $selectedProfiletypeID, $from, $notSelectedFields)
+	{
+		$count 	= count($fields);
+		$task 	= JRequest::getVar('task','');
+		
+		for($i=0 ; $i < $count ; $i++){
+		    $field =& $fields[$i];		    
+		    
+		    if(is_object($field))
+		        $fieldId   = $field->id;
+		    else
+		        $fieldId   = $field['id'];
+
+			if(in_array($fieldId, $notSelectedFields['ALLOWED']))
+			{
+				unset($fields[$i]);
+			    continue;
+			}
+			
+			if(in_array($fieldId, $notSelectedFields['REQUIRED']))
+			{
+				if(is_object($field))
+				    $field->required=0;
+				else
+					$field['required']=0;
+			}
+			
+			if(in_array($fieldId, $notSelectedFields['EDITABLE_DURING_REG']) &&  $from==='_loadAllFields' && $task!='advancesearch')
+			{
+				unset($fields[$i]);
+				continue;
+			}
+
+			if(in_array($fieldId, $notSelectedFields['ADVANCE_SEARCHABLE']) &&  $from==='_loadAllFields' && $task==='advancesearch')
+				unset($fields[$i]);
+		}
+		
+		return $fields;
 	}
 	
 	function getProfileTypes($fid, $cat)

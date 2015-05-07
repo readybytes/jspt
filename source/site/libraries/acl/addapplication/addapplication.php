@@ -8,14 +8,6 @@ class addapplication extends XiptAclBase
 	{
 		return $data['userid'];	
 	}
-	
-	function aclAjaxBlock($msg, $objResponse=null)
-	{
-		$objResponse   	= new JAXResponse();
-		$title		= XiptText::_('CC_PROFILE_VIDEO');
-		$objResponse->addScriptCall('cWindowShow', '', $title, 430, 80);
-		return parent::aclAjaxBlock($msg, $objResponse);
-	}  
 	  
 	function checkAclApplicable(&$data)
 	{
@@ -25,6 +17,4 @@ class addapplication extends XiptAclBase
 
 		return false;
 	}
-
-
 }

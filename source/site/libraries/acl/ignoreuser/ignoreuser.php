@@ -6,11 +6,11 @@
 // no direct access
 if(!defined('_JEXEC')) die('Restricted access');
 
-class reportuser extends XiptAclBase
+class ignoreuser extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return JFactory::getApplication()->input->cookie->get('activeProfile');	
+		return $data['userid'];	
 	}
 
 	function checkAclApplicable(&$data)
@@ -18,12 +18,13 @@ class reportuser extends XiptAclBase
 		if('com_community' != $data['option'] && 'community' != $data['option'])
 			return false;
 
-		if('system' != $data['view'])
-			return false;
-
-		if($data['task'] === 'ajaxreport')
+		if('profile' == $data['view'] && ($data['task'] === strtolower('ajaxIgnoreUser') || $data['task'] === strtolower('ajaxConfirmIgnoreUser')))
 				return true;
+
+		if('activities' == $data['view'] && ( $data['task'] === strtolower('ajaxConfirmIgnoreUser') || $data['task'] === strtolower('ajaxIgnoreUser')))
+			return true;
 
 		return false;
 	}
 }
+

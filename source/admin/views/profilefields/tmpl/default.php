@@ -18,7 +18,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 <table class="adminlist" cellspacing="1">
 	<thead>
 		<tr>
-			<th width="1%"><?php echo XiptText::_( '#' ); ?></th>
+			<th width="1%"><?php echo XiptText::_( 'HASH' ); ?></th>
 			<th width="29%" class="title"><?php echo XiptText::_( 'FIELD_NAME' ); ?></th>
 			<?php foreach($this->categories as $catIndex => $catInfo) : ?>
 				<?php $catName = $catInfo['name'];?>	

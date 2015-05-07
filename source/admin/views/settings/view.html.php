@@ -22,7 +22,7 @@ class XiptViewSettings extends XiptView
 	function setToolBar()
 	{
 	 	JToolBarHelper::title( XiptText::_( 'SETTINGS' ), 'settings' );
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+		JToolBarHelper::back('COM_XIPT_HOME' , 'index.php?option=com_xipt');
 		JToolBarHelper::divider();
 		JToolBarHelper::save('save','COM_XIPT_SAVE');
 	}

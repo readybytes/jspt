@@ -22,6 +22,4 @@ class deletevent extends XiptAclBase
 
 		return false;
 	}
-
-
 }

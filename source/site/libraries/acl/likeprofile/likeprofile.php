@@ -20,7 +20,7 @@ class likeprofile extends XiptAclBase
 	function checkAclApplicable(&$data)
 	{
 		if('com_community' == $data['option'] && 'system' == $data['view']
-		    	&& ($data['task'] == 'ajaxlike' || $data['task'] == 'ajaxdislike') 
+		    	&& ($data['task'] == 'ajaxlike' || $data['task'] == 'ajaxunlike') 
 		    	&& $data['args'][0] == 'profile')
 			return true;
 

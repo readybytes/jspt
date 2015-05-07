@@ -21,7 +21,7 @@ if(!defined('_JEXEC')) die('Restricted access');
 	<thead>
 		<tr class="title">		
 			<th width="1%">
-				<?php echo XiptText::_( '#' ); ?>
+				<?php echo XiptText::_( 'HASH' ); ?>
 			</th>
 			<th width="5%">
 				<?php echo XiptText::_( 'APPLICATION_ID' ); ?>

@@ -1,12 +1,15 @@
 //pkg.version=J3.1_JS3.0
-pkg.version=J3.2_JS3.0.5.2
-pkg.location=${user.home}/Dropbox/TEAM/dev/xipt
+#pkg.version=J3.2_JS3.0.5.2
+pkg.version=J3.4.1
+#pkg.location=${user.home}/Dropbox/TEAM/dev/xipt
 
+# url for joomla kit
+pkg.location = http://10.0.0.91/intranet/downloads/SetupKits/Joomla
 
 ## joomla installation configuration
 joomla.owner=jspt
 joomla.version=latest
-joomla.rootpath=/var/www/jspt
+joomla.rootpath=/var/www
 joomla.folder=${joomla.owner}${joomla.now}
 joomla.sitename=${joomla.folder}
 joomla.dbuser=${joomla.owner}${joomla.now}

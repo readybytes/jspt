@@ -10,8 +10,16 @@ class viewdetailphotos extends XiptAclBase
 {
 	function getResourceOwner($data)
 	{
-		return $data['viewuserid'];
-		
+		if($data['viewuserid']){
+			return $data['viewuserid'];
+		}
+
+		$albumId	= $data['args'][0];
+		$photo		= CFactory::getModel('photos');
+		$photoData	= $photo->getAlbum($albumId);
+		$creatorId	= $photoData->creator;
+
+		return $creatorId;		
 	}
 
 	function checkAclApplicable(&$data)
@@ -22,7 +30,7 @@ class viewdetailphotos extends XiptAclBase
 		if('photos' != $data['view'] )
 			return false;
 
-		if($data['task'] == 'photo')
+		if($data['task'] == 'photo' || $data['task']=='ajaxgetphotosbyalbum')
 			return true;
 
 		return false;

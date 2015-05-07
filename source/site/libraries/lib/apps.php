@@ -89,16 +89,13 @@ class XiptLibApps
 	        return true;
 	    
 	    //restrict the user.
-	    $objResponse->addAssign('cwin_logo', 'innerHTML', XiptText::_('CC_ADD_APPLICATION_TITLE'));
-
-		$action		= '<form name="cancelRequest" action="" method="POST">';
-		$action		.= '<input type="button" class="button" onclick="cWindowHide();return false;" name="cancel" value="'.XiptText::_('CC_BUTTON_CLOSE').'" />';
-		$action		.= '</form>';
-		
-		$objResponse->addAssign('cWindowContent', 'innerHTML', '<div class="ajax-notice-apps-added">'.XiptText::_( 'APPLICATION_ACCESS_DENIED' ).'</div>');
-		
-		$objResponse->addScriptCall('cWindowActions', $action);
-		return false;
-		
+	   	        
+	    $objResponse = new JAXResponse();
+		$json = new stdClass();
+		$json->aclerror = true; 
+		$json->title = XiptText::_('CC_ADD_APPLICATION_TITLE');
+		$json->html = XiptText::_( 'APPLICATION_ACCESS_DENIED' );
+		die(json_encode($json));
+				
 	} 
 }

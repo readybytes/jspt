@@ -25,7 +25,18 @@ class addvideos extends XiptAclBase
     				 ->dbLoadQuery("","")
     				 ->loadResult();
 	}
-
+	
+	public function handleViolation($info)
+	{
+		if($info['task'] == 'ajaxlinkvideopreview')
+		{
+			$objResponse = new JAXResponse();	
+			$objResponse->addScriptCall('__throwError', XiptText::_('YOU_ARE_NOT_ALLOWED_TO_PERFORM_THIS_ACTION'));
+        	$objResponse->sendResponse();
+		}
+		//let parent handle it
+		parent::handleViolation($info);
+	}
 
 	function checkAclApplicable(&$data)
 	{
@@ -41,11 +52,4 @@ class addvideos extends XiptAclBase
 		return false;
 	}
 
-	function aclAjaxBlock($msg, $objResponse=null)
-	{
-		$objResponse   	= new JAXResponse();
-		
-		$objResponse->addScriptCall('cWindowShow', '','', 430, 80);
-		return parent::aclAjaxBlock($msg, $objResponse);
-	}
 }

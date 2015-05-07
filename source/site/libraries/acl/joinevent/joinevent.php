@@ -70,6 +70,9 @@ class joinevent extends XiptAclBase
 			return false;
 
 		if('events' != $data['view'])
+			return false;		
+			
+		if($data['task']!='updatestatus' && $data['task']!='ajaxupdatestatus')
 			return false;
 
 		//if user is clicking on not attend, then don't restrict him
@@ -77,10 +80,7 @@ class joinevent extends XiptAclBase
 		if($data['args'][1] == 2)
 			return false;
 			
-		if($data['task']=='updatestatus' || $data['task']=='ajaxupdatestatus')
-				return true;
-
-		return false;
+		return true;
 	}
 
 	function getCategoryId($eventid)

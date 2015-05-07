@@ -12,13 +12,6 @@
 
 
 	<target name="config_joomla" depends="jconfig">
-
-<!--		<exec command="tar -xvzf ${pkg.location}/${pkg.version}/Joomla.tar.gz -C ${joomla.rootpath}/${joomla.folder}" />
-		<exec command="mv -f ${joomla.rootpath}/${joomla.folder}/Joomla/* ${joomla.rootpath}/${joomla.folder}" passthru="true" />
--->
-		<copy file="${pkg.location}/${pkg.version}/database.sql" tofile="${joomla.rootpath}/${joomla.folder}/database.sql" overwrite="true"/>
-		<copy file="${pkg.location}/${pkg.version}/configuration.php" tofile="${joomla.rootpath}/${joomla.folder}/configuration.php" overwrite="true"/>
-
 		<!-- replace configuration-->
 		<reflexive>
 			<fileset dir="${joomla.rootpath}/${joomla.folder}">
@@ -41,12 +34,18 @@
 	</target>
 
 	<target name="install_joomla" depends="jconfig">
+
 		<echo msg="Installing Joomla Files..." />
+
 		<!-- Copy Joomla Folder to ROOT // FOLDERNAME  -->
 		<mkdir dir="${joomla.rootpath}/${joomla.folder}" />
 
+		<!-- Copy Joomla Kit from url -->
+		<httpget url="${pkg.location}/${pkg.version}/Joomla.tar.gz" dir="${joomla.rootpath}/${joomla.folder}"/>
+	
+		<!-- Extract Joomla Kit -->
 		<untar todir="${joomla.rootpath}/${joomla.folder}">
-			<fileset dir="${pkg.location}/${pkg.version}">
+			<fileset dir="${joomla.rootpath}/${joomla.folder}">
 				<include name="Joomla.tar.gz"/>
 			</fileset>
 		</untar>

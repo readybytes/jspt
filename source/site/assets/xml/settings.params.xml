@@ -7,23 +7,23 @@
 	</fieldset>
 	<fieldset group="advPtypeSettings" name="advPtypeSettings">
 		<field name="allow_user_to_change_ptype_after_reg" type="radio" default="1" label="COM_XIPT_ALLOW_USER_TO_CHANGE_PROFILE_TYPE_AFTER_REGISTRATION" description="COM_XIPT_ALLOW_USER_TO_CHANGE_PROFILE_TYPE_AFTER_REGISTRATION_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>	
 	</fieldset>
 	
 	<!-- INTEGRATION SETTINGS -->
 	<fieldset group="basicIntegrationSettings" name="basicIntegrationSettings">
 		<field name="show_ptype_during_reg" type="radio" default="1" label="COM_XIPT_INTEGRATE_JSPT_WITH_REGISTRATION" description="COM_XIPT_INTEGRATE_JSPT_WITH_REGISTRATION_DESC">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 		<field name="subscription_integrate" type="radio" default="0" label="COM_XIPT_INTEGRATE_SUBS" description="COM_XIPT_INTEGRATE_SUBS_DESC" onClick="">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 		<field name="integrate_with" type="radio" default="payplans" label="COM_XIPT_INTEGRATE_WITH" description="COM_XIPT_INTEGRATE_WITH_DESC">
-			<option value="aec">AEC</option>
+			<option value="aec">COM_XIPT_AEC</option>
 			<option value="payplans">&lt;a href='http://www.jpayplans.com' &gt;PayPlans&lt;/a&gt;</option>
 		</field>			
 	</fieldset>
@@ -32,35 +32,35 @@
 	<!-- REGISTRATIN SETTINGS -->	
 	<fieldset group="advRegistrationSettings" name="advRegistrationSettings">
 		<field name="jspt_show_radio" type="radio" default="1" label="COM_XIPT_DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="COM_XIPT_DURING_REGISTRATION_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
-			<option value="0">Select Box</option>
-			<option value="1">Image Options</option>
+			<option value="0">COM_XIPT_SELECT_BOX</option>
+			<option value="1">COM_XIPT_IMAGE_OPTIONS</option>
 		</field>
 		<field name="jspt_fb_show_radio" type="radio" default="0" label="COM_XIPT_DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS" description="COM_XIPT_DURING_FACEBOOK_CONNECTIVITY_SHOW_CHOOSE_ACCOUNT_TYPE_AS_DESC">
-			<option value="0">Select Box</option>
-			<option value="1">Radio Options</option>
+			<option value="0">COM_XIPT_SELECT_BOX</option>
+			<option value="1">COM_XIPT_RADIO_OPTIONS</option>
 		</field>
 		<field name="user_reg" type="radio" default="jomsocial" label="COM_XIPT_AFTER_PROFILETYPE_SELECTION_GO_TO_REGISTRATION" description="COM_XIPT_AFTER_PROFILETYPE_SELECTION_GO_TO_REGISTRATION_DESC">
-               <option value="jomsocial">JomSocial</option>
-               <option value="joomla">Joomla</option>
+               <option value="jomsocial">COM_XIPT_JOMSOCIAL</option>
+               <option value="joomla">COM_XIPT_JOOMLA</option>
        </field>	
 	</fieldset>
 	
 	<!-- APPLICATION SETTINGS -->
 	<fieldset group="advAppsSettings" name="advAppsSettings">
 		<field name="jspt_block_dis_app" type="radio" default="0" label="COM_XIPT_BLOCK_DISPLAY_APPLICATION" description="COM_XIPT_BLOCK_DISPLAY_APPLICATION_WHEN_VISITING_OTHERS_PROFILE_DESC">
-				<option value="0">Owner</option>
-				<option value="1">Visitor</option>
-				<option value="2">Both</option>
+				<option value="0">COM_XIPT_OWNER</option>
+				<option value="1">COM_XIPT_VISITOR</option>
+				<option value="2">COM_XIPT_BOTH</option>
 		</field>
 	</fieldset>
 		
 	<!-- SUBSCRIPTION SETTINGS -->
 	<fieldset group="advSubsSettings" name="advSubsSettings">		
 		<field name="subscription_message" type="radio" default="pt" label="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION" description="COM_XIPT_DISPLAY_MESSAGE_AFTER_PLAN_SELECTION_DESC">
-			<option value="b">Both, Plan and Profiletype</option>
-			<option value="pl">Only Plan</option>
-			<option value="pt">Only Profiletype</option>
-			<option value="no">None</option>
+			<option value="b">COM_XIPT_BOTH_PLAN_AND_PROFILETYPE</option>
+			<option value="pl">COM_XIPT_ONLY_PLAN</option>
+			<option value="pt">COM_XIPT_ONLY_PROFILETYPE</option>
+			<option value="no">COM_XIPT_NONE</option>
 		</field>			
 	</fieldset>
 	

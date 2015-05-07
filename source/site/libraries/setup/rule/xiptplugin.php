@@ -10,9 +10,8 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 {
 	public static function isRequired()
 	{	
-		$jsfield_isrequired=XiptSetupRuleJsfields::isRequired();
-	    $patchfiles_isrequired=XiptSetupRulePatchfiles::isRequired();
-		return (self::_isJSMultiPTypeEnabled() || !self::_isPluginInstalledAndEnabled()|| $jsfield_isrequired|| $patchfiles_isrequired);
+		$jsfield_isrequired=XiptSetupRuleJsfields::isRequired();	    
+		return (self::_isJSMultiPTypeEnabled() || !self::_isPluginInstalledAndEnabled()|| $jsfield_isrequired);
 	}
 	
 	function doApply()
@@ -29,7 +28,6 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 			else
 				$msg.=XiptText::_("PLUGINS_ENABLED_SUCCESSFULLY") ;
 		$msg.=  XiptSetupRuleJsfields::doApply();
-		$msg.=  XiptSetupRulePatchfiles::doApply();
 			
 		return $msg;	
 			}
@@ -41,10 +39,8 @@ class XiptSetupRuleXiptplugin extends XiptSetupBase
 			return false;
 			
 		$ruleJsfield 	= XiptFactory::getSetupRule('jsfields');
-		$rulePatchFile 	= XiptFactory::getSetupRule('patchfiles');
 			
-		if($ruleJsfield->doRevert() == false
-			|| $rulePatchFile->doRevert() == false)
+		if($ruleJsfield->doRevert() == false)
 			return false;
 		
 		return true;

@@ -394,17 +394,23 @@ class plgSystemxipt_system extends JPlugin
 		}
 
 		$profileType = JHTML::_('select.genericlist',  $allTypes, 'profiletypes', 'class="inputbox"', 'id', 'name');
-
+		$allTemplates = XiptHelperJomsocial::getTemplatesList();
+		$options = array();
+		foreach ($allTemplates as $tmpl){
+			$tmpObject = new stdClass();
+			$tmpObject->id = $tmpl;
+			$tmpObject->name = ucfirst($tmpl);
+			$options[] = $tmpObject;
+		}
+		
+		$template = JHTML::_('select.genericlist',  $options, 'templates', 'class="inputbox"', 'id', 'name');
+		
         ob_start();
-        $this->_addXiptSearchScript($profileType);
+        $this->_addXiptSearchScript($profileType , $template);
 
         $content = ob_get_contents();
         ob_clean();
         $doc = JFactory::getDocument();
-		
-        JHTML::script('components/com_xipt/assets/js/jquery1.4.2.js');
-        
-        $doc->addCustomTag( '<script type="text/javascript">jQuery.noConflict();</script>' );
 
         $doc->addScriptDeclaration($content);
         return true;
@@ -436,17 +442,20 @@ class plgSystemxipt_system extends JPlugin
 			
     	ob_start();
         ?>
-        joms.jQuery(document).ready(function(){	
-			var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
-			joms.jQuery("a[href='" + menuUrl + "']").hide();
-			joms.jQuery("a[href='#privacyPref']").closest('li').hide();
+        window.joms_queue || (window.joms_queue = []);
+    	window.joms_queue.push(function($){
+		    $(document).ready(function(){	
+				var menuUrl = "<?php echo $hideMenu; ?>".replace(/\&amp\;/gi, "&");
+				$("a[href='" + menuUrl + "']").hide();
+				$("a[href='#privacyPref']").closest('li').hide();
 			
-			<?php 
-			//if somebody is overriding privacy, then hide preferences also
-			if(XIPT_PRIVACY == 'privacy_override'){ ?>
-			joms.jQuery("a[href='#emailPref']").closest('li').hide();
-			<?php } ?>
-		});	
+				<?php 
+				//if somebody is overriding privacy, then hide preferences also
+				if(XIPT_PRIVACY == 'privacy_override'){ ?>
+				$("a[href='#emailPref']").closest('li').hide();
+				<?php } ?>
+			});	
+		});
         <?php 
         $content = ob_get_contents();
         ob_clean();
@@ -467,63 +476,74 @@ class plgSystemxipt_system extends JPlugin
 		return false;
 	}
 
-	function _addXiptSearchScript($profileType)
+	function _addXiptSearchScript($profileType , $template)
 	{
 		//CAssets::attach(JURI::root().'components/com_community/assets/joms.jquery', 'js');
 		?>
-		$(document).ready(function(){
-			 // find all select list object
-			 var sel = document.getElementsByTagName("select");
-			 var selLength =  sel.length;
-
-		     for (i=0 ; i <= selLength; i++){
-		        joms.jQuery.xipt.getProfileTypesFields(joms.jQuery, joms.jQuery(sel[i]).attr("id"));
-		        }
-		    });
-
-			joms.jQuery(function($){
-			// change on select list then attach our HTML
-			$("select[id^='field']").live('change', function(){
-				joms.jQuery.xipt.getProfileTypesFields($, $(this).attr("id"));
-				});
-
-			$("#profiletypes").live('change', function(){
-
-			 		//set profileType value in  hidden textbox
-					profileFieldValue= $(this).val();
-					parentId = $(this).prev().attr("id");
-					$("#"+ $("#" + parentId + ":first-child" ).attr("id")).val(profileFieldValue);
-				});
-
-			});
-
-    	joms.jQuery.extend({
-    		xipt:{
-			  getProfileTypesFields : function($, id){
-					var value = $('#'+id).val();
-
-              		if(value != "XIPT_PROFILETYPE")
-                      return true;
-
-                    ptHtml = '<?php echo $profileType; ?>';
-                    // valueinputId is parent id of valueId and  profiletype List
-                    valueinputId = $('#'+id).attr("id").replace("field", "valueinput");
-
-				    // find hidden text box
-				    valueId = $('#'+id).attr("id").replace("field", "value");
-				    $('#'+valueId).css('display', 'none');
-				    $(ptHtml).appendTo('div#'+valueinputId);
-
-
-				    // set profileType value in select list by hidden textbox
-				    if($('#'+valueId).val())
-				    	 $('#'+valueId).next().val($('#'+valueId).val());
-				     else
-				         $('#'+valueId).val($('#'+valueId).next().val());			//set default value of hidden textbox
-				    }
-
-				}
-			});
+		
+		window.joms_queue || (window.joms_queue = []);
+    	window.joms_queue.push(function($){
+    	
+			jsAdvanceSearch.action.changeFieldOrig = jsAdvanceSearch.action.changeField;
+			jsAdvanceSearch.action.changeField = function( id ) {
+			
+				var value, type, condHTML, listValue;
+                var cond = [];
+                var conditions = new Array();
+                conditions['contain']               = "**Contains**";
+                conditions['between']               = "**Between**";
+                conditions['equal']                 = "**Equal**";
+                conditions['notequal']              = "**Not equal**";
+                conditions['lessthanorequal']       = "**Less than or equal to**";
+                conditions['greaterthanorequal']    = "**Greater than or equal to**";
+                
+                value = $('#field'+id).val();
+                
+                // do jspt specific rendering
+			    type    = jsAdvanceSearch.action.getFieldType(value);
+               	this.changeFieldType(type, id);
+			
+				switch(type)
+                	{
+                		case 'templates'	:
+                			cond      = ['equal', 'notequal'];
+	                        listValue = '<?php echo $template; ?>';
+	                        var newId = ("id=\"value")+id;
+	                        var newName = ("name=\"value")+id;
+	                        listValue = listValue.replace("id=\"templates" , newId);
+	                        listValue = listValue.replace("name=\"templates" , newName);
+	                        break;
+                	
+                		case 'profiletypes'	:
+                			cond      = ['equal', 'notequal'];
+	                        listValue = '<?php echo $profileType; ?>';
+	                        var newId = ("id=\"value")+id;
+	                        var newName = ("name=\"value")+id;
+	                        listValue = listValue.replace("id=\"profiletypes" , newId);
+	                        listValue = listValue.replace("name=\"profiletypes" , newName);
+	                        break;
+	                        
+	                     default :
+	                     	// call original function
+			        		jsAdvanceSearch.action.changeFieldOrig( id );
+			        		return;
+                	}
+                	
+                condHTML = '<select class="joms-input" name="condition'+id+'" id="condition'+id+'" onchange="jsAdvanceSearch.action.changeCondition('+id+');">';
+	            $(cond).each(function(){
+	             	condHTML +='<option value="'+this+'">'+conditions[this]+'</option>';
+	            });
+	            condHTML +='</select>';
+	
+	            $('#selectcondition'+id).html(condHTML);
+	            jsAdvanceSearch.action.changeCondition(id);
+                jsAdvanceSearch.action.calendar(type, id);
+	            if(listValue!=0){
+	           		$('#valueinput'+id).html(listValue);
+	            }
+			    
+			};
+		});
 
 		<?php
 	}
@@ -533,8 +553,9 @@ class plgSystemxipt_system extends JPlugin
 		$document = JFactory::getDocument();
  		ob_start();
 		?>
- 		joms.jQuery().ready(function($){
- 	
+		window.joms_queue || (window.joms_queue = []);
+    	window.joms_queue.push(function($){
+	 		$(document).ready(function($){ 	
 			$('input[onclick="azcommunity.resetprivacy();"]').attr('onclick', '').attr('id','resetPrivacy'); 
 
 				$('#resetPrivacy').click(function(e){
@@ -544,7 +565,8 @@ class plgSystemxipt_system extends JPlugin
 						return false;
 				}
 				return azcommunity.resetprivacy();
-				});								
+				});
+			});								
 		});
 		<?php
 		$content = ob_get_contents();

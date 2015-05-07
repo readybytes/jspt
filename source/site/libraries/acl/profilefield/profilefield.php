@@ -61,8 +61,8 @@ class profilefield extends XiptAclBase
             	(in_array($otherpid, $otherptype_arr[$fieldId]) 
                 || in_array(0, $otherptype_arr[$fieldId])))
             {
-            	unset($arr_field[$i]);
-                continue;
+            	is_object($arr_field[$i]) ? $arr_field[$i]->published = false : $arr_field[$i]['published'] = false;
+			    continue;
             }
 		                    
 		 }

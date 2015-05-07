@@ -74,7 +74,24 @@ class XiptViewConfiguration extends XiptView
 
 		$lists['imgQuality'] = JHTML::_('select.genericlist',  $imgQuality, 'output_image_quality', 'class="inputbox" size="1"', 'value', 'text', $params->get('output_image_quality'));
 		
+		 //album mode
+        $albumMode = array
+        (
+            JHTML::_('select.option', '0', JText::_('COM_COMMUNITY_SAME_WINDOW') ), // same window
+            JHTML::_('select.option', '1', JText::_('COM_COMMUNITY_MODAL_WINDOW')), // new window
+        );
+
+        $lists['albumMode'] = JHTML::_('select.genericlist',  $albumMode, 'album_mode', 'class="inputbox" size="1"', 'value', 'text', $params->get('album_mode'));
+
+        //video mode
+        $videoMode = array
+        (
+            JHTML::_('select.option', '0', JText::_('COM_COMMUNITY_SAME_WINDOW') ), // same window
+            JHTML::_('select.option', '1', JText::_('COM_COMMUNITY_MODAL_WINDOW')), // new window
+        );
 		
+        $lists['videoMode'] = JHTML::_('select.genericlist',  $videoMode, 'video_mode', 'class="inputbox" size="1"', 'value', 'text', $params->get('video_mode'));
+        
 		$uploadLimit = ini_get('upload_max_filesize');
 		$uploadLimit = JString::str_ireplace('M', ' MB', $uploadLimit);
 		

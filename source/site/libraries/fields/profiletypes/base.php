@@ -99,7 +99,7 @@ class XiptFieldsProfiletypesBase
 		// user can change profiletype, add information
 		$pTypes = XiptLibProfiletypes::getProfiletypeArray($filter);
 		
-		$html	= '<select id="field'.$field->id.'" name="field' . $field->id  . '" '.$disabled.' class="hasTip select'.$class.' inputbox" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
+		$html	= '<select id="field'.$field->id.'" name="field' . $field->id  . '" '.$disabled.' class="joms-select hasTip select'.$class.'" title="' . $field->name . '::' . htmlentities( $field->tips ). '">';
 		
 		$selectedElement	= 0;
 		if(!empty($pTypes)){

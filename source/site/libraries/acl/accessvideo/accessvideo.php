@@ -26,10 +26,13 @@ class accessvideo extends XiptAclBase
 		$args		= $data['args'];
 		$videoId	= empty($videoId)? $args[0] : $videoId;
 		
-		$video	    = CFactory::getModel('videos');
-		$videoData  = $video->getVideos(array('id'=>$videoId));
-		$creatorid	= $videoData[0]->creator;
-		return $creatorid;
+		$query 		= new XiptQuery();
+   
+	    return $query->select('creator')
+	    				 ->from('#__community_videos')
+	    				 ->where(" id = $videoId ")
+	    				 ->dbLoadQuery("","")
+	    				 ->loadResult();
 	}
 
 	function checkAclApplicable(&$data)

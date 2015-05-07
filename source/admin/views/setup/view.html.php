@@ -57,7 +57,7 @@ class XiptViewSetup extends XiptView
 	{
 		// Set the titlebar text
 		JToolBarHelper::title( XiptText::_( 'SETUP' ), 'setup' );
-		JToolBarHelper::back('Home' , 'index.php?option=com_xipt');
+		JToolBarHelper::back('COM_XIPT_HOME' , 'index.php?option=com_xipt');
 		JToolBarHelper::custom('unhook','unhook','','COM_XIPT_UNHOOK',0,0);
 	}
 	

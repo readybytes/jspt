@@ -40,6 +40,34 @@ class uploadavatar extends XiptAclBase
 		}
 	}
 	
+	public function checkCoreApplicableByPlan($data)
+	{
+		if(!JFolder::exists(JPATH_ROOT.DS.'components'.DS.'com_payplans'))
+  			return false;
+  		
+		$plan = $this->getCoreParams('core_plan',0);
+
+		//check if its applicable on more than 1 plan
+		$plan = is_array($plan) ? $plan : array($plan);
+		
+		//All means applicable
+		if(in_array(XIPT_PLAN_ALL, $plan))
+			return true;
+
+		$mySess 		= JFactory::getSession();
+		$planid = $mySess->get('REGISTRATION_PLAN_ID',0,'payplans');
+		if(in_array($planid, $plan)){
+			return true;
+		}
+				
+		return false;
+	}
+	
+	public function checkAclViolationByPlan($data)
+	{	
+		return true;
+	}
+	
 	function isApplicableOnSelfProfiletype($resourceAccesser)
 	{
 		$aclSelfPtype = $this->getACLAccesserProfileType();
@@ -69,84 +97,86 @@ class uploadavatar extends XiptAclBase
 
 		// Acl not applicable when Avtar imported from Facebook.
 		//XiTODO:: If its default avtar of facebook then Acl need to be applicable.
-		if(stristr($data['task'], 'ajaximportdata')!==FALSE){
+		if(strtolower($data['task']) === 'ajaximportdata' 
+			|| strtolower($data['task']) === 'uploadavatar'){
 			return false;
 		}
+		
 		
 		$session	= JFactory::getSession();
-		$permission = $this->aclparams->getValue('upload_avatar_at_registration',null,false);
-		$post		= JRequest::get('post');
-		
-		//check whether user has actually uploaded a avatar 
-		//or he is just clicking on upload without selecting avatar
-		$uploadedData   = JRequest::get('files');
-		
-		if($uploadedData){
-			$avatar			= $uploadedData['Filedata'];
-			$avatarSize		= $avatar['size'];
-		}
-		
-		$userId = JFactory::getUser()->id;
-		
-		//get user's profiletype & its related avatar
-		$userPid = XiptLibProfiletypes::getUserData($userId,'PROFILETYPE');
-		$ptypeavatar = 	XiptLibProfiletypes::getProfiletypeData($userPid, 'avatar');
-		
-		// When user login then force to upload avatar
-		if(!empty($userId) && ($data['task'] === 'logout' || $data['task'] === 'user.logout')){
+		$userid		= JFactory::getUser()->id;
+
+		// When user logout then don't force to upload avatar
+		if(!empty($userid) && ($data['task'] === 'logout' || $data['task'] === 'user.logout')){
 			$session->clear('uploadAvatar','XIPT');
 			return false;
 		}
 		
-		if(!empty($userId) && stristr($data['task'], 'uploadavatar') !== FALSE){
-			//get login user avatar
-			$userAvatar = CFactory::getUser($userId)->_avatar;
-			//if avatar is deafaul then force to upload avatar
-			if(JString::stristr( $userAvatar , 'components/com_community/assets/default.jpg') 
-				|| JString::stristr( $userAvatar , 'components/com_community/assets/user-Female.png')
-				|| JString::stristr( $userAvatar , 'components/com_community/assets/user-Male.png')
-				|| empty($userAvatar)
-					|| JString::stristr($userAvatar,$ptypeavatar)) {
-				$session->set('uploadAvatar',true,'XIPT');
-				return true;
+		// Don't restrict user if he uploads avatar
+		if('photos'== $data['view'] && strtolower($data['task']) === 'changeavatar'){
+			
+			//check whether user has actually uploaded a avatar
+			//or he is just clicking on upload without selecting avatar
+			$uploadedData = JRequest::get('files');
+			if($uploadedData){
+				$avatar	= $uploadedData['filedata'];
+				$avatarSize	= $avatar['size'];
 			}
-			else 
+			if($session->get('uploadAvatar',false,'XIPT') 
+				&& isset($avatarSize) && $avatarSize){
+				$session->clear('uploadAvatar','XIPT');
+				$session->clear('sessionpt','XIPT');
 				return false;
-		}
+			}
+			
+		}	
 				
-		if($permission && $session->get('uploadAvatar',false,'XIPT') 
-			&& isset($post['action']) && $post['action'] === 'doUpload' && $avatarSize){
-			$session->clear('uploadAvatar','XIPT');
-			$session->clear('sessionpt','XIPT');
+		// IF user is logged in and does not have avatar, then force him to upload avatar
+		if($userid){			
+			if(strtolower($data['task']) !== 'uploadavatar'){
+				//get user's profiletype & its related avatar
+				$userPid = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
+				$ptypeavatar = 	XiptLibProfiletypes::getProfiletypeData($userPid, 'avatar');
+				
+				//get login user avatar
+				$userAvatar = CFactory::getUser($userid)->_avatar;
+				//if avatar is deafaul then force to upload avatar
+				if(JString::stristr( $userAvatar , 'components/com_community/assets/default.jpg') 
+					|| JString::stristr( $userAvatar , 'components/com_community/assets/user-Female.png')
+					|| JString::stristr( $userAvatar , 'components/com_community/assets/user-Male.png')
+					|| empty($userAvatar)
+					|| JString::stristr($userAvatar,$ptypeavatar)) {
+					$session->set('uploadAvatar',true,'XIPT');
+					return true;
+				}
+				else{ 
+					return false;
+				}				
+			}
 		}
-		//if user login and have a avatar then not apply
-		if($userId && $permission){
-		 	return false; 
+
+		// Check if user should be forced to upload avatar on registration time
+		$permission = $this->aclparams->getValue('upload_avatar_at_registration',null,false);
+		if(!$permission){
+			return false;
 		}
 		
-		//On Registeration Time:: if user come to uoload avatr then all link are disable untill user not upload avatar
-		if($permission && $session->get('uploadAvatar',false,'XIPT') && stristr($data['task'],'registeravatar')!==FALSE){
-			return true;
-		}
-		
-		// When not registered than dont follow this rule until reach at upload avatar page through ragistration
+		// When not registered than dont follow this rule until reach at upload avatar page through registration
 		if('com_community' != $data['option'] && 'community' != $data['option']){
 			return false;
 		}
 
 		// Set session variable at registration time
-		if('register'== $data['view'] && $data['task'] === 'registeravatar'){
-			if(!isset($post['action']) || (isset($post['action']) && $post['action'] != 'doUpload')){
+		if('register'== $data['view'] && strtolower($data['task']) === 'registeravatar'){
 				$session->set('uploadAvatar',true,'XIPT');
-			}	
-			//XiTODO::add javascript for Click on upload button with image path.(without image-path does nt submit form)
+			return false;
 		}
 		
 		// if you click on "SKIP" url then apply rule and not redirect to success  
-		if($permission && 'register' == $data['view'] 
-		&& $data['task'] == 'registersucess' && $session->get('uploadAvatar',false,'XIPT')){
-				return true;
+		if('register' == $data['view'] && strtolower($data['task']) == 'registersucess' && $session->get('uploadAvatar',false,'XIPT')){
+			return true;
 		}
+		
 		return false;
 	}
 

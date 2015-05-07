@@ -30,6 +30,8 @@ class plgCommunityxipt_community extends CApplications
 	function plgCommunityxipt_community( $subject, $params )
 	{
 		parent::__construct( $subject, $params );
+		$js	= 'components/com_xipt/assets/js/';
+		CFactory::attach( 'acl.js' , 'js' , $js );
 		$this->_pluginHandler = XiptFactory::getPluginHandler();
 	}
 	
@@ -129,20 +131,6 @@ class plgCommunityxipt_community extends CApplications
 		$watermarkInfo = XiptHelperImage::getWatermark($userid);
 		if(false == $watermarkInfo)
 			return true;
-			
-		//In JS3.0, it creates one more image as profile-xx.ext
-		//so we have to apply watermark on this also
-		//during reg this image is not created
-		//XITODO :: No need to apply water-mark here. Its onlu use for cropping image for thumb
-		// After thumb creation, we will already apply water-matk on thumb 
-		if($view != 'register' && $task != 'registerAvatar' && $what != 'thumb'){ 
-			$profile_image = 'images/avatar/'.'profile-'.JFile::getName($new_avatar_path);
-			$profile_image = XiptHelperUtils::getRealPath($profile_image);
-			//Get large avatar use for cropping
-			if (JFile::exists(JPATH_ROOT . '/' . $profile_image)) {
-				XiptHelperImage::addWatermarkOnAvatar($userid,$profile_image,$watermarkInfo,$what);
-			}
-		}
 		
 		XiptHelperImage::addWatermarkOnAvatar($userid,$new_avatar_path,$watermarkInfo,$what);
 		return true;
@@ -329,5 +317,24 @@ class plgCommunityxipt_community extends CApplications
 		
 		CActivityStream::add($act);
 		return true;
+	}
+	
+	public function onProfileFieldLoad($userId, $fields, $function_name)
+	{
+		// Need to send $fields as return becase $fields is passed as array.
+		// The return fields will be merged with above passed $fields
+		// To unset any field, it must be set published to false, unset won't work here.
+
+		$this->_pluginHandler->onProfileLoad($userId, $fields, $function_name);
+		return $fields;
+	}
+	
+	public function onAllFieldsLoad($fields)
+	{
+		// As this event passes $fields as object so no need to return $fields.
+		// if you update $fields. it will be reflected in JomSocial as well.
+
+		$userId = JFactory::getUser()->id;
+		$this->_pluginHandler->onProfileLoad($userId, $fields, '_loadAllFields');		
 	}
 }
