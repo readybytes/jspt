@@ -129,6 +129,7 @@ class XiptLibProfiletypes
 			/* send success result */
 			//send the result as true
 			$dispatcher->trigger( 'onAfterProfileTypeChange',array($ptype,$result,$userid));
+			XiptLibJomsocial::updateCommunityUserWatermark($userid);
 		}
 
 		$feature=array();

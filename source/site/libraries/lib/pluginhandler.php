@@ -158,6 +158,9 @@ class XiptLibPluginhandler
 			//case 'profile_ajaxConfirmRemovePicture': 
 			case 'profile_ajaxRemovePicture' : // This case use for Admin panel
 						return XiptLibAvatar::removeAvatar($args, $response);
+			
+			case 'photos_ajaxUpdateThumbnail' : 
+						return XiptLibAvatar::ajaxUpdateThumbnail($args, $response);
 				
 			default :
 				// 	we do not want to interfere, go ahead JomSocial
@@ -319,6 +322,12 @@ class XiptLibPluginhandler
 
 	static function hidePrivacyElements()
 	{
+		static $script = '';
+		
+		if(!empty($script)){
+			return true;
+		}
+		
 		ob_start();
        
 		/* hide all privacy seting from front-end
@@ -329,12 +338,17 @@ class XiptLibPluginhandler
 			?>
 		window.joms_queue || (window.joms_queue = []);
     	window.joms_queue.push(function( $ ) {
-			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();
-			$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-privacy-dropdown,.joms-stream-privacy,.joms-album-privacy").remove();
+    		$(document).ready( function($){
+				$("label[for=privacy],.js_PriContainerLarge,.privacy,.js_PriContainer,.joms-button--privacy,.joms-stream-privacy,.joms-album-privacy").remove();
+			});
+						
+			$(document).on('hover','.textntags-wrapper',function(){
+				$("[data-tab='privacy']").remove();
+			});
+			
         });
 
 			<?php 	
-			
 		$script = ob_get_contents();
         ob_clean();
         JFactory::getDocument()->addScriptDeclaration($script);

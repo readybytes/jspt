@@ -85,7 +85,7 @@ class accessprofilevideo extends XiptAclBase
 							->loadResult();
 
 		$userParams		= json_decode($params, true);
-		$profileVideoId = $userParams['profileVideo'];
+		$profileVideoId = isset($userParams['profileVideo'])?$userParams['profileVideo']:0;
 		
 		if($profileVideoId == $videoId){
 			return true;

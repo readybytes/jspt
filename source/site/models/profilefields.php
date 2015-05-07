@@ -144,6 +144,8 @@ class XiptModelProfilefields extends XiptModel
 	                	$script[] = "$('input[name=\"field{$field['id']}\"][type=radio]').click(function(){  return false;})";
 	                	// Use for checkbox, multiple values get selected so defined as array and make it read only and on click return it 
 	                	$script[] = "$('input[name=\"field{$field['id']}[]\"][type=checkbox]').click(function(){   return false;})";
+	                	// Use for datepicker
+	                	$script[] ="$('#datePickerField{$field['id']}.joms-input--datepicker').prop('disabled' , 'true')";
 	                	
 	                   	// code completed for diabled
 						continue;

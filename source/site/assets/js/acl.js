@@ -14,6 +14,7 @@ joms.onAjaxReponse('events,ajaxUpdateStatus', xiptHandleAclResponse);
 joms.onAjaxReponse('groups,ajaxDeleteGroup', xiptHandleAclResponse);
 joms.onAjaxReponse('events,ajaxDeleteEvent', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxShowInvitationForm', xiptHandleAclResponse);
+joms.onAjaxReponse('system,ajaxSubmitInvitation', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxStreamAddLike', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxStreamUnlike', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxLike', xiptHandleAclResponse);
@@ -30,12 +31,16 @@ joms.onAjaxReponse('photos,ajaxChangeCover', xiptHandleAclResponse);
 joms.onAjaxReponse('inbox,ajaxDeleteMessages', xiptHandleAclResponse);
 joms.onAjaxReponse('inbox,ajaxRemoveFullMessages', xiptHandleAclResponse);
 joms.onAjaxReponse('inbox,ajaxRemoveMessage', xiptHandleAclResponse);
+joms.onAjaxReponse('inbox,ajaxAddReply', xiptHandleAclResponse);
 joms.onAjaxReponse('system,ajaxReport', xiptHandleAclResponse);
 joms.onAjaxReponse('profile,ajaxRemoveLinkProfileVideo', xiptHandleAclResponse);
 joms.onAjaxReponse('videos,ajaxRemoveVideo', xiptHandleAclResponse);
 joms.onAjaxReponse('photos,ajaxCreateAlbum', xiptHandleAclResponse);
 joms.onAjaxReponse('profile,ajaxIgnoreUser', xiptHandleAclResponse);
 joms.onAjaxReponse('profile,ajaxConfirmIgnoreUser', xiptHandleAclResponse);
+joms.onAjaxReponse('groups,ajaxSaveJoinGroup', xiptHandleAclResponse);
+joms.onAjaxReponse('groups,ajaxJoinGroup', xiptHandleAclResponse);
+joms.onAjaxReponse('photos,ajaxGetPhotosByAlbum', xiptHandleAclResponse);
 
 joms.onAjaxReponse('connect,ajaxShowNewUserForm', function(json){
 	if(typeof(json.xipt) == 'undefined'){
@@ -152,7 +157,7 @@ function render( _popup , json) {
      
      elem.on( 'click', '.joms-js--button-xiptnext', next );
      elem.on( 'click', '.joms-js--button-back2', back2 );
-     elem.on( 'click', '.joms-js--button-next2', next2 );
+     elem.on( 'click', '.joms-js--button-xiptnext2', next2 );
      elem.on( 'click', '.joms-js--button-back3', back3 );
 }
 
@@ -265,7 +270,7 @@ function buildHtml( json ) {
             '<div class="joms-popup__content"></div>',
             '<div class="joms-popup__action">',
                 '<button class="joms-button--neutral joms-button--small joms-left joms-js--button-back2"></button>',
-                '<button class="joms-button--primary joms-button--small joms-js--button-next2"></button>',
+                '<button class="joms-button--primary joms-button--small joms-js--button-xiptnext2">'+ json.btnNext +'</button>',
             '</div>',
         '</div>',
         '<div class="joms-js--step3 joms-popup__hide">',
@@ -287,3 +292,4 @@ return function(json) {
 };
 
 });
+
