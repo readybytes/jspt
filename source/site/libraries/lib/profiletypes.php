@@ -68,6 +68,11 @@ class XiptLibProfiletypes
 					XiptLibJomsocial::updateCommunityUserPrivacy($userid,$newPrivacy);
 					break;
 					
+				case 'storage':
+										
+					XiptLibJomsocial::updateCommunityUserStorage($userid);
+					break;
+					
 				default:
 					XiptError::assert(0, XiptText::_("NOT_A_VALID_OPTION_TO_FILTER"), XiptError::ERROR);
 					break;
@@ -194,6 +199,8 @@ class XiptLibProfiletypes
 			$oldData['privacy']	=$oldPrivacy;
 			$newData['privacy']	= $newPrivacy;
 		}
+		
+		$feature[] = 'storage';	
 			
 		self::updateUserProfiletypeFilteredData($userid,$feature,$oldData,$newData);
 		return true;
@@ -363,7 +370,7 @@ class XiptLibProfiletypes
 		}	
 		
 		//if user avatar contains "STORAGE_PATH/avatar_" then it is default avatar
-		if(JString::stristr($path,PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_'))
+		if(JString::stristr($path,PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_REFERENCE_PATH.DS.'avatar_'))
 			return true;
 		
 		static $allAvatars = null ;

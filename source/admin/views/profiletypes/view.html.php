@@ -20,6 +20,13 @@ class XiptViewProfiletypes extends XiptView
 		$allTypes = XiptLibProfiletypes::getProfiletypeArray();
 		$this->setToolbar();
 		
+		// In backend, always show avatar from JSPT Default path
+		foreach($fields as $field)
+		{
+			$avatar = JFile::getName($field->avatar);
+			$field->avatar = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$avatar;
+		}
+
 		$this->assignRef( 'fields' 		, $fields );
 		$this->assignRef( 'pagination'	, $pagination );
 		return parent::display( $tpl );
@@ -39,6 +46,13 @@ class XiptViewProfiletypes extends XiptView
 		
 		// cover-image stuff loaded here
 		$coerImage	 = $model->loadParams($id,'coverimage');
+		
+		// In backend, always show avatar from JSPT Default path
+		foreach($records as $record)
+		{
+			$avatar = JFile::getName($record->avatar);
+			$record->avatar = PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$avatar;
+		}
 		
 		$this->assignRef('coverImage', $coerImage);
 		$this->assignRef('watermarkParams', $watermarkParams);
