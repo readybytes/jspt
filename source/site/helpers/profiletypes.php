@@ -177,7 +177,7 @@ class XiptHelperProfiletypes
 			return;
 
 		// //XITODO : needs cleanup Remove hardcoding
-		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar','coverimage');
+		$featuresToReset = array('jusertype','template','group','watermark','privacy','avatar','coverimage','storage');
 		$filteredOldData = array();
 		$filteredNewData = array();
 
@@ -228,10 +228,10 @@ class XiptHelperProfiletypes
 					break;
 			}
 
-			$storage			= PROFILETYPE_AVATAR_STORAGE_PATH;
+			$storage			= PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_PATH;
 			$storageImage		= $storage . DS .$imgPrefix. $id . cImageTypeToExt( $file['type'] );
 			$storageThumbnail	= $storage . DS . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
-			$image				= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
+			$image				= PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_REFERENCE_PATH.DS.$imgPrefix . $id . cImageTypeToExt( $file['type'] );
 			//$thumbnail			= PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH . $imgPrefix . $id.'_thumb' . cImageTypeToExt( $file['type'] );
 
 			//here check if folder exist or not. if not then create it.
@@ -251,7 +251,9 @@ class XiptHelperProfiletypes
 			}
 
 			$oldFile = XiptLibProfiletypes::getProfiletypeData($id,$what);
-
+			
+			JFile::copy($storageImage, JPATH_ROOT.'/images/avatar/profile-'.JFile::getName($image));
+			JFile::copy($storageImage, PROFILETYPE_AVATAR_STORAGE_PATH.DS.JFile::getName($image));
 			// If old file is default_thumb or default, we should not remove it.
 			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR )
 				&& !Jstring::stristr( $oldFile , DEFAULT_AVATAR_THUMB )
@@ -282,6 +284,19 @@ class XiptHelperProfiletypes
 						XiptLibProfiletypes::updateUserProfiletypeFilteredData($userid, $filter, $oldData, $newData);
 
 				}
+				
+				//Delete the oldAvatar present at s3
+				$config	 = CFactory::getConfig();
+				$photoStorage = $config->getString('photostorage');
+				
+				if($photoStorage != 'file'){
+					$fileName		   = str_replace('.'.JFile::getExt($image), '', JFile::getName($image));
+					$storage = CStorage::getStorage($photoStorage);
+					$storage->delete($oldAvatar);
+					$storage->delete(PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_REFERENCE_PATH.DS.'profile-'.JFile::getName($image));
+					$storage->delete(PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_REFERENCE_PATH.DS.$fileName.'_thumb'.JFile::getExt($image));
+				}
+				
 			}
 
 			//now update profiletype with new avatar or watermark
