@@ -244,7 +244,10 @@ class XiptLibJomsocial
 		$userStreamAvatar	   = 'images/avatar/'.$fileName.'_stream_.'.JFile::getExt($userAvatar);
 		
 		//get cropped avatar without watermark if not present (from JSPT default path to JS default path)
-		$task 	= JRequest::getVar('task');
+		$task 		= JRequest::getVar('task');
+		
+		//define $storageS3 here, otherwise, it might give undefined variable error
+		storageS3 = false;
 		if($task == 'resetall' && $isWaterMarkEnable == true)
 		{
 			
@@ -297,14 +300,13 @@ class XiptLibJomsocial
 		if($userThumbAvatar)
 			XiptHelperImage::addWatermarkOnAvatar($userid,$userThumbAvatar,$watermark,'thumb');
 
-		//Change the storage method to file in community_users 
-		//so that the modified image can be transferred back to s3 on JS cron 
+		//Change the storage method in community_users so that the modified image can be transferred back to s3.
 		if($task == 'resetall' && $isWaterMarkEnable == true && $storageS3){
 			
 			$query = new XiptQuery();
 		
 			if(! $query->update('#__community_users')
-			  	   ->set(" storage = 'file' ") //changing it to file, otherwise JS won't consider on cron run	  	   
+			  	   ->set(" storage = 'file' ")			  	   
 			       ->where(" userid = $userid ")
 			       ->dbLoadQuery()
 			       ->query())
@@ -670,3 +672,4 @@ class XiptLibJomsocial
 		$group->store();
 	}
 }
+

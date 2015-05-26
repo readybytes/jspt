@@ -4,7 +4,10 @@ function xiptHandleAclResponse(json){
 		return false;
 	}	
 	
-	joms.popup.xiptfbc.update(json);
+	//Due to this code, blank window appears in some rules if they are applied but not violated
+	//Like cannot join more than 2 groups, then it gives blank window for the first two groups,
+	//although it allows to join
+	//joms.popup.xiptfbc.update(json);
 	
 	return true;
 }
