@@ -2,9 +2,12 @@
 * @Copyright Ready Bytes Software Labs Pvt. Ltd. (C) 2010- author-Team Joomlaxi
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 **/
-?>
-	<link rel="stylesheet" type="text/css" href="<?php echo JURI::root() . '/components/com_xipt/assets/style.css'; ?>" />    
-	<div class="registerProfileType" style="height:300px;overflow:scroll;">
+// Disallow direct access to this file
+defined ( '_JEXEC' ) or die ( 'Restricted access' );
+
+require_once JPATH_ROOT.'/components/com_xipt/views/registration/tmpl/default_assets.php';
+?>  
+	<div class="registerProfileType container-fluid joms-page__title" style="height:300px;overflow:scroll;">
 	<?php
 	echo XiptText::_ ( 'PROFILE_TYPE_DESCRIPTION_FOR_SELECTBOX' )."<br />";
 	
