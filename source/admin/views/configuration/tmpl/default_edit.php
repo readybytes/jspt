@@ -13,9 +13,11 @@ defined('_JEXEC') or die('Restricted access');
 		submitbutton(action);
 	}
 </script>
-</script>
 <link rel="stylesheet" href="<?php echo JURI::root().'administrator/components/com_community/assets/css/ace.min.css';	?>" type="text/css">
 <style>
+#js-cpanel{
+	padding-top:45px;
+}
 #js-cpanel #config-document td {
     float: none;
 }
