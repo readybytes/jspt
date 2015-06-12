@@ -13,14 +13,21 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		document.ptypeForm.method = 'post';
 		document.ptypeForm.submit();
  	 }
-</script>	
+</script>
+<style>
+<!--
+	div.xipt-container div.profile-type-container div.xipt-description{
+		padding-left:10px;
+	}
+-->
+</style>
 <?php 
 foreach ( $this->allProfileTypes as $pType ) :
 
 	?>	
 	<div class="container-fluid profile-type-container">
 			<div class="row-fluid profile-type">
-				<div class="span3" id="Avatar">
+				<div class="span2" id="Avatar">
 					<div class="row-fluid">
 						<input 	class="pt-avatarImage"type	="image" title = "<?php echo XiptText::_('CLICK_ON_ME');?>" 
 						name	="<?php echo $pType->name; ?>" 
@@ -31,7 +38,7 @@ foreach ( $this->allProfileTypes as $pType ) :
 					</div>					
 				</div>
 				
-				<div class="span9">
+				<div class="span10 xipt-description">
 					<div class="row-fluid">
 						<h3 id="Name" class="pt-name">
 						<?php echo $pType->name; ?>
@@ -48,6 +55,8 @@ foreach ( $this->allProfileTypes as $pType ) :
 				</div>
 			</div>
 	</div>
+		
+	
 	<?php
 endforeach;
 

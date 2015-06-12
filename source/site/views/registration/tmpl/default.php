@@ -9,7 +9,17 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 require_once JPATH_ROOT.'/components/com_xipt/views/registration/tmpl/default_assets.php';
 
 ?>
-<div class="container-fluid jomsocial">
+<style>
+<!-- In Socialize template, BS2 is not loaded, even if we set to load legacy classes, the css for responsiveness is not loaded -->
+	@media screen and (max-width: 767px) {
+	    div.xipt-container [class*="span"] {
+	        float: none;
+	        width:100%;
+	    }
+	}
+</style>
+
+<div class="container-fluid jomsocial xipt-container">
 	<form action="<?php echo XiptRoute::_( 'index.php?option=com_xipt&view=registration&reset=true',false ); ?>" method="post" name="ptypeForm">
 		<div class="registerProfileType joms-page__title">
 			<div class="row-fluid">
@@ -32,4 +42,4 @@ require_once JPATH_ROOT.'/components/com_xipt/views/registration/tmpl/default_as
 <?php  echo JHTML::_ ( 'form.token' ); ?>
 </form>
 </div>
-<?php
+
