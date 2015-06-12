@@ -83,3 +83,12 @@ body #cWindow .loading.loading{
     width: auto;
     max-height:inherit;
 	}
+
+div.registerProfileType .pt-font-color{
+	color:#7f8c8d;
+}
+
+div.xipt-container div.registerProfileType .row-fluid{
+	margin-left:0px;
+	margin-right:0px;
+}
