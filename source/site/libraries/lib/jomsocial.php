@@ -247,7 +247,7 @@ class XiptLibJomsocial
 		$task 		= JRequest::getVar('task');
 		
 		//define $storageS3 here, otherwise, it might give undefined variable error
-		storageS3 = false;
+		$storageS3 = false;
 		if($task == 'resetall' && $isWaterMarkEnable == true)
 		{
 			
@@ -269,7 +269,7 @@ class XiptLibJomsocial
 		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true))
 			return false;
 
-		//no watermark then resotre backup avatar and return
+		//no watermark then restore backup avatar and return
 		//if water-mark disable then restore avatar(hit both by resete & by update any user profile ) 
 		if(false == $isWaterMarkEnable || $watermark == '')	
 		{

@@ -258,7 +258,7 @@ class XiptHelperProfiletypes
 				JFolder::create(PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH);
 			}
 			
-			JFile::copy($storageImage, JPATH_ROOT.DS.'/images/profiletype/profile-'.JFile::getName($image));
+			JFile::copy($storageImage, JPATH_ROOT.DS.'images/profiletype/profile-'.JFile::getName($image));
 			JFile::copy($storageImage, PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH.DS.JFile::getName($image));
 			// If old file is default_thumb or default, we should not remove it.
 			if(!Jstring::stristr( $oldFile , DEFAULT_AVATAR )
@@ -298,9 +298,18 @@ class XiptHelperProfiletypes
 				if($photoStorage != 'file'){
 					$fileName		   = str_replace('.'.JFile::getExt($image), '', JFile::getName($image));
 					$storage = CStorage::getStorage($photoStorage);
-					$storage->delete($oldAvatar);
-					$storage->delete(PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'profile-'.JFile::getName($image));
-					$storage->delete(PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$fileName.'_thumb'.JFile::getExt($image));
+					if($storage->exists($oldAvatar))
+					{
+						$storage->delete($oldAvatar);
+					}
+					if($storage->exists(PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'profile-'.JFile::getName($image)))
+					{
+						$storage->delete(PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.'profile-'.JFile::getName($image));
+					}
+					if($storage->exists(PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$fileName.'_thumb.'.JFile::getExt($image)))
+					{
+						$storage->delete(PROFILETYPE_AVATAR_STORAGE_REFERENCE_PATH.DS.$fileName.'_thumb.'.JFile::getExt($image));
+					}					
 				}
 				
 			}

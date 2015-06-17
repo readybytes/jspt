@@ -157,12 +157,22 @@ class XiptLibAvatar
          		return true;
             }
             CPhotosHelper::updateAvatar($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
+            $query = new XiptQuery();
+            
+            //Copying the uploaded avatar for backup in images/profiletype/useravatar
+            $avatar = $query->select(' `avatar` ')
+    				 			->from(' `#__community_users` ')
+    				 			->where(" `userid` = $args[1] ")
+    				 			->dbLoadQuery("","")
+    				 			->loadResult();
+    				 			
+            JFile::copy(JPATH_ROOT .DS.$avatar, USER_AVATAR_BACKUP.DS.JFile::getName($avatar));
+            
             $pType = XiptAPI::getUserProfiletype($args[1]);
             
-            $query = new XiptQuery();
-    	
-    		$watermark =  $query->select('watermark')
-    				 			->from('#__xipt_profiletypes')
+            $query->clear();
+    		$watermark =  $query->select(' `watermark` ')
+    				 			->from(' `#__xipt_profiletypes` ')
     				 			->where(" `id` = $pType ")
     				 			->dbLoadQuery("","")
     				 			->loadResult();

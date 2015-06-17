@@ -145,7 +145,6 @@ class Com_xiptInstallerScript
 			self::_migrateProfiletypeFields();
 			self::_migrateACLFields();
 			self::_migrateSettings();
-			self::_migrateDefaultAvatar();
 		}
 		
 		//add coverimage field in profiletype table
@@ -164,6 +163,8 @@ class Com_xiptInstallerScript
 					JFactory::getApplication()->enqueueMessage($e->getMessage(),'error');
 				}
 			}
+
+			self::_migrateDefaultAvatar();
 		} 
 	}
 	
@@ -253,7 +254,7 @@ class Com_xiptInstallerScript
 		if(JFolder::exists(PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH)===false)
 		{
 			//creating jspt_default folder if not exists
-			if(JFolder::create(PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH)===false)
+			if(JFolder::create(PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH , 0777)===false)
 			{
 				XiptError::raiseError("XIPT-ERROR","Folder [".PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH."] does not exist. Even we are not able to create it. Please check file permission.");
 				return false;
