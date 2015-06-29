@@ -32,6 +32,7 @@ class Com_xiptInstallerScript
 
 	function postflight($type, $parent)
 	{
+		self::_migrateDefaultAvatar();
 		return $this->_addScript();
 	}
 
@@ -163,8 +164,6 @@ class Com_xiptInstallerScript
 					JFactory::getApplication()->enqueueMessage($e->getMessage(),'error');
 				}
 			}
-
-			self::_migrateDefaultAvatar();
 		} 
 	}
 	
@@ -251,34 +250,33 @@ class Com_xiptInstallerScript
 	{
 		require_once JPATH_ROOT.'/components/com_xipt/includes.php';
 		
-		if(JFolder::exists(PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH)===false)
+		if(JFolder::exists(JPATH_ROOT.DS.'images'.DS.'jspt_default')===false)
 		{
 			//creating jspt_default folder if not exists
-			if(JFolder::create(PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH , 0777)===false)
+			if(JFolder::create(JPATH_ROOT.DS.'images'.DS.'jspt_default', 0777)===false)
 			{
-				XiptError::raiseError("XIPT-ERROR","Folder [".PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH."] does not exist. Even we are not able to create it. Please check file permission.");
+				XiptError::raiseError("XIPT-ERROR","Folder [".JPATH_ROOT.DS.'images'.DS.'jspt_default'."] does not exist. Even we are not able to create it. Please check file permission.");
 				return false;
-			}
-			
-			//get all the created profiletypes
-			$db 	= JFactory::getDbo();
-			$query  = " SELECT `avatar` FROM `#__xipt_profiletypes` ";
-			$db->setQuery($query);
-			
-			$default_avatars = $db->loadColumn();
-			
-			foreach($default_avatars as $default_avatar)
+			}	
+		}
+		
+		//get all the created profiletypes
+		$db 	= JFactory::getDbo();
+		$query  = " SELECT `avatar` FROM `#__xipt_profiletypes` ";
+		$db->setQuery($query);
+		
+		$default_avatars = $db->loadColumn();
+		
+		foreach($default_avatars as $default_avatar)
+		{
+			$defaultAvatarPath = JPATH_ROOT.DS.XiptHelperUtils::getRealPath($default_avatar);
+			if(!JFile::exists($defaultAvatarPath))
 			{
-				$defaultAvatarPath = JPATH_ROOT.DS.XiptHelperUtils::getRealPath($default_avatar);
-				if(!JFile::exists($defaultAvatarPath))
-				{
-					//fetch avatar from s3
-					$storage = CStorage::getStorage('s3');
-					$storage->get($default_avatar,PROFILETYPE_AVATAR_STORAGE_PATH.DS.JFile::getName($default_avatar));
-					JFile::copy(PROFILETYPE_AVATAR_STORAGE_PATH.DS.JFile::getName($default_avatar), PROFILETYPE_JSPT_DEFAULT_AVATAR_STORAGE_PATH.DS.JFile::getName($default_avatar));
-				}
-			}			
-			
+				//fetch avatar from s3
+				$storage = CStorage::getStorage('s3');
+				$storage->get($default_avatar,JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.JFile::getName($default_avatar));
+			}
+			JFile::copy(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.JFile::getName($default_avatar), JPATH_ROOT.DS.'images'.DS.'jspt_default'.DS.JFile::getName($default_avatar));
 		}
 	}
 	
