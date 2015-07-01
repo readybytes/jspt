@@ -28,6 +28,12 @@
 		</field>			
 	</fieldset>
 	
+	<fieldset group="configurationSettings" name="configurationSettings">
+		<field name="load_bootstrap" type="radio" default="0" label="COM_XIPT_LOAD_BOOTSTRAP" description="COM_XIPT_LOAD_BOOTSTRAP_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+	</fieldset>
 	
 	<!-- REGISTRATIN SETTINGS -->	
 	<fieldset group="advRegistrationSettings" name="advRegistrationSettings">

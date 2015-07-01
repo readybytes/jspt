@@ -5,49 +5,38 @@
 
 div.registerProfileType
 {
-	border-style:solid; 
-	border-width:1px; 
-	border-color: #777;
-	width:99%;
-	padding: 1%;
-}
-
-.registerProfileType h3#Title
-{
-	border-bottom: 1px solid;
-	padding-bottom: 5px;
+	background-color: #fff;
+	padding:10px;
 }
 
 div.profile-type
 {
-    width:98.5%;
-/*  border:1px solid red;*/
     overflow: hidden;
-    padding: 5px;
-/*    text-transform: capitalize; */
+    padding: 10px;
+	border:1px solid #ecf0f1;
 }
 
-#Avatar .pt-select-button
+div.profile-type:hover{
+	background-color:#ecf0f1; 
+}
+
+div.profile-type-container{
+	background-color: #fff;
+	padding:5px;
+}
+
+div.profile-type-container .pt-select-button
 {
-	text-align: center;
-	margin-top:5px;
+	margin:0px auto 0px auto;
+	vertical-align: middle;
 }
 
-.profile-type .pt-select-button input
+div.profile-type .pt-select-button input
 {
 	cursor: pointer;
 }
 
-.profile-type #Details
-{
-	padding-top:10px;
-	padding-left:25px;
-	
-	/* Finish added fixes in this selector */
-}
-
-
-.profile-type #Description
+div.profile-type #Description
 {
 	float:left;
 	font-size: 10px; 
@@ -56,30 +45,24 @@ div.profile-type
 	line-height: 10px;
 }
 
-.xi-avatar{
-	float:left;
+div.profile-type-container .pt-avatarImage{
+	border-radius: 10px;
 }
 
-.xi-description{
-	float:left;
-	width:74%;
-	margin-left: 2%;
-}
-
-.pt-name{
+div.profile-type-container .pt-name{
 	padding-bottom:2px;
-	border-bottom: 1px solid;
 	margin-bottom: 5px;
 }
 
-.pt-description{
+div.profile-type-container .pt-description{
 	width:100%;
 }
 
-body #cWindow .loading.loading{
-	background: #fff;
-    display: block;
-    height: inherit;
-    width: auto;
-    max-height:inherit;
-	}
+div.registerProfileType .pt-font-color{
+	color:#7f8c8d;
+}
+
+div.xipt-container div.registerProfileType .row-fluid{
+	margin-left:0px;
+	margin-right:0px;
+}

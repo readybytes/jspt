@@ -3,8 +3,10 @@ function xiptHandleAclResponse(json){
 		joms.popup.xiptacl(json);
 		return false;
 	}	
-	
-	joms.popup.xiptfbc.update(json);
+	//Due to this code, blank window appears in some rules if they are applied but not violated
+	//Like cannot join more than 2 groups, then it gives blank window for the first two groups,
+	//although it allows to join
+	//joms.popup.xiptfbc.update(json);
 	
 	return true;
 }
@@ -41,6 +43,7 @@ joms.onAjaxReponse('profile,ajaxConfirmIgnoreUser', xiptHandleAclResponse);
 joms.onAjaxReponse('groups,ajaxSaveJoinGroup', xiptHandleAclResponse);
 joms.onAjaxReponse('groups,ajaxJoinGroup', xiptHandleAclResponse);
 joms.onAjaxReponse('photos,ajaxGetPhotosByAlbum', xiptHandleAclResponse);
+joms.onAjaxReponse('profile,ajaxRemovePicture', xiptHandleAclResponse);
 
 joms.onAjaxReponse('connect,ajaxShowNewUserForm', function(json){
 	if(typeof(json.xipt) == 'undefined'){

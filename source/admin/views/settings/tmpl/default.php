@@ -74,6 +74,12 @@ if(XIPT_JOOMLA_25){
 		</fieldset>
 	</div>
 		
+	<div>
+		<fieldset class="adminform" id="configurationSettings">
+		<legend><?php echo XiptText::_( 'CONFIGURATION_SETTINGS' ); ?></legend>
+		<?php echo $this->getHtml($this->settingsParams,'configurationSettings');?>
+		</fieldset>
+	</div>
 </fieldset>
 </div>
 

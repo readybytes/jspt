@@ -6,29 +6,31 @@
 // Disallow direct access to this file
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
 ?>
-	<select id="profiletypes" name="profiletypes" class="select required" >
+<div class="row-fluid">
+	<select id="profiletypes" name="profiletypes" class="select required pt-font-color" >
                              
-<?php
+		<?php				
+		foreach ( $this->allProfileTypes as $pType ):
 		
-foreach ( $this->allProfileTypes as $pType ):
-
-	$selected = '';
-	// check if selected
-	if ($this->selectedPT == $pType->id)
-		$selected = 'checked="true"';
-
-	// show as selectbox	
-    $option		= $pType->name;
-	$id			= $pType->id;
-    
-    $selected	= ( JString::trim($id) == $this->selectedPT ) ? ' selected="true"' : '';
-	echo '<option value="' . $id . '"' 
-				. $selected . ' '
-				.  '>' 
-				. $option . '</option>';
-endforeach;
-	
-?>
-</select>
-<input type="submit" id="ptypesavebtn" name="save" value="<?php echo XiptText::_('NEXT');?>"/>
+			$selected = '';
+			// check if selected
+			if ($this->selectedPT == $pType->id)
+				$selected = 'checked="true"';
+		
+			// show as selectbox	
+		    $option		= $pType->name;
+			$id			= $pType->id;
+		    
+		    $selected	= ( JString::trim($id) == $this->selectedPT ) ? ' selected="true"' : '';
+			echo '<option value="' . $id . '"' 
+						. $selected . ' '
+						.  '>' 
+						. $option . '</option>';
+		endforeach;			
+		?>
+	</select>
+</div>
+<div class="row-fluid">
+	<input class="joms-button joms-button--primary joms-button--small" type="submit" id="ptypesavebtn" name="save" value="<?php echo XiptText::_('NEXT');?>"/>
+</div>
 <?php

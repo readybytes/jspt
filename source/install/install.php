@@ -21,19 +21,24 @@ class Com_xiptInstallerScript
 	
 	public function install($parent)
 	{
+		if($this->check_jomsocial_existence() == false){
+			JError::raiseError('INSTERR', "This extension is dependent on JomSocial. Please install JomSocial!");
+			return false;
+		}
+		
 		$this->installExtensions();
 		return true;
 	}
 
 	function postflight($type, $parent)
 	{
+		self::_migrateDefaultAvatar();
 		return $this->_addScript();
 	}
 
 	//Redirects After Installation
 	function _addScript()
-	{
-		
+	{		
 		?>
 			<script type="text/javascript">
 				window.onload = function(){	
@@ -66,6 +71,20 @@ class Com_xiptInstallerScript
 		self::install($parent);
 	}
 
+	function check_jomsocial_existence()
+	{
+		$jomsocial_admin = JPATH_ROOT .'/administrator/components/com_community';
+		$jomsocial_front = JPATH_ROOT .'/components/com_community';
+		
+		if(!is_dir($jomsocial_admin))
+			return false;
+		
+		if(!is_dir($jomsocial_front))
+			return false;
+		
+		return true;
+	}
+	
 	function installExtensions($actionPath=null)
 	{
 		//if no path defined, use default path
@@ -225,5 +244,41 @@ class Com_xiptInstallerScript
 						
 		$db->setQuery($update_query)->query();
 	}
+	
+	//migrate default avatar from s3 storage to local end at images/jspt_default
+	function _migrateDefaultAvatar()
+	{
+		require_once JPATH_ROOT.'/components/com_xipt/includes.php';
+		
+		if(JFolder::exists(JPATH_ROOT.DS.'images'.DS.'jspt_default')===false)
+		{
+			//creating jspt_default folder if not exists
+			if(JFolder::create(JPATH_ROOT.DS.'images'.DS.'jspt_default', 0777)===false)
+			{
+				XiptError::raiseError("XIPT-ERROR","Folder [".JPATH_ROOT.DS.'images'.DS.'jspt_default'."] does not exist. Even we are not able to create it. Please check file permission.");
+				return false;
+			}	
+		}
+		
+		//get all the created profiletypes
+		$db 	= JFactory::getDbo();
+		$query  = " SELECT `avatar` FROM `#__xipt_profiletypes` ";
+		$db->setQuery($query);
+		
+		$default_avatars = $db->loadColumn();
+		
+		foreach($default_avatars as $default_avatar)
+		{
+			$defaultAvatarPath = JPATH_ROOT.DS.XiptHelperUtils::getRealPath($default_avatar);
+			if(!JFile::exists($defaultAvatarPath))
+			{
+				//fetch avatar from s3
+				$storage = CStorage::getStorage('s3');
+				$storage->get($default_avatar,JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.JFile::getName($default_avatar));
+			}
+			JFile::copy(JPATH_ROOT.DS.'images'.DS.'profiletype'.DS.JFile::getName($default_avatar), JPATH_ROOT.DS.'images'.DS.'jspt_default'.DS.JFile::getName($default_avatar));
+		}
+	}
+	
 }
 

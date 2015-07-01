@@ -243,10 +243,22 @@ class XiptLibJomsocial
 		$fileName		   = str_replace('.'.JFile::getExt($userAvatar), '', JFile::getName($userAvatar));
 		$userStreamAvatar	   = 'images/avatar/'.$fileName.'_stream_.'.JFile::getExt($userAvatar);
 		
-		// Neelam
-		$task 	= JRequest::getVar('task');
+		//get cropped avatar without watermark if not present (from JSPT default path to JS default path)
+		$task 		= JRequest::getVar('task');
+
+		//define $storageS3 here, otherwise, it might give undefined variable error
+		$storageS3  = false;
 		if($task == 'resetall' && $isWaterMarkEnable == true)
 		{
+			
+			$croppedAvatarPath = JPATH_ROOT.DS.XiptHelperUtils::getRealPath($userAvatar);
+			
+			if(!JFile::exists($croppedAvatarPath))
+			{
+				$storageS3 = true;
+				$srcPath   = JFile::exists(USER_AVATAR_BACKUP.DS.JFile::getName($userAvatar))?USER_AVATAR_BACKUP.DS.JFile::getName($userAvatar):PROFILETYPE_AVATAR_STORAGE_PATH.DS.JFile::getName($userAvatar);
+				JFile::copy($srcPath, PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_PATH.DS.JFile::getName($userAvatar));
+			}
 			self::restoreBackUpAvatar($userAvatar);
 			$destType = 'image/' . JFile::getExt($userAvatar);
 			CPhotos::generateThumbnail(JPATH_ROOT.DS.$userAvatar, JPATH_ROOT.DS.$userThumbAvatar, $destType);
@@ -257,10 +269,16 @@ class XiptLibJomsocial
 		if(XiptLibProfiletypes::isDefaultAvatarOfProfileType($userAvatar,true))
 			return false;
 
-		//no watermark then resotre backup avatar and return
+		//no watermark then restore backup avatar and return
 		//if water-mark disable then restore avatar(hit both by resete & by update any user profile ) 
 		if(false == $isWaterMarkEnable || $watermark == '')	
 		{
+			$croppedAvatarPath = JPATH_ROOT.DS.XiptHelperUtils::getRealPath($userAvatar);
+			
+			if(!JFile::exists($croppedAvatarPath))
+			{
+				JFile::copy(USER_AVATAR_BACKUP.DS.$fileName, PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_PATH.DS.$fileName);
+			}
 			self::restoreBackUpAvatar($userAvatar);
 			$destType = 'image/' . JFile::getExt($userAvatar);
 			CPhotos::generateThumbnail(JPATH_ROOT.DS.$userAvatar, JPATH_ROOT.DS.$userThumbAvatar, $destType);
@@ -282,6 +300,20 @@ class XiptLibJomsocial
 		if($userThumbAvatar)
 			XiptHelperImage::addWatermarkOnAvatar($userid,$userThumbAvatar,$watermark,'thumb');
 
+		//Change the storage method to file in community_users 
+		//so that the modified image can be transferred back to s3 on JS cron 
+		if($task == 'resetall' && $isWaterMarkEnable == true && $storageS3){
+			
+			$query = new XiptQuery();
+		
+			if(! $query->update('#__community_users')
+			  	   ->set(" storage = 'file' ") //changing it to file, otherwise JS won't consider on cron run	  	   
+			       ->where(" userid = $userid ")
+			       ->dbLoadQuery()
+			       ->query())
+			       return false;
+		}
+		
 		return true;
 	}
 	
@@ -449,6 +481,31 @@ class XiptLibJomsocial
    		self::reloadCUser($userid);	
 		return true;
 		
+	}
+	
+	// This function updates the storage field according to file availability.
+	public static function updateCommunityUserStorage($userid){
+		$user    	= CFactory::getUser($userid);
+		$avatarPath = JPATH_ROOT.DS.XiptHelperUtils::getRealPath($user->_avatar);
+		$storage    = 'file';
+		if(!JFile::exists($avatarPath))
+		{
+			$storage = 's3';
+			$query   = new XiptQuery();
+			if(! $query->update('#__community_users')
+		  	   ->set(" storage = '{$storage}' ")			  	   
+		       ->where(" userid = $userid ")
+		       ->dbLoadQuery()
+		       ->query()){
+		       return false;
+			}
+		}
+			
+		//enforce JomSocial to clean cached user       
+		$user->_storage = $storage;
+		CFactory::getUser($userid, $user);
+		
+		return true;
 	}
 	
 	public static function updateCommunityUserGroup($userId,$oldGroup, $newGroup)

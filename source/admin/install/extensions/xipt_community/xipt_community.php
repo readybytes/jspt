@@ -277,6 +277,7 @@ class plgCommunityxipt_community extends CApplications
 	    else
 	    	$newData['template'] = $template;
 	    
+	    $filter[] = 'storage';
 	    XiptLibProfiletypes::updateUserProfiletypeFilteredData($userId,$filter,null,$newData);
 	    
 	    $this->showActivity($userId, $profiletype, $oldPtype);

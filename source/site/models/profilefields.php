@@ -84,7 +84,9 @@ class XiptModelProfilefields extends XiptModel
 			$fields = $this->_getFieldsForProfile($fields, $selectedProfiletypeID, $from, $notSelectedFields);
 		}
 		
-		$fields = array_values($fields);
+		if(!empty($fields)){
+			$fields = array_values($fields);
+		}
 		return true;
 	}
 	
