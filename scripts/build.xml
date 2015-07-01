@@ -22,7 +22,7 @@
 		<phingcall target="export_from_wc" />		
 		<phing phingfile="${project.shortform.small}.xml" inheritAll="true" target="build" />
 
-		<zip destfile="${dir.packages}/${file.package}-${build.number}.zip" 
+		<zip destfile="${dir.packages}/${file.package}-${file.version}.zip" 
 			basedir="${dir.tmp}" />
 	</target>
 
