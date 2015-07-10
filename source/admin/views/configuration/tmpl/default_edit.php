@@ -6,13 +6,6 @@
 // Disallow direct access to this file
 defined('_JEXEC') or die('Restricted access');
 ?>
-<script language="javascript" type="text/javascript">
-
-	/** FOR JOOMLA1.6++ **/
-	Joomla.submitbutton=function(action) {
-		submitbutton(action);
-	}
-</script>
 <link rel="stylesheet" href="<?php echo JURI::root().'administrator/components/com_community/assets/css/ace.min.css';	?>" type="text/css">
 <style>
 #js-cpanel{
@@ -27,7 +20,7 @@ defined('_JEXEC') or die('Restricted access');
 }
 </style>
 <div id="js-cpanel">
-<form action="index.php" id="application-form" method="post" name="adminForm" enctype="multipart/form-data">
+<form action="index.php" id="adminForm" method="post" name="adminForm" enctype="multipart/form-data">
 
 <?php if (version_compare(JVERSION, '3.0', 'lt')) { ?>
 	

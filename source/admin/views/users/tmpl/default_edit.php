@@ -6,31 +6,6 @@
 if(!defined('_JEXEC')) die('Restricted access');
 
 ?>
-<script language="javascript" type="text/javascript">
-<?php 
-If(!XIPT_JOOMLA_15)
-{
-	?>
-/** FOR JOOMLA1.6++ **/
-Joomla.submitbutton=function(action) {
-	submitbutton(action);
-}
-<?php }?>
-
-function submitbutton(action){	
-	var form = document.adminForm;
-		switch(action)
-		{
-		case 'save':
-		case 'apply':			
-		case 'cancel':
-		default:
-			submitform( action );
-		}
-	}
-	
-</script>
-
 <div id="JSPT">
 <div class="xippElements">
 	<form action="index.php" method="post" name="adminForm" id="adminForm">

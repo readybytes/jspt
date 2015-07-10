@@ -27,7 +27,7 @@ function submitbutton( action )
 		case 'switchOnpublished':
 		case 'switchOffpublished':
 		default:
-			submitform( action );
+			Joomla.submitform( action );
 	}
 }
 </script>

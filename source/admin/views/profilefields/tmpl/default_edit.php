@@ -11,22 +11,6 @@ if(XIPT_JOOMLA_25){
 <script type="text/javascript">jQuery.noConflict();</script>
 <?php }
 ?>
-<script language="javascript" type="text/javascript">
-
-	/** FOR JOOMLA1.6++ **/
-	Joomla.submitbutton=function(action) {
-		submitbutton(action);
-	}
-
-	function submitbutton(pressbutton) {
-		var form = document.adminForm;
-		if (pressbutton == 'cancel') {
-			submitform( pressbutton );
-			return;
-		}
-		submitform( pressbutton );
-	}
-</script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
 	// for select all profile type

@@ -6,33 +6,6 @@
 // Disallow direct access to this file
 if(!defined('_JEXEC')) die('Restricted access');
 ?>
-<script type="text/javascript" language="javascript">
-/**
- * This function needs to be here because, Joomla toolbar calls it
- **/ 
-
-
-/** FOR JOOMLA1.6++ **/
-Joomla.submitbutton=function(action) {
-	submitbutton(action);
-}
- 
-function submitbutton( action )
-{
-	switch( action )
-	{
-		case 'remove':
-			if( !confirm( "<?php echo XiptText::_('ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_PROFILE_TYPE'); ?>" ) )
-			{
-				break;
-			}
-		case 'publish':
-		case 'unpublish':
-		default:
-			submitform( action );
-	}
-}
-</script>
 <div id="JSPT">
 <form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 

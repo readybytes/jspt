@@ -10,21 +10,7 @@ if(XIPT_JOOMLA_25){
 }
 ?>
 <script type="text/javascript" language="javascript">
-/**
- * This function needs to be here because, Joomla toolbar calls it
- **/ 
-
- <?php 
-			If(!XIPT_JOOMLA_15)
-			{
-				?>
-			/** FOR JOOMLA1.6++ **/
-			Joomla.submitbutton=function(action) {
-				submitbutton(action);
-			}
-	  <?php }?>
-	  
-function submitbutton( action )
+Joomla.submitbutton = function( action )
 {
 	switch( action )
 	{
@@ -34,12 +20,12 @@ function submitbutton( action )
 				break;
 			}
 		default:
-			submitform( action );
+			Joomla.submitform( action );
 	}
 }
 </script>
 
-<form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm">
+<form action="<?php echo JURI::base();?>index.php?option=com_xipt&view=setup" method="post" name="adminForm" id="adminForm">
 <div>
 	<div style="float:left;"> 
 		<?php $counter = 1;	?>

@@ -42,7 +42,7 @@ if (version_compare(JVERSION, '3.0', 'lt')) {
 
 ?>
 
-<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm">
+<form action="<?php echo JURI::base();?>index.php?option=com_xipt" method="post" name="adminForm" id="adminForm">
 <div class="row clearfix" >
  <div id="cpanel" class="span8">
 				<?php echo $this->addIcon('setup.png','index.php?option=com_xipt&view=setup', XiptText::_('SETUP'));?>

@@ -12,15 +12,10 @@ if(XIPT_JOOMLA_25){
 ?>
 
 <script language="javascript" type="text/javascript">
-
-	/** FOR JOOMLA1.6++ **/
-	Joomla.submitbutton=function(action) {
-		submitbutton(action);
-	}
 		
-	function submitbutton(pressbutton) {
+	Joomla.submitbutton = function(pressbutton) {
 		if (pressbutton == "cancel") {
-			submitform(pressbutton);
+			Joomla.submitform(pressbutton);
 			return;
 		}
 		// validation
@@ -28,7 +23,7 @@ if(XIPT_JOOMLA_25){
 		if (form.rulename.value == "") {
 			alert( "<?php echo XiptText::_( 'RULE_MUST_HAVE_A_NAME', true ); ?>" );
 		} else {
-			submitform(pressbutton);
+			Joomla.submitform(pressbutton);
 		}
 	}
 
@@ -53,7 +48,7 @@ if(XIPT_JOOMLA_25){
 
 <div id="JSPT">
 <div class="xippElements">
-	<form action="index.php" method="post" name="adminForm">
+	<form action="index.php" method="post" name="adminForm" id="adminForm">
 		<div class="elementColumn">
 			<fieldset class="adminform">
 				<legend><?php echo XiptText::_( 'DETAILS' ); ?></legend>

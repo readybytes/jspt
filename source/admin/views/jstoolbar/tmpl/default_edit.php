@@ -12,13 +12,6 @@ if(XIPT_JOOMLA_25){
 <script type="text/javascript">jQuery.noConflict();</script>
 <?php }
 ?>
-<script language="javascript" type="text/javascript">
-
-	/** FOR JOOMLA1.6++ **/
-	Joomla.submitbutton=function(action) {
-		submitbutton(action);
-	}
-</script>
 
 <script type="text/javascript">
 jQuery(document).ready(function($){
@@ -45,7 +38,7 @@ jQuery(document).ready(function($){
 <script type="text/javascript">jQuery.noConflict();</script>
 
 
-<form action="index.php" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
 <div style="background-color: #F9F9F9; border: 1px solid #D5D5D5; margin-bottom: 10px; padding: 5px;font-weight: bold;">
 	<?php echo XiptText::_('SHOW_JOMSOCIAL_MENU_AS_PER_PROFILE_TYPES_FOR_YOUR_SITE');?>
 </div>

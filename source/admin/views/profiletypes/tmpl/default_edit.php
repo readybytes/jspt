@@ -13,16 +13,11 @@ if(XIPT_JOOMLA_25){
 <?php }
 ?>
 <script language="javascript" type="text/javascript">
-
-/** FOR JOOMLA1.6++ **/
-Joomla.submitbutton=function(action) {
-	submitbutton(action);
-}
-
-function submitbutton(action){	
+Joomla.submitbutton = function( action )
+{	
 	var form = document.adminForm;
-		switch(action)
-		{
+	switch( action )
+	{
 		case 'save':case 'apply':			
 			if( form.name.value == '' )
 			{
@@ -30,16 +25,16 @@ function submitbutton(action){
 				break;
 			}
 			<?php
-	                $editor =& JFactory::getEditor();
+					$editor = JFactory::getEditor();
 	                echo $editor->save( 'tip' );
 	        ?>
 		case 'publish':
 		case 'unpublish':
 		case 'cancel':
 		default:
-			submitform( action );
-		}
+			Joomla.submitform( action );
 	}
+}
 	
 	jQuery(document).ready(function($){
     	$('#resetAll1').click(function(){

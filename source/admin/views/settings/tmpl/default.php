@@ -6,21 +6,7 @@ if(XIPT_JOOMLA_25){
 <script type="text/javascript">jQuery.noConflict();</script>
 <?php }
 ?>
-<script language="javascript" type="text/javascript">
-  
-	function submitbutton(action) {
-		var form = document.adminForm;
-		switch(action)
-		{
-		case 'save':			
-		case 'publish':
-		case 'unpublish':
-		case 'cancel':
-		default:
-			submitform( action );
-		}
-	}
-</script>
+
 <script type="text/javascript">
 //	jQuery(document).ready(function($){
 //			$("div#xiptAdvanceSettings").css("display","none");
