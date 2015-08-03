@@ -277,7 +277,7 @@ class XiptLibJomsocial
 			
 			if(!JFile::exists($croppedAvatarPath))
 			{
-				JFile::copy(USER_AVATAR_BACKUP.DS.$fileName, PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_PATH.DS.$fileName);
+				JFile::copy(USER_AVATAR_BACKUP.DS.JFile::getName($userAvatar), PROFILETYPE_JS_DEFAULT_AVATAR_STORAGE_PATH.DS.JFile::getName($userAvatar));
 			}
 			self::restoreBackUpAvatar($userAvatar);
 			$destType = 'image/' . JFile::getExt($userAvatar);
@@ -487,7 +487,7 @@ class XiptLibJomsocial
 		$user    	= CFactory::getUser($userid);
 		$avatarPath = JPATH_ROOT.DS.XiptHelperUtils::getRealPath($user->_avatar);
 		$storage    = 'file';
-		if(!JFile::exists($avatarPath))
+		if((!empty($user->_avatar)) && (!JFile::exists($avatarPath)))
 		{
 			$storage = 's3';
 			$query   = new XiptQuery();
