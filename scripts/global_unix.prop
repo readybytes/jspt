@@ -1,8 +1,8 @@
-### Version 4.1
+### Version 4.2
 ### We store globally definition here
 
 # The root folder location
-dir.root		=..
+dir.root	=..
 dir.packages	=${dir.root}/packages
 dir.tmp		=${dir.packages}/tmp
 dir.src		=${dir.root}/source
@@ -18,7 +18,8 @@ project.codename	= ProfileType
 
 
 # Output settings
-file.version		= 4.2.0
+file.version		= 4.2
+minor.version		= 2
 #file.package		= ${project.shortform}_ver${file.version}
 file.package		= ${project.shortform}
 file.compression	= gzip
