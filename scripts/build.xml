@@ -23,6 +23,7 @@
 		<phing phingfile="${project.shortform.small}.xml" inheritAll="true" target="build" />
 
 		<zip destfile="${dir.packages}/${file.package}-${build.number}.zip" 
+		<zip destfile="${dir.packages}/${file.package}-${file.version}.${minor.version}.zip" 
 			basedir="${dir.tmp}" />
 	</target>
 
@@ -47,7 +48,7 @@
 			 <filterchain>
 				<replacetokens>
 				    <token key="global.version" 	value="${file.version}" />
-				    <token key="svn.lastrevision"   	value="${build.number}" />
+				    <token key="svn.lastrevision"   	value="${minor.version}" />
 				</replacetokens>
 			</filterchain>
 		</reflexive>
