@@ -40,7 +40,8 @@ class XiptFieldsProfiletypesJs20 extends XiptFieldsProfiletypesBase
 			//get value from profiletype field from xipt_users table
 			//not required to get data from getUser() fn b'coz we call this fn in 
 			//getViewableprofile only.
-			$userid = JRequest::getVar('userid',0);
+			$my 	= CFactory::getUser();
+			$userid = JRequest::getVar('userid', $my->id);
 			XiptError::assert($userid,XiptText::_("USERID $userid DOES_NOT_EXIST"), XiptError::ERROR);
 			$pID = XiptLibProfiletypes::getUserData($userid,'PROFILETYPE');
 		}
