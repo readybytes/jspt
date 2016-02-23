@@ -74,9 +74,6 @@ function submitbutton( action )
 			<th width="1%">
 				<?php echo XiptText::_( 'NUM' ); ?>
 			</th>
-			<th width="1%">
-				<input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" />
-			</th>
 			<th>
 				<?php echo JHTML::_('grid.sort',   XiptText::_( 'NAME' ) , 'name', $this->order_Dir, $this->order ); ?>
 			</th>
@@ -110,9 +107,6 @@ function submitbutton( action )
 ?>
 		<tr class="row<?php echo $i%2;?>" id="rowid<?php echo $user->user_id;?>">
 			<td><?php echo $i+1;?></td>
-			<td>
-				<?php echo JHTML::_('grid.id', $i++, $user->user_id); ?>
-			</td>
 			<td>
 				<span class="editlinktip" title="<?php echo $user->name; ?>" id="name<?php echo $user->user_id;?>">
 					<?php $link = XiptRoute::_('index.php?option=com_xipt&view=users&task=edit&id='.$user->user_id, false); ?>
